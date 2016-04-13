@@ -1,0 +1,15 @@
+[
+{
+  "modid": "botanicaladdons",
+  "name": "Natural Pledge",
+  "description": "The successor to Botanical Addons from 1.7.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["WireSegal"],
+  "credits": "Vazkii",
+  "logoFile": "",
+  "screenshots": []
+}
+]
