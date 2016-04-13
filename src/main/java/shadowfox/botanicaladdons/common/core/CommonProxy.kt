@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.core
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import shadowfox.botanicaladdons.common.items.ModItems
 
 /**
  * @author WireSegal
@@ -10,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
  */
 open class CommonProxy {
     open fun pre(e: FMLPreInitializationEvent) {
-
+        ModItems
     }
 
     open fun init(e: FMLInitializationEvent) {

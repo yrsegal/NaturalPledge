@@ -13,7 +13,7 @@ object TooltipHelper {
         if (GuiScreen.isShiftKeyDown()) {
             r.invoke()
         } else {
-            addToTooltip(tooltip, "psimisc.shiftForInfo")
+            addToTooltip(tooltip, "botaniamisc.shiftinfo")
         }
 
     }
