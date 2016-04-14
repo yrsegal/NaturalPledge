@@ -4,9 +4,9 @@ import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import shadowfox.botanicaladdons.common.lib.LibMisc
 import vazkii.botania.common.item.ModItems
 import vazkii.botania.common.item.lens.ItemLens
-import shadowfox.botanicaladdons.common.lib.LibMisc
 import java.util.*
 
 /**

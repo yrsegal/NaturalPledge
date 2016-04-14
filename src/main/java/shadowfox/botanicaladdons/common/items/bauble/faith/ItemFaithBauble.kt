@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 import baubles.api.BaubleType
 import baubles.common.lib.PlayerHandler
 import com.google.common.collect.Multimap
-import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.ai.attributes.AttributeModifier
@@ -11,39 +10,49 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.items.base.ItemAttributeBauble
 import vazkii.botania.api.BotaniaAPI
+import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.common.core.helper.ItemNBTHelper
 
 /**
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.size, {"emblem${variants[it].name.capitalizeFirst()}"})) {
+open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.size, { "emblem${variants[it].name.capitalizeFirst()}" })), IBaubleRender, ModelHandler.IExtraVariantHolder {
 
     interface IFaithVariant {
         val name: String
 
-        fun onUpdate(stack: ItemStack, player: EntityPlayer)
+        val hasSubscriptions: Boolean
+            get() = false
 
-        fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer)
+        fun onUpdate(stack: ItemStack, player: EntityPlayer) {
+        }
 
-        fun addToTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean)
+        fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer) {
+            onUpdate(stack, player)
+        }
+
+        fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
+        }
+
+        fun addToTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+        }
 
         fun punishTheFaithless(stack: ItemStack, player: EntityPlayer)
 
-        fun getAwakenerBlock(): IBlockState?
+        fun fillAttributes(map: Multimap<String, AttributeModifier>, stack: ItemStack) {
+        }
 
-        fun fillAttributes(map: Multimap<String, AttributeModifier>, stack: ItemStack)
-
-        val hasSubscriptions: Boolean
     }
 
     companion object {
 
-        private fun String.capitalizeFirst(): String {
+        fun String.capitalizeFirst(): String {
             if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length-1)
+            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
         }
 
         val TAG_AWAKENED = "awakened"
@@ -78,7 +87,7 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
 
     override fun getRarity(stack: ItemStack) = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
 
-    override fun getBaubleType(p0: ItemStack) = BaubleType.AMULET
+    override fun getBaubleType(stack: ItemStack) = BaubleType.AMULET
 
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
         super.onWornTick(stack, player)
@@ -91,6 +100,12 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
                 variant.onUpdate(stack, player)
             }
         }
+    }
+
+    override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
+        val variant = getVariant(stack) ?: return
+        variant.onRenderTick(stack, player, render, renderTick)
+        //TODO render pendant
     }
 
     override fun onUpdate(stack: ItemStack, worldIn: World?, entityIn: Entity?, itemSlot: Int, isSelected: Boolean) {
@@ -106,6 +121,7 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
         super.onEquipped(stack, player)
         setAwakened(stack, false)
     }
+
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
@@ -124,4 +140,7 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
 
         variant.fillAttributes(map, stack)
     }
+
+    override val extraVariants: Array<out String>
+        get() = Array(Companion.variants.size, { "pendant${Companion.variants[it].name.capitalizeFirst()}" })
 }

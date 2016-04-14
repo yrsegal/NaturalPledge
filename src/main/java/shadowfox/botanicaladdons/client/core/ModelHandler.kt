@@ -59,7 +59,7 @@ object ModelHandler {
     fun init() {
         val colors = Minecraft.getMinecraft().itemColors
         for (holder in variantCache)
-            if(holder is IColorProvider)
+            if (holder is IColorProvider)
                 colors.registerItemColorHandler(holder.color, holder as Item);
     }
 

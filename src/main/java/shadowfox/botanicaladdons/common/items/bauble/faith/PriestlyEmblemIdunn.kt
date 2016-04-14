@@ -1,15 +1,17 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
-import com.google.common.collect.Multimap
 import net.minecraft.block.BlockSapling
 import net.minecraft.block.IGrowable
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
+import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import java.util.*
@@ -23,26 +25,23 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
 
     override val name: String = "idunn"
 
-    override fun addToTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        //TODO
-    }
-
-    override fun getAwakenerBlock() = null
-
-    override fun fillAttributes(map: Multimap<String, AttributeModifier>, stack: ItemStack) {}
-
     val RANGE = 5
     override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
         val saplings = ArrayList<Pair<BlockPos, IBlockState>>()
         val world = player.worldObj
 
+        if (!world.isRemote) {
+            val cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0)
+            if (cooldown > 0) ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown - 1)
+        }
+
         if (!ManaItemHandler.requestManaExact(stack, player, 10, false)) return
 
-        if (world.totalWorldTime % 20 == 0L)
+        if (world.totalWorldTime % 40 == 0L)
             for (x in -RANGE..RANGE)
                 for (y in -RANGE..RANGE)
                     for (z in -RANGE..RANGE) {
-                        val pos = BlockPos(player.posX+x, player.posY+y, player.posZ+z)
+                        val pos = BlockPos(player.posX + x, player.posY + y, player.posZ + z)
                         val state = world.getBlockState(pos)
                         val block = state.block
                         if (block is BlockSapling)
@@ -62,18 +61,20 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
             if (world.isRemote)
                 world.playAuxSFX(2005, pos, 0)
             else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(stack, player, 10, true))
-                block.grow(world, world.rand, pos, state)
+                grow(player, block, world, pos, state)
         }
+    }
 
-        if (!world.isRemote) {
-            val cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0)
-            if (cooldown > 0) ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown - 1)
-        }
+    fun grow(player: EntityPlayer, block: IGrowable, world: World, pos: BlockPos, state: IBlockState) {
+        block.grow(world, world.rand, pos, state)
+        world.playSound(player, pos, SoundEvents.block_lava_pop, SoundCategory.BLOCKS, 1f, 0.1f)
     }
-    override fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer) {
-        onUpdate(stack, player)
-    }
+
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
+        //TODO
+    }
+
+    override fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
         //TODO
     }
 
@@ -95,7 +96,7 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
                 if (world.isRemote)
                     world.playAuxSFX(2005, pos, 0)
                 else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, true)) {
-                    block.grow(world, world.rand, pos, state)
+                    grow(e.entityPlayer, block, world, pos, state)
                     ItemNBTHelper.setInt(emblem, TAG_COOLDOWN, COOLDOWN_LENGTH)
                 }
             }

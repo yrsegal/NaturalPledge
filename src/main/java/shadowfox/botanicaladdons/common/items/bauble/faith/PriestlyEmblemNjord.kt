@@ -1,16 +1,13 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
-import com.google.common.collect.Multimap
-import net.minecraft.block.BlockLiquid
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
+import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 
 /**
@@ -22,18 +19,11 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
 
     override val name: String = "njord"
 
-    override fun addToTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        //TODO
-    }
-
-    override fun getAwakenerBlock() = null
-
-    override fun fillAttributes(map: Multimap<String, AttributeModifier>, stack: ItemStack) {}
-    override fun onUpdate(stack: ItemStack, player: EntityPlayer) {}
-    override fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer) {
-        //TODO
-    }
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
+        //TODO
+    }
+
+    override fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
         //TODO
     }
 
@@ -45,13 +35,11 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
 
         if (player.capabilities.isFlying || player.isSneaking) return
 
-        val shiftedPos = BlockPos(player.posX, player.posY-0.1, player.posZ)
-        val secondPos = BlockPos(player.posX, player.posY+0.4, player.posZ)
-
-        if (world.getBlockState(shiftedPos).block is BlockLiquid || world.getBlockState(player.position).block is BlockLiquid)
-            if (ManaItemHandler.requestManaExact(emblem, player, 2, true))
+        if (world.isAnyLiquid(player.entityBoundingBox)) {
+            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
                 player.motionY = 0.15
-        else if (world.getBlockState(shiftedPos.down()).block is BlockLiquid && world.getBlockState(secondPos.down()).block is BlockLiquid) {
+            }
+        } else if (world.isAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15, 0.0))) {
             if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
                 player.motionY = 0.0
                 player.fallDistance = 0f
@@ -64,7 +52,9 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
         val emblem = ItemFaithBauble.getEmblem(e.entityPlayer, PriestlyEmblemNjord::class.java) ?: return
         val entity = e.target
         if (entity is EntityLivingBase)
-            if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 5, true))
-                entity.knockBack(e.entityPlayer, if (ItemFaithBauble.isAwakened(emblem)) 1f else 0.4f, MathHelper.sin(e.entityPlayer.rotationYaw * 0.017453292f).toDouble(), (-MathHelper.cos(e.entityPlayer.rotationYaw * 0.017453292f)).toDouble())
+            if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 20, true))
+                entity.knockBack(e.entityPlayer, if (ItemFaithBauble.isAwakened(emblem)) 2.5f else 1f,
+                        MathHelper.sin(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
+                        -MathHelper.cos(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble())
     }
 }

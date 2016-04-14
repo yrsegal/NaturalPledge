@@ -90,11 +90,11 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     }
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
-        if(player != null) {
-            if(!player.worldObj.isRemote)
+        if (player != null) {
+            if (!player.worldObj.isRemote)
                 player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
 
-            if(player is EntityPlayer)
+            if (player is EntityPlayer)
                 player.addStat(ModAchievements.baubleWear, 1);
 
             onEquippedOrLoadedIntoWorld(stack, player);
@@ -108,7 +108,7 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     }
 
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
-        if(getLastPlayerHashcode(stack) != player.hashCode()) {
+        if (getLastPlayerHashcode(stack) != player.hashCode()) {
             onEquippedOrLoadedIntoWorld(stack, player);
             setLastPlayerHashcode(stack, player.hashCode());
         }
