@@ -4,10 +4,12 @@ import baubles.api.BaubleType
 import baubles.common.lib.PlayerHandler
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import shadowfox.botanicaladdons.common.items.base.ItemAttributeBauble
 import vazkii.botania.api.BotaniaAPI
@@ -89,6 +91,10 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
                 variant.onUpdate(stack, player)
             }
         }
+    }
+
+    override fun onUpdate(stack: ItemStack, worldIn: World?, entityIn: Entity?, itemSlot: Int, isSelected: Boolean) {
+        if (isAwakened(stack)) setAwakened(stack, false)
     }
 
     open fun getVariant(stack: ItemStack): IFaithVariant? {
