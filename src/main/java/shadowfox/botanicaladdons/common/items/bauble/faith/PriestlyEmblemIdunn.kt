@@ -65,8 +65,10 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
                 block.grow(world, world.rand, pos, state)
         }
 
-        val cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0)
-        if (cooldown > 0) ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown - 1)
+        if (!world.isRemote) {
+            val cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0)
+            if (cooldown > 0) ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown - 1)
+        }
     }
     override fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer) {
         onUpdate(stack, player)
@@ -76,6 +78,7 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
     }
 
     val TAG_COOLDOWN = "cooldown"
+    val COOLDOWN_LENGTH = 30
 
     @SubscribeEvent
     fun onClick(e: PlayerInteractEvent.RightClickBlock) {
@@ -91,8 +94,10 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
             if (block is IGrowable && block.canGrow(world, pos, state, world.isRemote)) {
                 if (world.isRemote)
                     world.playAuxSFX(2005, pos, 0)
-                else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, true))
+                else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, true)) {
                     block.grow(world, world.rand, pos, state)
+                    ItemNBTHelper.setInt(emblem, TAG_COOLDOWN, COOLDOWN_LENGTH)
+                }
             }
         }
     }
