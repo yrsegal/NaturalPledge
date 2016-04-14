@@ -122,8 +122,8 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
 
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
         val variant = getVariant(stack) ?: return
-        variant.onRenderTick(stack, player, render, renderTick)
 
+        GlStateManager.pushMatrix()
         if(render == IBaubleRender.RenderType.BODY) {
             if (player.isSneaking) {
                 GlStateManager.translate(0.0, 0.3, 0.0)
@@ -138,6 +138,10 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
 
             Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
         }
+        GlStateManager.popMatrix()
+
+        variant.onRenderTick(stack, player, render, renderTick)
+
     }
 
     override fun onUpdate(stack: ItemStack, worldIn: World?, entityIn: Entity?, itemSlot: Int, isSelected: Boolean) {
