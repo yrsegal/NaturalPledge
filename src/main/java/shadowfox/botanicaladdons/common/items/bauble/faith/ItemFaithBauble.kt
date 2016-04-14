@@ -3,15 +3,26 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 import baubles.api.BaubleType
 import baubles.common.lib.PlayerHandler
 import com.google.common.collect.Multimap
+import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.ItemMeshDefinition
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.items.base.ItemAttributeBauble
+import shadowfox.botanicaladdons.common.lib.LibMisc
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.common.core.helper.ItemNBTHelper
@@ -20,7 +31,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.size, { "emblem${variants[it].name.capitalizeFirst()}" })), IBaubleRender, ModelHandler.IExtraVariantHolder {
+open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.size, { "emblem${variants[it].name.capitalizeFirst()}" })), IBaubleRender {
 
     interface IFaithVariant {
         val name: String
@@ -55,6 +66,7 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
             return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
         }
 
+        val TAG_PENDANT = "pendant"
         val TAG_AWAKENED = "awakened"
 
         val variants = arrayOf(
@@ -85,6 +97,12 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
         fun getVariantBase(stack: ItemStack) = if (variants.size == 0) null else variants[stack.itemDamage % variants.size]
     }
 
+    init {
+        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PENDANT)) {
+            stack, world, entity -> if (ItemNBTHelper.getBoolean(stack, TAG_PENDANT, false)) 1f else 0f
+        }
+    }
+
     override fun getRarity(stack: ItemStack) = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
 
     override fun getBaubleType(stack: ItemStack) = BaubleType.AMULET
@@ -105,7 +123,21 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
         val variant = getVariant(stack) ?: return
         variant.onRenderTick(stack, player, render, renderTick)
-        //TODO render pendant
+
+        if(render == IBaubleRender.RenderType.BODY) {
+            if (player.isSneaking) {
+                GlStateManager.translate(0.0, 0.3, 0.0)
+                GlStateManager.rotate(90/Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
+            }
+            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+            GlStateManager.rotate(180F, 1F, 0F, 0F)
+            GlStateManager.translate(0.0, -0.3, if (armor) 0.175 else 0.05)
+
+            val renderStack = stack.copy()
+            ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
+
+            Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
+        }
     }
 
     override fun onUpdate(stack: ItemStack, worldIn: World?, entityIn: Entity?, itemSlot: Int, isSelected: Boolean) {
@@ -140,7 +172,4 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
 
         variant.fillAttributes(map, stack)
     }
-
-    override val extraVariants: Array<out String>
-        get() = Array(Companion.variants.size, { "pendant${Companion.variants[it].name.capitalizeFirst()}" })
 }

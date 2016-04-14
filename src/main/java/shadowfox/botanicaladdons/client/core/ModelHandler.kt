@@ -111,7 +111,7 @@ object ModelHandler {
                 ModelLoader.setCustomModelResourceLocation(item, var11, var13)
                 resourceLocations.put(getKey(item, var11), var13)
             } else {
-                ModelBakery.registerItemVariants(item, *arrayOf<ResourceLocation>(var13))
+                ModelBakery.registerItemVariants(item, var13)
                 resourceLocations.put(variants[var11], var13)
             }
         }
