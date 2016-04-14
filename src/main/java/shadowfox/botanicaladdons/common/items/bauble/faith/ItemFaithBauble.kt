@@ -17,7 +17,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.size, {"emblem${variants[it].name.capitalizeFirst()}"})) {
+open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.size, {"emblem${variants[it].name.capitalizeFirst()}"})) {
 
     interface IFaithVariant {
         val name: String
@@ -46,8 +46,9 @@ class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.
 
         val TAG_AWAKENED = "awakened"
 
-        val variants = arrayOf<IFaithVariant>(
-            PriestlyEmblemNjord()
+        val variants = arrayOf(
+                PriestlyEmblemNjord(),
+                PriestlyEmblemIdunn()
         )
 
         init {
@@ -60,7 +61,7 @@ class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.
             var baubles = PlayerHandler.getPlayerBaubles(player)
             var stack = baubles.getStackInSlot(0)
             if (stack != null && stack.item is ItemFaithBauble) {
-                val variantInstance = getVariant(stack)
+                val variantInstance = (stack.item as ItemFaithBauble).getVariant(stack)
                 if (variantInstance != null && variant.isInstance(variantInstance))
                     return stack
             }
@@ -70,7 +71,7 @@ class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.
         fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
         fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
 
-        fun getVariant(stack: ItemStack) = if (variants.size == 0) null else variants[stack.itemDamage % variants.size]
+        fun getVariantBase(stack: ItemStack) = if (variants.size == 0) null else variants[stack.itemDamage % variants.size]
     }
 
     override fun getRarity(stack: ItemStack) = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
@@ -88,6 +89,10 @@ class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(variants.
                 variant.onUpdate(stack, player)
             }
         }
+    }
+
+    open fun getVariant(stack: ItemStack): IFaithVariant? {
+        return getVariantBase(stack)
     }
 
     override fun canUnequip(stack: ItemStack, player: EntityLivingBase) = !isAwakened(stack)

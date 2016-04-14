@@ -11,6 +11,7 @@ import net.minecraft.util.math.MathHelper
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
+import vazkii.botania.api.mana.ManaItemHandler
 
 /**
  * @author WireSegal
@@ -40,7 +41,7 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
     fun floatInWater(e: TickEvent.PlayerTickEvent) {
         val player = e.player
         val world = player.worldObj
-        ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
+        val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
 
         if (player.capabilities.isFlying || player.isSneaking) return
 
@@ -48,10 +49,13 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
         val secondPos = BlockPos(player.posX, player.posY+0.4, player.posZ)
 
         if (world.getBlockState(shiftedPos).block is BlockLiquid || world.getBlockState(player.position).block is BlockLiquid)
-            player.motionY = 0.15
+            if (ManaItemHandler.requestManaExact(emblem, player, 2, true))
+                player.motionY = 0.15
         else if (world.getBlockState(shiftedPos.down()).block is BlockLiquid && world.getBlockState(secondPos.down()).block is BlockLiquid) {
-            player.motionY = 0.0
-            player.fallDistance = 0f
+            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
+                player.motionY = 0.0
+                player.fallDistance = 0f
+            }
         }
     }
 
@@ -60,6 +64,7 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
         val emblem = ItemFaithBauble.getEmblem(e.entityPlayer, PriestlyEmblemNjord::class.java) ?: return
         val entity = e.target
         if (entity is EntityLivingBase)
-            entity.knockBack(e.entityPlayer, if (ItemFaithBauble.isAwakened(emblem)) 1f else 0.4f, MathHelper.sin(e.entityPlayer.rotationYaw * 0.017453292f).toDouble(), (-MathHelper.cos(e.entityPlayer.rotationYaw * 0.017453292f)).toDouble())
+            if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 5, true))
+                entity.knockBack(e.entityPlayer, if (ItemFaithBauble.isAwakened(emblem)) 1f else 0.4f, MathHelper.sin(e.entityPlayer.rotationYaw * 0.017453292f).toDouble(), (-MathHelper.cos(e.entityPlayer.rotationYaw * 0.017453292f)).toDouble())
     }
 }
