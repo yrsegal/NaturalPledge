@@ -1,22 +1,17 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import net.minecraft.block.material.Material
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.MobEffects
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
-import net.minecraft.util.DamageSource
-import net.minecraft.util.math.MathHelper
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
-import java.util.*
 
 /**
  * @author WireSegal
@@ -36,8 +31,6 @@ class PriestlyEmblemThor : ItemFaithBauble.IFaithVariant {
         val player = e.entityLiving
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemThor::class.java) ?: return
-
-
             if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
                 if (ManaItemHandler.requestManaExact(emblem, player, 1, true))
                     player.moveFlying(0.0f, 1.0f, 0.035f)

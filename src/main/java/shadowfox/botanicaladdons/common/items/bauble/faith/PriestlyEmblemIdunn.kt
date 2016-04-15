@@ -6,11 +6,13 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import shadowfox.botanicaladdons.common.potions.ModPotions
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.ItemNBTHelper
@@ -71,7 +73,7 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        //TODO
+        player.addPotionEffect(PotionEffect(ModPotions.rooted, 600))
     }
 
     override fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {

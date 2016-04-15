@@ -1,3 +1,12 @@
 item.botanicaladdons:emblemNjord.name=Priestly Emblem: Njord
+item.botanicaladdons:emblemNjord.angry=You feel the air trembling with Njord's displeasure...
 item.botanicaladdons:emblemIdunn.name=Priestly Emblem: Idunn
+item.botanicaladdons:emblemIdunn.angry=You feel your soul freeze under Idunn's baleful stare...
 item.botanicaladdons:emblemThor.name=Priestly Emblem: Thor
+item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's rage...
+
+botanicaladdons.potion.faithlessness=Deity's Disfavor
+botanicaladdons.potion.rooted=Rooted
+botanicaladdons.potion.drab=Drab Vision
+botanicaladdons.potion.overcharged=Overcharged
+botanicaladdons.potion.featherweight=Featherweight
