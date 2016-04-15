@@ -71,7 +71,8 @@ open class ItemFaithBauble(name: String) : ItemAttributeBauble(name, *Array(vari
 
         val variants = arrayOf(
                 PriestlyEmblemNjord(),
-                PriestlyEmblemIdunn()
+                PriestlyEmblemIdunn(),
+                PriestlyEmblemThor()
         )
 
         init {
