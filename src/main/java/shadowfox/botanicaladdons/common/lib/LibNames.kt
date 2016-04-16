@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.lib
 
 object LibNames {
     val PRIESTLY_EMBLEM = "priestEmblem"
+    val HOLY_SYMBOL = "holySymbol"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

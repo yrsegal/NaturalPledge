@@ -1,0 +1,32 @@
+{
+  "parent": "botanicaladdons:item/_standard_item",
+  "textures": {
+    "layer0": "botanicaladdons:item/holySymbol"
+  },
+  "overrides" : [{
+    "predicate": {
+      "botanicaladdons:pendant": 1
+    },
+    "model": "botanicaladdons:item/pendantHoly"
+  }, {
+    "predicate": {
+      "botanicaladdons:player": 1
+    },
+    "model": "botanicaladdons:item/headtato"
+  }, {
+    "predicate": {
+      "botanicaladdons:player": 2
+    },
+    "model": "botanicaladdons:item/catalyst"
+  }, {
+    "predicate": {
+      "botanicaladdons:player": 3
+    },
+    "model": "botanicaladdons:item/mask"
+  }, {
+    "predicate": {
+      "botanicaladdons:player": 4
+    },
+    "model": "botanicaladdons:item/tail"
+  }]
+}

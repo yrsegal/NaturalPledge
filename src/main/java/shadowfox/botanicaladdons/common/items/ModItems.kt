@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.items
 
 import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.lib.LibNames
 
@@ -10,8 +11,10 @@ import shadowfox.botanicaladdons.common.lib.LibNames
  */
 object ModItems {
     val emblem: ItemMod
+    val symbol: ItemMod
 
     init {
         emblem = ItemFaithBauble(LibNames.PRIESTLY_EMBLEM)
+        symbol = ItemSymbol(LibNames.HOLY_SYMBOL)
     }
 }

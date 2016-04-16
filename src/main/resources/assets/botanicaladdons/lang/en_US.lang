@@ -5,6 +5,12 @@ item.botanicaladdons:emblemIdunn.angry=You feel your soul freeze under Idunn's b
 item.botanicaladdons:emblemThor.name=Priestly Emblem: Thor
 item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's rage...
 
+item.botanicaladdons:holySymbol.name=Holy Symbol
+item.botanicaladdons:holySymbol.potato.name=Headtato
+item.botanicaladdons:holySymbol.catalyst.name=Curse of the Catalyst
+item.botanicaladdons:holySymbol.mask.name=Gaterender's Mask
+item.botanicaladdons:holySymbol.tail.name=Fox Tail
+
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted
 botanicaladdons.potion.drab=Drab Vision
