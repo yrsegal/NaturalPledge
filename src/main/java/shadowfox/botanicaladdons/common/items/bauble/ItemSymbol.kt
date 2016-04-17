@@ -47,7 +47,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
 
         val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv)
 
-        val headPlayers = arrayOf(vaz, wire, tris)
+        val headPlayers = arrayOf(vaz, wire)
 
         fun getPlayer(stack: ItemStack) = ItemNBTHelper.getString(stack, TAG_PLAYER, "")
 
@@ -90,7 +90,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
         return when (player) {
             vaz -> "$above.potato"
             wire -> "$above.catalyst"
-            tris -> "$above.mask"
+            tris -> "$above.heart"
             l0ne -> "$above.tail"
             jansey -> "$above"
             wiiv -> "$above.teru"
@@ -135,8 +135,6 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
                 model.render()
             } else {
                 IBaubleRender.Helper.translateToHeadLevel(player)
-                GlStateManager.enableBlend()
-                GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f)
                 faceTranslate()
                 if (playerAs == wire) {
                     GlStateManager.scale(0.5, 0.5, 0.5)
@@ -170,6 +168,22 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
                 GlStateManager.translate(0F, -0.5F, 0.1F)
                 GlStateManager.rotate(180F, 0F, 1F, 0F)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
+            } else if (playerAs == tris) {
+                if (player.isSneaking) {
+                    GlStateManager.translate(0.0, 0.2, 0.0)
+                    GlStateManager.rotate(90 / Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
+                }
+                chestTranslate()
+                val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+                GlStateManager.translate(0F, -0.5F, if (armor) 0.325F else 0.2F)
+                GlStateManager.rotate(180F, 0F, 1F, 0F)
+                GlStateManager.enableBlend()
+                GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f)
+                GlStateManager.alphaFunc(GL11.GL_EQUAL, 1f)
+                ShaderHelper.useShader(ShaderHelper.halo)
+                renderItem(renderStack)
+                GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f)
+                ShaderHelper.releaseShader()
             } else {
                 if (player.isSneaking) {
                     GlStateManager.translate(0.0, 0.3, 0.0)

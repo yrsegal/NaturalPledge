@@ -22,7 +22,7 @@
     "predicate": {
       "botanicaladdons:player": 3
     },
-    "model": "botanicaladdons:item/mask"
+    "model": "botanicaladdons:item/heart"
   }, {
     "predicate": {
       "botanicaladdons:player": 4
