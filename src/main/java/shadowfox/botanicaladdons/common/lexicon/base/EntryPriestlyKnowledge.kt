@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.lexicon.page
+package shadowfox.botanicaladdons.common.lexicon.base
 
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack

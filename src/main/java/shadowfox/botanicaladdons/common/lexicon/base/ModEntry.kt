@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.lexicon.page
+package shadowfox.botanicaladdons.common.lexicon.base
 
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -46,7 +46,7 @@ open class ModEntry : LexiconEntry, IAddonEntry {
     }
 
     override fun getSubtitle(): String? {
-        return "[Botanical Addons]"
+        return "[${LibMisc.MOD_NAME}]"
     }
 
     fun getLazyUnlocalizedName(): String {

@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.lexicon.page
+package shadowfox.botanicaladdons.common.lexicon.base
 
 import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.common.lib.LibMisc

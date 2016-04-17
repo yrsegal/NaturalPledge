@@ -4,8 +4,8 @@ import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
-import shadowfox.botanicaladdons.common.lexicon.page.ModCategory
-import shadowfox.botanicaladdons.common.lexicon.page.ModEntry
+import shadowfox.botanicaladdons.common.lexicon.base.ModCategory
+import shadowfox.botanicaladdons.common.lexicon.base.ModEntry
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe
