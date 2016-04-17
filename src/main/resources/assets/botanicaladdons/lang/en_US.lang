@@ -6,13 +6,35 @@ item.botanicaladdons:emblemThor.name=Priestly Emblem: Thor
 item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's rage...
 
 item.botanicaladdons:holySymbol.name=Holy Symbol
-item.botanicaladdons:holySymbol.potato.name=Headtato
+item.botanicaladdons:holySymbol.potato.name=Tiny Headtato
 item.botanicaladdons:holySymbol.catalyst.name=Curse of the Catalyst
 item.botanicaladdons:holySymbol.mask.name=Gaterender's Mask
 item.botanicaladdons:holySymbol.tail.name=Fox Tail
+item.botanicaladdons:holySymbol.teru.name=Chesteru Teru Bozu
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted
 botanicaladdons.potion.drab=Drab Vision
 botanicaladdons.potion.overcharged=Overcharged
 botanicaladdons.potion.featherweight=Featherweight
+
+botanicaladdons.entry.holySymbol=Divine Faith
+botanicaladdons.tagline.holySymbol=Kneel before the gods
+botanicaladdons.page.holySymbol0=Traces of divine work are evident in this world. &4Mana&0, for one. The stuff of magic can't possibly be made by mortal hand. The question, then, is how to connect with these gods. However, it might be possible, even with mundane materials.
+botanicaladdons.page.holySymbol1=The &1Holy Symbol&0 is the needed artifact, with what seems to be a wild storm of unrealized potential. Although crafted of simple materials, it has a ready acceptance of other magic. Perhaps this can be our gate to the &3Divine&0.
+botanicaladdons.page.holySymbol2=A key to the zodiac
+
+botanicaladdons.entry.njord=Faith in Njord
+botanicaladdons.tagline.njord=Wind, sea, and sky
+botanicaladdons.page.njord0=The &4Vanir&0 god of the fluid elements, &3Njord&0, seems like a worthy choice for your faith. Wielding his aspect of the &3Divine&0 makes your body hydrophobic, rising above any kind of fluid. You also gain attacks with the force of the wind, barreling your foes back with your every hit.
+botanicaladdons.page.njord1=At the doom of men he will come back
+
+botanicaladdons.entry.idunn=Faith in Idunn
+botanicaladdons.tagline.idunn=Life, spring, and immortality
+botanicaladdons.page.idunn0=The &4Vanir&0 god of the living elements, &3Idunn&0, seems like a good choice to declare yourself for. Wielding her aspect of the &3Divine&0 makes your body naturally catalytic to the growth of trees, giving saplings around you an effect similar to &1Bonemeal&0. You can manually apply this affect by sneak-clicking with an empty hand.
+botanicaladdons.page.idunn1=Ash sunk down of alfen race
+
+botanicaladdons.entry.thor=Faith in Thor
+botanicaladdons.tagline.thor=Thunder, strength, and wrath
+botanicaladdons.page.thor0=The &4Æsir&0 god of the sky, &3Thor&0, seems like a powerful god to ally with. Wielding his aspect of the &3Divine&0 makes your body makes your body swift, similar to the &1Soujourner's Sash&0. When using axes, the closest thing you could find to a hammer, &3Thor&0 will add force to your hit, slowing down whatever poor mob is stricken.
+botanicaladdons.page.thor1=In anger smite the earth

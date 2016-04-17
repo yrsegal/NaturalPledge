@@ -17,6 +17,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.lib.LibMisc
 import shadowfox.botanicaladdons.common.potions.ModPotions
@@ -85,6 +86,14 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
                 val variantInstance = (stack.item as ItemFaithBauble).getVariant(stack)
                 if (variantInstance != null && variant.isInstance(variantInstance))
                     return stack
+            }
+            return null
+        }
+
+        fun emblemOf(variant: Class<out IFaithVariant>): ItemStack? {
+            for (i in variants.indices) {
+                if (variant.isInstance(variants[i]))
+                    return ItemStack(ModItems.emblem, 1, i)
             }
             return null
         }

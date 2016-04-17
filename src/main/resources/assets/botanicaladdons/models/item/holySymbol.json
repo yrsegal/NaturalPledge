@@ -28,5 +28,15 @@
       "botanicaladdons:player": 4
     },
     "model": "botanicaladdons:item/tail"
+  }, {
+    "predicate": {
+      "botanicaladdons:player": 5
+    },
+    "model": "botanicaladdons:item/jansey"
+  }, {
+    "predicate": {
+      "botanicaladdons:player": 6
+    },
+    "model": "botanicaladdons:item/teruHead"
   }]
 }

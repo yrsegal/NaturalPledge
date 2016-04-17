@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items
 
+import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
@@ -16,5 +17,7 @@ object ModItems {
     init {
         emblem = ItemFaithBauble(LibNames.PRIESTLY_EMBLEM)
         symbol = ItemSymbol(LibNames.HOLY_SYMBOL)
+
+        OreDictionary.registerOre("holySymbol", symbol)
     }
 }

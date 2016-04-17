@@ -3,9 +3,7 @@ package shadowfox.botanicaladdons.common.items.bauble
 import baubles.api.BaubleType
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.ItemRenderer
-import net.minecraft.client.renderer.Tessellator
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.entity.Entity
@@ -44,8 +42,10 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
         val wire = "458391f5-6303-4649-b416-e4c0d18f837a"
         val tris = "d475af59-d73c-42be-90ed-f1a78f10d452"
         val l0ne = "d7a5f995-57d5-4077-bc9f-83cc36cadd66"
+        val jansey = "eaf6956b-dd98-4e07-a890-becc9b6d1ba9" //todo
+        val wiiv = "0d054077-a977-4b19-9df9-8a4d5bf20ec3"
 
-        val specialPlayers = arrayOf(vaz, wire, tris, l0ne)
+        val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv)
 
         val headPlayers = arrayOf(vaz, wire, tris)
 
@@ -70,11 +70,18 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
         super.onEquipped(stack, player)
+        var nameChanged = false
         if (getPlayer(stack) != vaz && stack.displayName.toLowerCase().equals("vazkii is bae")) {
             setPlayer(stack, vaz)
-            if (stack.tagCompound.hasKey("display") && stack.tagCompound.getCompoundTag("display").hasKey("Name"))
-                    stack.tagCompound.getCompoundTag("display").removeTag("Name")
+            nameChanged = true
+        } else if (getPlayer(stack) != wiiv && stack.displayName.toLowerCase().equals("rain rain go away")) {
+            setPlayer(stack, wiiv)
+            nameChanged == true
         }
+
+        if (nameChanged)
+            if (stack.tagCompound.hasKey("display") && stack.tagCompound.getCompoundTag("display").hasKey("Name"))
+                stack.tagCompound.getCompoundTag("display").removeTag("Name")
     }
 
     override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
@@ -85,6 +92,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
             wire -> "$above.catalyst"
             tris -> "$above.mask"
             l0ne -> "$above.tail"
+            jansey -> "$above"
+            wiiv -> "$above.teru"
             else -> above
         }
     }
@@ -96,7 +105,14 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
             "wire" -> setPlayer(stack, wire)
             "tris" -> setPlayer(stack, tris)
             "l0ne" -> setPlayer(stack, l0ne)
+            "jansey" -> setPlayer(stack, jansey)
+            "wiiv" -> setPlayer(stack, wiiv)
         }
+    }
+
+    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+        addToTooltip(tooltip, "botaniamisc.cosmeticBauble")
+        super.addHiddenTooltip(stack, player, tooltip, advanced)
     }
 
     override fun getBaubleType(stack: ItemStack?) = BaubleType.AMULET
@@ -104,7 +120,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, p3: Float) {
         val renderStack = stack.copy()
 
-        if (getPlayer(renderStack) !in specialPlayers && player.uniqueID.toString() in specialPlayers)
+        if (getPlayer(renderStack) !in specialPlayers && player.uniqueID.toString() in specialPlayers && getPlayer(renderStack) != "none")
             setPlayer(renderStack, player.uniqueID.toString())
 
         var playerAs = getPlayer(renderStack)
@@ -144,6 +160,16 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
                 GlStateManager.rotate(90F, 0F, 1F, 0F)
                 GlStateManager.translate(0.25F, -0.75F, -0.055F)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, THIRD_PERSON_RIGHT_HAND)
+            } else if (playerAs == wiiv) {
+                if (player.isSneaking) {
+                    GlStateManager.translate(0.0, 0.2, 0.0)
+                    GlStateManager.rotate(90 / Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
+                }
+                chestTranslate()
+                GlStateManager.scale(0.75, 0.75, 0.75)
+                GlStateManager.translate(0F, -0.5F, 0.1F)
+                GlStateManager.rotate(180F, 0F, 1F, 0F)
+                Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else {
                 if (player.isSneaking) {
                     GlStateManager.translate(0.0, 0.3, 0.0)
