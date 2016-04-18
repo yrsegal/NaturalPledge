@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common
 
+import net.minecraft.launchwrapper.Launch
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -17,10 +18,13 @@ class BotanicalAddons {
         @SidedProxy(serverSide = LibMisc.PROXY_COMMON,
                 clientSide = LibMisc.PROXY_CLIENT)
         lateinit var proxy: CommonProxy
+
+        var isDevEnv = false
     }
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
+        isDevEnv = Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean
         proxy.pre(event)
     }
 

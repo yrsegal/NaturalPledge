@@ -13,6 +13,7 @@ import net.minecraft.world.World
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.common.potions.ModPotions
+import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.ItemNBTHelper
@@ -73,7 +74,7 @@ class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        player.addPotionEffect(PotionEffect(ModPotions.rooted, 600))
+        player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 600))
     }
 
     override fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {

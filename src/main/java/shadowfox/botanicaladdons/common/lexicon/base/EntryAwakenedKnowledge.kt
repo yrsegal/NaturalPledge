@@ -9,10 +9,11 @@ import vazkii.botania.api.lexicon.LexiconCategory
  * @author WireSegal
  * Created at 1:26 PM on 4/16/16.
  */
-class EntryPriestlyKnowledge(unlocName: String, category: LexiconCategory, icon: ItemStack, val pendant: Class<out ItemFaithBauble.IFaithVariant>? = null) : ModEntry(unlocName, category, icon) {
+class EntryAwakenedKnowledge(unlocName: String, category: LexiconCategory, icon: ItemStack, val pendant: Class<out ItemFaithBauble.IFaithVariant>? = null) : ModEntry(unlocName, category, icon) {
 
     override fun isVisible(): Boolean {
         val entityPlayer = Minecraft.getMinecraft().thePlayer
-        return ItemFaithBauble.getEmblem(entityPlayer, pendant) != null
+        val emblem = ItemFaithBauble.getEmblem(entityPlayer, pendant)
+        return emblem != null && ItemFaithBauble.isAwakened(emblem)
     }
 }

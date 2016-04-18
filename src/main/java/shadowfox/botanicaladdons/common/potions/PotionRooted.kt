@@ -4,12 +4,13 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.common.potions.base.PotionMod
 
 /**
  * @author WireSegal
  * Created at 2:47 PM on 4/15/16.
  */
-class PotionRooted(iconIndex: Int) : PotionMod(LibNames.ROOTED, true, 0x634D05, iconIndex) {
+class PotionRooted(iconIndex: Int) : PotionMod(LibNames.ROOTED, true, 0x634D05, iconIndex, true) {
     init {
         MinecraftForge.EVENT_BUS.register(this)
     }

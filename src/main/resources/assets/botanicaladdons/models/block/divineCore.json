@@ -1,0 +1,6 @@
+{
+  "parent": "botania:microblock_all_tinted",
+  "textures": {
+    "all": "botanicaladdons:block/divineCore"
+  }
+}

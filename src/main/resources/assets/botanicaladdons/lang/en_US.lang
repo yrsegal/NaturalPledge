@@ -1,9 +1,23 @@
+tile.botanicaladdons:divineCore.name=Divine Ritual Core
+
 item.botanicaladdons:emblemNjord.name=Priestly Emblem: Njord
 item.botanicaladdons:emblemNjord.angry=You feel the air trembling with Njord's displeasure...
 item.botanicaladdons:emblemIdunn.name=Priestly Emblem: Idunn
 item.botanicaladdons:emblemIdunn.angry=You feel your soul freeze under Idunn's baleful stare...
 item.botanicaladdons:emblemThor.name=Priestly Emblem: Thor
 item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's rage...
+
+itemGroup.botanicaladdons=Natural Pledge
+
+item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
+
+misc.botanicaladdons.njordWatches=The wind seems to hold its breath as the ritual begins...
+misc.botanicaladdons.idunnWatches=Your lifeforce seems to glow as the ritual begins...
+misc.botanicaladdons.thorWatches=The air feels charged as the ritual begins...
+
+misc.botanicaladdons.njordSmiles=All the winds of the world seem to flow out of your emblem as it awakens!
+misc.botanicaladdons.idunnSmiles=It seems like you can feel everything alive in the world as your emblem awakens!
+misc.botanicaladdons.thorSmiles=It feels like thunder is flowing through your veins as your emblem awakens!
 
 item.botanicaladdons:holySymbol.name=Holy Symbol
 item.botanicaladdons:holySymbol.potato.name=Tiny Headtato
@@ -42,3 +56,14 @@ botanicaladdons.entry.thor=Faith in Thor
 botanicaladdons.tagline.thor=Thunder, strength, and wrath
 botanicaladdons.page.thor0=The &4Æsir&0 god of the sky, &3Thor&0, seems like a powerful god to ally with. Wielding his aspect of the &3Divine&0 makes your body makes your body swift, similar to the &1Soujourner's Sash&0. When using axes, the closest thing you could find to a hammer, &3Thor&0 will add force to your hit, slowing down whatever poor mob is stricken.
 botanicaladdons.page.thor1=In anger smite the earth
+
+botanicaladdons.entry.awakening=The Ritual of Gaia III
+botanicaladdons.tagline.awakening=Sight, Sound, Strength, Power, Glory, Speed!
+botanicaladdons.page.awakening0=The ritual performed to face off against the soul of the Earth is a incredible challenge, which allows one to obtain &5Relics&0 and &1Gaia Spirits&0. As you fight, this ritual connects you to the &3Divine&0 by your struggles. So, maybe you could... invert that connection? Through that, you would force a fragment of the &3Divine&0 into your &1Priestly Emblem&0.
+botanicaladdons.page.awakening1=By using &1Divine Ritual Cores&0, you can modify the &4Ritual of Gaia&0 to do just that. These devices focus the energy of the &3Divine&0 into the Guardian, giving it power as the ritual plays out. The moment you slay the &4Guardian&0, that focused energy will leap into your &1Priestly Emblem&0. The power you could gain from this connection is staggering.
+botanicaladdons.page.awakening2=The Ritual of Gaia III
+botanicaladdons.page.awakening3=Seek the center to change the world
+
+botanicaladdons.entry.wellshit=Consequences of Power
+botanicaladdons.tagline.wellshit=Hindsight is 20/20
+botanicaladdons.page.wellshit0=The power you gained from the &3Divine Guardian&0 ritual was, indeed, grand, but it has drawbacks. For one, you can't seem to take off the imbued emblem. For another, someone wielding a &4Mortalstone&0 could kill you without a second thought, due to the disconnect between the &3Divine&0 and Mortality being so jarring. Perhaps you shouldn't leap into every ritual without researching consequences.

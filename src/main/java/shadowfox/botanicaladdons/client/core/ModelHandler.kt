@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.fml.common.FMLLog
 import shadowfox.botanicaladdons.common.lib.LibMisc
 import java.util.*
 
@@ -79,10 +80,10 @@ object ModelHandler {
 
     }
 
+    var printedFlag = false
+
     fun registerModels(item: Item, variants: Array<out String>, extra: Boolean) {
         if (item is ItemBlock && item.getBlock() is IBABlock) {
-            val locName = Block.blockRegistry.getNameForObject(Block.getBlockFromItem(item))
-
             val i = item.getBlock() as IBABlock
             val name = i.variantEnum
             val loc = i.ignoredProperties
@@ -100,12 +101,16 @@ object ModelHandler {
             }
 
             if (name != null) {
-                registerVariantsDefaulted(locName.toString(), item, name, "variant")
+                registerVariantsDefaulted(item, i as Block, name, "variant")
                 return
             }
         }
 
+
+        FMLLog.info("${if (printedFlag) "   |" else "BA |"} Registering variants of ${ItemStack(item).displayName}")
+        printedFlag = true
         for (var11 in variants.indices) {
+            FMLLog.info("   |  Variant #${var11+1}: ${variants[var11]}")
             val var13 = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variants[var11]).toString(), "inventory")
             if (!extra) {
                 ModelLoader.setCustomModelResourceLocation(item, var11, var13)
@@ -118,12 +123,13 @@ object ModelHandler {
 
     }
 
-    private fun registerVariantsDefaulted(key: String, item: Item, enumclazz: Class<*>, variantHeader: String) {
+    private fun registerVariantsDefaulted(item: Item, block: Block, enumclazz: Class<*>, variantHeader: String) {
+        val locName = Block.blockRegistry.getNameForObject(block).toString()
         if (enumclazz.enumConstants != null)
             for (e in enumclazz.enumConstants) {
                 if (e is IStringSerializable && e is Enum<*>) {
                     val variantName = variantHeader + "=" + e.name
-                    val loc = ModelResourceLocation(key, variantName)
+                    val loc = ModelResourceLocation(locName, variantName)
                     val i = e.ordinal
                     ModelLoader.setCustomModelResourceLocation(item, i, loc)
                     resourceLocations.put(getKey(item, i), loc)

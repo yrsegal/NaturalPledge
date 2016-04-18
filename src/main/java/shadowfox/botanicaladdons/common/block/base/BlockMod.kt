@@ -4,12 +4,16 @@ import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
 import net.minecraft.client.renderer.ItemMeshDefinition
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import shadowfox.botanicaladdons.client.core.ModelHandler
+import shadowfox.botanicaladdons.common.core.CreativeTab
 import shadowfox.botanicaladdons.common.lib.LibMisc
+import vazkii.botania.api.lexicon.ILexiconable
+import vazkii.botania.api.lexicon.LexiconRecipeMappings
 
 /**
  * @author WireSegal
@@ -25,8 +29,8 @@ open class BlockMod(name: String, materialIn: Material, vararg variants: String)
             this.variants = arrayOf(name)
         }
         this.bareName = name
-        this.variants = variants
         this.unlocalizedName = name
+        CreativeTab.set(this)
     }
 
     override fun setUnlocalizedName(name: String): Block {

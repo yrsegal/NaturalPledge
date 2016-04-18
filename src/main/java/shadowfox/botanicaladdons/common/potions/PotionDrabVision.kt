@@ -1,12 +1,13 @@
 package shadowfox.botanicaladdons.common.potions
 
 import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.common.potions.base.PotionMod
 
 /**
  * @author WireSegal
  * Created at 9:37 AM on 4/15/16.
  */
-class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0x808080, iconIndex) {
+class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0x808080, iconIndex, true) {
 
     //todo make work
 

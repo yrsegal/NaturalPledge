@@ -5,6 +5,7 @@ import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.IRecipe
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
+import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.PriestlyEmblemIdunn
@@ -24,6 +25,8 @@ object ModRecipes {
     val recipeNjordEmblem: IRecipe
     val recipeIdunnEmblem: IRecipe
     val recipeThorEmblem: IRecipe
+
+    val recipeDivineCore: IRecipe
 
     init {
 
@@ -64,6 +67,13 @@ object ModRecipes {
                 'S', "holySymbol",
                 'A', LibOreDict.RUNE[3], // Air
                 'B', ItemStack(BotaniaItems.travelBelt))
+
+        recipeDivineCore = addOreDictRecipe(ItemStack(ModBlocks.awakenerCore),
+                " D ",
+                "DGD",
+                " D ",
+                'D', LibOreDict.MANA_DIAMOND,
+                'G', LibOreDict.GAIA_INGOT)
     }
 
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {

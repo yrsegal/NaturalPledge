@@ -26,8 +26,7 @@ class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder
         if (this.variants.size > 1) {
             this.setHasSubtypes(true)
         }
-        val rl = ResourceLocation(LibMisc.MOD_ID, block.unlocalizedName.replace("tile.", ""))
-        ItemMod.variantCache.put(rl.toString(), this)
+        ModelHandler.variantCache.add(this)
     }
 
     override fun getMetadata(damage: Int): Int {

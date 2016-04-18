@@ -19,8 +19,6 @@ import java.util.*
 open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler.IVariantHolder {
 
     companion object {
-        val variantCache = HashMap<String, ModelHandler.IVariantHolder>()
-
         fun tooltipIfShift(tooltip: MutableList<String>, r: () -> Unit) {
             TooltipHelper.tooltipIfShift(tooltip, r)
         }
@@ -45,7 +43,6 @@ open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler
         var variantTemp = variants
         this.unlocalizedName = name
 
-        this.creativeTab = CreativeTab.INSTANCE
         CreativeTab.set(this)
 
         if (variantTemp.size > 1) {
@@ -64,7 +61,6 @@ open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler
     override fun setUnlocalizedName(name: String): Item {
         val rl = ResourceLocation(LibMisc.MOD_ID, name)
         GameRegistry.register(this, rl)
-        variantCache.put(rl.toString(), this)
         return super.setUnlocalizedName(name)
     }
 

@@ -8,9 +8,11 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.MobEffects
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
+import net.minecraft.util.DamageSource
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
@@ -21,6 +23,7 @@ import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.lib.LibMisc
 import shadowfox.botanicaladdons.common.potions.ModPotions
+import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.common.core.helper.ItemNBTHelper
@@ -76,7 +79,7 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
                     MinecraftForge.EVENT_BUS.register(variant)
         }
 
-        fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>): ItemStack? {
+        fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>? = null): ItemStack? {
 
             if (isFaithless(player)) return null
 
@@ -84,7 +87,7 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
             var stack = baubles.getStackInSlot(0)
             if (stack != null && stack.item is ItemFaithBauble) {
                 val variantInstance = (stack.item as ItemFaithBauble).getVariant(stack)
-                if (variantInstance != null && variant.isInstance(variantInstance))
+                if (variant == null || (variantInstance != null && variant.isInstance(variantInstance)))
                     return stack
             }
             return null
@@ -127,12 +130,13 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
         super.onWornTick(stack, player)
 
         val variant = getVariant(stack)
-        if (variant != null && player is EntityPlayer && !isFaithless(player)) {
-            if (isAwakened(stack)) {
-                variant.onAwakenedUpdate(stack, player)
-            } else {
-                variant.onUpdate(stack, player)
-            }
+
+        if (variant != null && player is EntityPlayer) {
+            if (!isFaithless(player)) {
+                if (isAwakened(stack)) variant.onAwakenedUpdate(stack, player)
+                else variant.onUpdate(stack, player)
+            } else if (isAwakened(stack) && player.health > 1f)
+                player.attackEntityFrom(DamageSource.magic, 1f)
         }
     }
 
@@ -179,7 +183,7 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
         if (variant != null && player is EntityPlayer) {
-            player.addPotionEffect(PotionEffect(ModPotions.faithlessness, 600))
+            player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
             if (player.worldObj.isRemote)
                 player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setChatStyle(Style().setColor(TextFormatting.RED)))
             variant.punishTheFaithless(stack, player)
