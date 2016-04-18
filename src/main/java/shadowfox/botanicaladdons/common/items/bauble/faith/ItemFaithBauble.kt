@@ -8,10 +8,8 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.MobEffects
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.Style
@@ -19,6 +17,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.lib.LibMisc
@@ -27,18 +26,22 @@ import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.common.core.helper.ItemNBTHelper
+import java.util.*
 
 /**
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.size, { "emblem${variants[it].name.capitalizeFirst()}" })), IBaubleRender {
+open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(name, *vars), IBaubleRender {
+    constructor(name: String) : this(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })) {}
 
     interface IFaithVariant {
         val name: String
 
         val hasSubscriptions: Boolean
             get() = false
+
+        fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell>
 
         fun onUpdate(stack: ItemStack, player: EntityPlayer) {
         }
@@ -67,14 +70,14 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
         val TAG_PENDANT = "pendant"
         val TAG_AWAKENED = "awakened"
 
-        val variants = arrayOf(
+        val priestVariants = arrayOf(
                 PriestlyEmblemNjord(),
                 PriestlyEmblemIdunn(),
                 PriestlyEmblemThor()
         )
 
         init {
-            for (variant in variants)
+            for (variant in priestVariants)
                 if (variant.hasSubscriptions)
                     MinecraftForge.EVENT_BUS.register(variant)
         }
@@ -94,8 +97,8 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
         }
 
         fun emblemOf(variant: Class<out IFaithVariant>): ItemStack? {
-            for (i in variants.indices) {
-                if (variant.isInstance(variants[i]))
+            for (i in priestVariants.indices) {
+                if (variant.isInstance(priestVariants[i]))
                     return ItemStack(ModItems.emblem, 1, i)
             }
             return null
@@ -108,7 +111,7 @@ open class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(variants.s
         fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
         fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
 
-        fun getVariantBase(stack: ItemStack) = if (variants.size == 0) null else variants[stack.itemDamage % variants.size]
+        fun getVariantBase(stack: ItemStack) = if (priestVariants.size == 0) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
 
     init {

@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.client.renderer.block.model.ModelBakery
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.block.statemap.StateMap
+import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
@@ -44,7 +45,11 @@ object ModelHandler {
     }
 
     interface IColorProvider {
-        val color: IItemColor
+        val color: IItemColor?
+    }
+
+    interface IBlockColorProvider : IColorProvider {
+        val blockColor: IBlockColor?
     }
 
     val variantCache = ArrayList<IVariantHolder>()
@@ -58,10 +63,20 @@ object ModelHandler {
     }
 
     fun init() {
-        val colors = Minecraft.getMinecraft().itemColors
-        for (holder in variantCache)
-            if (holder is IColorProvider)
-                colors.registerItemColorHandler(holder.color, holder as Item);
+        val itemColors = Minecraft.getMinecraft().itemColors
+        val blockColors = Minecraft.getMinecraft().blockColors
+        for (holder in variantCache) {
+            if (holder is IColorProvider) {
+                val color = holder.color
+                if (color != null)
+                    itemColors.registerItemColorHandler(color, holder as Item)
+            }
+            if (holder is ItemBlock && holder.getBlock() is IBlockColorProvider) {
+                val color = (holder.getBlock() as IBlockColorProvider).blockColor
+                if (color != null)
+                    blockColors.registerBlockColorHandler(color, holder.getBlock())
+            }
+        }
     }
 
     // The following is a blatant copy of Psi's ModelHandler.

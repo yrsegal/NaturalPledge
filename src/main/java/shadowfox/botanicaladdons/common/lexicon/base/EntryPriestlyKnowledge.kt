@@ -13,6 +13,6 @@ class EntryPriestlyKnowledge(unlocName: String, category: LexiconCategory, icon:
 
     override fun isVisible(): Boolean {
         val entityPlayer = Minecraft.getMinecraft().thePlayer
-        return ItemFaithBauble.getEmblem(entityPlayer, pendant) != null
+        return entityPlayer.isCreative || ItemFaithBauble.getEmblem(entityPlayer, pendant) != null
     }
 }

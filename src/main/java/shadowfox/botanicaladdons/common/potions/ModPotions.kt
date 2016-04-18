@@ -13,14 +13,16 @@ object ModPotions {
     val faithlessness: PotionMod
     val drab: PotionMod
     val rooted: PotionMod
-    //    val overcharged: Potion
-    //    val featherweight: Potion
+    val overcharged: PotionMod
+    val featherweight: PotionMod
 
-    private var iconIndex = -1
+    private var iconIndex = 0
 
     init {
         faithlessness = PotionFaithlessness(iconIndex++)
         drab = PotionDrabVision(iconIndex++)
         rooted = PotionRooted(iconIndex++)
+        overcharged = PotionOvercharge(iconIndex++)
+        featherweight = PotionFeatherweight(iconIndex++)
     }
 }

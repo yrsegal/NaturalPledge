@@ -7,8 +7,12 @@ import net.minecraft.util.math.MathHelper
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
+import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
+import shadowfox.botanicaladdons.common.potions.ModPotions
+import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
+import java.util.*
 
 /**
  * @author WireSegal
@@ -19,8 +23,12 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
 
     override val name: String = "njord"
 
+    override fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell> {
+        return hashMapOf()
+    }
+
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        //TODO
+        player.addPotionEffect(ModPotionEffect(ModPotions.featherweight, 600))
     }
 
     override fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {

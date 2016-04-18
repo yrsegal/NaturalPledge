@@ -9,9 +9,13 @@ import net.minecraft.potion.PotionEffect
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
+import shadowfox.botanicaladdons.common.potions.ModPotions
+import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
+import java.util.*
 
 /**
  * @author WireSegal
@@ -22,8 +26,12 @@ class PriestlyEmblemThor : ItemFaithBauble.IFaithVariant {
 
     override val hasSubscriptions: Boolean = true
 
+    override fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell> {
+        return hashMapOf()
+    }
+
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        //TODO
+        player.addPotionEffect(ModPotionEffect(ModPotions.overcharged, 600))
     }
 
     @SubscribeEvent

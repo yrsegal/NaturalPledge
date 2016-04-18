@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.block.base
 
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
@@ -17,7 +18,7 @@ import shadowfox.botanicaladdons.common.lib.LibMisc
  * @author WireSegal
  * Created at 5:48 PM on 3/20/16.
  */
-class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder {
+class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IColorProvider {
 
     private val psiBlock: ModelHandler.IBABlock
 
@@ -66,6 +67,9 @@ class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder
 
     override val variants: Array<out String>
         get() = this.psiBlock.variants
+
+    override val color: IItemColor?
+        get() = if (this.psiBlock is ModelHandler.IColorProvider) this.psiBlock.color else null
 
     override fun getRarity(stack: ItemStack): EnumRarity? {
         return this.psiBlock.getBlockRarity(stack)

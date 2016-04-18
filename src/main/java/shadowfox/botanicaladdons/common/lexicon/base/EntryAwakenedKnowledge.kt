@@ -14,6 +14,6 @@ class EntryAwakenedKnowledge(unlocName: String, category: LexiconCategory, icon:
     override fun isVisible(): Boolean {
         val entityPlayer = Minecraft.getMinecraft().thePlayer
         val emblem = ItemFaithBauble.getEmblem(entityPlayer, pendant)
-        return emblem != null && ItemFaithBauble.isAwakened(emblem)
+        return entityPlayer.isCreative || emblem != null && ItemFaithBauble.isAwakened(emblem)
     }
 }

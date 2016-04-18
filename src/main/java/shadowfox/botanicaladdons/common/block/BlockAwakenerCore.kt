@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityBeacon
@@ -16,6 +17,7 @@ import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.events.AwakeningEventHandler
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.lexicon.multiblock.Multiblock
@@ -74,6 +76,10 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.iron), ILexicona
         setStepSound(SoundType.METAL)
         setLightLevel(0.5F)
     }
+
+    override fun getEnchantPowerBonus(world: World?, pos: BlockPos?) = 15f
+
+    override fun getBlockRarity(stack: ItemStack) = BotaniaAPI.rarityRelic
 
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
     override fun getCollisionBoundingBox(worldIn: IBlockState?, pos: World?, state: BlockPos?) = AABB

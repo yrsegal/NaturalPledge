@@ -53,6 +53,10 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
         }
     }
 
+    init {
+        setMaxStackSize(1)
+    }
+
     override fun onItemRightClick(par1ItemStack: ItemStack, par2World: World, par3EntityPlayer: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         if (!EntityDoppleganger.isTruePlayer(par3EntityPlayer)) {
             return ActionResult.newResult(EnumActionResult.FAIL, par1ItemStack)
