@@ -3,6 +3,8 @@ package shadowfox.botanicaladdons.common.lib
 object LibNames {
     val PRIESTLY_EMBLEM = "priestEmblem"
     val HOLY_SYMBOL = "holySymbol"
+    val SPELL_ICON = "spellIcon"
+    val SPELL_FOCUS = "spellFocus"
 
     val AWAKENER = "divineCore"
 

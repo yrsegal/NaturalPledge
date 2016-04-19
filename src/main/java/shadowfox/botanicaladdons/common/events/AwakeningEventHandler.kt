@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.ReflectionHelper
+import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.lib.LibMisc
@@ -146,6 +147,7 @@ class AwakeningEventHandler {
                         if (emblem != null) {
                             val variant = (emblem.item as ItemFaithBauble).getVariant(emblem)
                             if (variant != null) {
+                                player.addStat(ModAchievements.awakening)
                                 if (entity.worldObj.isRemote)
                                     player.addChatComponentMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}Smiles").setChatStyle(Style().setColor(TextFormatting.DARK_AQUA)))
                                 ItemFaithBauble.setAwakened(emblem, true)

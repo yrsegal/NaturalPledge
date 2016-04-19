@@ -14,12 +14,16 @@ import shadowfox.botanicaladdons.common.lib.LibNames
 object ModItems {
     val emblem: ItemMod
     val symbol: ItemMod
+    val spellIcon: ItemMod
+    val spellFocus: ItemMod
 
     lateinit var gaiaKiller: ItemMod
 
     init {
         emblem = ItemFaithBauble(LibNames.PRIESTLY_EMBLEM)
         symbol = ItemSymbol(LibNames.HOLY_SYMBOL)
+        spellIcon = ItemSpellIcon(LibNames.SPELL_ICON)
+        spellFocus = ItemTerrestrialFocus(LibNames.SPELL_FOCUS)
 
         if (BotanicalAddons.isDevEnv)
             gaiaKiller = ItemGaiaSlayer("gaiaKiller")

@@ -14,6 +14,7 @@ import shadowfox.botanicaladdons.common.lexicon.base.ModCategory
 import shadowfox.botanicaladdons.common.lexicon.base.ModEntry
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.lexicon.LexiconEntry
+import vazkii.botania.common.core.handler.ConfigHandler
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe
 import vazkii.botania.common.lexicon.page.PageMultiblock
 import vazkii.botania.common.lexicon.page.PageText
@@ -35,6 +36,9 @@ object LexiconEntries {
     val consequences: LexiconEntry
 
     init {
+
+        val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
+
         divinity = ModCategory("divinity", 1)
 
         holySymbol = ModEntry("holySymbol", divinity, ItemStack(ModItems.symbol)).setPriority()
@@ -49,9 +53,9 @@ object LexiconEntries {
         heimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallEmblem))
 
         BlockAwakenerCore.multiblock = BlockAwakenerCore.makeMultiblockSet()
-        awakening = EntryPriestlyKnowledge("awakening", divinity, ItemStack(ModBlocks.awakenerCore)).setKnowledgeType(BotaniaAPI.relicKnowledge).setPriority()
+        awakening = EntryPriestlyKnowledge("awakening", divinity, ItemStack(ModBlocks.awakenerCore)).setKnowledgeType(topKnowledgeTier).setPriority()
         awakening.setLexiconPages(PageText("0"), PageText("1"), PageMultiblock("2", BlockAwakenerCore.multiblock), PageCraftingRecipe("3", ModRecipes.recipeDivineCore))
-        consequences = EntryAwakenedKnowledge("wellshit", divinity, ItemStack(Blocks.dirt, 1, BlockDirt.DirtType.PODZOL.metadata)).setKnowledgeType(BotaniaAPI.relicKnowledge).setPriority()
+        consequences = EntryAwakenedKnowledge("wellshit", divinity, ItemStack(Blocks.dirt, 1, BlockDirt.DirtType.PODZOL.metadata)).setKnowledgeType(topKnowledgeTier).setPriority()
         consequences.setLexiconPages(PageText("0"))
     }
 }

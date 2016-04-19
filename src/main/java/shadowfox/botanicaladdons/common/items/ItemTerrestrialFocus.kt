@@ -1,14 +1,14 @@
 package shadowfox.botanicaladdons.common.items
 
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ActionResult
-import net.minecraft.util.EnumActionResult
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
+import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
@@ -40,7 +40,10 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name) {
         }
 
         fun setSpell(focus: ItemStack, spell: String?) {
-            ItemNBTHelper.setString(focus, TAG_SPELL, spell)
+            if (spell == null)
+                ItemNBTHelper.removeEntry(focus, TAG_SPELL)
+            else
+                ItemNBTHelper.setString(focus, TAG_SPELL, spell)
         }
     }
 
@@ -53,10 +56,16 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name) {
         val spell = getSpell(stack)
 
         val spellNames = spells.keys.sorted()
-        val spellIndex = if (spell == null || spell !in spells) -1 else spellNames.indexOf(spell)
-        val name = spellNames[(spellIndex + 1) % spellNames.size]
-        setSpell(stack, name)
-        ItemsRemainingRenderHandler.set(spells[name]?.iconStack, -2)
+        val spellIndex = if (spell == null) -1 else if (spell !in spells) -2 else spellNames.indexOf(spell)
+        if (spellIndex == -2) {
+            setSpell(stack, null)
+            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.block_lever_click, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
+        } else {
+            val name = spellNames[(spellIndex + 1) % spellNames.size]
+            setSpell(stack, name)
+            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
+            ItemsRemainingRenderHandler.set(spells[name]?.iconStack, -2)
+        }
     }
 
     fun castSpell(stack: ItemStack, player: EntityPlayer, hand: EnumHand): Boolean {
@@ -84,8 +93,15 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name) {
         if (playerIn.isSneaking) {
             shiftSpellWithSneak(stack, playerIn)
             return ActionResult(EnumActionResult.SUCCESS, stack)
-        } else if (castSpell(stack, playerIn, hand))
+        } else if (castSpell(stack, playerIn, hand)) {
+            playerIn.addStat(ModAchievements.focus)
             return ActionResult(EnumActionResult.SUCCESS, stack)
+        }
         return ActionResult(EnumActionResult.PASS, stack)
     }
+
+    override fun onEntitySwing(entityLiving: EntityLivingBase?, stack: ItemStack?) = true
+    override fun shouldCauseReequipAnimation(oldStack: ItemStack?, newStack: ItemStack?, slotChanged: Boolean) = slotChanged
+
+
 }

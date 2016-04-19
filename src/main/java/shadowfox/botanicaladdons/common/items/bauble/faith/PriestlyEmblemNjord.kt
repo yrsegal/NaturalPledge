@@ -3,7 +3,9 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.util.DamageSource
 import net.minecraft.util.math.MathHelper
+import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -24,7 +26,8 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
     override val name: String = "njord"
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell> {
-        return hashMapOf()
+        return hashMapOf(Pair("leap", Spells.Njord.Leap()),
+                Pair("interdict", Spells.Njord.Interdict()))
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
@@ -49,7 +52,7 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
             }
         } else if (world.isAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15, 0.0))) {
             if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
-                player.motionY = 0.0
+                player.motionY = Math.max(0.0, player.motionY)
                 player.fallDistance = 0f
             }
         }
@@ -64,5 +67,21 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
                 entity.knockBack(e.entityPlayer, if (ItemFaithBauble.isAwakened(emblem)) 2.5f else 1f,
                         MathHelper.sin(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
                         -MathHelper.cos(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble())
+    }
+
+    @SubscribeEvent
+    fun onPlayerFall(e: LivingAttackEvent) {
+        val player = e.entityLiving
+        if (player is EntityPlayer) {
+            val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
+            if (e.source == DamageSource.fall) {
+                if (ItemFaithBauble.isAwakened(emblem))
+                    e.isCanceled = true
+                else if (e.amount > 4f && ManaItemHandler.requestManaExact(emblem, player, 10, true)) {
+                    e.isCanceled = true
+                    player.attackEntityFrom(DamageSource.fall, 4f)
+                }
+            }
+        }
     }
 }

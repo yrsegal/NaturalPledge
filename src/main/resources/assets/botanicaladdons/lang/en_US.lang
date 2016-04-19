@@ -9,9 +9,14 @@ item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's ra
 item.botanicaladdons:emblemHeimdall.name=Priestly Emblem: Heimdall
 item.botanicaladdons:emblemHeimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
 
-itemGroup.botanicaladdons=Natural Pledge
+item.botanicaladdons:iconLeap.name=Rush of Wind
+item.botanicaladdons:iconInterdict.name=Galeforce
+
+item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
 item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
+
+itemGroup.botanicaladdons=Natural Pledge
 
 misc.botanicaladdons.njordWatches=The wind seems to hold its breath as the ritual begins...
 misc.botanicaladdons.idunnWatches=Your lifeforce seems to glow as the ritual begins...
@@ -29,6 +34,23 @@ item.botanicaladdons:holySymbol.catalyst.name=Curse of the Catalyst
 item.botanicaladdons:holySymbol.heart.name=Crystalline Heart
 item.botanicaladdons:holySymbol.tail.name=Fox Tail
 item.botanicaladdons:holySymbol.teru.name=Chesteru Teru Bozu
+
+botanicaladdons.subtitle.woosh=Wind wooshes
+
+
+achievement.botanicaladdons:donEmblem=The New Millenium
+achievement.botanicaladdons:donEmblem.desc=Pledge your soul to a divinity
+achievement.botanicaladdons:focus=Glass of Time
+achievement.botanicaladdons:focus.desc=Channel your soul through a Terrestrial Focus
+achievement.botanicaladdons:awakening=Chaining Intention
+achievement.botanicaladdons:awakening.desc=Infuse the Divine into your Priestly Emblem
+achievement.botanicaladdons:sacredItem=God Slaying Machine
+achievement.botanicaladdons:sacredItem.desc=Create a holy item from your divinity's power
+achievement.botanicaladdons:dendricSuffusion=Pitch-Black Forest
+achievement.botanicaladdons:dendricSuffusion.desc=Forge new life from the power of Idunn
+achievement.botanicaladdons:iridescence=Platinum Disco
+achievement.botanicaladdons:iridescence.desc=Forge Iridescence from the power of Heimdall
+
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted

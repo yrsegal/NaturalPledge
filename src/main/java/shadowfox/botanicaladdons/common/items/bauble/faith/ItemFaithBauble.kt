@@ -19,6 +19,7 @@ import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import shadowfox.botanicaladdons.client.core.ModelHandler
+import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
@@ -195,6 +196,10 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
     override fun canUnequip(stack: ItemStack, player: EntityLivingBase) = !isAwakened(stack)
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
         super.onEquipped(stack, player)
+
+        if (player is EntityPlayer)
+            player.addStat(ModAchievements.donEmblem)
+
         setAwakened(stack, false)
     }
 

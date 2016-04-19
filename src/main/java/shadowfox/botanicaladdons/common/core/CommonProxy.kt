@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.core
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.items.ModItems
@@ -17,6 +18,7 @@ open class CommonProxy {
     open fun pre(e: FMLPreInitializationEvent) {
         ModItems
         ModBlocks
+        ModAchievements
         ModPotions
     }
 
