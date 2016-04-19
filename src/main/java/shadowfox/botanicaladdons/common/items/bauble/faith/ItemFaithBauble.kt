@@ -5,6 +5,7 @@ import baubles.common.lib.PlayerHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -17,6 +18,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
@@ -32,14 +34,18 @@ import java.util.*
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(name, *vars), IBaubleRender {
-    constructor(name: String) : this(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })) {}
+open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(name, *vars), IBaubleRender, ModelHandler.IColorProvider {
+    constructor(name: String) : this(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })) {
+    }
 
     interface IFaithVariant {
         val name: String
 
         val hasSubscriptions: Boolean
             get() = false
+
+        val color: IItemColor?
+            get() = null
 
         fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell>
 
@@ -73,7 +79,8 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
         val priestVariants = arrayOf(
                 PriestlyEmblemNjord(),
                 PriestlyEmblemIdunn(),
-                PriestlyEmblemThor()
+                PriestlyEmblemThor(),
+                PriestlyEmblemHeimdall()
         )
 
         init {
@@ -113,6 +120,15 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
 
         fun getVariantBase(stack: ItemStack) = if (priestVariants.size == 0) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
+
+    override val color: IItemColor?
+        get() = IItemColor { stack, tintindex ->
+            val variant = getVariant(stack)
+            if (variant == null || variant.color == null)
+                0xFFFFFF
+            else
+                variant.color!!.getColorFromItemstack(stack, tintindex)
+        }
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PENDANT)) {

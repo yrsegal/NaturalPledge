@@ -12,7 +12,6 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent
-import net.minecraftforge.event.entity.living.LivingSpawnEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.ReflectionHelper
 import shadowfox.botanicaladdons.common.block.ModBlocks
@@ -61,7 +60,7 @@ class AwakeningEventHandler {
 
             val state = entityDoppleganger.worldObj.getBlockState(pos)
             val block = state.block
-            if(block != ModBlocks.awakenerCore) {
+            if (block != ModBlocks.awakenerCore) {
                 return false;
             }
         }

@@ -7,12 +7,10 @@ import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
-import shadowfox.botanicaladdons.common.items.bauble.faith.PriestlyEmblemIdunn
-import shadowfox.botanicaladdons.common.items.bauble.faith.PriestlyEmblemNjord
-import shadowfox.botanicaladdons.common.items.bauble.faith.PriestlyEmblemThor
+import shadowfox.botanicaladdons.common.items.bauble.faith.*
 import vazkii.botania.common.lib.LibOreDict
 
+import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 import vazkii.botania.common.item.ModItems as BotaniaItems
 
 /**
@@ -25,6 +23,7 @@ object ModRecipes {
     val recipeNjordEmblem: IRecipe
     val recipeIdunnEmblem: IRecipe
     val recipeThorEmblem: IRecipe
+    val recipeHeimdallEmblem: IRecipe
 
     val recipeDivineCore: IRecipe
 
@@ -58,7 +57,7 @@ object ModRecipes {
                 'U', LibOreDict.RUNE[5], // Summer
                 'B', ItemStack(BotaniaItems.knockbackBelt))
 
-        recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java)?: ItemStack(ModItems.emblem, 1, 32767),
+        recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
                 " G ",
                 "WSA",
                 " B ",
@@ -67,6 +66,16 @@ object ModRecipes {
                 'S', "holySymbol",
                 'A', LibOreDict.RUNE[3], // Air
                 'B', ItemStack(BotaniaItems.travelBelt))
+
+        recipeHeimdallEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
+                " G ",
+                "PSF",
+                " B ",
+                'G', ItemStack(BotaniaBlocks.bifrostPerm),
+                'P', LibOreDict.RUNE[15], // Pride
+                'S', "holySymbol",
+                'F', LibOreDict.RUNE[1], // Fire
+                'B', ItemStack(BotaniaItems.pixieRing))
 
         recipeDivineCore = addOreDictRecipe(ItemStack(ModBlocks.awakenerCore),
                 " D ",

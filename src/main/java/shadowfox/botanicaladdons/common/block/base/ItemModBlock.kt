@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import shadowfox.botanicaladdons.client.core.ModelHandler
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lib.LibMisc
 
 /**

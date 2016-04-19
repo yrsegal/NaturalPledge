@@ -6,6 +6,8 @@ item.botanicaladdons:emblemIdunn.name=Priestly Emblem: Idunn
 item.botanicaladdons:emblemIdunn.angry=You feel your soul freeze under Idunn's baleful stare...
 item.botanicaladdons:emblemThor.name=Priestly Emblem: Thor
 item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's rage...
+item.botanicaladdons:emblemHeimdall.name=Priestly Emblem: Heimdall
+item.botanicaladdons:emblemHeimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
 
 itemGroup.botanicaladdons=Natural Pledge
 
@@ -14,10 +16,12 @@ item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
 misc.botanicaladdons.njordWatches=The wind seems to hold its breath as the ritual begins...
 misc.botanicaladdons.idunnWatches=Your lifeforce seems to glow as the ritual begins...
 misc.botanicaladdons.thorWatches=The air feels charged as the ritual begins...
+misc.botanicaladdons.heimdallWatches=The world feels vibrant as the ritual begins...
 
 misc.botanicaladdons.njordSmiles=All the winds of the world seem to flow out of your emblem as it awakens!
 misc.botanicaladdons.idunnSmiles=It seems like you can feel everything alive in the world as your emblem awakens!
 misc.botanicaladdons.thorSmiles=It feels like thunder is flowing through your veins as your emblem awakens!
+misc.botanicaladdons.heimdallSmiles=It feels like you can see hues within hues as your emblem awakens!
 
 item.botanicaladdons:holySymbol.name=Holy Symbol
 item.botanicaladdons:holySymbol.potato.name=Tiny Headtato
@@ -32,9 +36,7 @@ botanicaladdons.potion.drab=Drab Vision
 botanicaladdons.potion.overcharged=Overcharged
 botanicaladdons.potion.featherweight=Featherweight
 
-
 botanicaladdons.category.divinity=Divinity
-
 
 botanicaladdons.entry.holySymbol=Divine Faith
 botanicaladdons.tagline.holySymbol=Kneel before the gods
@@ -56,6 +58,11 @@ botanicaladdons.entry.thor=Faith in Thor
 botanicaladdons.tagline.thor=Thunder, strength, and wrath
 botanicaladdons.page.thor0=The &4Æsir&0 god of the sky, &3Thor&0, seems like a powerful god to ally with. Wielding his aspect of the &3Divine&0 makes your body makes your body swift, similar to the &1Soujourner's Sash&0. When using axes, the closest thing you could find to a hammer, &3Thor&0 will add force to your hit, slowing down whatever poor mob is stricken.
 botanicaladdons.page.thor1=In anger smite the earth
+
+botanicaladdons.entry.heimdall=Faith in Heimdall
+botanicaladdons.tagline.heimdall=Fate, travel, and color
+botanicaladdons.page.heimdall0=The &4Æsir&0 god of the Bifrost, &3Heimdall&0, seems like an interesting god to channel. Wielding his aspect of the &3Divine&0 makes your eyes see more vibrantly, seeing light even in the shadow. When carrying a &1Rod of the Bifrost&0, you leave a trail of rainbow &4Bifrost&0 below you, allowing you to run in the sky.
+botanicaladdons.page.heimdall1=The warder of heaven
 
 botanicaladdons.entry.awakening=The Ritual of Gaia III
 botanicaladdons.tagline.awakening=Sight, Sound, Strength, Power, Glory, Speed!

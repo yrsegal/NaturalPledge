@@ -10,20 +10,25 @@ import net.minecraft.potion.PotionEffect
  */
 class ModPotionEffect : PotionEffect {
 
-    constructor(potion: Potion):
-        this(potion, 0, 0) {}
+    constructor(potion: Potion) :
+    this(potion, 0, 0) {
+    }
 
-    constructor(potion: Potion, duration: Int):
-        this(potion, duration, 0) {}
+    constructor(potion: Potion, duration: Int) :
+    this(potion, duration, 0) {
+    }
 
-    constructor(potion: Potion, duration: Int, amplifier: Int):
-        this(potion, duration, amplifier, false, true) {}
+    constructor(potion: Potion, duration: Int, amplifier: Int) :
+    this(potion, duration, amplifier, false, true) {
+    }
 
     constructor(potion: Potion, duration: Int, amplifier: Int, ambient: Boolean, showParticles: Boolean) :
-        super(potion, duration, amplifier, ambient, showParticles) {}
+    super(potion, duration, amplifier, ambient, showParticles) {
+    }
 
     constructor(potionEffect: PotionEffect) :
-        super(potionEffect) {}
+    super(potionEffect) {
+    }
 
     override fun isCurativeItem(stack: ItemStack?): Boolean {
         if (potion is PotionMod && (potion as PotionMod).noClear)

@@ -5,21 +5,17 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
-import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityBeacon
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockMod
-import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.events.AwakeningEventHandler
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.lexicon.ILexiconable
-import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.lexicon.multiblock.Multiblock
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent
@@ -34,7 +30,7 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 class BlockAwakenerCore(name: String) : BlockMod(name, Material.iron), ILexiconable {
 
     companion object {
-        val AABB = AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16)
+        val AABB = AxisAlignedBB(3.0 / 16, 3.0 / 16, 3.0 / 16, 13.0 / 16, 13.0 / 16, 13.0 / 16)
 
         val PYLON_LOCATIONS = arrayOf(BlockPos(4, 1, 4), BlockPos(4, 1, -4), BlockPos(-4, 1, 4), BlockPos(-4, 1, -4))
 
@@ -43,7 +39,7 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.iron), ILexicona
 
             for (p in AwakeningEventHandler.CORE_LOCATIONS) mb.addComponent(p.up(), ModBlocks.awakenerCore.defaultState)
             for (p in PYLON_LOCATIONS) mb.addComponent(p.up(), BotaniaBlocks.pylon.defaultState.withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.GAIA))
-            for(i in 0..2) for(j in 0..2) mb.addComponent(BeaconComponent(BlockPos(i - 1, 0, j - 1)));
+            for (i in 0..2) for (j in 0..2) mb.addComponent(BeaconComponent(BlockPos(i - 1, 0, j - 1)));
             mb.addComponent(BeaconBeamComponent(BlockPos(0, 1, 0)))
             mb.setRenderOffset(BlockPos(0, -1, 0))
 

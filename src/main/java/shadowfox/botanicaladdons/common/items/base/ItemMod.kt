@@ -10,7 +10,6 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.common.core.CreativeTab
 import shadowfox.botanicaladdons.common.lib.LibMisc
-import java.util.*
 
 /**
  * @author WireSegal

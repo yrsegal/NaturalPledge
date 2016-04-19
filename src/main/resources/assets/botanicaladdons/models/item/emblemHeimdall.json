@@ -1,0 +1,13 @@
+{
+  "parent": "botanicaladdons:item/_standard_item",
+  "textures": {
+    "layer0": "botanicaladdons:item/emblemHeimdallString",
+    "layer1": "botanicaladdons:item/emblemHeimdallSymbol"
+  },
+  "overrides" : [{
+    "predicate": {
+      "botanicaladdons:pendant": 1
+    },
+    "model": "botanicaladdons:item/pendantHeimdall"
+  }]
+}

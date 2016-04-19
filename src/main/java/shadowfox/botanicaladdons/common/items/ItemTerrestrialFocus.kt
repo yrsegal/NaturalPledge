@@ -66,7 +66,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name) {
         if (spellName == null || spellName !in spells)
             return false
 
-        val spell = spells[spellName]?: return false
+        val spell = spells[spellName] ?: return false
 
         return spell.onCast(player, stack, hand)
     }

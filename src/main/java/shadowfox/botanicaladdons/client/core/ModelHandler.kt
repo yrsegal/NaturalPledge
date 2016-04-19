@@ -125,7 +125,7 @@ object ModelHandler {
         FMLLog.info("${if (printedFlag) "   |" else "BA |"} Registering variants of ${ItemStack(item).displayName}")
         printedFlag = true
         for (var11 in variants.indices) {
-            FMLLog.info("   |  Variant #${var11+1}: ${variants[var11]}")
+            FMLLog.info("   |  Variant #${var11 + 1}: ${variants[var11]}")
             val var13 = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variants[var11]).toString(), "inventory")
             if (!extra) {
                 ModelLoader.setCustomModelResourceLocation(item, var11, var13)

@@ -41,7 +41,7 @@ class PriestlyEmblemThor : ItemFaithBauble.IFaithVariant {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemThor::class.java) ?: return
             if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
                 if (ManaItemHandler.requestManaExact(emblem, player, 1, true))
-                    player.moveFlying(0.0f, 1.0f, 0.035f)
+                    player.moveFlying(0.0f, 1.0f, 0.035f * if (ItemFaithBauble.isAwakened(emblem)) 1.5f else 1f)
         }
     }
 
