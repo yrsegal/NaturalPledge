@@ -122,7 +122,7 @@ object ModelHandler {
         }
 
 
-        FMLLog.info("${if (printedFlag) "   |" else "BA |"} Registering variants of ${ItemStack(item).displayName}")
+        FMLLog.info("${if (printedFlag) "   |" else "BA |"} Registering variants of ${item.registryName.resourcePath}")
         printedFlag = true
         for (var11 in variants.indices) {
             FMLLog.info("   |  Variant #${var11 + 1}: ${variants[var11]}")

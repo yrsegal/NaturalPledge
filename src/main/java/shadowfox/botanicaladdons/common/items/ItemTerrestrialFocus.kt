@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items
 
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
@@ -8,24 +9,34 @@ import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
+import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.ItemNBTHelper
+import java.awt.Color
 import java.util.*
 
 /**
  * @author WireSegal
  * Created at 9:21 AM on 4/18/16.
  */
-class ItemTerrestrialFocus(name: String) : ItemMod(name) {
+class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorProvider {
 
     interface IFocusSpell {
         val iconStack: ItemStack
 
         fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean
     }
+
+    override val color: IItemColor?
+        get() = IItemColor { itemStack, i ->
+            if (i == 1)
+                Color.HSBtoRGB(Botania.proxy.worldElapsedTicks * 2 % 360 / 360f, 0.25f, 1f)
+            else 0xFFFFFF
+        }
 
     companion object {
         fun getSpells(player: EntityPlayer): HashMap<String, out IFocusSpell> {
