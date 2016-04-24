@@ -74,12 +74,12 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
         val player = e.entityLiving
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
-            if (e.source == DamageSource.fall) {
+            if (e.source == DamageSource.fall || e.source == DamageSource.flyIntoWall) {
                 if (ItemFaithBauble.isAwakened(emblem))
                     e.isCanceled = true
                 else if (e.amount > 4f && ManaItemHandler.requestManaExact(emblem, player, 10, true)) {
                     e.isCanceled = true
-                    player.attackEntityFrom(DamageSource.fall, 4f)
+                    player.attackEntityFrom(e.source, 4f)
                 }
             }
         }

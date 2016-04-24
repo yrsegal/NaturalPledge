@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.crafting
 
+import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.IRecipe
@@ -26,6 +27,8 @@ object ModRecipes {
     val recipeHeimdallEmblem: IRecipe
 
     val recipeDivineCore: IRecipe
+
+    val recipeTerrestrialFocus: IRecipe
 
     init {
 
@@ -83,6 +86,14 @@ object ModRecipes {
                 " D ",
                 'D', LibOreDict.MANA_DIAMOND,
                 'G', LibOreDict.GAIA_INGOT)
+
+        recipeTerrestrialFocus = addOreDictRecipe(ItemStack(ModItems.spellFocus),
+                " D ",
+                "DPD",
+                "ODO",
+                'D', LibOreDict.MANA_DIAMOND,
+                'P', LibOreDict.MANA_PEARL,
+                'O', ItemStack(Blocks.obsidian))
     }
 
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {

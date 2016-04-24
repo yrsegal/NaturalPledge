@@ -32,6 +32,8 @@ object LexiconEntries {
     val thor: LexiconEntry
     val heimdall: LexiconEntry
 
+    val focus: LexiconEntry
+
     val awakening: LexiconEntry
     val consequences: LexiconEntry
 
@@ -51,6 +53,9 @@ object LexiconEntries {
         thor.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThorEmblem))
         heimdall = ModEntry("heimdall", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java)).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallEmblem))
+
+        focus = EntryPriestlyKnowledge("focus", divinity, ItemStack(ModItems.spellFocus)).setPriority()
+        focus.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeTerrestrialFocus))
 
         BlockAwakenerCore.multiblock = BlockAwakenerCore.makeMultiblockSet()
         awakening = EntryPriestlyKnowledge("awakening", divinity, ItemStack(ModBlocks.awakenerCore)).setKnowledgeType(topKnowledgeTier).setPriority()

@@ -5,6 +5,8 @@ object LibNames {
     val HOLY_SYMBOL = "holySymbol"
     val SPELL_ICON = "spellIcon"
     val SPELL_FOCUS = "spellFocus"
+    val MJOLNIR = "mjolnir"
+    val DAGGER = "dagger"
 
     val AWAKENER = "divineCore"
 

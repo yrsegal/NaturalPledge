@@ -1,0 +1,6 @@
+{
+  "parent": "botanicaladdons:item/daggerBlocking",
+  "textures": {
+    "layer0": "botanicaladdons:item/daggerDun"
+  }
+}

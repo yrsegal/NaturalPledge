@@ -28,6 +28,8 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
     interface IFocusSpell {
         val iconStack: ItemStack
 
+        fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int = 0
+
         fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean
     }
 
@@ -67,7 +69,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         val spell = getSpell(stack)
 
         val spellNames = spells.keys.sorted()
-        val spellIndex = if (spell == null) -1 else if (spell !in spells) -2 else spellNames.indexOf(spell)
+        val spellIndex = if (spell == null && spells.size != 0) -1 else if (spell !in spells) -2 else spellNames.indexOf(spell)
         if (spellIndex == -2) {
             setSpell(stack, null)
             player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.block_lever_click, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
@@ -87,6 +89,10 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
             return false
 
         val spell = spells[spellName] ?: return false
+
+        val cooldown = spell.getCooldown(player, stack, hand)
+        if (cooldown > 0)
+            player.cooldownTracker.setCooldown(this, cooldown)
 
         return spell.onCast(player, stack, hand)
     }

@@ -30,9 +30,9 @@ object Spells {
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
                 if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
                     val look = player.lookVec
-                    player.motionX += look.xCoord * 0.75
-                    player.motionY += look.yCoord * 0.75
-                    player.motionZ += look.zCoord * 0.75
+                    player.motionX = Math.max(Math.min(look.xCoord * 0.75 + player.motionX, 2.0), -2.0)
+                    player.motionY = Math.max(Math.min(look.yCoord * 0.75 + player.motionY, 2.0), -2.0)
+                    player.motionZ = Math.max(Math.min(look.zCoord * 0.75 + player.motionZ, 2.0), -2.0)
                     player.fallDistance = 0f
 
                     return true

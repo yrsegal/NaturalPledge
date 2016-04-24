@@ -7,6 +7,7 @@ import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
 
@@ -17,6 +18,7 @@ import shadowfox.botanicaladdons.common.potions.ModPotions
 open class CommonProxy {
     open fun pre(e: FMLPreInitializationEvent) {
         ModItems
+        IPreventBreakInCreative.register()
         ModBlocks
         ModAchievements
         ModPotions

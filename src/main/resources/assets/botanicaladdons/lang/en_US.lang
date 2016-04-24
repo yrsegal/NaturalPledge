@@ -9,6 +9,9 @@ item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's ra
 item.botanicaladdons:emblemHeimdall.name=Priestly Emblem: Heimdall
 item.botanicaladdons:emblemHeimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
 
+item.botanicaladdons:dagger.name=Duelist's Dagger
+item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
+
 item.botanicaladdons:iconLeap.name=Rush of Wind
 item.botanicaladdons:iconInterdict.name=Galeforce
 
@@ -85,6 +88,16 @@ botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color
 botanicaladdons.page.heimdall0=The &4Æsir&0 god of the Bifrost, &3Heimdall&0, seems like an interesting god to channel. Wielding his aspect of the &3Divine&0 makes your eyes see more vibrantly, seeing light even in the shadow. When carrying a &1Rod of the Bifrost&0, you leave a trail of rainbow &4Bifrost&0 below you, allowing you to run in the sky.
 botanicaladdons.page.heimdall1=The warder of heaven
+
+botanicaladdons.entry.heimdall=Faith in Heimdall
+botanicaladdons.tagline.heimdall=Fate, travel, and color
+botanicaladdons.page.heimdall0=The &4Æsir&0 god of the Bifrost, &3Heimdall&0, seems like an interesting god to channel. Wielding his aspect of the &3Divine&0 makes your eyes see more vibrantly, seeing light even in the shadow. When carrying a &1Rod of the Bifrost&0, you leave a trail of rainbow &4Bifrost&0 below you, allowing you to run in the sky.
+botanicaladdons.page.heimdall1=The warder of heaven
+
+botanicaladdons.entry.focus=Focusing the Divine
+botanicaladdons.tagline.focus=Spellcasting 101
+botanicaladdons.page.focus0=The abilities the &1Priestly Emblems&0 give you are certainly great, but they almost feel like you're not drawing your divinity's full strength. An interface to channel the power of a god on earth is required, to allow you to fully command the power you have gained. To that end, you have made the &1Terrestrial Focus&0, a device which can cast &3Divine&0 spells.
+botanicaladdons.page.focus1=Taking a level in Wizard
 
 botanicaladdons.entry.awakening=The Ritual of Gaia III
 botanicaladdons.tagline.awakening=Sight, Sound, Strength, Power, Glory, Speed!
