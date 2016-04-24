@@ -17,6 +17,8 @@ import net.minecraft.util.IStringSerializable
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.common.FMLLog
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.common.lib.LibMisc
 import java.util.*
 
@@ -27,7 +29,8 @@ import java.util.*
 object ModelHandler {
 
     interface IVariantHolder {
-        val customMeshDefinition: ItemMeshDefinition?
+        @SideOnly(Side.CLIENT)
+        fun getCustomMeshDefinition(): ItemMeshDefinition?
 
         val variants: Array<out String>
     }
@@ -45,11 +48,13 @@ object ModelHandler {
     }
 
     interface IColorProvider {
-        val color: IItemColor?
+        @SideOnly(Side.CLIENT)
+        fun getColor(): IItemColor?
     }
 
     interface IBlockColorProvider : IColorProvider {
-        val blockColor: IBlockColor?
+        @SideOnly(Side.CLIENT)
+        fun getBlockColor(): IBlockColor?
     }
 
     val variantCache = ArrayList<IVariantHolder>()
@@ -67,12 +72,12 @@ object ModelHandler {
         val blockColors = Minecraft.getMinecraft().blockColors
         for (holder in variantCache) {
             if (holder is IColorProvider) {
-                val color = holder.color
+                val color = holder.getColor()
                 if (color != null)
                     itemColors.registerItemColorHandler(color, holder as Item)
             }
             if (holder is ItemBlock && holder.getBlock() is IBlockColorProvider) {
-                val color = (holder.getBlock() as IBlockColorProvider).blockColor
+                val color = (holder.getBlock() as IBlockColorProvider).getBlockColor()
                 if (color != null)
                     blockColors.registerBlockColorHandler(color, holder.getBlock())
             }
@@ -82,7 +87,7 @@ object ModelHandler {
     // The following is a blatant copy of Psi's ModelHandler.
 
     fun registerModels(holder: IVariantHolder) {
-        val def = holder.customMeshDefinition
+        val def = holder.getCustomMeshDefinition()
         if (def != null) {
             ModelLoader.setCustomMeshDefinition(holder as Item, def)
         } else {

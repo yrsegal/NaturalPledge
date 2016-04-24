@@ -38,13 +38,76 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
 class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), IPreventBreakInCreative {
     companion object {
         val minBlockLength = 2
-        val maxBlockLength = 20
+        val maxBlockLength = 10
+
+        object EventHandler {
+            class DamageSourceOculus(entity: EntityLivingBase) : EntityDamageSource("${LibMisc.MOD_ID}.oculus", entity) {
+                init {
+                    setDamageBypassesArmor()
+                    setMagicDamage()
+                }
+            }
+
+            fun getHeadOrientation(entity: EntityLivingBase): Vector3 {
+                val f1 = MathHelper.cos(-entity.rotationYaw * 0.017453292F - Math.PI.toFloat())
+                val f2 = MathHelper.sin(-entity.rotationYaw * 0.017453292F - Math.PI.toFloat())
+                val f3 = -MathHelper.cos(-(entity.rotationPitch - 90) * 0.017453292F)
+                val f4 = MathHelper.sin(-(entity.rotationPitch - 90) * 0.017453292F)
+                return Vector3((f2 * f3).toDouble(), f4.toDouble(), (f1 * f3).toDouble())
+            }
+
+            @SubscribeEvent
+            fun onLivingAttacked(e: LivingAttackEvent) {
+                val player = e.entityLiving
+                val damage = e.source
+                if (player is EntityPlayer && damage is EntityDamageSource && player.isHandActive && player.activeItemStack != null && player.activeItemStack.item is ItemDagger) {
+                    val enemyEntity = damage.entity
+                    val item = player.activeItemStack
+                    val count = player.itemInUseMaxCount
+                    if (enemyEntity is EntityLivingBase) {
+                        if (item.item is ItemDagger && count <= maxBlockLength && count >= minBlockLength) {
+                            val lookVec = Vector3(player.lookVec)
+                            val targetVec = Vector3.fromEntityCenter(enemyEntity).sub(Vector3.fromEntityCenter(player))
+                            val epsilon = lookVec.dotProduct(targetVec) / (lookVec.mag() * targetVec.mag())
+                            if (epsilon > 0.75) {
+                                e.isCanceled = true
+                                player.resetActiveHand()
+                                if (!player.worldObj.isRemote) {
+                                    if (damage !is EntityDamageSourceIndirect) {
+                                        enemyEntity.attackEntityFrom(DamageSourceOculus(player), e.amount * 2f)
+                                        val xDif = enemyEntity.posX - player.posX
+                                        val zDif = enemyEntity.posZ - player.posZ
+                                        player.worldObj.playSound(player, enemyEntity.posX, enemyEntity.posY, enemyEntity.posZ, SoundEvents.block_anvil_land, SoundCategory.PLAYERS, 1f, 0.9f + 0.1f * Math.random().toFloat())
+                                        if (enemyEntity.heldItemMainhand != null)
+                                            enemyEntity.heldItemMainhand.damageItem(100, enemyEntity)
+                                        if (enemyEntity.heldItemOffhand != null)
+                                            enemyEntity.heldItemOffhand.damageItem(100, enemyEntity)
+                                        enemyEntity.knockBack(player, 1f, -xDif, -zDif)
+                                        enemyEntity.addPotionEffect(PotionEffect(MobEffects.weakness, 60, 1, true, false))
+                                        enemyEntity.addPotionEffect(PotionEffect(MobEffects.moveSlowdown, 60, 2, true, false))
+                                    }
+                                } else {
+                                    val mainVec = Vector3.fromEntityCenter(player).add(lookVec)
+                                    val baseVec = getHeadOrientation(player).crossProduct(lookVec).normalize()
+                                    for (i in 0..360 step 15) {
+                                        val rotVec = baseVec.copy().rotate(i * 180 / Math.PI, lookVec)
+                                        val endVec = mainVec.copy().add(rotVec)
+                                        Botania.proxy.lightningFX(player.worldObj, mainVec, endVec, 3f, 0xFF94A1, 0xFBAAB5)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
     init {
         setMaxStackSize(1)
         maxDamage = toolMaterial.maxUses
-        MinecraftForge.EVENT_BUS.register(this)
+        MinecraftForge.EVENT_BUS.register(EventHandler)
         this.addPropertyOverride(ResourceLocation("blocking")) {
             stack, worldIn, entityIn ->
             if (entityIn != null && entityIn.isHandActive && entityIn.activeItemStack == stack) 1f else 0f
@@ -98,66 +161,5 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
         val mat = this.toolMaterial.repairItemStack
         if (mat != null && OreDictionary.itemMatches(mat, materialstack, false)) return true
         return super.getIsRepairable(stack, materialstack)
-    }
-
-    class DamageSourceOculus(entity: EntityLivingBase) : EntityDamageSource("${LibMisc.MOD_ID}.oculus", entity) {
-        init {
-            setDamageBypassesArmor()
-            setMagicDamage()
-        }
-    }
-
-    fun getHeadOrientation(entity: EntityLivingBase): Vector3 {
-        val f1 = MathHelper.cos(-entity.rotationYaw * 0.017453292F - Math.PI.toFloat())
-        val f2 = MathHelper.sin(-entity.rotationYaw * 0.017453292F - Math.PI.toFloat())
-        val f3 = -MathHelper.cos(-(entity.rotationPitch - 90) * 0.017453292F)
-        val f4 = MathHelper.sin(-(entity.rotationPitch - 90) * 0.017453292F)
-        return Vector3((f2 * f3).toDouble(), f4.toDouble(), (f1 * f3).toDouble())
-    }
-
-    @SubscribeEvent
-    fun onLivingAttacked(e: LivingAttackEvent) {
-        val player = e.entityLiving
-        val damage = e.source
-        if (player is EntityPlayer && damage is EntityDamageSource && player.isHandActive && player.activeItemStack != null && player.activeItemStack.item == this) {
-            val enemyEntity = damage.entity
-            val item = player.activeItemStack
-            val count = player.itemInUseMaxCount
-            if (enemyEntity is EntityLivingBase) {
-                if (item.item == this && count <= maxBlockLength && count >= minBlockLength) {
-                    val lookVec = Vector3(player.lookVec)
-                    val targetVec = Vector3.fromEntityCenter(enemyEntity).sub(Vector3.fromEntityCenter(player))
-                    val epsilon = lookVec.dotProduct(targetVec) / (lookVec.mag() * targetVec.mag())
-                    if (epsilon > 0.75) {
-                        e.isCanceled = true
-                        player.resetActiveHand()
-                        if (!player.worldObj.isRemote) {
-                            if (damage !is EntityDamageSourceIndirect) {
-                                enemyEntity.attackEntityFrom(DamageSourceOculus(player), e.amount * 2f)
-                                val xDif = enemyEntity.posX - player.posX
-                                val zDif = enemyEntity.posZ - player.posZ
-                                player.worldObj.playSound(player, enemyEntity.posX, enemyEntity.posY, enemyEntity.posZ, SoundEvents.block_anvil_land, SoundCategory.PLAYERS, 1f, 0.9f + 0.1f * Math.random().toFloat())
-                                if (enemyEntity.heldItemMainhand != null)
-                                    enemyEntity.heldItemMainhand.damageItem(100, enemyEntity)
-                                if (enemyEntity.heldItemOffhand != null)
-                                    enemyEntity.heldItemOffhand.damageItem(100, enemyEntity)
-                                enemyEntity.knockBack(player, 1f, -xDif, -zDif)
-                                enemyEntity.addPotionEffect(PotionEffect(MobEffects.weakness, 60, 1, true, false))
-                                enemyEntity.addPotionEffect(PotionEffect(MobEffects.moveSlowdown, 60, 2, true, false))
-                            }
-                        } else {
-                            val mainVec = Vector3.fromEntityCenter(player).add(lookVec)
-                            val baseVec = getHeadOrientation(player).crossProduct(lookVec).normalize()
-                            for (i in 0..360 step 15) {
-                                val rotVec = baseVec.copy().rotate(i * 180 / Math.PI, lookVec)
-                                val endVec = mainVec.copy().add(rotVec)
-                                Botania.proxy.lightningFX(player.worldObj, mainVec, endVec, 3f, 0xFF94A1, 0xFBAAB5)
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
     }
 }

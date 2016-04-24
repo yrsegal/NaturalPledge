@@ -9,25 +9,32 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
+import shadowfox.botanicaladdons.api.IFaithVariant
+import shadowfox.botanicaladdons.api.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
-import java.util.*
 
 /**
  * @author WireSegal
  * Created at 4:38 PM on 4/13/16.
  */
-class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
-    override val hasSubscriptions = true
+class PriestlyEmblemNjord : IFaithVariant {
 
-    override val name: String = "njord"
+    init {
+        SpellRegistry.registerSpell("leap", Spells.Njord.Leap())
+        SpellRegistry.registerSpell("interdict", Spells.Njord.Interdict())
+        SpellRegistry.registerSpell("push", Spells.Njord.PushAway())
+    }
 
-    override fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell> {
-        return hashMapOf(Pair("leap", Spells.Njord.Leap()),
-                Pair("interdict", Spells.Njord.Interdict()))
+    override fun getName(): String = "njord"
+
+    override fun hasSubscriptions(): Boolean = true
+
+    override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
+        return mutableListOf("leap", "interdict", "push")
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
@@ -64,7 +71,7 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
         val entity = e.target
         if (entity is EntityLivingBase)
             if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 20, true))
-                entity.knockBack(e.entityPlayer, if (ItemFaithBauble.isAwakened(emblem)) 2.5f else 1f,
+                entity.knockBack(e.entityPlayer, if ((emblem.item as IPriestlyEmblem).isAwakened(emblem)) 2.5f else 1f,
                         MathHelper.sin(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
                         -MathHelper.cos(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble())
     }
@@ -75,7 +82,7 @@ class PriestlyEmblemNjord : ItemFaithBauble.IFaithVariant {
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
             if (e.source == DamageSource.fall || e.source == DamageSource.flyIntoWall) {
-                if (ItemFaithBauble.isAwakened(emblem))
+                if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
                     e.isCanceled = true
                 else if (e.amount > 4f && ManaItemHandler.requestManaExact(emblem, player, 10, true)) {
                     e.isCanceled = true

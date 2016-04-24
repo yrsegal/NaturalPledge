@@ -1,8 +1,6 @@
 package shadowfox.botanicaladdons.common.block.base
 
 import net.minecraft.block.Block
-import net.minecraft.client.renderer.ItemMeshDefinition
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
@@ -10,6 +8,8 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.lib.LibMisc
 
@@ -61,14 +61,14 @@ class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder
 
     }
 
-    override val customMeshDefinition: ItemMeshDefinition?
-        get() = this.psiBlock.customMeshDefinition
+    @SideOnly(Side.CLIENT)
+    override fun getCustomMeshDefinition() = this.psiBlock.getCustomMeshDefinition()
 
     override val variants: Array<out String>
         get() = this.psiBlock.variants
 
-    override val color: IItemColor?
-        get() = if (this.psiBlock is ModelHandler.IColorProvider) this.psiBlock.color else null
+    @SideOnly(Side.CLIENT)
+    override fun getColor() = if (this.psiBlock is ModelHandler.IColorProvider) this.psiBlock.getColor() else null
 
     override fun getRarity(stack: ItemStack): EnumRarity? {
         return this.psiBlock.getBlockRarity(stack)

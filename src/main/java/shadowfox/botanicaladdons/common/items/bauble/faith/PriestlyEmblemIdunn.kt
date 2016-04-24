@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
+import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
@@ -23,13 +23,13 @@ import java.util.*
  * @author WireSegal
  * Created at 7:24 AM on 4/14/16.
  */
-class PriestlyEmblemIdunn : ItemFaithBauble.IFaithVariant {
-    override val hasSubscriptions = true
+class PriestlyEmblemIdunn : IFaithVariant {
+    override fun getName(): String = "idunn"
 
-    override val name: String = "idunn"
+    override fun hasSubscriptions(): Boolean = true
 
-    override fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell> {
-        return hashMapOf()
+    override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
+        return mutableListOf()
     }
 
     val RANGE = 5

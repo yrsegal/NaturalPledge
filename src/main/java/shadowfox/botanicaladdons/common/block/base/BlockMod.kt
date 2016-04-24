@@ -3,11 +3,12 @@ package shadowfox.botanicaladdons.common.block.base
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
-import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.core.CreativeTab
 import shadowfox.botanicaladdons.common.lib.LibMisc
@@ -38,8 +39,8 @@ open class BlockMod(name: String, materialIn: Material, vararg variants: String)
         return this
     }
 
-    override val customMeshDefinition: ItemMeshDefinition?
-        get() = null
+    @SideOnly(Side.CLIENT)
+    override fun getCustomMeshDefinition() = null
 
     override val ignoredProperties: Array<IProperty<*>>?
         get() = arrayOf()

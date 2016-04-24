@@ -7,10 +7,12 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
+import net.minecraft.util.math.MathHelper
+import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
+import shadowfox.botanicaladdons.api.IFocusSpell
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon
-import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
 import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
@@ -23,9 +25,10 @@ import vazkii.botania.common.entity.EntityDoppleganger
  */
 object Spells {
     object Njord {
-        class Leap : ItemTerrestrialFocus.IFocusSpell {
-            override val iconStack: ItemStack
-                get() = ItemSpellIcon.of(ItemSpellIcon.Variants.LEAP)
+        class Leap : IFocusSpell {
+            override fun getIconStack(): ItemStack {
+                return ItemSpellIcon.of(ItemSpellIcon.Variants.LEAP)
+            }
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
                 if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
@@ -43,9 +46,10 @@ object Spells {
 
         //////////
 
-        class Interdict : ItemTerrestrialFocus.IFocusSpell {
-            override val iconStack: ItemStack
-                get() = ItemSpellIcon.of(ItemSpellIcon.Variants.INTERDICT)
+        class Interdict : IFocusSpell {
+            override fun getIconStack(): ItemStack {
+                return ItemSpellIcon.of(ItemSpellIcon.Variants.INTERDICT)
+            }
 
             val RANGE = 6.0
             val VELOCITY = 0.4
@@ -107,5 +111,102 @@ object Spells {
         }
 
         //////////
+
+        class PushAway : IFocusSpell {
+
+            override fun getIconStack(): ItemStack {
+                return ItemSpellIcon.of(ItemSpellIcon.Variants.PUSH_AWAY)
+            }
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+                val focused = getEntityLookedAt(player)
+
+                if (focused != null && focused is EntityLivingBase)
+                    if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
+                        focused.knockBack(player, 1.5f,
+                                MathHelper.sin(player.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
+                                -MathHelper.cos(player.rotationYaw * Math.PI.toFloat() / 180).toDouble())
+                        return true
+                    }
+                return false
+            }
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 20
+            }
+
+
+            // Copied from Psi's PieceOperatorFocusedEntity and PieceOperatorVectorRaycast
+            fun raycast(e: Entity, len: Double): RayTraceResult? {
+                val vec = Vector3.fromEntity(e)
+                if (e is EntityPlayer) {
+                    vec.add(0.0, e.getEyeHeight().toDouble(), 0.0)
+                }
+
+                val look = e.lookVec
+                if (look == null) {
+                    return null
+                } else {
+                    return raycast(e.worldObj, vec, Vector3(look), len)
+                }
+            }
+
+            fun raycast(world: World, origin: Vector3, ray: Vector3, len: Double): RayTraceResult? {
+                val end = origin.copy().add(ray.copy().normalize().multiply(len))
+                val pos = world.rayTraceBlocks(origin.toVec3D(), end.toVec3D())
+                return pos
+            }
+
+            fun getEntityLookedAt(e: Entity): Entity? {
+                var foundEntity: Entity? = null
+                var distance = 32.0
+                val pos = raycast(e, 32.0)
+                var positionVector = e.positionVector
+                if (e is EntityPlayer) {
+                    positionVector = positionVector.addVector(0.0, e.getEyeHeight().toDouble(), 0.0)
+                }
+
+                if (pos != null) {
+                    distance = pos.hitVec.distanceTo(positionVector)
+                }
+
+                val lookVector = e.lookVec
+                val reachVector = positionVector.addVector(lookVector.xCoord * 32.0, lookVector.yCoord * 32.0, lookVector.zCoord * 32.0)
+                var lookedEntity: Entity? = null
+                val entitiesInBoundingBox = e.worldObj.getEntitiesWithinAABBExcludingEntity(e, e.entityBoundingBox.addCoord(lookVector.xCoord * 32.0, lookVector.yCoord * 32.0, lookVector.zCoord * 32.0).expand(1.0, 1.0, 1.0))
+                var minDistance = distance
+                val var14 = entitiesInBoundingBox.iterator()
+
+                while (true) {
+                    do {
+                        do {
+                            if (!var14.hasNext()) {
+                                return foundEntity
+                            }
+                            val next = var14.next()
+                            if (next.canBeCollidedWith()) {
+                                val collisionBorderSize = next.collisionBorderSize
+                                val hitbox = next.entityBoundingBox.expand(collisionBorderSize.toDouble(), collisionBorderSize.toDouble(), collisionBorderSize.toDouble())
+                                val interceptPosition = hitbox.calculateIntercept(positionVector, reachVector)
+                                if (hitbox.isVecInside(positionVector)) {
+                                    if (0.0 < minDistance || minDistance == 0.0) {
+                                        lookedEntity = next
+                                        minDistance = 0.0
+                                    }
+                                } else if (interceptPosition != null) {
+                                    val distanceToEntity = positionVector.distanceTo(interceptPosition.hitVec)
+                                    if (distanceToEntity < minDistance || minDistance == 0.0) {
+                                        lookedEntity = next
+                                        minDistance = distanceToEntity
+                                    }
+                                }
+                            }
+                        } while (lookedEntity == null)
+                    } while (minDistance >= distance && pos != null)
+
+                    foundEntity = lookedEntity
+                }
+            }
+        }
     }
 }

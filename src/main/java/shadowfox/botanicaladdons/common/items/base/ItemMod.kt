@@ -1,11 +1,12 @@
 package shadowfox.botanicaladdons.common.items.base
 
-import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.common.core.CreativeTab
@@ -33,8 +34,8 @@ open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler
 
     override val variants: Array<out String>
 
-    override val customMeshDefinition: ItemMeshDefinition?
-        get() = null
+    @SideOnly(Side.CLIENT)
+    override fun getCustomMeshDefinition() = null
 
     private val bareName: String
 

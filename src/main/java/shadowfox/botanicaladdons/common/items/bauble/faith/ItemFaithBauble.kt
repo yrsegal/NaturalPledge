@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
@@ -18,9 +19,12 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.api.IFaithVariant
+import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
-import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.lib.LibMisc
@@ -29,43 +33,13 @@ import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.common.core.helper.ItemNBTHelper
-import java.util.*
 
 /**
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(name, *vars), IBaubleRender, ModelHandler.IColorProvider {
-    constructor(name: String) : this(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })) {
-    }
-
-    interface IFaithVariant {
-        val name: String
-
-        val hasSubscriptions: Boolean
-            get() = false
-
-        val color: IItemColor?
-            get() = null
-
-        fun getSpells(stack: ItemStack, player: EntityPlayer): HashMap<String, out ItemTerrestrialFocus.IFocusSpell>
-
-        fun onUpdate(stack: ItemStack, player: EntityPlayer) {
-        }
-
-        fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer) {
-            onUpdate(stack, player)
-        }
-
-        fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
-        }
-
-        fun addToTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        }
-
-        fun punishTheFaithless(stack: ItemStack, player: EntityPlayer)
-
-    }
+class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })),
+        IBaubleRender, ModelHandler.IColorProvider, IPriestlyEmblem {
 
     companion object {
 
@@ -86,18 +60,17 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
 
         init {
             for (variant in priestVariants)
-                if (variant.hasSubscriptions)
+                if (variant.hasSubscriptions())
                     MinecraftForge.EVENT_BUS.register(variant)
         }
 
         fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>? = null): ItemStack? {
-
             if (isFaithless(player)) return null
 
             var baubles = PlayerHandler.getPlayerBaubles(player)
             var stack = baubles.getStackInSlot(0)
-            if (stack != null && stack.item is ItemFaithBauble) {
-                val variantInstance = (stack.item as ItemFaithBauble).getVariant(stack)
+            if (stack != null && stack.item is IPriestlyEmblem) {
+                val variantInstance = (stack.item as IPriestlyEmblem).getVariant(stack)
                 if (variant == null || (variantInstance != null && variant.isInstance(variantInstance)))
                     return stack
             }
@@ -115,15 +88,10 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
         fun isFaithless(player: EntityPlayer): Boolean {
             return ModPotions.faithlessness.hasEffect(player)
         }
-
-        fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
-        fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
-
-        fun getVariantBase(stack: ItemStack) = if (priestVariants.size == 0) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
 
-    override val color: IItemColor?
-        get() = IItemColor { stack, tintindex ->
+    @SideOnly(Side.CLIENT)
+    override fun getColor() = IItemColor { stack, tintindex ->
             val variant = getVariant(stack)
             if (variant == null || variant.color == null)
                 0xFFFFFF
@@ -141,6 +109,9 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
             if (ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)) 1f else 0f
         }
     }
+
+    override fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
+    override fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
 
     override fun getRarity(stack: ItemStack) = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
 
@@ -189,8 +160,8 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
         if (isAwakened(stack)) setAwakened(stack, false)
     }
 
-    open fun getVariant(stack: ItemStack): IFaithVariant? {
-        return getVariantBase(stack)
+    override fun getVariant(stack: ItemStack): IFaithVariant? {
+        return if (priestVariants.size == 0) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
 
     override fun canUnequip(stack: ItemStack, player: EntityLivingBase) = !isAwakened(stack)
@@ -201,6 +172,12 @@ open class ItemFaithBauble(name: String, vararg vars: String) : ItemModBauble(na
             player.addStat(ModAchievements.donEmblem)
 
         setAwakened(stack, false)
+    }
+
+    override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
+        val stack = entityItem.entityItem ?: return false
+        if (isAwakened(stack)) setAwakened(stack, false)
+        return false
     }
 
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {

@@ -11,7 +11,7 @@ object LibMisc {
     const val BUILD = "GRADLE:BUILD"
     const val VERSIONID = "GRADLE:VERSION"
     const val VERSION = "$VERSIONID.$BUILD"
-    const val DEPENDENCIES = "required-after:Forge@[12.16.0.1841,);required-after:Botania;"
+    const val DEPENDENCIES = "required-after:Forge@[12.16.0.1865,);required-after:Botania;"
 
     const val PROXY_COMMON = "shadowfox.botanicaladdons.common.core.CommonProxy"
     const val PROXY_CLIENT = "shadowfox.botanicaladdons.client.core.ClientProxy"

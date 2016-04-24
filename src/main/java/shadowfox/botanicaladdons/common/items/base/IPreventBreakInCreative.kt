@@ -1,6 +1,5 @@
 package shadowfox.botanicaladdons.common.items.base
 
-import net.minecraft.item.ItemSword
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.world.BlockEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority

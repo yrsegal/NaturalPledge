@@ -1,23 +1,35 @@
 package shadowfox.botanicaladdons.common.items
 
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.GuiIngame
 import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.TextFormatting.GREEN
+import net.minecraft.util.text.TextFormatting.WHITE
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler
+import net.minecraftforge.fml.relauncher.ReflectionHelper
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.api.IFocusSpell
+import shadowfox.botanicaladdons.api.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
+import shadowfox.botanicaladdons.common.lib.LibObfuscation
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import java.awt.Color
-import java.util.*
 
 /**
  * @author WireSegal
@@ -25,76 +37,84 @@ import java.util.*
  */
 class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorProvider {
 
-    interface IFocusSpell {
-        val iconStack: ItemStack
-
-        fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int = 0
-
-        fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean
-    }
-
-    override val color: IItemColor?
-        get() = IItemColor { itemStack, i ->
+    @SideOnly(Side.CLIENT)
+    override fun getColor() = IItemColor { itemStack, i ->
             if (i == 1)
                 Color.HSBtoRGB(Botania.proxy.worldElapsedTicks * 2 % 360 / 360f, 0.25f, 1f)
             else 0xFFFFFF
         }
 
     companion object {
-        fun getSpells(player: EntityPlayer): HashMap<String, out IFocusSpell> {
-            val emblem = ItemFaithBauble.getEmblem(player) ?: return hashMapOf()
-            return (emblem.item as ItemFaithBauble).getVariant(emblem)?.getSpells(emblem, player) ?: return hashMapOf()
+        fun getSpells(player: EntityPlayer): MutableList<String> {
+            val emblem = ItemFaithBauble.getEmblem(player) ?: return mutableListOf()
+            return (emblem.item as IPriestlyEmblem).getVariant(emblem)?.getSpells(emblem, player) ?: return mutableListOf()
         }
 
         val TAG_SPELL = "spell"
+        val TAG_CAST = "cast"
 
-        fun getSpell(focus: ItemStack): String? {
+        fun getSpellName(focus: ItemStack): String? {
             return ItemNBTHelper.getString(focus, TAG_SPELL, null)
         }
 
-        fun setSpell(focus: ItemStack, spell: String?) {
+        fun getSpell(focus: ItemStack): IFocusSpell? {
+            val spellName = getSpellName(focus) ?: return null
+            return SpellRegistry.getSpell(spellName)
+        }
+
+        fun setSpellByName(focus: ItemStack, spell: String?) {
             if (spell == null)
                 ItemNBTHelper.removeEntry(focus, TAG_SPELL)
             else
                 ItemNBTHelper.setString(focus, TAG_SPELL, spell)
         }
-    }
 
-    init {
-        MinecraftForge.EVENT_BUS.register(this)
+        fun setSpell(focus: ItemStack, spell: IFocusSpell?) {
+            if (spell == null)
+                ItemNBTHelper.removeEntry(focus, TAG_SPELL)
+            else
+                ItemNBTHelper.setString(focus, TAG_SPELL, SpellRegistry.getSpellName(spell))
+        }
     }
 
     fun shiftSpellWithSneak(stack: ItemStack, player: EntityPlayer) {
         val spells = getSpells(player)
-        val spell = getSpell(stack)
+        val spellName = getSpellName(stack)
 
-        val spellNames = spells.keys.sorted()
-        val spellIndex = if (spell == null && spells.size != 0) -1 else if (spell !in spells) -2 else spellNames.indexOf(spell)
+        val spellIndex = if (spellName == null && spells.size != 0) -1 else if (spellName !in spells) -2 else spells.indexOf(spellName)
         if (spellIndex == -2) {
             setSpell(stack, null)
             player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.block_lever_click, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
         } else {
-            val name = spellNames[(spellIndex + 1) % spellNames.size]
-            setSpell(stack, name)
+            val name = spells[(spellIndex + 1) % spells.size]
+            setSpellByName(stack, name)
             player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
-            ItemsRemainingRenderHandler.set(spells[name]?.iconStack, -2)
+            ItemsRemainingRenderHandler.set(SpellRegistry.getSpell(name)?.iconStack, -2)
+            if (player.worldObj.isRemote) {
+                displayItemName(30)
+            }
+
         }
     }
 
+    @SideOnly(Side.CLIENT)
+    fun displayItemName(ticks: Int) {
+        val gui = Minecraft.getMinecraft().ingameGUI
+        ReflectionHelper.setPrivateValue(GuiIngame::class.java, gui, ticks, *LibObfuscation.REMAINING_HIGHLIGHT_TICKS)
+    }
+
     fun castSpell(stack: ItemStack, player: EntityPlayer, hand: EnumHand): Boolean {
-        val spells = getSpells(player)
-        val spellName = getSpell(stack)
+        val spell = getSpell(stack) ?: return false
 
-        if (spellName == null || spellName !in spells)
-            return false
-
-        val spell = spells[spellName] ?: return false
+        val ret = spell.onCast(player, stack, hand)
 
         val cooldown = spell.getCooldown(player, stack, hand)
-        if (cooldown > 0)
+        if (ret && cooldown > 0) {
             player.cooldownTracker.setCooldown(this, cooldown)
+            ItemNBTHelper.setBoolean(stack, TAG_CAST, true)
+        }
 
-        return spell.onCast(player, stack, hand)
+        return ret
     }
 
     override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer, worldIn: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
@@ -117,8 +137,27 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         return ActionResult(EnumActionResult.PASS, stack)
     }
 
+    override fun getItemStackDisplayName(stack: ItemStack): String? {
+        var name = super.getItemStackDisplayName(stack)
+        val spell = getSpell(stack)
+        if (spell != null) name += " $WHITE($GREEN${spell.iconStack.displayName}$WHITE)"
+        return name
+    }
+
+    override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
+        if (entityIn is EntityPlayer) {
+            if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false)) {
+                val spell = getSpell(stack) ?: return
+                spell.onCooldownTick(entityIn, stack, itemSlot, isSelected, entityIn.cooldownTracker.getCooldown(this, 0f))
+            } else {
+                ItemNBTHelper.removeEntry(stack, TAG_CAST)
+            }
+
+        }
+    }
+
     override fun onEntitySwing(entityLiving: EntityLivingBase?, stack: ItemStack?) = true
-    override fun shouldCauseReequipAnimation(oldStack: ItemStack?, newStack: ItemStack?, slotChanged: Boolean) = slotChanged
+    override fun shouldCauseReequipAnimation(oldStack: ItemStack, newStack: ItemStack, slotChanged: Boolean) = slotChanged || getSpell(oldStack.copy()) != getSpell(newStack.copy())
 
 
 }

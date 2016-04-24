@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.client.ForgeHooksClient
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
@@ -34,7 +36,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
 
     companion object {
 
-        val POTATO_LOCATION = ResourceLocation(if (ClientProxy.dootDoot) LibResources.MODEL_TINY_POTATO_HALLOWEEN else LibResources.MODEL_TINY_POTATO)
+        @SideOnly(Side.CLIENT)
+        var POTATO_LOCATION: ResourceLocation? = null
 
         val TAG_PLAYER = "player"
 
@@ -128,6 +131,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
         GlStateManager.pushMatrix()
         if (type == IBaubleRender.RenderType.HEAD && playerAs in headPlayers) {
             if (playerAs == vaz) {
+                if (POTATO_LOCATION == null)
+                    POTATO_LOCATION = ResourceLocation(if (ClientProxy.dootDoot) LibResources.MODEL_TINY_POTATO_HALLOWEEN else LibResources.MODEL_TINY_POTATO)
                 Minecraft.getMinecraft().renderEngine.bindTexture(POTATO_LOCATION)
                 val model = ModelTinyPotato()
                 GlStateManager.scale(0.0F, -2.0F, 0.0F)

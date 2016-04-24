@@ -11,7 +11,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemMod
  */
 class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants) {
     enum class Variants {
-        LEAP, INTERDICT;
+        LEAP, INTERDICT, PUSH_AWAY;
 
         override fun toString(): String {
             return this.name.toLowerCase().split("_").joinToString("", transform = {it.capitalizeFirst()})
