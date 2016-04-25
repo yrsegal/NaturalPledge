@@ -9,14 +9,12 @@ import vazkii.botania.api.item.IBaubleRender;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 /**
  * @author WireSegal
  *         Created at 12:00 PM on 4/24/16.
  */
-@ParametersAreNonnullByDefault
 public interface IFaithVariant {
     @Nonnull String getName();
 

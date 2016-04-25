@@ -12,8 +12,11 @@ item.botanicaladdons:emblemHeimdall.angry=You feel colors bleed out of the world
 item.botanicaladdons:dagger.name=Duelist's Dagger
 item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
 
+item.botanicaladdons:mortalStone.name=Mortalstone
+
 item.botanicaladdons:iconLeap.name=Rush of Wind
 item.botanicaladdons:iconInterdict.name=Galeforce
+item.botanicaladdons:iconPushAway.name=Sudden Gust
 
 item.botanicaladdons:spellFocus.name=Terrestrial Focus
 

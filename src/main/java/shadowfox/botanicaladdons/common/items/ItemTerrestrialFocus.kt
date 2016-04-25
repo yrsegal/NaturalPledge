@@ -26,6 +26,7 @@ import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.lib.LibObfuscation
+import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.ItemNBTHelper
@@ -35,7 +36,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 9:21 AM on 4/18/16.
  */
-class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorProvider {
+class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorProvider, IManaUsingItem {
 
     @SideOnly(Side.CLIENT)
     override fun getColor() = IItemColor { itemStack, i ->
@@ -43,6 +44,8 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
                 Color.HSBtoRGB(Botania.proxy.worldElapsedTicks * 2 % 360 / 360f, 0.25f, 1f)
             else 0xFFFFFF
         }
+
+    override fun usesMana(p0: ItemStack) = getSpell(p0) != null
 
     companion object {
         fun getSpells(player: EntityPlayer): MutableList<String> {

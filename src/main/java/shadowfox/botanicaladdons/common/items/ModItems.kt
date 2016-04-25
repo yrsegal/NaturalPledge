@@ -26,8 +26,11 @@ object ModItems {
     val spellIcon: ItemMod
     val spellFocus: ItemMod
 
+    val mortalStone: ItemMod
+
     val mjolnir: ItemMod
     val dagger: ItemMod
+
     val mjolnirMaterial: Item.ToolMaterial
     val daggerMaterial: Item.ToolMaterial
 
@@ -41,6 +44,8 @@ object ModItems {
         symbol = ItemSymbol(LibNames.HOLY_SYMBOL)
         spellIcon = ItemSpellIcon(LibNames.SPELL_ICON)
         spellFocus = ItemTerrestrialFocus(LibNames.SPELL_FOCUS)
+
+        mortalStone = ItemMortalstone(LibNames.MORTAL_STONE)
 
         mjolnir = ItemMjolnir(LibNames.MJOLNIR, mjolnirMaterial)
         dagger = ItemDagger(LibNames.DAGGER, daggerMaterial)

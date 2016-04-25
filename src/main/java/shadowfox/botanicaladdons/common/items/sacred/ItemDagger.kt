@@ -26,6 +26,7 @@ import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lib.LibMisc
 import vazkii.botania.api.BotaniaAPI
+import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
@@ -35,10 +36,10 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 2:18 PM on 4/22/16.
  */
-class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), IPreventBreakInCreative {
+class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), IPreventBreakInCreative, IManaUsingItem {
     companion object {
         val minBlockLength = 2
-        val maxBlockLength = 10
+        val maxBlockLength = 15
 
         object EventHandler {
             class DamageSourceOculus(entity: EntityLivingBase) : EntityDamageSource("${LibMisc.MOD_ID}.oculus", entity) {
@@ -117,6 +118,8 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
             if (entityIn != null && entityIn.isHandActive && entityIn.activeItemStack == stack && entityIn.itemInUseMaxCount > maxBlockLength) 1f else 0f
         }
     }
+
+    override fun usesMana(p0: ItemStack) = true
 
     override fun getItemUseAction(stack: ItemStack?) = EnumAction.BLOCK
 

@@ -21,6 +21,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.api.IDiscordantItem
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.client.core.ModelHandler
@@ -32,6 +33,7 @@ import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
+import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.common.core.helper.ItemNBTHelper
 
 /**
@@ -39,7 +41,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * Created at 1:50 PM on 4/13/16.
  */
 class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })),
-        IBaubleRender, ModelHandler.IColorProvider, IPriestlyEmblem {
+        IManaUsingItem, IBaubleRender, ModelHandler.IColorProvider, IPriestlyEmblem {
 
     companion object {
 
@@ -110,6 +112,8 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         }
     }
 
+    override fun usesMana(p0: ItemStack) = true
+
     override fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
     override fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
 
@@ -164,7 +168,14 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         return if (priestVariants.size == 0) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
 
-    override fun canUnequip(stack: ItemStack, player: EntityLivingBase) = !isAwakened(stack)
+    private fun checkDiscordant(stack: ItemStack): Boolean {
+        return stack.item is IDiscordantItem && (stack.item as IDiscordantItem).isDiscordant(stack)
+    }
+
+    override fun canUnequip(stack: ItemStack, player: EntityLivingBase): Boolean {
+        return checkDiscordant(player.heldItemOffhand) || checkDiscordant(player.heldItemMainhand) || !isAwakened(stack)
+    }
+
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
         super.onEquipped(stack, player)
 
@@ -182,6 +193,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
 
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
+        setAwakened(stack, false)
         val variant = getVariant(stack)
         if (variant != null && player is EntityPlayer) {
             player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))

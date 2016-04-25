@@ -62,7 +62,8 @@ object ModelHandler {
     val resourceLocations = HashMap<String, ModelResourceLocation>()
 
     fun preInit() {
-        for (holder in variantCache) {
+        FMLLog.info("BA | Starting model load")
+        for (holder in variantCache.sortedBy { (255-it.variants.size).toChar() + if (it is ItemBlock) "b" else "I" + (it as Item).registryName.resourcePath }) {
             registerModels(holder)
         }
     }
@@ -100,8 +101,6 @@ object ModelHandler {
 
     }
 
-    var printedFlag = false
-
     fun registerModels(item: Item, variants: Array<out String>, extra: Boolean) {
         if (item is ItemBlock && item.getBlock() is IBABlock) {
             val i = item.getBlock() as IBABlock
@@ -126,11 +125,18 @@ object ModelHandler {
             }
         }
 
-
-        FMLLog.info("${if (printedFlag) "   |" else "BA |"} Registering variants of ${item.registryName.resourcePath}")
-        printedFlag = true
         for (var11 in variants.indices) {
-            FMLLog.info("   |  Variant #${var11 + 1}: ${variants[var11]}")
+            if (var11 == 0) {
+                var print = "   | Registering "
+                if (variants[var11] != item.registryName.resourcePath || variants.size != 1)
+                    print += "variant" + if (variants.size == 1) "" else "s" + " of "
+                print += if (item is ItemBlock) "block" else "item"
+                print += " ${item.registryName.resourcePath}"
+                FMLLog.info(print)
+            }
+            if (variants[var11] != item.registryName.resourcePath || variants.size != 1)
+                FMLLog.info("   |  Variant #${var11 + 1}: ${variants[var11]}")
+
             val var13 = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variants[var11]).toString(), "inventory")
             if (!extra) {
                 ModelLoader.setCustomModelResourceLocation(item, var11, var13)

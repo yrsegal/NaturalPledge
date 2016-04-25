@@ -37,6 +37,8 @@ object Spells {
                     player.motionY = Math.max(Math.min(look.yCoord * 0.75 + player.motionY, 2.0), -2.0)
                     player.motionZ = Math.max(Math.min(look.zCoord * 0.75 + player.motionZ, 2.0), -2.0)
                     player.fallDistance = 0f
+                    if (player.worldObj.totalWorldTime % 5 == 0L)
+                        player.worldObj.playSound(player, player.posX + player.motionX, player.posY + player.motionY, player.posZ + player.motionZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
 
                     return true
                 }
@@ -126,6 +128,7 @@ object Spells {
                         focused.knockBack(player, 1.5f,
                                 MathHelper.sin(player.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
                                 -MathHelper.cos(player.rotationYaw * Math.PI.toFloat() / 180).toDouble())
+                        player.worldObj.playSound(player, focused.posX, focused.posY, focused.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                         return true
                     }
                 return false

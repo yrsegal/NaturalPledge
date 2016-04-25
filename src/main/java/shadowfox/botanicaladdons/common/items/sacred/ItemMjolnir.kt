@@ -17,6 +17,7 @@ import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.BotaniaAPI
+import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
@@ -26,7 +27,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:43 PM on 4/20/16.
  */
-class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name), IPreventBreakInCreative {
+class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name), IPreventBreakInCreative, IManaUsingItem {
     private val attackDamage: Float
 
     init {
@@ -36,6 +37,8 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
     }
 
     val MANA_PER_DAMAGE = 80
+
+    override fun usesMana(p0: ItemStack) = true
 
     override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float = if (canHarvestBlock(state)) 5f else 1f
 
