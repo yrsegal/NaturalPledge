@@ -1,7 +1,8 @@
 {
 "__comment": "Designed by Tristaric with BDcraft Cubik PRO 0.96 Beta - http://bdcraft.net",
 "textures": {
-    "texture": "block/pedestolLivingrock"
+    "texture": "botanicaladdons:block/pedestalLivingrock",
+    "particle": "botania:blocks/livingrock0"
 },
 "elements": [ 
 {
