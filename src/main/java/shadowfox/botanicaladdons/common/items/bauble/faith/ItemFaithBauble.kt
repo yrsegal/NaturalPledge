@@ -131,7 +131,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
                 if (isAwakened(stack)) variant.onAwakenedUpdate(stack, player)
                 else variant.onUpdate(stack, player)
             } else if (isAwakened(stack) && player.health > 1f)
-                player.attackEntityFrom(DamageSource.magic, 1f)
+                player.attackEntityFrom(DamageSource.magic, Math.min(3.5f, player.health - 1f))
         }
     }
 
@@ -198,7 +198,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         if (variant != null && player is EntityPlayer) {
             player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
             if (player.worldObj.isRemote)
-                player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setChatStyle(Style().setColor(TextFormatting.RED)))
+                player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)))
             variant.punishTheFaithless(stack, player)
         }
     }

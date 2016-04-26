@@ -30,6 +30,8 @@ object ModRecipes {
 
     val recipeTerrestrialFocus: IRecipe
 
+    val recipeMortalStone: IRecipe
+
     init {
 
         recipeSymbol = addOreDictRecipe(ItemStack(ModItems.symbol),
@@ -94,6 +96,14 @@ object ModRecipes {
                 'D', LibOreDict.MANA_DIAMOND,
                 'P', LibOreDict.MANA_PEARL,
                 'O', ItemStack(Blocks.obsidian))
+
+        recipeMortalStone = addOreDictRecipe(ItemStack(ModItems.mortalStone),
+                "PSP",
+                "SMS",
+                "PSP",
+                'P', LibOreDict.MANA_POWDER,
+                'S', "stone",
+                'M', LibOreDict.RUNE[8]) // Mana
     }
 
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {

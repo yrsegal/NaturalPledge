@@ -16,4 +16,5 @@ object LibNames {
     val ROOTED = "rooted"
     val OVERCHARGED = "overcharged"
     val FEATHERWEIGHT = "featherweight"
+    val IMMORTALITY = "immortality"
 }

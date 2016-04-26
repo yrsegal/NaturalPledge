@@ -66,11 +66,15 @@ botanicaladdons.potion.featherweight=Featherweight
 
 botanicaladdons.category.divinity=Divinity
 
-botanicaladdons.entry.holySymbol=Divine Faith
-botanicaladdons.tagline.holySymbol=Kneel before the gods
-botanicaladdons.page.holySymbol0=Traces of divine work are evident in this world. &4Mana&0, for one. The stuff of magic can't possibly be made by mortal hand. The question, then, is how to connect with these gods. However, it might be possible, even with mundane materials.
-botanicaladdons.page.holySymbol1=The &1Holy Symbol&0 is the needed artifact, with what seems to be a wild storm of unrealized potential. Although crafted of simple materials, it has a ready acceptance of other magic. Perhaps this can be our gate to the &3Divine&0.
-botanicaladdons.page.holySymbol2=A key to the zodiac
+botanicaladdons.entry.divinityIntro=Divine Faith
+botanicaladdons.tagline.divinityIntro=Kneel before the gods
+botanicaladdons.page.divinityIntro0=Traces of divine work are evident in this world. &4Mana&0, for one. The stuff of magic isn't possibly made by mortal hand. It is only a question of how to connect with these gods.
+botanicaladdons.page.divinityIntro1=The &1Holy Symbol&0 is the needed artifact for this connection, with what seems to be a wild storm of unrealized potential. Although crafted of simple materials, it has a ready acceptance of other magic. This is the gate to the &3Divine&0, and can be used to forge direct connections in the form of a &1Priestly Emblem&0.
+botanicaladdons.page.divinityIntro2=A key to the zodiac
+botanicaladdons.page.divinityIntro3=The connection the &1Priestly Emblems&0 give you are strong, but don't contain the full power you can harness. An interface to channel the power of a god on earth is required, to allow you to fully command the power you have gained. This interface is the &1Terrestrial Focus&0, a device which can cast &3Divine&0 spells.
+botanicaladdons.page.divinityIntro4=Taking a level in Wizard
+botanicaladdons.page.divinityIntro5=Even then, some may not wish to bind themselves to a god, but instead to fight them. By oversaturating the connection between a priest and their follower with &4Mana&0, you can fully cut it off. This can be accomplished by holding a &1Mortalstone&0, which forces &4Mana&0 into the soul of anyone around you.
+botanicaladdons.page.divinityIntro6=The Kaj's weapon
 
 botanicaladdons.entry.njord=Faith in Njord
 botanicaladdons.tagline.njord=Wind, sea, and sky

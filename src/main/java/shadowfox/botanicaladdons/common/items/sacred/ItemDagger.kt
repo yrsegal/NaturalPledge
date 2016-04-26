@@ -29,6 +29,7 @@ import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
+import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 
@@ -38,8 +39,10 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  */
 class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), IPreventBreakInCreative, IManaUsingItem {
     companion object {
-        val minBlockLength = 2
-        val maxBlockLength = 15
+        val minBlockLength = 5
+        val maxBlockLength = 20
+
+        val TAG_COOLDOWN = "cooldown"
 
         object EventHandler {
             class DamageSourceOculus(entity: EntityLivingBase) : EntityDamageSource("${LibMisc.MOD_ID}.oculus", entity) {
@@ -61,7 +64,7 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
             fun onLivingAttacked(e: LivingAttackEvent) {
                 val player = e.entityLiving
                 val damage = e.source
-                if (player is EntityPlayer && damage is EntityDamageSource && player.isHandActive && player.activeItemStack != null && player.activeItemStack.item is ItemDagger) {
+                if (player is EntityPlayer && (damage.entity == null || damage.entity != damage.sourceOfDamage) && player.isHandActive && player.activeItemStack != null && player.activeItemStack.item is ItemDagger) {
                     val enemyEntity = damage.entity
                     val item = player.activeItemStack
                     val count = player.itemInUseMaxCount
@@ -115,7 +118,7 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
         }
         this.addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "dun")) {
             stack, worldIn, entityIn ->
-            if (entityIn != null && entityIn.isHandActive && entityIn.activeItemStack == stack && entityIn.itemInUseMaxCount > maxBlockLength) 1f else 0f
+            if (entityIn != null && entityIn.isHandActive && entityIn.activeItemStack == stack && (entityIn.itemInUseMaxCount > maxBlockLength || entityIn.itemInUseMaxCount < minBlockLength)) 1f else 0f
         }
     }
 
@@ -129,6 +132,8 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, par4: Int, par5: Boolean) {
         if (!world.isRemote && player is EntityPlayer && stack.itemDamage > 0 && ManaItemHandler.requestManaExactForTool(stack, player, getManaPerDamage() * 2, true))
             stack.itemDamage = stack.itemDamage - 1
+        if (player is EntityLivingBase && !(player.isHandActive && player.activeItemStack == stack))
+            ItemNBTHelper.setByte(stack, TAG_COOLDOWN, Math.max(ItemNBTHelper.getByte(stack, TAG_COOLDOWN, 0.toByte()).toInt() - 1, 0).toByte())
     }
 
     override fun onBlockDestroyed(stack: ItemStack, worldIn: World, blockIn: IBlockState, pos: BlockPos, entityLiving: EntityLivingBase): Boolean {
@@ -138,7 +143,7 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
     }
 
     override fun getMaxItemUseDuration(stack: ItemStack?): Int {
-        return 72000
+        return maxBlockLength + 10
     }
 
     override fun hitEntity(stack: ItemStack?, target: EntityLivingBase?, attacker: EntityLivingBase?): Boolean {
@@ -147,7 +152,10 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
-        playerIn.activeHand = hand
+        if (ItemNBTHelper.getByte(itemStackIn, TAG_COOLDOWN, 0.toByte()) == 0.toByte()) {
+            playerIn.activeHand = hand
+            ItemNBTHelper.setByte(itemStackIn, TAG_COOLDOWN, maxBlockLength.toByte())
+        }
         return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand)
     }
 

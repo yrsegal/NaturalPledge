@@ -17,8 +17,10 @@ import shadowfox.botanicaladdons.common.lib.LibMisc
 open class PotionMod(name: String, badEffect: Boolean, color: Int, iconIndex: Int, val noClear: Boolean) : Potion(badEffect, color) {
     init {
         GameRegistry.register(this, ResourceLocation(LibMisc.MOD_ID, name))
-        setPotionName("${LibMisc.MOD_ID}.potion." + name);
-        setIconIndex(iconIndex % 8, iconIndex / 8);
+        setPotionName("${LibMisc.MOD_ID}.potion." + name)
+        setIconIndex(iconIndex % 8, iconIndex / 8)
+        if (!badEffect)
+            setShowOnFirstRow()
     }
 
     @SideOnly(Side.CLIENT)

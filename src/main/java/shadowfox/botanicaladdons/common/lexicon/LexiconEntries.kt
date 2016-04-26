@@ -26,16 +26,18 @@ import vazkii.botania.common.lexicon.page.PageText
 object LexiconEntries {
     val divinity: ModCategory
 
-    val holySymbol: LexiconEntry
+    val divineBasics: LexiconEntry
+
     val njord: LexiconEntry
     val idunn: LexiconEntry
     val thor: LexiconEntry
     val heimdall: LexiconEntry
 
-    val focus: LexiconEntry
-
     val awakening: LexiconEntry
     val consequences: LexiconEntry
+
+//    val duelistDagger: LexiconEntry
+//    val mjolnir: LexiconEntry
 
     init {
 
@@ -43,8 +45,11 @@ object LexiconEntries {
 
         divinity = ModCategory("divinity", 1)
 
-        holySymbol = ModEntry("holySymbol", divinity, ItemStack(ModItems.symbol)).setPriority()
-        holySymbol.setLexiconPages(PageText("0"), PageText("1"), PageCraftingRecipe("2", ModRecipes.recipeSymbol))
+        divineBasics = ModEntry("divinityIntro", divinity, ModItems.symbol).setPriority()
+        divineBasics.setLexiconPages(PageText("0"), PageText("1"), PageCraftingRecipe("2", ModRecipes.recipeSymbol),
+                PageText("3"), PageCraftingRecipe("4", ModRecipes.recipeMortalStone),
+                PageText("5"), PageCraftingRecipe("6", ModRecipes.recipeTerrestrialFocus))
+
         njord = ModEntry("njord", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java)).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         njord.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeNjordEmblem))
         idunn = ModEntry("idunn", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java))
@@ -53,9 +58,6 @@ object LexiconEntries {
         thor.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThorEmblem))
         heimdall = ModEntry("heimdall", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java)).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallEmblem))
-
-        focus = EntryPriestlyKnowledge("focus", divinity, ItemStack(ModItems.spellFocus)).setPriority()
-        focus.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeTerrestrialFocus))
 
         BlockAwakenerCore.multiblock = BlockAwakenerCore.makeMultiblockSet()
         awakening = EntryPriestlyKnowledge("awakening", divinity, ItemStack(ModBlocks.awakenerCore)).setKnowledgeType(topKnowledgeTier).setPriority()
