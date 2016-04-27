@@ -18,6 +18,16 @@ item.botanicaladdons:iconLeap.name=Rush of Wind
 item.botanicaladdons:iconInterdict.name=Galeforce
 item.botanicaladdons:iconPushAway.name=Sudden Gust
 
+item.botanicaladdons:iconLightning.name=Lightning Strike
+item.botanicaladdons:iconStrength.name=Thunder's Force
+item.botanicaladdons:iconPull.name=Chains of Iron
+
+item.botanicaladdons:iconIridescence.name=Iridescent Tones
+item.botanicaladdons:iconBifrostSphere.name=Wave of Bifrost
+
+item.botanicaladdons:iconIronroot.name=Shield of Roots
+item.botanicaladdons:iconLifemaker.name=Life Catalyst
+
 item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
 item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
@@ -63,6 +73,7 @@ botanicaladdons.potion.rooted=Rooted
 botanicaladdons.potion.drab=Drab Vision
 botanicaladdons.potion.overcharged=Overcharged
 botanicaladdons.potion.featherweight=Featherweight
+botanicaladdons.potion.immortality=Immortality
 
 botanicaladdons.category.divinity=Divinity
 
