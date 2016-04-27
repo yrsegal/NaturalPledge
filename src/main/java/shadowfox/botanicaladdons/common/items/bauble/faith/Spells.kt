@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
@@ -24,6 +25,46 @@ import vazkii.botania.common.entity.EntityDoppleganger
  * Created at 1:05 PM on 4/19/16.
  */
 object Spells {
+
+    // Copied from Psi's PieceOperatorVectorRaycast
+    fun raycast(e: Entity, len: Double): RayTraceResult? {
+        val vec = Vector3.fromEntity(e)
+        if (e is EntityPlayer) {
+            vec.add(0.0, e.getEyeHeight().toDouble(), 0.0)
+        }
+
+        val look = e.lookVec
+        if (look == null) {
+            return null
+        } else {
+            return raycast(e.worldObj, vec, Vector3(look), len)
+        }
+    }
+
+    fun raycast(world: World, origin: Vector3, ray: Vector3, len: Double): RayTraceResult? {
+        val end = origin.copy().add(ray.copy().normalize().multiply(len))
+        val pos = world.rayTraceBlocks(origin.toVec3D(), end.toVec3D())
+        return pos
+    }
+
+    class Infuse : IFocusSpell {
+        override fun getIconStack(): ItemStack {
+            return ItemSpellIcon.of(ItemSpellIcon.Variants.SUFFUSION)
+        }
+
+        override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            var range = 5.0
+            if (player is EntityPlayerMP)
+                range = player.interactionManager.blockReachDistance
+            val ray = raycast(player, range)
+            if (ray != null) {
+                //todo
+                return true
+            }
+            return false
+        }
+    }
+
     object Njord {
         class Leap : IFocusSpell {
             override fun getIconStack(): ItemStack {
@@ -138,27 +179,7 @@ object Spells {
                 return 20
             }
 
-
-            // Copied from Psi's PieceOperatorFocusedEntity and PieceOperatorVectorRaycast
-            fun raycast(e: Entity, len: Double): RayTraceResult? {
-                val vec = Vector3.fromEntity(e)
-                if (e is EntityPlayer) {
-                    vec.add(0.0, e.getEyeHeight().toDouble(), 0.0)
-                }
-
-                val look = e.lookVec
-                if (look == null) {
-                    return null
-                } else {
-                    return raycast(e.worldObj, vec, Vector3(look), len)
-                }
-            }
-
-            fun raycast(world: World, origin: Vector3, ray: Vector3, len: Double): RayTraceResult? {
-                val end = origin.copy().add(ray.copy().normalize().multiply(len))
-                val pos = world.rayTraceBlocks(origin.toVec3D(), end.toVec3D())
-                return pos
-            }
+            // Copied from Psi's PieceOperatorFocusedEntity
 
             fun getEntityLookedAt(e: Entity): Entity? {
                 var foundEntity: Entity? = null

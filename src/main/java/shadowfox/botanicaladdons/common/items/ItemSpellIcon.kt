@@ -20,7 +20,8 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
         LEAP, INTERDICT, PUSH_AWAY,
         LIGHTNING, STRENGTH, PULL,
         IRIDESCENCE(true), BIFROST_SPHERE(true),
-        IRONROOT, LIFEMAKER;
+        IRONROOT, LIFEMAKER,
+        SUFFUSION;
 
         constructor() : this(false)
 
