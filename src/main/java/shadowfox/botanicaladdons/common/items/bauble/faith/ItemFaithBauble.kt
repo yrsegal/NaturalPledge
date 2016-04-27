@@ -168,8 +168,8 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         return if (priestVariants.size == 0) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
 
-    private fun checkDiscordant(stack: ItemStack): Boolean {
-        return stack.item is IDiscordantItem && (stack.item as IDiscordantItem).isDiscordant(stack)
+    private fun checkDiscordant(stack: ItemStack?): Boolean {
+        return stack != null && stack.item is IDiscordantItem && (stack.item as IDiscordantItem).isDiscordant(stack)
     }
 
     override fun canUnequip(stack: ItemStack, player: EntityLivingBase): Boolean {

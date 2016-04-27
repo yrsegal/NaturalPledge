@@ -10,6 +10,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.sacred.ItemDagger
+import shadowfox.botanicaladdons.common.items.sacred.ItemImmortalApple
 import shadowfox.botanicaladdons.common.items.sacred.ItemMjolnir
 import shadowfox.botanicaladdons.common.lib.LibMisc
 import shadowfox.botanicaladdons.common.lib.LibNames
@@ -30,6 +31,7 @@ object ModItems {
 
     val mjolnir: ItemMod
     val dagger: ItemMod
+    val apple: Item
 
     val mjolnirMaterial: Item.ToolMaterial
     val daggerMaterial: Item.ToolMaterial
@@ -49,6 +51,7 @@ object ModItems {
 
         mjolnir = ItemMjolnir(LibNames.MJOLNIR, mjolnirMaterial)
         dagger = ItemDagger(LibNames.DAGGER, daggerMaterial)
+        apple = ItemImmortalApple(LibNames.APPLE)
 
         if (BotanicalAddons.isDevEnv)
             gaiaKiller = ItemGaiaSlayer("gaiaKiller")

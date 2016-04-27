@@ -98,7 +98,7 @@ object Spells {
             val VELOCITY = 0.4
 
             val SELECTOR: (Entity) -> Boolean = {
-                (it is EntityLivingBase && it !is EntityDoppleganger) || (it is IProjectile && it !is IManaBurst)
+                (it is EntityLivingBase && !it.isNonBoss) || (it is IProjectile && it !is IManaBurst)
             }
 
             fun pushEntities(x: Double, y: Double, z: Double, range: Double, velocity: Double, entities: List<Entity>): Boolean {
