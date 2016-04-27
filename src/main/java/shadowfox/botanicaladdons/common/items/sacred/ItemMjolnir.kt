@@ -31,9 +31,9 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
     private val attackDamage: Float
 
     init {
-        this.maxStackSize = 1
-        this.maxDamage = material.maxUses
-        this.attackDamage = 3.0f + material.damageVsEntity
+        setMaxStackSize(1)
+        maxDamage = material.maxUses
+        attackDamage = 3.0f + material.damageVsEntity
     }
 
     val MANA_PER_DAMAGE = 80

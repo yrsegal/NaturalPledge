@@ -8,6 +8,7 @@ object LibNames {
     val MJOLNIR = "mjolnir"
     val DAGGER = "dagger"
     val APPLE = "appleImmortality"
+    val FATE_HORN = "fateHorn"
     val MORTAL_STONE = "mortalStone"
 
 

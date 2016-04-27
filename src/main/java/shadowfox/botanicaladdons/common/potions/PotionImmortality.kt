@@ -26,9 +26,10 @@ class PotionImmortality(iconIndex: Int) : PotionMod(LibNames.IMMORTALITY, false,
         val creature = e.entityLiving
         val source = e.source
         if (hasEffect(creature) && !source.canHarmInCreative() && source !is DamageEffectWrapper) {
-            if (source.entity == null && e.amount > 0.5f) {
+            if (source.entity == null && (e.amount > 1f || creature.health <= 1f)) {
                 e.isCanceled = true
-                creature.attackEntityFrom(DamageEffectWrapper(e.source), 0.5f)
+                if (creature.health > 1f)
+                    creature.attackEntityFrom(DamageEffectWrapper(e.source), 1f)
             } else if (e.amount > 4f) {
                 e.isCanceled = true
                 creature.attackEntityFrom(DamageEffectWrapper(e.source), 4f)
