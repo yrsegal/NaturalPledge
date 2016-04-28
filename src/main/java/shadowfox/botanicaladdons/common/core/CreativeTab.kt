@@ -48,7 +48,8 @@ class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
         private val items = ArrayList<Item>()
 
         fun set(block: Block) {
-            items.add(Item.getItemFromBlock(block))
+            if (Item.getItemFromBlock(block) != null)
+                items.add(Item.getItemFromBlock(block))
             block.setCreativeTab(INSTANCE)
         }
 

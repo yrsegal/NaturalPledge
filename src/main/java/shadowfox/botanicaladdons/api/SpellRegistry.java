@@ -1,10 +1,13 @@
 package shadowfox.botanicaladdons.api;
 
 import com.google.common.collect.HashBiMap;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @author WireSegal
@@ -22,9 +25,10 @@ public final class SpellRegistry {
     }
 
     public static @Nullable IFocusSpell registerSpell(@Nonnull String name, @Nonnull IFocusSpell spell, boolean force) {
-        if (spellRegistry.containsKey(name) && !force)
+        String modId = Loader.instance().activeModContainer().getModId();
+        if (spellRegistry.containsKey(modId + ":" + name) && !force)
             return null;
-        spellRegistry.put(name, spell);
+        spellRegistry.put(modId + ":" + name, spell);
         return spell;
     }
 

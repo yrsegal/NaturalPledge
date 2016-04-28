@@ -35,9 +35,13 @@ open class BlockMod(name: String, materialIn: Material, vararg variants: String)
         super.setUnlocalizedName(name)
         setRegistryName(name)
         GameRegistry.register(this)
-        GameRegistry.register(ItemModBlock(this), ResourceLocation(LibMisc.MOD_ID, name))
+        if (hasItem)
+            GameRegistry.register(ItemModBlock(this), ResourceLocation(LibMisc.MOD_ID, name))
         return this
     }
+
+    open val hasItem: Boolean
+        get() = true
 
     @SideOnly(Side.CLIENT)
     override fun getCustomMeshDefinition() = null

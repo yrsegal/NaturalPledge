@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.SpellRegistry
+import shadowfox.botanicaladdons.common.lib.LibMisc
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
@@ -34,7 +35,7 @@ class PriestlyEmblemNjord : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf("leap", "interdict", "push")
+        return mutableListOf("${LibMisc.MOD_ID}:leap", "${LibMisc.MOD_ID}:interdict", "${LibMisc.MOD_ID}:push")
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {

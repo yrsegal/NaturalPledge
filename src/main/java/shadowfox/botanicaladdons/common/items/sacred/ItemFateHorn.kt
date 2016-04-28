@@ -1,14 +1,10 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.IProjectile
-import net.minecraft.entity.monster.IMob
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.EnumAction
-import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
@@ -18,11 +14,9 @@ import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
-import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
-import vazkii.botania.common.core.helper.Vector3
 
 /**
  * @author WireSegal
