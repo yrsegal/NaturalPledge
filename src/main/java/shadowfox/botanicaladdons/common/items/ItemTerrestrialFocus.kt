@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
@@ -23,9 +24,9 @@ import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
+import shadowfox.botanicaladdons.common.core.helper.CooldownHelper
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
-import shadowfox.botanicaladdons.common.lib.LibObfuscation
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
 import vazkii.botania.common.Botania
@@ -55,6 +56,9 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
 
         val TAG_SPELL = "spell"
         val TAG_CAST = "cast"
+        val TAG_COOLDOWN_EXPIRE = "cooldownExpire"
+        val TAG_USED_TIME = "time"
+
 
         fun getSpellName(focus: ItemStack): String? {
             return ItemNBTHelper.getString(focus, TAG_SPELL, null)
@@ -103,7 +107,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
     @SideOnly(Side.CLIENT)
     fun displayItemName(ticks: Int) {
         val gui = Minecraft.getMinecraft().ingameGUI
-        ReflectionHelper.setPrivateValue(GuiIngame::class.java, gui, ticks, *LibObfuscation.REMAINING_HIGHLIGHT_TICKS)
+        gui.remainingHighlightTicks = ticks
     }
 
     fun castSpell(stack: ItemStack, player: EntityPlayer, hand: EnumHand): Boolean {
@@ -115,6 +119,11 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         if (ret && cooldown > 0) {
             player.cooldownTracker.setCooldown(this, cooldown)
             ItemNBTHelper.setBoolean(stack, TAG_CAST, true)
+
+            val ticks = player.cooldownTracker.ticks
+
+            ItemNBTHelper.setInt(stack, TAG_COOLDOWN_EXPIRE, cooldown + ticks)
+            ItemNBTHelper.setInt(stack, TAG_USED_TIME, ticks)
         }
 
         return ret
@@ -149,13 +158,19 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
         if (entityIn is EntityPlayer) {
+
+            val usedTime = ItemNBTHelper.getInt(stack, TAG_USED_TIME, entityIn.cooldownTracker.ticks)
+            val expireTime = ItemNBTHelper.getInt(stack, TAG_COOLDOWN_EXPIRE, entityIn.cooldownTracker.ticks)
+            val cooldown = CooldownHelper.getCooldown(entityIn.cooldownTracker, this)
+            if (cooldown == null || expireTime - entityIn.cooldownTracker.ticks > cooldown.expireTicks - entityIn.cooldownTracker.ticks)
+                CooldownHelper.setCooldown(entityIn.cooldownTracker, this, usedTime, expireTime)
+
             if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false)) {
                 val spell = getSpell(stack) ?: return
                 spell.onCooldownTick(entityIn, stack, itemSlot, isSelected, entityIn.cooldownTracker.getCooldown(this, 0f))
             } else {
                 ItemNBTHelper.removeEntry(stack, TAG_CAST)
             }
-
         }
     }
 

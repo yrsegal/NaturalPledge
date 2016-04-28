@@ -64,6 +64,10 @@ dependencies {
 
 jar {
 
+    manifest {
+        attributes 'FMLAT': 'ba_at.cfg'
+    }
+
     // We need to make sure we package kotlin runtimes.
 
     archiveName "${archivesBaseName}-r${version}.jar"
