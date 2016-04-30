@@ -10,6 +10,8 @@ object LibNames {
     val APPLE = "appleImmortality"
     val FATE_HORN = "fateHorn"
     val MORTAL_STONE = "mortalStone"
+    val IRIDESCENT_DYE = "irisDye"
+    val INFINITE_DYE = "dyeShard"
 
 
     val AWAKENER = "divineCore"

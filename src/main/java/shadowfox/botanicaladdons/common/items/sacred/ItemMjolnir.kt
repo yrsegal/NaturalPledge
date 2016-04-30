@@ -20,6 +20,7 @@ import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
+import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 
@@ -36,6 +37,9 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         attackDamage = 3.0f + material.damageVsEntity
     }
 
+    val TAG_ATTACKED = "attacked"
+    val TAG_LAUNCHED = "launchedTicks"
+
     val MANA_PER_DAMAGE = 80
 
     override fun usesMana(p0: ItemStack) = true
@@ -46,6 +50,7 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
         if (target.isActiveItemStackBlocking && target.activeItemStack != null)
             target.activeItemStack.damageItem(500, target)
+        ItemNBTHelper.setBoolean(stack, TAG_ATTACKED, true)
         return true
     }
 
@@ -90,14 +95,23 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         if (!world.isRemote && player is EntityPlayer && stack.itemDamage > 0 && ManaItemHandler.requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true)) {
             stack.itemDamage = stack.itemDamage - 1
         }
+        val launchedTicks = ItemNBTHelper.getInt(stack, TAG_LAUNCHED, 0)
+        if (launchedTicks > 0 && player is EntityLivingBase)
+            player.ticksSinceLastSwing = launchedTicks
+        ItemNBTHelper.removeEntry(stack, TAG_LAUNCHED)
+
+        ItemNBTHelper.removeEntry(stack, TAG_ATTACKED)
     }
 
     override fun onEntitySwing(entityLiving: EntityLivingBase, stack: ItemStack): Boolean {
         if (entityLiving is EntityPlayer) {
             if (entityLiving.cooldownTracker.hasCooldown(this)) return false
-
             entityLiving.cooldownTracker.setCooldown(this, 40)
         }
+
+        if (ItemNBTHelper.getBoolean(stack, TAG_ATTACKED, false)) return false
+
+        ItemNBTHelper.setInt(stack, TAG_LAUNCHED, entityLiving.ticksSinceLastSwing)
 
         ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE)
 

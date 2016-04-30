@@ -72,7 +72,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem {
         particleRing(player.worldObj, player.posX, player.posY, player.posZ, RANGE, r, g, b)
 
         if (!player.worldObj.isRemote)
-            player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.block_note_basedrum, SoundCategory.BLOCKS, 1f, 0.001f)
+            player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.block_note_bass, SoundCategory.BLOCKS, 1f, 0.001f)
 
     }
 }

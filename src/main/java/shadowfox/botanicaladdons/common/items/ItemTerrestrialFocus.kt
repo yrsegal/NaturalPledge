@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.*
@@ -104,6 +105,10 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         }
     }
 
+    override fun getRarity(stack: ItemStack): EnumRarity {
+        return if (ItemNBTHelper.getBoolean(stack, TAG_CAST, false)) EnumRarity.UNCOMMON else super.getRarity(stack)
+    }
+
     @SideOnly(Side.CLIENT)
     fun displayItemName(ticks: Int) {
         val gui = Minecraft.getMinecraft().ingameGUI
@@ -112,6 +117,9 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
 
     fun castSpell(stack: ItemStack, player: EntityPlayer, hand: EnumHand): Boolean {
         val spell = getSpell(stack) ?: return false
+
+        val spells = getSpells(player)
+        if (SpellRegistry.getSpellName(spell) !in spells) return false
 
         val ret = spell.onCast(player, stack, hand)
 
@@ -167,7 +175,8 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
 
             if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false)) {
                 val spell = getSpell(stack) ?: return
-                spell.onCooldownTick(entityIn, stack, itemSlot, isSelected, entityIn.cooldownTracker.getCooldown(this, 0f))
+                spell.onCooldownTick(entityIn, stack, itemSlot, isSelected,
+                        (CooldownHelper.getCooldown(entityIn.cooldownTracker, this)?.expireTicks ?: entityIn.cooldownTracker.ticks) - entityIn.cooldownTracker.ticks)
             } else {
                 ItemNBTHelper.removeEntry(stack, TAG_CAST)
             }

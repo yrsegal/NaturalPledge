@@ -57,25 +57,37 @@ object ModelHandler {
         fun getBlockColor(): IBlockColor?
     }
 
+    interface ICustomLogHolder : IVariantHolder {
+        fun customLog(): String
+
+        fun customLogVariant(variantId: Int, variant: String): String
+
+        fun shouldLogForVariant(variantId: Int, variant: String): Boolean
+
+        val sortingVariantCount: Int
+    }
+
     val variantCache = ArrayList<IVariantHolder>()
 
     val resourceLocations = HashMap<String, ModelResourceLocation>()
 
     fun preInit() {
         FMLLog.info("BA | Starting model load")
-        for (holder in variantCache.sortedBy { (255-it.variants.size).toChar() + if (it is ItemBlock) "b" else "I" + (it as Item).registryName.resourcePath }) {
+        for (holder in variantCache.sortedBy { (255-getVariantCount(it)).toChar() + if (it is ItemBlock) "b" else "I" + (it as Item).registryName.resourcePath }) {
             registerModels(holder)
         }
     }
+
+    fun getVariantCount(holder: IVariantHolder) = if (holder is ICustomLogHolder) holder.sortingVariantCount else holder.variants.size
 
     fun init() {
         val itemColors = Minecraft.getMinecraft().itemColors
         val blockColors = Minecraft.getMinecraft().blockColors
         for (holder in variantCache) {
-            if (holder is IColorProvider) {
+            if (holder is IColorProvider && holder is Item) {
                 val color = holder.getColor()
                 if (color != null)
-                    itemColors.registerItemColorHandler(color, holder as Item)
+                    itemColors.registerItemColorHandler(color, holder)
             }
             if (holder is ItemBlock && holder.getBlock() is IBlockColorProvider) {
                 val color = (holder.getBlock() as IBlockColorProvider).getBlockColor()
@@ -133,9 +145,16 @@ object ModelHandler {
                 print += if (item is ItemBlock) "block" else "item"
                 print += " ${item.registryName.resourcePath}"
                 FMLLog.info(print)
+                if (item is ICustomLogHolder)
+                    FMLLog.info(item.customLog())
             }
-            if (variants[var11] != item.registryName.resourcePath || variants.size != 1)
-                FMLLog.info("   |  Variant #${var11 + 1}: ${variants[var11]}")
+            if ((variants[var11] != item.registryName.resourcePath || variants.size != 1)) {
+                if (item is ICustomLogHolder) {
+                    if (item.shouldLogForVariant(var11 + 1, variants[var11]))
+                        FMLLog.info(item.customLogVariant(var11 + 1, variants[var11]))
+                } else
+                    FMLLog.info("   |  Variant #${var11 + 1}: ${variants[var11]}")
+            }
 
             val var13 = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variants[var11]).toString(), "inventory")
             if (!extra) {

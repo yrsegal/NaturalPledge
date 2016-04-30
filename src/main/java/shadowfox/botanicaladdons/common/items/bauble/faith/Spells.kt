@@ -1,17 +1,23 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
+import net.minecraft.block.properties.IProperty
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
 import net.minecraft.entity.effect.EntityLightningBolt
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.init.Items
 import net.minecraft.init.MobEffects
+import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagInt
+import net.minecraft.nbt.NBTTagList
 import net.minecraft.potion.PotionEffect
-import net.minecraft.util.DamageSource
-import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
+import net.minecraft.util.*
+import net.minecraft.util.math.AxisAlignedBB
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
@@ -22,12 +28,22 @@ import shadowfox.botanicaladdons.api.IFocusSpell
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
+import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.potions.ModPotions
+import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
+import vazkii.botania.common.block.ModBlocks
+import vazkii.botania.common.block.tile.TileBifrost
+import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.entity.EntityDoppleganger
+import java.awt.Color
 
 /**
  * @author WireSegal
@@ -111,10 +127,8 @@ object Spells {
         }
     }
 
-    class Infuse : IFocusSpell {
-        override fun getIconStack(): ItemStack {
-            return ItemSpellIcon.of(ItemSpellIcon.Variants.SUFFUSION)
-        }
+    open class Infuse : IFocusSpell {
+        override fun getIconStack() = of(SUFFUSION)
 
         override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
             var range = 5.0
@@ -127,13 +141,14 @@ object Spells {
             }
             return false
         }
+
+        open val prop: IProperty<Boolean>?
+            get() = null // todo
     }
 
     object Njord {
         class Leap : IFocusSpell {
-            override fun getIconStack(): ItemStack {
-                return ItemSpellIcon.of(ItemSpellIcon.Variants.LEAP)
-            }
+            override fun getIconStack() = of(LEAP)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
                 if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
@@ -154,9 +169,7 @@ object Spells {
         //////////
 
         class Interdict : IFocusSpell {
-            override fun getIconStack(): ItemStack {
-                return ItemSpellIcon.of(ItemSpellIcon.Variants.INTERDICT)
-            }
+            override fun getIconStack() = of(INTERDICT)
 
             val RANGE = 6.0
             val VELOCITY = 0.4
@@ -221,9 +234,7 @@ object Spells {
 
         class PushAway : IFocusSpell {
 
-            override fun getIconStack(): ItemStack {
-                return ItemSpellIcon.of(ItemSpellIcon.Variants.PUSH_AWAY)
-            }
+            override fun getIconStack() = of(PUSH_AWAY)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
                 val focused = Helper.getEntityLookedAt(player)
@@ -247,9 +258,7 @@ object Spells {
 
     object Thor {
         class Lightning : IFocusSpell {
-            override fun getIconStack(): ItemStack {
-                return ItemSpellIcon.of(ItemSpellIcon.Variants.LIGHTNING)
-            }
+            override fun getIconStack() = of(LIGHTNING)
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
                 return 15
@@ -289,9 +298,7 @@ object Spells {
         //////////
 
         class Strength : IFocusSpell {
-            override fun getIconStack(): ItemStack {
-                return ItemSpellIcon.of(ItemSpellIcon.Variants.STRENGTH)
-            }
+            override fun getIconStack() = of(STRENGTH)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
                 return ManaItemHandler.requestManaExact(focus, player, 100, true)
@@ -301,7 +308,7 @@ object Spells {
                 return 600
             }
 
-            override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Float) {
+            override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
                 player.addPotionEffect(PotionEffect(MobEffects.damageBoost, 5, 0, true, true))
             }
         }
@@ -309,9 +316,7 @@ object Spells {
         //////////
 
         class Pull : IFocusSpell {
-            override fun getIconStack(): ItemStack {
-                return ItemSpellIcon.of(ItemSpellIcon.Variants.PULL)
-            }
+            override fun getIconStack() = of(PULL)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
                 val focused = Helper.getEntityLookedAt(player, 16.0)
@@ -331,6 +336,173 @@ object Spells {
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
                 return 100
             }
+        }
+    }
+
+    object Heimdall {
+        class Iridescence : IFocusSpell {
+            override fun getIconStack() = of(IRIDESCENCE)
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+                var flag = false
+                if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return false
+                player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
+                for (i in 0..15) {
+                    flag = craft(player, ItemStack(Items.dye, 1, 15-i), ItemStack(ModItems.iridescentDye, 1, i), EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
+                }
+                if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
+                return true
+            }
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 40
+            }
+
+            // Copied from Psi's ItemCAD, with minor modifications
+            fun craft(player: EntityPlayer, `in`: ItemStack, out: ItemStack, colorVal: Int): Boolean {
+                val items = player.worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(player.posX - 8, player.posY - 8, player.posZ - 8, player.posX + 8, player.posY + 8, player.posZ + 8))
+
+                val color = Color(colorVal)
+                val r = color.red / 255f
+                val g = color.green / 255f
+                val b = color.blue / 255f
+
+
+                var did = false
+                for (item in items) {
+                    val stack = item.entityItem
+                    if (stack != null && ItemStack.areItemsEqual(stack, `in`) && stack.itemDamage == `in`.itemDamage) {
+                        val outCopy = out.copy()
+                        outCopy.stackSize = stack.stackSize
+                        item.setEntityItemStack(outCopy)
+                        did = true
+
+                        for (i in 0..4) {
+                            val x = item.posX + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
+                            val y = item.posY - item.yOffset + 0.5
+                            val z = item.posZ + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
+                            Botania.proxy.sparkleFX(item.worldObj, x, y, z, r, g, b, 3.5f, 15)
+
+                            val m = 0.01
+                            val d3 = 10.0
+                            for (j in 0..2) {
+                                val d0 = item.worldObj.rand.nextGaussian() * m
+                                val d1 = item.worldObj.rand.nextGaussian() * m
+                                val d2 = item.worldObj.rand.nextGaussian() * m
+
+                                item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d2 * d3, d0, d1, d2)
+                            }
+                        }
+                    }
+                }
+
+                return did
+            }
+        }
+
+        //////////
+
+        class BifrostWave : IFocusSpell {
+            override fun getIconStack() = of(BIFROST_SPHERE)
+
+            val TAG_SOURCE = "source"
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+                if (ManaItemHandler.requestManaExact(focus, player, 100, true)) {
+                    val pos = NBTTagList()
+                    pos.appendTag(NBTTagInt(player.position.x))
+                    pos.appendTag(NBTTagInt(player.position.y))
+                    pos.appendTag(NBTTagInt(player.position.z))
+                    ItemNBTHelper.setList(focus, TAG_SOURCE, pos)
+
+                    player.fallDistance = 0f
+                    player.motionX = 0.0
+                    player.motionY = 0.0
+                    player.motionZ = 0.0
+                    return true
+                }
+                return false
+            }
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 200
+            }
+
+            override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
+                val timeElapsed = 200 - cooldownRemaining
+                val stage = timeElapsed / 5
+
+                if (player.worldObj.isRemote) return
+
+                if (stage * 5 != timeElapsed) return
+
+                val positionTag = ItemNBTHelper.getList(focus, TAG_SOURCE, 3, true)
+
+                if (stage >= 5 || positionTag == null) {
+                    if (positionTag != null)
+                        ItemNBTHelper.removeEntry(focus, TAG_SOURCE)
+                    return
+                }
+
+                val pos = BlockPos(positionTag.getIntAt(0).toDouble(), positionTag.getIntAt(1) + stage - 1.5, positionTag.getIntAt(2).toDouble())
+
+                if (stage == 0 || stage == 4) {
+                    for (xShift in -1..1)
+                        for (zShift in -1..1) {
+                            makeBifrost(player.worldObj, pos.add(xShift, 0, zShift), cooldownRemaining)
+                        }
+                } else {
+                    for (rot in EnumFacing.HORIZONTALS)
+                        for (perpShift in -1..1) {
+                            makeBifrost(player.worldObj, pos.offset(rot, 2).offset(rot.rotateY(), perpShift), cooldownRemaining)
+                        }
+                }
+
+            }
+
+            fun makeBifrost(world: World, pos: BlockPos, time: Int) {
+                val state = world.getBlockState(pos)
+                val block = state.block
+                if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block.getMaterial(state).isLiquid) {
+                    world.setBlockState(pos, ModBlocks.bifrost.defaultState)
+                    val tileBifrost = world.getTileEntity(pos) as TileBifrost
+                    tileBifrost.ticks = time
+                } else if (block == ModBlocks.bifrost) {
+                    val tileBifrost = world.getTileEntity(pos) as TileBifrost
+                    if (tileBifrost.ticks < 2) {
+                        tileBifrost.ticks = time
+                    }
+                }
+            }
+        }
+    }
+
+    object Idunn {
+        class Ironroot : IFocusSpell {
+            override fun getIconStack() = of(IRONROOT)
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+                return ManaItemHandler.requestManaExact(focus, player, 100, true)
+            }
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 600
+            }
+
+            override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
+                player.addPotionEffect(ModPotionEffect(MobEffects.resistance, 5, 4, true, true))
+                player.addPotionEffect(ModPotionEffect(MobEffects.weakness, 5, 4, true, true))
+                player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 5, 0, true, true))
+            }
+        }
+
+        //////////
+
+        class LifeCatalyst : Infuse() {
+            override fun getIconStack() = of(LIFEMAKER)
+
+            override val prop: IProperty<Boolean>?
+                get() = null //todo
         }
     }
 }

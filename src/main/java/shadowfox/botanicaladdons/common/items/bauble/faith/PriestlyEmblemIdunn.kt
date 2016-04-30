@@ -12,6 +12,8 @@ import net.minecraft.world.World
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.IFaithVariant
+import shadowfox.botanicaladdons.api.SpellRegistry
+import shadowfox.botanicaladdons.common.lib.LibMisc
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
@@ -24,12 +26,18 @@ import java.util.*
  * Created at 7:24 AM on 4/14/16.
  */
 class PriestlyEmblemIdunn : IFaithVariant {
+
+    init {
+        SpellRegistry.registerSpell("ironroot", Spells.Idunn.Ironroot())
+        SpellRegistry.registerSpell("lifeCatalyst", Spells.Idunn.LifeCatalyst())
+    }
+
     override fun getName(): String = "idunn"
 
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf()
+        return mutableListOf("${LibMisc.MOD_ID}:ironroot", "${LibMisc.MOD_ID}:lifeCatalyst")
     }
 
     val RANGE = 5
