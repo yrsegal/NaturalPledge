@@ -174,6 +174,25 @@ object ModelHandler {
             for (e in enumclazz.enumConstants) {
                 if (e is IStringSerializable && e is Enum<*>) {
                     val variantName = variantHeader + "=" + e.name
+
+                    if (e.ordinal == 0) {
+                        var print = "   | Registering "
+                        if (variantName != item.registryName.resourcePath || enumclazz.enumConstants.size != 1)
+                            print += "variant" + (if (enumclazz.enumConstants.size == 1) "" else "s") + " of "
+                        print += if (item is ItemBlock) "block" else "item"
+                        print += " " + item.registryName.resourcePath
+                        FMLLog.info(print)
+                        if (item is ICustomLogHolder)
+                            FMLLog.info(item.customLog())
+                    }
+                    if (e.name != item.registryName.resourcePath || enumclazz.enumConstants.size != 1) {
+                        if (item is ICustomLogHolder) {
+                            if (item.shouldLogForVariant(e.ordinal, variantName))
+                                FMLLog.info(item.customLogVariant(e.ordinal + 1, variantName))
+                        } else
+                            FMLLog.info("   |  Variant #${e.ordinal + 1}: $variantName")
+                    }
+
                     val loc = ModelResourceLocation(locName, variantName)
                     val i = e.ordinal
                     ModelLoader.setCustomModelResourceLocation(item, i, loc)
