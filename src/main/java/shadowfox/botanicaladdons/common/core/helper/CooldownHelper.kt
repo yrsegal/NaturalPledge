@@ -21,7 +21,7 @@ object CooldownHelper {
         cooldown.expireTicks = expireTime
     }
 
-    fun getCooldown(cooldownTracker: CooldownTracker, item: Item) : CooldownTracker.Cooldown? {
+    fun getCooldown(cooldownTracker: CooldownTracker, item: Item): CooldownTracker.Cooldown? {
         return cooldownTracker.cooldowns[item]
     }
 }

@@ -11,7 +11,8 @@ import javax.annotation.Nonnull;
  *         Created at 11:33 AM on 4/24/16.
  */
 public interface IFocusSpell {
-    @Nonnull ItemStack getIconStack();
+    @Nonnull
+    ItemStack getIconStack();
 
     default int getCooldown(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, @Nonnull EnumHand hand) {
         return 0;
@@ -19,6 +20,7 @@ public interface IFocusSpell {
 
     boolean onCast(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, @Nonnull EnumHand hand);
 
-    default void onCooldownTick(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, int slot, boolean selected, int cooldownRemaining) {}
+    default void onCooldownTick(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, int slot, boolean selected, int cooldownRemaining) {
+    }
 
 }

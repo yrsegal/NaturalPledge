@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.lib
+package shadowfox.botanicaladdons.api.lib
 
 object LibNames {
     val PRIESTLY_EMBLEM = "priestEmblem"
@@ -12,6 +12,18 @@ object LibNames {
     val MORTAL_STONE = "mortalStone"
     val IRIDESCENT_DYE = "irisDye"
     val INFINITE_DYE = "dyeShard"
+
+    val SPELL_LEAP = "leap"
+    val SPELL_INTERDICT = "interdict"
+    val SPELL_PUSH = "push"
+    val SPELL_LIGHTNING = "lightning"
+    val SPELL_STRENGTH = "strength"
+    val SPELL_PULL = "pull"
+    val SPELL_RAINBOW = "iridescence"
+    val SPELL_SPHERE = "bifrostWave"
+    val SPELL_PROTECTION = "ironroot"
+    val SPELL_SUFFUSION = "lifeCatalyst"
+    val SPELL_INFUSION = "soulInfusion"
 
 
     val AWAKENER = "divineCore"

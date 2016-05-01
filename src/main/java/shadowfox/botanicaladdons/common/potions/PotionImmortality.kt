@@ -1,14 +1,11 @@
 package shadowfox.botanicaladdons.common.potions
 
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.util.DamageSource
-import net.minecraft.util.math.Vec3d
-import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.base.PotionMod
 
 /**

@@ -3,7 +3,7 @@ package shadowfox.botanicaladdons.common.core
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraftforge.fml.common.registry.GameRegistry
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibMisc
 
 /**
  * @author WireSegal

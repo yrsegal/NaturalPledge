@@ -3,7 +3,7 @@ package shadowfox.botanicaladdons.common.lexicon.base
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.lexicon.*
 

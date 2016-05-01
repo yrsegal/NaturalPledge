@@ -2,7 +2,7 @@ package shadowfox.botanicaladdons.common.potions
 
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.effect.EntityLightningBolt
-import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.base.PotionMod
 
 /**

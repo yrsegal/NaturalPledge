@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.potions
 
-import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.base.PotionMod
 
 /**

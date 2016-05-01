@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.lexicon.base
 
 import net.minecraft.util.ResourceLocation
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.lexicon.LexiconCategory
 

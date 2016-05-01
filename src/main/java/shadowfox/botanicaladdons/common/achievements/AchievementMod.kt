@@ -4,7 +4,7 @@ import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.stats.Achievement
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import java.util.*
 
 /**

@@ -15,10 +15,10 @@ import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.ReflectionHelper
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
-import shadowfox.botanicaladdons.common.lib.LibMisc
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.entity.EntityDoppleganger

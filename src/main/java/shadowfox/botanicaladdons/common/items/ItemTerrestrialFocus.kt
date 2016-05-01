@@ -1,23 +1,18 @@
 package shadowfox.botanicaladdons.common.items
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiIngame
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.EnumRarity
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextFormatting.GREEN
 import net.minecraft.util.text.TextFormatting.WHITE
 import net.minecraft.world.World
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.relauncher.FMLLaunchHandler
-import net.minecraftforge.fml.relauncher.ReflectionHelper
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.IFocusSpell
@@ -42,10 +37,10 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
 
     @SideOnly(Side.CLIENT)
     override fun getColor() = IItemColor { itemStack, i ->
-            if (i == 1)
-                Color.HSBtoRGB(Botania.proxy.worldElapsedTicks * 2 % 360 / 360f, 0.25f, 1f)
-            else 0xFFFFFF
-        }
+        if (i == 1)
+            Color.HSBtoRGB(Botania.proxy.worldElapsedTicks * 2 % 360 / 360f, 0.25f, 1f)
+        else 0xFFFFFF
+    }
 
     override fun usesMana(p0: ItemStack) = getSpell(p0) != null
 

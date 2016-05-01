@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
@@ -25,9 +25,9 @@ import vazkii.botania.api.mana.ManaItemHandler
 class PriestlyEmblemNjord : IFaithVariant {
 
     init {
-        SpellRegistry.registerSpell("leap", Spells.Njord.Leap())
-        SpellRegistry.registerSpell("interdict", Spells.Njord.Interdict())
-        SpellRegistry.registerSpell("push", Spells.Njord.PushAway())
+        SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap())
+        SpellRegistry.registerSpell(LibNames.SPELL_INTERDICT, Spells.Njord.Interdict())
+        SpellRegistry.registerSpell(LibNames.SPELL_PUSH, Spells.Njord.PushAway())
     }
 
     override fun getName(): String = "njord"
@@ -35,7 +35,7 @@ class PriestlyEmblemNjord : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf("${LibMisc.MOD_ID}:leap", "${LibMisc.MOD_ID}:interdict", "${LibMisc.MOD_ID}:push")
+        return mutableListOf(LibNames.SPELL_LEAP, LibNames.SPELL_INTERDICT, LibNames.SPELL_PUSH, LibNames.SPELL_INFUSION)
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {

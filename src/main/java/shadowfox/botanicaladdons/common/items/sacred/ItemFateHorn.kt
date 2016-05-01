@@ -56,7 +56,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem {
     }
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
-        val entities = player.worldObj.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), {it.isNonBoss})
+        val entities = player.worldObj.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), { it.isNonBoss })
         var doit = true
         if (entities.size > 0 && player is EntityPlayer)
             doit = ManaItemHandler.requestManaExact(stack, player, 2, true)

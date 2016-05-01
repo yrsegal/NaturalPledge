@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
@@ -26,9 +26,9 @@ import vazkii.botania.common.core.helper.Vector3
 class PriestlyEmblemThor : IFaithVariant {
 
     init {
-        SpellRegistry.registerSpell("lightning", Spells.Thor.Lightning())
-        SpellRegistry.registerSpell("strength", Spells.Thor.Strength())
-        SpellRegistry.registerSpell("pull", Spells.Thor.Pull())
+        SpellRegistry.registerSpell(LibNames.SPELL_LIGHTNING, Spells.Thor.Lightning())
+        SpellRegistry.registerSpell(LibNames.SPELL_STRENGTH, Spells.Thor.Strength())
+        SpellRegistry.registerSpell(LibNames.SPELL_PULL, Spells.Thor.Pull())
     }
 
     override fun getName(): String = "thor"
@@ -36,7 +36,7 @@ class PriestlyEmblemThor : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf("${LibMisc.MOD_ID}:lightning", "${LibMisc.MOD_ID}:strength", "${LibMisc.MOD_ID}:pull")
+        return mutableListOf(LibNames.SPELL_LIGHTNING, LibNames.SPELL_STRENGTH, LibNames.SPELL_PULL, LibNames.SPELL_INFUSION)
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {

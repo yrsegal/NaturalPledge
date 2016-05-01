@@ -13,7 +13,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
@@ -28,8 +28,8 @@ import java.util.*
 class PriestlyEmblemIdunn : IFaithVariant {
 
     init {
-        SpellRegistry.registerSpell("ironroot", Spells.Idunn.Ironroot())
-        SpellRegistry.registerSpell("lifeCatalyst", Spells.Idunn.LifeCatalyst())
+        SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot())
+        SpellRegistry.registerSpell(LibNames.SPELL_SUFFUSION, Spells.Idunn.LifeCatalyst())
     }
 
     override fun getName(): String = "idunn"
@@ -37,7 +37,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf("${LibMisc.MOD_ID}:ironroot", "${LibMisc.MOD_ID}:lifeCatalyst")
+        return mutableListOf(LibNames.SPELL_PROTECTION, LibNames.SPELL_SUFFUSION, LibNames.SPELL_INFUSION)
     }
 
     val RANGE = 5

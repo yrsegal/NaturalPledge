@@ -36,8 +36,8 @@ object LexiconEntries {
     val awakening: LexiconEntry
     val consequences: LexiconEntry
 
-//    val duelistDagger: LexiconEntry
-//    val mjolnir: LexiconEntry
+    //    val duelistDagger: LexiconEntry
+    //    val mjolnir: LexiconEntry
 
     init {
 

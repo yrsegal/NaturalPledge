@@ -24,11 +24,11 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.IDiscordantItem
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
-import shadowfox.botanicaladdons.common.lib.LibMisc
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
@@ -94,12 +94,12 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
 
     @SideOnly(Side.CLIENT)
     override fun getColor() = IItemColor { stack, tintindex ->
-            val variant = getVariant(stack)
-            if (variant == null || variant.color == null)
-                0xFFFFFF
-            else
-                variant.color!!.getColorFromItemstack(stack, tintindex)
-        }
+        val variant = getVariant(stack)
+        if (variant == null || variant.color == null)
+            0xFFFFFF
+        else
+            variant.color!!.getColorFromItemstack(stack, tintindex)
+    }
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PENDANT)) {

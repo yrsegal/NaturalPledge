@@ -16,6 +16,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.IPlantable
 import shadowfox.botanicaladdons.api.SpellRegistry
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
@@ -26,10 +27,10 @@ import vazkii.botania.common.block.tile.TileSimpleInventory
  * Created at 3:34 PM on 4/26/16.
  */
 class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock) {
-    val AABB = AxisAlignedBB(1/16.0, 0.0, 1/16.0, 15/16.0, 1.0, 15/16.0)
+    val AABB = AxisAlignedBB(1 / 16.0, 0.0, 1 / 16.0, 15 / 16.0, 1.0, 15 / 16.0)
 
     init {
-        SpellRegistry.registerSpell("suffuse", Spells.Infuse())
+        SpellRegistry.registerSpell(LibNames.SPELL_INFUSION, Spells.Infuse())
     }
 
     val PROP_DENDRIC = PropertyBool.create("dendric")

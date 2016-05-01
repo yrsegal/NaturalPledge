@@ -14,5 +14,6 @@ public interface IPriestlyEmblem {
 
     void setAwakened(@Nonnull ItemStack stack, boolean awakened);
 
-    @Nullable IFaithVariant getVariant(@Nonnull ItemStack stack);
+    @Nullable
+    IFaithVariant getVariant(@Nonnull ItemStack stack);
 }

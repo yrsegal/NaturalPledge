@@ -26,12 +26,12 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
         constructor() : this(false)
 
         override fun toString(): String {
-            return this.name.toLowerCase().split("_").joinToString("", transform = {it.capitalizeFirst()})
+            return this.name.toLowerCase().split("_").joinToString("", transform = { it.capitalizeFirst() })
         }
 
         companion object {
             val variants: Array<String>
-                get() = Array(Variants.values().size, {"icon" + Variants.values()[it].toString().capitalizeFirst()})
+                get() = Array(Variants.values().size, { "icon" + Variants.values()[it].toString().capitalizeFirst() })
         }
     }
 
@@ -50,7 +50,8 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
             Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, 1.0f, 1.0f)
         else
             0xFFFFFF
-        }
+    }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {}
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+    }
 }

@@ -16,9 +16,11 @@ import java.util.List;
  *         Created at 12:00 PM on 4/24/16.
  */
 public interface IFaithVariant {
-    @Nonnull String getName();
+    @Nonnull
+    String getName();
 
-    @Nonnull List<String> getSpells(@Nonnull ItemStack stack, @Nonnull EntityPlayer player);
+    @Nonnull
+    List<String> getSpells(@Nonnull ItemStack stack, @Nonnull EntityPlayer player);
 
     void punishTheFaithless(@Nonnull ItemStack stack, @Nonnull EntityPlayer player);
 
@@ -27,7 +29,9 @@ public interface IFaithVariant {
     }
 
     @SideOnly(Side.CLIENT)
-    default @Nullable IItemColor getColor() {
+    default
+    @Nullable
+    IItemColor getColor() {
         return null;
     }
 

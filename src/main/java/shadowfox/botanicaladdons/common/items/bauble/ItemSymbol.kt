@@ -17,9 +17,9 @@ import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
-import shadowfox.botanicaladdons.common.lib.LibMisc
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.item.ICosmeticBauble
 import vazkii.botania.client.core.helper.ShaderHelper

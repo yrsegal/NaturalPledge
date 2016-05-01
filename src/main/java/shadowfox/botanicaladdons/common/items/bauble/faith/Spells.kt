@@ -23,15 +23,12 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
-import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.IFocusSpell
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.common.core.BASoundEvents
-import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.internal.IManaBurst
@@ -42,7 +39,6 @@ import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.block.tile.TileBifrost
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
-import vazkii.botania.common.entity.EntityDoppleganger
 import java.awt.Color
 
 /**
@@ -348,7 +344,7 @@ object Spells {
                 if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return false
                 player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
                 for (i in 0..15) {
-                    flag = craft(player, ItemStack(Items.dye, 1, 15-i), ItemStack(ModItems.iridescentDye, 1, i), EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
+                    flag = craft(player, ItemStack(Items.dye, 1, 15 - i), ItemStack(ModItems.iridescentDye, 1, i), EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
                 }
                 if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
                 return true

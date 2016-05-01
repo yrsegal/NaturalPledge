@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.common.lib.LibMisc
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
@@ -29,8 +29,8 @@ import java.awt.Color
 class PriestlyEmblemHeimdall : IFaithVariant {
 
     init {
-        SpellRegistry.registerSpell("iridescence", Spells.Heimdall.Iridescence())
-        SpellRegistry.registerSpell("bifrostWave", Spells.Heimdall.BifrostWave())
+        SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, Spells.Heimdall.Iridescence())
+        SpellRegistry.registerSpell(LibNames.SPELL_SPHERE, Spells.Heimdall.BifrostWave())
     }
 
     override fun getName(): String = "heimdall"
@@ -38,17 +38,17 @@ class PriestlyEmblemHeimdall : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf("${LibMisc.MOD_ID}:iridescence", "${LibMisc.MOD_ID}:bifrostWave")
+        return mutableListOf(LibNames.SPELL_RAINBOW, LibNames.SPELL_SPHERE, LibNames.SPELL_INFUSION)
     }
 
     @SideOnly(Side.CLIENT)
     override fun getColor(): IItemColor? =
-        IItemColor { itemStack, i ->
-            if (i == 1)
-                Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, 1.0f, 1.0f)
-            else
-                0xFFFFFF
-        }
+            IItemColor { itemStack, i ->
+                if (i == 1)
+                    Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, 1.0f, 1.0f)
+                else
+                    0xFFFFFF
+            }
 
     override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
         if (ManaItemHandler.requestManaExact(stack, player, 1, true))

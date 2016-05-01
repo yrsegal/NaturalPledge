@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.block
 
+import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.block.base.BlockMod
-import shadowfox.botanicaladdons.common.lib.LibNames
 
 /**
  * @author WireSegal
