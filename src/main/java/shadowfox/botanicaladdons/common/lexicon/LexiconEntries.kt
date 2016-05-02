@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.common.block.BlockAwakenerCore
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
 import shadowfox.botanicaladdons.common.lexicon.base.EntryAwakenedKnowledge
@@ -33,6 +34,13 @@ object LexiconEntries {
     val thor: LexiconEntry
     val heimdall: LexiconEntry
 
+    val njordSpells: LexiconEntry
+    val idunnSpells: LexiconEntry
+    val thorSpells: LexiconEntry
+    val heimdallSpells: LexiconEntry
+
+//    val soulSuffusion: LexiconEntry
+
     val awakening: LexiconEntry
     val consequences: LexiconEntry
 
@@ -58,6 +66,15 @@ object LexiconEntries {
         thor.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThorEmblem))
         heimdall = ModEntry("heimdall", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java)).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallEmblem))
+
+        njordSpells = EntryPriestlyKnowledge("njordSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.INTERDICT), PriestlyEmblemNjord::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        njordSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"))
+        idunnSpells = EntryPriestlyKnowledge("idunnSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.LIFEMAKER), PriestlyEmblemIdunn::class.java)
+        idunnSpells.setLexiconPages(PageText("0"), PageText("1")/*, PageSoulRecipe("2", ModRecipes.recipeDendricSuffuser)*/)
+        thorSpells = EntryPriestlyKnowledge("thorSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.LIGHTNING), PriestlyEmblemThor::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        thorSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"))
+        heimdallSpells = EntryPriestlyKnowledge("heimdallSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.IRIDESCENCE), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        heimdallSpells.setLexiconPages(PageText("0"), PageText("1"))
 
         BlockAwakenerCore.multiblock = BlockAwakenerCore.makeMultiblockSet()
         awakening = EntryPriestlyKnowledge("awakening", divinity, ItemStack(ModBlocks.awakenerCore)).setKnowledgeType(topKnowledgeTier).setPriority()

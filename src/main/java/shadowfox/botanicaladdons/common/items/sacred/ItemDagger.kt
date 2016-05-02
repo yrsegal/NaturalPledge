@@ -42,8 +42,6 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
         val minBlockLength = 5
         val maxBlockLength = 20
 
-        val TAG_COOLDOWN = "cooldown"
-
         object EventHandler {
             class DamageSourceOculus(entity: EntityLivingBase) : EntityDamageSource("${LibMisc.MOD_ID}.oculus", entity) {
                 init {
@@ -74,8 +72,8 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
                             val targetVec = Vector3.fromEntityCenter(enemyEntity).sub(Vector3.fromEntityCenter(player))
                             val epsilon = lookVec.dotProduct(targetVec) / (lookVec.mag() * targetVec.mag())
                             if (epsilon > 0.75) {
-                                e.isCanceled = true
                                 player.resetActiveHand()
+                                e.isCanceled = true
                                 if (!player.worldObj.isRemote) {
                                     if (damage !is EntityDamageSourceIndirect) {
                                         enemyEntity.attackEntityFrom(DamageSourceOculus(player), e.amount * 2f)
@@ -132,8 +130,6 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, par4: Int, par5: Boolean) {
         if (!world.isRemote && player is EntityPlayer && stack.itemDamage > 0 && ManaItemHandler.requestManaExactForTool(stack, player, getManaPerDamage() * 2, true))
             stack.itemDamage = stack.itemDamage - 1
-        if (player is EntityLivingBase && !(player.isHandActive && player.activeItemStack == stack))
-            ItemNBTHelper.setByte(stack, TAG_COOLDOWN, Math.max(ItemNBTHelper.getByte(stack, TAG_COOLDOWN, 0.toByte()).toInt() - 1, 0).toByte())
     }
 
     override fun onBlockDestroyed(stack: ItemStack, worldIn: World, blockIn: IBlockState, pos: BlockPos, entityLiving: EntityLivingBase): Boolean {
@@ -143,7 +139,7 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
     }
 
     override fun getMaxItemUseDuration(stack: ItemStack?): Int {
-        return maxBlockLength + 10
+        return maxBlockLength + 50
     }
 
     override fun hitEntity(stack: ItemStack?, target: EntityLivingBase?, attacker: EntityLivingBase?): Boolean {
@@ -152,11 +148,14 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
-        if (ItemNBTHelper.getByte(itemStackIn, TAG_COOLDOWN, 0.toByte()) == 0.toByte()) {
-            playerIn.activeHand = hand
-            ItemNBTHelper.setByte(itemStackIn, TAG_COOLDOWN, maxBlockLength.toByte())
-        }
+        playerIn.activeHand = hand
         return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand)
+    }
+
+    override fun onItemUseFinish(stack: ItemStack?, worldIn: World?, entityLiving: EntityLivingBase?): ItemStack? {
+        if (entityLiving is EntityPlayer)
+            entityLiving.cooldownTracker.setCooldown(this, maxBlockLength)
+        return stack
     }
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack?): Multimap<String, AttributeModifier>? {
@@ -172,5 +171,9 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
         val mat = this.toolMaterial.repairItemStack
         if (mat != null && OreDictionary.itemMatches(mat, materialstack, false)) return true
         return super.getIsRepairable(stack, materialstack)
+    }
+
+    override fun shouldCauseReequipAnimation(oldStack: ItemStack?, newStack: ItemStack?, slotChanged: Boolean): Boolean {
+        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged)
     }
 }

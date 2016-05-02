@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 
 import javax.annotation.Nonnull;
@@ -18,7 +19,7 @@ public interface IFocusSpell {
         return 0;
     }
 
-    boolean onCast(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, @Nonnull EnumHand hand);
+    EnumActionResult onCast(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, @Nonnull EnumHand hand);
 
     default void onCooldownTick(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, int slot, boolean selected, int cooldownRemaining) {
     }

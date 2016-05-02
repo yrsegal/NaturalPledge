@@ -110,16 +110,16 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         gui.remainingHighlightTicks = ticks
     }
 
-    fun castSpell(stack: ItemStack, player: EntityPlayer, hand: EnumHand): Boolean {
-        val spell = getSpell(stack) ?: return false
+    fun castSpell(stack: ItemStack, player: EntityPlayer, hand: EnumHand): EnumActionResult {
+        val spell = getSpell(stack) ?: return EnumActionResult.PASS
 
         val spells = getSpells(player)
-        if (SpellRegistry.getSpellName(spell) !in spells) return false
+        if (SpellRegistry.getSpellName(spell) !in spells) return EnumActionResult.FAIL
 
         val ret = spell.onCast(player, stack, hand)
 
         val cooldown = spell.getCooldown(player, stack, hand)
-        if (ret && cooldown > 0) {
+        if (ret == EnumActionResult.SUCCESS && cooldown > 0) {
             player.cooldownTracker.setCooldown(this, cooldown)
             ItemNBTHelper.setBoolean(stack, TAG_CAST, true)
 
@@ -136,20 +136,19 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         if (playerIn.isSneaking) {
             shiftSpellWithSneak(stack, playerIn)
             return EnumActionResult.SUCCESS
-        } else if (castSpell(stack, playerIn, hand))
-            return EnumActionResult.SUCCESS
-        return EnumActionResult.PASS
+        }
+        return castSpell(stack, playerIn, hand)
     }
 
     override fun onItemRightClick(stack: ItemStack, worldIn: World?, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
         if (playerIn.isSneaking) {
             shiftSpellWithSneak(stack, playerIn)
             return ActionResult(EnumActionResult.SUCCESS, stack)
-        } else if (castSpell(stack, playerIn, hand)) {
-            playerIn.addStat(ModAchievements.focus)
-            return ActionResult(EnumActionResult.SUCCESS, stack)
         }
-        return ActionResult(EnumActionResult.PASS, stack)
+        val result = castSpell(stack, playerIn, hand)
+        if (result == EnumActionResult.SUCCESS)
+            playerIn.addStat(ModAchievements.focus)
+        return ActionResult(result, stack)
     }
 
     override fun getItemStackDisplayName(stack: ItemStack): String? {

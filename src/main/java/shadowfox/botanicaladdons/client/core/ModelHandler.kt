@@ -73,7 +73,7 @@ object ModelHandler {
 
     fun preInit() {
         FMLLog.info("BA | Starting model load")
-        for (holder in variantCache.sortedBy { (255 - getVariantCount(it)).toChar() + if (it is ItemBlock) "b" else "I" + (it as Item).registryName.resourcePath }) {
+        for (holder in variantCache.sortedBy { (255 - getVariantCount(it)).toChar() + if (it is ItemBlock) "b" else "I" + if (it is Item) it.registryName.resourcePath else "" }) {
             registerModels(holder)
         }
     }

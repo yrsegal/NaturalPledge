@@ -23,8 +23,10 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
+import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.IFocusSpell
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.lib.LibOreDict
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
@@ -126,16 +128,16 @@ object Spells {
     open class Infuse : IFocusSpell {
         override fun getIconStack() = of(SUFFUSION)
 
-        override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+        override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
             var range = 5.0
             if (player is EntityPlayerMP)
                 range = player.interactionManager.blockReachDistance
             val ray = Helper.raycast(player, range)
             if (ray != null) {
                 //todo
-                return true
+                return EnumActionResult.SUCCESS
             }
-            return false
+            return EnumActionResult.FAIL
         }
 
         open val prop: IProperty<Boolean>?
@@ -146,7 +148,7 @@ object Spells {
         class Leap : IFocusSpell {
             override fun getIconStack() = of(LEAP)
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
                     val look = player.lookVec
                     player.motionX = Math.max(Math.min(look.xCoord * 0.75 + player.motionX, 2.0), -2.0)
@@ -156,9 +158,9 @@ object Spells {
                     if (player.worldObj.totalWorldTime % 5 == 0L)
                         player.worldObj.playSound(player, player.posX + player.motionX, player.posY + player.motionY, player.posZ + player.motionZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
 
-                    return true
+                    return EnumActionResult.SUCCESS
                 }
-                return false
+                return EnumActionResult.FAIL
             }
         }
 
@@ -206,7 +208,7 @@ object Spells {
                 }
             }
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 if (ManaItemHandler.requestManaExact(focus, player, 5, false)) {
 
                     particleRing(player.worldObj, player.posX, player.posY, player.posZ, RANGE, 0F, 0F, 1F)
@@ -220,9 +222,9 @@ object Spells {
                             player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                         ManaItemHandler.requestManaExact(focus, player, 5, true)
                     }
-                    return true
+                    return EnumActionResult.SUCCESS
                 }
-                return false
+                return EnumActionResult.FAIL
             }
         }
 
@@ -232,18 +234,20 @@ object Spells {
 
             override fun getIconStack() = of(PUSH_AWAY)
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 val focused = Helper.getEntityLookedAt(player)
 
-                if (focused != null && focused is EntityLivingBase)
+                if (focused != null && focused is EntityLivingBase) {
                     if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
                         focused.knockBack(player, 1.5f,
                                 MathHelper.sin(player.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
                                 -MathHelper.cos(player.rotationYaw * Math.PI.toFloat() / 180).toDouble())
                         player.worldObj.playSound(player, focused.posX, focused.posY, focused.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
-                        return true
+                        return EnumActionResult.SUCCESS
                     }
-                return false
+                    return EnumActionResult.FAIL
+                }
+                return EnumActionResult.PASS
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -257,10 +261,10 @@ object Spells {
             override fun getIconStack() = of(LIGHTNING)
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
-                return 15
+                return 60
             }
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 val cast = Helper.raycast(player, 16.0)
                 val focused = Helper.getEntityLookedAt(player, 16.0)
 
@@ -276,18 +280,18 @@ object Spells {
                             focused.onStruckByLightning(fakeBolt)
                         Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(focused), 1f, 0x00948B, 0x00E4D7)
                         player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
-                        return true
+                        return EnumActionResult.SUCCESS
                     }
                 } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
                     Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3(cast.hitVec), 1f, 0x00948B, 0x00E4D7)
                     player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
-                    return true
+                    return EnumActionResult.FAIL
                 } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
                     Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), 1f, 0x00948B, 0x00E4D7)
                     player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
-                    return true
+                    return EnumActionResult.FAIL
                 }
-                return false
+                return EnumActionResult.FAIL
             }
         }
 
@@ -296,8 +300,8 @@ object Spells {
         class Strength : IFocusSpell {
             override fun getIconStack() = of(STRENGTH)
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
-                return ManaItemHandler.requestManaExact(focus, player, 100, true)
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
+                return if (ManaItemHandler.requestManaExact(focus, player, 100, true)) EnumActionResult.SUCCESS else EnumActionResult.FAIL
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -314,7 +318,7 @@ object Spells {
         class Pull : IFocusSpell {
             override fun getIconStack() = of(PULL)
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 val focused = Helper.getEntityLookedAt(player, 16.0)
 
                 if (focused != null && focused is EntityLivingBase)
@@ -324,9 +328,9 @@ object Spells {
                         focused.motionY += diff.y * 0.25
                         focused.motionZ += diff.z * 0.25
                         focused.addPotionEffect(PotionEffect(MobEffects.moveSlowdown, 100, 1))
-                        return true
+                        return EnumActionResult.SUCCESS
                     }
-                return false
+                return EnumActionResult.FAIL
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -339,15 +343,15 @@ object Spells {
         class Iridescence : IFocusSpell {
             override fun getIconStack() = of(IRIDESCENCE)
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 var flag = false
-                if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return false
+                if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return EnumActionResult.FAIL
                 player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
                 for (i in 0..15) {
-                    flag = craft(player, ItemStack(Items.dye, 1, 15 - i), ItemStack(ModItems.iridescentDye, 1, i), EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
+                    flag = craft(player, LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
                 }
                 if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
-                return true
+                return EnumActionResult.SUCCESS
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -355,7 +359,7 @@ object Spells {
             }
 
             // Copied from Psi's ItemCAD, with minor modifications
-            fun craft(player: EntityPlayer, `in`: ItemStack, out: ItemStack, colorVal: Int): Boolean {
+            fun craft(player: EntityPlayer, `in`: String, out: ItemStack, colorVal: Int): Boolean {
                 val items = player.worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(player.posX - 8, player.posY - 8, player.posZ - 8, player.posX + 8, player.posY + 8, player.posZ + 8))
 
                 val color = Color(colorVal)
@@ -367,7 +371,7 @@ object Spells {
                 var did = false
                 for (item in items) {
                     val stack = item.entityItem
-                    if (stack != null && ItemStack.areItemsEqual(stack, `in`) && stack.itemDamage == `in`.itemDamage) {
+                    if (stack != null && (stack.item != out.item || stack.itemDamage != out.itemDamage) && checkStack(stack, `in`)) {
                         val outCopy = out.copy()
                         outCopy.stackSize = stack.stackSize
                         item.setEntityItemStack(outCopy)
@@ -394,6 +398,15 @@ object Spells {
 
                 return did
             }
+
+            fun checkStack(stack: ItemStack, key: String): Boolean {
+                val ores = OreDictionary.getOres(key, false)
+                for (ore in ores) {
+                    if (OreDictionary.itemMatches(stack, ore, false))
+                        return true;
+                }
+                return false;
+            }
         }
 
         //////////
@@ -403,7 +416,7 @@ object Spells {
 
             val TAG_SOURCE = "source"
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 if (ManaItemHandler.requestManaExact(focus, player, 100, true)) {
                     val pos = NBTTagList()
                     pos.appendTag(NBTTagInt(player.position.x))
@@ -415,9 +428,9 @@ object Spells {
                     player.motionX = 0.0
                     player.motionY = 0.0
                     player.motionZ = 0.0
-                    return true
+                    return EnumActionResult.SUCCESS
                 }
-                return false
+                return EnumActionResult.FAIL
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -477,8 +490,8 @@ object Spells {
         class Ironroot : IFocusSpell {
             override fun getIconStack() = of(IRONROOT)
 
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Boolean {
-                return ManaItemHandler.requestManaExact(focus, player, 100, true)
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
+                return if (ManaItemHandler.requestManaExact(focus, player, 100, true)) EnumActionResult.SUCCESS else EnumActionResult.FAIL
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {

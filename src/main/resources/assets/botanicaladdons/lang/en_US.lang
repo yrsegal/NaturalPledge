@@ -131,25 +131,43 @@ botanicaladdons.tagline.njord=Wind, sea, and sky
 botanicaladdons.page.njord0=The &4Vanir&0 god of the fluid elements, &3Njord&0, seems like a worthy choice for your faith. Wielding his aspect of the &3Divine&0 makes your body hydrophobic, rising above any kind of fluid. You also gain attacks with the force of the wind, barreling your foes back with your every hit.
 botanicaladdons.page.njord1=At the doom of men he will come back
 
+botanicaladdons.entry.njordSpells=Movement Magic
+botanicaladdons.tagline.njordSpells=The art of changing flows
+botanicaladdons.page.njordSpells0=The first spell that Njord's emblem grants, &1Rush of Wind&0, is a simple launching motion. It accelerates the caster in the direction they look, allowing for rudimentary flight. Any device that allows the user to glide seems an interesting combination with this.
+botanicaladdons.page.njordSpells1=The second spell of Njord, &1Galeforce&0, is a general protection spell. Most beings and projectiles will be pushed back from the player, giving them a sphere of safety.
+botanicaladdons.page.njordSpells2=The third spell of Njord, &1Sudden Gust&0, allows for corralling animals without harming them. The being the player looks at will be forced back when it's cast, as if the player had hit them.
+
 botanicaladdons.entry.idunn=Faith in Idunn
 botanicaladdons.tagline.idunn=Life, spring, and immortality
 botanicaladdons.page.idunn0=The &4Vanir&0 god of the living elements, &3Idunn&0, seems like a good choice to declare yourself for. Wielding her aspect of the &3Divine&0 makes your body naturally catalytic to the growth of trees, giving saplings around you an effect similar to &1Bonemeal&0. You can manually apply this affect by sneak-clicking with an empty hand.
 botanicaladdons.page.idunn1=Ash sunk down of alfen race
+
+botanicaladdons.entry.idunnSpells=Life Magic
+botanicaladdons.tagline.idunnSpells=The art of growth
+botanicaladdons.page.idunnSpells0=The first spell that Idunn's emblem grants, &1Shield of Roots&0, is a powerful protection spell. While you have the &1Terrestrial Focus&0, for half a minute you will be unable to move, take, or deal melee damage. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
+botanicaladdons.page.idunnSpells1=The second spell of Idunn, &1Life Catalyst&0, is a spell that focuses on the creation of new life. It can't do this along, though, and requires a physical focus in the world. This is the &1Dendric Suffuser&0. It acts like the Runic Altar, but requires a casting of &1Life Catalyst&0 to begin a crafting operation. Then, instead of &1Livingrock&0, it is completed with an &1Iridescent Sapling&0.
+botanicaladdons.page.idunnSpells2=Rainbow treecare macro-infusion
 
 botanicaladdons.entry.thor=Faith in Thor
 botanicaladdons.tagline.thor=Thunder, strength, and wrath
 botanicaladdons.page.thor0=The &4Æsir&0 god of the sky, &3Thor&0, seems like a powerful god to ally with. Wielding his aspect of the &3Divine&0 makes your body makes your body swift, similar to the &1Soujourner's Sash&0. When using axes, the closest thing you could find to a hammer, &3Thor&0 will add force to your hit, slowing down whatever poor mob is stricken.
 botanicaladdons.page.thor1=In anger smite the earth
 
-botanicaladdons.entry.heimdall=Faith in Heimdall
-botanicaladdons.tagline.heimdall=Fate, travel, and color
-botanicaladdons.page.heimdall0=The &4Æsir&0 god of the Bifrost, &3Heimdall&0, seems like an interesting god to channel. Wielding his aspect of the &3Divine&0 makes your eyes see more vibrantly, seeing light even in the shadow. When carrying a &1Rod of the Bifrost&0, you leave a trail of rainbow &4Bifrost&0 below you, allowing you to run in the sky.
-botanicaladdons.page.heimdall1=The warder of heaven
+botanicaladdons.entry.thorSpells=Battle Magic
+botanicaladdons.tagline.thorSpells=The art of war
+botanicaladdons.page.thorSpells0=The first spell that Thor's emblem grants, &1Lightning Strike&0, is a very simple lightning spell. Electricity will arc out of the caster, striking whatever they're looking at within 10 blocks. This won't do much unless you hit a mob, of course.
+botanicaladdons.page.thorSpells1=The second spell of Thor, &1Thunder's Force&0, is a strength spell. While you have the &1Terrestrial Focus&0, for half a minute you will hit with over twice the force you'd normally wield. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
+botanicaladdons.page.thorSpells2=The third spell of Thor, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
 
 botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color
 botanicaladdons.page.heimdall0=The &4Æsir&0 god of the Bifrost, &3Heimdall&0, seems like an interesting god to channel. Wielding his aspect of the &3Divine&0 makes your eyes see more vibrantly, seeing light even in the shadow. When carrying a &1Rod of the Bifrost&0, you leave a trail of rainbow &4Bifrost&0 below you, allowing you to run in the sky.
 botanicaladdons.page.heimdall1=The warder of heaven
+
+botanicaladdons.entry.heimdallSpells=Bifrost Magic
+botanicaladdons.tagline.heimdallSpells=The art of Iridescence
+botanicaladdons.page.heimdallSpells0=The first spell that Heimdall's emblem grants, &1Iridescent Tones&0, creates a resonating sound that vibrates with the essence of color. Casting it on any dye will crystallize it, converting it into &1Iridescent Crystal&0. This crystal acts as a higher-potency dye, able to colorize even things like dirt.
+botanicaladdons.page.heimdallSpells1=The second spell of Heimdall, &1Wave of Bifrost&0, creates for you a safe haven. When you cast it, a sphere of &4Bifrost&0 will rise around you, stopping your fall and giving you temporary protection from anything around you.
 
 botanicaladdons.entry.focus=Focusing the Divine
 botanicaladdons.tagline.focus=Spellcasting 101

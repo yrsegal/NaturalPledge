@@ -9,6 +9,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
+import vazkii.botania.common.block.ModFluffBlocks
 import vazkii.botania.common.lib.LibOreDict
 
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
@@ -31,6 +32,8 @@ object ModRecipes {
     val recipeTerrestrialFocus: IRecipe
 
     val recipeMortalStone: IRecipe
+
+//    val recipeSoulSuffuser: IRecipe
 
     init {
 
@@ -104,6 +107,14 @@ object ModRecipes {
                 'P', LibOreDict.MANA_POWDER,
                 'S', "stone",
                 'M', LibOreDict.RUNE[8]) // Mana
+
+//        recipeSoulSuffuser = addOreDictRecipe(ItemStack(ModBlocks.suffuser),
+//                "LDL",
+//                " L ",
+//                "lll",
+//                'L', LibOreDict.LIVING_ROCK,
+//                'D', LibOreDict.MANA_DIAMOND,
+//                'l', ItemStack(ModFluffBlocks.livingrockSlab))
     }
 
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {
