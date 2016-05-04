@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.ReflectionHelper
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
@@ -117,7 +118,7 @@ class AwakeningEventHandler {
                     val pyPos = Vector3(pylonPos.x + 0.5, pylonPos.y + 1, pylonPos.z + 0.5)
                     val pymot = pos.copy().sub(pyPos).multiply(0.04)
 
-                    val color = Color(Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, 1.0f, 1.0f))
+                    val color = BotanicalAddons.proxy.rainbow()
                     val r = color.red / 255f
                     val g = color.green / 255f
                     val b = color.blue / 255f

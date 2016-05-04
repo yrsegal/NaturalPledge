@@ -19,6 +19,7 @@ import shadowfox.botanicaladdons.api.IFocusSpell
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.client.core.ModelHandler
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.core.helper.CooldownHelper
 import shadowfox.botanicaladdons.common.items.base.ItemMod
@@ -38,7 +39,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
     @SideOnly(Side.CLIENT)
     override fun getColor() = IItemColor { itemStack, i ->
         if (i == 1)
-            Color.HSBtoRGB(Botania.proxy.worldElapsedTicks * 2 % 360 / 360f, 0.25f, 1f)
+            BotanicalAddons.proxy.rainbow(0.25f).rgb
         else 0xFFFFFF
     }
 

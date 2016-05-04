@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.IFaithVariant
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.lib.LibNames
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
@@ -45,7 +46,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
     override fun getColor(): IItemColor? =
             IItemColor { itemStack, i ->
                 if (i == 1)
-                    Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, 1.0f, 1.0f)
+                    BotanicalAddons.proxy.rainbow().rgb
                 else
                     0xFFFFFF
             }

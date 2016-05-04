@@ -14,6 +14,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.colored.ItemManaDye
+import shadowfox.botanicaladdons.common.items.colored.ItemStarPlacer
 import shadowfox.botanicaladdons.common.items.sacred.ItemDagger
 import shadowfox.botanicaladdons.common.items.sacred.ItemFateHorn
 import shadowfox.botanicaladdons.common.items.sacred.ItemImmortalApple
@@ -36,6 +37,8 @@ object ModItems {
     val dagger: ItemMod
     val apple: Item
     val fateHorn: ItemMod
+
+    val star: ItemMod
 
     val iridescentDye: ItemMod
     val manaDye: ItemMod
@@ -61,7 +64,9 @@ object ModItems {
         apple = ItemImmortalApple(LibNames.APPLE)
         fateHorn = ItemFateHorn(LibNames.FATE_HORN)
 
-        iridescentDye = ItemRainbow(LibNames.IRIDESCENT_DYE).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYE)
+        star = ItemStarPlacer(LibNames.STAR)
+
+        iridescentDye = ItemRainbow(LibNames.IRIDESCENT_DYE, true).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYE)
         manaDye = ItemManaDye(LibNames.INFINITE_DYE).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYE)
 
         if (BotanicalAddons.isDevEnv)

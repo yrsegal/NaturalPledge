@@ -7,10 +7,10 @@ package shadowfox.botanicaladdons.api.lib
 object LibOreDict {
 
     val COLORS = arrayOf("White", "Orange", "Magenta", "LightBlue", "Yellow", "Lime", "Pink", "Gray", "LightGray",
-            "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black")
+            "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black", "Rainbow")
 
-    val IRIS_DYE = Array(16, { "irisDye" + COLORS[it] })
-    val DYES = Array(16, { "dye" + COLORS[it] })
+    val IRIS_DYE = Array(COLORS.size, { "irisDye" + COLORS[it] })
+    val DYES = Array(COLORS.size, { "dye" + COLORS[it] })
 
     val HOLY_SYMBOL = "holySymbol"
 

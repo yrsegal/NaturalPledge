@@ -13,6 +13,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.events.AwakeningEventHandler
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -82,11 +83,9 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.iron), ILexicona
 
     @SideOnly(Side.CLIENT)
     override fun randomDisplayTick(state: IBlockState, world: World, pos: BlockPos, rand: Random) {
-        var index = ClientTickHandler.ticksInGame.toFloat() + ClientTickHandler.partialTicks
-        index += Random((pos.x xor pos.y xor pos.z).toLong()).nextInt(100000).toFloat()
-        val color = Color.HSBtoRGB(index * 0.005f, 0.4f, 1.0f)
-        val colorBright = Color(color).brighter().rgb
-        val colorDark = Color(color).darker().rgb
+        val color = BotanicalAddons.proxy.rainbow(pos, 0.4f)
+        val colorBright = color.brighter().rgb
+        val colorDark = color.darker().rgb
         val origVector = Vector3(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
         val endVector = origVector.copy().add(rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0)
         Botania.proxy.lightningFX(world, origVector, endVector, 5.0f, colorDark, colorBright)

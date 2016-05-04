@@ -34,6 +34,27 @@ item.botanicaladdons:iconSuffusion.name=Soul Combination
 
 item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
+item.botanicaladdons:star.name=Frozen Star
+tile.botanicaladdons:star.name=Frozen Star
+
+misc.botanicaladdons.color.0=White
+misc.botanicaladdons.color.1=Orange
+misc.botanicaladdons.color.2=Magenta
+misc.botanicaladdons.color.3=Light Blue
+misc.botanicaladdons.color.4=Yellow
+misc.botanicaladdons.color.5=Lime
+misc.botanicaladdons.color.6=Pink
+misc.botanicaladdons.color.7=Gray
+misc.botanicaladdons.color.8=Light Gray
+misc.botanicaladdons.color.9=Cyan
+misc.botanicaladdons.color.10=Purple
+misc.botanicaladdons.color.11=Blue
+misc.botanicaladdons.color.12=Brown
+misc.botanicaladdons.color.13=Green
+misc.botanicaladdons.color.14=Red
+misc.botanicaladdons.color.15=Black
+misc.botanicaladdons.color.16=Bifrost
+misc.botanicaladdons.customSize=Radius: %1$s Blocks
 
 item.botanicaladdons:dyeShardWhite.name=White Iridescent Shard
 item.botanicaladdons:dyeShardOrange.name=Orange Iridescent Shard
@@ -43,7 +64,7 @@ item.botanicaladdons:dyeShardYellow.name=Yellow Iridescent Shard
 item.botanicaladdons:dyeShardLime.name=Lime Iridescent Shard
 item.botanicaladdons:dyeShardPink.name=Pink Iridescent Shard
 item.botanicaladdons:dyeShardGray.name=Gray Iridescent Shard
-item.botanicaladdons:dyeShardSilver.name=Light Gray Iridescent Shard
+item.botanicaladdons:dyeShardLightGray.name=Light Gray Iridescent Shard
 item.botanicaladdons:dyeShardCyan.name=Cyan Iridescent Shard
 item.botanicaladdons:dyeShardPurple.name=Purple Iridescent Shard
 item.botanicaladdons:dyeShardBlue.name=Blue Iridescent Shard
@@ -51,6 +72,7 @@ item.botanicaladdons:dyeShardBrown.name=Brown Iridescent Shard
 item.botanicaladdons:dyeShardGreen.name=Green Iridescent Shard
 item.botanicaladdons:dyeShardRed.name=Red Iridescent Shard
 item.botanicaladdons:dyeShardBlack.name=Black Iridescent Shard
+item.botanicaladdons:dyeShardRainbow.name=Bifrost Iridescent Shard
 
 item.botanicaladdons:irisDyeWhite.name=White Iridescent Crystal
 item.botanicaladdons:irisDyeOrange.name=Orange Iridescent Crystal
@@ -60,7 +82,7 @@ item.botanicaladdons:irisDyeYellow.name=Yellow Iridescent Crystal
 item.botanicaladdons:irisDyeLime.name=Lime Iridescent Crystal
 item.botanicaladdons:irisDyePink.name=Pink Iridescent Crystal
 item.botanicaladdons:irisDyeGray.name=Gray Iridescent Crystal
-item.botanicaladdons:irisDyeSilver.name=Light Gray Iridescent Crystal
+item.botanicaladdons:irisDyeLightGray.name=Light Gray Iridescent Crystal
 item.botanicaladdons:irisDyeCyan.name=Cyan Iridescent Crystal
 item.botanicaladdons:irisDyePurple.name=Purple Iridescent Crystal
 item.botanicaladdons:irisDyeBlue.name=Blue Iridescent Crystal
@@ -68,6 +90,7 @@ item.botanicaladdons:irisDyeBrown.name=Brown Iridescent Crystal
 item.botanicaladdons:irisDyeGreen.name=Green Iridescent Crystal
 item.botanicaladdons:irisDyeRed.name=Red Iridescent Crystal
 item.botanicaladdons:irisDyeBlack.name=Black Iridescent Crystal
+item.botanicaladdons:irisDyeRainbow.name=Bifrost Iridescent Crystal
 
 item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
 

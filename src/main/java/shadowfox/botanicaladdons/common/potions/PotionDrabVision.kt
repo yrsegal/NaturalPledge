@@ -1,22 +1,17 @@
 package shadowfox.botanicaladdons.common.potions
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.OpenGlHelper
-import net.minecraft.client.shader.ShaderGroup
 import net.minecraft.client.util.JsonException
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.base.PotionMod
-import java.util.*
 
 /**
  * @author WireSegal
@@ -36,14 +31,16 @@ class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0
             if (FMLLaunchHandler.side().isServer) return
             val mc = Minecraft.getMinecraft()
             if (mc.thePlayer == null) return
-            if (hasEffect(mc.thePlayer)) {
-                try {
-                    setShader(greyscale)
-                } catch (err: JsonException) {}
-            } else {
-                Minecraft.getMinecraft().entityRenderer.stopUseShader()
+            if (e.type == RenderGameOverlayEvent.ElementType.ALL) {
+                if (hasEffect(mc.thePlayer)) {
+                    try {
+                        setShader(greyscale)
+                    } catch (err: JsonException) {
+                    }
+                } else {
+                    Minecraft.getMinecraft().entityRenderer.stopUseShader()
+                }
             }
-
         }
 
         @SideOnly(Side.CLIENT)
@@ -57,10 +54,7 @@ class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0
                     } else {
                         mc.entityRenderer.loadShader(target)
                     }
-                } catch (var5: Exception) {
-                }
-
+                } catch (var5: Exception) {}
             }
-
         }
 }

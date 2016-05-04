@@ -12,7 +12,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 9:26 AM on 4/29/16.
  */
-class ItemManaDye(name: String) : ItemRainbow(name), IManaItem, IManaTooltipDisplay {
+class ItemManaDye(name: String) : ItemRainbow(name, true), IManaItem, IManaTooltipDisplay {
 
     val TAG_MANA = "mana"
     val COST_PER_USE = 100

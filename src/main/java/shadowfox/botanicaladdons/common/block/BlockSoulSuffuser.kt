@@ -117,7 +117,7 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock) {
         return altar.signal
     }
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity? {
+    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {
         return TileSuffuser()
     }
 

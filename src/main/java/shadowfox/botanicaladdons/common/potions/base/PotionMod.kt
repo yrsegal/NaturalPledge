@@ -35,7 +35,7 @@ open class PotionMod(name: String, badEffect: Boolean, color: Int, val iconIndex
         return hasEffect(entity, this)
     }
 
-    fun getEffect(entity: EntityLivingBase): PotionEffect {
+    fun getEffect(entity: EntityLivingBase): PotionEffect? {
         return getEffect(entity, this)
     }
 
@@ -46,7 +46,7 @@ open class PotionMod(name: String, badEffect: Boolean, color: Int, val iconIndex
             return entity.getActivePotionEffect(potion) != null
         }
 
-        fun getEffect(entity: EntityLivingBase, potion: Potion): PotionEffect {
+        fun getEffect(entity: EntityLivingBase, potion: Potion): PotionEffect? {
             return entity.getActivePotionEffect(potion)
         }
     }

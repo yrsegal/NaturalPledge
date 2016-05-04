@@ -11,7 +11,7 @@ import net.minecraft.world.World
  * @author WireSegal
  * Created at 5:45 PM on 3/20/16.
  */
-open class BlockModContainer(name: String, materialIn: Material, vararg variants: String) : BlockMod(name, materialIn, *variants), ITileEntityProvider {
+abstract class BlockModContainer(name: String, materialIn: Material, vararg variants: String) : BlockMod(name, materialIn, *variants), ITileEntityProvider {
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
         super.breakBlock(worldIn, pos, state)
         worldIn.removeTileEntity(pos)
@@ -23,7 +23,5 @@ open class BlockModContainer(name: String, materialIn: Material, vararg variants
         return if (tileentity == null) false else tileentity.receiveClientEvent(eventID, eventParam)
     }
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity? {
-        return null
-    }
+    override abstract fun createNewTileEntity(worldIn: World, meta: Int): TileEntity
 }

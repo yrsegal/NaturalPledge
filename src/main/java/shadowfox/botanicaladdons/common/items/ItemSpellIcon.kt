@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.common.Botania
 import java.awt.Color
@@ -47,7 +48,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
     @SideOnly(Side.CLIENT)
     override fun getColor() = IItemColor { itemStack, i ->
         if (itemStack.itemDamage >= 0 && itemStack.itemDamage < Variants.values().size && Variants.values()[itemStack.itemDamage].iridescent)
-            Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, 1.0f, 1.0f)
+            BotanicalAddons.proxy.rainbow().rgb
         else
             0xFFFFFF
     }

@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.core
 
+import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -10,6 +11,8 @@ import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
+import vazkii.botania.common.Botania
+import java.awt.Color
 
 /**
  * @author WireSegal
@@ -32,4 +35,9 @@ open class CommonProxy {
     open fun post(e: FMLPostInitializationEvent) {
 
     }
+
+    fun rainbow() = rainbow(1f)
+    open fun rainbow(saturation: Float) = Color(0xFFFFFF)
+    fun rainbow(pos: BlockPos) = rainbow(pos, 1f)
+    open fun rainbow(pos: BlockPos, saturation: Float) = Color(0xFFFFFF)
 }

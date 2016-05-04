@@ -27,6 +27,7 @@ import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.IFocusSpell
 import shadowfox.botanicaladdons.api.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibOreDict
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
@@ -173,22 +174,22 @@ object Spells {
             val VELOCITY = 0.4
 
             val SELECTOR: (Entity) -> Boolean = {
-                (it is EntityLivingBase && !it.isNonBoss) || (it is IProjectile && it !is IManaBurst)
+                (it is EntityLivingBase && it.isNonBoss) || (it is IProjectile && it !is IManaBurst)
             }
 
             fun pushEntities(x: Double, y: Double, z: Double, range: Double, velocity: Double, entities: List<Entity>): Boolean {
                 var flag = false
-                for (entityLiving in entities) {
-                    var xDif = entityLiving.posX - x
-                    var yDif = entityLiving.posY - (y + 1)
-                    var zDif = entityLiving.posZ - z
+                for (entity in entities) {
+                    var xDif = entity.posX - x
+                    var yDif = entity.posY - (y + 1)
+                    var zDif = entity.posZ - z
                     val vec = Vector3(xDif, yDif, zDif).normalize()
                     var dist = Math.sqrt(xDif * xDif + yDif * yDif + zDif * zDif)
                     if (dist <= range) {
-                        entityLiving.motionX = velocity * vec.x
-                        entityLiving.motionY = velocity * vec.y
-                        entityLiving.motionZ = velocity * vec.z
-                        entityLiving.fallDistance = 0f
+                        entity.motionX = velocity * vec.x
+                        entity.motionY = velocity * vec.y
+                        entity.motionZ = velocity * vec.z
+                        entity.fallDistance = 0f
                         flag = true
                     }
                 }
@@ -347,8 +348,8 @@ object Spells {
                 var flag = false
                 if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return EnumActionResult.FAIL
                 player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
-                for (i in 0..15) {
-                    flag = craft(player, LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
+                for (i in LibOreDict.DYES.indices) {
+                    flag = craft(player, LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), if (i == 16) BotanicalAddons.proxy.rainbow().rgb else EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
                 }
                 if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
                 return EnumActionResult.SUCCESS

@@ -55,8 +55,8 @@ object LexiconEntries {
 
         divineBasics = ModEntry("divinityIntro", divinity, ModItems.symbol).setPriority()
         divineBasics.setLexiconPages(PageText("0"), PageText("1"), PageCraftingRecipe("2", ModRecipes.recipeSymbol),
-                PageText("3"), PageCraftingRecipe("4", ModRecipes.recipeMortalStone),
-                PageText("5"), PageCraftingRecipe("6", ModRecipes.recipeTerrestrialFocus))
+                PageText("3"), PageCraftingRecipe("4", ModRecipes.recipeTerrestrialFocus),
+                PageText("5"), PageCraftingRecipe("6", ModRecipes.recipeMortalStone))
 
         njord = ModEntry("njord", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java)).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         njord.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeNjordEmblem))
