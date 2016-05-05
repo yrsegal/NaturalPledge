@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.crafting
 
 import net.minecraft.init.Blocks
+import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.IRecipe
@@ -8,9 +9,9 @@ import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
 import shadowfox.botanicaladdons.api.lib.LibOreDict
 import shadowfox.botanicaladdons.common.block.ModBlocks
+import shadowfox.botanicaladdons.common.block.colored.BlockFrozenStar
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
-import shadowfox.botanicaladdons.common.items.colored.ItemStarPlacer
 
 
 import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
@@ -36,6 +37,8 @@ object ModRecipes {
     val recipeMortalStone: IRecipe
 
     val recipesStar: Array<IRecipe>
+
+    val recipeToolbelt: IRecipe
 
 //    val recipeSoulSuffuser: IRecipe
 
@@ -113,14 +116,23 @@ object ModRecipes {
                 'M', BotaniaOreDict.RUNE[8]) // Mana
 
         recipesStar = Array(LibOreDict.DYES.size, {
-            addOreDictRecipe(ItemStarPlacer.forColor(it),
+            addOreDictRecipe(BlockFrozenStar.forColor(it),
                     " E ",
                     "GDG",
                     " G ",
                     'E', BotaniaOreDict.ENDER_AIR_BOTTLE,
                     'G', "dustGlowstone",
-                    'D', LibOreDict.IRIS_DYE[it])
+                    'D', LibOreDict.IRIS_DYES[it])
         })
+
+        recipeToolbelt = addOreDictRecipe(ItemStack(ModItems.toolbelt),
+                "CL ",
+                "L L",
+                "PLD",
+                'P', BotaniaOreDict.PIXIE_DUST,
+                'L', ItemStack(Items.leather),
+                'C', ItemStack(Blocks.chest),
+                'D', LibOreDict.IRIS_DYE)
 
 //        recipeSoulSuffuser = addOreDictRecipe(ItemStack(ModBlocks.suffuser),
 //                "LDL",

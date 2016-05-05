@@ -34,7 +34,8 @@ item.botanicaladdons:iconSuffusion.name=Soul Combination
 
 item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
-item.botanicaladdons:star.name=Frozen Star
+item.botanicaladdons:toolbelt.name=Botanist's Toolbelt
+
 tile.botanicaladdons:star.name=Frozen Star
 
 misc.botanicaladdons.color.0=White
@@ -95,6 +96,9 @@ item.botanicaladdons:irisDyeRainbow.name=Bifrost Iridescent Crystal
 item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
 
 itemGroup.botanicaladdons=Natural Pledge
+
+misc.botanicaladdons.contains=Contains:
+misc.botanicaladdons.containsNothing=Empty
 
 misc.botanicaladdons.njordWatches=The wind seems to hold its breath as the ritual begins...
 misc.botanicaladdons.idunnWatches=Your lifeforce seems to glow as the ritual begins...

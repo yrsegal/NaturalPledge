@@ -17,7 +17,7 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
  * @author WireSegal
  * Created at 5:48 PM on 3/20/16.
  */
-class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IColorProvider {
+open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IColorProvider {
 
     private val psiBlock: ModelHandler.IBABlock
 

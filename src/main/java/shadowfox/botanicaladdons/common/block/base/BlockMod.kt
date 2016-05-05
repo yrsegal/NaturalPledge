@@ -4,6 +4,7 @@ import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
 import net.minecraft.item.EnumRarity
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -36,9 +37,12 @@ open class BlockMod(name: String, materialIn: Material, vararg variants: String)
         setRegistryName(name)
         GameRegistry.register(this)
         if (hasItem)
-            GameRegistry.register(ItemModBlock(this), ResourceLocation(LibMisc.MOD_ID, name))
+            GameRegistry.register(item, ResourceLocation(LibMisc.MOD_ID, name))
         return this
     }
+
+    open val item: ItemBlock
+        get() = ItemModBlock(this)
 
     open val hasItem: Boolean
         get() = true

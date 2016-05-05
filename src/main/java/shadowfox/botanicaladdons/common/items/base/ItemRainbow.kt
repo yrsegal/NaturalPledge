@@ -29,6 +29,11 @@ open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Arra
         return this
     }
 
+    fun mapOreKey(key: String): ItemRainbow {
+        OreDictionary.registerOre(key, ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
+        return this
+    }
+
     override fun getColor() = IItemColor { itemStack, i ->
         if (i == 0) when (itemStack.metadata) {
             16 -> BotanicalAddons.proxy.rainbow().rgb

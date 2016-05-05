@@ -12,6 +12,7 @@ object LibNames {
     val MORTAL_STONE = "mortalStone"
     val IRIDESCENT_DYE = "irisDye"
     val INFINITE_DYE = "dyeShard"
+    val TOOLBELT = "toolbelt"
 
     val SPELL_LEAP = "leap"
     val SPELL_INTERDICT = "interdict"

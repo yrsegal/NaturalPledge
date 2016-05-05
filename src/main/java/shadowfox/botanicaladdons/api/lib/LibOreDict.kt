@@ -9,9 +9,10 @@ object LibOreDict {
     val COLORS = arrayOf("White", "Orange", "Magenta", "LightBlue", "Yellow", "Lime", "Pink", "Gray", "LightGray",
             "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black", "Rainbow")
 
-    val IRIS_DYE = Array(COLORS.size, { "irisDye" + COLORS[it] })
+    val IRIS_DYES = Array(COLORS.size, { "irisDye" + COLORS[it] })
     val DYES = Array(COLORS.size, { "dye" + COLORS[it] })
 
+    val IRIS_DYE = "irisDye"
     val HOLY_SYMBOL = "holySymbol"
 
 }

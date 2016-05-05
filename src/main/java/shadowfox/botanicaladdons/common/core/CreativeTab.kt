@@ -13,7 +13,7 @@ import java.util.*
  * Created at 1:17 PM on 3/20/16.
  */
 class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
-    internal lateinit var list: List<ItemStack>
+    internal lateinit var list: MutableList<ItemStack>
 
     init {
         this.setNoTitle()
@@ -32,14 +32,16 @@ class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
         return true
     }
 
-    override fun displayAllRelevantItems(list: List<ItemStack>) {
+    override fun displayAllRelevantItems(list: MutableList<ItemStack>) {
         this.list = list
         for (item in items)
             addItem(item)
     }
 
     private fun addItem(item: Item) {
-        item.getSubItems(item, this, this.list)
+        val tempList = mutableListOf<ItemStack>()
+        item.getSubItems(item, this, tempList)
+        this.list.addAll(tempList)
     }
 
     companion object {
