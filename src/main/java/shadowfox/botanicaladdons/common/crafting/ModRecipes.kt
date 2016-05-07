@@ -46,6 +46,8 @@ object ModRecipes {
     val recipeTravelStone: IRecipe
     val recipePrismRod: IRecipe
 
+    val recipesDirt: Array<IRecipe>
+
     //    val recipeSoulSuffuser: IRecipe
 
     init {
@@ -158,6 +160,15 @@ object ModRecipes {
                 'G', "glowstone",
                 'B', LibOreDict.IRIS_DYES[16],
                 'D', BotaniaOreDict.DREAMWOOD_TWIG)
+
+        recipesDirt = Array(LibOreDict.DYES.size, {
+            addOreDictRecipe(ItemStack(if (it == 16) ModBlocks.rainbowDirt else ModBlocks.irisDirt, 1, if (it == 16) 0 else it),
+                    "DDD",
+                    "DID",
+                    "DDD",
+                    'D', ItemStack(Blocks.dirt),
+                    'I', LibOreDict.IRIS_DYES[it])
+        })
 
         //        recipeSoulSuffuser = addOreDictRecipe(ItemStack(ModBlocks.suffuser),
         //                "LDL",

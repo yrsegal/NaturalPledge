@@ -12,18 +12,26 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
+import net.minecraft.util.EnumFacing
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
+import net.minecraft.world.World
+import net.minecraftforge.common.IPlantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.lib.LibOreDict
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import vazkii.botania.api.lexicon.ILexiconable
+import vazkii.botania.api.lexicon.LexiconEntry
 
 /**
  * @author WireSegal
  * Created at 9:50 PM on 5/6/16.
  */
-class BlockIridescentDirt(val name: String) : BlockMod(name, Material.ground, *Array(16, { name + LibOreDict.COLORS[it] })), ModelHandler.IBlockColorProvider {
+class BlockIridescentDirt(val name: String) : BlockMod(name, Material.ground, *Array(16, { name + LibOreDict.COLORS[it] })), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR = PropertyEnum.create("color", EnumDyeColor::class.java)
     }
@@ -70,5 +78,21 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.ground, *A
 
     override fun getMetaFromState(state: IBlockState): Int {
         return state.getValue(COLOR).metadata
+    }
+
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+        return LexiconEntries.irisDirt
+    }
+
+    override fun isToolEffective(type: String?, state: IBlockState?): Boolean {
+        return type == "shovel"
+    }
+
+    override fun getHarvestTool(state: IBlockState?): String? {
+        return "shovel"
+    }
+
+    override fun canSustainPlant(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?, direction: EnumFacing?, plantable: IPlantable?): Boolean {
+        return true
     }
 }

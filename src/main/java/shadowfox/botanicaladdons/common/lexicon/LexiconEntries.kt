@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.lexicon
 import net.minecraft.block.BlockDirt
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
+import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.block.BlockAwakenerCore
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
@@ -15,6 +16,7 @@ import shadowfox.botanicaladdons.common.lexicon.base.ModCategory
 import shadowfox.botanicaladdons.common.lexicon.base.ModEntry
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.lexicon.LexiconEntry
+import vazkii.botania.api.lexicon.LexiconRecipeMappings
 import vazkii.botania.common.core.handler.ConfigHandler
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe
 import vazkii.botania.common.lexicon.page.PageMultiblock
@@ -43,6 +45,7 @@ object LexiconEntries {
     val flowstone: LexiconEntry
     val star: LexiconEntry
     val prism: LexiconEntry
+    val irisDirt: LexiconEntry
 
     //    val soulSuffusion: LexiconEntry
 
@@ -88,6 +91,8 @@ object LexiconEntries {
         star.setLexiconPages(PageText("0"), PageCraftingRecipe("1", listOf(*ModRecipes.recipesStar)))
         prism = EntryPriestlyKnowledge("prism", BotaniaAPI.categoryTools, ItemStack(ModItems.lightPlacer), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         prism.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipePrismRod))
+        irisDirt = EntryPriestlyKnowledge("irisDirt", BotaniaAPI.categoryMisc, ItemStack(ModBlocks.rainbowDirt), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        irisDirt.setLexiconPages(PageText("0"), PageCraftingRecipe("1", listOf(*ModRecipes.recipesDirt)))
 
 
         BlockAwakenerCore.multiblock = BlockAwakenerCore.makeMultiblockSet()
@@ -95,5 +100,8 @@ object LexiconEntries {
         awakening.setLexiconPages(PageText("0"), PageText("1"), PageMultiblock("2", BlockAwakenerCore.multiblock), PageCraftingRecipe("3", ModRecipes.recipeDivineCore))
         consequences = EntryAwakenedKnowledge("wellshit", divinity, ItemStack(Blocks.dirt, 1, BlockDirt.DirtType.PODZOL.metadata)).setKnowledgeType(topKnowledgeTier).setPriority()
         consequences.setLexiconPages(PageText("0"))
+
+
+        LexiconRecipeMappings.map(ItemStack(ModItems.iridescentDye, 1, OreDictionary.WILDCARD_VALUE), heimdallSpells, 0)
     }
 }
