@@ -8,7 +8,6 @@ import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.init.Items
 import net.minecraft.init.MobEffects
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
@@ -152,9 +151,14 @@ object Spells {
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
                     val look = player.lookVec
-                    player.motionX = Math.max(Math.min(look.xCoord * 0.75 + player.motionX, 2.0), -2.0)
-                    player.motionY = Math.max(Math.min(look.yCoord * 0.75 + player.motionY, 2.0), -2.0)
-                    player.motionZ = Math.max(Math.min(look.zCoord * 0.75 + player.motionZ, 2.0), -2.0)
+                    val speedVec = Vector3(look).multiply(0.75).add(player.motionX, player.motionY, player.motionZ)
+                    if (speedVec.magSquared() > 9)
+                        return EnumActionResult.FAIL
+
+                    player.motionX = speedVec.x
+                    player.motionY = speedVec.y
+                    player.motionZ = speedVec.z
+
                     player.fallDistance = 0f
                     if (player.worldObj.totalWorldTime % 5 == 0L)
                         player.worldObj.playSound(player, player.posX + player.motionX, player.posY + player.motionY, player.posZ + player.motionZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)

@@ -9,8 +9,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemMod
-import vazkii.botania.common.Botania
-import java.awt.Color
 
 /**
  * @author WireSegal

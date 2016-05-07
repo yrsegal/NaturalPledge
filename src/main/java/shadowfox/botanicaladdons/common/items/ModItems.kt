@@ -14,6 +14,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import shadowfox.botanicaladdons.common.items.bauble.ItemToolbelt
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
+import shadowfox.botanicaladdons.common.items.colored.ItemLightPlacer
 import shadowfox.botanicaladdons.common.items.colored.ItemManaDye
 import shadowfox.botanicaladdons.common.items.sacred.ItemDagger
 import shadowfox.botanicaladdons.common.items.sacred.ItemFateHorn
@@ -33,7 +34,9 @@ object ModItems {
 
     val mortalStone: ItemMod
 
+    val travelStone: ItemMod
     val toolbelt: ItemMod
+    val lightPlacer: ItemMod
 
     val mjolnir: ItemMod
     val dagger: ItemMod
@@ -59,7 +62,9 @@ object ModItems {
 
         mortalStone = ItemMortalstone(LibNames.MORTAL_STONE)
 
+        travelStone = ItemTravelstone(LibNames.TRAVEL_STONE)
         toolbelt = ItemToolbelt(LibNames.TOOLBELT)
+        lightPlacer = ItemLightPlacer(LibNames.LIGHT_PLACER)
 
         mjolnir = ItemMjolnir(LibNames.MJOLNIR, mjolnirMaterial)
         dagger = ItemDagger(LibNames.DAGGER, daggerMaterial)

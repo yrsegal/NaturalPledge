@@ -26,9 +26,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
-import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.ItemNBTHelper
-import java.awt.Color
 
 /**
  * @author WireSegal

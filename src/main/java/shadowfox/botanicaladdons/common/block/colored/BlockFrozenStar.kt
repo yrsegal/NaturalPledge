@@ -26,7 +26,11 @@ import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.block.tile.TileStar
+import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import vazkii.botania.api.lexicon.ILexiconable
+import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import java.util.*
 
@@ -34,44 +38,23 @@ import java.util.*
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), ModelHandler.IColorProvider {
+class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), ModelHandler.IColorProvider, ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     companion object {
-        val TAG_COLOR = "color"
         val TAG_SIZE = "size"
-
-        val defaultColors = ArrayList<Int>()
 
         val DEFAULT_SIZE = 0.05f
 
-        init {
-            for (color in EnumDyeColor.values()) {
-                var colorint = color.mapColor.colorValue
-                defaultColors.add(colorint)
-            }
-            defaultColors.add(-1)
-        }
-
-        fun setColor(stack: ItemStack, color: Int) = ItemNBTHelper.setInt(stack, TAG_COLOR, color)
-        fun getColor(stack: ItemStack) = ItemNBTHelper.getInt(stack, TAG_COLOR, -1)
-
         fun getSize(stack: ItemStack) = ItemNBTHelper.getFloat(stack, TAG_SIZE, DEFAULT_SIZE)
         fun setSize(stack: ItemStack, size: Float) = ItemNBTHelper.setFloat(stack, TAG_SIZE, size)
-
-        fun forColor(colorVal: Int) = colorStack(defaultColors[colorVal % defaultColors.size])
-        fun colorStack(color: Int): ItemStack {
-            val stack = ItemStack(ModBlocks.star)
-            setColor(stack, color)
-            return stack
-        }
     }
 
     override val item: ItemBlock
         get() = object : ItemModBlock(this) {
             override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
-                for (color in defaultColors) {
-                    subItems.add(colorStack(color))
+                for (color in RainbowItemHelper.defaultColors) {
+                    subItems.add(RainbowItemHelper.colorStack(color, this))
                 }
             }
         }
@@ -92,7 +75,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), M
     override fun getDrops(world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int): MutableList<ItemStack> {
         val te = world.getTileEntity(pos)
         if (te is TileStar) {
-            val stack = colorStack(te.getColor())
+            val stack = RainbowItemHelper.colorStack(te.getColor(), this)
             if (te.size != DEFAULT_SIZE)
                 setSize(stack, te.size)
             return mutableListOf(stack)
@@ -102,15 +85,15 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), M
 
     override fun getColor(): IItemColor = IItemColor {
         itemStack, i ->
-        val color = getColor(itemStack)
+        val color = RainbowItemHelper.getColor(itemStack)
         if (color == -1) BotanicalAddons.proxy.rainbow().rgb else color
     }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         super.addInformation(stack, player, tooltip, advanced)
-        val color = getColor(stack)
-        if (color in defaultColors)
-            ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${defaultColors.indexOf(color)}")
+        val color = RainbowItemHelper.getColor(stack)
+        if (color in RainbowItemHelper.defaultColors)
+            ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${RainbowItemHelper.defaultColors.indexOf(color)}")
         else
             ItemMod.addToTooltip(tooltip, "#${Integer.toHexString(color).toUpperCase()}")
 
@@ -130,7 +113,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), M
     override fun getPickBlock(state: IBlockState?, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack? {
         val te = world.getTileEntity(pos)
         if (te is TileStar) {
-            val stack = colorStack(te.getColor())
+            val stack = RainbowItemHelper.colorStack(te.getColor(), this)
             if (te.size != DEFAULT_SIZE)
                 setSize(stack, te.size)
             return stack
@@ -142,7 +125,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), M
         val te = world.getTileEntity(pos)
         if (te is TileStar) {
             te.size = getSize(stack)
-            te.starColor = getColor(stack)
+            te.starColor = RainbowItemHelper.getColor(stack)
         }
     }
 
@@ -160,5 +143,10 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), M
         worldIn.setBlockToAir(pos)
     }
 
-    override fun getSubBlocks(itemIn: Item?, tab: CreativeTabs?, list: MutableList<ItemStack>) {}
+    override fun getSubBlocks(itemIn: Item?, tab: CreativeTabs?, list: MutableList<ItemStack>) {
+    }
+
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+        return LexiconEntries.star
+    }
 }

@@ -16,6 +16,7 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.text.TextFormatting
@@ -243,9 +244,10 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             }
 
             @SubscribeEvent fun onPlayerInteract(event: PlayerInteractEvent.RightClickItem) {
-                if (!event.world.isRemote)
+                if (event.hand == EnumHand.MAIN_HAND)
                     firePlayerInteraction(event)
             }
+
             @SubscribeEvent fun onPlayerInteractEmpty(event: PlayerInteractEvent.RightClickEmpty) {
                 if (event.entityPlayer.heldItemMainhand == null)
                     firePlayerInteraction(event)

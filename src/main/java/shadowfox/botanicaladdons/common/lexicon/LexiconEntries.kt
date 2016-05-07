@@ -39,7 +39,12 @@ object LexiconEntries {
     val thorSpells: LexiconEntry
     val heimdallSpells: LexiconEntry
 
-//    val soulSuffusion: LexiconEntry
+    val toolbelt: LexiconEntry
+    val flowstone: LexiconEntry
+    val star: LexiconEntry
+    val prism: LexiconEntry
+
+    //    val soulSuffusion: LexiconEntry
 
     val awakening: LexiconEntry
     val consequences: LexiconEntry
@@ -48,7 +53,6 @@ object LexiconEntries {
     //    val mjolnir: LexiconEntry
 
     init {
-
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
 
         divinity = ModCategory("divinity", 1)
@@ -75,6 +79,16 @@ object LexiconEntries {
         thorSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"))
         heimdallSpells = EntryPriestlyKnowledge("heimdallSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.IRIDESCENCE), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdallSpells.setLexiconPages(PageText("0"), PageText("1"))
+
+        toolbelt = EntryPriestlyKnowledge("toolbelt", BotaniaAPI.categoryBaubles, ItemStack(ModItems.toolbelt), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        toolbelt.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeToolbelt))
+        flowstone = EntryPriestlyKnowledge("travelStone", BotaniaAPI.categoryTools, ItemStack(ModItems.travelStone), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        flowstone.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeTravelStone))
+        star = EntryPriestlyKnowledge("star", BotaniaAPI.categoryMisc, ItemStack(ModBlocks.star), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        star.setLexiconPages(PageText("0"), PageCraftingRecipe("1", listOf(*ModRecipes.recipesStar)))
+        prism = EntryPriestlyKnowledge("prism", BotaniaAPI.categoryTools, ItemStack(ModItems.lightPlacer), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        prism.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipePrismRod))
+
 
         BlockAwakenerCore.multiblock = BlockAwakenerCore.makeMultiblockSet()
         awakening = EntryPriestlyKnowledge("awakening", divinity, ItemStack(ModBlocks.awakenerCore)).setKnowledgeType(topKnowledgeTier).setPriority()

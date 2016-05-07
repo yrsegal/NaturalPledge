@@ -13,6 +13,8 @@ object LibNames {
     val IRIDESCENT_DYE = "irisDye"
     val INFINITE_DYE = "dyeShard"
     val TOOLBELT = "toolbelt"
+    val TRAVEL_STONE = "travelStone"
+    val LIGHT_PLACER = "prismRod"
 
     val SPELL_LEAP = "leap"
     val SPELL_INTERDICT = "interdict"
@@ -29,6 +31,7 @@ object LibNames {
 
     val AWAKENER = "divineCore"
     val STAR = "star"
+    val PRISM_FLAME = "prismFlame"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

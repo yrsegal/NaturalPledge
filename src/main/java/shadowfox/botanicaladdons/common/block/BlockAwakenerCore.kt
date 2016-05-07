@@ -24,10 +24,8 @@ import vazkii.botania.api.lexicon.multiblock.MultiblockSet
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent
 import vazkii.botania.api.state.BotaniaStateProps
 import vazkii.botania.api.state.enums.PylonVariant
-import vazkii.botania.client.core.handler.ClientTickHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
-import java.awt.Color
 import java.util.*
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 

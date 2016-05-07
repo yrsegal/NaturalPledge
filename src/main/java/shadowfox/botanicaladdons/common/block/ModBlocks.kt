@@ -8,6 +8,8 @@ import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.api.lib.LibOreDict
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.colored.BlockFrozenStar
+import shadowfox.botanicaladdons.common.block.colored.BlockPrismFlame
+import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
@@ -18,12 +20,15 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 object ModBlocks {
     val awakenerCore: BlockMod
     val star: BlockMod
+    val flame: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
         star = BlockFrozenStar(LibNames.STAR)
+        flame = BlockPrismFlame(LibNames.PRISM_FLAME)
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
+        GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
 
         OreDictionary.registerOre(LibOreDict.DYES[16], BotaniaBlocks.bifrostPerm)
     }

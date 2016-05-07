@@ -1,22 +1,26 @@
 package shadowfox.botanicaladdons.common.crafting
 
+
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.IRecipe
+import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.lib.LibOreDict
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.block.colored.BlockFrozenStar
+import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
+import shadowfox.botanicaladdons.common.crafting.recipe.RecipeDynamicDye
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
-
-
-import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 import vazkii.botania.common.item.ModItems as BotaniaItems
+import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
 
 /**
  * @author WireSegal
@@ -39,10 +43,15 @@ object ModRecipes {
     val recipesStar: Array<IRecipe>
 
     val recipeToolbelt: IRecipe
+    val recipeTravelStone: IRecipe
+    val recipePrismRod: IRecipe
 
-//    val recipeSoulSuffuser: IRecipe
+    //    val recipeSoulSuffuser: IRecipe
 
     init {
+
+        RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
+        GameRegistry.addRecipe(RecipeDynamicDye(ModItems.lightPlacer, true))
 
         recipeSymbol = addOreDictRecipe(ItemStack(ModItems.symbol),
                 "S S",
@@ -116,7 +125,7 @@ object ModRecipes {
                 'M', BotaniaOreDict.RUNE[8]) // Mana
 
         recipesStar = Array(LibOreDict.DYES.size, {
-            addOreDictRecipe(BlockFrozenStar.forColor(it),
+            addOreDictRecipe(RainbowItemHelper.forColor(it, ModBlocks.star),
                     " E ",
                     "GDG",
                     " G ",
@@ -134,13 +143,29 @@ object ModRecipes {
                 'C', ItemStack(Blocks.chest),
                 'D', LibOreDict.IRIS_DYE)
 
-//        recipeSoulSuffuser = addOreDictRecipe(ItemStack(ModBlocks.suffuser),
-//                "LDL",
-//                " L ",
-//                "lll",
-//                'L', BotaniaOreDict.LIVING_ROCK,
-//                'D', BotaniaOreDict.MANA_DIAMOND,
-//                'l', ItemStack(ModFluffBlocks.livingrockSlab))
+        recipeTravelStone = addOreDictRecipe(ItemStack(ModItems.travelStone),
+                "DSD",
+                "SCS",
+                "DSD",
+                'S', "stone",
+                'C', ItemStack(Items.compass),
+                'D', LibOreDict.IRIS_DYE)
+
+        recipePrismRod = addOreDictRecipe(ItemStack(ModItems.lightPlacer),
+                " BG",
+                " DB",
+                "D  ",
+                'G', "glowstone",
+                'B', LibOreDict.IRIS_DYES[16],
+                'D', BotaniaOreDict.DREAMWOOD_TWIG)
+
+        //        recipeSoulSuffuser = addOreDictRecipe(ItemStack(ModBlocks.suffuser),
+        //                "LDL",
+        //                " L ",
+        //                "lll",
+        //                'L', BotaniaOreDict.LIVING_ROCK,
+        //                'D', BotaniaOreDict.MANA_DIAMOND,
+        //                'l', ItemStack(ModFluffBlocks.livingrockSlab))
     }
 
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {

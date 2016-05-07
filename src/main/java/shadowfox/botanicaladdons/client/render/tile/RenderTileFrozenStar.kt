@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.client.render.tile
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import org.lwjgl.opengl.GL11
-import org.lwjgl.opengl.GL12
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import vazkii.botania.client.core.helper.RenderHelper

@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.items
 
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -9,6 +8,7 @@ import net.minecraft.potion.PotionEffect
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.IDiscordantItem
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.potions.ModPotions
@@ -17,8 +17,8 @@ import vazkii.botania.api.mana.IManaItem
 import vazkii.botania.api.mana.IManaTooltipDisplay
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.ItemNBTHelper
+import vazkii.botania.common.core.helper.Vector3
 
 /**
  * @author WireSegal
@@ -32,6 +32,8 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
 
     val TAG_MANA = "mana"
     val MAX_MANA = 600 * MANA_PER_TICK
+
+    val PARTICLE_COLOR = 0xff0000
 
     init {
         setMaxStackSize(1)
@@ -49,6 +51,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     entity.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
                     if (!entity.equals(entityIn) && !ModPotions.faithlessness.hasEffect(entity)) flag = true
+                    BotanicalAddons.proxy.particleEmission(entity.worldObj, Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
                 }
         }
         if (entityIn is EntityPlayer && isSelected) {
@@ -79,19 +82,11 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                         entity.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
                         flag = flag or 1
                     }
+                    BotanicalAddons.proxy.particleEmission(entity.worldObj, Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), 0x5e0a02, 0.7F)
                     flag = flag or 2
                 }
 
-            // Color is #5e0a02
-            val r = 0x5E / 255f
-            val g = 0x0a / 255f
-            val b = 0x02 / 255f
-
-            val s = 0.2f + Math.random().toFloat() * 0.1f
-            val m = 0.03f + Math.random().toFloat() * 0.015f
-
-            if (entityItem.worldObj.totalWorldTime % 15 == 0L || (flag and 2 != 0 && entityItem.worldObj.totalWorldTime % 2 == 0L))
-                Botania.proxy.wispFX(entityItem.worldObj, entityItem.posX, entityItem.posY + entityItem.height, entityItem.posZ, r, g, b, s, -m)
+            BotanicalAddons.proxy.particleEmission(entityItem.worldObj, Vector3.fromEntity(entityItem).add(-0.5, 0.0, -0.5), 0x5e0a02, if (flag and 2 == 0) 0.1F else 0.9F)
         }
         if (flag and 1 != 0)
             addMana(entityItem.entityItem, -MANA_PER_TICK)

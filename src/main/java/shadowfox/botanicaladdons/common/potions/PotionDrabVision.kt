@@ -19,42 +19,43 @@ import shadowfox.botanicaladdons.common.potions.base.PotionMod
  */
 class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0x808080, iconIndex, true) {
 
-        init {
-            MinecraftForge.EVENT_BUS.register(this)
-        }
+    init {
+        MinecraftForge.EVENT_BUS.register(this)
+    }
 
-        val greyscale = ResourceLocation("shaders/post/desaturate.json")
+    val greyscale = ResourceLocation("shaders/post/desaturate.json")
 
-        @SideOnly(Side.CLIENT)
-        @SubscribeEvent
-        fun updateShaders(e: RenderGameOverlayEvent.Pre) {
-            if (FMLLaunchHandler.side().isServer) return
-            val mc = Minecraft.getMinecraft()
-            if (mc.thePlayer == null) return
-            if (e.type == RenderGameOverlayEvent.ElementType.ALL) {
-                if (hasEffect(mc.thePlayer)) {
-                    try {
-                        setShader(greyscale)
-                    } catch (err: JsonException) {
-                    }
-                } else {
-                    Minecraft.getMinecraft().entityRenderer.stopUseShader()
-                }
-            }
-        }
-
-        @SideOnly(Side.CLIENT)
-        @Throws(JsonException::class)
-        internal fun setShader(target: ResourceLocation?) {
-            val mc = Minecraft.getMinecraft()
-            if (OpenGlHelper.shadersSupported && !mc.entityRenderer.isShaderActive) {
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    fun updateShaders(e: RenderGameOverlayEvent.Pre) {
+        if (FMLLaunchHandler.side().isServer) return
+        val mc = Minecraft.getMinecraft()
+        if (mc.thePlayer == null) return
+        if (e.type == RenderGameOverlayEvent.ElementType.ALL) {
+            if (hasEffect(mc.thePlayer)) {
                 try {
-                    if (target == null) {
-                        Minecraft.getMinecraft().entityRenderer.stopUseShader()
-                    } else {
-                        mc.entityRenderer.loadShader(target)
-                    }
-                } catch (var5: Exception) {}
+                    setShader(greyscale)
+                } catch (err: JsonException) {
+                }
+            } else {
+                Minecraft.getMinecraft().entityRenderer.stopUseShader()
             }
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Throws(JsonException::class)
+    internal fun setShader(target: ResourceLocation?) {
+        val mc = Minecraft.getMinecraft()
+        if (OpenGlHelper.shadersSupported && !mc.entityRenderer.isShaderActive) {
+            try {
+                if (target == null) {
+                    Minecraft.getMinecraft().entityRenderer.stopUseShader()
+                } else {
+                    mc.entityRenderer.loadShader(target)
+                }
+            } catch (var5: Exception) {
+            }
+        }
+    }
 }

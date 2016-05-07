@@ -17,11 +17,9 @@ import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.Botania
 import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.block.tile.TileBifrost
 import vazkii.botania.common.item.ModItems
-import java.awt.Color
 
 /**
  * @author WireSegal

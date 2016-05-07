@@ -34,8 +34,11 @@ item.botanicaladdons:iconSuffusion.name=Soul Combination
 
 item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
-item.botanicaladdons:toolbelt.name=Botanist's Toolbelt
+item.botanicaladdons:prismRod.name=Rod of the Prismatic Lake
+item.botanicaladdons:toolbelt.name=Traveller's Toolbelt
+item.botanicaladdons:travelStone.name=Traveller's Flowstone
 
+tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
 
 misc.botanicaladdons.color.0=White
@@ -55,6 +58,9 @@ misc.botanicaladdons.color.13=Green
 misc.botanicaladdons.color.14=Red
 misc.botanicaladdons.color.15=Black
 misc.botanicaladdons.color.16=Bifrost
+misc.botanicaladdons.color.format=Color: #%1$s
+misc.botanicaladdons.color.mixed=Color Mixture
+
 misc.botanicaladdons.customSize=Radius: %1$s Blocks
 
 item.botanicaladdons:dyeShardWhite.name=White Iridescent Shard
@@ -160,9 +166,9 @@ botanicaladdons.page.njord1=At the doom of men he will come back
 
 botanicaladdons.entry.njordSpells=Movement Magic
 botanicaladdons.tagline.njordSpells=The art of changing flows
-botanicaladdons.page.njordSpells0=The first spell that Njord's emblem grants, &1Rush of Wind&0, is a simple launching motion. It accelerates the caster in the direction they look, allowing for rudimentary flight. Any device that allows the user to glide seems an interesting combination with this.
-botanicaladdons.page.njordSpells1=The second spell of Njord, &1Galeforce&0, is a general protection spell. Most beings and projectiles will be pushed back from the player, giving them a sphere of safety.
-botanicaladdons.page.njordSpells2=The third spell of Njord, &1Sudden Gust&0, allows for corralling animals without harming them. The being the player looks at will be forced back when it's cast, as if the player had hit them.
+botanicaladdons.page.njordSpells0=The first spell that &3Njord&0's emblem grants, &1Rush of Wind&0, is a simple launching motion. It accelerates the caster in the direction they look, allowing for rudimentary flight. Any device that allows the user to glide seems an interesting combination with this.
+botanicaladdons.page.njordSpells1=The second spell of &3Njord&0, &1Galeforce&0, is a general protection spell. Most beings and projectiles will be pushed back from the player, giving them a sphere of safety.
+botanicaladdons.page.njordSpells2=The third spell of &3Njord&0, &1Sudden Gust&0, allows for corralling animals without harming them. The being the player looks at will be forced back when it's cast, as if the player had hit them.
 
 botanicaladdons.entry.idunn=Faith in Idunn
 botanicaladdons.tagline.idunn=Life, spring, and immortality
@@ -171,8 +177,8 @@ botanicaladdons.page.idunn1=Ash sunk down of alfen race
 
 botanicaladdons.entry.idunnSpells=Life Magic
 botanicaladdons.tagline.idunnSpells=The art of growth
-botanicaladdons.page.idunnSpells0=The first spell that Idunn's emblem grants, &1Shield of Roots&0, is a powerful protection spell. While you have the &1Terrestrial Focus&0, for half a minute you will be unable to move, take, or deal melee damage. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
-botanicaladdons.page.idunnSpells1=The second spell of Idunn, &1Life Catalyst&0, is a spell that focuses on the creation of new life. It can't do this along, though, and requires a physical focus in the world. This is the &1Dendric Suffuser&0. It acts like the Runic Altar, but requires a casting of &1Life Catalyst&0 to begin a crafting operation. Then, instead of &1Livingrock&0, it is completed with an &1Iridescent Sapling&0.
+botanicaladdons.page.idunnSpells0=The first spell that &3Idunn&0's emblem grants, &1Shield of Roots&0, is a powerful protection spell. While you have the &1Terrestrial Focus&0, for half a minute you will be unable to move, take, or deal melee damage. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
+botanicaladdons.page.idunnSpells1=The second spell of &3Idunnv, &1Life Catalyst&0, is a spell that focuses on the creation of new life. It can't do this along, though, and requires a physical focus in the world. This is the &1Dendric Suffuser&0. It acts like the Runic Altar, but requires a casting of &1Life Catalyst&0 to begin a crafting operation. Then, instead of &1Livingrock&0, it is completed with an &1Iridescent Sapling&0.
 botanicaladdons.page.idunnSpells2=Rainbow treecare macro-infusion
 
 botanicaladdons.entry.thor=Faith in Thor
@@ -182,9 +188,9 @@ botanicaladdons.page.thor1=In anger smite the earth
 
 botanicaladdons.entry.thorSpells=Battle Magic
 botanicaladdons.tagline.thorSpells=The art of war
-botanicaladdons.page.thorSpells0=The first spell that Thor's emblem grants, &1Lightning Strike&0, is a very simple lightning spell. Electricity will arc out of the caster, striking whatever they're looking at within 10 blocks. This won't do much unless you hit a mob, of course.
-botanicaladdons.page.thorSpells1=The second spell of Thor, &1Thunder's Force&0, is a strength spell. While you have the &1Terrestrial Focus&0, for half a minute you will hit with over twice the force you'd normally wield. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
-botanicaladdons.page.thorSpells2=The third spell of Thor, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
+botanicaladdons.page.thorSpells0=The first spell that &3Thor&0's emblem grants, &1Lightning Strike&0, is a very simple lightning spell. Electricity will arc out of the caster, striking whatever they're looking at within 10 blocks. This won't do much unless you hit a mob, of course.
+botanicaladdons.page.thorSpells1=The second spell of &3Thor&0, &1Thunder's Force&0, is a strength spell. While you have the &1Terrestrial Focus&0, for half a minute you will hit with over twice the force you'd normally wield. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
+botanicaladdons.page.thorSpells2=The third spell of &3Thor&0, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
 
 botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color
@@ -193,13 +199,28 @@ botanicaladdons.page.heimdall1=The warder of heaven
 
 botanicaladdons.entry.heimdallSpells=Bifrost Magic
 botanicaladdons.tagline.heimdallSpells=The art of Iridescence
-botanicaladdons.page.heimdallSpells0=The first spell that Heimdall's emblem grants, &1Iridescent Tones&0, creates a resonating sound that vibrates with the essence of color. Casting it on any dye will crystallize it, converting it into &1Iridescent Crystal&0. This crystal acts as a higher-potency dye, able to colorize even things like dirt.
-botanicaladdons.page.heimdallSpells1=The second spell of Heimdall, &1Wave of Bifrost&0, creates for you a safe haven. When you cast it, a sphere of &4Bifrost&0 will rise around you, stopping your fall and giving you temporary protection from anything around you.
+botanicaladdons.page.heimdallSpells0=The first spell that &3Heimdall&0's emblem grants, &1Iridescent Tones&0, creates a resonating sound that vibrates with the essence of color. Casting it on any dye will crystallize it, converting it into &1Iridescent Crystal&0. This crystal acts as a higher-potency dye, able to colorize even things like dirt.
+botanicaladdons.page.heimdallSpells1=The second spell of &3Heimdall&0, &1Wave of Bifrost&0, creates for you a safe haven. When you cast it, a sphere of &4Bifrost&0 will rise around you, stopping your fall and giving you temporary protection from anything around you.
 
-botanicaladdons.entry.focus=Focusing the Divine
-botanicaladdons.tagline.focus=Spellcasting 101
-botanicaladdons.page.focus0=The abilities the &1Priestly Emblems&0 give you are certainly great, but they almost feel like you're not drawing your divinity's full strength. An interface to channel the power of a god on earth is required, to allow you to fully command the power you have gained. To that end, you have made the &1Terrestrial Focus&0, a device which can cast &3Divine&0 spells.
-botanicaladdons.page.focus1=Taking a level in Wizard
+botanicaladdons.entry.toolbelt=Traveller's Toolbelt
+botanicaladdons.tagline.toolbelt=Storage on the go
+botanicaladdons.page.toolbelt0=&3Heimdall&0, being a god of Travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Toolbelt&0. Instead of rushing from place to place like some botanist's belts do, this toolbelt holds items, allowing you to prepare for any eventuality. After all, it's nice to just take some time to appreciate the wonders of the world in your travels.
+botanicaladdons.page.toolbelt1=Journey before destination
+
+botanicaladdons.entry.travelStone=Traveller's Flowstone
+botanicaladdons.tagline.travelStone=A component sash
+botanicaladdons.page.travelStone0=&3Heimdall&0, being a god of Travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Flowstone&0. As a pair to the &1Traveller's Toolbelt&0, it gives you the little quirks that make the &1Sashes&0 so useful without sacrificing leisure. Specifically, it makes you jump higher and scale small walls.
+botanicaladdons.page.travelStone1=Strength before weakness
+
+botanicaladdons.entry.star=Frozen Stars
+botanicaladdons.tagline.star=An ender light source
+botanicaladdons.page.star0=The &1Frozen Star&0 is the light and form of the stars, trapped upon earth, and given form through &4Iridescence&0. They are relatively cheap light sources, and give off light with the same strength as &1Glowstone&0. They can be made in any of the colors of &4Iridescence&0.
+botanicaladdons.page.star1=Find Polaris to find your way
+
+botanicaladdons.entry.prism=Rod of the Prismatic Lake
+botanicaladdons.tagline.prism=Rainbow lights
+botanicaladdons.page.prism0=One particularly frustrating property of the &1Mana Lens: Flash&0 is its tendency to lock the color of a &1Mana Flash&0 immidiately upon making it. Even if you want to make a rainbow &1Flash&0, you'll get one color. By using the power of the &1Rod of the Prismatic Lake&0, you can make that rainbow. It can be tinged with &1Phantom Ink&0, and dyed with any &4Iridescent&0 dye like leather armor.
+botanicaladdons.page.prism1=All the colors of the wind
 
 botanicaladdons.entry.awakening=The Ritual of Gaia III
 botanicaladdons.tagline.awakening=Sight, Sound, Strength, Power, Glory, Speed!

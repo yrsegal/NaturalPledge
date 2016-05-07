@@ -23,7 +23,6 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.entity.EntityDoppleganger
-import java.awt.Color
 import java.util.*
 
 /**
@@ -116,15 +115,14 @@ class AwakeningEventHandler {
 
                     val partPos = Vector3(xp, pylonPos.y, zp)
                     val pyPos = Vector3(pylonPos.x + 0.5, pylonPos.y + 1, pylonPos.z + 0.5)
-                    val pymot = pos.copy().sub(pyPos).multiply(0.04)
 
-                    val color = BotanicalAddons.proxy.rainbow()
+                    val color = BotanicalAddons.proxy.rainbow(entity.source)
                     val r = color.red / 255f
                     val g = color.green / 255f
                     val b = color.blue / 255f
 
+                    BotanicalAddons.proxy.particleStream(entity.worldObj, pyPos, pos, color.rgb)
                     Botania.proxy.wispFX(entity.worldObj, partPos.x, partPos.y, partPos.z, r, g, b, 0.25f + Math.random().toFloat() * 0.1f, -0.075f - Math.random().toFloat() * 0.015f)
-                    Botania.proxy.wispFX(entity.worldObj, pyPos.x, pyPos.y, pyPos.z, r, g, b, 0.4f, pymot.x.toFloat(), pymot.y.toFloat(), pymot.z.toFloat())
                 }
             }
         }
