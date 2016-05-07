@@ -32,6 +32,8 @@ object LibNames {
     val AWAKENER = "divineCore"
     val STAR = "star"
     val PRISM_FLAME = "prismFlame"
+    val IRIS_DIRT = "irisDirt"
+    val RAINBOW_DIRT = "rainbowDirt"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

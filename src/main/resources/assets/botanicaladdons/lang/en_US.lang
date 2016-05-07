@@ -40,6 +40,8 @@ item.botanicaladdons:travelStone.name=Traveller's Flowstone
 
 tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
+tile.botanicaladdons:irisDirt.name=Iridescent Dirt
+tile.botanicaladdons:rainbowDirt.name=Iridescent Dirt
 
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange
@@ -219,7 +221,7 @@ botanicaladdons.page.star1=Find Polaris to find your way
 
 botanicaladdons.entry.prism=Rod of the Prismatic Lake
 botanicaladdons.tagline.prism=Rainbow lights
-botanicaladdons.page.prism0=One particularly frustrating property of the &1Mana Lens: Flash&0 is its tendency to lock the color of a &1Mana Flash&0 immidiately upon making it. Even if you want to make a rainbow &1Flash&0, you'll get one color. By using the power of the &1Rod of the Prismatic Lake&0, you can make that rainbow. It can be tinged with &1Phantom Ink&0, and dyed with any &4Iridescent&0 dye like leather armor.
+botanicaladdons.page.prism0=One particularly frustrating property of the &1Mana Lens: Flash&0 is its tendency to lock the color of a &1Mana Flash&0 immediately upon making it. Even if you want to make a rainbow &1Flash&0, you'll get one color. By using the power of the &1Rod of the Prismatic Lake&0, you can make that rainbow. It can be tinged with &1Phantom Ink&0, and dyed with any &4Iridescent&0 dye like leather armor.
 botanicaladdons.page.prism1=All the colors of the wind
 
 botanicaladdons.entry.awakening=The Ritual of Gaia III

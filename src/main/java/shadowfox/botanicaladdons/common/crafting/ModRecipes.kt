@@ -169,46 +169,14 @@ object ModRecipes {
     }
 
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {
-        val obj = object : ShapedOreRecipe(output, *recipe) {
-            override fun toString(): String {
-                return recipeToString(this)
-            }
-        }
+        val obj = ShapedOreRecipe(output, *recipe)
         CraftingManager.getInstance().recipeList.add(obj)
         return obj
     }
 
     fun addShapelessOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {
-        val obj = object : ShapelessOreRecipe(output, *recipe) {
-            override fun toString(): String {
-                return recipeToString(this)
-            }
-        }
+        val obj = ShapelessOreRecipe(output, *recipe)
         CraftingManager.getInstance().recipeList.add(obj)
         return obj
-    }
-
-    private fun recipeToString(recipe: IRecipe): String {
-        if (recipe is ShapedOreRecipe)
-            return "${joinArr(recipe.input)} -> ${recipe.recipeOutput}"
-        if (recipe is ShapelessOreRecipe)
-            return "${joinArr(recipe.input)} -> ${recipe.recipeOutput}"
-        return recipe.toString()
-    }
-
-    private fun joinArr(arr: Array<*>): String {
-        var out = "["
-        for (item in arr) {
-            out += if (out.equals("[")) "" else ", " + item.toString()
-        }
-        return out + "]"
-    }
-
-    private fun joinArr(arr: List<*>): String {
-        var out = "["
-        for (item in arr) {
-            out += if (out.equals("[")) "" else ", " + item.toString()
-        }
-        return out + "]"
     }
 }
