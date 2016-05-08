@@ -12,6 +12,7 @@ import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
+import shadowfox.botanicaladdons.common.potions.brew.ModBrews
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 
@@ -26,6 +27,7 @@ open class CommonProxy {
         ModBlocks
         ModAchievements
         ModPotions
+        ModBrews
     }
 
     open fun init(e: FMLInitializationEvent) {

@@ -29,7 +29,7 @@ import vazkii.botania.api.wand.IWandHUD
  * @author WireSegal
  * Created at 3:34 PM on 4/26/16.
  */
-class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock), IWandHUD {
+class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "soulSuffuser", "dendricSuffuser"), IWandHUD {
     companion object {
         val PROP_DENDRIC = PropertyBool.create("dendric")
 
@@ -64,10 +64,6 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock), 
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
-
-    override fun getMaterial(state: IBlockState?): Material? {
-        return super.getMaterial(state)
-    }
 
     override fun renderHUD(p0: Minecraft, p1: ScaledResolution, p2: World, p3: BlockPos) {
         (p2.getTileEntity(p3) as TileSuffuser).renderHUD(p0, p1)

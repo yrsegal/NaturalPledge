@@ -13,7 +13,7 @@ import net.minecraftforge.items.ItemStackHandler
  * created on 5/7/16
  */
 abstract class TileSimpleInventory() : TileMod() {
-    protected val itemHandler : SimpleItemStackHandler by lazy {
+    val itemHandler : SimpleItemStackHandler by lazy {
         createItemHandler()
     }
 
@@ -43,7 +43,7 @@ abstract class TileSimpleInventory() : TileMod() {
         return if (cap === CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) this.itemHandler as T else super.getCapability(cap, side)
     }
 
-    protected open class SimpleItemStackHandler(private val tile: TileSimpleInventory, private val allowWrite: Boolean) : ItemStackHandler(tile.sizeInventory) {
+    open class SimpleItemStackHandler(private val tile: TileSimpleInventory, private val allowWrite: Boolean) : ItemStackHandler(tile.sizeInventory) {
 
         override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
             return if (this.allowWrite) super.insertItem(slot, stack, simulate) else stack

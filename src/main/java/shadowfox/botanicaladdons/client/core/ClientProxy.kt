@@ -6,7 +6,9 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.client.render.tile.RenderTileFrozenStar
+import shadowfox.botanicaladdons.client.render.tile.RenderTileSoulSuffuser
 import shadowfox.botanicaladdons.common.block.tile.TileStar
+import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
 import shadowfox.botanicaladdons.common.core.CommonProxy
 import vazkii.botania.client.core.handler.ClientTickHandler
 import vazkii.botania.common.Botania
@@ -29,6 +31,7 @@ class ClientProxy : CommonProxy() {
         ModelHandler.init()
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileStar::class.java, RenderTileFrozenStar())
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSuffuser::class.java, RenderTileSoulSuffuser())
     }
 
     override fun particleEmission(world: World, pos: Vector3, color: Int, probability: Float) {

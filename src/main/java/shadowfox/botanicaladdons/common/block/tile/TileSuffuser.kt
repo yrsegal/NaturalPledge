@@ -22,11 +22,11 @@ import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.client.core.handler.HUDHandler
 import vazkii.botania.client.core.helper.RenderHelper
 import vazkii.botania.common.Botania
-import vazkii.botania.common.block.ModBlocks
+import shadowfox.botanicaladdons.common.block.ModBlocks
+import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 import vazkii.botania.common.block.tile.TileAltar
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.ModItems
-import shadowfox.botanicaladdons.common.block.ModBlocks as ShadowfoxBlocks
 import java.util.*
 
 /**
@@ -43,6 +43,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
     private var cooldown = 0
     var signal = 0
 
+    var currentEmblem: ItemStack? = null
     internal var currentRecipe: RecipeRuneAltar? = null
     var lastRecipe: MutableList<ItemStack>? = null
     var recipeKeepTicks = 0
@@ -53,14 +54,14 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
         if (cooldown > 0 || stack.item === ModItems.twigWand || stack.item === ModItems.lexicon)
             return false
 
-        if (stack.item === Item.getItemFromBlock(ModBlocks.livingrock) && stack.itemDamage == 0) {
+        if (stack.item === Item.getItemFromBlock(BotaniaBlocks.livingrock) && stack.itemDamage == 0) {
             if (player == null || !player.capabilities.isCreativeMode) {
                 stack.stackSize--
                 if (stack.stackSize == 0 && player != null)
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, null)
             }
 
-            val item = EntityItem(worldObj, getPos().x + 0.5, (getPos().y + 1).toDouble(), getPos().z + 0.5, ItemStack(ModBlocks.livingrock))
+            val item = EntityItem(worldObj, getPos().x + 0.5, (getPos().y + 1).toDouble(), getPos().z + 0.5, ItemStack(BotaniaBlocks.livingrock))
             item.setPickupDelay(40)
             item.motionX = 0.0
             item.motionY = 0.0
@@ -108,7 +109,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
         if (!worldObj.isRemote && manaToGet == 0) {
             val items = worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos, pos.add(1, 1, 1)))
             for (item in items)
-                if (!item.isDead && item.entityItem != null && item.entityItem.item !== Item.getItemFromBlock(ModBlocks.livingrock)) {
+                if (!item.isDead && item.entityItem != null && item.entityItem.item !== Item.getItemFromBlock(BotaniaBlocks.livingrock)) {
                     val stack = item.entityItem
                     if (addItem(null, stack) && stack.stackSize == 0)
                         item.setDead()
@@ -324,7 +325,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
 
                     net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting()
                     if (progress == 1f) {
-                        mc.renderItem.renderItemIntoGUI(ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8)
+                        mc.renderItem.renderItemIntoGUI(ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8)
                         GL11.glTranslatef(0f, 0f, 100f)
                         mc.renderItem.renderItemIntoGUI(ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8)
                         GL11.glTranslatef(0f, 0f, -100f)
