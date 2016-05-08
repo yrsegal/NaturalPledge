@@ -1,9 +1,12 @@
 package shadowfox.botanicaladdons.common.block.tile
 
+import net.minecraft.block.Block
+import net.minecraft.block.BlockSapling
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -11,6 +14,7 @@ import net.minecraft.util.ITickable
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.text.translation.I18n
+import net.minecraftforge.oredict.OreDictionary
 import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL12
 import shadowfox.botanicaladdons.common.block.BlockSoulSuffuser
@@ -51,7 +55,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
     override fun getRenderBoundingBox() = INFINITE_EXTENT_AABB
 
     fun addItem(player: EntityPlayer?, stack: ItemStack): Boolean {
-        if (cooldown > 0 || stack.item === ModItems.twigWand || stack.item === ModItems.lexicon)
+        if (cooldown > 0 || stack.item === ModItems.twigWand || stack.item === ModItems.lexicon ||  OreDictionary.itemMatches(stack, ItemStack(Blocks.sapling), true))
             return false
 
         if (stack.item === Item.getItemFromBlock(BotaniaBlocks.livingrock) && stack.itemDamage == 0) {
@@ -160,7 +164,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
         }
     }
 
-    fun startSuffuser() {
+    fun startSuffuser(player: EntityPlayer?) {
         val _manaToGet = this.manaToGet
 
         this.manaToGet = 0
@@ -235,13 +239,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
             saveLastRecipe()
             if (!worldObj.isRemote) {
                 for (i in 0..sizeInventory - 1) {
-                    val stack = itemHandler.extractItem(i, 1, false)
-                    if (stack != null) {
-                        if (stack.item === ModItems.rune) {
-                            val outputItem = EntityItem(worldObj, getPos().x + 0.5, getPos().y + 1.5, getPos().z + 0.5, stack.copy())
-                            worldObj.spawnEntityInWorld(outputItem)
-                        }
-                    }
+                    itemHandler.setStackInSlot(i, null)
                 }
 
                 VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
@@ -286,6 +284,11 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
 
         override fun getStackLimit(slot: Int, stack: ItemStack?): Int {
             return super.getStackLimit(slot, stack)
+        }
+
+        override fun onContentsChanged(slot: Int) {
+            super.onContentsChanged(slot)
+            VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
         }
 
     }

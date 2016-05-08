@@ -1,5 +1,7 @@
 package shadowfox.botanicaladdons.common.block
 
+import net.minecraft.block.BlockBush
+import net.minecraft.block.BlockSapling
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.state.BlockStateContainer
@@ -51,7 +53,7 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "
     }
 
     override fun onUsedByWand(p0: EntityPlayer?, p1: ItemStack, p2: World, p3: BlockPos, p4: EnumFacing?): Boolean {
-        (p2.getTileEntity(p3) as TileSuffuser).startSuffuser()
+        (p2.getTileEntity(p3) as TileSuffuser).startSuffuser(p0)
         return true
     }
 
@@ -75,6 +77,7 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "
         (p2.getTileEntity(p3) as TileSuffuser).renderHUD(p0, p1)
     }
 
+
     override fun onBlockActivated(worldIn: World?, pos: BlockPos?, state: IBlockState?, par5EntityPlayer: EntityPlayer?, hand: EnumHand?, stack: ItemStack?, side: EnumFacing?, par7: Float, par8: Float, par9: Float): Boolean {
         val altar = worldIn!!.getTileEntity(pos) as TileSuffuser? ?: return false
 
@@ -91,7 +94,8 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "
                         break
                     }
                 }
-        } else if (altar.isEmpty() && stack == null)
+        }
+        else if (altar.isEmpty() && stack == null)
             altar.trySetLastRecipe(par5EntityPlayer)
         else if (stack != null)
             return altar.addItem(par5EntityPlayer, stack)
