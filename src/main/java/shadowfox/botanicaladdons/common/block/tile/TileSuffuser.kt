@@ -107,7 +107,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
         recieveMana(0)
 
         if (!worldObj.isRemote && manaToGet == 0) {
-            val items = worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos, pos.add(1, 1, 1)))
+            val items = worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos, pos.add(1.0, 2.0, 1.0)))
             for (item in items)
                 if (!item.isDead && item.entityItem != null && item.entityItem.item !== Item.getItemFromBlock(BotaniaBlocks.livingrock)) {
                     val stack = item.entityItem
@@ -117,13 +117,15 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
         }
 
 
-        if (worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
-            if (worldObj.rand.nextInt(20) == 0) {
-                val vec = Vector3.fromTileEntityCenter(this)
-                val endVec = vec.copy().add(0.0, 2.5, 0.0)
-                Botania.proxy.lightningFX(worldObj, vec, endVec, 2f, 0x00948B, 0x00E4D7)
+        if (worldObj.isRemote)
+            markDirty()
+            if ( manaToGet > 0 && mana >= manaToGet) {
+                if (worldObj.rand.nextInt(20) == 0) {
+                    val vec = Vector3.fromTileEntityCenter(this)
+                    val endVec = vec.copy().add(0.0, 2.5, 0.0)
+                    Botania.proxy.lightningFX(worldObj, vec, endVec, 2f, 0x00948B, 0x00E4D7)
+                }
             }
-        }
 
         if (cooldown > 0) {
             cooldown--
@@ -147,31 +149,38 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
         else
             lastRecipe = null
 
-        if (manaToGet > 0 && mana >= manaToGet && !isDendric()) {
-            finishRunic()
+        manaToGet = if (currentRecipe != null) currentRecipe!!.manaUsage else 0
+
+        if (manaToGet > 0 && mana >= manaToGet) {
+            if (isDendric()) {
+
+            } else {
+                finishRunic()
+            }
         }
     }
 
     fun startSuffuser() {
-        val manaToGet = this.manaToGet
+        val _manaToGet = this.manaToGet
 
         this.manaToGet = 0
         if (currentRecipe != null)
             this.manaToGet = currentRecipe!!.manaUsage
         else {
 
-            if(isDendric()) {
+            if (isDendric()) {
                 //TODO: something here
             } else {
                 for (recipe in BotaniaAPI.runeAltarRecipes)
                     if (recipe.matches(itemHandler)) {
+                        currentRecipe = recipe
                         this.manaToGet = recipe.manaUsage
                         break
                     }
             }
         }
 
-        if (manaToGet != this.manaToGet) {
+        if (_manaToGet != this.manaToGet) {
             worldObj.playSound(null, pos, BotaniaSoundEvents.runeAltarStart, SoundCategory.BLOCKS, 1f, 1f)
             VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos)
         }
@@ -211,14 +220,14 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
                 }
             }
 
-        if (manaToGet > 0 && mana >= manaToGet) {
+        if (manaToGet > 0 && mana >= manaToGet && recipe != null) {
+            recieveMana(-recipe.manaUsage)
 
-            val mana = recipe!!.manaUsage
-            recieveMana(-mana)
             if (!worldObj.isRemote) {
                 val output = recipe.output.copy()
                 val outputItem = EntityItem(worldObj, pos.x + 0.5, pos.y + 1.5, pos.z + 0.5, output)
                 worldObj.spawnEntityInWorld(outputItem)
+
                 currentRecipe = null
                 cooldown = 60
             }
@@ -226,18 +235,17 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
             saveLastRecipe()
             if (!worldObj.isRemote) {
                 for (i in 0..sizeInventory - 1) {
-                    val stack = itemHandler.getStackInSlot(i)
+                    val stack = itemHandler.extractItem(i, 1, false)
                     if (stack != null) {
                         if (stack.item === ModItems.rune) {
                             val outputItem = EntityItem(worldObj, getPos().x + 0.5, getPos().y + 1.5, getPos().z + 0.5, stack.copy())
                             worldObj.spawnEntityInWorld(outputItem)
                         }
-
-                        itemHandler.setStackInSlot(i, null)
                     }
                 }
-            }
 
+                VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+            }
             craftingFanciness()
         }
 

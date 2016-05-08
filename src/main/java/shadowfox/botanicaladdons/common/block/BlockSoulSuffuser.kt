@@ -24,12 +24,13 @@ import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
 import vazkii.botania.api.wand.IWandHUD
+import vazkii.botania.api.wand.IWandable
 
 /**
  * @author WireSegal
  * Created at 3:34 PM on 4/26/16.
  */
-class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "soulSuffuser", "dendricSuffuser"), IWandHUD {
+class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "soulSuffuser", "dendricSuffuser"), IWandHUD, IWandable {
     companion object {
         val PROP_DENDRIC = PropertyBool.create("dendric")
 
@@ -47,6 +48,11 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "
 
     private fun makeDefaultState(): IBlockState {
         return blockState.baseState.withProperty(PROP_DENDRIC, false);
+    }
+
+    override fun onUsedByWand(p0: EntityPlayer?, p1: ItemStack, p2: World, p3: BlockPos, p4: EnumFacing?): Boolean {
+        (p2.getTileEntity(p3) as TileSuffuser).startSuffuser()
+        return true
     }
 
     override fun getMetaFromState(state: IBlockState): Int {
