@@ -39,13 +39,21 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.ground, *A
     init {
         this.defaultState = this.blockState.baseState.withProperty(COLOR, EnumDyeColor.WHITE)
         soundType = SoundType.GROUND
+        blockHardness = 0.5f
     }
 
     override val item: ItemBlock
-        get() = object : ItemModBlock(this) {
+        get() = object : ItemModBlock(this), ModelHandler.ICustomLogHolder {
             override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
                 return "tile.${LibMisc.MOD_ID}:" + bareName
             }
+
+            override val sortingVariantCount: Int
+                get() = 1
+
+            override fun customLog(): String = "   |  Variants by dye color"
+            override fun customLogVariant(variantId: Int, variant: String): String = ""
+            override fun shouldLogForVariant(variantId: Int, variant: String): Boolean = false
         }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {

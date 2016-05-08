@@ -1,8 +1,8 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "botanicaladdons:block/irisDirt",
-        "all": "botanicaladdons:block/irisDirt"
+        "particle": "botanicaladdons:block/irisLogSide",
+        "all": "botanicaladdons:block/irisLogSide"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

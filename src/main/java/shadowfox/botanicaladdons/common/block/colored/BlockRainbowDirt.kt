@@ -25,6 +25,7 @@ class BlockRainbowDirt(name: String) : BlockMod(name, Material.ground), ILexicon
 
     init {
         soundType = SoundType.GROUND
+        blockHardness = 0.5f
     }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {

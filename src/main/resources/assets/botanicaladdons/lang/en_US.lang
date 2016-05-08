@@ -42,6 +42,8 @@ tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
 tile.botanicaladdons:irisDirt.name=Iridescent Dirt
 tile.botanicaladdons:rainbowDirt.name=Iridescent Dirt
+tile.botanicaladdons:irisLog.name=Iridescent Log
+tile.botanicaladdons:rainbowLog.name=Iridescent Log
 
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange
@@ -148,6 +150,8 @@ botanicaladdons.potion.drab=Drab Vision
 botanicaladdons.potion.overcharged=Overcharged
 botanicaladdons.potion.featherweight=Featherweight
 botanicaladdons.potion.immortality=Immortality
+botanicaladdons.brew.drab=Monochromacy
+botanicaladdons.brew.immortality=Divinity's Grace
 
 botanicaladdons.category.divinity=Divinity
 
@@ -238,4 +242,4 @@ botanicaladdons.page.awakening3=Seek the center to change the world
 
 botanicaladdons.entry.wellshit=Consequences of Power
 botanicaladdons.tagline.wellshit=Hindsight is 20/20
-botanicaladdons.page.wellshit0=The power you gained from the &3Divine Guardian&0 ritual was, indeed, grand, but it has drawbacks. For one, you can't seem to take off the imbued emblem. For another, someone wielding a &4Mortalstone&0 could kill you without a second thought, due to the disconnect between the &3Divine&0 and Mortality being so jarring. Perhaps you shouldn't leap into every ritual without researching consequences.
+botanicaladdons.page.wellshit0=The power you gained from the &3Divine Guardian&0 ritual was grand, but it has drawbacks. For one, you can't take off the imbued emblem. For another, someone wielding a &4Mortalstone&0 could kill you without a second thought, due to the disconnect between the &3Divine&0 and Mortality being so jarring. Holding one would allow severing the connection, by tearing the emblem off while you're disconnected.
