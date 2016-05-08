@@ -1,11 +1,23 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botanicaladdons:dendricSuffuser",
-    "transform": "forge:default-block"
-  },
-  "variants": {
-    "normal": [{}],
-    "inventory": [{}]
-  }
+    "forge_marker": 1,
+    "defaults": {
+        "model": "botanicaladdons:dendricSuffuser",
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "dendric": {
+            "true": {
+                "model": "botanicaladdons:dendricSuffuser"
+            },
+            "false": {
+                "model": "botanicaladdons:dendricSuffuser"
+            }
+        },
+        "normal": [
+            {}
+        ],
+        "inventory": [
+            {}
+        ]
+    }
 }

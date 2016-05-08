@@ -13,6 +13,7 @@ import shadowfox.botanicaladdons.common.block.colored.BlockPrismFlame
 import shadowfox.botanicaladdons.common.block.colored.BlockRainbowDirt
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
+import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
@@ -25,6 +26,7 @@ object ModBlocks {
     val flame: BlockMod
     val irisDirt: BlockMod
     val rainbowDirt: BlockMod
+    val soulSuffuser: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -32,7 +34,9 @@ object ModBlocks {
         flame = BlockPrismFlame(LibNames.PRISM_FLAME)
         irisDirt = BlockIridescentDirt(LibNames.IRIS_DIRT)
         rainbowDirt = BlockRainbowDirt(LibNames.RAINBOW_DIRT)
+        soulSuffuser = BlockSoulSuffuser(LibNames.SOUL_SUFFUSER)
 
+        GameRegistry.registerTileEntity(TileSuffuser::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.SOUL_SUFFUSER).toString())
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
 

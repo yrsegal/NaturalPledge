@@ -8,6 +8,7 @@ import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.entity.EntityLivingBase
@@ -149,9 +150,10 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 val mc = Minecraft.getMinecraft()
                 val tess = Tessellator.getInstance()
 
-                val renderPosX: Double = Minecraft.getMinecraft().renderManager.renderPosX
-                val renderPosY: Double = Minecraft.getMinecraft().renderManager.renderPosY
-                val renderPosZ: Double = Minecraft.getMinecraft().renderManager.renderPosZ
+                // TODO: This may not work if the obfuscation mappings change.
+                val renderPosX = (RenderManager::class.java).getDeclaredField("renderPosX").apply{isAccessible = true}.get(mc.renderManager) as Double
+                val renderPosY = (RenderManager::class.java).getDeclaredField("renderPosY").apply{isAccessible = true}.get(mc.renderManager) as Double
+                val renderPosZ = (RenderManager::class.java).getDeclaredField("renderPosZ").apply{isAccessible = true}.get(mc.renderManager) as Double
 
                 GlStateManager.pushMatrix()
                 GlStateManager.enableBlend()

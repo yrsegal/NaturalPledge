@@ -2,7 +2,10 @@ package shadowfox.botanicaladdons.common.block
 
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyBool
+import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -20,31 +23,54 @@ import shadowfox.botanicaladdons.api.lib.LibNames
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
-import vazkii.botania.common.block.tile.TileSimpleInventory
+import vazkii.botania.api.wand.IWandHUD
 
 /**
  * @author WireSegal
  * Created at 3:34 PM on 4/26/16.
  */
-class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock) {
+class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock), IWandHUD {
+    companion object {
+        val PROP_DENDRIC = PropertyBool.create("dendric")
+
+        fun isDendric(state: IBlockState?): Boolean {
+            return state != null && state.getValue(PROP_DENDRIC)
+        }
+    }
+
     val AABB = AxisAlignedBB(1 / 16.0, 0.0, 1 / 16.0, 15 / 16.0, 1.0, 15 / 16.0)
 
     init {
+        defaultState = makeDefaultState()
         SpellRegistry.registerSpell(LibNames.SPELL_INFUSION, Spells.Infuse())
     }
 
-    val PROP_DENDRIC = PropertyBool.create("dendric")
+    private fun makeDefaultState(): IBlockState {
+        return blockState.baseState.withProperty(PROP_DENDRIC, false);
+    }
+
+    override fun getMetaFromState(state: IBlockState): Int {
+        return if (state.getValue(PROP_DENDRIC)) 1 else 0
+    }
+
+    override fun getStateFromMeta(meta: Int): IBlockState? {
+        return defaultState.withProperty(PROP_DENDRIC, meta == 1)
+    }
+
+    override fun createBlockState(): BlockStateContainer? {
+        return BlockStateContainer(this, *arrayOf(PROP_DENDRIC))
+    }
 
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
 
-    fun isDendric(state: IBlockState?): Boolean {
-        return state != null && state.getValue(PROP_DENDRIC)
-    }
-
     override fun getMaterial(state: IBlockState?): Material? {
         return super.getMaterial(state)
+    }
+
+    override fun renderHUD(p0: Minecraft, p1: ScaledResolution, p2: World, p3: BlockPos) {
+        (p2.getTileEntity(p3) as TileSuffuser).renderHUD(p0, p1)
     }
 
     override fun onBlockActivated(worldIn: World?, pos: BlockPos?, state: IBlockState?, par5EntityPlayer: EntityPlayer?, hand: EnumHand?, stack: ItemStack?, side: EnumFacing?, par7: Float, par8: Float, par9: Float): Boolean {
@@ -53,12 +79,12 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock) {
         if (par5EntityPlayer!!.isSneaking) {
             if (altar.manaToGet == 0)
                 for (i in altar.sizeInventory - 1 downTo 0) {
-                    val stackAt = altar.itemHandler.getStackInSlot(i)
+                    val stackAt = altar.getItemHandler().getStackInSlot(i)
                     if (stackAt != null) {
                         val copy = stackAt.copy()
                         if (!par5EntityPlayer.inventory.addItemStackToInventory(copy))
                             par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false)
-                        altar.itemHandler.setStackInSlot(i, null)
+                        altar.getItemHandler().setStackInSlot(i, null)
                         worldIn.updateComparatorOutputLevel(pos, this)
                         break
                     }
@@ -71,13 +97,13 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock) {
     }
 
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
-        val inv = worldIn.getTileEntity(pos) as TileSimpleInventory?
+        val inv = worldIn.getTileEntity(pos) as TileSuffuser?
 
         val random = worldIn.rand
 
         if (inv != null) {
             for (j1 in 0..inv.sizeInventory - 1) {
-                val itemstack = inv.itemHandler.getStackInSlot(j1)
+                val itemstack = inv.getItemHandler().getStackInSlot(j1)
 
                 if (itemstack != null) {
                     val f = random.nextFloat() * 0.8f + 0.1f

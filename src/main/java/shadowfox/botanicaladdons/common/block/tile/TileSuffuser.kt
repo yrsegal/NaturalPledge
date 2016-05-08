@@ -7,11 +7,13 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.ITickable
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.text.translation.I18n
 import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL12
+import shadowfox.botanicaladdons.common.block.BlockSoulSuffuser
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.internal.VanillaPacketDispatcher
 import vazkii.botania.api.mana.IManaReceiver
@@ -22,20 +24,20 @@ import vazkii.botania.client.core.helper.RenderHelper
 import vazkii.botania.common.Botania
 import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.block.tile.TileAltar
-import vazkii.botania.common.block.tile.TileSimpleInventory
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.ModItems
+import shadowfox.botanicaladdons.common.block.ModBlocks as ShadowfoxBlocks
 import java.util.*
 
 /**
  * @author WireSegal
  * Created at 3:48 PM on 4/26/16.
  */
-class TileSuffuser : TileSimpleInventory(), IManaReceiver {
-
+class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
     private val TAG_MANA = "mana"
     private val TAG_MANA_TO_GET = "manaToGet"
 
+    override val sizeInventory: Int = 16
     var manaToGet = 0
     private var mana = 0
     private var cooldown = 0
@@ -44,8 +46,6 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
     internal var currentRecipe: RecipeRuneAltar? = null
     var lastRecipe: MutableList<ItemStack>? = null
     var recipeKeepTicks = 0
-
-    override fun getSizeInventory() = 16
 
     override fun getRenderBoundingBox() = INFINITE_EXTENT_AABB
 
@@ -100,7 +100,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
 
     override fun update() = updateEntity()
 
-    override fun updateEntity() {
+    fun updateEntity() {
 
         // Update every tick.
         recieveMana(0)
@@ -146,21 +146,28 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
         else
             lastRecipe = null
 
-        updateRecipe()
+        if (manaToGet > 0 && mana >= manaToGet && !isDendric()) {
+            finishRunic()
+        }
     }
 
-    fun updateRecipe() {
+    fun startSuffuser() {
         val manaToGet = this.manaToGet
 
         this.manaToGet = 0
         if (currentRecipe != null)
             this.manaToGet = currentRecipe!!.manaUsage
         else {
-            for (recipe in BotaniaAPI.runeAltarRecipes)
-                if (recipe.matches(itemHandler)) {
-                    this.manaToGet = recipe.manaUsage
-                    break
-                }
+
+            if(isDendric()) {
+                //TODO: something here
+            } else {
+                for (recipe in BotaniaAPI.runeAltarRecipes)
+                    if (recipe.matches(itemHandler)) {
+                        this.manaToGet = recipe.manaUsage
+                        break
+                    }
+            }
         }
 
         if (manaToGet != this.manaToGet) {
@@ -184,7 +191,13 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
             VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos)
     }
 
-    fun onWanded(player: EntityPlayer?, wand: ItemStack) {
+    fun isDendric() = BlockSoulSuffuser.isDendric(world.getBlockState(getPos()))
+
+    fun finishDendric() {
+        //TODO: something here
+    }
+
+    fun finishRunic() {
         var recipe: RecipeRuneAltar? = null
 
         if (currentRecipe != null)
@@ -198,48 +211,35 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
             }
 
         if (manaToGet > 0 && mana >= manaToGet) {
-            val items = worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos, pos.add(1, 1, 1)))
-            var livingrock: EntityItem? = null
-            for (item in items)
-                if (!item.isDead && item.entityItem != null && item.entityItem.item === Item.getItemFromBlock(ModBlocks.livingrock)) {
-                    livingrock = item
-                    break
-                }
 
-            if (livingrock != null) {
-                val mana = recipe!!.manaUsage
-                recieveMana(-mana)
-                if (!worldObj.isRemote) {
-                    val output = recipe.output.copy()
-                    val outputItem = EntityItem(worldObj, pos.x + 0.5, pos.y + 1.5, pos.z + 0.5, output)
-                    worldObj.spawnEntityInWorld(outputItem)
-                    currentRecipe = null
-                    cooldown = 60
-                }
-
-                saveLastRecipe()
-                if (!worldObj.isRemote) {
-                    for (i in 0..sizeInventory - 1) {
-                        val stack = itemHandler.getStackInSlot(i)
-                        if (stack != null) {
-                            if (stack.item === ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
-                                val outputItem = EntityItem(worldObj, getPos().x + 0.5, getPos().y + 1.5, getPos().z + 0.5, stack.copy())
-                                worldObj.spawnEntityInWorld(outputItem)
-                            }
-
-                            itemHandler.setStackInSlot(i, null)
-                        }
-                    }
-
-                    val livingrockItem = livingrock.entityItem
-                    livingrockItem.stackSize--
-                    if (livingrockItem.stackSize == 0)
-                        livingrock.setDead()
-                }
-
-                craftingFanciness()
+            val mana = recipe!!.manaUsage
+            recieveMana(-mana)
+            if (!worldObj.isRemote) {
+                val output = recipe.output.copy()
+                val outputItem = EntityItem(worldObj, pos.x + 0.5, pos.y + 1.5, pos.z + 0.5, output)
+                worldObj.spawnEntityInWorld(outputItem)
+                currentRecipe = null
+                cooldown = 60
             }
+
+            saveLastRecipe()
+            if (!worldObj.isRemote) {
+                for (i in 0..sizeInventory - 1) {
+                    val stack = itemHandler.getStackInSlot(i)
+                    if (stack != null) {
+                        if (stack.item === ModItems.rune) {
+                            val outputItem = EntityItem(worldObj, getPos().x + 0.5, getPos().y + 1.5, getPos().z + 0.5, stack.copy())
+                            worldObj.spawnEntityInWorld(outputItem)
+                        }
+
+                        itemHandler.setStackInSlot(i, null)
+                    }
+                }
+            }
+
+            craftingFanciness()
         }
+
     }
 
     fun craftingFanciness() {
@@ -253,38 +253,36 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
     }
 
     fun isEmpty(): Boolean {
-        for (i in 0..sizeInventory - 1)
+        for (i in 0..itemHandler.slots - 1)
             if (itemHandler.getStackInSlot(i) != null)
                 return false
 
         return true
     }
 
-    override fun writeCustomNBT(par1nbtTagCompound: NBTTagCompound) {
-        super.writeCustomNBT(par1nbtTagCompound)
+    override fun writeCustomNBT(cmp: NBTTagCompound) {
+        cmp.setInteger(TAG_MANA, mana)
+        cmp.setInteger(TAG_MANA_TO_GET, manaToGet)
+        super.writeCustomNBT(cmp)
 
-        par1nbtTagCompound.setInteger(TAG_MANA, mana)
-        par1nbtTagCompound.setInteger(TAG_MANA_TO_GET, manaToGet)
     }
 
-    override fun readCustomNBT(par1nbtTagCompound: NBTTagCompound?) {
-        super.readCustomNBT(par1nbtTagCompound)
-
-        mana = par1nbtTagCompound!!.getInteger(TAG_MANA)
-        manaToGet = par1nbtTagCompound.getInteger(TAG_MANA_TO_GET)
+    override fun readCustomNBT(cmp: NBTTagCompound) {
+        super.readCustomNBT(cmp)
+        mana = cmp.getInteger(TAG_MANA)
+        manaToGet = cmp.getInteger(TAG_MANA_TO_GET)
     }
 
-    override fun createItemHandler(): TileSimpleInventory.SimpleItemStackHandler {
-        return object : TileSimpleInventory.SimpleItemStackHandler(this, false) {
-            override fun getStackLimit(slot: Int, stack: ItemStack): Int {
-                return 1
-            }
+    override fun createItemHandler() = object : TileSimpleInventory.SimpleItemStackHandler(this, true) {
+
+        override fun getStackLimit(slot: Int, stack: ItemStack?): Int {
+            return super.getStackLimit(slot, stack)
         }
+
     }
 
-    override fun getCurrentMana(): Int {
-        return mana
-    }
+    override fun getCurrentMana() = mana
+
 
     override fun isFull(): Boolean {
         return mana >= manaToGet
@@ -294,9 +292,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
         this.mana = Math.min(this.mana + mana, manaToGet)
     }
 
-    override fun canRecieveManaFromBursts(): Boolean {
-        return !isFull
-    }
+    override fun canRecieveManaFromBursts() = !isFull
 
     fun renderHUD(mc: Minecraft, res: ScaledResolution) {
         val xc = res.scaledWidth / 2
@@ -360,7 +356,6 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver {
         }
     }
 
-    fun getTargetMana(): Int {
-        return manaToGet
-    }
+    fun getTargetMana(): Int = manaToGet
+
 }
