@@ -18,6 +18,9 @@ import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.crafting.recipe.RecipeDynamicDye
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
+import shadowfox.botanicaladdons.common.potions.brew.ModBrews
+import vazkii.botania.api.BotaniaAPI
+import vazkii.botania.api.recipe.RecipeBrew
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 import vazkii.botania.common.item.ModItems as BotaniaItems
 import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
@@ -47,6 +50,9 @@ object ModRecipes {
     val recipePrismRod: IRecipe
 
     val recipesDirt: Array<IRecipe>
+
+    val immortalBrew: RecipeBrew
+    val drabBrew: RecipeBrew
 
     //    val recipeSoulSuffuser: IRecipe
 
@@ -169,6 +175,9 @@ object ModRecipes {
                     'D', ItemStack(Blocks.dirt),
                     'I', LibOreDict.IRIS_DYES[it])
         })
+
+        immortalBrew = BotaniaAPI.registerBrewRecipe(ModBrews.immortality, ItemStack(Items.nether_wart), BotaniaOreDict.PIXIE_DUST, ItemStack(ModItems.apple))
+        drabBrew = BotaniaAPI.registerBrewRecipe(ModBrews.drained, ItemStack(Items.nether_wart), LibOreDict.DYES[7], ItemStack(Items.clay_ball))
 
         //        recipeSoulSuffuser = addOreDictRecipe(ItemStack(ModBlocks.suffuser),
         //                "LDL",

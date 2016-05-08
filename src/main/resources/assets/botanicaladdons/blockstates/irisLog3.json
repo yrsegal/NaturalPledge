@@ -1,0 +1,21 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "axis=y,color=brown": { "model": "botanicaladdons:irisLog" },
+        "axis=z,color=brown": { "model": "botanicaladdons:irisLog", "x": 90 },
+        "axis=x,color=brown": { "model": "botanicaladdons:irisLog", "x": 90, "y": 90 },
+        "axis=none,color=brown": { "model": "botanicaladdons:irisBark" },
+        "axis=y,color=green": { "model": "botanicaladdons:irisLog" },
+        "axis=z,color=green": { "model": "botanicaladdons:irisLog", "x": 90 },
+        "axis=x,color=green": { "model": "botanicaladdons:irisLog", "x": 90, "y": 90 },
+        "axis=none,color=green": { "model": "botanicaladdons:irisBark" },
+        "axis=y,color=red": { "model": "botanicaladdons:irisLog" },
+        "axis=z,color=red": { "model": "botanicaladdons:irisLog", "x": 90 },
+        "axis=x,color=red": { "model": "botanicaladdons:irisLog", "x": 90, "y": 90 },
+        "axis=none,color=red": { "model": "botanicaladdons:irisBark" },
+        "axis=y,color=black": { "model": "botanicaladdons:irisLog" },
+        "axis=z,color=black": { "model": "botanicaladdons:irisLog", "x": 90 },
+        "axis=x,color=black": { "model": "botanicaladdons:irisLog", "x": 90, "y": 90 },
+        "axis=none,color=black": { "model": "botanicaladdons:irisBark" }
+    }
+}

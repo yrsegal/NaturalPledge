@@ -34,6 +34,8 @@ object LibNames {
     val PRISM_FLAME = "prismFlame"
     val IRIS_DIRT = "irisDirt"
     val RAINBOW_DIRT = "rainbowDirt"
+    val IRIS_LOG = "irisLog"
+    val RAINBOW_LOG = "rainbowLog"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"
