@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.api.lib
+package shadowfox.botanicaladdons.common.lib
 
 object LibNames {
     val PRIESTLY_EMBLEM = "priestEmblem"
@@ -37,6 +37,9 @@ object LibNames {
     val SOUL_SUFFUSER = "soulSuffuser"
     val IRIS_LOG = "irisLog"
     val RAINBOW_LOG = "rainbowLog"
+    val IRIS_LEAVES = "irisLeaves"
+    val RAINBOW_LEAVES = "rainbowLeaves"
+    val IRIS_SAPLING = "irisSapling"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

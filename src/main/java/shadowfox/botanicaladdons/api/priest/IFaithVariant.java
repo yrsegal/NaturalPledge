@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.api;
+package shadowfox.botanicaladdons.api.priest;
 
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,9 +29,8 @@ public interface IFaithVariant {
     }
 
     @SideOnly(Side.CLIENT)
-    default
     @Nullable
-    IItemColor getColor() {
+    default IItemColor getColor() {
         return null;
     }
 

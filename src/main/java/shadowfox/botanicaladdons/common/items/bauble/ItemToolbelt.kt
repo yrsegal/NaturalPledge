@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
-import shadowfox.botanicaladdons.api.IToolbeltBlacklisted
+import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
@@ -51,7 +51,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
         val beltTexture = ResourceLocation(LibMisc.MOD_ID, "textures/model/toolbelt.png")
 
         @SideOnly(Side.CLIENT)
-        val model = ModelBiped()
+        var model: Any? = null
 
         val SEGMENTS = 12
 
@@ -150,10 +150,9 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 val mc = Minecraft.getMinecraft()
                 val tess = Tessellator.getInstance()
 
-                // TODO: This may not work if the obfuscation mappings change.
-                val renderPosX = (RenderManager::class.java).getDeclaredField("renderPosX").apply{isAccessible = true}.get(mc.renderManager) as Double
-                val renderPosY = (RenderManager::class.java).getDeclaredField("renderPosY").apply{isAccessible = true}.get(mc.renderManager) as Double
-                val renderPosZ = (RenderManager::class.java).getDeclaredField("renderPosZ").apply{isAccessible = true}.get(mc.renderManager) as Double
+                val renderPosX = mc.renderManager.renderPosX
+                val renderPosY = mc.renderManager.renderPosY
+                val renderPosZ = mc.renderManager.renderPosZ
 
                 GlStateManager.pushMatrix()
                 GlStateManager.enableBlend()
@@ -302,6 +301,10 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
 
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partTicks: Float) {
         if (type == IBaubleRender.RenderType.BODY) {
+
+            if (model == null)
+                model = ModelBiped()
+
             Minecraft.getMinecraft().renderEngine.bindTexture(beltTexture)
             if (player.isSneaking)
                 GlStateManager.translate(0f, 0.3f, 0f)
@@ -313,7 +316,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             val s = 1.05F / 16F
             GlStateManager.scale(s, s, s)
 
-            model.bipedBody.render(1F)
+            (model as ModelBiped).bipedBody.render(1F)
         }
     }
 

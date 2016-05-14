@@ -11,9 +11,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import shadowfox.botanicaladdons.api.IFaithVariant
+import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.api.lib.LibNames
+import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
+import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
@@ -59,7 +60,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
                         val pos = BlockPos(player.posX + x, player.posY + y, player.posZ + z)
                         val state = world.getBlockState(pos)
                         val block = state.block
-                        if (block is BlockSapling)
+                        if (block is BlockSapling || block is ISaplingBlock)
                             saplings.add(Pair(pos, state))
 
                     }
@@ -72,7 +73,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
         val state = pair.second
         val block = state.block
 
-        if (block is BlockSapling && block.canGrow(world, pos, state, world.isRemote)) {
+        if (block is IGrowable && block.canGrow(world, pos, state, world.isRemote)) {
             if (world.isRemote)
                 world.playAuxSFX(2005, pos, 0)
             else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(stack, player, 10, true))

@@ -30,7 +30,6 @@ import vazkii.botania.api.lexicon.LexiconEntry
  */
 class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet, *Array(4, {name + COLORS[colorSet][it].toString().capitalizeFirst()})), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
-        val AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis::class.java)
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {
                 (it?.metadata ?: -1) < ((i + 1) * 4) && (it?.metadata ?: -1) >= (i * 4)
@@ -64,7 +63,7 @@ class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + c
         soundType = SoundType.WOOD
         COLOR = COLOR_PROPS[colorSet]
         blockState = createBlockState()
-        defaultState = blockState.baseState
+        defaultState = blockState.baseState.withProperty(AXIS, BlockLog.EnumAxis.Y)
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
@@ -105,7 +104,6 @@ class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + c
     }
 
     override fun createStackedBlock(state: IBlockState): ItemStack? {
-        println(COLORS[colorSet].indexOf(state.getValue(COLOR)))
         return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR)))
     }
 

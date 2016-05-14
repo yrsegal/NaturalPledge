@@ -21,7 +21,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.IPlantable
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.api.lib.LibNames
+import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
@@ -81,7 +81,9 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "
     override fun onBlockActivated(worldIn: World?, pos: BlockPos?, state: IBlockState?, par5EntityPlayer: EntityPlayer?, hand: EnumHand?, stack: ItemStack?, side: EnumFacing?, par7: Float, par8: Float, par9: Float): Boolean {
         val altar = worldIn!!.getTileEntity(pos) as TileSuffuser? ?: return false
 
-        if (par5EntityPlayer!!.isSneaking) {
+        if (par5EntityPlayer!!.isSneaking && worldIn.isRemote) {
+            println(altar.manaToGet)
+            println(altar.currentRecipe)
             if (altar.manaToGet == 0)
                 for (i in altar.sizeInventory - 1 downTo 0) {
                     val stackAt = altar.getItemHandler().getStackInSlot(i)

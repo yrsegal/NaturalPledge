@@ -44,6 +44,9 @@ tile.botanicaladdons:irisDirt.name=Iridescent Dirt
 tile.botanicaladdons:rainbowDirt.name=Iridescent Dirt
 tile.botanicaladdons:irisLog.name=Iridescent Log
 tile.botanicaladdons:rainbowLog.name=Iridescent Log
+tile.botanicaladdons:irisLeaves.name=Iridescent Leaves
+tile.botanicaladdons:rainbowLeaves.name=Iridescent Leaves
+tile.botanicaladdons:irisSapling.name=Iridescent Sapling
 
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange

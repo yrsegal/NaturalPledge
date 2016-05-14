@@ -40,7 +40,7 @@ public class RenderTileSoulSuffuser extends TileEntitySpecialRenderer<TileSuffus
 			GlStateManager.translate(1F, 2.5F, 1F);
 			GlStateManager.rotate(angles[i] + (float) time, 0F, 1F, 0F);
 			GlStateManager.translate(1F, 0F, 0.5F);
-			GlStateManager.rotate(90F, 1F, 1F, -0.5F);
+			GlStateManager.rotate(90F, -1F, 1F, 0.5F);
 			GlStateManager.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();

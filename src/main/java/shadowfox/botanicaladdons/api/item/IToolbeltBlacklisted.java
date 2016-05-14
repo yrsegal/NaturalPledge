@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.api;
+package shadowfox.botanicaladdons.api.item;
 
 import net.minecraft.item.ItemStack;
 

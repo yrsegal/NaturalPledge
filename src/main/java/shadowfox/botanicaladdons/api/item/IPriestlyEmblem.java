@@ -1,6 +1,7 @@
-package shadowfox.botanicaladdons.api;
+package shadowfox.botanicaladdons.api.item;
 
 import net.minecraft.item.ItemStack;
+import shadowfox.botanicaladdons.api.priest.IFaithVariant;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

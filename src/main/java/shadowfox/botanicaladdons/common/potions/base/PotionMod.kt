@@ -6,6 +6,8 @@ import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 
 /**
@@ -26,6 +28,7 @@ open class PotionMod(name: String, badEffect: Boolean, color: Int, val iconIndex
 
     override fun hasStatusIcon() = false
 
+    @SideOnly(Side.CLIENT)
     override fun renderInventoryEffect(x: Int, y: Int, effect: PotionEffect, mc: Minecraft) {
         Minecraft.getMinecraft().renderEngine.bindTexture(resource);
         mc.currentScreen.drawTexturedModalRect(x + 6, y + 7, 0 + iconX * 18, 198 + iconY * 18, 18, 18)

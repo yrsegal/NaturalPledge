@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.api;
+package shadowfox.botanicaladdons.api.priest;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

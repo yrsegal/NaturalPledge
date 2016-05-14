@@ -5,9 +5,10 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.api.lib.LibNames
-import shadowfox.botanicaladdons.api.lib.LibOreDict
+import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.block.base.BlockMod
+import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
 import shadowfox.botanicaladdons.common.block.colored.*
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
@@ -26,8 +27,11 @@ object ModBlocks {
     val irisDirt: BlockMod
     val rainbowDirt: BlockMod
     val soulSuffuser: BlockMod
-    val irisLogs: Array<BlockMod>
+    val irisLogs: Array<BlockIridescentLog>
     val rainbowLog: BlockMod
+    val irisLeaves: Array<BlockIridescentLeaves>
+    val rainbowLeaves: BlockMod
+    val irisSapling: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -38,6 +42,9 @@ object ModBlocks {
         soulSuffuser = BlockSoulSuffuser(LibNames.SOUL_SUFFUSER)
         irisLogs = Array(4) {BlockIridescentLog(LibNames.IRIS_LOG, it)}
         rainbowLog = BlockRainbowLog(LibNames.RAINBOW_LOG)
+        irisLeaves = Array(4) {BlockIridescentLeaves(LibNames.IRIS_LEAVES, it)}
+        rainbowLeaves = BlockRainbowLeaves(LibNames.RAINBOW_LEAVES)
+        irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
 
         GameRegistry.registerTileEntity(TileSuffuser::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.SOUL_SUFFUSER).toString())
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())

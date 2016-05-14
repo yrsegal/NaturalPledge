@@ -2,8 +2,8 @@ package shadowfox.botanicaladdons.common.lexicon.base
 
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
-import shadowfox.botanicaladdons.api.IFaithVariant
-import shadowfox.botanicaladdons.api.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.priest.IFaithVariant
+import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.lexicon.LexiconCategory
 

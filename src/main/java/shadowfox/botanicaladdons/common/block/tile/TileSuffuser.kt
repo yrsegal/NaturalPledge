@@ -227,14 +227,14 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
         if (manaToGet > 0 && mana >= manaToGet && recipe != null) {
             recieveMana(-recipe.manaUsage)
 
-            if (!worldObj.isRemote) {
-                val output = recipe.output.copy()
-                val outputItem = EntityItem(worldObj, pos.x + 0.5, pos.y + 1.5, pos.z + 0.5, output)
-                worldObj.spawnEntityInWorld(outputItem)
+            val output = recipe.output.copy()
+            val outputItem = EntityItem(worldObj, pos.x + 0.5, pos.y + 1.5, pos.z + 0.5, output)
+            worldObj.spawnEntityInWorld(outputItem)
 
-                currentRecipe = null
-                cooldown = 60
-            }
+            currentRecipe = null
+            cooldown = 60
+            manaToGet = 0
+            markDirty()
 
             saveLastRecipe()
             if (!worldObj.isRemote) {
@@ -242,7 +242,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
                     itemHandler.setStackInSlot(i, null)
                 }
 
-                VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+                VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos)
             }
             craftingFanciness()
         }

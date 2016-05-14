@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.api;
 import com.google.common.collect.HashBiMap;
 import net.minecraftforge.fml.common.Loader;
 import shadowfox.botanicaladdons.api.lib.LibMisc;
+import shadowfox.botanicaladdons.api.priest.IFocusSpell;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,25 +13,21 @@ import javax.annotation.Nullable;
  *         Created at 11:32 AM on 4/24/16.
  */
 public final class SpellRegistry {
-    private final static
     @Nonnull
-    HashBiMap<String, IFocusSpell> spellRegistry = HashBiMap.create();
+    private final static HashBiMap<String, IFocusSpell> spellRegistry = HashBiMap.create();
 
-    public static
     @Nonnull
-    HashBiMap<String, IFocusSpell> getSpellRegistry() {
+    public static HashBiMap<String, IFocusSpell> getSpellRegistry() {
         return spellRegistry;
     }
 
-    public static
     @Nullable
-    IFocusSpell registerSpell(@Nonnull String name, @Nonnull IFocusSpell spell) {
+    public static IFocusSpell registerSpell(@Nonnull String name, @Nonnull IFocusSpell spell) {
         return registerSpell(name, spell, false);
     }
 
-    public static
     @Nullable
-    IFocusSpell registerSpell(@Nonnull String name, @Nonnull IFocusSpell spell, boolean force) {
+    public static IFocusSpell registerSpell(@Nonnull String name, @Nonnull IFocusSpell spell, boolean force) {
         String modId = Loader.instance().activeModContainer().getModId();
         String transformedName = name;
         if (!modId.equals(LibMisc.MOD_ID))
@@ -42,15 +39,13 @@ public final class SpellRegistry {
         return spell;
     }
 
-    public static
     @Nullable
-    IFocusSpell getSpell(@Nonnull String name) {
+    public static IFocusSpell getSpell(@Nonnull String name) {
         return spellRegistry.get(name);
     }
 
-    public static
     @Nullable
-    String getSpellName(@Nonnull IFocusSpell spell) {
+    public static String getSpellName(@Nonnull IFocusSpell spell) {
         return spellRegistry.inverse().get(spell);
     }
 }

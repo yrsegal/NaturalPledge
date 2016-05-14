@@ -23,9 +23,9 @@ import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.oredict.OreDictionary
-import shadowfox.botanicaladdons.api.IFocusSpell
-import shadowfox.botanicaladdons.api.IPriestlyEmblem
-import shadowfox.botanicaladdons.api.lib.LibOreDict
+import shadowfox.botanicaladdons.api.priest.IFocusSpell
+import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of

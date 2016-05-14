@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.potions.brew
 
 import net.minecraft.potion.PotionEffect
-import shadowfox.botanicaladdons.api.lib.LibNames
+import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import vazkii.botania.api.brew.Brew
 

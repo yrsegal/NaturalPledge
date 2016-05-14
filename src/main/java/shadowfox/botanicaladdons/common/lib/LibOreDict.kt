@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.api.lib
+package shadowfox.botanicaladdons.common.lib
 
 /**
  * @author WireSegal

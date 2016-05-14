@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
+import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.IItemHandlerModifiable
 import net.minecraftforge.items.ItemStackHandler
 
@@ -39,6 +40,7 @@ abstract class TileSimpleInventory() : TileMod() {
         return cap === CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(cap, side)
     }
 
+    @Suppress("unchecked")
     override fun <T> getCapability(cap: Capability<T>, side: EnumFacing): T {
         return if (cap === CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) this.itemHandler as T else super.getCapability(cap, side)
     }

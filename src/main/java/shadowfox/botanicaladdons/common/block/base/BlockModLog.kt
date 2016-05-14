@@ -29,6 +29,7 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
 
     init {
         blockHardness = 2.0f
+        defaultState = defaultState.withProperty(AXIS, BlockLog.EnumAxis.Y)
     }
 
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {

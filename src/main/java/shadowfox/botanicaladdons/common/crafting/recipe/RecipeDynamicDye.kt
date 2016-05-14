@@ -8,7 +8,7 @@ import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
-import shadowfox.botanicaladdons.api.lib.LibOreDict
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import java.awt.Color
 

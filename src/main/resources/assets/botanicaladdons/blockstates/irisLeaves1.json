@@ -1,0 +1,9 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "color=yellow": { "model": "botanicaladdons:irisLeaves" },
+        "color=lime": { "model": "botanicaladdons:irisLeaves" },
+        "color=pink": { "model": "botanicaladdons:irisLeaves" },
+        "color=gray": { "model": "botanicaladdons:irisLeaves" }
+    }
+}

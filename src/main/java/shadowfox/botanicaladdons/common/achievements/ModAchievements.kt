@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.achievements
 
 import net.minecraft.init.Items
+import net.minecraft.item.ItemStack
 import net.minecraftforge.common.AchievementPage
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.ModBlocks
@@ -25,9 +26,9 @@ object ModAchievements {
         donEmblem = AchievementMod("donEmblem", 1, 0, ModItems.symbol, null)
         focus = AchievementMod("focus", 3, 1, ModItems.spellFocus, donEmblem)
         awakening = AchievementMod("awakening", -1, 1, ModBlocks.awakenerCore, donEmblem)
-        sacredItem = AchievementMod("sacredItem", -3, 2, Items.potato, awakening) //todo change temp item
-        dendricSuffusion = AchievementMod("dendricSuffusion", 1, 2, Items.potato, focus) //todo change temp item
-        iridescence = AchievementMod("iridescence", 5, 2, Items.potato, focus) //todo change temp item
+        sacredItem = AchievementMod("sacredItem", -3, 2, ModItems.mjolnir, awakening)
+        dendricSuffusion = AchievementMod("dendricSuffusion", 1, 2, ModBlocks.irisSapling, focus)
+        iridescence = AchievementMod("iridescence", 5, 2, ItemStack(ModItems.iridescentDye, 1, 16), focus)
 
         achievementPage = AchievementPage(LibMisc.MOD_NAME, *AchievementMod.achievements.toTypedArray())
         AchievementPage.registerAchievementPage(achievementPage)

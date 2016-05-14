@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.api.lib.LibNames
+import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.base.PotionMod
 
 /**
@@ -20,7 +20,8 @@ import shadowfox.botanicaladdons.common.potions.base.PotionMod
 class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0x808080, iconIndex, true) {
 
     init {
-        MinecraftForge.EVENT_BUS.register(this)
+        if (FMLLaunchHandler.side().isClient)
+            MinecraftForge.EVENT_BUS.register(this)
     }
 
     val greyscale = ResourceLocation("shaders/post/desaturate.json")
