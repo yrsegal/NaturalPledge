@@ -13,7 +13,7 @@ import vazkii.botania.api.brew.Brew
 class BrewMod(name: String, color: Int, cost: Int, vararg effects: PotionEffect) : Brew(name, name, color, cost, *effects) {
 
     constructor(name: String, cost: Int, vararg effects: PotionEffect) :
-        this(name, PotionUtils.getPotionColorFromEffectList(listOf(*effects)), cost, *effects)
+    this(name, PotionUtils.getPotionColorFromEffectList(listOf(*effects)), cost, *effects)
 
     init {
         BotaniaAPI.registerBrew(this)

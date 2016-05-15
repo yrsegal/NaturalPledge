@@ -27,9 +27,9 @@ class PotionImmortality(iconIndex: Int) : PotionMod(LibNames.IMMORTALITY, false,
                 e.isCanceled = true
                 if (creature.health > 1f)
                     creature.attackEntityFrom(DamageEffectWrapper(e.source), 1f)
-            } else if (e.amount > 4f) {
+            } else if (e.amount > 2f) {
                 e.isCanceled = true
-                creature.attackEntityFrom(DamageEffectWrapper(e.source), 4f)
+                creature.attackEntityFrom(DamageEffectWrapper(e.source), 2f)
             }
         }
     }

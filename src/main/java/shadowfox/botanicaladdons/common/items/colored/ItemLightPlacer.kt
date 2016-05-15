@@ -4,7 +4,6 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
-import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumActionResult

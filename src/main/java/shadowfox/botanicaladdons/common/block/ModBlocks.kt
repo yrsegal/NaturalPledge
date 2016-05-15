@@ -1,19 +1,16 @@
 package shadowfox.botanicaladdons.common.block
 
-import net.minecraft.item.ItemBlock
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.lib.LibNames
-import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.block.base.BlockMod
-import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
-import shadowfox.botanicaladdons.common.block.base.BlockModLog
 import shadowfox.botanicaladdons.common.block.colored.*
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
+import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
@@ -40,9 +37,9 @@ object ModBlocks {
         irisDirt = BlockIridescentDirt(LibNames.IRIS_DIRT)
         rainbowDirt = BlockRainbowDirt(LibNames.RAINBOW_DIRT)
         soulSuffuser = BlockSoulSuffuser(LibNames.SOUL_SUFFUSER)
-        irisLogs = Array(4) {BlockIridescentLog(LibNames.IRIS_LOG, it)}
+        irisLogs = Array(4) { BlockIridescentLog(LibNames.IRIS_LOG, it) }
         rainbowLog = BlockRainbowLog(LibNames.RAINBOW_LOG)
-        irisLeaves = Array(4) {BlockIridescentLeaves(LibNames.IRIS_LEAVES, it)}
+        irisLeaves = Array(4) { BlockIridescentLeaves(LibNames.IRIS_LEAVES, it) }
         rainbowLeaves = BlockRainbowLeaves(LibNames.RAINBOW_LEAVES)
         irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
 

@@ -15,9 +15,9 @@ import net.minecraft.util.text.TextFormatting.WHITE
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.api.priest.IFocusSpell
-import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.SpellRegistry
+import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements

@@ -18,12 +18,12 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.IPlantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 

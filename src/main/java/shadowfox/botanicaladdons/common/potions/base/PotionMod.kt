@@ -34,6 +34,11 @@ open class PotionMod(name: String, badEffect: Boolean, color: Int, val iconIndex
         mc.currentScreen.drawTexturedModalRect(x + 6, y + 7, 0 + iconX * 18, 198 + iconY * 18, 18, 18)
     }
 
+    override fun renderHUDEffect(x: Int, y: Int, effect: PotionEffect?, mc: Minecraft, alpha: Float) {
+        Minecraft.getMinecraft().renderEngine.bindTexture(resource);
+        mc.ingameGUI.drawTexturedModalRect(x + 3, y + 3, 0 + iconX * 18, 198 + iconY * 18, 18, 18)
+    }
+
     fun hasEffect(entity: EntityLivingBase): Boolean {
         return hasEffect(entity, this)
     }

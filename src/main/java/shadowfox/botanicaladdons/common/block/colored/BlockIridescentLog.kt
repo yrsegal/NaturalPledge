@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
 import net.minecraft.block.BlockLog
-import net.minecraft.block.BlockPlanks
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
@@ -14,7 +13,6 @@ import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
@@ -28,7 +26,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 10:36 AM on 5/7/16.
  */
-class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet, *Array(4, {name + COLORS[colorSet][it].toString().capitalizeFirst()})), ModelHandler.IBlockColorProvider, ILexiconable {
+class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet, *Array(4, { name + COLORS[colorSet][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {

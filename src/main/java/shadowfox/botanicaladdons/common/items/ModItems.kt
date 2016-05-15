@@ -6,8 +6,6 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.lib.LibNames
-import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
@@ -20,6 +18,8 @@ import shadowfox.botanicaladdons.common.items.sacred.ItemDagger
 import shadowfox.botanicaladdons.common.items.sacred.ItemFateHorn
 import shadowfox.botanicaladdons.common.items.sacred.ItemImmortalApple
 import shadowfox.botanicaladdons.common.items.sacred.ItemMjolnir
+import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.common.item.ModItems as BotaniaItems
 
 /**

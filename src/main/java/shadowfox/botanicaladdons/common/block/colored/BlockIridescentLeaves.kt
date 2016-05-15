@@ -25,7 +25,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 10:45 PM on 5/13/16.
  */
-class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(4, {name + COLORS[colorSet][it].toString().capitalizeFirst()})), ModelHandler.IBlockColorProvider, ILexiconable {
+class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(4, { name + COLORS[colorSet][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {

@@ -1,13 +1,11 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import com.google.common.collect.ImmutableList
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
-import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
@@ -20,7 +18,6 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
-import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.item.IPhantomInkable
@@ -28,7 +25,6 @@ import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.common.item.ModItems
 import vazkii.botania.common.world.WorldTypeSkyblock
-import java.util.*
 
 /**
  * @author WireSegal

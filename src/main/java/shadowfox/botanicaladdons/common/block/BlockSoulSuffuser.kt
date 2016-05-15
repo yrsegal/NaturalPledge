@@ -1,7 +1,5 @@
 package shadowfox.botanicaladdons.common.block
 
-import net.minecraft.block.BlockBush
-import net.minecraft.block.BlockSapling
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.state.BlockStateContainer
@@ -21,10 +19,10 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.IPlantable
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
+import shadowfox.botanicaladdons.common.lib.LibNames
 import vazkii.botania.api.wand.IWandHUD
 import vazkii.botania.api.wand.IWandable
 
@@ -96,8 +94,7 @@ class BlockSoulSuffuser(name: String) : BlockModContainer(name, Material.rock, "
                         break
                     }
                 }
-        }
-        else if (altar.isEmpty() && stack == null)
+        } else if (altar.isEmpty() && stack == null)
             altar.trySetLastRecipe(par5EntityPlayer)
         else if (stack != null)
             return altar.addItem(par5EntityPlayer, stack)

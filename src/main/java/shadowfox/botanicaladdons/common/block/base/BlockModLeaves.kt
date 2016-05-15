@@ -8,7 +8,6 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
@@ -56,6 +55,7 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
     fun onRenderWorldLast(e: RenderWorldLastEvent) {
         if (canBeFancy)
             fancyLeaves = Minecraft.getMinecraft().gameSettings.fancyGraphics
+        e.context
     }
 
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
@@ -188,7 +188,7 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
         }
     }
 
-    
+
     override fun quantityDropped(random: Random?): Int {
         return if (random!!.nextInt(20) == 0) 1 else 0
     }
@@ -196,17 +196,17 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
     override fun onBlockPlacedBy(worldIn: World?, pos: BlockPos?, state: IBlockState?, placer: EntityLivingBase?, stack: ItemStack?) {
         worldIn?.setBlockState(pos, state?.withProperty(DECAYABLE, false))
     }
-    
+
     override fun getItemDropped(state: IBlockState?, rand: Random?, fortune: Int): Item {
         return Item.getItemFromBlock(ModBlocks.irisSapling)
     }
 
-    
+
     override fun dropBlockAsItemWithChance(worldIn: World, pos: BlockPos, state: IBlockState, chance: Float, fortune: Int) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune)
     }
 
-    
+
     override fun isOpaqueCube(state: IBlockState?): Boolean {
         return !(this.fancyLeaves || !canBeFancy)
     }

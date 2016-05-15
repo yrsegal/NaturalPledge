@@ -1,13 +1,8 @@
 package shadowfox.botanicaladdons.common.block.tile
 
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.network.NetworkManager
-import net.minecraft.network.Packet
-import net.minecraft.network.play.server.SPacketUpdateTileEntity
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ITickable
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import vazkii.botania.client.core.proxy.ClientProxy
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 
@@ -25,7 +20,8 @@ class TilePrismFlame : TileMod(), ITickable {
         try {
             if (!inked || Botania.proxy.isClientPlayerWearingMonocle)
                 BotanicalAddons.proxy.particleEmission(worldObj, Vector3.fromBlockPos(pos), getLightColor())
-        } catch (e: NullPointerException) {}
+        } catch (e: NullPointerException) {
+        }
     }
 
     fun getLightColor(): Int {

@@ -4,9 +4,9 @@ import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
-import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 
 /**
  * @author WireSegal

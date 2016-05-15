@@ -1,6 +1,5 @@
 package shadowfox.botanicaladdons.common.achievements
 
-import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.AchievementPage
 import shadowfox.botanicaladdons.api.lib.LibMisc

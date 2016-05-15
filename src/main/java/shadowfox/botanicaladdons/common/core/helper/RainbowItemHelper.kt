@@ -4,8 +4,6 @@ import net.minecraft.block.Block
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import shadowfox.botanicaladdons.common.block.ModBlocks
-import shadowfox.botanicaladdons.common.block.colored.BlockFrozenStar
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import java.util.*
 

@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.IItemHandlerModifiable
 import net.minecraftforge.items.ItemStackHandler
 
@@ -14,7 +13,7 @@ import net.minecraftforge.items.ItemStackHandler
  * created on 5/7/16
  */
 abstract class TileSimpleInventory() : TileMod() {
-    val itemHandler : SimpleItemStackHandler by lazy {
+    val itemHandler: SimpleItemStackHandler by lazy {
         createItemHandler()
     }
 

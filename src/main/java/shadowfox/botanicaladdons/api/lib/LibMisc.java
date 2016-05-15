@@ -11,7 +11,7 @@ public final class LibMisc {
     public static final String BUILD = "GRADLE:BUILD";
     public static final String VERSIONID = "GRADLE:VERSION";
     public static final String VERSION = VERSIONID + "." + BUILD;
-    public static final String DEPENDENCIES = "required-after:Forge@[12.16.0.1865,);required-after:Botania;";
+    public static final String DEPENDENCIES = "required-after:Forge@[12.16.0.1898,);required-after:Botania;";
 
     public static final String PROXY_COMMON = "shadowfox.botanicaladdons.common.core.CommonProxy";
     public static final String PROXY_CLIENT = "shadowfox.botanicaladdons.client.core.ClientProxy";

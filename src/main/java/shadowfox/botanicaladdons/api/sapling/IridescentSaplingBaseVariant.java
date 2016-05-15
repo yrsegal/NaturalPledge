@@ -3,8 +3,6 @@ package shadowfox.botanicaladdons.api.sapling;
 import net.minecraft.block.state.IBlockState;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class IridescentSaplingBaseVariant implements IIridescentSaplingVariant {
     @Nonnull

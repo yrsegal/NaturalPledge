@@ -1,7 +1,5 @@
 package shadowfox.botanicaladdons.common.block.tile
 
-import net.minecraft.block.Block
-import net.minecraft.block.BlockSapling
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.item.EntityItem
@@ -26,12 +24,11 @@ import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.client.core.handler.HUDHandler
 import vazkii.botania.client.core.helper.RenderHelper
 import vazkii.botania.common.Botania
-import shadowfox.botanicaladdons.common.block.ModBlocks
-import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 import vazkii.botania.common.block.tile.TileAltar
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.ModItems
 import java.util.*
+import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
  * @author WireSegal
@@ -55,7 +52,7 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
     override fun getRenderBoundingBox() = INFINITE_EXTENT_AABB
 
     fun addItem(player: EntityPlayer?, stack: ItemStack): Boolean {
-        if (cooldown > 0 || stack.item === ModItems.twigWand || stack.item === ModItems.lexicon ||  OreDictionary.itemMatches(stack, ItemStack(Blocks.sapling), true))
+        if (cooldown > 0 || stack.item === ModItems.twigWand || stack.item === ModItems.lexicon || OreDictionary.itemMatches(stack, ItemStack(Blocks.sapling), true))
             return false
 
         if (stack.item === Item.getItemFromBlock(BotaniaBlocks.livingrock) && stack.itemDamage == 0) {
@@ -123,13 +120,13 @@ class TileSuffuser : TileSimpleInventory(), IManaReceiver, ITickable {
 
         if (worldObj.isRemote)
             markDirty()
-            if ( manaToGet > 0 && mana >= manaToGet) {
-                if (worldObj.rand.nextInt(20) == 0) {
-                    val vec = Vector3.fromTileEntityCenter(this)
-                    val endVec = vec.copy().add(0.0, 2.5, 0.0)
-                    Botania.proxy.lightningFX(worldObj, vec, endVec, 2f, 0x00948B, 0x00E4D7)
-                }
+        if (manaToGet > 0 && mana >= manaToGet) {
+            if (worldObj.rand.nextInt(20) == 0) {
+                val vec = Vector3.fromTileEntityCenter(this)
+                val endVec = vec.copy().add(0.0, 2.5, 0.0)
+                Botania.proxy.lightningFX(worldObj, vec, endVec, 2f, 0x00948B, 0x00E4D7)
             }
+        }
 
         if (cooldown > 0) {
             cooldown--

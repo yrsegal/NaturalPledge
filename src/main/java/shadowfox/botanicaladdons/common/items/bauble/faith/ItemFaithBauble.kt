@@ -22,9 +22,9 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IDiscordantItem
-import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
