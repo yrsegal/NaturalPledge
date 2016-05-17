@@ -25,6 +25,8 @@ import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
+import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
+import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
@@ -46,6 +48,9 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), M
         fun getSize(stack: ItemStack) = ItemNBTHelper.getFloat(stack, TAG_SIZE, DEFAULT_SIZE)
         fun setSize(stack: ItemStack, size: Float) = ItemNBTHelper.setFloat(stack, TAG_SIZE, size)
     }
+
+    override val creativeTab: ModCreativeTab?
+        get() = ModTabs.TabColor
 
     override val item: ItemBlock
         get() = object : ItemModBlock(this) {

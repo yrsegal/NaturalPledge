@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.core
+package shadowfox.botanicaladdons.common.core.tab
 
 import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
@@ -12,19 +12,17 @@ import java.util.*
  * @author WireSegal
  * Created at 1:17 PM on 3/20/16.
  */
-class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
+abstract class ModCreativeTab(val name: String) : CreativeTabs("${LibMisc.MOD_ID}.$name") {
     internal lateinit var list: MutableList<ItemStack>
 
     init {
         this.setNoTitle()
-        this.backgroundImageName = "${LibMisc.MOD_ID}.png"
+        this.backgroundImageName = "${LibMisc.MOD_ID}_$name.png"
     }
 
-    override fun getIconItemStack(): ItemStack {
-        return ItemStack(ModItems.symbol)
-    }
+    abstract override fun getIconItemStack(): ItemStack
 
-    override fun getTabIconItem(): Item {
+    override fun getTabIconItem(): Item? {
         return this.iconItemStack.item
     }
 
@@ -41,24 +39,23 @@ class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
     private fun addItem(item: Item) {
         val tempList = mutableListOf<ItemStack>()
         item.getSubItems(item, this, tempList)
-        this.list.addAll(tempList)
+        if (item == tabIconItem)
+            this.list.addAll(0, tempList)
+        else
+            this.list.addAll(tempList)
     }
 
-    companion object {
-        var INSTANCE = CreativeTab()
+    private val items = ArrayList<Item>()
 
-        private val items = ArrayList<Item>()
+    fun set(block: Block) {
+        val item = Item.getItemFromBlock(block) ?: return
+        items.add(item)
+        block.setCreativeTab(this)
+    }
 
-        fun set(block: Block) {
-            if (Item.getItemFromBlock(block) != null)
-                items.add(Item.getItemFromBlock(block))
-            block.setCreativeTab(INSTANCE)
-        }
-
-        fun set(item: Item) {
-            items.add(item)
-            item.creativeTab = INSTANCE
-        }
+    fun set(item: Item) {
+        items.add(item)
+        item.creativeTab = this
     }
 }
 

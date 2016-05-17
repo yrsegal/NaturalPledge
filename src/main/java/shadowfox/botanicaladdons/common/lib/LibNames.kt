@@ -40,6 +40,8 @@ object LibNames {
     val IRIS_LEAVES = "irisLeaves"
     val RAINBOW_LEAVES = "rainbowLeaves"
     val IRIS_SAPLING = "irisSapling"
+    val ALT_LOG = "altLog"
+    val ALT_LEAVES = "altLeaves"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

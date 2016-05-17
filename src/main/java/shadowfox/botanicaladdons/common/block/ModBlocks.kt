@@ -1,14 +1,14 @@
 package shadowfox.botanicaladdons.common.block
 
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.block.alt.*
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.colored.*
-import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
-import shadowfox.botanicaladdons.common.block.tile.TileStar
-import shadowfox.botanicaladdons.common.block.tile.TileSuffuser
+import shadowfox.botanicaladdons.common.block.tile.*
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
@@ -29,6 +29,8 @@ object ModBlocks {
     val irisLeaves: Array<BlockIridescentLeaves>
     val rainbowLeaves: BlockMod
     val irisSapling: BlockMod
+    val altLogs: Array<BlockAltLog>
+    val altLeaves: Array<BlockAltLeaves>
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -42,13 +44,15 @@ object ModBlocks {
         irisLeaves = Array(4) { BlockIridescentLeaves(LibNames.IRIS_LEAVES, it) }
         rainbowLeaves = BlockRainbowLeaves(LibNames.RAINBOW_LEAVES)
         irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
+        altLogs = Array(2) { BlockAltLog(LibNames.ALT_LOG, it) }
+        altLeaves = Array(2) { BlockAltLeaves(LibNames.ALT_LEAVES, it) }
 
         GameRegistry.registerTileEntity(TileSuffuser::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.SOUL_SUFFUSER).toString())
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
 
-        OreDictionary.registerOre("logWood", rainbowLog)
-        for (log in irisLogs) OreDictionary.registerOre("logWood", log)
-        OreDictionary.registerOre(LibOreDict.DYES[16], BotaniaBlocks.bifrostPerm)
+        OreDictionary.registerOre("logWood", ItemStack(rainbowLog, 1, OreDictionary.WILDCARD_VALUE))
+        for (log in irisLogs) OreDictionary.registerOre("logWood", ItemStack(log, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.DYES[16], ItemStack(BotaniaBlocks.bifrostPerm, 1, OreDictionary.WILDCARD_VALUE))
     }
 }

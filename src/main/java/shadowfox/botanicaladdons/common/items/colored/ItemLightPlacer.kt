@@ -17,6 +17,8 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
+import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
+import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.mana.IManaUsingItem
@@ -36,6 +38,9 @@ class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IColorProvider
 
     val MANA_PER_FLAME = 100
     val TAG_INK = "phantomInk"
+
+    override val creativeTab: ModCreativeTab?
+        get() = ModTabs.TabColor
 
     override fun usesMana(p0: ItemStack?) = true
 

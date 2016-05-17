@@ -26,7 +26,11 @@ import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
 import shadowfox.botanicaladdons.api.sapling.IridescentSaplingBaseVariant
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentDirt
+import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
+import shadowfox.botanicaladdons.common.core.tab.ModTabs
+import vazkii.botania.api.state.BotaniaStateProps
 import java.util.*
+import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
  * @author WireSegal
@@ -56,6 +60,26 @@ class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantab
                 return soil.block == ModBlocks.irisDirt
             }
         }
+
+        class AltGrassSaplingVariant: IIridescentSaplingVariant {
+            override fun getLeaves(soil: IBlockState): IBlockState {
+                val variant = soil.getValue(BotaniaStateProps.ALTGRASS_VARIANT)
+                val colorSet = variant.ordinal / 4
+                val block = ModBlocks.altLeaves[colorSet]
+                return block.defaultState.withProperty(block.TYPE, variant)
+            }
+
+            override fun getWood(soil: IBlockState): IBlockState {
+                val variant = soil.getValue(BotaniaStateProps.ALTGRASS_VARIANT)
+                val colorSet = variant.ordinal / 4
+                val block = ModBlocks.altLogs[colorSet]
+                return block.defaultState.withProperty(block.TYPE, variant)
+            }
+
+            override fun matchesSoil(soil: IBlockState): Boolean {
+                return soil.block == BotaniaBlocks.altGrass
+            }
+        }
     }
 
     val AABB = AxisAlignedBB(0.1, 0.0, 0.1, 0.9, 0.8, 0.9)
@@ -65,12 +89,16 @@ class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantab
         soundType = SoundType.PLANT
 
         SaplingVariantRegistry.registerVariant("irisDirt", IridescentDirtSaplingVariant())
+        SaplingVariantRegistry.registerVariant("altGrass", AltGrassSaplingVariant())
         SaplingVariantRegistry.registerVariant("rainbowDirt",
                 IridescentSaplingBaseVariant(
                         ModBlocks.rainbowDirt.defaultState,
                         ModBlocks.rainbowLog.defaultState,
                         ModBlocks.rainbowLeaves.defaultState))
     }
+
+    override val creativeTab: ModCreativeTab?
+        get() = ModTabs.TabWood
 
     override fun canPlaceBlockAt(worldIn: World, pos: BlockPos): Boolean {
         val soil = worldIn.getBlockState(pos.down())

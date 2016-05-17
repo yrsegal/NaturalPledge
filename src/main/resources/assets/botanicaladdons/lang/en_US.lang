@@ -48,6 +48,20 @@ tile.botanicaladdons:irisLeaves.name=Iridescent Leaves
 tile.botanicaladdons:rainbowLeaves.name=Iridescent Leaves
 tile.botanicaladdons:irisSapling.name=Iridescent Sapling
 
+tile.botanicaladdons:altLogDry.name=Dry Iridescent Log
+tile.botanicaladdons:altLogGolden.name=Golden Iridescent Log
+tile.botanicaladdons:altLogVivid.name=Vivid Iridescent Log
+tile.botanicaladdons:altLogScorched.name=Scorched Iridescent Log
+tile.botanicaladdons:altLogInfused.name=Infused Iridescent Log
+tile.botanicaladdons:altLogMutated.name=Mutated Iridescent Log
+
+tile.botanicaladdons:altLeavesDry.name=Dry Iridescent Leaves
+tile.botanicaladdons:altLeavesGolden.name=Golden Iridescent Leaves
+tile.botanicaladdons:altLeavesVivid.name=Vivid Iridescent Leaves
+tile.botanicaladdons:altLeavesScorched.name=Scorched Iridescent Leaves
+tile.botanicaladdons:altLeavesInfused.name=Infused Iridescent Leaves
+tile.botanicaladdons:altLeavesMutated.name=Mutated Iridescent Leaves
+
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange
 misc.botanicaladdons.color.2=Magenta
@@ -108,7 +122,9 @@ item.botanicaladdons:irisDyeRainbow.name=Bifrost Iridescent Crystal
 
 item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
 
-itemGroup.botanicaladdons=Natural Pledge
+itemGroup.botanicaladdons.divine=Natural Pledge | Divinity
+itemGroup.botanicaladdons.wood=Natural Pledge | Dendrology
+itemGroup.botanicaladdons.color=Natural Pledge | Iridescence
 
 misc.botanicaladdons.contains=Contains:
 misc.botanicaladdons.containsNothing=Empty

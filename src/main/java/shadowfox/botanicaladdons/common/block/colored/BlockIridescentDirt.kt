@@ -21,6 +21,8 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
+import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
+import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.lib.LibOreDict
@@ -41,6 +43,9 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.ground, *A
         soundType = SoundType.GROUND
         blockHardness = 0.5f
     }
+
+    override val creativeTab: ModCreativeTab?
+        get() = ModTabs.TabColor
 
     override val item: ItemBlock
         get() = object : ItemModBlock(this), ModelHandler.ICustomLogHolder {

@@ -17,6 +17,8 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
+import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
+import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -61,6 +63,9 @@ class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(na
         blockState = createBlockState()
         defaultState = blockState.baseState
     }
+
+    override val creativeTab: ModCreativeTab?
+        get() = ModTabs.TabWood
 
     override fun getStateFromMeta(meta: Int): IBlockState {
         val i = meta and 3
