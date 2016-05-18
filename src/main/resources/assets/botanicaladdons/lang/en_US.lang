@@ -62,6 +62,13 @@ tile.botanicaladdons:altLeavesScorched.name=Scorched Iridescent Leaves
 tile.botanicaladdons:altLeavesInfused.name=Infused Iridescent Leaves
 tile.botanicaladdons:altLeavesMutated.name=Mutated Iridescent Leaves
 
+tile.botanicaladdons:altPlanksDry.name=Dry Iridescent Planks
+tile.botanicaladdons:altPlanksGolden.name=Golden Iridescent Planks
+tile.botanicaladdons:altPlanksVivid.name=Vivid Iridescent Planks
+tile.botanicaladdons:altPlanksScorched.name=Scorched Iridescent Planks
+tile.botanicaladdons:altPlanksInfused.name=Infused Iridescent Planks
+tile.botanicaladdons:altPlanksMutated.name=Mutated Iridescent Planks
+
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange
 misc.botanicaladdons.color.2=Magenta
@@ -143,6 +150,7 @@ item.botanicaladdons:holySymbol.name=Holy Symbol
 item.botanicaladdons:holySymbol.potato.name=Tiny Headtato
 item.botanicaladdons:holySymbol.catalyst.name=Curse of the Catalyst
 item.botanicaladdons:holySymbol.heart.name=Crystalline Heart
+item.botanicaladdons:holySymbol.headdress.name=Cherokee Headdress
 item.botanicaladdons:holySymbol.tail.name=Fox Tail
 item.botanicaladdons:holySymbol.teru.name=Chesteru Teru Bozu
 

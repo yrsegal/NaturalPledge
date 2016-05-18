@@ -45,12 +45,12 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
         val wire = "458391f5-6303-4649-b416-e4c0d18f837a"
         val tris = "d475af59-d73c-42be-90ed-f1a78f10d452"
         val l0ne = "d7a5f995-57d5-4077-bc9f-83cc36cadd66"
-        val jansey = "eaf6956b-dd98-4e07-a890-becc9b6d1ba9" //todo
+        val jansey = "eaf6956b-dd98-4e07-a890-becc9b6d1ba9"
         val wiiv = "0d054077-a977-4b19-9df9-8a4d5bf20ec3"
 
         val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv)
 
-        val headPlayers = arrayOf(vaz, wire)
+        val headPlayers = arrayOf(vaz, wire, jansey)
 
         fun getPlayer(stack: ItemStack) = ItemNBTHelper.getString(stack, TAG_PLAYER, "")
 
@@ -79,7 +79,10 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
             nameChanged = true
         } else if (getPlayer(stack) != wiiv && stack.displayName.toLowerCase().equals("rain rain go away")) {
             setPlayer(stack, wiiv)
-            nameChanged == true
+            nameChanged = true
+        } else if (getPlayer(stack) != jansey && stack.displayName.toLowerCase().equals("derp faced chieftain")) {
+            setPlayer(stack, jansey)
+            nameChanged = trueg
         }
 
         if (nameChanged)
@@ -95,7 +98,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
             wire -> "$above.catalyst"
             tris -> "$above.heart"
             l0ne -> "$above.tail"
-            jansey -> "$above"
+            jansey -> "$above.headdress"
             wiiv -> "$above.teru"
             else -> above
         }
@@ -138,6 +141,12 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
                 GlStateManager.scale(0.0F, -2.0F, 0.0F)
                 GlStateManager.rotate(-90F, 0F, 1F, 0F)
                 model.render()
+            } else if (playerAs == jansey) {
+                IBaubleRender.Helper.translateToHeadLevel(player)
+                faceTranslate()
+                GlStateManager.translate(0f, 0.175f, 0.2f)
+                GlStateManager.rotate(180F, 0f, 1f, 0f)
+                Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else {
                 IBaubleRender.Helper.translateToHeadLevel(player)
                 faceTranslate()

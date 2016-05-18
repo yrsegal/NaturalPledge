@@ -32,7 +32,7 @@
     "predicate": {
       "botanicaladdons:player": 5
     },
-    "model": "botanicaladdons:item/jansey"
+    "model": "botanicaladdons:item/headdress"
   }, {
     "predicate": {
       "botanicaladdons:player": 6

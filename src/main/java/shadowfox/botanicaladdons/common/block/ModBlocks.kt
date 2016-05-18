@@ -31,6 +31,7 @@ object ModBlocks {
     val irisSapling: BlockMod
     val altLogs: Array<BlockAltLog>
     val altLeaves: Array<BlockAltLeaves>
+    val altPlanks: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -46,6 +47,7 @@ object ModBlocks {
         irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
         altLogs = Array(2) { BlockAltLog(LibNames.ALT_LOG, it) }
         altLeaves = Array(2) { BlockAltLeaves(LibNames.ALT_LEAVES, it) }
+        altPlanks = BlockAltPlanks(LibNames.ALT_PLANKS)
 
         GameRegistry.registerTileEntity(TileSuffuser::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.SOUL_SUFFUSER).toString())
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())

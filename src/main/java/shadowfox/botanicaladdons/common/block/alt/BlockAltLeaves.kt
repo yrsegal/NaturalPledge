@@ -37,6 +37,9 @@ class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + co
     override val creativeTab: ModCreativeTab?
         get() = ModTabs.TabWood
 
+    override val canBeFancy: Boolean
+        get() = false
+
     var TYPE: PropertyEnum<AltGrassVariant>? = null
 
     init {

@@ -42,6 +42,7 @@ object LibNames {
     val IRIS_SAPLING = "irisSapling"
     val ALT_LOG = "altLog"
     val ALT_LEAVES = "altLeaves"
+    val ALT_PLANKS = "altPlanks"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

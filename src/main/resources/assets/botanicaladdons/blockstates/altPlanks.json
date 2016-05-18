@@ -1,0 +1,11 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "type=dry": { "model": "botanicaladdons:altPlanksDry" },
+        "type=golden": { "model": "botanicaladdons:altPlanksGolden" },
+        "type=vivid": { "model": "botanicaladdons:altPlanksVivid" },
+        "type=scorched": { "model": "botanicaladdons:altPlanksScorched" },
+        "type=infused": { "model": "botanicaladdons:altPlanksInfused" },
+        "type=mutated": { "model": "botanicaladdons:altPlanksMutated" }
+    }
+}
