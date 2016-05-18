@@ -82,7 +82,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
             nameChanged = true
         } else if (getPlayer(stack) != jansey && stack.displayName.toLowerCase().equals("derp faced chieftain")) {
             setPlayer(stack, jansey)
-            nameChanged = trueg
+            nameChanged = true
         }
 
         if (nameChanged)
