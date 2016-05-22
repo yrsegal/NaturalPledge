@@ -33,9 +33,9 @@ class ItemThunderFists(name: String, val toolMaterial: ToolMaterial) : ItemMod(n
     init {
         setMaxStackSize(1)
         maxDamage = toolMaterial.maxUses
-        this.addPropertyOverride(ResourceLocation("blocking")) {
+        addPropertyOverride(ResourceLocation("blocking")) {
             stack, worldIn, entityIn ->
-            if (entityIn != null && entityIn.isHandActive && entityIn.activeItemStack == stack) 1f else 0f
+            if (entityIn != null && entityIn.isHandActive && (entityIn.activeItemStack == stack || (entityIn.heldItemMainhand == stack && entityIn.activeItemStack?.item == this))) 1f else 0f
         }
     }
 

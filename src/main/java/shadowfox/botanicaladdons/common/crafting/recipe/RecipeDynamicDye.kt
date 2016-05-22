@@ -128,10 +128,10 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
     }
 
     fun getColorFromDye(stack: ItemStack, dyes: Array<String>): Int {
-        for (i in dyes.indices) {
-            if (checkStack(stack, dyes[i])) {
-                if (i == 16) return -1
-                return EnumDyeColor.byMetadata(i).mapColor.colorValue
+        for (i in dyes.withIndex()) {
+            if (checkStack(stack, i.value)) {
+                if (i.index == 16) return -1
+                return EnumDyeColor.byMetadata(i.index).mapColor.colorValue
             }
         }
         return 0xFFFFFF

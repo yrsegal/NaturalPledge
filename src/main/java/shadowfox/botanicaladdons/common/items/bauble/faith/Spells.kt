@@ -25,6 +25,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fluids.IFluidBlock
 import net.minecraftforge.oredict.OreDictionary
+import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons
@@ -411,8 +412,8 @@ object Spells {
                 player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
                 val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
                 val awakened = (emblem.item as IPriestlyEmblem).isAwakened(emblem)
-                for (i in LibOreDict.DYES.indices) {
-                    flag = Helper.craft(player, LibOreDict.DYES[i], ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i), if (i == 16) BotanicalAddons.proxy.rainbow().rgb else EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
+                for (i in LibOreDict.DYES.withIndex()) {
+                    flag = Helper.craft(player, i.value, ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i.index), if (i.index == 16) BotanicalAddons.proxy.rainbow().rgb else EnumDyeColor.byMetadata(i.index).mapColor.colorValue) || flag
                 }
                 if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
                 return EnumActionResult.SUCCESS

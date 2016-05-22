@@ -136,10 +136,10 @@ object ModelHandler {
             }
         }
 
-        for (var11 in variants.indices) {
-            if (var11 == 0) {
+        for (variant in variants.withIndex()) {
+            if (variant.index == 0) {
                 var print = "   | Registering "
-                if (variants[var11] != item.registryName.resourcePath || variants.size != 1)
+                if (variant.value != item.registryName.resourcePath || variants.size != 1)
                     print += "variant" + if (variants.size == 1) "" else "s" + " of "
                 print += if (item is ItemBlock) "block" else "item"
                 print += " ${item.registryName.resourcePath}"
@@ -147,21 +147,21 @@ object ModelHandler {
                 if (item is ICustomLogHolder)
                     FMLLog.info(item.customLog())
             }
-            if ((variants[var11] != item.registryName.resourcePath || variants.size != 1)) {
+            if ((variant.value != item.registryName.resourcePath || variants.size != 1)) {
                 if (item is ICustomLogHolder) {
-                    if (item.shouldLogForVariant(var11 + 1, variants[var11]))
-                        FMLLog.info(item.customLogVariant(var11 + 1, variants[var11]))
+                    if (item.shouldLogForVariant(variant.index + 1, variant.value))
+                        FMLLog.info(item.customLogVariant(variant.index + 1, variant.value))
                 } else
-                    FMLLog.info("   |  Variant #${var11 + 1}: ${variants[var11]}")
+                    FMLLog.info("   |  Variant #${variant.index + 1}: ${variant.value}")
             }
 
-            val var13 = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variants[var11]).toString(), "inventory")
+            val model = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variant.value).toString(), "inventory")
             if (!extra) {
-                ModelLoader.setCustomModelResourceLocation(item, var11, var13)
-                resourceLocations.put(getKey(item, var11), var13)
+                ModelLoader.setCustomModelResourceLocation(item, variant.index, model)
+                resourceLocations.put(getKey(item, variant.index), model)
             } else {
-                ModelBakery.registerItemVariants(item, var13)
-                resourceLocations.put(variants[var11], var13)
+                ModelBakery.registerItemVariants(item, model)
+                resourceLocations.put(variant.value, model)
             }
         }
 

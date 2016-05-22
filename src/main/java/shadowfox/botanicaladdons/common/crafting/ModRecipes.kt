@@ -12,12 +12,15 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
+import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.crafting.recipe.RecipeDynamicDye
+import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
+import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.potions.brew.ModBrews
 import vazkii.botania.api.BotaniaAPI
@@ -215,7 +218,7 @@ object ModRecipes {
                 "GAG",
                 " G ",
                 'R', LibOreDict.LIFE_ROOT_AWAKENED,
-                'G', "blockGold",
+                'G', "ingotGold",
                 'A', Items.APPLE)
 
         recipesIridescentShards = Array(LibOreDict.DYES.size, {
@@ -245,6 +248,18 @@ object ModRecipes {
                 'L', Items.LEATHER,
                 'C', Items.CAKE,
                 'D', LibOreDict.IRIS_DYE)
+
+        var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
+        if (spell != null) SpellRegistry.registerSpellRecipe("gemPrismarine", ItemResource.of(ItemResource.Variants.AQUAMARINE), spell)
+        spell = SpellRegistry.getSpell(LibNames.SPELL_THOR_INFUSION)
+        if (spell != null) SpellRegistry.registerSpellRecipe("ingotIron", ItemResource.of(ItemResource.Variants.THUNDER_STEEL), spell)
+
+        spell = SpellRegistry.getSpell(LibNames.SPELL_IDUNN_INFUSION)
+        if (spell != null) SpellRegistry.registerSpellRecipe(BotaniaOreDict.LIVING_WOOD, ItemResource.of(ItemResource.Variants.LIFE_ROOT), spell)
+
+        spell = SpellRegistry.getSpell(LibNames.SPELL_RAINBOW)
+        if (spell != null)
+            for (i in LibOreDict.DYES.withIndex()) SpellRegistry.registerSpellRecipe(i.value, ItemStack(ModItems.iridescentDye, 1, i.index), spell)
     }
 
     fun addOreDictRecipe(output: Item, vararg recipe: Any) = addOreDictRecipe(ItemStack(output), *recipe)

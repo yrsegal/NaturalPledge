@@ -69,8 +69,8 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>? = null): ItemStack? {
             if (isFaithless(player)) return null
 
-            var baubles = PlayerHandler.getPlayerBaubles(player)
-            var stack = baubles.getStackInSlot(0)
+            val baubles = PlayerHandler.getPlayerBaubles(player)
+            val stack = baubles.getStackInSlot(0)
             if (stack != null && stack.item is IPriestlyEmblem) {
                 val variantInstance = (stack.item as IPriestlyEmblem).getVariant(stack)
                 if (variant == null || (variantInstance != null && variant.isInstance(variantInstance)))
@@ -80,9 +80,9 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         }
 
         fun emblemOf(variant: Class<out IFaithVariant>): ItemStack? {
-            for (i in priestVariants.indices) {
-                if (variant.isInstance(priestVariants[i]))
-                    return ItemStack(ModItems.emblem, 1, i)
+            for (i in priestVariants.withIndex()) {
+                if (variant.isInstance(i.value))
+                    return ItemStack(ModItems.emblem, 1, i.index)
             }
             return null
         }

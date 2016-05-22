@@ -103,8 +103,8 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
 
-        if (stack.hasDisplayName()) {
-            ItemNBTHelper.setString(stack, TAG_TRACK, stack.displayName)
+        if (stack.hasDisplayName() && stack.displayName.toLowerCase().matches("^track:?\\s+".toRegex())) {
+            ItemNBTHelper.setString(stack, TAG_TRACK, stack.displayName.replace("^track:?".toRegex(), "").trim())
             stack.clearCustomName()
         }
 

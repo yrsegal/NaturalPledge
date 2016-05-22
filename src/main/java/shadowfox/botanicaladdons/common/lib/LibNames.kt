@@ -6,7 +6,7 @@ object LibNames {
     val SPELL_ICON = "spellIcon"
     val SPELL_FOCUS = "spellFocus"
     val MJOLNIR = "mjolnir"
-    val DAGGER = "dagger"
+    val SEAL_ARROW = "sealArrow"
     val APPLE = "appleImmortality"
     val FATE_HORN = "fateHorn"
     val MORTAL_STONE = "mortalStone"

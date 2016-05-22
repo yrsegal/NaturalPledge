@@ -198,7 +198,8 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                         GlStateManager.rotate(180f, 0f, 1f, 0f)
                         GlStateManager.translate(0f, 0.6f, 0f)
                         GlStateManager.rotate(90.0f, 0.0f, 1.0f, 0.0f)
-                        Minecraft.getMinecraft().renderItem.renderItem(slotStack, ItemCameraTransforms.TransformType.NONE)
+                        Minecraft.getMinecraft().renderItem.renderItem(slotStack, ItemCameraTransforms.TransformType.GUI)
+                        GlStateManager.disableLighting()
                     }
                     GlStateManager.popMatrix()
 

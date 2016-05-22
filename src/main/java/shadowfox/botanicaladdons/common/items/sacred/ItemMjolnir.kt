@@ -3,11 +3,13 @@ package shadowfox.botanicaladdons.common.items.sacred
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
+import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.MobEffects
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
@@ -16,6 +18,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
+import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
@@ -86,8 +89,9 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         val multimap = super.getAttributeModifiers(slot, stack)
 
         if (slot == EntityEquipmentSlot.MAINHAND) {
+            val lightweight = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.lightweight, stack)
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.attributeUnlocalizedName, AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage.toDouble(), 0))
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.attributeUnlocalizedName, AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -3.5, 0))
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.attributeUnlocalizedName, AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -3.5 + lightweight * .25, 0))
         }
 
         return multimap
@@ -108,7 +112,7 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
     override fun onEntitySwing(entityLiving: EntityLivingBase, stack: ItemStack): Boolean {
         if (entityLiving is EntityPlayer) {
             if (entityLiving.cooldownTracker.hasCooldown(this)) return false
-            entityLiving.cooldownTracker.setCooldown(this, 40)
+            entityLiving.cooldownTracker.setCooldown(this, entityLiving.cooldownPeriod.toInt())
         }
 
         if (ItemNBTHelper.getBoolean(stack, TAG_ATTACKED, false)) return false
