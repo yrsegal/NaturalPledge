@@ -21,8 +21,6 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.lib.LibOreDict
@@ -33,7 +31,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 9:50 PM on 5/6/16.
  */
-class BlockIridescentDirt(val name: String) : BlockMod(name, Material.ground, *Array(16, { name + LibOreDict.COLORS[it] })), ModelHandler.IBlockColorProvider, ILexiconable {
+class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *Array(16, { name + LibOreDict.COLORS[it] })), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR = PropertyEnum.create("color", EnumDyeColor::class.java)
     }
@@ -43,9 +41,6 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.ground, *A
         soundType = SoundType.GROUND
         blockHardness = 0.5f
     }
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabColor
 
     override val item: ItemBlock
         get() = object : ItemModBlock(this), ModelHandler.ICustomLogHolder {

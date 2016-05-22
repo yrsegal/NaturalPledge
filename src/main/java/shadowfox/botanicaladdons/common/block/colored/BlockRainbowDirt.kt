@@ -12,8 +12,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.IPlantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.base.BlockMod
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
@@ -23,7 +21,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 10:38 PM on 5/6/16.
  */
-class BlockRainbowDirt(name: String) : BlockMod(name, Material.ground), ILexiconable {
+class BlockRainbowDirt(name: String) : BlockMod(name, Material.GROUND), ILexiconable {
 
     init {
         soundType = SoundType.GROUND
@@ -37,9 +35,6 @@ class BlockRainbowDirt(name: String) : BlockMod(name, Material.ground), ILexicon
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
         return LexiconEntries.irisDirt
     }
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabColor
 
     override fun isToolEffective(type: String?, state: IBlockState?): Boolean {
         return type == "shovel"

@@ -17,7 +17,7 @@ interface IPreventBreakInCreative {
 
             @SubscribeEvent(priority = EventPriority.HIGHEST)
             fun onBlockBreak(e: BlockEvent.BreakEvent) {
-                if (e.player.isCreative && e.player.heldItemMainhand != null && e.player.heldItemMainhand.item is IPreventBreakInCreative) {
+                if (e.player.isCreative && e.player.heldItemMainhand != null && e.player.heldItemMainhand!!.item is IPreventBreakInCreative) {
                     e.isCanceled = true
                 }
             }

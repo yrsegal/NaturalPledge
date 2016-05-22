@@ -30,7 +30,7 @@ import vazkii.botania.common.world.WorldTypeSkyblock
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockPrismFlame(name: String) : BlockModContainer(name, Material.cloth), ILexiconable {
+class BlockPrismFlame(name: String) : BlockModContainer(name, Material.CLOTH), ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     init {
@@ -50,11 +50,11 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, Material.cloth), I
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, stack: ItemStack?, s: EnumFacing?, xs: Float, ys: Float, zs: Float): Boolean {
         if (WorldTypeSkyblock.isWorldSkyblock(world)) {
-            if (stack != null && stack.item === Item.getItemFromBlock(Blocks.sapling) && !player.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
+        if (stack != null && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
                 if (!world.isRemote)
                     stack.stackSize--
                 if (!player.inventory.addItemStackToInventory(ItemStack(ModItems.lexicon)))
-                    player.dropPlayerItemWithRandomChoice(ItemStack(ModItems.lexicon), false)
+                    player.dropItem(ItemStack(ModItems.lexicon), false)
                 return true
             }
 

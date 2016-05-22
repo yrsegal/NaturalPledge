@@ -9,8 +9,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -33,9 +31,6 @@ class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + co
             return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
         }
     }
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabWood
 
     override val canBeFancy: Boolean
         get() = false

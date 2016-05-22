@@ -25,8 +25,6 @@ import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
@@ -37,7 +35,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), ModelHandler.IColorProvider, ILexiconable {
+class BlockFrozenStar(name: String) : BlockModContainer(name, Material.CLOTH), ModelHandler.IColorProvider, ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     companion object {
@@ -48,9 +46,6 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.cloth), M
         fun getSize(stack: ItemStack) = ItemNBTHelper.getFloat(stack, TAG_SIZE, DEFAULT_SIZE)
         fun setSize(stack: ItemStack, size: Float) = ItemNBTHelper.setFloat(stack, TAG_SIZE, size)
     }
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabColor
 
     override val item: ItemBlock
         get() = object : ItemModBlock(this) {

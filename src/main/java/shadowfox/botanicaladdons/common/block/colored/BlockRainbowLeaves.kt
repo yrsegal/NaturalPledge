@@ -6,8 +6,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -17,9 +15,6 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * Created at 11:45 PM on 5/13/16.
  */
 class BlockRainbowLeaves(name: String) : BlockModLeaves(name), ILexiconable {
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabWood
 
     override val canBeFancy: Boolean
         get() = false

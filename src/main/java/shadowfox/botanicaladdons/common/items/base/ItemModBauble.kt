@@ -10,8 +10,8 @@ import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
-import net.minecraft.util.text.translation.I18n
 import net.minecraft.world.World
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import vazkii.botania.api.item.ICosmeticAttachable
 import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.sound.BotaniaSoundEvents
@@ -58,35 +58,32 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     }
 
     override fun onItemRightClick(par1ItemStack: ItemStack, par2World: World, par3EntityPlayer: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-        if (!EntityDoppleganger.isTruePlayer(par3EntityPlayer)) {
+        if (!EntityDoppleganger.isTruePlayer(par3EntityPlayer))
             return ActionResult.newResult(EnumActionResult.FAIL, par1ItemStack)
-        } else {
-            if (this.canEquip(par1ItemStack, par3EntityPlayer)) {
-                val baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer)
 
-                for (i in 0..baubles.sizeInventory - 1) {
-                    if (baubles.isItemValidForSlot(i, par1ItemStack)) {
-                        val stackInSlot = baubles.getStackInSlot(i)
-                        if (stackInSlot == null || (stackInSlot.item as IBauble).canUnequip(stackInSlot, par3EntityPlayer)) {
-                            if (!par2World.isRemote) {
-                                baubles.setInventorySlotContents(i, par1ItemStack.copy())
-                                if (!par3EntityPlayer.worldObj.isRemote) {
-                                    par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null)
-                                }
-                            }
-
-                            if (stackInSlot != null) {
-                                (stackInSlot.item as IBauble).onUnequipped(stackInSlot, par3EntityPlayer)
-                                return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy())
-                            }
-                            break
+        if (canEquip(par1ItemStack, par3EntityPlayer)) {
+            val baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer)
+            for (i in 0..baubles.sizeInventory - 1) {
+                if (baubles.isItemValidForSlot(i, par1ItemStack)) {
+                    val stackInSlot = baubles.getStackInSlot(i)
+                    if (stackInSlot == null || (stackInSlot.item as IBauble).canUnequip(stackInSlot, par3EntityPlayer)) {
+                        if (!par2World.isRemote) {
+                            baubles.setInventorySlotContents(i, par1ItemStack.copy())
+                            if (!par3EntityPlayer.capabilities.isCreativeMode)
+                                par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null)
                         }
+
+                        if (stackInSlot != null) {
+                            (stackInSlot.item as IBauble).onUnequipped(stackInSlot, par3EntityPlayer)
+                            return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy())
+                        }
+                        break
                     }
                 }
             }
-
-            return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack)
         }
+
+        return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack)
     }
 
     open fun onEquippedOrLoadedIntoWorld(stack: ItemStack, player: EntityLivingBase) {
@@ -147,19 +144,19 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
 
     open fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         val type = this.getBaubleType(stack)
-        addToTooltip(tooltip, I18n.translateToLocal("botania.baubletype." + type.name.toLowerCase()))
+        addToTooltip(tooltip, "botania.baubletype." + type.name.toLowerCase())
         val key = RenderHelper.getKeyDisplayString("Baubles Inventory")
         if (key != null) {
-            addToTooltip(tooltip, I18n.translateToLocal("botania.baubletooltip").replace("%key%", key))
+            addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.baubletooltip", key)
         }
 
         val cosmetic = this.getCosmeticItem(stack)
         if (cosmetic != null) {
-            addToTooltip(tooltip, String.format(I18n.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.displayName))
+            addToTooltip(tooltip, "botaniamisc.hasCosmetic", cosmetic.displayName)
         }
 
         if (this.hasPhantomInk(stack)) {
-            addToTooltip(tooltip, I18n.translateToLocal("botaniamisc.hasPhantomInk"))
+            addToTooltip(tooltip, "botaniamisc.hasPhantomInk")
         }
     }
 

@@ -12,8 +12,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
+import shadowfox.botanicaladdons.common.core.tab.ModTab
 
 /**
  * @author WireSegal
@@ -31,11 +30,8 @@ open class BlockMod(name: String, materialIn: Material, vararg variants: String)
         this.bareName = name
         this.unlocalizedName = name
         if (hasItem)
-            creativeTab?.set(this)
+            ModTab.set(this)
     }
-
-    open val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabDivinity
 
     override fun setUnlocalizedName(name: String): Block {
         super.setUnlocalizedName(name)

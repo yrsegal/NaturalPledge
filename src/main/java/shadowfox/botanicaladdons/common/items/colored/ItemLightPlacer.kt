@@ -17,8 +17,6 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.mana.IManaUsingItem
@@ -38,9 +36,6 @@ class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IColorProvider
 
     val MANA_PER_FLAME = 100
     val TAG_INK = "phantomInk"
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabColor
 
     override fun usesMana(p0: ItemStack?) = true
 
@@ -79,7 +74,7 @@ class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IColorProvider
 
             if (placeBlockAt(stack, playerIn, worldIn, pos, iblockstate1)) {
                 val soundtype = ModBlocks.flame.soundType
-                worldIn.playSound(playerIn, pos, SoundEvents.item_firecharge_use, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0f) / 2.0f, soundtype.getPitch() * 0.8f)
+                worldIn.playSound(playerIn, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0f) / 2.0f, soundtype.getPitch() * 0.8f)
                 ManaItemHandler.requestManaExactForTool(stack, playerIn, MANA_PER_FLAME, true)
             }
 

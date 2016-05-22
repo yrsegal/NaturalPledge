@@ -11,8 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.client.core.TooltipHelper
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
+import shadowfox.botanicaladdons.common.core.tab.ModTab
 
 /**
  * @author WireSegal
@@ -45,7 +44,7 @@ open class ItemModFood(name: String, foodValue: Int, saturation: Float, isWolfFo
         var variantTemp = variants
         this.unlocalizedName = name
 
-        creativeTab?.set(this)
+        ModTab.set(this)
 
         if (variantTemp.size > 1) {
             this.setHasSubtypes(true)
@@ -59,9 +58,6 @@ open class ItemModFood(name: String, foodValue: Int, saturation: Float, isWolfFo
         this.variants = variantTemp
         ModelHandler.variantCache.add(this)
     }
-
-    open val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabDivinity
 
     override fun setUnlocalizedName(name: String): Item {
         val rl = ResourceLocation(LibMisc.MOD_ID, name)

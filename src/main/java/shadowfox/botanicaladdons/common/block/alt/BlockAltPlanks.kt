@@ -6,15 +6,13 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import shadowfox.botanicaladdons.common.block.base.BlockMod
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import vazkii.botania.api.state.enums.AltGrassVariant
 
 /**
  * @author WireSegal
  * Created at 3:22 PM on 5/17/16.
  */
-class BlockAltPlanks(name: String) : BlockMod(name, Material.wood, *Array(6, { name + AltGrassVariant.values()[it].getName().capitalizeFirst() })) {
+class BlockAltPlanks(name: String) : BlockMod(name, Material.WOOD, *Array(6, { name + AltGrassVariant.values()[it].getName().capitalizeFirst() })) {
     companion object {
         val TYPE = PropertyEnum.create("type", AltGrassVariant::class.java)
 
@@ -37,9 +35,6 @@ class BlockAltPlanks(name: String) : BlockMod(name, Material.wood, *Array(6, { n
     override fun isToolEffective(type: String?, state: IBlockState?): Boolean {
         return type == "axe"
     }
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabWood
 
     override fun getStateFromMeta(meta: Int): IBlockState? {
         return defaultState.withProperty(TYPE, AltGrassVariant.values()[meta])

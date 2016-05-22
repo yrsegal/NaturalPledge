@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.block.base
 
 import net.minecraft.block.BlockLog
 import net.minecraft.block.material.Material
+import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
@@ -16,7 +17,7 @@ import net.minecraft.world.World
  * @author WireSegal
  * Created at 10:36 AM on 5/7/16.
  */
-open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, Material.wood, *variants) {
+open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, Material.WOOD, *variants) {
     companion object {
         val AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis::class.java)
     }
@@ -70,13 +71,8 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
 
     override fun rotateBlock(world: World, pos: BlockPos, axis: EnumFacing?): Boolean {
         val state = world.getBlockState(pos)
-        for (prop in state.properties.keys) {
-            if (prop == AXIS) {
-                world.setBlockState(pos, state.cycleProperty<BlockLog.EnumAxis>(prop))
-                return true
-            }
-        }
-        return false
+        world.setBlockState(pos, state.cycleProperty(AXIS))
+        return true
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {

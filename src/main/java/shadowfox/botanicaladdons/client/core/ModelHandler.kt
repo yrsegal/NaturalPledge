@@ -101,16 +101,15 @@ object ModelHandler {
 
     fun registerModels(holder: IVariantHolder) {
         val def = holder.getCustomMeshDefinition()
+        val i = holder as Item
         if (def != null) {
-            ModelLoader.setCustomMeshDefinition(holder as Item, def)
+            ModelLoader.setCustomMeshDefinition(i, def)
         } else {
-            val i = holder as Item
             registerModels(i, holder.variants, false)
-            if (holder is IExtraVariantHolder) {
-                registerModels(i, holder.extraVariants, true)
-            }
         }
-
+        if (holder is IExtraVariantHolder) {
+            registerModels(i, holder.extraVariants, true)
+        }
     }
 
     fun registerModels(item: Item, variants: Array<out String>, extra: Boolean) {
@@ -169,7 +168,7 @@ object ModelHandler {
     }
 
     private fun registerVariantsDefaulted(item: Item, block: Block, enumclazz: Class<*>, variantHeader: String) {
-        val locName = Block.blockRegistry.getNameForObject(block).toString()
+        val locName = Block.REGISTRY.getNameForObject(block).toString()
         if (enumclazz.enumConstants != null)
             for (e in enumclazz.enumConstants) {
                 if (e is IStringSerializable && e is Enum<*>) {

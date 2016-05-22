@@ -26,7 +26,7 @@ import shadowfox.botanicaladdons.common.block.ModBlocks
 import java.util.*
 
 
-open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name, Material.leaves, *variants), IShearable {
+open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name, Material.LEAVES, *variants), IShearable {
     companion object {
         val DECAYABLE = PropertyBool.create("decayable")
         val CHECK_DECAY = PropertyBool.create("check_decay")
@@ -106,11 +106,11 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
                     for (i2 in -i..i) {
                         for (j2 in -i..i) {
                             for (k2 in -i..i) {
-                                val iblockstate = worldIn.getBlockState(mutpos.set(k + i2, l + j2, i1 + k2))
+                                val iblockstate = worldIn.getBlockState(mutpos.setPos(k + i2, l + j2, i1 + k2))
                                 val block = iblockstate.block
 
-                                if (!block.canSustainLeaves(iblockstate, worldIn, mutpos.set(k + i2, l + j2, i1 + k2))) {
-                                    if (block.isLeaves(iblockstate, worldIn, mutpos.set(k + i2, l + j2, i1 + k2))) {
+                                if (!block.canSustainLeaves(iblockstate, worldIn, mutpos.setPos(k + i2, l + j2, i1 + k2))) {
+                                    if (block.isLeaves(iblockstate, worldIn, mutpos.setPos(k + i2, l + j2, i1 + k2))) {
                                         this.surroundings!![(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -2
                                     } else {
                                         this.surroundings!![(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -1
@@ -197,7 +197,7 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
         worldIn?.setBlockState(pos, state?.withProperty(DECAYABLE, false))
     }
 
-    override fun getItemDropped(state: IBlockState?, rand: Random?, fortune: Int): Item {
+    override fun getItemDropped(state: IBlockState?, rand: Random?, fortune: Int): Item? {
         return Item.getItemFromBlock(ModBlocks.irisSapling)
     }
 

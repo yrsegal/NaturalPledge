@@ -5,7 +5,6 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.items.ModItems
 import java.util.*
 
 /**
@@ -17,7 +16,7 @@ abstract class ModCreativeTab(val name: String) : CreativeTabs("${LibMisc.MOD_ID
 
     init {
         this.setNoTitle()
-        this.backgroundImageName = "${LibMisc.MOD_ID}_$name.png"
+        this.backgroundImageName = "${LibMisc.MOD_ID}/$name.png"
     }
 
     abstract override fun getIconItemStack(): ItemStack

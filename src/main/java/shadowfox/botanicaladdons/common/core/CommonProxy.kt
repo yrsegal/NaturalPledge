@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
+import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -28,6 +29,7 @@ open class CommonProxy {
         ModAchievements
         ModPotions
         ModBrews
+        ModEnchantments
     }
 
     open fun init(e: FMLInitializationEvent) {
@@ -57,4 +59,7 @@ open class CommonProxy {
     open fun rainbow(saturation: Float) = Color(0xFFFFFF)
     fun rainbow(pos: BlockPos) = rainbow(pos, 1f)
     open fun rainbow(pos: BlockPos, saturation: Float) = Color(0xFFFFFF)
+
+    fun wireFrameRainbow() = wireFrameRainbow(0.6f)
+    open fun wireFrameRainbow(saturation: Float) = Color(0xFFFFFF)
 }

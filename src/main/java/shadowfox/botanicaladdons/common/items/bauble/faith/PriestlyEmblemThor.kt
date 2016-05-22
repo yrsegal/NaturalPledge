@@ -12,6 +12,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
+import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
+import shadowfox.botanicaladdons.common.items.ItemResource.Variants.THUNDER_STEEL
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.LIGHTNING_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
@@ -29,6 +32,9 @@ class PriestlyEmblemThor : IFaithVariant {
         SpellRegistry.registerSpell(LibNames.SPELL_LIGHTNING, Spells.Thor.Lightning())
         SpellRegistry.registerSpell(LibNames.SPELL_STRENGTH, Spells.Thor.Strength())
         SpellRegistry.registerSpell(LibNames.SPELL_PULL, Spells.Thor.Pull())
+        SpellRegistry.registerSpell(LibNames.SPELL_THOR_INFUSION,
+                Spells.ObjectInfusion(LIGHTNING_INFUSION, "ingotIron",
+                        THUNDER_STEEL, 150, 0xE5DD00))
     }
 
     override fun getName(): String = "thor"
@@ -36,7 +42,7 @@ class PriestlyEmblemThor : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf(LibNames.SPELL_LIGHTNING, LibNames.SPELL_STRENGTH, LibNames.SPELL_PULL, LibNames.SPELL_INFUSION)
+        return mutableListOf(LibNames.SPELL_LIGHTNING, LibNames.SPELL_STRENGTH, LibNames.SPELL_PULL, LibNames.SPELL_THOR_INFUSION)
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
@@ -48,9 +54,9 @@ class PriestlyEmblemThor : IFaithVariant {
         val player = e.entityLiving
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemThor::class.java) ?: return
-            if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
+            if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER))
                 if (ManaItemHandler.requestManaExact(emblem, player, 1, true))
-                    player.moveFlying(0.0f, 1.0f, 0.035f * if ((emblem.item as IPriestlyEmblem).isAwakened(emblem)) 1.5f else 1f)
+                    player.moveRelative(0.0f, 1.0f, 0.035f * if ((emblem.item as IPriestlyEmblem).isAwakened(emblem)) 1.5f else 1f)
         }
     }
 
@@ -62,7 +68,7 @@ class PriestlyEmblemThor : IFaithVariant {
         if (stackInHand != null && stackInHand.item.getToolClasses(stackInHand).contains("axe") && e.target is EntityLivingBase) {
             if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 10, true)) {
                 Botania.proxy.lightningFX(e.entityPlayer.worldObj, Vector3.fromEntityCenter(e.entityPlayer), Vector3.fromEntityCenter(e.target), 1f, 0x00948B, 0x00E4D7)
-                (e.target as EntityLivingBase).addPotionEffect(PotionEffect(MobEffects.moveSlowdown, 100, 3, true, false))
+                (e.target as EntityLivingBase).addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 100, 3, true, false))
             }
         }
     }

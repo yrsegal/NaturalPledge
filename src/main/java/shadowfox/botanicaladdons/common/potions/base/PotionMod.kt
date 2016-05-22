@@ -23,7 +23,7 @@ open class PotionMod(name: String, badEffect: Boolean, color: Int, val iconIndex
         GameRegistry.register(this, ResourceLocation(LibMisc.MOD_ID, name))
         setPotionName("${LibMisc.MOD_ID}.potion." + name)
         if (!badEffect)
-            setShowOnFirstRow()
+            setBeneficial()
     }
 
     override fun hasStatusIcon() = false
@@ -31,7 +31,7 @@ open class PotionMod(name: String, badEffect: Boolean, color: Int, val iconIndex
     @SideOnly(Side.CLIENT)
     override fun renderInventoryEffect(x: Int, y: Int, effect: PotionEffect, mc: Minecraft) {
         Minecraft.getMinecraft().renderEngine.bindTexture(resource);
-        mc.currentScreen.drawTexturedModalRect(x + 6, y + 7, 0 + iconX * 18, 198 + iconY * 18, 18, 18)
+        mc.currentScreen!!.drawTexturedModalRect(x + 6, y + 7, 0 + iconX * 18, 198 + iconY * 18, 18, 18)
     }
 
     override fun renderHUDEffect(x: Int, y: Int, effect: PotionEffect?, mc: Minecraft, alpha: Float) {

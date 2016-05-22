@@ -139,7 +139,7 @@ class AwakeningEventHandler {
 
                 val playersWhoAttacked = ReflectionHelper.getPrivateValue<List<UUID>, EntityDoppleganger>(EntityDoppleganger::class.java, entity, "playersWhoAttacked")
 
-                entity.worldObj.playSound(entity.source.x.toDouble(), entity.source.y.toDouble(), entity.source.z.toDouble(), SoundEvents.entity_enderdragon_growl, SoundCategory.HOSTILE, 1.0f, 1.0f, false)
+                entity.worldObj.playSound(entity.source.x.toDouble(), entity.source.y.toDouble(), entity.source.z.toDouble(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 1.0f, 1.0f, false)
 
                 for (player in players) {
                     if (player.uniqueID in playersWhoAttacked) {

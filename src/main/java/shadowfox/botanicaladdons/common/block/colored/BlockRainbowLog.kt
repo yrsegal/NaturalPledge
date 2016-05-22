@@ -7,8 +7,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -22,9 +20,6 @@ class BlockRainbowLog(name: String) : BlockModLog(name), ILexiconable {
     init {
         soundType = SoundType.WOOD
     }
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabWood
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
         return null //todo

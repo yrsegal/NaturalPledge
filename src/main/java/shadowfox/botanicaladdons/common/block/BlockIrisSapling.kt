@@ -26,8 +26,6 @@ import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
 import shadowfox.botanicaladdons.api.sapling.IridescentSaplingBaseVariant
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentDirt
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import vazkii.botania.api.state.BotaniaStateProps
 import java.util.*
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
@@ -36,7 +34,7 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
  * @author WireSegal
  * Created at 4:01 PM on 5/14/16.
  */
-class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantable, IGrowable, ISaplingBlock {
+class BlockIrisSapling(name: String) : BlockMod(name, Material.PLANTS), IPlantable, IGrowable, ISaplingBlock {
 
     companion object {
         val STAGE = PropertyInteger.create("stage", 0, 1)
@@ -61,7 +59,7 @@ class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantab
             }
         }
 
-        class AltGrassSaplingVariant: IIridescentSaplingVariant {
+        class AltGrassSaplingVariant : IIridescentSaplingVariant {
             override fun getLeaves(soil: IBlockState): IBlockState {
                 val variant = soil.getValue(BotaniaStateProps.ALTGRASS_VARIANT)
                 val colorSet = variant.ordinal / 4
@@ -97,9 +95,6 @@ class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantab
                         ModBlocks.rainbowLeaves.defaultState))
     }
 
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabWood
-
     override fun canPlaceBlockAt(worldIn: World, pos: BlockPos): Boolean {
         val soil = worldIn.getBlockState(pos.down())
         return super.canPlaceBlockAt(worldIn, pos) && soil.block.canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this)
@@ -109,15 +104,17 @@ class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantab
         return SaplingVariantRegistry.getVariant(state) != null
     }
 
-    override fun onNeighborBlockChange(worldIn: World, pos: BlockPos, state: IBlockState, neighborBlock: Block?) {
-        super.onNeighborBlockChange(worldIn, pos, state, neighborBlock)
-        this.checkAndDropBlock(worldIn, pos, state)
+    override fun onNeighborChange(worldIn: IBlockAccess, pos: BlockPos, neighborBlock: BlockPos) {
+        super.onNeighborChange(worldIn, pos, neighborBlock)
+        if (worldIn is World)
+            this.checkAndDropBlock(worldIn, pos)
     }
 
-    protected fun checkAndDropBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
+    fun checkAndDropBlock(worldIn: World, pos: BlockPos) {
+        val state = worldIn.getBlockState(pos)
         if (!this.canBlockStay(worldIn, pos, state)) {
             this.dropBlockAsItem(worldIn, pos, state, 0)
-            worldIn.setBlockState(pos, Blocks.air.defaultState, 3)
+            worldIn.setBlockState(pos, Blocks.AIR.defaultState, 3)
         }
     }
 
@@ -154,7 +151,7 @@ class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantab
 
     override fun updateTick(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
         if (!worldIn.isRemote) {
-            checkAndDropBlock(worldIn, pos, state)
+            checkAndDropBlock(worldIn, pos)
 
             if (worldIn.getLightFromNeighbors(pos.up()) >= 9 && rand.nextInt(7) === 0) {
                 this.grow(worldIn, pos, state, rand)
@@ -176,7 +173,7 @@ class BlockIrisSapling(name: String) : BlockMod(name, Material.plants), IPlantab
 
         if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return
 
-        worldIn.setBlockState(pos, Blocks.air.defaultState, 4)
+        worldIn.setBlockState(pos, Blocks.AIR.defaultState, 4)
 
         if (!WorldGenTrees(true, 4, variant.getWood(soil), variant.getLeaves(soil), false).generate(worldIn, rand, pos)) {
             worldIn.setBlockState(pos, state, 4)

@@ -3,8 +3,10 @@ package shadowfox.botanicaladdons.common.items.bauble
 import baubles.api.BaubleType
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.item.IBaubleRender
@@ -32,7 +35,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 10:33 PM on 4/15/16.
  */
-class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
+class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHandler.IExtraVariantHolder {
 
     companion object {
 
@@ -58,18 +61,29 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
     }
 
     init {
-        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PLAYER)) {
-            stack, entity, world ->
-            val playerAs = getPlayer(stack.copy())
-            if (playerAs in specialPlayers)
-                specialPlayers.indexOf(playerAs).toFloat() + 1
-            else 0f
-        }
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, ItemFaithBauble.TAG_PENDANT)) {
             stack, world, entity ->
             if (ItemNBTHelper.getBoolean(stack, ItemFaithBauble.TAG_PENDANT, false)) 1f else 0f
         }
     }
+
+    @SideOnly(Side.CLIENT)
+    override fun getCustomMeshDefinition(): ItemMeshDefinition? {
+        return ItemMeshDefinition {
+           when (getPlayer(it)) {
+                vaz -> ModelHandler.resourceLocations["headtato"]
+                wire -> ModelHandler.resourceLocations["catalyst"]
+                tris -> ModelHandler.resourceLocations["heart"]
+                l0ne -> ModelHandler.resourceLocations["tail"]
+                jansey -> ModelHandler.resourceLocations["headdress"]
+                wiiv -> ModelHandler.resourceLocations["teruHead"]
+                else -> ModelHandler.resourceLocations["holySymbol"]
+            }
+        }
+    }
+
+    override val extraVariants: Array<out String>
+        get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "holySymbol")
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
         super.onEquipped(stack, player)
@@ -86,8 +100,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
         }
 
         if (nameChanged)
-            if (stack.tagCompound.hasKey("display") && stack.tagCompound.getCompoundTag("display").hasKey("Name"))
-                stack.tagCompound.getCompoundTag("display").removeTag("Name")
+            stack.clearCustomName()
     }
 
     override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
@@ -219,8 +232,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
 
         var ibakedmodel = Minecraft.getMinecraft().renderItem.getItemModelWithOverrides(stack, null, null)
 
-        Minecraft.getMinecraft().textureManager.bindTexture(TextureMap.locationBlocksTexture)
-        Minecraft.getMinecraft().textureManager.getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false)
+        Minecraft.getMinecraft().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
+        Minecraft.getMinecraft().textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false)
         GlStateManager.enableRescaleNormal()
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO)
         GlStateManager.pushMatrix()
@@ -229,8 +242,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble {
         GlStateManager.cullFace(GlStateManager.CullFace.BACK)
         GlStateManager.popMatrix()
         GlStateManager.disableRescaleNormal()
-        Minecraft.getMinecraft().textureManager.bindTexture(TextureMap.locationBlocksTexture)
-        Minecraft.getMinecraft().textureManager.getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap()
+        Minecraft.getMinecraft().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
+        Minecraft.getMinecraft().textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap()
     }
 
     fun faceTranslate() {

@@ -6,8 +6,6 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 
 /**
@@ -23,9 +21,6 @@ open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Arra
     }
 
     val types = 16 + if (rainbow) 1 else 0
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabColor
 
     fun mapOreDict(keys: Array<String>): ItemRainbow {
         if (keys.size < types) return this

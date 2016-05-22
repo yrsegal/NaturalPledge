@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
+import com.google.common.base.Predicate
 import net.minecraft.block.properties.IProperty
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -22,11 +23,15 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
+import net.minecraftforge.fluids.IFluidBlock
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.BASoundEvents
+import shadowfox.botanicaladdons.common.items.ItemResource
+import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
 import shadowfox.botanicaladdons.common.items.ModItems
@@ -123,25 +128,77 @@ object Spells {
                 foundEntity = lookedEntity
             }
         }
-    }
 
-    open class Infuse : IFocusSpell {
-        override fun getIconStack() = of(SUFFUSION)
+        // Copied from Psi's ItemCAD, with minor modifications
+        fun craft(player: EntityPlayer, `in`: String, out: ItemStack, colorVal: Int): Boolean {
+            val items = player.worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(player.posX - 8, player.posY - 8, player.posZ - 8, player.posX + 8, player.posY + 8, player.posZ + 8))
 
-        override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
-            var range = 5.0
-            if (player is EntityPlayerMP)
-                range = player.interactionManager.blockReachDistance
-            val ray = Helper.raycast(player, range)
-            if (ray != null) {
-                //todo
-                return EnumActionResult.SUCCESS
+            val color = Color(colorVal)
+            val r = color.red / 255f
+            val g = color.green / 255f
+            val b = color.blue / 255f
+
+
+            var did = false
+            for (item in items) {
+                val stack = item.entityItem
+                if (stack != null && (stack.item != out.item || stack.itemDamage != out.itemDamage) && checkStack(stack, `in`)) {
+                    val outCopy = out.copy()
+                    outCopy.stackSize = stack.stackSize
+                    item.setEntityItemStack(outCopy)
+                    did = true
+
+                    for (i in 0..4) {
+                        val x = item.posX + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
+                        val y = item.posY - item.yOffset + 0.5
+                        val z = item.posZ + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
+                        Botania.proxy.sparkleFX(item.worldObj, x, y, z, r, g, b, 3.5f, 15)
+
+                        val m = 0.01
+                        val d3 = 10.0
+                        for (j in 0..2) {
+                            val d0 = item.worldObj.rand.nextGaussian() * m
+                            val d1 = item.worldObj.rand.nextGaussian() * m
+                            val d2 = item.worldObj.rand.nextGaussian() * m
+
+                            item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d2 * d3, d0, d1, d2)
+                        }
+                    }
+                }
             }
-            return EnumActionResult.FAIL
+
+            return did
         }
 
-        open val prop: IProperty<Boolean>?
-            get() = null // todo
+        fun checkStack(stack: ItemStack, key: String): Boolean {
+            val ores = OreDictionary.getOres(key, false)
+            for (ore in ores) {
+                if (OreDictionary.itemMatches(stack, ore, false))
+                    return true
+            }
+            return false
+        }
+    }
+
+    class ObjectInfusion(val icon: ItemSpellIcon.Variants, val oreKey: String, val product: ItemResource.Variants, val manaCost: Int, val color: Int) : IFocusSpell {
+        override fun getIconStack() = of(icon)
+
+        override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult? {
+            if (!ManaItemHandler.requestManaExact(focus, player, manaCost, false)) return EnumActionResult.FAIL
+            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
+            val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
+            val flag =
+                    if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
+                        Helper.craft(player, oreKey, of(product, true), color)
+                    else
+                        Helper.craft(player, oreKey, of(product), color)
+            if (flag) ManaItemHandler.requestManaExact(focus, player, manaCost, true)
+            return EnumActionResult.SUCCESS
+        }
+
+        override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+            return 50
+        }
     }
 
     object Njord {
@@ -177,18 +234,18 @@ object Spells {
             val RANGE = 6.0
             val VELOCITY = 0.4
 
-            val SELECTOR: (Entity) -> Boolean = {
+            val SELECTOR = Predicate<Entity> {
                 (it is EntityLivingBase && it.isNonBoss) || (it is IProjectile && it !is IManaBurst)
             }
 
             fun pushEntities(x: Double, y: Double, z: Double, range: Double, velocity: Double, entities: List<Entity>): Boolean {
                 var flag = false
                 for (entity in entities) {
-                    var xDif = entity.posX - x
-                    var yDif = entity.posY - (y + 1)
-                    var zDif = entity.posZ - z
+                    val xDif = entity.posX - x
+                    val yDif = entity.posY - (y + 1)
+                    val zDif = entity.posZ - z
                     val vec = Vector3(xDif, yDif, zDif).normalize()
-                    var dist = Math.sqrt(xDif * xDif + yDif * yDif + zDif * zDif)
+                    val dist = Math.sqrt(xDif * xDif + yDif * yDif + zDif * zDif)
                     if (dist <= range) {
                         entity.motionX = velocity * vec.x
                         entity.motionY = velocity * vec.y
@@ -314,7 +371,7 @@ object Spells {
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                player.addPotionEffect(PotionEffect(MobEffects.damageBoost, 5, 0, true, true))
+                player.addPotionEffect(PotionEffect(MobEffects.STRENGTH, 5, 0, true, true))
             }
         }
 
@@ -332,7 +389,7 @@ object Spells {
                         focused.motionX += diff.x * 0.25
                         focused.motionY += diff.y * 0.25
                         focused.motionZ += diff.z * 0.25
-                        focused.addPotionEffect(PotionEffect(MobEffects.moveSlowdown, 100, 1))
+                        focused.addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 100, 1))
                         return EnumActionResult.SUCCESS
                     }
                 return EnumActionResult.FAIL
@@ -352,8 +409,10 @@ object Spells {
                 var flag = false
                 if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return EnumActionResult.FAIL
                 player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
+                val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
+                val awakened = (emblem.item as IPriestlyEmblem).isAwakened(emblem)
                 for (i in LibOreDict.DYES.indices) {
-                    flag = craft(player, LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), if (i == 16) BotanicalAddons.proxy.rainbow().rgb else EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
+                    flag = Helper.craft(player, LibOreDict.DYES[i], ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i), if (i == 16) BotanicalAddons.proxy.rainbow().rgb else EnumDyeColor.byMetadata(i).mapColor.colorValue) || flag
                 }
                 if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
                 return EnumActionResult.SUCCESS
@@ -361,56 +420,6 @@ object Spells {
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
                 return 40
-            }
-
-            // Copied from Psi's ItemCAD, with minor modifications
-            fun craft(player: EntityPlayer, `in`: String, out: ItemStack, colorVal: Int): Boolean {
-                val items = player.worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(player.posX - 8, player.posY - 8, player.posZ - 8, player.posX + 8, player.posY + 8, player.posZ + 8))
-
-                val color = Color(colorVal)
-                val r = color.red / 255f
-                val g = color.green / 255f
-                val b = color.blue / 255f
-
-
-                var did = false
-                for (item in items) {
-                    val stack = item.entityItem
-                    if (stack != null && (stack.item != out.item || stack.itemDamage != out.itemDamage) && checkStack(stack, `in`)) {
-                        val outCopy = out.copy()
-                        outCopy.stackSize = stack.stackSize
-                        item.setEntityItemStack(outCopy)
-                        did = true
-
-                        for (i in 0..4) {
-                            val x = item.posX + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
-                            val y = item.posY - item.yOffset + 0.5
-                            val z = item.posZ + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
-                            Botania.proxy.sparkleFX(item.worldObj, x, y, z, r, g, b, 3.5f, 15)
-
-                            val m = 0.01
-                            val d3 = 10.0
-                            for (j in 0..2) {
-                                val d0 = item.worldObj.rand.nextGaussian() * m
-                                val d1 = item.worldObj.rand.nextGaussian() * m
-                                val d2 = item.worldObj.rand.nextGaussian() * m
-
-                                item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d2 * d3, d0, d1, d2)
-                            }
-                        }
-                    }
-                }
-
-                return did
-            }
-
-            fun checkStack(stack: ItemStack, key: String): Boolean {
-                val ores = OreDictionary.getOres(key, false)
-                for (ore in ores) {
-                    if (OreDictionary.itemMatches(stack, ore, false))
-                        return true;
-                }
-                return false;
             }
         }
 
@@ -477,7 +486,7 @@ object Spells {
             fun makeBifrost(world: World, pos: BlockPos, time: Int) {
                 val state = world.getBlockState(pos)
                 val block = state.block
-                if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block.getMaterial(state).isLiquid) {
+                if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block is IFluidBlock) {
                     world.setBlockState(pos, ModBlocks.bifrost.defaultState)
                     val tileBifrost = world.getTileEntity(pos) as TileBifrost
                     tileBifrost.ticks = time
@@ -504,19 +513,10 @@ object Spells {
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                player.addPotionEffect(ModPotionEffect(MobEffects.resistance, 5, 4, true, true))
-                player.addPotionEffect(ModPotionEffect(MobEffects.weakness, 5, 4, true, true))
+                player.addPotionEffect(ModPotionEffect(MobEffects.RESISTANCE, 5, 4, true, true))
+                player.addPotionEffect(ModPotionEffect(MobEffects.WEAKNESS, 5, 4, true, true))
                 player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 5, 0, true, true))
             }
-        }
-
-        //////////
-
-        class LifeCatalyst : Infuse() {
-            override fun getIconStack() = of(LIFEMAKER)
-
-            override val prop: IProperty<Boolean>?
-                get() = null //todo
         }
     }
 }

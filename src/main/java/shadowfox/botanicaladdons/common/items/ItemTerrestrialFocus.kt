@@ -79,6 +79,10 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         }
     }
 
+    init {
+        setMaxStackSize(1)
+    }
+
     fun shiftSpellWithSneak(stack: ItemStack, player: EntityPlayer) {
         val spells = getSpells(player)
         val spellName = getSpellName(stack)
@@ -86,11 +90,11 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
         val spellIndex = if (spellName == null && spells.size != 0) -1 else if (spellName !in spells) -2 else spells.indexOf(spellName)
         if (spellIndex == -2) {
             setSpell(stack, null)
-            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.block_lever_click, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
+            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
         } else {
             val name = spells[(spellIndex + 1) % spells.size]
             setSpellByName(stack, name)
-            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
+            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
             ItemsRemainingRenderHandler.set(SpellRegistry.getSpell(name)?.iconStack, -2)
             if (player.worldObj.isRemote) {
                 displayItemName(30)

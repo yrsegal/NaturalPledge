@@ -14,12 +14,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
+import shadowfox.botanicaladdons.common.items.ItemResource
+import shadowfox.botanicaladdons.common.items.ItemResource.Variants.LIFE_ROOT
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.LIFEMAKER
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.ItemNBTHelper
+import vazkii.botania.common.lib.LibOreDict
 import java.util.*
 
 /**
@@ -30,7 +35,9 @@ class PriestlyEmblemIdunn : IFaithVariant {
 
     init {
         SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot())
-        SpellRegistry.registerSpell(LibNames.SPELL_SUFFUSION, Spells.Idunn.LifeCatalyst())
+        SpellRegistry.registerSpell(LibNames.SPELL_IDUNN_INFUSION,
+                Spells.ObjectInfusion(LIFEMAKER, LibOreDict.LIVING_WOOD,
+                        LIFE_ROOT, 150, 0x0FF469))
     }
 
     override fun getName(): String = "idunn"
@@ -38,7 +45,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf(LibNames.SPELL_PROTECTION, LibNames.SPELL_SUFFUSION, LibNames.SPELL_INFUSION)
+        return mutableListOf(LibNames.SPELL_PROTECTION, LibNames.SPELL_IDUNN_INFUSION)
     }
 
     val RANGE = 5
@@ -75,7 +82,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
 
         if (block is IGrowable && block.canGrow(world, pos, state, world.isRemote)) {
             if (world.isRemote)
-                world.playAuxSFX(2005, pos, 0)
+                world.playEvent(2005, pos, 0)
             else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(stack, player, 10, true))
                 grow(player, block, world, pos, state)
         }
@@ -83,15 +90,11 @@ class PriestlyEmblemIdunn : IFaithVariant {
 
     fun grow(player: EntityPlayer, block: IGrowable, world: World, pos: BlockPos, state: IBlockState) {
         block.grow(world, world.rand, pos, state)
-        world.playSound(player, pos, SoundEvents.block_lava_pop, SoundCategory.BLOCKS, 1f, 0.1f)
+        world.playSound(player, pos, SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 1f, 0.1f)
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
         player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 600))
-    }
-
-    override fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
-        //TODO
     }
 
     val TAG_COOLDOWN = "cooldown"
@@ -110,7 +113,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
             val block = state.block
             if (block is IGrowable && block.canGrow(world, pos, state, world.isRemote)) {
                 if (world.isRemote)
-                    world.playAuxSFX(2005, pos, 0)
+                    world.playEvent(2005, pos, 0)
                 else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, true)) {
                     grow(e.entityPlayer, block, world, pos, state)
                     ItemNBTHelper.setInt(emblem, TAG_COOLDOWN, COOLDOWN_LENGTH)

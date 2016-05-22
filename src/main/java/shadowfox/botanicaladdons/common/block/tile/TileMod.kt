@@ -18,10 +18,11 @@ open class TileMod : TileEntity() {
         return oldState.block !== newState.block
     }
 
-    override fun writeToNBT(par1nbtTagCompound: NBTTagCompound) {
+    override fun writeToNBT(par1nbtTagCompound: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(par1nbtTagCompound)
 
         writeCustomNBT(par1nbtTagCompound)
+        return par1nbtTagCompound
     }
 
     override fun readFromNBT(par1nbtTagCompound: NBTTagCompound) {
@@ -36,12 +37,6 @@ open class TileMod : TileEntity() {
 
     open fun readCustomNBT(cmp: NBTTagCompound) {
         // NO-OP
-    }
-
-    override fun getDescriptionPacket(): Packet<*> {
-        val nbttagcompound = NBTTagCompound()
-        writeCustomNBT(nbttagcompound)
-        return SPacketUpdateTileEntity(pos, -999, nbttagcompound)
     }
 
     override fun onDataPacket(net: NetworkManager, packet: SPacketUpdateTileEntity) {

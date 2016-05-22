@@ -12,6 +12,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
+import shadowfox.botanicaladdons.common.items.ItemResource
+import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
+import shadowfox.botanicaladdons.common.items.ItemResource.Variants.AQUAMARINE
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.WIND_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
@@ -28,6 +33,9 @@ class PriestlyEmblemNjord : IFaithVariant {
         SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap())
         SpellRegistry.registerSpell(LibNames.SPELL_INTERDICT, Spells.Njord.Interdict())
         SpellRegistry.registerSpell(LibNames.SPELL_PUSH, Spells.Njord.PushAway())
+        SpellRegistry.registerSpell(LibNames.SPELL_NJORD_INFUSION,
+                Spells.ObjectInfusion(WIND_INFUSION, "gemPrismarine",
+                        AQUAMARINE, 150, 0x00E5E5))
     }
 
     override fun getName(): String = "njord"
@@ -35,15 +43,11 @@ class PriestlyEmblemNjord : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf(LibNames.SPELL_LEAP, LibNames.SPELL_INTERDICT, LibNames.SPELL_PUSH, LibNames.SPELL_INFUSION)
+        return mutableListOf(LibNames.SPELL_LEAP, LibNames.SPELL_INTERDICT, LibNames.SPELL_PUSH, LibNames.SPELL_NJORD_INFUSION)
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
         player.addPotionEffect(ModPotionEffect(ModPotions.featherweight, 600))
-    }
-
-    override fun onRenderTick(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
-        //TODO
     }
 
     @SubscribeEvent
@@ -54,11 +58,11 @@ class PriestlyEmblemNjord : IFaithVariant {
 
         if (player.capabilities.isFlying || player.isSneaking) return
 
-        if (world.isAnyLiquid(player.entityBoundingBox)) {
+        if (world.containsAnyLiquid(player.entityBoundingBox)) {
             if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
                 player.motionY = 0.15
             }
-        } else if (world.isAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15, 0.0))) {
+        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15, 0.0))) {
             if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
                 player.motionY = Math.max(0.0, player.motionY)
                 player.fallDistance = 0f

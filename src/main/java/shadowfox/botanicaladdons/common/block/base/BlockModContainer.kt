@@ -17,8 +17,7 @@ abstract class BlockModContainer(name: String, materialIn: Material, vararg vari
         worldIn.removeTileEntity(pos)
     }
 
-    override fun onBlockEventReceived(worldIn: World?, pos: BlockPos?, state: IBlockState?, eventID: Int, eventParam: Int): Boolean {
-        super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam)
+    override fun eventReceived(state: IBlockState?, worldIn: World?, pos: BlockPos?, eventID: Int, eventParam: Int): Boolean {
         val tileentity = worldIn!!.getTileEntity(pos)
         return if (tileentity == null) false else tileentity.receiveClientEvent(eventID, eventParam)
     }

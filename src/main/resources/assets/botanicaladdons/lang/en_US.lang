@@ -14,15 +14,29 @@ item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
 item.botanicaladdons:appleImmortality.name=Apple of Immortality
 item.botanicaladdons:fateHorn.name=Gjallarhorn, Horn of Fate
 
+item.botanicaladdons:thunderFist.name=Fist of Thunder
+
+item.botanicaladdons:thunderSteel.name=Thundersteel
+item.botanicaladdons:thunderSteelActive.name=Awakened Thundersteel
+item.botanicaladdons:lifeRoot.name=Soulroot
+item.botanicaladdons:lifeRootActive.name=Awakened Soulroot
+item.botanicaladdons:aquamarine.name=Aquamarine
+item.botanicaladdons:aquamarineActive.name=Awakened Aquamarine
+
 item.botanicaladdons:mortalStone.name=Mortalstone
 
 item.botanicaladdons:iconLeap.name=Rush of Wind
 item.botanicaladdons:iconInterdict.name=Galeforce
 item.botanicaladdons:iconPushAway.name=Sudden Gust
+item.botanicaladdons:iconWindInfusion.name=Tempest Infusion
 
 item.botanicaladdons:iconLightning.name=Lightning Strike
 item.botanicaladdons:iconStrength.name=Thunder's Force
 item.botanicaladdons:iconPull.name=Chains of Iron
+item.botanicaladdons:iconLightningInfusion.name=Thunder Infusion
+
+enchantment.botanicaladdons.light=Streamlined
+enchantment.botanicaladdons.heavy=Crushing
 
 item.botanicaladdons:iconIridescence.name=Iridescent Tones
 item.botanicaladdons:iconBifrostSphere.name=Wave of Bifrost
@@ -36,7 +50,9 @@ item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
 item.botanicaladdons:prismRod.name=Rod of the Prismatic Lake
 item.botanicaladdons:toolbelt.name=Traveller's Toolbelt
+item.botanicaladdons:foodbelt.name=Traveller's Ration Belt
 item.botanicaladdons:travelStone.name=Traveller's Flowstone
+item.botanicaladdons:findStone.name=Traveller's Waystone
 
 tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
@@ -86,10 +102,18 @@ misc.botanicaladdons.color.13=Green
 misc.botanicaladdons.color.14=Red
 misc.botanicaladdons.color.15=Black
 misc.botanicaladdons.color.16=Bifrost
-misc.botanicaladdons.color.format=Color: #%1$s
+misc.botanicaladdons.color.format=Color: #%s
 misc.botanicaladdons.color.mixed=Color Mixture
 
-misc.botanicaladdons.customSize=Radius: %1$s Blocks
+misc.botanicaladdons.baubletooltip=Press &b%s&7 to open the Baubles menu
+
+misc.botanicaladdons.customSize=Radius: %s Blocks
+
+misc.botanicaladdons.tracking=Seeking %s, %s blocks away
+misc.botanicaladdons.trackingClose=Seeking %s, close by
+misc.botanicaladdons.trackingNotHere=Seeking %s, an eternity away
+misc.botanicaladdons.trackingBlock=Seeking a location, %s blocks away
+misc.botanicaladdons.trackingBlockClose=Seeking a location, close by
 
 item.botanicaladdons:dyeShardWhite.name=White Iridescent Shard
 item.botanicaladdons:dyeShardOrange.name=Orange Iridescent Shard
@@ -127,11 +151,27 @@ item.botanicaladdons:irisDyeRed.name=Red Iridescent Crystal
 item.botanicaladdons:irisDyeBlack.name=Black Iridescent Crystal
 item.botanicaladdons:irisDyeRainbow.name=Bifrost Iridescent Crystal
 
+item.botanicaladdons:irisDyeAwakenedWhite.name=White Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedOrange.name=Orange Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedMagenta.name=Magenta Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedLightBlue.name=Light Blue Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedYellow.name=Yellow Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedLime.name=Lime Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedPink.name=Pink Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedGray.name=Gray Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedLightGray.name=Light Gray Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedCyan.name=Cyan Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedPurple.name=Purple Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedBlue.name=Blue Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedBrown.name=Brown Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedGreen.name=Green Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedRed.name=Red Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedBlack.name=Black Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedRainbow.name=Bifrost Awakened Crystal
+
 item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
 
-itemGroup.botanicaladdons.divine=Natural Pledge | Divinity
-itemGroup.botanicaladdons.wood=Natural Pledge | Dendrology
-itemGroup.botanicaladdons.color=Natural Pledge | Iridescence
+itemGroup.botanicaladdons.divine=Natural Pledge
 
 misc.botanicaladdons.contains=Contains:
 misc.botanicaladdons.containsNothing=Empty

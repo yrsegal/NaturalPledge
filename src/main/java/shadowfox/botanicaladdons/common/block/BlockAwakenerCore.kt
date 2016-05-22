@@ -33,14 +33,14 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
  * @author WireSegal
  * Created at 2:46 PM on 4/17/16.
  */
-class BlockAwakenerCore(name: String) : BlockMod(name, Material.iron), ILexiconable {
+class BlockAwakenerCore(name: String) : BlockMod(name, Material.IRON), ILexiconable {
 
     companion object {
-        val AABB = AxisAlignedBB(3.0 / 16, 3.0 / 16, 3.0 / 16, 13.0 / 16, 13.0 / 16, 13.0 / 16)
+        val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
         val PYLON_LOCATIONS = arrayOf(BlockPos(4, 1, 4), BlockPos(4, 1, -4), BlockPos(-4, 1, 4), BlockPos(-4, 1, -4))
 
-        fun makeMultiblockSet(): MultiblockSet {
+        private fun makeMultiblockSet(): MultiblockSet {
             val mb = Multiblock()
 
             for (p in AwakeningEventHandler.CORE_LOCATIONS) mb.addComponent(p.up(), ModBlocks.awakenerCore.defaultState)
@@ -52,16 +52,18 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.iron), ILexicona
             return mb.makeSet()
         }
 
-        lateinit var multiblock: MultiblockSet
+        val multiblock: MultiblockSet by lazy {
+            makeMultiblockSet()
+        }
 
-        private class BeaconBeamComponent(relPos: BlockPos) : MultiblockComponent(relPos, Blocks.beacon.defaultState) {
+        private class BeaconBeamComponent(relPos: BlockPos) : MultiblockComponent(relPos, Blocks.BEACON.defaultState) {
 
             override fun matches(world: World, pos: BlockPos): Boolean {
                 return world.getTileEntity(pos) is TileEntityBeacon
             }
         }
 
-        private class BeaconComponent(relPos: BlockPos) : MultiblockComponent(relPos, Blocks.iron_block.defaultState) {
+        private class BeaconComponent(relPos: BlockPos) : MultiblockComponent(relPos, Blocks.IRON_BLOCK.defaultState) {
 
             override fun matches(world: World, pos: BlockPos): Boolean {
                 return world.getBlockState(pos).block.isBeaconBase(world, pos, pos.add(BlockPos(-relPos.x, -relPos.y, -relPos.z)))
@@ -94,8 +96,6 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.iron), ILexicona
     override fun getBlockRarity(stack: ItemStack) = BotaniaAPI.rarityRelic
 
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
-    override fun getCollisionBoundingBox(worldIn: IBlockState?, pos: World?, state: BlockPos?) = AABB
-    override fun getSelectedBoundingBox(blockState: IBlockState?, worldIn: World?, pos: BlockPos?) = AABB
 
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false

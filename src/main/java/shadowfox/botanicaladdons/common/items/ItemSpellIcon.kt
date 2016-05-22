@@ -20,7 +20,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
         LIGHTNING, STRENGTH, PULL,
         IRIDESCENCE(true), BIFROST_SPHERE(true),
         IRONROOT, LIFEMAKER,
-        SUFFUSION;
+        WIND_INFUSION, LIGHTNING_INFUSION;
 
         constructor() : this(false)
 
@@ -30,7 +30,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
 
         companion object {
             val variants: Array<String>
-                get() = Array(Variants.values().size, { "icon" + Variants.values()[it].toString().capitalizeFirst() })
+                get() = Array(values().size, { "icon" + values()[it].toString().capitalizeFirst() })
         }
     }
 

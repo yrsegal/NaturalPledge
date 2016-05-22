@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.base
 
+import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -10,8 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.client.core.TooltipHelper
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
+import shadowfox.botanicaladdons.common.core.tab.ModTab
 
 /**
  * @author WireSegal
@@ -36,7 +36,7 @@ open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler
     override val variants: Array<out String>
 
     @SideOnly(Side.CLIENT)
-    override fun getCustomMeshDefinition() = null
+    override fun getCustomMeshDefinition(): ItemMeshDefinition? = null
 
     private val bareName: String
 
@@ -44,7 +44,7 @@ open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler
         var variantTemp = variants
         this.unlocalizedName = name
 
-        creativeTab?.set(this)
+        ModTab.set(this)
 
         if (variantTemp.size > 1) {
             this.setHasSubtypes(true)
@@ -58,9 +58,6 @@ open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler
         this.variants = variantTemp
         ModelHandler.variantCache.add(this)
     }
-
-    open val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabDivinity
 
     override fun setUnlocalizedName(name: String): Item {
         val rl = ResourceLocation(LibMisc.MOD_ID, name)

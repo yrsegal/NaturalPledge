@@ -61,12 +61,12 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
             fun onLivingAttacked(e: LivingAttackEvent) {
                 val player = e.entityLiving
                 val damage = e.source
-                if (player is EntityPlayer && (damage.entity == null || damage.entity != damage.sourceOfDamage) && player.isHandActive && player.activeItemStack != null && player.activeItemStack.item is ItemDagger) {
+                if (player is EntityPlayer && (damage.entity == null || damage.entity != damage.sourceOfDamage) && player.isHandActive && player.activeItemStack != null && player.activeItemStack!!.item is ItemDagger) {
                     val enemyEntity = damage.entity
                     val item = player.activeItemStack
                     val count = player.itemInUseMaxCount
                     if (enemyEntity is EntityLivingBase) {
-                        if (item.item is ItemDagger && count <= maxBlockLength && count >= minBlockLength) {
+                        if (item!!.item is ItemDagger && count <= maxBlockLength && count >= minBlockLength) {
                             val lookVec = Vector3(player.lookVec)
                             val targetVec = Vector3.fromEntityCenter(enemyEntity).sub(Vector3.fromEntityCenter(player))
                             val epsilon = lookVec.dotProduct(targetVec) / (lookVec.mag() * targetVec.mag())
@@ -78,14 +78,14 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
                                         enemyEntity.attackEntityFrom(DamageSourceOculus(player), e.amount * 2f)
                                         val xDif = enemyEntity.posX - player.posX
                                         val zDif = enemyEntity.posZ - player.posZ
-                                        player.worldObj.playSound(player, enemyEntity.posX, enemyEntity.posY, enemyEntity.posZ, SoundEvents.block_anvil_land, SoundCategory.PLAYERS, 1f, 0.9f + 0.1f * Math.random().toFloat())
+                                        player.worldObj.playSound(player, enemyEntity.posX, enemyEntity.posY, enemyEntity.posZ, SoundEvents.BLOCK_ANVIL_BREAK, SoundCategory.PLAYERS, 1f, 0.9f + 0.1f * Math.random().toFloat())
                                         if (enemyEntity.heldItemMainhand != null)
-                                            enemyEntity.heldItemMainhand.damageItem(100, enemyEntity)
+                                            enemyEntity.heldItemMainhand!!.damageItem(100, enemyEntity)
                                         if (enemyEntity.heldItemOffhand != null)
-                                            enemyEntity.heldItemOffhand.damageItem(100, enemyEntity)
+                                            enemyEntity.heldItemOffhand!!.damageItem(100, enemyEntity)
                                         enemyEntity.knockBack(player, 1f, -xDif, -zDif)
-                                        enemyEntity.addPotionEffect(PotionEffect(MobEffects.weakness, 60, 1, true, false))
-                                        enemyEntity.addPotionEffect(PotionEffect(MobEffects.moveSlowdown, 60, 2, true, false))
+                                        enemyEntity.addPotionEffect(PotionEffect(MobEffects.WEAKNESS, 60, 1, true, false))
+                                        enemyEntity.addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 60, 2, true, false))
                                     }
                                 } else {
                                     val mainVec = Vector3.fromEntityCenter(player).add(lookVec)
@@ -170,9 +170,5 @@ class ItemDagger(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), 
         val mat = this.toolMaterial.repairItemStack
         if (mat != null && OreDictionary.itemMatches(mat, materialstack, false)) return true
         return super.getIsRepairable(stack, materialstack)
-    }
-
-    override fun shouldCauseReequipAnimation(oldStack: ItemStack?, newStack: ItemStack?, slotChanged: Boolean): Boolean {
-        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged)
     }
 }

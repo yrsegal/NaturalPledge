@@ -20,7 +20,7 @@ class PlayerItemMessage(var item: ItemStack? = null) : IMessage {
                 if (player.heldItemMainhand == null) {
                     player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, message.item?.copy())
                 } else if (!player.inventory.addItemStackToInventory(message.item?.copy())) {
-                    player.dropPlayerItemWithRandomChoice(message.item?.copy(), false)
+                    player.dropItem(message.item?.copy(), false)
                 }
             }
 

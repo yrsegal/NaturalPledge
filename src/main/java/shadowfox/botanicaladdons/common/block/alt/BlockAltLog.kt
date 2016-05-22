@@ -11,8 +11,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
-import shadowfox.botanicaladdons.common.core.tab.ModCreativeTab
-import shadowfox.botanicaladdons.common.core.tab.ModTabs
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -45,9 +43,6 @@ class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet
         blockState = createBlockState()
         defaultState = blockState.baseState.withProperty(AXIS, BlockLog.EnumAxis.Y)
     }
-
-    override val creativeTab: ModCreativeTab?
-        get() = ModTabs.TabWood
 
     override fun getStateFromMeta(meta: Int): IBlockState {
         var axis = BlockLog.EnumAxis.Y

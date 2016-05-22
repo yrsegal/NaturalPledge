@@ -11,10 +11,15 @@ object LibNames {
     val FATE_HORN = "fateHorn"
     val MORTAL_STONE = "mortalStone"
     val IRIDESCENT_DYE = "irisDye"
+    val IRIDESCENT_DYE_AWAKENED = "irisDyeAwakened"
     val INFINITE_DYE = "dyeShard"
     val TOOLBELT = "toolbelt"
     val TRAVEL_STONE = "travelStone"
     val LIGHT_PLACER = "prismRod"
+    val THUNDERFIST = "thunderFist"
+    val FINDER = "findStone"
+    val RESOURCE = "resource"
+    val FOODBELT = "foodbelt"
 
     val SPELL_LEAP = "leap"
     val SPELL_INTERDICT = "interdict"
@@ -25,8 +30,9 @@ object LibNames {
     val SPELL_RAINBOW = "iridescence"
     val SPELL_SPHERE = "bifrostWave"
     val SPELL_PROTECTION = "ironroot"
-    val SPELL_SUFFUSION = "lifeCatalyst"
-    val SPELL_INFUSION = "soulInfusion"
+    val SPELL_IDUNN_INFUSION = "lifeInfusion"
+    val SPELL_THOR_INFUSION = "lightningInfusion"
+    val SPELL_NJORD_INFUSION = "njordInfusion"
 
 
     val AWAKENER = "divineCore"
@@ -34,7 +40,6 @@ object LibNames {
     val PRISM_FLAME = "prismFlame"
     val IRIS_DIRT = "irisDirt"
     val RAINBOW_DIRT = "rainbowDirt"
-    val SOUL_SUFFUSER = "soulSuffuser"
     val IRIS_LOG = "irisLog"
     val RAINBOW_LOG = "rainbowLog"
     val IRIS_LEAVES = "irisLeaves"
@@ -50,4 +55,7 @@ object LibNames {
     val OVERCHARGED = "overcharged"
     val FEATHERWEIGHT = "featherweight"
     val IMMORTALITY = "immortality"
+
+    val HEAVY = "heavy"
+    val LIGHT = "light"
 }

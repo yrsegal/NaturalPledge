@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.client.core
 
 import net.minecraft.client.gui.GuiScreen
-import net.minecraft.util.text.translation.I18n
+import net.minecraft.client.resources.I18n
 
 /**
  * @author WireSegal
@@ -19,21 +19,12 @@ object TooltipHelper {
     }
 
     fun addToTooltip(tooltip: MutableList<String>, s: String, vararg format: Any?) {
-        var locals = local(s).replace("&".toRegex(), "§")
-        val formatVals = arrayOfNulls<String>(format.size)
+        val toAdd = local(s, *format).replace("&".toRegex(), "§")
 
-        for (i in format.indices) {
-            formatVals[i] = local(format[i].toString()).replace("&".toRegex(), "§")
-        }
-
-        if (formatVals.size > 0) {
-            locals = String.format(locals, *formatVals)
-        }
-
-        tooltip.add(locals)
+        tooltip.add(toAdd)
     }
 
-    fun local(s: String): String {
-        return I18n.translateToLocal(s)
+    fun local(s: String, vararg format: Any?): String {
+        return I18n.format(s, *format)
     }
 }

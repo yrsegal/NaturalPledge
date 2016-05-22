@@ -1,8 +1,10 @@
 package shadowfox.botanicaladdons.common.crafting
 
 
+import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.IRecipe
@@ -53,14 +55,24 @@ object ModRecipes {
     val immortalBrew: RecipeBrew
     val drabBrew: RecipeBrew
 
-    //    val recipeSoulSuffuser: IRecipe
+    val recipeMjolnir: IRecipe
+    val recipeThunderFists: IRecipe
+
+    val recipeFateHorn: IRecipe
+    val recipeImmortalApple: IRecipe
+
+    val recipesIridescentShards: Array<IRecipe>
+
+    val recipeFindStone: IRecipe
+
+    val recipeFoodBelt: IRecipe
 
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         GameRegistry.addRecipe(RecipeDynamicDye(ModItems.lightPlacer, true))
 
-        recipeSymbol = addOreDictRecipe(ItemStack(ModItems.symbol),
+        recipeSymbol = addOreDictRecipe(ModItems.symbol,
                 "S S",
                 "Q Q",
                 " G ",
@@ -76,7 +88,7 @@ object ModRecipes {
                 'W', BotaniaOreDict.RUNE[0], // Water
                 'S', "holySymbol",
                 'A', BotaniaOreDict.RUNE[3], // Air
-                'C', ItemStack(BotaniaItems.waterRing))
+                'C', BotaniaItems.waterRing)
 
         recipeIdunnEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
                 " T ",
@@ -86,7 +98,7 @@ object ModRecipes {
                 'R', BotaniaOreDict.RUNE[4], // Spring
                 'S', "holySymbol",
                 'U', BotaniaOreDict.RUNE[5], // Summer
-                'B', ItemStack(BotaniaItems.knockbackBelt))
+                'B', BotaniaItems.knockbackBelt)
 
         recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
                 " G ",
@@ -96,34 +108,34 @@ object ModRecipes {
                 'W', BotaniaOreDict.RUNE[13], // Wrath
                 'S', "holySymbol",
                 'A', BotaniaOreDict.RUNE[3], // Air
-                'B', ItemStack(BotaniaItems.travelBelt))
+                'B', BotaniaItems.travelBelt)
 
         recipeHeimdallEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
                 " G ",
                 "PSF",
                 " B ",
-                'G', ItemStack(BotaniaBlocks.bifrostPerm),
+                'G', LibOreDict.DYES[16], // Rainbow
                 'P', BotaniaOreDict.RUNE[15], // Pride
                 'S', "holySymbol",
                 'F', BotaniaOreDict.RUNE[1], // Fire
-                'B', ItemStack(BotaniaItems.pixieRing))
+                'B', BotaniaItems.pixieRing)
 
-        recipeDivineCore = addOreDictRecipe(ItemStack(ModBlocks.awakenerCore),
+        recipeDivineCore = addOreDictRecipe(ModBlocks.awakenerCore,
                 " D ",
                 "DGD",
                 " D ",
                 'D', BotaniaOreDict.MANA_DIAMOND,
                 'G', BotaniaOreDict.GAIA_INGOT)
 
-        recipeTerrestrialFocus = addOreDictRecipe(ItemStack(ModItems.spellFocus),
+        recipeTerrestrialFocus = addOreDictRecipe(ModItems.spellFocus,
                 " D ",
                 "DPD",
                 "ODO",
                 'D', BotaniaOreDict.MANA_DIAMOND,
                 'P', BotaniaOreDict.MANA_PEARL,
-                'O', ItemStack(Blocks.obsidian))
+                'O', Blocks.OBSIDIAN)
 
-        recipeMortalStone = addOreDictRecipe(ItemStack(ModItems.mortalStone),
+        recipeMortalStone = addOreDictRecipe(ModItems.mortalStone,
                 "PSP",
                 "SMS",
                 "PSP",
@@ -141,24 +153,24 @@ object ModRecipes {
                     'D', LibOreDict.IRIS_DYES[it])
         })
 
-        recipeToolbelt = addOreDictRecipe(ItemStack(ModItems.toolbelt),
+        recipeToolbelt = addOreDictRecipe(ModItems.toolbelt,
                 "CL ",
                 "L L",
                 "PLD",
                 'P', BotaniaOreDict.PIXIE_DUST,
-                'L', ItemStack(Items.leather),
-                'C', ItemStack(Blocks.chest),
+                'L', Items.LEATHER,
+                'C', Blocks.CHEST,
                 'D', LibOreDict.IRIS_DYE)
 
-        recipeTravelStone = addOreDictRecipe(ItemStack(ModItems.travelStone),
+        recipeTravelStone = addOreDictRecipe(ModItems.travelStone,
                 "DSD",
-                "SCS",
+                "SAS",
                 "DSD",
                 'S', "stone",
-                'C', ItemStack(Items.compass),
+                'A', BotaniaOreDict.RUNE[3], // Air
                 'D', LibOreDict.IRIS_DYE)
 
-        recipePrismRod = addOreDictRecipe(ItemStack(ModItems.lightPlacer),
+        recipePrismRod = addOreDictRecipe(ModItems.lightPlacer,
                 " BG",
                 " DB",
                 "D  ",
@@ -171,28 +183,80 @@ object ModRecipes {
                     "DDD",
                     "DID",
                     "DDD",
-                    'D', ItemStack(Blocks.dirt),
+                    'D', Blocks.DIRT,
                     'I', LibOreDict.IRIS_DYES[it])
         })
 
-        immortalBrew = BotaniaAPI.registerBrewRecipe(ModBrews.immortality, ItemStack(Items.nether_wart), BotaniaOreDict.PIXIE_DUST, ItemStack(ModItems.apple))
-        drabBrew = BotaniaAPI.registerBrewRecipe(ModBrews.drained, ItemStack(Items.nether_wart), LibOreDict.DYES[7], ItemStack(Items.clay_ball))
+        immortalBrew = BotaniaAPI.registerBrewRecipe(ModBrews.immortality, ItemStack(Items.NETHER_WART), BotaniaOreDict.PIXIE_DUST, ItemStack(ModItems.apple))
+        drabBrew = BotaniaAPI.registerBrewRecipe(ModBrews.drained, ItemStack(Items.NETHER_WART), LibOreDict.IRIS_DYES[7], ItemStack(Items.CLAY_BALL))
 
-        //        recipeSoulSuffuser = addOreDictRecipe(ItemStack(ModBlocks.suffuser),
-        //                "LDL",
-        //                " L ",
-        //                "lll",
-        //                'L', BotaniaOreDict.LIVING_ROCK,
-        //                'D', BotaniaOreDict.MANA_DIAMOND,
-        //                'l', ItemStack(ModFluffBlocks.livingrockSlab))
+        recipeMjolnir = addOreDictRecipe(ModItems.mjolnir,
+                "TTT",
+                "TLT",
+                " L ",
+                'T', LibOreDict.THUNDERSTEEL_AWAKENED,
+                'L', BotaniaOreDict.LIVINGWOOD_TWIG)
+
+        recipeThunderFists = addOreDictRecipe(ModItems.fists,
+                "TDT",
+                "TT ",
+                'T', LibOreDict.THUNDERSTEEL,
+                'D', BotaniaOreDict.MANA_DIAMOND)
+
+        recipeFateHorn = addOreDictRecipe(ModItems.fateHorn,
+                " G ",
+                "GIG",
+                "GG ",
+                'G', "ingotGold",
+                'I', LibOreDict.IRIS_DYE_AWAKENED)
+
+        recipeImmortalApple = addOreDictRecipe(ModItems.apple,
+                " R ",
+                "GAG",
+                " G ",
+                'R', LibOreDict.LIFE_ROOT_AWAKENED,
+                'G', "blockGold",
+                'A', Items.APPLE)
+
+        recipesIridescentShards = Array(LibOreDict.DYES.size, {
+            addOreDictRecipe(ItemStack(ModItems.manaDye, 1, it),
+                    " I ",
+                    "EPE",
+                    " M ",
+                    'I', LibOreDict.IRIS_DYES[it],
+                    'E', BotaniaOreDict.ELEMENTIUM,
+                    'P', "gemPrismarine",
+                    'M', BotaniaOreDict.MANA_POWDER)
+        })
+
+        recipeFindStone = addOreDictRecipe(ModItems.finder,
+                "DSD",
+                "SCS",
+                "DSD",
+                'S', "stone",
+                'C', Items.COMPASS,
+                'D', LibOreDict.IRIS_DYE)
+
+        recipeFoodBelt = addOreDictRecipe(ModItems.foodbelt,
+                "CL ",
+                "L L",
+                "PLD",
+                'P', BotaniaOreDict.PIXIE_DUST,
+                'L', Items.LEATHER,
+                'C', Items.CAKE,
+                'D', LibOreDict.IRIS_DYE)
     }
 
+    fun addOreDictRecipe(output: Item, vararg recipe: Any) = addOreDictRecipe(ItemStack(output), *recipe)
+    fun addOreDictRecipe(output: Block, vararg recipe: Any) = addOreDictRecipe(ItemStack(output), *recipe)
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {
         val obj = ShapedOreRecipe(output, *recipe)
         CraftingManager.getInstance().recipeList.add(obj)
         return obj
     }
 
+    fun addShapelessOreDictRecipe(output: Item, vararg recipe: Any) = addShapelessOreDictRecipe(ItemStack(output), *recipe)
+    fun addShapelessOreDictRecipe(output: Block, vararg recipe: Any) = addShapelessOreDictRecipe(ItemStack(output), *recipe)
     fun addShapelessOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {
         val obj = ShapelessOreRecipe(output, *recipe)
         CraftingManager.getInstance().recipeList.add(obj)

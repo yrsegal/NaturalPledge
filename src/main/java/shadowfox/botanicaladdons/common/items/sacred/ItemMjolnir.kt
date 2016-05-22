@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.sacred
 
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
@@ -14,6 +15,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.oredict.OreDictionary
+import shadowfox.botanicaladdons.api.item.IWeightEnchantable
+import shadowfox.botanicaladdons.common.items.ItemResource
+import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.BotaniaAPI
@@ -28,7 +32,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:43 PM on 4/20/16.
  */
-class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name), IPreventBreakInCreative, IManaUsingItem {
+class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IManaUsingItem {
     private val attackDamage: Float
 
     init {
@@ -49,7 +53,7 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
         if (target.isActiveItemStackBlocking && target.activeItemStack != null)
-            target.activeItemStack.damageItem(500, target)
+            target.activeItemStack!!.damageItem(500, target)
         ItemNBTHelper.setBoolean(stack, TAG_ATTACKED, true)
         return true
     }
@@ -74,10 +78,8 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         return this.material.enchantability
     }
 
-    override fun getIsRepairable(toRepair: ItemStack?, repair: ItemStack?): Boolean {
-        val mat = this.material.repairItemStack
-        if (mat != null && OreDictionary.itemMatches(mat, repair, false)) return true
-        return super.getIsRepairable(toRepair, repair)
+    override fun getIsRepairable(toRepair: ItemStack?, repair: ItemStack): Boolean {
+        return repair.item == ModItems.resource && (repair.itemDamage % ItemResource.Variants.values().size == ItemResource.Variants.THUNDER_STEEL.ordinal)
     }
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack?): Multimap<String, AttributeModifier>? {
@@ -125,5 +127,9 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
 
         Botania.proxy.lightningFX(entityLiving.worldObj, Vector3(entityLiving.positionVector), targetVec, speed, 0x00948B, 0x00E4D7)
         return false
+    }
+
+    override fun canApplyWeightEnchantment(stack: ItemStack, ench: Enchantment): Boolean {
+        return true
     }
 }
