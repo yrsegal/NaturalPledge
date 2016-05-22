@@ -12,10 +12,16 @@ import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemFood
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
+import net.minecraft.stats.StatBase
 import net.minecraft.stats.StatList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
+import net.minecraft.world.chunk.IChunkProvider
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.relauncher.ReflectionHelper
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import vazkii.botania.api.item.IBaubleRender
@@ -28,6 +34,17 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
 
     companion object {
         val beltTexture = ResourceLocation(LibMisc.MOD_ID, "textures/model/foodbelt.png")
+
+        init {
+            MinecraftForge.EVENT_BUS.register(this)
+        }
+
+        var captureSounds = false
+
+        @SubscribeEvent
+        fun onSoundPlayed(e: PlaySoundAtEntityEvent) {
+            if (captureSounds) e.isCanceled = true
+        }
     }
 
     override fun getBaubleType(p0: ItemStack?) = BaubleType.BELT
@@ -74,7 +91,9 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
         if (food.item is ItemFood) {
             val fakePlayer = FakePlayerPotion(player.worldObj, GameProfile(null, "foodBeltPlayer"))
             fakePlayer.setPosition(0.0, 999.0, 0.0)
-            (food.item as ItemFood).onFoodEaten(food.copy(), player.worldObj, fakePlayer)
+            captureSounds = true
+            food.copy().onItemUseFinish(player.worldObj, fakePlayer)
+            captureSounds = false
             if (fakePlayer.activePotionEffects.size > 0)
                 return fakePlayer.isPotionActive(MobEffects.SATURATION) && fakePlayer.activePotionEffects.size == 0
             return true
@@ -89,6 +108,8 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
                 par1PotionEffect.potion.applyAttributesModifiersToEntity(this, this.attributeMap, par1PotionEffect.amplifier)
         }
         override fun canCommandSenderUseCommand(permLevel: Int, commandName: String?) = false
+
+        override fun addStat(p_addStat_1_: StatBase?) {}
 
         override fun getPosition() = null
         override fun isSpectator() = false
