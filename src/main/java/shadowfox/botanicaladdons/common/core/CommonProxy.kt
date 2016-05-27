@@ -9,6 +9,7 @@ import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
+import shadowfox.botanicaladdons.common.entity.ModEntities
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -30,6 +31,7 @@ open class CommonProxy {
         ModPotions
         ModBrews
         ModEnchantments
+        ModEntities
     }
 
     open fun init(e: FMLInitializationEvent) {
@@ -38,7 +40,7 @@ open class CommonProxy {
     }
 
     open fun post(e: FMLPostInitializationEvent) {
-
+        // NO-OP
     }
 
     fun particleEmission(world: World, pos: Vector3, color: Int) {

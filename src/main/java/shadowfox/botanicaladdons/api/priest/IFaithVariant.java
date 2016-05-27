@@ -35,7 +35,7 @@ public interface IFaithVariant {
     }
 
     default void onUpdate(@Nonnull ItemStack stack, @Nonnull EntityPlayer player) {
-
+        // NO-OP
     }
 
     default void onAwakenedUpdate(@Nonnull ItemStack stack, @Nonnull EntityPlayer player) {
@@ -43,11 +43,11 @@ public interface IFaithVariant {
     }
 
     default void onRenderTick(@Nonnull ItemStack stack, @Nonnull EntityPlayer player, @Nonnull IBaubleRender.RenderType render, float renderTick) {
-
+        // NO-OP
     }
 
     default void addToTooltip(@Nonnull ItemStack stack, @Nullable EntityPlayer player, @Nonnull List<String> tooltip, boolean advanced) {
-
+        // NO-OP
     }
 
 }

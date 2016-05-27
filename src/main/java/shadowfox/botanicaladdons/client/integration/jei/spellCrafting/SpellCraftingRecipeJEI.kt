@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.client.integration.jei.spellcrafting
 
 import mezz.jei.api.recipe.BlankRecipeWrapper
 import net.minecraft.item.ItemStack
+import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.api.priest.SpellRecipe
 import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
@@ -22,6 +23,25 @@ class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
     }
 
     override fun getOutputs(): List<Any> {
-        return listOf(recipe.output)
+        return getOutputsTyped()
+    }
+
+    fun getOutputsTyped(): List<ItemStack> {
+        return listOf(*recipe.output)
+    }
+
+    fun getInputsTyped(): List<ItemStack> {
+        val outputs = getOutputsTyped()
+        return OreDictionary.getOres(recipe.input).filter { stack ->
+            outputs.find { stack.item == it.item && stack.itemDamage == it.itemDamage } == null
+        }
+    }
+
+    fun getFocusTyped(): ItemStack {
+        return getFocusStack(recipe.spell)
+    }
+
+    fun getIconTyped(): ItemStack {
+        return recipe.spell.iconStack
     }
 }

@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.api.priest;
 
 import net.minecraft.item.ItemStack;
-import shadowfox.botanicaladdons.api.priest.IFocusSpell;
 
 import javax.annotation.Nonnull;
 
@@ -10,11 +9,11 @@ public class SpellRecipe {
     @Nonnull
     private String input;
     @Nonnull
-    private ItemStack output;
+    private ItemStack[] output;
     @Nonnull
     private IFocusSpell spell;
 
-    public SpellRecipe(@Nonnull String input, @Nonnull ItemStack output, @Nonnull IFocusSpell spell) {
+    public SpellRecipe(@Nonnull String input, @Nonnull IFocusSpell spell, @Nonnull ItemStack... output) {
         this.input = input;
         this.output = output;
         this.spell = spell;
@@ -26,7 +25,7 @@ public class SpellRecipe {
     }
 
     @Nonnull
-    public ItemStack getOutput() {
+    public ItemStack[] getOutput() {
         return output;
     }
 

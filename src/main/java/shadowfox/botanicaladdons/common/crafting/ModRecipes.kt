@@ -14,10 +14,15 @@ import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.block.BlockStorage
+import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.crafting.recipe.RecipeDynamicDye
+import shadowfox.botanicaladdons.common.crafting.recipe.RecipeItemDuplication
 import shadowfox.botanicaladdons.common.items.ItemResource
+import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
+import shadowfox.botanicaladdons.common.items.ItemResource.Variants.*
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
 import shadowfox.botanicaladdons.common.lib.LibNames
@@ -70,8 +75,17 @@ object ModRecipes {
 
     val recipeFoodBelt: IRecipe
 
+    val recipeAscensionArrow: IRecipe
+    val recipeAscensionDupe: IRecipe
+
+    val recipeAquaBricks: IRecipe
+    val recipeThunderBlock: IRecipe
+    val recipeAquaDeconversion: IRecipe
+    val recipeThunderDeconversion: IRecipe
+
     init {
 
+        RecipeSorter.register("${LibMisc.MOD_ID}:itemDuplicate", RecipeItemDuplication::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         GameRegistry.addRecipe(RecipeDynamicDye(ModItems.lightPlacer, true))
 
@@ -191,7 +205,7 @@ object ModRecipes {
         })
 
         immortalBrew = BotaniaAPI.registerBrewRecipe(ModBrews.immortality, ItemStack(Items.NETHER_WART), BotaniaOreDict.PIXIE_DUST, ItemStack(ModItems.apple))
-        drabBrew = BotaniaAPI.registerBrewRecipe(ModBrews.drained, ItemStack(Items.NETHER_WART), LibOreDict.IRIS_DYES[7], ItemStack(Items.CLAY_BALL))
+        drabBrew = BotaniaAPI.registerBrewRecipe(ModBrews.drained, ItemStack(Items.NETHER_WART), LibOreDict.IRIS_DYES[7], ItemStack(Items.CLAY_BALL)) // Gray
 
         recipeMjolnir = addOreDictRecipe(ModItems.mjolnir,
                 "TTT",
@@ -249,17 +263,42 @@ object ModRecipes {
                 'C', Items.CAKE,
                 'D', LibOreDict.IRIS_DYE)
 
+        recipeAscensionArrow = addOreDictRecipe(ModItems.sealArrow,
+                "A",
+                "S",
+                "R",
+                'A', LibOreDict.AQUAMARINE_AWAKENED,
+                'S', BotaniaOreDict.DREAMWOOD_TWIG,
+                'R', BotaniaOreDict.RUNE[3]) // Air
+        recipeAscensionDupe = RecipeItemDuplication(LibOreDict.AQUAMARINE, ModItems.sealArrow)
+        GameRegistry.addRecipe(recipeAscensionDupe)
+
+        recipeAquaBricks = addOreDictRecipe(ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal),
+                "AAA", "AAA", "AAA", 'A', //my recipe seems to want to scream a bit
+                LibOreDict.AQUAMARINE)
+
+        recipeThunderBlock = addOreDictRecipe(ItemStack(ModBlocks.storage, 1, Variants.THUNDERSTEEL.ordinal),
+                "TTT", "TTT", "TTT",
+                'T', LibOreDict.THUNDERSTEEL)
+
+        recipeAquaDeconversion = addShapelessOreDictRecipe(ItemStack(ModItems.resource, 9, AQUAMARINE.ordinal),
+                LibOreDict.BLOCK_AQUAMARINE)
+
+        recipeThunderDeconversion = addShapelessOreDictRecipe(ItemStack(ModItems.resource, 9, THUNDER_STEEL.ordinal),
+                LibOreDict.BLOCK_THUNDERSTEEL)
+
+
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
-        if (spell != null) SpellRegistry.registerSpellRecipe("gemPrismarine", ItemResource.of(ItemResource.Variants.AQUAMARINE), spell)
+        if (spell != null) SpellRegistry.registerSpellRecipe("gemPrismarine", spell, of(AQUAMARINE), of(AQUAMARINE, true))
         spell = SpellRegistry.getSpell(LibNames.SPELL_THOR_INFUSION)
-        if (spell != null) SpellRegistry.registerSpellRecipe("ingotIron", ItemResource.of(ItemResource.Variants.THUNDER_STEEL), spell)
+        if (spell != null) SpellRegistry.registerSpellRecipe("ingotIron", spell, of(THUNDER_STEEL), of(THUNDER_STEEL, true))
 
         spell = SpellRegistry.getSpell(LibNames.SPELL_IDUNN_INFUSION)
-        if (spell != null) SpellRegistry.registerSpellRecipe(BotaniaOreDict.LIVING_WOOD, ItemResource.of(ItemResource.Variants.LIFE_ROOT), spell)
+        if (spell != null) SpellRegistry.registerSpellRecipe(BotaniaOreDict.LIVING_WOOD, spell, of(LIFE_ROOT), of(LIFE_ROOT, true))
 
         spell = SpellRegistry.getSpell(LibNames.SPELL_RAINBOW)
         if (spell != null)
-            for (i in LibOreDict.DYES.withIndex()) SpellRegistry.registerSpellRecipe(i.value, ItemStack(ModItems.iridescentDye, 1, i.index), spell)
+            for (i in LibOreDict.DYES.withIndex()) SpellRegistry.registerSpellRecipe(i.value, spell, ItemStack(ModItems.iridescentDye, 1, i.index), ItemStack(ModItems.awakenedDye, 1, i.index))
     }
 
     fun addOreDictRecipe(output: Item, vararg recipe: Any) = addOreDictRecipe(ItemStack(output), *recipe)

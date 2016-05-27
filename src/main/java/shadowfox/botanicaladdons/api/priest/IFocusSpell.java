@@ -22,6 +22,7 @@ public interface IFocusSpell {
     EnumActionResult onCast(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, @Nonnull EnumHand hand);
 
     default void onCooldownTick(@Nonnull EntityPlayer player, @Nonnull ItemStack focus, int slot, boolean selected, int cooldownRemaining) {
+        // NO-OP
     }
 
 }

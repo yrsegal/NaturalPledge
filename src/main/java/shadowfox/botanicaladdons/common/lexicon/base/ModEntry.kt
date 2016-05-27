@@ -17,14 +17,11 @@ open class ModEntry : LexiconEntry, IAddonEntry {
         BotaniaAPI.addEntry(this, category)
     }
 
-    constructor(unlocalizedName: String, category: LexiconCategory, block: Block) : this(unlocalizedName, category, ItemStack(block)) {
-    }
+    constructor(unlocalizedName: String, category: LexiconCategory, block: Block) : this(unlocalizedName, category, ItemStack(block))
 
-    constructor(unlocalizedName: String, category: LexiconCategory, item: Item) : this(unlocalizedName, category, ItemStack(item)) {
-    }
+    constructor(unlocalizedName: String, category: LexiconCategory, item: Item) : this(unlocalizedName, category, ItemStack(item))
 
-    constructor(unlocalizedName: String, category: LexiconCategory) : this(unlocalizedName, category, null as ItemStack?) {
-    }
+    constructor(unlocalizedName: String, category: LexiconCategory) : this(unlocalizedName, category, null as ItemStack?)
 
     override fun setLexiconPages(vararg pages: LexiconPage): LexiconEntry {
         for (page in pages) {

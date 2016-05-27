@@ -8,21 +8,15 @@ import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.MobEffects
-import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemFood
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
-import net.minecraft.stats.StatBase
-import net.minecraft.stats.StatList
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraft.world.chunk.IChunkProvider
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.relauncher.ReflectionHelper
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import vazkii.botania.api.item.IBaubleRender
@@ -142,10 +136,8 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
             if (!this.worldObj.isRemote)
                 par1PotionEffect.potion.applyAttributesModifiersToEntity(this, this.attributeMap, par1PotionEffect.amplifier)
         }
+
         override fun canCommandSenderUseCommand(permLevel: Int, commandName: String?) = false
-
-        override fun addStat(p_addStat_1_: StatBase?) {}
-
         override fun getPosition() = BlockPos(this.posX, this.posY + 0.5, this.posZ)
         override fun isSpectator() = false
         override fun isCreative() = false

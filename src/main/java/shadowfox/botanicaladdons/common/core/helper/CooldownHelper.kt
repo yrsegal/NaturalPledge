@@ -10,7 +10,7 @@ import net.minecraft.util.CooldownTracker
 object CooldownHelper {
     fun setCooldown(cooldownTracker: CooldownTracker, item: Item, startTime: Int, expireTime: Int) {
         val cooldowns = cooldownTracker.cooldowns
-        if (expireTime >= cooldownTracker.ticks)
+        if (expireTime <= cooldownTracker.ticks)
             return
         var cooldown = cooldowns[item]
         while (cooldown == null) {

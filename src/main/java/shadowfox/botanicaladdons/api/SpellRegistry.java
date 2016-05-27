@@ -58,8 +58,8 @@ public final class SpellRegistry {
     }
 
     @Nonnull
-    public static SpellRecipe registerSpellRecipe(@Nonnull String input, @Nonnull ItemStack output, @Nonnull IFocusSpell spell) {
-        return registerSpellRecipe(new SpellRecipe(input, output, spell));
+    public static SpellRecipe registerSpellRecipe(@Nonnull String input, @Nonnull IFocusSpell spell, @Nonnull ItemStack... output) {
+        return registerSpellRecipe(new SpellRecipe(input, spell, output));
     }
 
     @Nullable

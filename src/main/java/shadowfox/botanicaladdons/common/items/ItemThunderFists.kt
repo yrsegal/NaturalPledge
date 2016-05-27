@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.common.items
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
-import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
@@ -12,12 +11,14 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumAction
 import net.minecraft.item.ItemStack
-import net.minecraft.util.*
+import net.minecraft.util.ActionResult
+import net.minecraft.util.EnumActionResult
+import net.minecraft.util.EnumHand
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
-import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
+import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.mana.ManaItemHandler
@@ -35,7 +36,7 @@ class ItemThunderFists(name: String, val toolMaterial: ToolMaterial) : ItemMod(n
         maxDamage = toolMaterial.maxUses
         addPropertyOverride(ResourceLocation("blocking")) {
             stack, worldIn, entityIn ->
-            if (entityIn != null && entityIn.isHandActive && (entityIn.activeItemStack == stack || (entityIn.heldItemMainhand == stack && entityIn.activeItemStack?.item == this))) 1f else 0f
+            if (entityIn != null && entityIn.isHandActive && (entityIn.heldItemMainhand == stack || entityIn.heldItemOffhand == stack)) 1f else 0f
         }
     }
 
@@ -58,21 +59,26 @@ class ItemThunderFists(name: String, val toolMaterial: ToolMaterial) : ItemMod(n
         return 72000
     }
 
+    override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
+        if (player.heldItemMainhand?.item != this)
+            player.stopActiveHand()
+    }
+
     override fun hitEntity(stack: ItemStack?, target: EntityLivingBase?, attacker: EntityLivingBase?): Boolean {
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
         return super.hitEntity(stack, target, attacker)
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
-        if (hand == EnumHand.OFF_HAND && playerIn.heldItemMainhand?.item != null)
+        if (hand == EnumHand.OFF_HAND && playerIn.heldItemMainhand?.item == this)
             playerIn.activeHand = hand
-        return ActionResult(EnumActionResult.FAIL, itemStackIn)
+        return ActionResult(EnumActionResult.PASS, itemStackIn)
     }
 
-    override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack?): Multimap<String, AttributeModifier>? {
+    override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack): Multimap<String, AttributeModifier>? {
         val multimap = super.getAttributeModifiers(slot, stack)
         if (slot == EntityEquipmentSlot.MAINHAND) {
-            val offset = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.heavy, stack) - EnchantmentHelper.getEnchantmentLevel(ModEnchantments.lightweight, stack)
+            val offset = EnchantmentWeight.getWeight(stack)
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.attributeUnlocalizedName, AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage.toDouble(), 0))
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.attributeUnlocalizedName, AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.0 + offset * -.3, 0))
         }

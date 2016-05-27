@@ -9,15 +9,19 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.MobEffects
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.EntityDamageSource
+import net.minecraft.util.EnumHand
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
-import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
+import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ModItems
@@ -44,10 +48,14 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         attackDamage = 3.0f + material.damageVsEntity
     }
 
-    val TAG_ATTACKED = "attacked"
-    val TAG_LAUNCHED = "launchedTicks"
+    companion object {
+        val TAG_LAUNCHED = "launchedTicks"
+        val TAG_DIDLAUNCH = "launched"
 
-    val MANA_PER_DAMAGE = 80
+        val MANA_PER_DAMAGE = 80
+
+        fun hammerSource(entityLiving: EntityLivingBase) = EntityDamageSource("${LibMisc.MOD_ID}.hammer", entityLiving)
+    }
 
     override fun usesMana(p0: ItemStack) = true
 
@@ -57,7 +65,6 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
         if (target.isActiveItemStackBlocking && target.activeItemStack != null)
             target.activeItemStack!!.damageItem(500, target)
-        ItemNBTHelper.setBoolean(stack, TAG_ATTACKED, true)
         return true
     }
 
@@ -70,12 +77,6 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
     }
 
     override fun getRarity(stack: ItemStack): EnumRarity = BotaniaAPI.rarityRelic
-
-    override fun onBlockStartBreak(itemstack: ItemStack?, pos: BlockPos?, player: EntityPlayer?): Boolean {
-        return super.onBlockStartBreak(itemstack, pos, player)
-    }
-
-    override fun canHarvestBlock(state: IBlockState): Boolean = state.block.isToolEffective("pickaxe", state)
 
     override fun getItemEnchantability(): Int {
         return this.material.enchantability
@@ -106,30 +107,74 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
             player.ticksSinceLastSwing = launchedTicks
         ItemNBTHelper.removeEntry(stack, TAG_LAUNCHED)
 
-        ItemNBTHelper.removeEntry(stack, TAG_ATTACKED)
+        if (player is EntityLivingBase && player.heldItemMainhand == stack) {
+            if (player.health > 0.0f && !(player is EntityPlayer && player.isSpectator) && ItemNBTHelper.getBoolean(stack, TAG_DIDLAUNCH, false)) {
+                val axisalignedbb: AxisAlignedBB
+
+                if (player.isRiding() && !player.getRidingEntity()!!.isDead)
+                    axisalignedbb = player.getEntityBoundingBox().union(player.getRidingEntity()!!.entityBoundingBox).expand(1.0, 0.0, 1.0)
+                else
+                    axisalignedbb = player.getEntityBoundingBox().expand(1.0, 0.5, 1.0)
+
+                val list = world.getEntitiesWithinAABBExcludingEntity(player, axisalignedbb)
+
+                var flag = false
+
+                if (!world.isRemote) for (i in list) if (!i.isDead && i is EntityLivingBase) {
+                    val motVec = Vector3(player.motionX, player.motionY, player.motionZ)
+                    val diffVec = Vector3.fromEntity(i).sub(Vector3.fromEntity(player))
+                    val diff = motVec.dotProduct(diffVec) / (diffVec.mag() * motVec.mag())
+                    if (diff < 0.5) {
+                        if (!i.isActiveItemStackBlocking) {
+                            i.attackEntityFrom(hammerSource(player), motVec.mag().toFloat() * 3f + 2f)
+                        } else {
+                            player.attackEntityFrom(hammerSource(i), 5f)
+                        }
+                        i.knockBack(player, 3f,
+                                MathHelper.sin(player.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
+                                -MathHelper.cos(player.rotationYaw * Math.PI.toFloat() / 180).toDouble())
+                        player.knockBack(player, 1.5f,
+                                -MathHelper.sin(player.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
+                                MathHelper.cos(player.rotationYaw * Math.PI.toFloat() / 180).toDouble())
+                        flag = true
+                    }
+                }
+
+                if (flag) {
+                    player.swingArm(EnumHand.MAIN_HAND)
+                    ItemNBTHelper.removeEntry(stack, TAG_DIDLAUNCH)
+                }
+            }
+        }
+
+        val motVec = Vector3(player.motionX, player.motionY, player.motionZ)
+        if (motVec.magSquared() < 0.01 || (player is EntityPlayer && player.moveForward > 0)) ItemNBTHelper.removeEntry(stack, TAG_DIDLAUNCH)
     }
 
     override fun onEntitySwing(entityLiving: EntityLivingBase, stack: ItemStack): Boolean {
+        val weight = EnchantmentWeight.getWeight(stack)
+
+        val speedVec = Vector3(entityLiving.lookVec).multiply(weight * .15 + 1.75).add(entityLiving.motionX, entityLiving.motionY, entityLiving.motionZ)
+        if (speedVec.magSquared() > 16) return false
+
         if (entityLiving is EntityPlayer) {
             if (entityLiving.cooldownTracker.hasCooldown(this)) return false
             entityLiving.cooldownTracker.setCooldown(this, entityLiving.cooldownPeriod.toInt())
         }
 
-        if (ItemNBTHelper.getBoolean(stack, TAG_ATTACKED, false)) return false
-
         ItemNBTHelper.setInt(stack, TAG_LAUNCHED, entityLiving.ticksSinceLastSwing)
 
         ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE)
+        ItemNBTHelper.setBoolean(stack, TAG_DIDLAUNCH, true)
 
-        entityLiving.motionX = Math.max(Math.min(entityLiving.lookVec.xCoord * 1.25 + entityLiving.motionX, 2.0), -2.0)
-        entityLiving.motionY = Math.max(Math.min(entityLiving.lookVec.yCoord * 1.25 + entityLiving.motionY, 2.0), -2.0)
-        entityLiving.motionZ = Math.max(Math.min(entityLiving.lookVec.zCoord * 1.25 + entityLiving.motionZ, 2.0), -2.0)
+        entityLiving.motionX = speedVec.x
+        entityLiving.motionY = speedVec.y
+        entityLiving.motionZ = speedVec.z
         entityLiving.fallDistance = 0f
 
-        val targetVec = Vector3(entityLiving.motionX, entityLiving.motionY, entityLiving.motionZ).multiply(2.0).add(Vector3(entityLiving.positionVector))
-        val speed = Vector3(entityLiving.motionX, entityLiving.motionY, entityLiving.motionZ).mag().toFloat()
+        val targetVec = speedVec.copy().multiply(2.0).add(Vector3(entityLiving.positionVector))
 
-        Botania.proxy.lightningFX(entityLiving.worldObj, Vector3(entityLiving.positionVector), targetVec, speed, 0x00948B, 0x00E4D7)
+        Botania.proxy.lightningFX(entityLiving.worldObj, Vector3(entityLiving.positionVector), targetVec, speedVec.mag().toFloat(), 0x00948B, 0x00E4D7)
         return false
     }
 

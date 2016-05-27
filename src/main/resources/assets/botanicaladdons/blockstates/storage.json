@@ -1,0 +1,7 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "type=thundersteel": { "model": "botanicaladdons:thundersteel" },
+        "type=aquamarine": { "model": "botanicaladdons:aquamarine" }
+    }
+}

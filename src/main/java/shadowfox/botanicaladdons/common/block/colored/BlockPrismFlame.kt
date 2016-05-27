@@ -50,7 +50,7 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, Material.CLOTH), I
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, stack: ItemStack?, s: EnumFacing?, xs: Float, ys: Float, zs: Float): Boolean {
         if (WorldTypeSkyblock.isWorldSkyblock(world)) {
-        if (stack != null && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
+            if (stack != null && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
                 if (!world.isRemote)
                     stack.stackSize--
                 if (!player.inventory.addItemStackToInventory(ItemStack(ModItems.lexicon)))

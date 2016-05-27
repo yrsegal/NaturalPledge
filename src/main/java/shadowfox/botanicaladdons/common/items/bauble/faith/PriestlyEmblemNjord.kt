@@ -12,15 +12,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.items.ItemResource
-import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.AQUAMARINE
-import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.WIND_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
-import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 
 /**
@@ -59,12 +55,12 @@ class PriestlyEmblemNjord : IFaithVariant {
         if (player.capabilities.isFlying || player.isSneaking) return
 
         if (world.containsAnyLiquid(player.entityBoundingBox)) {
-            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
+            if (player.motionY < 0.15 && ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
                 player.motionY = 0.15
             }
         } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15, 0.0))) {
-            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
-                player.motionY = Math.max(0.0, player.motionY)
+            if (player.motionY < 0 && ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
+                player.motionY = 0.0
                 player.fallDistance = 0f
             }
         }
@@ -76,7 +72,7 @@ class PriestlyEmblemNjord : IFaithVariant {
         val entity = e.target
         if (entity is EntityLivingBase)
             if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 20, true))
-                entity.knockBack(e.entityPlayer, if ((emblem.item as IPriestlyEmblem).isAwakened(emblem)) 2.5f else 1f,
+                entity.knockBack(e.entityPlayer, if ((emblem.item as IPriestlyEmblem).isAwakened(emblem)) 1.5f else 1f,
                         MathHelper.sin(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
                         -MathHelper.cos(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble())
     }

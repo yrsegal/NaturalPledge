@@ -34,29 +34,23 @@ class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0
         if (mc.thePlayer == null) return
         if (e.type == RenderGameOverlayEvent.ElementType.ALL) {
             if (hasEffect(mc.thePlayer)) {
-                try {
-                    setShader(greyscale)
-                } catch (err: JsonException) {
-                }
-            } else {
-                Minecraft.getMinecraft().entityRenderer.stopUseShader()
-            }
+                setShader(greyscale)
+            } else Minecraft.getMinecraft().entityRenderer.stopUseShader()
         }
     }
 
     @SideOnly(Side.CLIENT)
-    @Throws(JsonException::class)
     internal fun setShader(target: ResourceLocation?) {
-        val mc = Minecraft.getMinecraft()
-        if (OpenGlHelper.shadersSupported && !mc.entityRenderer.isShaderActive) {
-            try {
-                if (target == null) {
-                    Minecraft.getMinecraft().entityRenderer.stopUseShader()
-                } else {
-                    mc.entityRenderer.loadShader(target)
-                }
+        try {
+            val mc = Minecraft.getMinecraft()
+            if (OpenGlHelper.shadersSupported && !mc.entityRenderer.isShaderActive) try {
+                if (target == null) Minecraft.getMinecraft().entityRenderer.stopUseShader()
+                else mc.entityRenderer.loadShader(target)
             } catch (var5: Exception) {
+
             }
+        } catch (err: JsonException) {
+            // NO-OP
         }
     }
 }

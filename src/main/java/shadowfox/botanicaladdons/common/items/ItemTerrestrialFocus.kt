@@ -140,7 +140,10 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
             shiftSpellWithSneak(stack, playerIn)
             return EnumActionResult.SUCCESS
         }
-        return castSpell(stack, playerIn, hand)
+        val result = castSpell(stack, playerIn, hand)
+        if (result == EnumActionResult.SUCCESS)
+            playerIn.addStat(ModAchievements.focus)
+        return result
     }
 
     override fun onItemRightClick(stack: ItemStack, worldIn: World?, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
@@ -170,7 +173,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
             if (cooldown == null || expireTime - entityIn.cooldownTracker.ticks > cooldown.expireTicks - entityIn.cooldownTracker.ticks)
                 CooldownHelper.setCooldown(entityIn.cooldownTracker, this, usedTime, expireTime)
 
-            if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false)) {
+            if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false) && !ItemFaithBauble.isFaithless(entityIn)) {
                 val spell = getSpell(stack) ?: return
                 spell.onCooldownTick(entityIn, stack, itemSlot, isSelected,
                         (CooldownHelper.getCooldown(entityIn.cooldownTracker, this)?.expireTicks ?: entityIn.cooldownTracker.ticks) - entityIn.cooldownTracker.ticks)

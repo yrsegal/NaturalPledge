@@ -90,6 +90,14 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         fun isFaithless(player: EntityPlayer): Boolean {
             return ModPotions.faithlessness.hasEffect(player)
         }
+
+        object faithSource : DamageSource("${LibMisc.MOD_ID}.faith") {
+            init {
+                setDamageBypassesArmor()
+                setDamageIsAbsolute()
+                setMagicDamage()
+            }
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -131,7 +139,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
                 if (isAwakened(stack)) variant.onAwakenedUpdate(stack, player)
                 else variant.onUpdate(stack, player)
             } else if (isAwakened(stack) && player.health > 1f)
-                player.attackEntityFrom(DamageSource.magic, Math.min(3.5f, player.health - 1f))
+                player.attackEntityFrom(faithSource, Math.min(3.5f, player.health - 1f))
         }
     }
 
@@ -146,7 +154,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
             }
             val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
             GlStateManager.rotate(180F, 1F, 0F, 0F)
-            GlStateManager.translate(0.0, -0.3, if (armor) 0.175 else 0.05)
+            GlStateManager.translate(0.0, -0.3, if (armor) 0.025 else 0.05)
 
             val renderStack = stack.copy()
             ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
@@ -193,14 +201,18 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
 
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
-        setAwakened(stack, false)
         val variant = getVariant(stack)
         if (variant != null && player is EntityPlayer) {
             player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
-            if (player.worldObj.isRemote)
-                player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)))
-            variant.punishTheFaithless(stack, player)
+            if (isAwakened(stack))
+                player.attackEntityFrom(faithSource, Float.MAX_VALUE)
+            else {
+                variant.punishTheFaithless(stack, player)
+                if (player.worldObj.isRemote)
+                    player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)))
+            }
         }
+        setAwakened(stack, false)
     }
 
     override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {

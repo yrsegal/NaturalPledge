@@ -9,7 +9,7 @@ item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's ra
 item.botanicaladdons:emblemHeimdall.name=Priestly Emblem: Heimdall
 item.botanicaladdons:emblemHeimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
 
-item.botanicaladdons:dagger.name=Duelist's Dagger
+item.botanicaladdons:sealArrow.name=Arrow of Ascension
 item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
 item.botanicaladdons:appleImmortality.name=Apple of Immortality
 item.botanicaladdons:fateHorn.name=Gjallarhorn, Horn of Fate
@@ -22,6 +22,9 @@ item.botanicaladdons:lifeRoot.name=Soulroot
 item.botanicaladdons:lifeRootActive.name=Awakened Soulroot
 item.botanicaladdons:aquamarine.name=Aquamarine
 item.botanicaladdons:aquamarineActive.name=Awakened Aquamarine
+
+tile.botanicaladdons:thundersteelBlock.name=Block of Thundersteel
+tile.botanicaladdons:aquamarineBlock.name=Aquamarine Bricks
 
 item.botanicaladdons:mortalStone.name=Mortalstone
 
@@ -193,9 +196,13 @@ item.botanicaladdons:holySymbol.heart.name=Crystalline Heart
 item.botanicaladdons:holySymbol.headdress.name=Cherokee Headdress
 item.botanicaladdons:holySymbol.tail.name=Fox Tail
 item.botanicaladdons:holySymbol.teru.name=Chesteru Teru Bozu
+item.botanicaladdons:holySymbol.mystery.name=Mysterious Pendant
 
 botanicaladdons.subtitle.woosh=Wind wooshes
 
+death.attack.botanicaladdons.faith=%s had a crisis of faith
+death.attack.botanicaladdons.hammer=%s experienced kinetic energy
+death.attack.botanicaladdons.hammer.player=%s experienced %s's kinetic energy
 
 achievement.botanicaladdons:donEmblem=The New Millenium
 achievement.botanicaladdons:donEmblem.desc=Pledge your soul to a divinity
@@ -325,4 +332,27 @@ botanicaladdons.page.awakening3=Seek the center to change the world
 
 botanicaladdons.entry.wellshit=Consequences of Power
 botanicaladdons.tagline.wellshit=Hindsight is 20/20
-botanicaladdons.page.wellshit0=The power you gained from the &3Divine Guardian&0 ritual was grand, but it has drawbacks. For one, you can't take off the imbued emblem. For another, someone wielding a &4Mortalstone&0 could kill you without a second thought, due to the disconnect between the &3Divine&0 and Mortality being so jarring. Holding one would allow severing the connection, by tearing the emblem off while you're disconnected.
+botanicaladdons.page.wellshit0=The power you gained from the &3Divine Guardian&0 ritual was grand, but it has drawbacks. For one, you can't take off the imbued emblem. For another, someone wielding a &4Mortalstone&0 could kill you easily, due to the disconnect between the &3Divine&0 and Mortality being so jarring. Holding one allows severing the connection, by tearing the emblem off, but the process is rather lethal.
+
+botanicaladdons.entry.apple=Apples of Immortality
+botanicaladdons.tagline.apple=Exactly what it says on the can
+botanicaladdons.page.apple0=Now that you are fully connected to &3Idunn&0, you can begin to receive her divine gifts. The primary form of these gifts are apples of gold, which make the eater nearly immortal. They'll be resistant to most forms of damage.
+botanicaladdons.page.apple1=Happiness literally grows on trees
+botanicaladdons.page.apple2a=A simple brew, it mimics the &1Apple of Immortality&0. When taken, it has a similar effect, giving the individual a &4Immortality&0 effect.
+botanicaladdons.page.apple2b=Gather the dragonballs, I need to make a wish
+
+botanicaladdons.entry.mjolnir=Mjolnir the Crusher
+botanicaladdons.tagline.mjolnir=A hammer that throws you forward
+botanicaladdons.page.mjolnir0=Now that you are fully connected to &3Thor&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Crusher&0, &1Mjolnir&0. This hammer is so unnaturally balanced that swinging it will fling you forward, increasing your knockback when you're attacking and providing a convenient escape strategy.
+botanicaladdons.page.mjolnir1=It's not a boomerang
+
+botanicaladdons.entry.fateHorn=The Horn of Fate
+botanicaladdons.tagline.fateHorn=A horn that gives mobs existential crises
+botanicaladdons.page.fateHorn0=Now that you are fully connected to &3Heimdall&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Horn of Fate&0, &1Gjallerhorn&0. This horn's sound reveals a mob's fate to it, making it barely able to move while it comprehends what it has seen.
+botanicaladdons.page.fateHorn1=Don't let the existential dread set in
+
+botanicaladdons.entry.ascension=Arrows of Ascension
+botanicaladdons.tagline.ascension=Arrows which remove weight
+botanicaladdons.page.ascension0=Now that you are fully connected to &3Njord&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Arrows of Ascension&0. These arrows remove the hit player's weight temporarily, causing the tiny fluctuations of the wind to push them up. While the arrow itself is not lethal, the resulting fall might be to the unprepared.
+botanicaladdons.page.ascension1=Justice rains from above
+botanicaladdons.page.ascension2=Making more (The arrow is not consumed)

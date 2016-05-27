@@ -18,11 +18,9 @@ class AchievementMod(name: String, x: Int, y: Int, icon: ItemStack, parent: Achi
         registerStat()
     }
 
-    constructor(name: String, x: Int, y: Int, icon: Item, parent: Achievement?) : this(name, x, y, ItemStack(icon), parent) {
-    }
+    constructor(name: String, x: Int, y: Int, icon: Item, parent: Achievement?) : this(name, x, y, ItemStack(icon), parent)
 
-    constructor(name: String, x: Int, y: Int, icon: Block, parent: Achievement?) : this(name, x, y, ItemStack(icon), parent) {
-    }
+    constructor(name: String, x: Int, y: Int, icon: Block, parent: Achievement?) : this(name, x, y, ItemStack(icon), parent)
 
     companion object {
         val achievements = ArrayList<AchievementMod>()

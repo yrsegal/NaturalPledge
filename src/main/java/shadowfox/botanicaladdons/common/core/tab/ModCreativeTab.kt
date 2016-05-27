@@ -33,6 +33,7 @@ abstract class ModCreativeTab(val name: String) : CreativeTabs("${LibMisc.MOD_ID
         this.list = list
         for (item in items)
             addItem(item)
+        addEnchantmentBooksToList(list, *relevantEnchantmentTypes)
     }
 
     private fun addItem(item: Item) {

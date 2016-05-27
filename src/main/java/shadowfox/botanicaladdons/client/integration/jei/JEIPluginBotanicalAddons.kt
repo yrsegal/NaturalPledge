@@ -30,5 +30,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
         registry.addRecipeCategoryCraftingItem(ItemStack(ModItems.spellFocus), SpellCraftingCategory.uid)
     }
 
-    override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {}
+    override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {
+        // NO-OP
+    }
 }

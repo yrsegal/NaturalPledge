@@ -34,6 +34,7 @@ object ModBlocks {
     val altLogs: Array<BlockAltLog>
     val altLeaves: Array<BlockAltLeaves>
     val altPlanks: BlockMod
+    val storage: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -49,9 +50,13 @@ object ModBlocks {
         altLogs = Array(2) { BlockAltLog(LibNames.ALT_LOG, it) }
         altLeaves = Array(2) { BlockAltLeaves(LibNames.ALT_LEAVES, it) }
         altPlanks = BlockAltPlanks(LibNames.ALT_PLANKS)
+        storage = BlockStorage(LibNames.STORAGE)
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
+
+        OreDictionary.registerOre(LibOreDict.BLOCK_AQUAMARINE, ItemStack(storage, 1, BlockStorage.Variants.AQUAMARINE.ordinal))
+        OreDictionary.registerOre(LibOreDict.BLOCK_THUNDERSTEEL, ItemStack(storage, 1, BlockStorage.Variants.THUNDERSTEEL.ordinal))
 
         OreDictionary.registerOre("logWood", ItemStack(rainbowLog, 1, OreDictionary.WILDCARD_VALUE))
         for (log in irisLogs) OreDictionary.registerOre("logWood", ItemStack(log, 1, OreDictionary.WILDCARD_VALUE))

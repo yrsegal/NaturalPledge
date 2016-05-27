@@ -1,15 +1,17 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
+import net.minecraft.block.BlockDispenser
 import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.dispenser.BehaviorProjectileDispense
+import net.minecraft.dispenser.IPosition
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.IProjectile
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
-import net.minecraft.entity.projectile.EntityTippedArrow
-import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemArrow
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.PotionUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -19,8 +21,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.common.core.tab.ModTab
-import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
+import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
 
 /**
  * @author WireSegal
@@ -40,10 +41,16 @@ class ItemSealerArrow(name: String, vararg variants: String) : ItemArrow(), Mode
         fun local(s: String): String {
             return TooltipHelper.local(s)
         }
+    }
 
-        val arrowStack: ItemStack by lazy {
-            PotionUtils.appendEffects(ItemStack(Items.TIPPED_ARROW), listOf(ModPotionEffect(ModPotions.featherweight, 900)))
-        }
+    init {
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, object : BehaviorProjectileDispense() {
+            override fun getProjectileEntity(worldIn: World, position: IPosition, stackIn: ItemStack): IProjectile {
+                val arrow = EntitySealedArrow(worldIn, position.x, position.y, position.z)
+                arrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED
+                return arrow
+            }
+        })
     }
 
     override val variants: Array<out String>
@@ -99,12 +106,8 @@ class ItemSealerArrow(name: String, vararg variants: String) : ItemArrow(), Mode
     }
 
     override fun createArrow(world: World, stack: ItemStack, player: EntityLivingBase?): EntityArrow? {
-        val entity = object : EntityTippedArrow(world, player) {
-            override fun getArrowStack(): ItemStack? {
-                return ItemStack(this@ItemSealerArrow)
-            }
-        }
-        entity.setPotionEffect(arrowStack)
-        return entity
+        return EntitySealedArrow(world, player)
     }
+
+    override fun isInfinite(stack: ItemStack?, bow: ItemStack?, player: EntityPlayer?) = false
 }

@@ -141,6 +141,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.CLOTH), M
     }
 
     override fun getSubBlocks(itemIn: Item?, tab: CreativeTabs?, list: MutableList<ItemStack>) {
+        // NO-OP
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

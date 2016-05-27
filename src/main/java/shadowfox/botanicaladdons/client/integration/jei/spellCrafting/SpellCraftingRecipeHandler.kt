@@ -18,6 +18,14 @@ object SpellCraftingRecipeHandler : IRecipeHandler<SpellCraftingRecipeJEI> {
     }
 
     override fun isRecipeValid(recipe: SpellCraftingRecipeJEI): Boolean {
-        return recipe.inputs.size > 2 && recipe.outputs.size > 0
+        try {
+            recipe.getInputsTyped()
+            recipe.getFocusTyped()
+            recipe.getIconTyped()
+            recipe.getOutputsTyped()
+        } catch (t: Throwable) {
+            return false
+        }
+        return recipe.getInputsTyped().isNotEmpty() && recipe.getOutputsTyped().isNotEmpty()
     }
 }

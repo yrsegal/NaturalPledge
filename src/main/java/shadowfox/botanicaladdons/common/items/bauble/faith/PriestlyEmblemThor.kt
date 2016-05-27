@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.THUNDER_STEEL
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.LIGHTNING_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames

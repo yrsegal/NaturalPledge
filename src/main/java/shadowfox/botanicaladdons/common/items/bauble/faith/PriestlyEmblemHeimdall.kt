@@ -67,7 +67,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
         if (e is EntityPlayer) {
             val last = Vector3(e.prevPosX, e.prevPosY, e.prevPosZ)
             val vec = Vector3.fromEntity(e).sub(last)
-            if(vec.mag() < 10)
+            if (vec.mag() < 10)
                 return vec
         }
 

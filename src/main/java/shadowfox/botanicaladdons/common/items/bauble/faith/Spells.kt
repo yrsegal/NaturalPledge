@@ -1,14 +1,12 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import com.google.common.base.Predicate
-import net.minecraft.block.properties.IProperty
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
 import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.MobEffects
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
@@ -25,7 +23,6 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fluids.IFluidBlock
 import net.minecraftforge.oredict.OreDictionary
-import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons

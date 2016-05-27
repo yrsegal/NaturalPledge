@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.block.base
 
 import net.minecraft.block.BlockLog
 import net.minecraft.block.material.Material
-import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState

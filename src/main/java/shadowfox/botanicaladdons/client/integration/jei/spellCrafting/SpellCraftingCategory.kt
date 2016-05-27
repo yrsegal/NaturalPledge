@@ -5,16 +5,10 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
-import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
-import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingRecipeJEI
-import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
-import shadowfox.botanicaladdons.common.items.ModItems
 
 object SpellCraftingCategory : IRecipeCategory {
 
@@ -33,11 +27,11 @@ object SpellCraftingCategory : IRecipeCategory {
     }
 
     override fun drawExtras(minecraft: Minecraft) {
-
+        // NO-OP
     }
 
     override fun drawAnimations(minecraft: Minecraft) {
-
+        // NO-OP
     }
 
     @SuppressWarnings("unchecked")
@@ -49,10 +43,10 @@ object SpellCraftingCategory : IRecipeCategory {
         recipeLayout.itemStacks.init(OUTPUT_SLOT, false, 80, 5)
 
         if (recipeWrapper is SpellCraftingRecipeJEI) {
-            recipeLayout.itemStacks.set(INPUT_SLOT, OreDictionary.getOres(recipeWrapper.inputs[0] as String))
-            recipeLayout.itemStacks.set(FOCUS_SLOT, recipeWrapper.inputs[1] as ItemStack)
-            recipeLayout.itemStacks.set(SPELL_SLOT, recipeWrapper.inputs[2] as ItemStack)
-            recipeLayout.itemStacks.set(OUTPUT_SLOT, recipeWrapper.outputs[0] as ItemStack)
+            recipeLayout.itemStacks.set(INPUT_SLOT, recipeWrapper.getInputsTyped())
+            recipeLayout.itemStacks.set(FOCUS_SLOT, recipeWrapper.getFocusTyped())
+            recipeLayout.itemStacks.set(SPELL_SLOT, recipeWrapper.getIconTyped())
+            recipeLayout.itemStacks.set(OUTPUT_SLOT, recipeWrapper.getOutputsTyped())
         }
     }
 

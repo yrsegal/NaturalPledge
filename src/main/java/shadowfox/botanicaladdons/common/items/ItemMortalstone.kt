@@ -52,7 +52,8 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                     0x600000
                 else
                     BotanicalAddons.proxy.pulseColor(Color(0xB71010)).rgb)
-            else 0xFFFFFF }
+            else 0xFFFFFF
+        }
     }
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {

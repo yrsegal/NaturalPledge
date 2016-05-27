@@ -52,5 +52,6 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+        // NO-OP
     }
 }

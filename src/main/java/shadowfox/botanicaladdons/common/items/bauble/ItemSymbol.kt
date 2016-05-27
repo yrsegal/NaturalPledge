@@ -2,11 +2,12 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.ItemMeshDefinition
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -16,6 +17,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.client.ForgeHooksClient
+import net.minecraftforge.client.event.RenderPlayerEvent
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
@@ -50,8 +54,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         val l0ne = "d7a5f995-57d5-4077-bc9f-83cc36cadd66"
         val jansey = "eaf6956b-dd98-4e07-a890-becc9b6d1ba9"
         val wiiv = "0d054077-a977-4b19-9df9-8a4d5bf20ec3"
+        val troll = "6e008af9-2d0c-4e4f-9312-fb0349416e75"
 
-        val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv)
+        val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv, troll)
 
         val headPlayers = arrayOf(vaz, wire, jansey)
 
@@ -70,20 +75,21 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
     @SideOnly(Side.CLIENT)
     override fun getCustomMeshDefinition(): ItemMeshDefinition? {
         return ItemMeshDefinition {
-           when (getPlayer(it)) {
+            when (getPlayer(it)) {
                 vaz -> ModelHandler.resourceLocations["headtato"]
                 wire -> ModelHandler.resourceLocations["catalyst"]
                 tris -> ModelHandler.resourceLocations["heart"]
                 l0ne -> ModelHandler.resourceLocations["tail"]
                 jansey -> ModelHandler.resourceLocations["headdress"]
                 wiiv -> ModelHandler.resourceLocations["teruHead"]
+                troll -> ModelHandler.resourceLocations["emblemMystery"]
                 else -> ModelHandler.resourceLocations["holySymbol"]
             }
         }
     }
 
     override val extraVariants: Array<out String>
-        get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "holySymbol")
+        get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "emblemMystery", "holySymbol")
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
         super.onEquipped(stack, player)
@@ -96,6 +102,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             nameChanged = true
         } else if (getPlayer(stack) != jansey && stack.displayName.toLowerCase().equals("derp faced chieftain")) {
             setPlayer(stack, jansey)
+            nameChanged = true
+        } else if (getPlayer(stack) != troll && stack.displayName.toLowerCase().equals("???")) {
+            setPlayer(stack, troll)
             nameChanged = true
         }
 
@@ -113,6 +122,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             l0ne -> "$above.tail"
             jansey -> "$above.headdress"
             wiiv -> "$above.teru"
+            troll -> "$above.mystery"
             else -> above
         }
     }
@@ -126,6 +136,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             "l0ne" -> setPlayer(stack, l0ne)
             "jansey" -> setPlayer(stack, jansey)
             "wiiv" -> setPlayer(stack, wiiv)
+            "trollking" -> setPlayer(stack, troll)
         }
     }
 
@@ -218,7 +229,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 }
                 val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
                 GlStateManager.rotate(180F, 1F, 0F, 0F)
-                GlStateManager.translate(0.0, -0.3, if (armor) 0.175 else 0.05)
+                GlStateManager.translate(0.0, -0.3, if (armor) 0.025 else 0.05)
 
                 ItemNBTHelper.setBoolean(renderStack, ItemFaithBauble.TAG_PENDANT, true)
 

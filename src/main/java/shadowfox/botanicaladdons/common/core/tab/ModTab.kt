@@ -1,6 +1,8 @@
 package shadowfox.botanicaladdons.common.core.tab
 
+import net.minecraft.enchantment.EnumEnchantmentType
 import net.minecraft.item.ItemStack
+import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.items.ModItems
 
 /**
@@ -10,5 +12,9 @@ import shadowfox.botanicaladdons.common.items.ModItems
 object ModTab : ModCreativeTab("divine") {
     override fun getIconItemStack(): ItemStack {
         return ItemStack(ModItems.symbol)
+    }
+
+    override fun getRelevantEnchantmentTypes(): Array<out EnumEnchantmentType>? {
+        return arrayOf(ModEnchantments.WEIGHTY)
     }
 }

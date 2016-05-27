@@ -1,7 +1,9 @@
 package shadowfox.botanicaladdons.common.items
 
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.common.items.base.ItemMod
+import vazkii.botania.api.BotaniaAPI
 
 /**
  * @author WireSegal
@@ -33,6 +35,10 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
             if (this.length == 0) return this
             return this.slice(0..0).toLowerCase() + this.slice(1..this.length - 1)
         }
+    }
+
+    override fun getRarity(stack: ItemStack): EnumRarity? {
+        return if (hasEffect(stack)) BotaniaAPI.rarityRelic else EnumRarity.COMMON
     }
 
     override fun hasEffect(stack: ItemStack): Boolean {

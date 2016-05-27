@@ -10,7 +10,6 @@ import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
-import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.colored.ItemAwakenedDye
 import shadowfox.botanicaladdons.common.items.colored.ItemLightPlacer
@@ -22,6 +21,7 @@ import shadowfox.botanicaladdons.common.items.sacred.ItemSealerArrow
 import shadowfox.botanicaladdons.common.items.travel.ItemTravelstone
 import shadowfox.botanicaladdons.common.items.travel.ItemWaystone
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemFoodBelt
+import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.common.item.ModItems as BotaniaItems
