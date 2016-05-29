@@ -18,9 +18,11 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
+import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
+import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.core.helper.CooldownHelper
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
@@ -110,7 +112,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
     @SideOnly(Side.CLIENT)
     fun displayItemName(ticks: Int) {
         val gui = Minecraft.getMinecraft().ingameGUI
-        gui.remainingHighlightTicks = ticks
+        BAClientMethodHandles.setRemainingHighlight(gui, ticks)
     }
 
     fun castSpell(stack: ItemStack, player: EntityPlayer, hand: EnumHand): EnumActionResult {
@@ -126,7 +128,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
             player.cooldownTracker.setCooldown(this, cooldown)
             ItemNBTHelper.setBoolean(stack, TAG_CAST, true)
 
-            val ticks = player.cooldownTracker.ticks
+            val ticks = BAMethodHandles.getCooldownTicks(player.cooldownTracker)
 
             ItemNBTHelper.setInt(stack, TAG_COOLDOWN_EXPIRE, cooldown + ticks)
             ItemNBTHelper.setInt(stack, TAG_USED_TIME, ticks)
@@ -167,8 +169,10 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
         if (entityIn is EntityPlayer) {
 
-            val usedTime = ItemNBTHelper.getInt(stack, TAG_USED_TIME, entityIn.cooldownTracker.ticks)
-            val expireTime = ItemNBTHelper.getInt(stack, TAG_COOLDOWN_EXPIRE, entityIn.cooldownTracker.ticks)
+            val ticks = BAMethodHandles.getCooldownTicks(entityIn.cooldownTracker)
+
+            val usedTime = ItemNBTHelper.getInt(stack, TAG_USED_TIME, ticks)
+            val expireTime = ItemNBTHelper.getInt(stack, TAG_COOLDOWN_EXPIRE, ticks)
             val cooldown = CooldownHelper.getCooldown(entityIn.cooldownTracker, this)
             if (cooldown == null && !worldIn.isRemote) {
                 CooldownHelper.setCooldown(entityIn.cooldownTracker, this, usedTime, expireTime)
@@ -177,7 +181,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
             if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false) && !ItemFaithBauble.isFaithless(entityIn)) {
                 val spell = getSpell(stack) ?: return
                 spell.onCooldownTick(entityIn, stack, itemSlot, isSelected,
-                        (CooldownHelper.getCooldown(entityIn.cooldownTracker, this)?.expireTicks ?: entityIn.cooldownTracker.ticks) - entityIn.cooldownTracker.ticks)
+                        (CooldownHelper.getCooldown(entityIn.cooldownTracker, this)?.expireTicks ?: ticks) - ticks)
             } else {
                 ItemNBTHelper.removeEntry(stack, TAG_CAST)
             }

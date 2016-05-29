@@ -25,7 +25,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 10:45 PM on 5/13/16.
  */
-class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(4, { name + COLORS[colorSet][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
+abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(4, { name + COLORS[colorSet][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {
@@ -52,14 +52,11 @@ class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(na
             }
         }
 
-    var COLOR: PropertyEnum<EnumDyeColor>? = null
+    abstract val COLOR: PropertyEnum<EnumDyeColor>
 
     init {
         if (colorSet < 0 || colorSet >= 4)
             throw IllegalArgumentException("Colorset out of range for Iridescent Leaves! (passed in $colorSet)")
-        COLOR = COLOR_PROPS[colorSet]
-        blockState = createBlockState()
-        defaultState = blockState.baseState
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
@@ -69,11 +66,11 @@ class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(na
 
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
-        return super.getMetaFromState(state) or (state.getValue(COLOR ?: COLOR_PROPS[0]).metadata - (colorSet * 4))
+        return super.getMetaFromState(state) or (state.getValue(COLOR).metadata - (colorSet * 4))
     }
 
     override fun createBlockState(): BlockStateContainer? {
-        return BlockStateContainer(this, COLOR ?: COLOR_PROPS[0], DECAYABLE, CHECK_DECAY)
+        return BlockStateContainer(this, COLOR, DECAYABLE, CHECK_DECAY)
     }
 
     override fun createStackedBlock(state: IBlockState): ItemStack? {

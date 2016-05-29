@@ -41,7 +41,6 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
 
         override fun getName() = name.toLowerCase()
 
-
         companion object {
             val variants: Array<String>
                 get() = Array(values().size, { values()[it].toString() + "Block" })

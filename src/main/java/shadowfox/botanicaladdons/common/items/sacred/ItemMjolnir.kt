@@ -21,6 +21,7 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.items.ItemResource
@@ -104,7 +105,7 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
         }
         val launchedTicks = ItemNBTHelper.getInt(stack, TAG_LAUNCHED, 0)
         if (launchedTicks > 0 && player is EntityLivingBase)
-            player.ticksSinceLastSwing = launchedTicks
+            BAMethodHandles.setSwingTicks(player, launchedTicks)
         ItemNBTHelper.removeEntry(stack, TAG_LAUNCHED)
 
         if (player is EntityLivingBase && player.heldItemMainhand == stack) {
@@ -162,7 +163,7 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
             entityLiving.cooldownTracker.setCooldown(this, entityLiving.cooldownPeriod.toInt())
         }
 
-        ItemNBTHelper.setInt(stack, TAG_LAUNCHED, entityLiving.ticksSinceLastSwing)
+        ItemNBTHelper.setInt(stack, TAG_LAUNCHED, BAMethodHandles.getSwingTicks(entityLiving))
 
         ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE)
         ItemNBTHelper.setBoolean(stack, TAG_DIDLAUNCH, true)

@@ -19,7 +19,7 @@ import vazkii.botania.api.state.enums.AltGrassVariant
  * @author WireSegal
  * Created at 11:37 AM on 5/16/16.
  */
-class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet, *Array(if (colorSet == 0) 4 else 2, { name + AltGrassVariant.values()[colorSet * 4 + it].getName().capitalizeFirst() })), ILexiconable {
+abstract class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet, *Array(if (colorSet == 0) 4 else 2, { name + AltGrassVariant.values()[colorSet * 4 + it].getName().capitalizeFirst() })), ILexiconable {
     companion object {
         val TYPE_PROPS = Array(2) { i ->
             PropertyEnum.create("type", AltGrassVariant::class.java) {
@@ -33,15 +33,12 @@ class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet
         }
     }
 
-    var TYPE: PropertyEnum<AltGrassVariant>? = null
+    abstract val TYPE: PropertyEnum<AltGrassVariant>
 
     init {
         if (colorSet < 0 || colorSet >= 2)
             throw IllegalArgumentException("Colorset out of range for Alt Log! (passed in $colorSet)")
         soundType = SoundType.WOOD
-        TYPE = TYPE_PROPS[colorSet]
-        blockState = createBlockState()
-        defaultState = blockState.baseState.withProperty(AXIS, BlockLog.EnumAxis.Y)
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
@@ -61,7 +58,7 @@ class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
         var i = 0
-        i = i or (state.getValue(TYPE ?: TYPE_PROPS[0]).ordinal - (colorSet * 4))
+        i = i or (state.getValue(TYPE).ordinal - (colorSet * 4))
 
         when (state.getValue(BlockLog.LOG_AXIS)) {
             BlockLog.EnumAxis.X -> i = i or 4
@@ -74,7 +71,7 @@ class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet
     }
 
     override fun createBlockState(): BlockStateContainer? {
-        return BlockStateContainer(this, TYPE ?: TYPE_PROPS[0], AXIS)
+        return BlockStateContainer(this, TYPE, AXIS)
     }
 
     override fun damageDropped(state: IBlockState?): Int {

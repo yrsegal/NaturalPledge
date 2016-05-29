@@ -17,7 +17,7 @@ import vazkii.botania.api.state.enums.AltGrassVariant
  * @author WireSegal
  * Created at 8:15 PM on 5/16/16.
  */
-class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(if (colorSet == 0) 4 else 2, { name + AltGrassVariant.values()[colorSet * 4 + it].getName().capitalizeFirst() })), ILexiconable {
+abstract class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(if (colorSet == 0) 4 else 2, { name + AltGrassVariant.values()[colorSet * 4 + it].getName().capitalizeFirst() })), ILexiconable {
 
     companion object {
         val TYPE_PROPS = Array(2) { i ->
@@ -35,14 +35,11 @@ class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + co
     override val canBeFancy: Boolean
         get() = false
 
-    var TYPE: PropertyEnum<AltGrassVariant>? = null
+    abstract val TYPE: PropertyEnum<AltGrassVariant>
 
     init {
         if (colorSet < 0 || colorSet >= 2)
             throw IllegalArgumentException("Colorset out of range for Alt Leaves! (passed in $colorSet)")
-        TYPE = TYPE_PROPS[colorSet]
-        blockState = createBlockState()
-        defaultState = blockState.baseState
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
@@ -52,11 +49,11 @@ class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + co
 
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
-        return super.getMetaFromState(state) or (state.getValue(TYPE ?: TYPE_PROPS[0]).ordinal - (colorSet * 4))
+        return super.getMetaFromState(state) or (state.getValue(TYPE).ordinal - (colorSet * 4))
     }
 
     override fun createBlockState(): BlockStateContainer? {
-        return BlockStateContainer(this, TYPE ?: TYPE_PROPS[0], DECAYABLE, CHECK_DECAY)
+        return BlockStateContainer(this, TYPE, DECAYABLE, CHECK_DECAY)
     }
 
     override fun createStackedBlock(state: IBlockState): ItemStack? {

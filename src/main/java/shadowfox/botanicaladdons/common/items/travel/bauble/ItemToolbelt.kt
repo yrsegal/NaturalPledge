@@ -29,12 +29,15 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.item.IBlockProvider
+import vazkii.botania.client.core.handler.ClientMethodHandles
 import vazkii.botania.client.core.handler.ClientTickHandler
+import vazkii.botania.common.core.handler.MethodHandles
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.item.ItemBaubleBox
 import java.util.*
@@ -149,9 +152,9 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 val mc = Minecraft.getMinecraft()
                 val tess = Tessellator.getInstance()
 
-                val renderPosX = mc.renderManager.renderPosX
-                val renderPosY = mc.renderManager.renderPosY
-                val renderPosZ = mc.renderManager.renderPosZ
+                val renderPosX = BAClientMethodHandles.getRenderPosX(mc.renderManager)
+                val renderPosY = BAClientMethodHandles.getRenderPosY(mc.renderManager)
+                val renderPosZ = BAClientMethodHandles.getRenderPosZ(mc.renderManager)
 
                 GlStateManager.pushMatrix()
                 GlStateManager.enableBlend()

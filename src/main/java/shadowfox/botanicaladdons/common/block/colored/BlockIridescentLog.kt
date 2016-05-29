@@ -26,7 +26,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 10:36 AM on 5/7/16.
  */
-class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet, *Array(4, { name + COLORS[colorSet][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
+abstract class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + colorSet, *Array(4, { name + COLORS[colorSet][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {
@@ -53,14 +53,11 @@ class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + c
             }
         }
 
-    var COLOR: PropertyEnum<EnumDyeColor>? = null
+    abstract val COLOR: PropertyEnum<EnumDyeColor>
 
     init {
         if (colorSet < 0 || colorSet >= 4)
             throw IllegalArgumentException("Colorset out of range for Iridescent Log! (passed in $colorSet)")
-        COLOR = COLOR_PROPS[colorSet]
-        blockState = createBlockState()
-        defaultState = blockState.baseState.withProperty(AXIS, BlockLog.EnumAxis.Y)
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
@@ -80,7 +77,7 @@ class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + c
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
         var i = 0
-        i = i or (state.getValue(COLOR ?: COLOR_PROPS[0]).metadata - (colorSet * 4))
+        i = i or (state.getValue(COLOR).metadata - (colorSet * 4))
 
         when (state.getValue(BlockLog.LOG_AXIS)) {
             BlockLog.EnumAxis.X -> i = i or 4
@@ -93,7 +90,7 @@ class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + c
     }
 
     override fun createBlockState(): BlockStateContainer? {
-        return BlockStateContainer(this, COLOR ?: COLOR_PROPS[0], AXIS)
+        return BlockStateContainer(this, COLOR, AXIS)
     }
 
     override fun damageDropped(state: IBlockState?): Int {

@@ -1,5 +1,7 @@
 package shadowfox.botanicaladdons.common.block
 
+import net.minecraft.block.properties.PropertyEnum
+import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -17,6 +19,7 @@ import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
+import vazkii.botania.api.state.enums.AltGrassVariant
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
@@ -58,14 +61,26 @@ object ModBlocks {
         irisDirt = BlockIridescentDirt(LibNames.IRIS_DIRT)
         rainbowDirt = BlockRainbowDirt(LibNames.RAINBOW_DIRT)
         irisPlanks = BlockIridescentPlanks(LibNames.IRIS_PLANKS)
-        irisLogs = Array(4) { BlockIridescentLog(LibNames.IRIS_LOG, it) }
+        irisLogs = Array(4) { object : BlockIridescentLog(LibNames.IRIS_LOG, it) {
+            override val COLOR: PropertyEnum<EnumDyeColor>
+                get() = BlockIridescentLog.COLOR_PROPS[it]
+        }}
         rainbowPlanks = BlockRainbowPlanks(LibNames.RAINBOW_PLANKS)
         rainbowLog = BlockRainbowLog(LibNames.RAINBOW_LOG)
-        irisLeaves = Array(4) { BlockIridescentLeaves(LibNames.IRIS_LEAVES, it) }
+        irisLeaves = Array(4) { object : BlockIridescentLeaves(LibNames.IRIS_LEAVES, it) {
+            override val COLOR: PropertyEnum<EnumDyeColor>
+                get() = BlockIridescentLeaves.COLOR_PROPS[it]
+        }}
         rainbowLeaves = BlockRainbowLeaves(LibNames.RAINBOW_LEAVES)
         irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
-        altLogs = Array(2) { BlockAltLog(LibNames.ALT_LOG, it) }
-        altLeaves = Array(2) { BlockAltLeaves(LibNames.ALT_LEAVES, it) }
+        altLogs = Array(2) { object : BlockAltLog(LibNames.ALT_LOG, it) {
+            override val TYPE: PropertyEnum<AltGrassVariant>
+                get() = BlockAltLog.TYPE_PROPS[it]
+        }}
+        altLeaves = Array(2) { object : BlockAltLeaves(LibNames.ALT_LEAVES, it) {
+            override val TYPE: PropertyEnum<AltGrassVariant>
+                get() = BlockAltLeaves.TYPE_PROPS[it]
+        }}
         altPlanks = BlockAltPlanks(LibNames.ALT_PLANKS)
         storage = BlockStorage(LibNames.STORAGE)
 
