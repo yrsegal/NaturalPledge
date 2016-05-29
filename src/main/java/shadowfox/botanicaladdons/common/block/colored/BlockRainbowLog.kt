@@ -17,10 +17,6 @@ import vazkii.botania.api.lexicon.LexiconEntry
  */
 class BlockRainbowLog(name: String) : BlockModLog(name), ILexiconable {
 
-    init {
-        soundType = SoundType.WOOD
-    }
-
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
         return null //todo
     }

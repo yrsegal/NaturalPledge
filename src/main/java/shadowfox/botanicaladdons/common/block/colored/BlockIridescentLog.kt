@@ -58,7 +58,6 @@ class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog(name + c
     init {
         if (colorSet < 0 || colorSet >= 4)
             throw IllegalArgumentException("Colorset out of range for Iridescent Log! (passed in $colorSet)")
-        soundType = SoundType.WOOD
         COLOR = COLOR_PROPS[colorSet]
         blockState = createBlockState()
         defaultState = blockState.baseState.withProperty(AXIS, BlockLog.EnumAxis.Y)

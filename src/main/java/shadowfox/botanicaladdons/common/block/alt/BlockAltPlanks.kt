@@ -6,13 +6,14 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import shadowfox.botanicaladdons.common.block.base.BlockMod
+import shadowfox.botanicaladdons.common.block.base.BlockModPlanks
 import vazkii.botania.api.state.enums.AltGrassVariant
 
 /**
  * @author WireSegal
  * Created at 3:22 PM on 5/17/16.
  */
-class BlockAltPlanks(name: String) : BlockMod(name, Material.WOOD, *Array(6, { name + AltGrassVariant.values()[it].getName().capitalizeFirst() })) {
+class BlockAltPlanks(name: String) : BlockModPlanks(name,*Array(6, { name + AltGrassVariant.values()[it].getName().capitalizeFirst() })) {
     companion object {
         val TYPE = PropertyEnum.create("type", AltGrassVariant::class.java)
 
@@ -20,20 +21,6 @@ class BlockAltPlanks(name: String) : BlockMod(name, Material.WOOD, *Array(6, { n
             if (this.length == 0) return this
             return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
         }
-    }
-
-    init {
-        soundType = SoundType.WOOD
-        setHardness(2f)
-        setResistance(5f)
-    }
-
-    override fun getHarvestTool(state: IBlockState?): String? {
-        return "axe"
-    }
-
-    override fun isToolEffective(type: String?, state: IBlockState?): Boolean {
-        return type == "axe"
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState? {

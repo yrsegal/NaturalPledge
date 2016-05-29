@@ -93,7 +93,7 @@ class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(na
     }
 
     override fun addInformation(stack: ItemStack?, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + (stack?.itemDamage ?: 0)}")
+        addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + (stack?.itemDamage ?: 0)}")
     }
 
     override fun getMapColor(state: IBlockState): MapColor {

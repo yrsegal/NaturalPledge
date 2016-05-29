@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.math.MathHelper
@@ -12,6 +13,9 @@ import net.minecraftforge.fml.common.gameevent.TickEvent
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
+import shadowfox.botanicaladdons.common.block.BlockStorage
+import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
+import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.AQUAMARINE
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.WIND_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames
@@ -24,15 +28,6 @@ import vazkii.botania.api.mana.ManaItemHandler
  * Created at 4:38 PM on 4/13/16.
  */
 class PriestlyEmblemNjord : IFaithVariant {
-
-    init {
-        SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap())
-        SpellRegistry.registerSpell(LibNames.SPELL_INTERDICT, Spells.Njord.Interdict())
-        SpellRegistry.registerSpell(LibNames.SPELL_PUSH, Spells.Njord.PushAway())
-        SpellRegistry.registerSpell(LibNames.SPELL_NJORD_INFUSION,
-                Spells.ObjectInfusion(WIND_INFUSION, "gemPrismarine",
-                        AQUAMARINE, 150, 0x00E5E5))
-    }
 
     override fun getName(): String = "njord"
 

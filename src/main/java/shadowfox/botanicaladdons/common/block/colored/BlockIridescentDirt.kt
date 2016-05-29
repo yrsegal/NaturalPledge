@@ -17,6 +17,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.IPlantable
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockMod
@@ -60,10 +62,12 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
         ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${stack.itemDamage}")
     }
 
+    @SideOnly(Side.CLIENT)
     override fun getBlockColor(): IBlockColor? {
         return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR).mapColor.colorValue }
     }
 
+    @SideOnly(Side.CLIENT)
     override fun getColor(): IItemColor? {
         return IItemColor { itemStack, i -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
     }

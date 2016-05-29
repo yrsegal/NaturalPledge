@@ -12,6 +12,7 @@ import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.entity.ModEntities
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
+import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.brew.ModBrews
@@ -35,6 +36,7 @@ open class CommonProxy {
     }
 
     open fun init(e: FMLInitializationEvent) {
+        ModSpells
         ModRecipes
         LexiconEntries
     }

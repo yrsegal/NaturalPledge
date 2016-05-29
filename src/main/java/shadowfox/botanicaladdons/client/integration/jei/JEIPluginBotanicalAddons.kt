@@ -5,6 +5,10 @@ import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingCategory
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingRecipeHandler
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingRecipeMaker
+import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingCategory
+import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeHandler
+import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeMaker
+import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.ModItems
 
 /**
@@ -21,13 +25,15 @@ class JEIPluginBotanicalAddons : IModPlugin {
     override fun register(registry: IModRegistry) {
         helpers = registry.jeiHelpers
 
-        registry.addRecipeHandlers(SpellCraftingRecipeHandler)
+        registry.addRecipeHandlers(SpellCraftingRecipeHandler, TreeGrowingRecipeHandler)
 
-        registry.addRecipeCategories(SpellCraftingCategory)
+        registry.addRecipeCategories(SpellCraftingCategory, TreeGrowingCategory)
 
         registry.addRecipes(SpellCraftingRecipeMaker.recipes)
+        registry.addRecipes(TreeGrowingRecipeMaker.recipes)
 
         registry.addRecipeCategoryCraftingItem(ItemStack(ModItems.spellFocus), SpellCraftingCategory.uid)
+        registry.addRecipeCategoryCraftingItem(ItemStack(ModBlocks.irisSapling), TreeGrowingCategory.uid)
     }
 
     override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {

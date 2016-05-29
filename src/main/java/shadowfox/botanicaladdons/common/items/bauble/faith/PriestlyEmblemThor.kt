@@ -12,6 +12,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
+import shadowfox.botanicaladdons.common.block.BlockStorage
+import shadowfox.botanicaladdons.common.block.BlockStorage.Variants.THUNDERSTEEL
+import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.THUNDER_STEEL
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.LIGHTNING_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames
@@ -26,15 +29,6 @@ import vazkii.botania.common.core.helper.Vector3
  * Created at 8:09 PM on 4/14/16.
  */
 class PriestlyEmblemThor : IFaithVariant {
-
-    init {
-        SpellRegistry.registerSpell(LibNames.SPELL_LIGHTNING, Spells.Thor.Lightning())
-        SpellRegistry.registerSpell(LibNames.SPELL_STRENGTH, Spells.Thor.Strength())
-        SpellRegistry.registerSpell(LibNames.SPELL_PULL, Spells.Thor.Pull())
-        SpellRegistry.registerSpell(LibNames.SPELL_THOR_INFUSION,
-                Spells.ObjectInfusion(LIGHTNING_INFUSION, "ingotIron",
-                        THUNDER_STEEL, 150, 0xE5DD00))
-    }
 
     override fun getName(): String = "thor"
 

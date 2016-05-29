@@ -170,8 +170,9 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
             val usedTime = ItemNBTHelper.getInt(stack, TAG_USED_TIME, entityIn.cooldownTracker.ticks)
             val expireTime = ItemNBTHelper.getInt(stack, TAG_COOLDOWN_EXPIRE, entityIn.cooldownTracker.ticks)
             val cooldown = CooldownHelper.getCooldown(entityIn.cooldownTracker, this)
-            if (cooldown == null || expireTime - entityIn.cooldownTracker.ticks > cooldown.expireTicks - entityIn.cooldownTracker.ticks)
+            if (cooldown == null && !worldIn.isRemote) {
                 CooldownHelper.setCooldown(entityIn.cooldownTracker, this, usedTime, expireTime)
+            }
 
             if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false) && !ItemFaithBauble.isFaithless(entityIn)) {
                 val spell = getSpell(stack) ?: return
@@ -184,7 +185,6 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
     }
 
     override fun onEntitySwing(entityLiving: EntityLivingBase?, stack: ItemStack?) = true
-    override fun shouldCauseReequipAnimation(oldStack: ItemStack, newStack: ItemStack, slotChanged: Boolean) = slotChanged || getSpell(oldStack.copy()) != getSpell(newStack.copy())
 
 
 }

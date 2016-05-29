@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.client.integration.jei.spellcrafting
 import mezz.jei.api.recipe.IRecipeHandler
 import mezz.jei.api.recipe.IRecipeWrapper
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeJEI
 
 object SpellCraftingRecipeHandler : IRecipeHandler<SpellCraftingRecipeJEI> {
     override fun getRecipeClass(): Class<SpellCraftingRecipeJEI> {

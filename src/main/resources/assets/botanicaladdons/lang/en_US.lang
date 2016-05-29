@@ -48,6 +48,7 @@ enchantment.botanicaladdons.light=Streamlined
 enchantment.botanicaladdons.heavy=Crushing
 
 jei.botanicaladdons.recipe.spellCrafting=Spell Infusion
+jei.botanicaladdons.recipe.treeGrowing=Tree Growth
 
 item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
@@ -61,6 +62,8 @@ tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
 tile.botanicaladdons:irisDirt.name=Iridescent Dirt
 tile.botanicaladdons:rainbowDirt.name=Iridescent Dirt
+tile.botanicaladdons:irisPlanks.name=Iridescent Planks
+tile.botanicaladdons:rainbowPlanks.name=Iridescent Planks
 tile.botanicaladdons:irisLog.name=Iridescent Log
 tile.botanicaladdons:rainbowLog.name=Iridescent Log
 tile.botanicaladdons:irisLeaves.name=Iridescent Leaves
@@ -87,6 +90,16 @@ tile.botanicaladdons:altPlanksVivid.name=Vivid Iridescent Planks
 tile.botanicaladdons:altPlanksScorched.name=Scorched Iridescent Planks
 tile.botanicaladdons:altPlanksInfused.name=Infused Iridescent Planks
 tile.botanicaladdons:altPlanksMutated.name=Mutated Iridescent Planks
+
+tile.botanicaladdons:sealLog.name=Sealing Oak Log
+tile.botanicaladdons:sealPlanks.name=Sealing Oak Planks
+tile.botanicaladdons:sealLeaves.name=Sealing Oak Leaves
+tile.botanicaladdons:sealSapling.name=Sealing Oak Sapling
+
+tile.botanicaladdons:thunderLog.name=Thunderous Oak Log
+tile.botanicaladdons:thunderPlanks.name=Thunderous Oak Planks
+tile.botanicaladdons:thunderLeaves.name=Thunderous Oak Leaves
+tile.botanicaladdons:thunderSapling.name=Thunderous Oak Sapling
 
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange

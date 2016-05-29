@@ -2,16 +2,21 @@ package shadowfox.botanicaladdons.common.crafting
 
 
 import net.minecraft.block.Block
+import net.minecraft.block.BlockPlanks
+import net.minecraft.block.BlockSapling
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
+import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraft.item.crafting.IRecipe
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
+import shadowfox.botanicaladdons.api.SaplingVariantRegistry
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.BlockStorage
@@ -20,6 +25,8 @@ import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.crafting.recipe.RecipeDynamicDye
 import shadowfox.botanicaladdons.common.crafting.recipe.RecipeItemDuplication
+import shadowfox.botanicaladdons.common.crafting.recipe.RecipePureDaisyExclusion
+import shadowfox.botanicaladdons.common.crafting.recipe.RecipeRainbowLensDye
 import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.*
@@ -30,6 +37,7 @@ import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.potions.brew.ModBrews
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.recipe.RecipeBrew
+import vazkii.botania.api.recipe.RecipePureDaisy
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 import vazkii.botania.common.item.ModItems as BotaniaItems
 import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
@@ -59,6 +67,7 @@ object ModRecipes {
     val recipePrismRod: IRecipe
 
     val recipesDirt: Array<IRecipe>
+    val recipesIrisPlanks: Array<IRecipe>
 
     val immortalBrew: RecipeBrew
     val drabBrew: RecipeBrew
@@ -83,11 +92,18 @@ object ModRecipes {
     val recipeAquaDeconversion: IRecipe
     val recipeThunderDeconversion: IRecipe
 
+    val recipeSealSapling: IRecipe
+    val recipeSealPlanks: IRecipe
+
+    val recipeIrisSapling: RecipePureDaisy
+
     init {
 
+        RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:itemDuplicate", RecipeItemDuplication::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         GameRegistry.addRecipe(RecipeDynamicDye(ModItems.lightPlacer, true))
+        GameRegistry.addRecipe(RecipeRainbowLensDye())
 
         recipeSymbol = addOreDictRecipe(ModItems.symbol,
                 "S S",
@@ -196,12 +212,16 @@ object ModRecipes {
                 'D', BotaniaOreDict.DREAMWOOD_TWIG)
 
         recipesDirt = Array(LibOreDict.DYES.size, {
-            addOreDictRecipe(ItemStack(if (it == 16) ModBlocks.rainbowDirt else ModBlocks.irisDirt, 1, if (it == 16) 0 else it),
+            addOreDictRecipe(ItemStack(if (it == 16) ModBlocks.rainbowDirt else ModBlocks.irisDirt, 1, it % 16),
                     "DDD",
                     "DID",
                     "DDD",
                     'D', Blocks.DIRT,
                     'I', LibOreDict.IRIS_DYES[it])
+        })
+        recipesIrisPlanks = Array(LibOreDict.DYES.size, {
+            addShapelessOreDictRecipe(ItemStack(if (it == 16) ModBlocks.rainbowPlanks else ModBlocks.irisPlanks, 4, it % 16),
+                    ItemStack(if (it == 16) ModBlocks.rainbowLog else ModBlocks.irisLogs[it / 4], 1, it % 4))
         })
 
         immortalBrew = BotaniaAPI.registerBrewRecipe(ModBrews.immortality, ItemStack(Items.NETHER_WART), BotaniaOreDict.PIXIE_DUST, ItemStack(ModItems.apple))
@@ -288,10 +308,35 @@ object ModRecipes {
                 LibOreDict.BLOCK_THUNDERSTEEL)
 
 
+        recipeSealSapling = addOreDictRecipe(ModBlocks.sealSapling,
+                "W W",
+                " S ",
+                "R R",
+                'W', Blocks.WOOL,
+                'S', ModBlocks.irisSapling,
+                'R', LibOreDict.LIFE_ROOT)
+
+        recipeSealPlanks = addShapelessOreDictRecipe(ItemStack(ModBlocks.sealPlanks, 4),
+                ModBlocks.sealLog)
+
+        recipeIrisSapling = RecipePureDaisyExclusion("treeSapling", ModBlocks.irisSapling.defaultState)
+        BotaniaAPI.pureDaisyRecipes.add(recipeIrisSapling)
+
+        FurnaceRecipes.instance().addSmeltingRecipeForBlock(ModBlocks.rainbowLog, ItemStack(Items.COAL, 1, 1), 0.15f)
+        FurnaceRecipes.instance().addSmeltingRecipeForBlock(ModBlocks.sealLog, ItemStack(Items.COAL, 1, 1), 0.15f)
+        for (i in ModBlocks.altLogs) FurnaceRecipes.instance().addSmeltingRecipeForBlock(i, ItemStack(Items.COAL, 1, 1), 0.15f)
+        for (i in ModBlocks.irisLogs) FurnaceRecipes.instance().addSmeltingRecipeForBlock(i, ItemStack(Items.COAL, 1, 1), 0.15f)
+
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
-        if (spell != null) SpellRegistry.registerSpellRecipe("gemPrismarine", spell, of(AQUAMARINE), of(AQUAMARINE, true))
+        if (spell != null) {
+            SpellRegistry.registerSpellRecipe("gemPrismarine", spell, of(AQUAMARINE), of(AQUAMARINE, true))
+            SpellRegistry.registerSpellRecipe("blockPrismarineBrick", spell, ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal))
+        }
         spell = SpellRegistry.getSpell(LibNames.SPELL_THOR_INFUSION)
-        if (spell != null) SpellRegistry.registerSpellRecipe("ingotIron", spell, of(THUNDER_STEEL), of(THUNDER_STEEL, true))
+        if (spell != null) {
+            SpellRegistry.registerSpellRecipe("ingotIron", spell, of(THUNDER_STEEL), of(THUNDER_STEEL, true))
+            SpellRegistry.registerSpellRecipe("blockIron", spell, ItemStack(ModBlocks.storage, 1, Variants.THUNDERSTEEL.ordinal))
+        }
 
         spell = SpellRegistry.getSpell(LibNames.SPELL_IDUNN_INFUSION)
         if (spell != null) SpellRegistry.registerSpellRecipe(BotaniaOreDict.LIVING_WOOD, spell, of(LIFE_ROOT), of(LIFE_ROOT, true))
@@ -299,6 +344,24 @@ object ModRecipes {
         spell = SpellRegistry.getSpell(LibNames.SPELL_RAINBOW)
         if (spell != null)
             for (i in LibOreDict.DYES.withIndex()) SpellRegistry.registerSpellRecipe(i.value, spell, ItemStack(ModItems.iridescentDye, 1, i.index), ItemStack(ModItems.awakenedDye, 1, i.index))
+
+
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.sealSapling), ItemStack(Blocks.GRASS), ItemStack(ModBlocks.sealLog), ItemStack(ModBlocks.sealLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.thunderSapling), ItemStack(Blocks.GRASS), ItemStack(ModBlocks.thunderLog), ItemStack(ModBlocks.thunderLeaves))
+
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.OAK.metadata), ItemStack(Blocks.GRASS),
+                ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.OAK.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.OAK.metadata))
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.SPRUCE.metadata), ItemStack(Blocks.GRASS),
+                ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.SPRUCE.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.SPRUCE.metadata))
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.BIRCH.metadata), ItemStack(Blocks.GRASS),
+                ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.BIRCH.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.BIRCH.metadata))
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.metadata), ItemStack(Blocks.GRASS),
+                ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.JUNGLE.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.JUNGLE.metadata))
+
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.ACACIA.metadata), ItemStack(Blocks.GRASS),
+                ItemStack(Blocks.LOG2, 1, BlockPlanks.EnumType.ACACIA.metadata - 4), ItemStack(Blocks.LEAVES2, 1, BlockPlanks.EnumType.ACACIA.metadata - 4))
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.DARK_OAK.metadata), ItemStack(Blocks.GRASS),
+                ItemStack(Blocks.LOG2, 1, BlockPlanks.EnumType.DARK_OAK.metadata - 4), ItemStack(Blocks.LEAVES2, 1, BlockPlanks.EnumType.DARK_OAK.metadata - 4))
     }
 
     fun addOreDictRecipe(output: Item, vararg recipe: Any) = addOreDictRecipe(ItemStack(output), *recipe)

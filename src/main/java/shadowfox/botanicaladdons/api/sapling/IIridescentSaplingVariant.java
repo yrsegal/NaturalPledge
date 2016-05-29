@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.api.sapling;
 import net.minecraft.block.state.IBlockState;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public interface IIridescentSaplingVariant {
 
@@ -13,4 +14,6 @@ public interface IIridescentSaplingVariant {
 
     @Nonnull
     IBlockState getWood(@Nonnull IBlockState soil);
+
+    List<IBlockState> getDisplaySoilBlockstates();
 }

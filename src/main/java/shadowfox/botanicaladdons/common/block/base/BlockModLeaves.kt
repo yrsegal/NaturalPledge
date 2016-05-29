@@ -22,11 +22,12 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.api.sapling.IStackConvertible
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import java.util.*
 
 
-open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name, Material.LEAVES, *variants), IShearable {
+open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name, Material.LEAVES, *variants), IShearable, IStackConvertible {
     companion object {
         val DECAYABLE = PropertyBool.create("decayable")
         val CHECK_DECAY = PropertyBool.create("check_decay")
@@ -281,6 +282,10 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
     }
 
     override fun onSheared(item: ItemStack?, world: IBlockAccess, pos: BlockPos, fortune: Int): MutableList<ItemStack>? {
-        return mutableListOf(ItemStack(this, 1, getMetaFromState(world.getBlockState(pos).withProperty(DECAYABLE, false).withProperty(CHECK_DECAY, false))))
+        return mutableListOf(itemStackFromState(world.getBlockState(pos)))
+    }
+
+    override fun itemStackFromState(state: IBlockState): ItemStack {
+        return ItemStack(this, 1, getMetaFromState(state.withProperty(DECAYABLE, false).withProperty(CHECK_DECAY, false)))
     }
 }

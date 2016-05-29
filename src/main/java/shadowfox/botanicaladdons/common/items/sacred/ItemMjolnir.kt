@@ -124,9 +124,9 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
                     val motVec = Vector3(player.motionX, player.motionY, player.motionZ)
                     val diffVec = Vector3.fromEntity(i).sub(Vector3.fromEntity(player))
                     val diff = motVec.dotProduct(diffVec) / (diffVec.mag() * motVec.mag())
-                    if (diff < 0.5) {
+                    if (diff > 0.75) {
                         if (!i.isActiveItemStackBlocking) {
-                            i.attackEntityFrom(hammerSource(player), motVec.mag().toFloat() * 3f + 2f)
+                            i.attackEntityFrom(hammerSource(player), motVec.mag().toFloat() * 5f + 2f)
                         } else {
                             player.attackEntityFrom(hammerSource(i), 5f)
                         }

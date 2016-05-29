@@ -30,11 +30,6 @@ import vazkii.botania.common.item.ModItems
  */
 class PriestlyEmblemHeimdall : IFaithVariant {
 
-    init {
-        SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, Spells.Heimdall.Iridescence())
-        SpellRegistry.registerSpell(LibNames.SPELL_SPHERE, Spells.Heimdall.BifrostWave())
-    }
-
     override fun getName(): String = "heimdall"
 
     override fun hasSubscriptions(): Boolean = true

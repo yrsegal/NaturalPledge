@@ -1,13 +1,17 @@
 package shadowfox.botanicaladdons.api;
 
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import shadowfox.botanicaladdons.api.lib.LibMisc;
 import shadowfox.botanicaladdons.api.sapling.IIridescentSaplingVariant;
+import shadowfox.botanicaladdons.api.sapling.SaplingGrowthRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 /**
  * @author WireSegal
@@ -18,8 +22,16 @@ public final class SaplingVariantRegistry {
     private static final HashBiMap<String, IIridescentSaplingVariant> variantRegistry = HashBiMap.create();
 
     @Nonnull
+    private static final ArrayList<SaplingGrowthRecipe> fakeRecipeRegistry = Lists.newArrayList();
+
+    @Nonnull
     public static HashBiMap<String, IIridescentSaplingVariant> getVariantRegistry() {
         return variantRegistry;
+    }
+
+    @Nonnull
+    public static ArrayList<SaplingGrowthRecipe> getSaplingRecipeRegistry() {
+        return fakeRecipeRegistry;
     }
 
     @Nullable
@@ -41,13 +53,14 @@ public final class SaplingVariantRegistry {
     }
 
     @Nullable
-    public static IIridescentSaplingVariant getVariant(@Nonnull String name) {
-        return variantRegistry.get(name);
+    public static SaplingGrowthRecipe registerRecipe(@Nonnull ItemStack sapling, @Nonnull ItemStack soil, @Nonnull ItemStack wood, @Nonnull ItemStack leaves) {
+        return registerRecipe(new SaplingGrowthRecipe(sapling, soil, wood, leaves));
     }
 
     @Nullable
-    public static String getVariantName(@Nonnull IIridescentSaplingVariant variant) {
-        return variantRegistry.inverse().get(variant);
+    public static SaplingGrowthRecipe registerRecipe(SaplingGrowthRecipe recipe) {
+        fakeRecipeRegistry.add(recipe);
+        return recipe;
     }
 
     @Nullable

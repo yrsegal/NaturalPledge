@@ -178,25 +178,46 @@ object Spells {
         }
     }
 
-    class ObjectInfusion(val icon: ItemSpellIcon.Variants, val oreKey: String, val product: ItemResource.Variants, val manaCost: Int, val color: Int) : IFocusSpell {
-        override fun getIconStack() = of(icon)
+    class ObjectInfusion(val icon: ItemStack, oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int) : IFocusSpell {
+
+        val objectInfusionEntries = mutableListOf<ObjectInfusionEntry>()
+
+        fun addEntry(oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int): ObjectInfusion {
+            objectInfusionEntries.add(ObjectInfusionEntry(oreKey, product, awakenedProduct, manaCost, color))
+            return this
+        }
+
+        init {
+            addEntry(oreKey, product, awakenedProduct, manaCost, color)
+        }
+
+        override fun getIconStack() = icon
 
         override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult? {
-            if (!ManaItemHandler.requestManaExact(focus, player, manaCost, false)) return EnumActionResult.FAIL
+            var flag = false
+            for (i in objectInfusionEntries) if (processEntry(player, focus, i))
+                flag = true
+            return if (flag) EnumActionResult.SUCCESS else EnumActionResult.FAIL
+        }
+
+        fun processEntry(player: EntityPlayer, focus: ItemStack, entry: ObjectInfusionEntry): Boolean {
+            if (!ManaItemHandler.requestManaExact(focus, player, entry.manaCost, false)) return false
             player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
-            val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
+            val emblem = ItemFaithBauble.getEmblem(player) ?: return false
             val flag =
                     if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
-                        Helper.craft(player, oreKey, of(product, true), color)
+                        Helper.craft(player, entry.oreKey, entry.awakenedProduct, entry.color)
                     else
-                        Helper.craft(player, oreKey, of(product), color)
-            if (flag) ManaItemHandler.requestManaExact(focus, player, manaCost, true)
-            return EnumActionResult.SUCCESS
+                        Helper.craft(player, entry.oreKey, entry.product, entry.color)
+            if (flag) ManaItemHandler.requestManaExact(focus, player, entry.manaCost, true)
+            return true
         }
 
         override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
             return 50
         }
+
+        data class ObjectInfusionEntry(val oreKey: String, val product: ItemStack, val awakenedProduct: ItemStack, val manaCost: Int, val color: Int)
     }
 
     object Njord {

@@ -40,7 +40,7 @@ minecraft {
     replace 'GRADLE:BUILD', config.build_number
     replace 'GRADLE:VERSION', config.version
 
-    replaceIn 'LibMisc.kt'
+    replaceIn 'LibMisc.java'
 }
 
 repositories {

@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
+import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.common.core.tab.ModTab
 
 /**
@@ -21,6 +22,20 @@ import shadowfox.botanicaladdons.common.core.tab.ModTab
 open class BlockMod(name: String, materialIn: Material, vararg variants: String) : Block(materialIn), ModelHandler.IBABlock {
     override var variants: Array<out String> = variants
     override val bareName: String
+
+    companion object {
+        fun tooltipIfShift(tooltip: MutableList<String>, r: () -> Unit) {
+            TooltipHelper.tooltipIfShift(tooltip, r)
+        }
+
+        fun addToTooltip(tooltip: MutableList<String>, s: String, vararg format: Any) {
+            TooltipHelper.addToTooltip(tooltip, s, *format)
+        }
+
+        fun local(s: String): String {
+            return TooltipHelper.local(s)
+        }
+    }
 
     init {
         this.variants = variants

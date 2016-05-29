@@ -30,13 +30,6 @@ import java.util.*
  */
 class PriestlyEmblemIdunn : IFaithVariant {
 
-    init {
-        SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot())
-        SpellRegistry.registerSpell(LibNames.SPELL_IDUNN_INFUSION,
-                Spells.ObjectInfusion(LIFEMAKER, LibOreDict.LIVING_WOOD,
-                        LIFE_ROOT, 150, 0x0FF469))
-    }
-
     override fun getName(): String = "idunn"
 
     override fun hasSubscriptions(): Boolean = true
@@ -95,7 +88,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
     }
 
     val TAG_COOLDOWN = "cooldown"
-    val COOLDOWN_LENGTH = 30
+    val COOLDOWN_LENGTH = 15
 
     @SubscribeEvent
     fun onClick(e: PlayerInteractEvent.RightClickBlock) {
