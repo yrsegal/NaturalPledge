@@ -19,7 +19,7 @@ object CooldownHelper {
 
     fun getCooldown(cooldownTracker: CooldownTracker, item: Item): CooldownWrapper? {
         val cooldowns = BAMethodHandles.getCooldowns(cooldownTracker)
-        val cooldown = cooldowns[item]
+        val cooldown = cooldowns[item] ?: return null
         return CooldownWrapper(BAMethodHandles.getCreateTicks(cooldown), BAMethodHandles.getExpireTicks(cooldown))
     }
 }

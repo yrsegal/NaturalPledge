@@ -67,7 +67,7 @@ public class BAMethodHandles {
     private static final MethodHandle expireTicksGetter;
     public static int getExpireTicks(Object cooldown) {
         try {
-            return (int) expireTicksGetter.invokeExact(cooldownClass.cast(cooldown));
+            return (int) expireTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
             FMLLog.severe("[BA]: Methodhandle failed!");
             t.printStackTrace();
@@ -77,7 +77,7 @@ public class BAMethodHandles {
     private static final MethodHandle createTicksGetter;
     public static int getCreateTicks(Object cooldown) {
         try {
-            return (int) createTicksGetter.invokeExact(cooldownClass.cast(cooldown));
+            return (int) createTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
             FMLLog.severe("[BA]: Methodhandle failed!");
             t.printStackTrace();

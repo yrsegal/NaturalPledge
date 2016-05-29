@@ -65,7 +65,7 @@ public class BAClientMethodHandles {
         try {
             Field f = ReflectionHelper.findField(GuiIngame.class, LibObfuscation.GUIINGAME_REMAININGHIGHLIGHTTICKS);
             f.setAccessible(true);
-            remainingHighlightSetter = MethodHandles.publicLookup().unreflectGetter(f);
+            remainingHighlightSetter = MethodHandles.publicLookup().unreflectSetter(f);
         } catch (Throwable t) {
             FMLLog.severe("[BA]: Couldn't initialize client methodhandles! Things will be broken!");
             t.printStackTrace();
