@@ -31,9 +31,9 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
         soundType = SoundType.METAL
     }
 
-    enum class Variants(val material: Material, val hardness: Float, val resistance: Float, val level: Int) : IStringSerializable {
-        THUNDERSTEEL(Material.IRON, 5f, 10f, 1),
-        AQUAMARINE(Material.ROCK, 1.5f, 10f, -1);
+    enum class Variants(val material: Material, val hardness: Float, val resistance: Float, val level: Int, val lightLevel: Int) : IStringSerializable {
+        THUNDERSTEEL(Material.IRON, 5f, 10f, 1, 0),
+        AQUAMARINE(Material.ROCK, 1.5f, 10f, -1, 10);
 
         override fun toString(): String {
             return this.name.toLowerCase().split("_").joinToString("", transform = { it.capitalizeFirst() }).lowercaseFirst()
@@ -81,5 +81,9 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
 
     override fun getExplosionResistance(world: World, pos: BlockPos, exploder: Entity?, explosion: Explosion?): Float {
         return world.getBlockState(pos).getValue(TYPE).resistance / 5f
+    }
+
+    override fun getLightValue(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): Int {
+        return state.getValue(TYPE).lightLevel
     }
 }

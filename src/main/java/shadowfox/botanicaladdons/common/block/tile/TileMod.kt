@@ -18,16 +18,23 @@ open class TileMod : TileEntity() {
     }
 
     override fun writeToNBT(par1nbtTagCompound: NBTTagCompound): NBTTagCompound {
+        writeCustomNBT(par1nbtTagCompound)
         super.writeToNBT(par1nbtTagCompound)
 
-        writeCustomNBT(par1nbtTagCompound)
         return par1nbtTagCompound
     }
 
     override fun readFromNBT(par1nbtTagCompound: NBTTagCompound) {
-        super.readFromNBT(par1nbtTagCompound)
-
         readCustomNBT(par1nbtTagCompound)
+        super.readFromNBT(par1nbtTagCompound)
+    }
+
+    override fun getUpdateTag(): NBTTagCompound {
+        return writeToNBT(NBTTagCompound())
+    }
+
+    override fun getUpdatePacket(): SPacketUpdateTileEntity? {
+        return SPacketUpdateTileEntity(pos, -999, updateTag)
     }
 
     open fun writeCustomNBT(cmp: NBTTagCompound) {

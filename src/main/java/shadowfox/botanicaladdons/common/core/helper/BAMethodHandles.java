@@ -2,12 +2,14 @@ package shadowfox.botanicaladdons.common.core.helper;
 
 import com.google.common.base.Throwables;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.item.Item;
 import net.minecraft.util.CooldownTracker;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import shadowfox.botanicaladdons.common.lib.LibObfuscation;
 
+import javax.annotation.Nonnull;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
@@ -24,8 +26,10 @@ import static java.lang.invoke.MethodHandles.publicLookup;
 @SuppressWarnings("unchecked")
 public class BAMethodHandles {
 
+    @Nonnull
     private static final MethodHandle cooldownsGetter;
-    public static Map getCooldowns(CooldownTracker cooldownTracker) {
+    @Nonnull
+    public static Map getCooldowns(@Nonnull CooldownTracker cooldownTracker) {
         try {
             return (Map) cooldownsGetter.invokeExact(cooldownTracker);
         } catch (Throwable t) {
@@ -35,13 +39,13 @@ public class BAMethodHandles {
         }
     }
 
-    public static void addNewCooldown(CooldownTracker cooldownTracker, Item item, int createTicks, int expireTicks) {
+    public static void addNewCooldown(@Nonnull CooldownTracker cooldownTracker, @Nonnull Item item, int createTicks, int expireTicks) {
         Map cooldowns = getCooldowns(cooldownTracker);
         cooldowns.put(item, newCooldown(cooldownTracker, createTicks, expireTicks));
     }
-
+    @Nonnull
     private static final MethodHandle cooldownTicksGetter;
-    public static int getCooldownTicks(CooldownTracker cooldownTracker) {
+    public static int getCooldownTicks(@Nonnull CooldownTracker cooldownTracker) {
         try {
             return (int) cooldownTicksGetter.invokeExact(cooldownTracker);
         } catch (Throwable t) {
@@ -50,9 +54,9 @@ public class BAMethodHandles {
             throw Throwables.propagate(t);
         }
     }
-
+    @Nonnull
     private static final MethodHandle cooldownMaker;
-    public static Object newCooldown(CooldownTracker tracker, int createTicks, int expireTicks) {
+    public static @Nonnull Object newCooldown(@Nonnull CooldownTracker tracker, int createTicks, int expireTicks) {
         try {
             return (Object) cooldownMaker.invokeExact(tracker, createTicks, expireTicks);
         } catch (Throwable t) {
@@ -61,11 +65,11 @@ public class BAMethodHandles {
             throw Throwables.propagate(t);
         }
     }
-
+    @Nonnull
     public static final Class cooldownClass;
-
+    @Nonnull
     private static final MethodHandle expireTicksGetter;
-    public static int getExpireTicks(Object cooldown) {
+    public static int getExpireTicks(@Nonnull Object cooldown) {
         try {
             return (int) expireTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
@@ -74,8 +78,9 @@ public class BAMethodHandles {
             throw Throwables.propagate(t);
         }
     }
+    @Nonnull
     private static final MethodHandle createTicksGetter;
-    public static int getCreateTicks(Object cooldown) {
+    public static int getCreateTicks(@Nonnull Object cooldown) {
         try {
             return (int) createTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
@@ -85,9 +90,9 @@ public class BAMethodHandles {
         }
     }
 
-
+    @Nonnull
     private static final MethodHandle swingTicksGetter;
-    public static int getSwingTicks(EntityLivingBase entity) {
+    public static int getSwingTicks(@Nonnull EntityLivingBase entity) {
         try {
             return (int) swingTicksGetter.invokeExact(entity);
         } catch (Throwable t) {
@@ -96,11 +101,22 @@ public class BAMethodHandles {
             throw Throwables.propagate(t);
         }
     }
-
+    @Nonnull
     private static final MethodHandle swingTicksSetter;
-    public static void setSwingTicks(EntityLivingBase entity, int ticks) {
+    public static void setSwingTicks(@Nonnull EntityLivingBase entity, int ticks) {
         try {
             swingTicksSetter.invokeExact(entity, ticks);
+        } catch (Throwable t) {
+            FMLLog.severe("[BA]: Methodhandle failed!");
+            t.printStackTrace();
+            throw Throwables.propagate(t);
+        }
+    }
+    @Nonnull
+    private static final MethodHandle lightningEffectGetter;
+    public static boolean getEffectOnly(@Nonnull EntityLightningBolt entity) {
+        try {
+            return (boolean) lightningEffectGetter.invokeExact(entity);
         } catch (Throwable t) {
             FMLLog.severe("[BA]: Methodhandle failed!");
             t.printStackTrace();
@@ -135,6 +151,10 @@ public class BAMethodHandles {
             f.setAccessible(true);
             swingTicksGetter = publicLookup().unreflectGetter(f);
             swingTicksSetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityLightningBolt.class, LibObfuscation.ENTITYLIGHTNINGBOLT_EFFECTONLY);
+            f.setAccessible(true);
+            lightningEffectGetter = publicLookup().unreflectGetter(f);
 
         } catch (Throwable t) {
             FMLLog.severe("[BA]: Couldn't initialize methodhandles! Things will be broken!");

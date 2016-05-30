@@ -17,8 +17,10 @@ class TilePrismFlame : TileMod(), ITickable {
     var inked = false
 
     override fun update() {
-        if (!inked || Botania.proxy.isClientPlayerWearingMonocle)
-            BotanicalAddons.proxy.particleEmission(worldObj, Vector3.fromBlockPos(pos), getLightColor())
+        try {
+            if (!inked || Botania.proxy.isClientPlayerWearingMonocle)
+                BotanicalAddons.proxy.particleEmission(worldObj, Vector3.fromBlockPos(pos), getLightColor())
+        } catch (ignored: NullPointerException) {}
     }
 
     fun getLightColor(): Int {

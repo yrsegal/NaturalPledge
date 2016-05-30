@@ -59,6 +59,10 @@ object LibNames {
     val THUNDER_PLANKS = "thunderPlanks"
     val THUNDER_LOG = "thunderLog"
     val THUNDER_LEAVES = "thunderLeaves"
+    val CIRCUIT_SAPLING = "circuitSapling"
+    val CIRCUIT_PLANKS = "circuitPlanks"
+    val CIRCUIT_LOG = "circuitLog"
+    val CIRCUIT_LEAVES = "circuitLeaves"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

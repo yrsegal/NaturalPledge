@@ -13,6 +13,7 @@ import shadowfox.botanicaladdons.common.block.alt.BlockAltPlanks
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.colored.*
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentPlanks.BlockRainbowPlanks
+import shadowfox.botanicaladdons.common.block.dendrics.circuit.*
 import shadowfox.botanicaladdons.common.block.dendrics.sealing.*
 import shadowfox.botanicaladdons.common.block.dendrics.thunder.*
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
@@ -53,6 +54,11 @@ object ModBlocks {
     val thunderPlanks: BlockMod
     val thunderLeaves: BlockMod
     val thunderLog: BlockMod
+
+    val circuitSapling: BlockMod
+    val circuitPlanks: BlockMod
+    val circuitLeaves: BlockMod
+    val circuitLog: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -95,6 +101,11 @@ object ModBlocks {
         thunderPlanks = BlockThunderPlanks(LibNames.THUNDER_PLANKS)
         thunderLeaves = BlockThunderLeaves(LibNames.THUNDER_LEAVES)
         thunderLog = BlockThunderLog(LibNames.THUNDER_LOG)
+
+        circuitSapling = BlockCircuitSapling(LibNames.CIRCUIT_SAPLING)
+        circuitPlanks = BlockCircuitPlanks(LibNames.CIRCUIT_PLANKS)
+        circuitLeaves = BlockCircuitLeaves(LibNames.CIRCUIT_LEAVES)
+        circuitLog = BlockCircuitLog(LibNames.CIRCUIT_LOG)
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())

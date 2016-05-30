@@ -16,4 +16,7 @@ public class LibObfuscation {
 
     // Swing handling
     public static final String[] ENTITYLIVINGBASE_TICKSSINCELASTSWING = new String[] {"aE", "field_184617_aD", "ticksSinceLastSwing"};
+
+    // Lightning handling
+    public static final String[] ENTITYLIGHTNINGBOLT_EFFECTONLY = new String[] {"d", "field_184529_d", "effectOnly"};
 }
