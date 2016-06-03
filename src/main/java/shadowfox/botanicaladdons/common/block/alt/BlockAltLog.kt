@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -87,6 +88,6 @@ abstract class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name +
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
-        return null //todo
+        return LexiconEntries.sapling
     }
 }

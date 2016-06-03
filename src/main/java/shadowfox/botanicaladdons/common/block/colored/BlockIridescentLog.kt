@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
 import net.minecraft.block.BlockLog
-import net.minecraft.block.SoundType
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
@@ -19,6 +18,7 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 
@@ -118,6 +118,6 @@ abstract class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
-        return null //todo
+        return LexiconEntries.irisDirt
     }
 }

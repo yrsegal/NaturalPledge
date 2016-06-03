@@ -16,12 +16,12 @@ item.botanicaladdons:fateHorn.name=Gjallarhorn, Horn of Fate
 
 item.botanicaladdons:thunderFist.name=Fist of Thunder
 
-item.botanicaladdons:thunderSteel.name=Thundersteel
-item.botanicaladdons:thunderSteelActive.name=Awakened Thundersteel
+item.botanicaladdons:thunderSteel.name=Thundersteel Ingot
+item.botanicaladdons:thunderSteelActive.name=Awakened Thundersteel Ingot
 item.botanicaladdons:lifeRoot.name=Soulroot
 item.botanicaladdons:lifeRootActive.name=Awakened Soulroot
-item.botanicaladdons:aquamarine.name=Aquamarine
-item.botanicaladdons:aquamarineActive.name=Awakened Aquamarine
+item.botanicaladdons:aquamarine.name=Aquamarine Shard
+item.botanicaladdons:aquamarineActive.name=Awakened Aquamarine Shard
 
 tile.botanicaladdons:thundersteelBlock.name=Block of Thundersteel
 tile.botanicaladdons:aquamarineBlock.name=Aquamarine Bricks
@@ -69,6 +69,7 @@ tile.botanicaladdons:rainbowLog.name=Iridescent Log
 tile.botanicaladdons:irisLeaves.name=Iridescent Leaves
 tile.botanicaladdons:rainbowLeaves.name=Iridescent Leaves
 tile.botanicaladdons:irisSapling.name=Iridescent Sapling
+tile.botanicaladdons:irisLamp.name=Iridescent Lantern
 
 tile.botanicaladdons:altLogDry.name=Dry Iridescent Log
 tile.botanicaladdons:altLogGolden.name=Golden Iridescent Log
@@ -100,6 +101,16 @@ tile.botanicaladdons:thunderLog.name=Thunderous Oak Log
 tile.botanicaladdons:thunderPlanks.name=Thunderous Oak Planks
 tile.botanicaladdons:thunderLeaves.name=Thunderous Oak Leaves
 tile.botanicaladdons:thunderSapling.name=Thunderous Oak Sapling
+
+tile.botanicaladdons:circuitLog.name=Circuitree Log
+tile.botanicaladdons:circuitPlanks.name=Circuitree Planks
+tile.botanicaladdons:circuitLeaves.name=Circuitree Leaves
+tile.botanicaladdons:circuitSapling.name=Circuitree Sapling
+
+tile.botanicaladdons:calicoLog.name=Calico Log
+tile.botanicaladdons:calicoPlanks.name=Calico Planks
+tile.botanicaladdons:calicoLeaves.name=Calico Leaves
+tile.botanicaladdons:calicoSapling.name=Calico Sapling
 
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange
@@ -210,6 +221,7 @@ item.botanicaladdons:holySymbol.headdress.name=Cherokee Headdress
 item.botanicaladdons:holySymbol.tail.name=Fox Tail
 item.botanicaladdons:holySymbol.teru.name=Chesteru Teru Bozu
 item.botanicaladdons:holySymbol.mystery.name=Mysterious Pendant
+item.botanicaladdons:holySymbol.rainbow.name=Fabulosity Incarnate
 
 botanicaladdons.subtitle.woosh=Wind wooshes
 
@@ -263,6 +275,7 @@ botanicaladdons.page.njordSpells0=The first spell that &3Njord&0's emblem grants
 botanicaladdons.page.njordSpells1=The second spell of &3Njord&0, &1Galeforce&0, is a general protection spell. Most beings and projectiles will be pushed back from the player, giving them a sphere of safety.
 botanicaladdons.page.njordSpells2=The third spell of &3Njord&0, &1Sudden Gust&0, allows for corralling animals without harming them. The being the player looks at will be forced back when it's cast, as if the player had hit them.
 botanicaladdons.page.njordSpells3=The final spell of &3Njord&0, &1Tempest Infusion&0, forces the strength of a storm into a shard of the sea, making &1Aquamarine&0. If you can somehow augment your emblem's power, the storm within the shard might be more potent.
+botanicaladdons.page.njordSpells4=It's so pretty
 
 botanicaladdons.entry.idunn=Faith in Idunn
 botanicaladdons.tagline.idunn=Life, spring, and immortality
@@ -284,7 +297,8 @@ botanicaladdons.tagline.thorSpells=The art of war
 botanicaladdons.page.thorSpells0=The first spell that &3Thor&0's emblem grants, &1Lightning Strike&0, is a very simple lightning spell. Electricity will arc out of the caster, striking whatever they're looking at within 10 blocks. This won't do much unless you hit a mob, of course.
 botanicaladdons.page.thorSpells1=The second spell of &3Thor&0, &1Thunder's Force&0, is a strength spell. While you have the &1Terrestrial Focus&0, for half a minute you will hit with over twice the force you'd normally wield. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
 botanicaladdons.page.thorSpells2=The third spell of &3Thor&0, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
-botanicaladdons.page.thorSpells2=The final spell of &3Thor&0, &1Thunder Infusion&0, forces power into regular iron, making &1Thundersteel&0. If you can somehow augment your emblem's power, the metal might be more potent.
+botanicaladdons.page.thorSpells3=The final spell of &3Thor&0, &1Thunder Infusion&0, forces power into regular iron, making &1Thundersteel&0. If you can somehow augment your emblem's power, the metal might be more potent.
+botanicaladdons.page.thorSpells4=Block of awesome
 
 botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color
@@ -295,6 +309,11 @@ botanicaladdons.entry.heimdallSpells=Bifrost Magic
 botanicaladdons.tagline.heimdallSpells=The art of Iridescence
 botanicaladdons.page.heimdallSpells0=The first spell that &3Heimdall&0's emblem grants, &1Iridescent Tones&0, creates a resonating sound that vibrates with the essence of color. Casting it on any dye will crystallize it, converting it into &1Iridescent Crystal&0. This crystal acts as a higher-potency dye, able to colorize even things like dirt.
 botanicaladdons.page.heimdallSpells1=The second spell of &3Heimdall&0, &1Wave of Bifrost&0, creates for you a safe haven. When you cast it, a sphere of &4Bifrost&0 will rise around you, stopping your fall and giving you temporary protection from anything around you.
+
+botanicaladdons.entry.drabBrew=Brew of Monochromacy
+botanicaladdons.tagline.drabBrew=Negating color
+botanicaladdons.page.drabBrew0a=An interesting brew, it saps color out of the sight of the person who drinks it. It is most useful when in incense form.
+botanicaladdons.page.drabBrew0b=Instant colorblindness
 
 botanicaladdons.entry.toolbelt=Traveller's Toolbelt
 botanicaladdons.tagline.toolbelt=Storage on the go
@@ -333,13 +352,49 @@ botanicaladdons.page.prism1=All the colors of the wind
 
 botanicaladdons.entry.irisDirt=Iridescent Dirt
 botanicaladdons.tagline.irisDirt=Dirt in lots of colors
-botanicaladdons.page.irisDirt0=Using the power of &4Iridescence&0, you can make dirt that shimmers every color of the rainbow. This mystical dirt is capable of growing trees and plants without water or a hoe.
+botanicaladdons.page.irisDirt0=Using the power of &4Iridescence&0, you can make dirt that shimmers every color of the rainbow. This mystical dirt is capable of growing trees and plants without water or a hoe. It can be converted back to regular dirt using a &1Pure Daisy&0.
 botanicaladdons.page.irisDirt1=Beauty from the dross
+botanicaladdons.page.irisDirt2=Using the &1Iridescent Sapling&0, you can create a variety of tree that grows in all the colors of &1Iridescent Dirt&0. This can be achieved simply by planting the sapling on any colored dirt and letting it grow.
+botanicaladdons.page.irisDirt3=2x4s
+
+botanicaladdons.entry.lamp=Iridescent Lantern
+botanicaladdons.tagline.lamp=A power-level indicating light
+botanicaladdons.page.lamp0=The &1Iridescent Lantern&0 glows with all the colors of the rainbow. While black in appearance when first set down, giving it a redstone signal will change its color. The higher the signal, the farther down the rainbow the color becomes.<br>If given a full-strength signal, the &1Iridescent Lantern&0 will glow throughout the vibrant rainbow.
+botanicaladdons.page.lamp1=Disco ball
+
+botanicaladdons.entry.fist=Fists of Thunder
+botanicaladdons.tagline.fist=A weapon that gets better in pairs
+botanicaladdons.page.fist0=The &1Fists of Thunder&0 are the standard weapons of any priest of &3Thor&0. One is formidable enough, acting like a quicker &1Iron Sword&0. If you have one on each hand, though, you can block with them as if they were a shield. They can be enchanted to make them heavier or lighter, changing their properties.
+botanicaladdons.page.fist1=Stopping power
+
+botanicaladdons.entry.seal=Sealing Oak
+botanicaladdons.tagline.seal=Sound muffling tree
+botanicaladdons.page.seal0=The &1Sealing Oak&0 dampens the effects of loud sounds around it, causing anything around it to sound strangely far away. With enough, it's nearly impossible to hear. Any of the blocks in one of these trees can seal sounds.
+botanicaladdons.page.seal1=An extra utility
+botanicaladdons.page.seal2=The planks work too
+
+botanicaladdons.entry.thunder=Thunderous Oak
+botanicaladdons.tagline.thunder=A lightning rod
+botanicaladdons.page.thunder0=The &1Thunderous Oak&0 absorbs lightning that strikes around it, preventing it from harming or transforming anything at all. Any of the blocks in one of these trees can absorb lightning.
+botanicaladdons.page.thunder1=Thor'll hate you
+botanicaladdons.page.thunder2=The planks work too
+
+botanicaladdons.entry.circuit=Circuitree
+botanicaladdons.tagline.circuit=A redstone emitter
+botanicaladdons.page.circuit0=The &1Circuitree&0 emits a redstone signal of a strength equal to the number of &1Circuitree&0 blocks consecutively above it out of a &1Redstone Comparator&0. Any block from the tree can be used in the stack, including the sapling.
+botanicaladdons.page.circuit1=I deeply apologize for the pun
+botanicaladdons.page.circuit2=The planks work too
+
+botanicaladdons.entry.calico=Calico Tree
+botanicaladdons.tagline.calico=An explosion absorber
+botanicaladdons.page.calico0=The &1Calico Tree&0 is so cat-like, it scares more than just creepers away, it actually scares off any explosion at all. Any block from the tree can be used for this, including the sapling.
+botanicaladdons.page.calico1=Not a scratching post
+botanicaladdons.page.calico2=The planks work too
 
 botanicaladdons.entry.awakening=The Ritual of Gaia III
 botanicaladdons.tagline.awakening=Sight, Sound, Strength, Power, Glory, Speed!
-botanicaladdons.page.awakening0=The ritual performed to face off against the soul of the Earth is a incredible challenge, which allows one to obtain &5Relics&0 and &1Gaia Spirits&0. As you fight, this ritual connects you to the &3Divine&0 by your struggles. So, maybe you could... invert that connection? Through that, you would force a fragment of the &3Divine&0 into your &1Priestly Emblem&0.
-botanicaladdons.page.awakening1=By using &1Divine Ritual Cores&0, you can modify the &4Ritual of Gaia&0 to do just that. These devices focus the energy of the &3Divine&0 into the Guardian, giving it power as the ritual plays out. The moment you slay the &4Guardian&0, that focused energy will leap into your &1Priestly Emblem&0. The power you could gain from this connection is staggering.
+botanicaladdons.page.awakening0=The ritual performed to face off against the soul of the Earth is a incredible challenge, which allows one to obtain &5Relics&0 and &1Gaia Spirits&0. As you fight, this ritual connects you to the &3Divine&0 by your struggles. So, maybe you could... invert that connection. Through that, you would force a fragment of the &3Divine&0 into your &1Priestly Emblem&0.
+botanicaladdons.page.awakening1=By using &1Divine Ritual Cores&0, you can modify the &4Ritual of Gaia&0 to do just that. These devices focus the energy of the &3Divine&0 into the Guardian, giving it power and health as the ritual plays out. The moment you slay the &4Guardian&0, that focused energy will leap into your &1Priestly Emblem&0. The power you could gain from this connection is staggering.
 botanicaladdons.page.awakening2=The Ritual of Gaia III
 botanicaladdons.page.awakening3=Seek the center to change the world
 
@@ -369,3 +424,8 @@ botanicaladdons.tagline.ascension=Arrows which remove weight
 botanicaladdons.page.ascension0=Now that you are fully connected to &3Njord&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Arrows of Ascension&0. These arrows remove the hit player's weight temporarily, causing the tiny fluctuations of the wind to push them up. While the arrow itself is not lethal, the resulting fall might be to the unprepared.
 botanicaladdons.page.ascension1=Justice rains from above
 botanicaladdons.page.ascension2=Making more (The arrow is not consumed)
+
+botanicaladdons.entry.sapling=Iridescent Sapling
+botanicaladdons.tagline.sapling=A really big carnation
+botanicaladdons.page.sapling0=The &1Iridescent Sapling&0 has no true color of its own. Instead, it grows with whatever dirt is beneath it as a color. Not all dirt can be used in this way, including natural dirt. A good starting point is the special &1Pasture Seeds&0.
+botanicaladdons.page.sapling1=Deconstruction but no reconstruction

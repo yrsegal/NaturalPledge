@@ -18,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
@@ -108,6 +109,9 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
         var flag = false
 
         if (food.item is ItemFood) {
+
+            if (BAMethodHandles.isAlwaysEdible(food.item as ItemFood)) return false
+
             flag = true
             for (i in 0..15) {
                 val fakePlayer = FakePlayerPotion(player.worldObj, GameProfile(null, "foodBeltPlayer"))

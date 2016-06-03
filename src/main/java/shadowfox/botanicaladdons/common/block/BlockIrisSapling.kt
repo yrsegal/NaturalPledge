@@ -1,32 +1,21 @@
 package shadowfox.botanicaladdons.common.block
 
-import net.minecraft.block.IGrowable
-import net.minecraft.block.SoundType
-import net.minecraft.block.material.Material
-import net.minecraft.block.properties.IProperty
-import net.minecraft.block.properties.PropertyInteger
-import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.EnumDyeColor
-import net.minecraft.util.BlockRenderLayer
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.math.AxisAlignedBB
+import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraft.world.gen.feature.WorldGenTrees
-import net.minecraftforge.common.EnumPlantType
-import net.minecraftforge.common.IPlantable
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.SaplingVariantRegistry
 import shadowfox.botanicaladdons.api.sapling.IIridescentSaplingVariant
-import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
 import shadowfox.botanicaladdons.api.sapling.IridescentSaplingBaseVariant
-import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.base.BlockModSapling
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentDirt
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import vazkii.botania.api.lexicon.ILexiconable
+import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.BotaniaStateProps
 import vazkii.botania.api.state.enums.AltGrassVariant
 import java.util.*
@@ -36,7 +25,7 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
  * @author WireSegal
  * Created at 4:01 PM on 5/14/16.
  */
-class BlockIrisSapling(name: String) : BlockModSapling(name) {
+class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
 
     companion object {
         class IridescentDirtSaplingVariant : IIridescentSaplingVariant {
@@ -123,5 +112,9 @@ class BlockIrisSapling(name: String) : BlockModSapling(name) {
 
     override fun canGrow(worldIn: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean {
         return canSustain(worldIn.getBlockState(pos.down()))
+    }
+
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+        return LexiconEntries.sapling
     }
 }

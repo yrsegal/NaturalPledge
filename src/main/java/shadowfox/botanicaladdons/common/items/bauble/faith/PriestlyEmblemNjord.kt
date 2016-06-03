@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.math.MathHelper
@@ -10,14 +9,8 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.block.BlockStorage
-import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
-import shadowfox.botanicaladdons.common.block.ModBlocks
-import shadowfox.botanicaladdons.common.items.ItemResource.Variants.AQUAMARINE
-import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.WIND_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect

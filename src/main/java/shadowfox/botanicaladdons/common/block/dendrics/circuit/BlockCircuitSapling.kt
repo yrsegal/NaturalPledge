@@ -4,7 +4,6 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
-import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
@@ -12,6 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenTrees
 import net.minecraftforge.event.terraingen.TerrainGen
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.block.base.BlockModSapling
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import java.util.*
@@ -22,6 +22,15 @@ import java.util.*
  */
 class BlockCircuitSapling(name: String) : BlockModSapling(name), ILexiconable, ICircuitBlock {
 
+    init {
+        tickRandomly = true
+    }
+
+    override fun updateTick(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
+        super.updateTick(worldIn, pos, state, rand)
+        worldIn.notifyNeighborsOfStateChange(pos, this)
+    }
+
     override fun generateTree(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
         if (!TerrainGen.saplingGrowTree(worldIn, rand, pos)) return
 
@@ -31,15 +40,19 @@ class BlockCircuitSapling(name: String) : BlockModSapling(name), ILexiconable, I
             worldIn.setBlockState(pos, state, 4)
     }
 
-    override fun canConnectRedstone(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?, side: EnumFacing?): Boolean {
+    override fun getComparatorInputOverride(blockState: IBlockState, worldIn: World, pos: BlockPos): Int {
+        return ICircuitBlock.getPower(blockState, worldIn, pos)
+    }
+
+    override fun hasComparatorInputOverride(state: IBlockState?): Boolean {
         return true
     }
 
-    override fun getWeakPower(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Int {
-        return ICircuitBlock.getPower(blockState, blockAccess, pos)
+    override fun getWeakChanges(world: IBlockAccess?, pos: BlockPos?): Boolean {
+        return true
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
-        return null //todo
+        return LexiconEntries.circuitTree
     }
 }

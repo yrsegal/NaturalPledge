@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.sapling.ISealingBlock
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 
@@ -25,6 +26,6 @@ class BlockSealingLog(name: String) : BlockModLog(name), ISealingBlock, ILexicon
     override fun getVolumeMultiplier(iBlockState: IBlockState, world: World, blockPos: BlockPos, dist: Double, event: PlaySoundEvent) = 0.5f
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
-        return null //todo
+        return LexiconEntries.sealTree
     }
 }

@@ -7,11 +7,15 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.init.Items
+import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraftforge.oredict.OreDictionary
 
 /**
  * @author WireSegal
@@ -26,6 +30,10 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
         blockHardness = 2.0f
         defaultState = defaultState.withProperty(AXIS, BlockLog.EnumAxis.Y)
         soundType = SoundType.WOOD
+        if (hasItem) {
+            OreDictionary.registerOre("logWood", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
+            FurnaceRecipes.instance().addSmeltingRecipeForBlock(this, ItemStack(Items.COAL, 1, 1), 0.15f)
+        }
     }
 
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
@@ -42,6 +50,9 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
             }
         }
     }
+
+    override fun getFlammability(world: IBlockAccess?, pos: BlockPos?, face: EnumFacing?) = 5
+    override fun getFireSpreadSpeed(world: IBlockAccess?, pos: BlockPos?, face: EnumFacing?) = 5
 
     override fun onBlockPlaced(worldIn: World?, pos: BlockPos?, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase?): IBlockState {
         return this.getStateFromMeta(meta).withProperty(AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.axis))

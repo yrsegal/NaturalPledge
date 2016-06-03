@@ -35,9 +35,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.item.IBlockProvider
-import vazkii.botania.client.core.handler.ClientMethodHandles
 import vazkii.botania.client.core.handler.ClientTickHandler
-import vazkii.botania.common.core.handler.MethodHandles
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.item.ItemBaubleBox
 import java.util.*

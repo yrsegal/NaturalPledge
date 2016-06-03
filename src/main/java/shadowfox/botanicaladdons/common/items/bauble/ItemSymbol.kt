@@ -2,12 +2,11 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.ItemMeshDefinition
-import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -17,14 +16,12 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.client.ForgeHooksClient
-import net.minecraftforge.client.event.RenderPlayerEvent
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.item.IBaubleRender
@@ -39,12 +36,13 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 10:33 PM on 4/15/16.
  */
-class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHandler.IExtraVariantHolder {
+class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHandler.IExtraVariantHolder, ModelHandler.IColorProvider {
 
     companion object {
 
-        @SideOnly(Side.CLIENT)
-        var POTATO_LOCATION: ResourceLocation? = null
+        val POTATO_LOCATION by lazy {
+            ResourceLocation(if (ClientProxy.dootDoot) LibResources.MODEL_TINY_POTATO_HALLOWEEN else LibResources.MODEL_TINY_POTATO)
+        }
 
         val TAG_PLAYER = "player"
 
@@ -55,10 +53,11 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         val jansey = "eaf6956b-dd98-4e07-a890-becc9b6d1ba9"
         val wiiv = "0d054077-a977-4b19-9df9-8a4d5bf20ec3"
         val troll = "6e008af9-2d0c-4e4f-9312-fb0349416e75"
+        val willie = "7a66d29d-6d01-4d73-a277-5b5c966dbd59"
 
-        val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv, troll)
+        val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv, troll, willie)
 
-        val headPlayers = arrayOf(vaz, wire, jansey)
+        val headPlayers = arrayOf(vaz, wire, jansey, willie)
 
         fun getPlayer(stack: ItemStack) = ItemNBTHelper.getString(stack, TAG_PLAYER, "")
 
@@ -83,30 +82,36 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 jansey -> ModelHandler.resourceLocations["headdress"]
                 wiiv -> ModelHandler.resourceLocations["teruHead"]
                 troll -> ModelHandler.resourceLocations["emblemMystery"]
+                willie -> ModelHandler.resourceLocations["fabulosity"]
                 else -> ModelHandler.resourceLocations["holySymbol"]
             }
         }
     }
 
+    @SideOnly(Side.CLIENT)
+    override fun getColor(): IItemColor? {
+        return IItemColor { itemStack, i -> if (getPlayer(itemStack) == willie) BotanicalAddons.proxy.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
+    }
+
     override val extraVariants: Array<out String>
-        get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "emblemMystery", "holySymbol")
+        get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "emblemMystery", "fabulosity", "holySymbol")
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
         super.onEquipped(stack, player)
         var nameChanged = false
-        if (getPlayer(stack) != vaz && stack.displayName.toLowerCase().equals("vazkii is bae")) {
-            setPlayer(stack, vaz)
-            nameChanged = true
-        } else if (getPlayer(stack) != wiiv && stack.displayName.toLowerCase().equals("rain rain go away")) {
-            setPlayer(stack, wiiv)
-            nameChanged = true
-        } else if (getPlayer(stack) != jansey && stack.displayName.toLowerCase().equals("derp faced chieftain")) {
-            setPlayer(stack, jansey)
-            nameChanged = true
-        } else if (getPlayer(stack) != troll && stack.displayName.toLowerCase().equals("???")) {
-            setPlayer(stack, troll)
-            nameChanged = true
+        val displayName = stack.displayName.toLowerCase()
+        fun nameCheck(player: String, checkName: String) {
+            if (!nameChanged && getPlayer(stack) != player && displayName.equals(checkName)) {
+                setPlayer(stack, player)
+                nameChanged = true
+            }
         }
+
+        nameCheck(vaz, "vazkii is bae")
+        nameCheck(wiiv, "rain rain go away")
+        nameCheck(jansey, "derp faced chieftain")
+        nameCheck(troll, "???")
+        nameCheck(willie, "less fabulous than wire")
 
         if (nameChanged)
             stack.clearCustomName()
@@ -123,6 +128,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             jansey -> "$above.headdress"
             wiiv -> "$above.teru"
             troll -> "$above.mystery"
+            willie -> "$above.rainbow"
             else -> above
         }
     }
@@ -137,6 +143,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             "jansey" -> setPlayer(stack, jansey)
             "wiiv" -> setPlayer(stack, wiiv)
             "trollking" -> setPlayer(stack, troll)
+            "willie" -> setPlayer(stack, willie)
         }
     }
 
@@ -158,11 +165,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         GlStateManager.pushMatrix()
         if (type == IBaubleRender.RenderType.HEAD && playerAs in headPlayers) {
             if (playerAs == vaz) {
-                if (POTATO_LOCATION == null)
-                    POTATO_LOCATION = ResourceLocation(if (ClientProxy.dootDoot) LibResources.MODEL_TINY_POTATO_HALLOWEEN else LibResources.MODEL_TINY_POTATO)
                 Minecraft.getMinecraft().renderEngine.bindTexture(POTATO_LOCATION)
                 val model = ModelTinyPotato()
-                GlStateManager.scale(0.0F, -2.0F, 0.0F)
+                GlStateManager.translate(0.0F, -2.0F, 0.0F)
                 GlStateManager.rotate(-90F, 0F, 1F, 0F)
                 model.render()
             } else if (playerAs == jansey) {
@@ -170,6 +175,12 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 faceTranslate()
                 GlStateManager.translate(0f, 0.175f, 0.2f)
                 GlStateManager.rotate(180F, 0f, 1f, 0f)
+                Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
+            } else if (playerAs == willie) {
+                IBaubleRender.Helper.translateToHeadLevel(player)
+                faceTranslate()
+                GlStateManager.scale(0.5, 0.5, 0.5)
+                GlStateManager.translate(0f, 1.375f, 0.625f)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else {
                 IBaubleRender.Helper.translateToHeadLevel(player)

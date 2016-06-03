@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
-import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeJEI
 
 object TreeGrowingCategory : IRecipeCategory {
 

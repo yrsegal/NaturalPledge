@@ -9,14 +9,8 @@ import net.minecraft.potion.PotionEffect
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.block.BlockStorage
-import shadowfox.botanicaladdons.common.block.BlockStorage.Variants.THUNDERSTEEL
-import shadowfox.botanicaladdons.common.block.ModBlocks
-import shadowfox.botanicaladdons.common.items.ItemResource.Variants.THUNDER_STEEL
-import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.LIGHTNING_INFUSION
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect

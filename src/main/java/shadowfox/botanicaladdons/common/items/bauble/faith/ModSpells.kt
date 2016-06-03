@@ -2,14 +2,11 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.api.SpellRegistry
-import shadowfox.botanicaladdons.common.block.BlockStorage
 import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
 import shadowfox.botanicaladdons.common.block.BlockStorage.Variants.THUNDERSTEEL
 import shadowfox.botanicaladdons.common.block.ModBlocks
-import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.*
-import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
 import shadowfox.botanicaladdons.common.lib.LibNames

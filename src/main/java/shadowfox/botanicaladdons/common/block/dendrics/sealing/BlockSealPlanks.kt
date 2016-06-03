@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.sapling.ISealingBlock
 import shadowfox.botanicaladdons.common.block.base.BlockModPlanks
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 
@@ -29,6 +30,6 @@ class BlockSealPlanks(name: String) : BlockModPlanks(name), ISealingBlock, ILexi
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
-        return null //todo
+        return LexiconEntries.sealTree
     }
 }

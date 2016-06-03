@@ -22,6 +22,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.sapling.IStackConvertible
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import java.util.*
@@ -34,12 +35,25 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
 
         val DECAY_BIT = 8
         val CHECK_BIT = 4
+
+        init {
+            MinecraftForge.EVENT_BUS.register(this)
+        }
+
+        var lastFancy = false
+        var fancyLeaves = false
+
+        @SubscribeEvent
+        @SideOnly(Side.CLIENT)
+        fun onRenderWorldLast(e: RenderWorldLastEvent) {
+            lastFancy = fancyLeaves
+            fancyLeaves = Minecraft.getMinecraft().gameSettings.fancyGraphics
+            e.context
+        }
     }
 
-    var fancyLeaves = false
-    var lastFancy = false
 
-    open val canBeFancy: Boolean
+    open val canBeOpaque: Boolean
         get() = true
     internal var surroundings: IntArray? = null
 
@@ -48,16 +62,12 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
         this.setHardness(0.2f)
         this.setLightOpacity(1)
         this.soundType = SoundType.PLANT
-        MinecraftForge.EVENT_BUS.register(this)
+        if (hasItem)
+            OreDictionary.registerOre("treeLeaves", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
     }
 
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    fun onRenderWorldLast(e: RenderWorldLastEvent) {
-        if (canBeFancy)
-            fancyLeaves = Minecraft.getMinecraft().gameSettings.fancyGraphics
-        e.context
-    }
+    override fun getFlammability(world: IBlockAccess?, pos: BlockPos?, face: EnumFacing?) = 60
+    override fun getFireSpreadSpeed(world: IBlockAccess?, pos: BlockPos?, face: EnumFacing?) = 30
 
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
         val i = 1
@@ -184,7 +194,6 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
         }
 
         if (fancyLeaves != lastFancy) {
-            lastFancy = fancyLeaves
             worldIn.markBlockRangeForRenderUpdate(pos, pos)
         }
     }
@@ -209,12 +218,12 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
 
 
     override fun isOpaqueCube(state: IBlockState?): Boolean {
-        return !(this.fancyLeaves || !canBeFancy)
+        return !fancyLeaves && canBeOpaque
     }
 
     @SideOnly(Side.CLIENT)
     override fun getBlockLayer(): BlockRenderLayer {
-        return if (this.fancyLeaves || !canBeFancy) BlockRenderLayer.CUTOUT_MIPPED else BlockRenderLayer.SOLID
+        return if (fancyLeaves || !canBeOpaque) BlockRenderLayer.CUTOUT_MIPPED else BlockRenderLayer.SOLID
     }
 
     override fun isVisuallyOpaque(): Boolean {
@@ -278,7 +287,7 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
 
     @SideOnly(Side.CLIENT)
     override fun shouldSideBeRendered(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Boolean {
-        return if (!(this.fancyLeaves || !canBeFancy) && blockAccess.getBlockState(pos.offset(side)).block === this) false else super.shouldSideBeRendered(blockState, blockAccess, pos, side)
+        return if (!fancyLeaves && canBeOpaque && blockAccess.getBlockState(pos.offset(side)).block === this) false else super.shouldSideBeRendered(blockState, blockAccess, pos, side)
     }
 
     override fun onSheared(item: ItemStack?, world: IBlockAccess, pos: BlockPos, fortune: Int): MutableList<ItemStack>? {

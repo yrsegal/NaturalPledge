@@ -6,6 +6,8 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
@@ -14,12 +16,15 @@ import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.items.ItemResource.Companion.capitalizeFirst
 import shadowfox.botanicaladdons.common.items.ItemResource.Companion.lowercaseFirst
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import vazkii.botania.api.lexicon.ILexiconable
+import vazkii.botania.api.lexicon.LexiconEntry
 
 /**
  * @author WireSegal
  * Created at 4:16 PM on 5/25/16.
  */
-class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.variants) {
+class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.variants), ILexiconable {
 
     companion object {
         val TYPE = PropertyEnum.create("type", Variants::class.java)
@@ -85,5 +90,13 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
 
     override fun getLightValue(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): Int {
         return state.getValue(TYPE).lightLevel
+    }
+
+    override fun getEntry(p0: World, p1: BlockPos, p2: EntityPlayer, p3: ItemStack): LexiconEntry? {
+        return when (p0.getBlockState(p1).getValue(TYPE)) {
+            Variants.THUNDERSTEEL -> LexiconEntries.thorSpells
+            Variants.AQUAMARINE -> LexiconEntries.njordSpells
+            else -> null
+        }
     }
 }

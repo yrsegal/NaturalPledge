@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemArrow
 import net.minecraft.item.ItemStack
@@ -22,6 +23,7 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.common.core.tab.ModTab
 import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
+import vazkii.botania.api.BotaniaAPI
 
 /**
  * @author WireSegal
@@ -107,6 +109,10 @@ class ItemSealerArrow(name: String, vararg variants: String) : ItemArrow(), Mode
 
     override fun createArrow(world: World, stack: ItemStack, player: EntityLivingBase?): EntityArrow? {
         return EntitySealedArrow(world, player)
+    }
+
+    override fun getRarity(stack: ItemStack?): EnumRarity? {
+        return BotaniaAPI.rarityRelic
     }
 
     override fun isInfinite(stack: ItemStack?, bow: ItemStack?, player: EntityPlayer?) = false

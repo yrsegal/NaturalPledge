@@ -136,10 +136,14 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     }
 
     override fun setCosmeticItem(stack: ItemStack, cosmetic: ItemStack?) {
-        val cmp = NBTTagCompound()
-        cosmetic?.readFromNBT(cmp)
+        if (cosmetic != null) {
+            val cmp = NBTTagCompound()
+            cosmetic.writeToNBT(cmp)
 
-        ItemNBTHelper.setCompound(stack, TAG_COSMETIC, cmp)
+            ItemNBTHelper.setCompound(stack, TAG_COSMETIC, cmp)
+        } else {
+            ItemNBTHelper.removeEntry(stack, TAG_COSMETIC)
+        }
     }
 
     open fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {

@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.client.render.entity.RenderSealedArrow
 import shadowfox.botanicaladdons.client.render.tile.RenderTileFrozenStar
-import shadowfox.botanicaladdons.common.block.dendrics.thunder.ThunderEventHandler
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.CommonProxy
 import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
@@ -84,6 +83,11 @@ class ClientProxy : CommonProxy() {
     }
 
     override fun rainbow(saturation: Float) = Color(Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, saturation, 1.0f))
+
+    override fun rainbow2(speed: Float, saturation: Float): Color {
+        val time = ClientTickHandler.ticksInGame.toFloat() + ClientTickHandler.partialTicks
+        return Color.getHSBColor(time * speed, saturation, 1.0f)
+    }
 
     override fun rainbow(pos: BlockPos, saturation: Float): Color {
         val ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks

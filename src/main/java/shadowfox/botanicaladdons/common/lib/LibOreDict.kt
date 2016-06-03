@@ -27,4 +27,6 @@ object LibOreDict {
 
     val BLOCK_AQUAMARINE = "blockAquamarine"
     val BLOCK_THUNDERSTEEL = "blockThundersteel"
+
+    val IRIS_DIRT = "irisDirt"
 }

@@ -1,6 +1,5 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import net.minecraft.block.SoundType
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
@@ -8,6 +7,7 @@ import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
 import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 
@@ -18,7 +18,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
 class BlockRainbowLog(name: String) : BlockModLog(name), ILexiconable {
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
-        return null //todo
+        return LexiconEntries.irisDirt
     }
 
     override fun addInformation(stack: ItemStack?, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {

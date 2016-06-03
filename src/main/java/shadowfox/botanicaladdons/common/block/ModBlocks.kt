@@ -13,7 +13,11 @@ import shadowfox.botanicaladdons.common.block.alt.BlockAltPlanks
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.colored.*
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentPlanks.BlockRainbowPlanks
-import shadowfox.botanicaladdons.common.block.dendrics.circuit.*
+import shadowfox.botanicaladdons.common.block.dendrics.calico.*
+import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitLeaves
+import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitLog
+import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitPlanks
+import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitSapling
 import shadowfox.botanicaladdons.common.block.dendrics.sealing.*
 import shadowfox.botanicaladdons.common.block.dendrics.thunder.*
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
@@ -44,6 +48,7 @@ object ModBlocks {
     val altLeaves: Array<BlockAltLeaves>
     val altPlanks: BlockMod
     val storage: BlockMod
+    val irisLamp: BlockMod
 
     val sealSapling: BlockMod
     val sealPlanks: BlockMod
@@ -60,6 +65,11 @@ object ModBlocks {
     val circuitLeaves: BlockMod
     val circuitLog: BlockMod
 
+    val calicoSapling: BlockMod
+    val calicoPlanks: BlockMod
+    val calicoLeaves: BlockMod
+    val calicoLog: BlockMod
+
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
         star = BlockFrozenStar(LibNames.STAR)
@@ -67,28 +77,37 @@ object ModBlocks {
         irisDirt = BlockIridescentDirt(LibNames.IRIS_DIRT)
         rainbowDirt = BlockRainbowDirt(LibNames.RAINBOW_DIRT)
         irisPlanks = BlockIridescentPlanks(LibNames.IRIS_PLANKS)
-        irisLogs = Array(4) { object : BlockIridescentLog(LibNames.IRIS_LOG, it) {
-            override val COLOR: PropertyEnum<EnumDyeColor>
-                get() = BlockIridescentLog.COLOR_PROPS[it]
-        }}
+        irisLogs = Array(4) {
+            object : BlockIridescentLog(LibNames.IRIS_LOG, it) {
+                override val COLOR: PropertyEnum<EnumDyeColor>
+                    get() = BlockIridescentLog.COLOR_PROPS[it]
+            }
+        }
         rainbowPlanks = BlockRainbowPlanks(LibNames.RAINBOW_PLANKS)
         rainbowLog = BlockRainbowLog(LibNames.RAINBOW_LOG)
-        irisLeaves = Array(4) { object : BlockIridescentLeaves(LibNames.IRIS_LEAVES, it) {
-            override val COLOR: PropertyEnum<EnumDyeColor>
-                get() = BlockIridescentLeaves.COLOR_PROPS[it]
-        }}
+        irisLeaves = Array(4) {
+            object : BlockIridescentLeaves(LibNames.IRIS_LEAVES, it) {
+                override val COLOR: PropertyEnum<EnumDyeColor>
+                    get() = BlockIridescentLeaves.COLOR_PROPS[it]
+            }
+        }
         rainbowLeaves = BlockRainbowLeaves(LibNames.RAINBOW_LEAVES)
         irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
-        altLogs = Array(2) { object : BlockAltLog(LibNames.ALT_LOG, it) {
-            override val TYPE: PropertyEnum<AltGrassVariant>
-                get() = BlockAltLog.TYPE_PROPS[it]
-        }}
-        altLeaves = Array(2) { object : BlockAltLeaves(LibNames.ALT_LEAVES, it) {
-            override val TYPE: PropertyEnum<AltGrassVariant>
-                get() = BlockAltLeaves.TYPE_PROPS[it]
-        }}
+        altLogs = Array(2) {
+            object : BlockAltLog(LibNames.ALT_LOG, it) {
+                override val TYPE: PropertyEnum<AltGrassVariant>
+                    get() = BlockAltLog.TYPE_PROPS[it]
+            }
+        }
+        altLeaves = Array(2) {
+            object : BlockAltLeaves(LibNames.ALT_LEAVES, it) {
+                override val TYPE: PropertyEnum<AltGrassVariant>
+                    get() = BlockAltLeaves.TYPE_PROPS[it]
+            }
+        }
         altPlanks = BlockAltPlanks(LibNames.ALT_PLANKS)
         storage = BlockStorage(LibNames.STORAGE)
+        irisLamp = BlockColoredLamp(LibNames.IRIS_LAMP)
 
         SoundSealEventHandler
         sealSapling = BlockSealSapling(LibNames.SEAL_SAPLING)
@@ -107,23 +126,22 @@ object ModBlocks {
         circuitLeaves = BlockCircuitLeaves(LibNames.CIRCUIT_LEAVES)
         circuitLog = BlockCircuitLog(LibNames.CIRCUIT_LOG)
 
+        CalicoEventHandler
+        calicoSapling = BlockCalicoSapling(LibNames.CALICO_SAPLING)
+        calicoPlanks = BlockCalicoPlanks(LibNames.CALICO_PLANKS)
+        calicoLeaves = BlockCalicoLeaves(LibNames.CALICO_LEAVES)
+        calicoLog = BlockCalicoLog(LibNames.CALICO_LOG)
+
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
 
         OreDictionary.registerOre(LibOreDict.BLOCK_AQUAMARINE, ItemStack(storage, 1, BlockStorage.Variants.AQUAMARINE.ordinal))
         OreDictionary.registerOre(LibOreDict.BLOCK_THUNDERSTEEL, ItemStack(storage, 1, BlockStorage.Variants.THUNDERSTEEL.ordinal))
 
-        OreDictionary.registerOre("treeSapling", ItemStack(sealSapling, 1, OreDictionary.WILDCARD_VALUE))
-        OreDictionary.registerOre("treeSapling", ItemStack(irisSapling, 1, OreDictionary.WILDCARD_VALUE))
-
-        OreDictionary.registerOre("logWood", ItemStack(rainbowLog, 1, OreDictionary.WILDCARD_VALUE))
-        OreDictionary.registerOre("logWood", ItemStack(sealLog, 1, OreDictionary.WILDCARD_VALUE))
-        for (log in irisLogs) OreDictionary.registerOre("logWood", ItemStack(log, 1, OreDictionary.WILDCARD_VALUE))
-        for (log in altLogs) OreDictionary.registerOre("logWood", ItemStack(log, 1, OreDictionary.WILDCARD_VALUE))
-
-        OreDictionary.registerOre("plankWood", ItemStack(irisPlanks, 1, OreDictionary.WILDCARD_VALUE))
-        OreDictionary.registerOre("plankWood", ItemStack(rainbowPlanks, 1, OreDictionary.WILDCARD_VALUE))
-        OreDictionary.registerOre("plankWood", ItemStack(altPlanks, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre("dirt", ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre("dirt", ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
 
         OreDictionary.registerOre(LibOreDict.DYES[16], ItemStack(BotaniaBlocks.bifrostPerm, 1, OreDictionary.WILDCARD_VALUE))
     }

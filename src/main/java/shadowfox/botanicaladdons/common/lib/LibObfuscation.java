@@ -6,17 +6,23 @@ package shadowfox.botanicaladdons.common.lib;
  */
 public class LibObfuscation {
     // Cooldown handling
-    public static final String[] COOLDOWNTRACKER_COOLDOWNS = new String[] {"a", "field_185147_a", "cooldowns"};
-    public static final String[] COOLDOWNTRACKER_TICKS = new String[] {"b", "field_185148_b", "ticks"};
-    public static final String[] COOLDOWN_EXPIRETICKS = new String[] {"b", "field_185138_b", "expireTicks"};
-    public static final String[] COOLDOWN_CREATETICKS = new String[] {"a", "field_185137_a", "createTicks"};
+    public static final String[] COOLDOWNTRACKER_COOLDOWNS = new String[]{"a", "field_185147_a", "cooldowns"};
+    public static final String[] COOLDOWNTRACKER_TICKS = new String[]{"b", "field_185148_b", "ticks"};
+    public static final String[] COOLDOWN_EXPIRETICKS = new String[]{"b", "field_185138_b", "expireTicks"};
+    public static final String[] COOLDOWN_CREATETICKS = new String[]{"a", "field_185137_a", "createTicks"};
 
     // Item name handling
-    public static final String[] GUIINGAME_REMAININGHIGHLIGHTTICKS = new String[] {"q", "field_92017_k", "remainingHighlightTicks"};
+    public static final String[] GUIINGAME_REMAININGHIGHLIGHTTICKS = new String[]{"q", "field_92017_k", "remainingHighlightTicks"};
 
     // Swing handling
-    public static final String[] ENTITYLIVINGBASE_TICKSSINCELASTSWING = new String[] {"aE", "field_184617_aD", "ticksSinceLastSwing"};
+    public static final String[] ENTITYLIVINGBASE_TICKSSINCELASTSWING = new String[]{"aE", "field_184617_aD", "ticksSinceLastSwing"};
 
     // Lightning handling
-    public static final String[] ENTITYLIGHTNINGBOLT_EFFECTONLY = new String[] {"d", "field_184529_d", "effectOnly"};
+    public static final String[] ENTITYLIGHTNINGBOLT_EFFECTONLY = new String[]{"d", "field_184529_d", "effectOnly"};
+
+    // Explosion handling
+    public static final String[] EXPLOSION_EXPLOSIONSIZE = new String[]{"i", "field_77280_f", "explosionSize"};
+
+    // Food handling
+    public static final String[] ITEMFOOD_ALWAYSEDIBLE = new String[]{"e", "field_77852_bZ", "alwaysEdible"};
 }

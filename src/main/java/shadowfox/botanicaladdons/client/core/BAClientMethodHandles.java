@@ -23,6 +23,19 @@ import java.lang.reflect.Field;
 public class BAClientMethodHandles {
     @Nonnull
     private static final MethodHandle remainingHighlightSetter;
+
+    static {
+        try {
+            Field f = ReflectionHelper.findField(GuiIngame.class, LibObfuscation.GUIINGAME_REMAININGHIGHLIGHTTICKS);
+            f.setAccessible(true);
+            remainingHighlightSetter = MethodHandles.publicLookup().unreflectSetter(f);
+        } catch (Throwable t) {
+            FMLLog.severe("[BA]: Couldn't initialize client methodhandles! Things will be broken!");
+            t.printStackTrace();
+            throw Throwables.propagate(t);
+        }
+    }
+
     public static void setRemainingHighlight(@Nonnull GuiIngame gui, int ticks) {
         try {
             remainingHighlightSetter.invokeExact(gui, ticks);
@@ -58,18 +71,6 @@ public class BAClientMethodHandles {
             return (double) ClientMethodHandles.renderPosZ_getter.invokeExact(renderManager);
         } catch (Throwable t) {
             FMLLog.severe("[BA]: Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
-        }
-    }
-
-    static {
-        try {
-            Field f = ReflectionHelper.findField(GuiIngame.class, LibObfuscation.GUIINGAME_REMAININGHIGHLIGHTTICKS);
-            f.setAccessible(true);
-            remainingHighlightSetter = MethodHandles.publicLookup().unreflectSetter(f);
-        } catch (Throwable t) {
-            FMLLog.severe("[BA]: Couldn't initialize client methodhandles! Things will be broken!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }

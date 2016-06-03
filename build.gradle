@@ -28,7 +28,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 
 version = "${config.version}.${config.build_number}"
-group = "shadowfox.botanicaladdons"
+group = config.group
 archivesBaseName = config.mod_name
 
 minecraft {
@@ -41,6 +41,7 @@ minecraft {
     replace 'GRADLE:VERSION', config.version
 
     replaceIn 'LibMisc.java'
+    replaceIn 'LibMisc.kt'
 }
 
 repositories {

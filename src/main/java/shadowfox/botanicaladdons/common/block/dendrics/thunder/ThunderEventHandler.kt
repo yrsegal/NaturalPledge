@@ -1,25 +1,14 @@
 package shadowfox.botanicaladdons.common.block.dendrics.thunder
 
-import net.minecraft.block.material.Material
 import net.minecraft.entity.Entity
 import net.minecraft.entity.effect.EntityLightningBolt
-import net.minecraft.entity.effect.EntityWeatherEffect
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
-import net.minecraft.init.SoundEvents
-import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.SoundCategory
-import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.EnumDifficulty
-import net.minecraft.world.World
-import net.minecraftforge.client.event.EntityViewRenderEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
-import java.util.*
 
 /**
  * @author WireSegal
@@ -42,7 +31,8 @@ object ThunderEventHandler {
             if (effect.ticksExisted > 5) continue
 
             val thunderabsorbers = mutableListOf<BlockPos>()
-            for (pos in BlockPos.getAllInBox(effect.position.add(-MAXRANGE, -MAXRANGE, -MAXRANGE), effect.position.add(MAXRANGE, MAXRANGE, MAXRANGE))) {
+            for (pos in BlockPos.getAllInBox(effect.position.add(-MAXRANGE, -MAXRANGE, -MAXRANGE),
+                    effect.position.add(MAXRANGE, MAXRANGE, MAXRANGE))) if (pos.distanceSq(effect.position) <= 64) {
                 val state = e.world.getBlockState(pos)
                 if (state.block is IThunderAbsorber)
                     thunderabsorbers.add(pos)

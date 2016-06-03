@@ -63,6 +63,11 @@ object LibNames {
     val CIRCUIT_PLANKS = "circuitPlanks"
     val CIRCUIT_LOG = "circuitLog"
     val CIRCUIT_LEAVES = "circuitLeaves"
+    val CALICO_SAPLING = "calicoSapling"
+    val CALICO_PLANKS = "calicoPlanks"
+    val CALICO_LOG = "calicoLog"
+    val CALICO_LEAVES = "calicoLeaves"
+    val IRIS_LAMP = "irisLamp"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

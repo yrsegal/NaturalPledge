@@ -36,7 +36,7 @@ object SoundSealEventHandler {
 
                 var volumeMultiplier = 1f
 
-                for (pos in BlockPos.getAllInBox(BlockPos(x-MAXRANGE, y-MAXRANGE, z-MAXRANGE), BlockPos(x+MAXRANGE, y+MAXRANGE, z+MAXRANGE))) {
+                for (pos in BlockPos.getAllInBox(BlockPos(x - MAXRANGE, y - MAXRANGE, z - MAXRANGE), BlockPos(x + MAXRANGE, y + MAXRANGE, z + MAXRANGE))) {
                     val state = world.getBlockState(pos)
                     val block = state.block
                     if (block is ISealingBlock) {
@@ -55,18 +55,18 @@ object SoundSealEventHandler {
 
     @SideOnly(Side.CLIENT)
     class VolumeModSound(val sound: ISound, val volumeMult: Float) : ISound {
-        override fun canRepeat()                            = sound.canRepeat()
-        override fun getRepeatDelay()                       = sound.repeatDelay
-        override fun getVolume()                            = sound.volume * volumeMult
-        override fun getPitch()                             = sound.pitch
-        override fun getXPosF()                             = sound.xPosF
-        override fun getYPosF()                             = sound.yPosF
-        override fun getZPosF()                             = sound.zPosF
-        override fun getAttenuationType()                   = sound.attenuationType
-        override fun getSound()                             = sound.sound
+        override fun canRepeat() = sound.canRepeat()
+        override fun getRepeatDelay() = sound.repeatDelay
+        override fun getVolume() = sound.volume * volumeMult
+        override fun getPitch() = sound.pitch
+        override fun getXPosF() = sound.xPosF
+        override fun getYPosF() = sound.yPosF
+        override fun getZPosF() = sound.zPosF
+        override fun getAttenuationType() = sound.attenuationType
+        override fun getSound() = sound.sound
         override fun createAccessor(handler: SoundHandler?) = sound.createAccessor(handler)
-        override fun getCategory()                          = sound.category
-        override fun getSoundLocation()                     = sound.soundLocation
+        override fun getCategory() = sound.category
+        override fun getSoundLocation() = sound.soundLocation
     }
 
     private fun dist(pos1: BlockPos, pos2: BlockPos): Double {

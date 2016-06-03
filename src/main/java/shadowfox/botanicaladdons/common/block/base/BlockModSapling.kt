@@ -8,24 +8,19 @@ import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks
+import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraft.world.gen.feature.WorldGenTrees
 import net.minecraftforge.common.EnumPlantType
 import net.minecraftforge.common.IPlantable
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.api.SaplingVariantRegistry
-import shadowfox.botanicaladdons.api.sapling.IIridescentSaplingVariant
+import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
-import shadowfox.botanicaladdons.api.sapling.IridescentSaplingBaseVariant
-import shadowfox.botanicaladdons.common.block.ModBlocks
-import shadowfox.botanicaladdons.common.block.colored.BlockIridescentDirt
-import vazkii.botania.api.state.BotaniaStateProps
 import java.util.*
 
 /**
@@ -43,6 +38,8 @@ abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod
     init {
         this.tickRandomly = true
         soundType = SoundType.PLANT
+        if (hasItem)
+            OreDictionary.registerOre("treeSapling", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
     }
 
     override fun canPlaceBlockAt(worldIn: World, pos: BlockPos): Boolean {

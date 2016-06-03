@@ -61,6 +61,8 @@ open class CommonProxy {
 
     fun rainbow() = rainbow(1f)
     open fun rainbow(saturation: Float) = Color(0xFFFFFF)
+    fun rainbow2() = rainbow2(0.005f, 1f)
+    open fun rainbow2(speed: Float, saturation: Float) = Color(0xFFFFFF)
     fun rainbow(pos: BlockPos) = rainbow(pos, 1f)
     open fun rainbow(pos: BlockPos, saturation: Float) = Color(0xFFFFFF)
 

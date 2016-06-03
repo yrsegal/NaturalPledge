@@ -27,9 +27,6 @@ import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.BASoundEvents
-import shadowfox.botanicaladdons.common.items.ItemResource
-import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
-import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
 import shadowfox.botanicaladdons.common.items.ModItems
