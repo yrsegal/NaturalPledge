@@ -5,6 +5,8 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
+import net.minecraft.init.Blocks
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.TooltipHelper
@@ -44,11 +46,16 @@ object TreeGrowingCategory : IRecipeCategory {
 
         if (recipeWrapper is TreeGrowingRecipeJEI) {
             recipeLayout.itemStacks.set(SAPLING_SLOT, recipeWrapper.sapling)
-            recipeLayout.itemStacks.set(SOIL_SLOT, recipeWrapper.soil)
+            if (recipeWrapper.soil == null)
+                recipeLayout.itemStacks.set(SOIL_SLOT, defaultSoil)
+            else
+                recipeLayout.itemStacks.set(SOIL_SLOT, recipeWrapper.soil)
             recipeLayout.itemStacks.set(LEAVES_SLOT, recipeWrapper.leaves)
             recipeLayout.itemStacks.set(WOOD_SLOT, recipeWrapper.wood)
         }
     }
+
+    val defaultSoil = listOf(ItemStack(Blocks.DIRT), ItemStack(Blocks.GRASS))
 
     private val SAPLING_SLOT = 0
     private val SOIL_SLOT = 1

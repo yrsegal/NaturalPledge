@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.api.sapling;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author WireSegal
@@ -10,9 +11,11 @@ import javax.annotation.Nonnull;
  */
 public class SaplingGrowthRecipe {
     @Nonnull
-    private final ItemStack sapling, soil, wood, leaves;
+    private final ItemStack sapling, wood, leaves;
+    @Nullable
+    private final ItemStack soil;
 
-    public SaplingGrowthRecipe(@Nonnull ItemStack sapling, @Nonnull ItemStack soil, @Nonnull ItemStack wood, @Nonnull ItemStack leaves) {
+    public SaplingGrowthRecipe(@Nonnull ItemStack sapling, @Nullable ItemStack soil, @Nonnull ItemStack wood, @Nonnull ItemStack leaves) {
         this.sapling = sapling;
         this.soil = soil;
         this.wood = wood;
@@ -29,7 +32,7 @@ public class SaplingGrowthRecipe {
         return sapling;
     }
 
-    @Nonnull
+    @Nullable
     public ItemStack getSoil() {
         return soil;
     }

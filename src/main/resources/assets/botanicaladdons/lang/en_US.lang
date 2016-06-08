@@ -1,5 +1,8 @@
 tile.botanicaladdons:divineCore.name=Divine Ritual Core
 tile.botanicaladdons:funnel.name=Livingwood Funnel
+tile.botanicaladdons:aquaGlass.name=Aquamarine Glass
+tile.botanicaladdons:aquaPane.name=Aquamarine Pane
+
 
 item.botanicaladdons:emblemNjord.name=Priestly Emblem: Njord
 item.botanicaladdons:emblemNjord.angry=You feel the air trembling with Njord's displeasure...
@@ -277,6 +280,10 @@ botanicaladdons.page.njordSpells1=The second spell of &3Njord&0, &1Galeforce&0, 
 botanicaladdons.page.njordSpells2=The third spell of &3Njord&0, &1Sudden Gust&0, allows for corralling animals without harming them. The being the player looks at will be forced back when it's cast, as if the player had hit them.
 botanicaladdons.page.njordSpells3=The final spell of &3Njord&0, &1Tempest Infusion&0, forces the strength of a storm into a shard of the sea, making &1Aquamarine&0. If you can somehow augment your emblem's power, the storm within the shard might be more potent.
 botanicaladdons.page.njordSpells4=It's so pretty
+botanicaladdons.page.njordSpells5=And back again
+botanicaladdons.page.njordSpells6=Use me underwater
+botanicaladdons.page.njordSpells7=And some panes
+
 
 botanicaladdons.entry.idunn=Faith in Idunn
 botanicaladdons.tagline.idunn=Life, spring, and immortality
@@ -300,6 +307,7 @@ botanicaladdons.page.thorSpells1=The second spell of &3Thor&0, &1Thunder's Force
 botanicaladdons.page.thorSpells2=The third spell of &3Thor&0, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
 botanicaladdons.page.thorSpells3=The final spell of &3Thor&0, &1Thunder Infusion&0, forces power into regular iron, making &1Thundersteel&0. If you can somehow augment your emblem's power, the metal might be more potent.
 botanicaladdons.page.thorSpells4=Block of awesome
+botanicaladdons.page.thorSpells5=And back again
 
 botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color

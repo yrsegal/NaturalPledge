@@ -107,6 +107,9 @@ object ModRecipes {
 
     val recipeFunnel: IRecipe
 
+    val recipeAquaGlass: IRecipe
+    val recipeAquaPane: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -390,6 +393,17 @@ object ModRecipes {
                 'L', BotaniaOreDict.LIVING_WOOD,
                 'P', LibOreDict.CIRCUIT_PLANKS)
 
+        recipeAquaGlass = addOreDictRecipe(ModBlocks.aquaGlass,
+                "AAA",
+                "AGA",
+                "AAA",
+                'A', LibOreDict.AQUAMARINE,
+                'G', "blockGlassBlue")
+
+        recipeAquaPane = addOreDictRecipe(ModBlocks.aquaPane,
+                "GGG", "GGG", //GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+                'G', ModBlocks.aquaGlass)
+
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {
             SpellRegistry.registerSpellRecipe("gemPrismarine", spell, of(AQUAMARINE), of(AQUAMARINE, true))
@@ -409,23 +423,23 @@ object ModRecipes {
             for (i in LibOreDict.DYES.withIndex()) SpellRegistry.registerSpellRecipe(i.value, spell, ItemStack(ModItems.iridescentDye, 1, i.index), ItemStack(ModItems.awakenedDye, 1, i.index))
 
 
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.sealSapling), ItemStack(Blocks.GRASS), ItemStack(ModBlocks.sealLog), ItemStack(ModBlocks.sealLeaves))
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.thunderSapling), ItemStack(Blocks.GRASS), ItemStack(ModBlocks.thunderLog), ItemStack(ModBlocks.thunderLeaves))
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.circuitSapling), ItemStack(Blocks.GRASS), ItemStack(ModBlocks.circuitLog), ItemStack(ModBlocks.circuitLeaves))
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.calicoSapling), ItemStack(Blocks.GRASS), ItemStack(ModBlocks.calicoLog), ItemStack(ModBlocks.calicoLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.sealSapling), null, ItemStack(ModBlocks.sealLog), ItemStack(ModBlocks.sealLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.thunderSapling), null, ItemStack(ModBlocks.thunderLog), ItemStack(ModBlocks.thunderLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.circuitSapling), null, ItemStack(ModBlocks.circuitLog), ItemStack(ModBlocks.circuitLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.calicoSapling), null, ItemStack(ModBlocks.calicoLog), ItemStack(ModBlocks.calicoLeaves))
 
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.OAK.metadata), ItemStack(Blocks.GRASS),
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.OAK.metadata), null,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.OAK.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.OAK.metadata))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.SPRUCE.metadata), ItemStack(Blocks.GRASS),
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.SPRUCE.metadata), null,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.SPRUCE.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.SPRUCE.metadata))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.BIRCH.metadata), ItemStack(Blocks.GRASS),
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.BIRCH.metadata), null,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.BIRCH.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.BIRCH.metadata))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.metadata), ItemStack(Blocks.GRASS),
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.metadata), null,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.JUNGLE.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.JUNGLE.metadata))
 
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.ACACIA.metadata), ItemStack(Blocks.GRASS),
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.ACACIA.metadata), null,
                 ItemStack(Blocks.LOG2, 1, BlockPlanks.EnumType.ACACIA.metadata - 4), ItemStack(Blocks.LEAVES2, 1, BlockPlanks.EnumType.ACACIA.metadata - 4))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.DARK_OAK.metadata), ItemStack(Blocks.GRASS),
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.DARK_OAK.metadata), null,
                 ItemStack(Blocks.LOG2, 1, BlockPlanks.EnumType.DARK_OAK.metadata - 4), ItemStack(Blocks.LEAVES2, 1, BlockPlanks.EnumType.DARK_OAK.metadata - 4))
     }
 
