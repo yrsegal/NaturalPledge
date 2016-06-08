@@ -28,5 +28,10 @@ object LibOreDict {
     val BLOCK_AQUAMARINE = "blockAquamarine"
     val BLOCK_THUNDERSTEEL = "blockThundersteel"
 
+    val THUNDER_PLANKS = "plankThunder"
+    val SEAL_PLANKS = "plankSeal"
+    val CIRCUIT_PLANKS = "plankCircuit"
+    val CALICO_PLANKS = "plankCalico"
+
     val IRIS_DIRT = "irisDirt"
 }

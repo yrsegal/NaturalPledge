@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.block
 
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.item.EnumDyeColor
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -150,6 +151,11 @@ object ModBlocks {
 
         OreDictionary.registerOre(LibOreDict.BLOCK_AQUAMARINE, ItemStack(storage, 1, BlockStorage.Variants.AQUAMARINE.ordinal))
         OreDictionary.registerOre(LibOreDict.BLOCK_THUNDERSTEEL, ItemStack(storage, 1, BlockStorage.Variants.THUNDERSTEEL.ordinal))
+
+        OreDictionary.registerOre(LibOreDict.THUNDER_PLANKS, ItemStack(thunderPlanks, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.SEAL_PLANKS, ItemStack(sealPlanks, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.CIRCUIT_PLANKS, ItemStack(circuitPlanks, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.CALICO_PLANKS, ItemStack(calicoPlanks, 1, OreDictionary.WILDCARD_VALUE))
 
         OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))

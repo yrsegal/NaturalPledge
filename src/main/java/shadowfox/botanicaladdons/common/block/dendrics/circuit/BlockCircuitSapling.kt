@@ -1,9 +1,12 @@
 package shadowfox.botanicaladdons.common.block.dendrics.circuit
 
+import net.minecraft.block.properties.IProperty
+import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
+import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
@@ -22,10 +25,6 @@ import java.util.*
  */
 class BlockCircuitSapling(name: String) : BlockModSapling(name), ILexiconable, ICircuitBlock {
 
-    init {
-        tickRandomly = true
-    }
-
     override fun updateTick(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
         super.updateTick(worldIn, pos, state, rand)
         worldIn.notifyNeighborsOfStateChange(pos, this)
@@ -40,16 +39,23 @@ class BlockCircuitSapling(name: String) : BlockModSapling(name), ILexiconable, I
             worldIn.setBlockState(pos, state, 4)
     }
 
-    override fun getComparatorInputOverride(blockState: IBlockState, worldIn: World, pos: BlockPos): Int {
-        return ICircuitBlock.getPower(blockState, worldIn, pos)
-    }
-
-    override fun hasComparatorInputOverride(state: IBlockState?): Boolean {
+    override fun canProvidePower(state: IBlockState?): Boolean {
         return true
     }
 
-    override fun getWeakChanges(world: IBlockAccess?, pos: BlockPos?): Boolean {
-        return true
+    override fun getWeakPower(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing?): Int {
+        return getActualState(blockState, blockAccess, pos).getValue(ICircuitBlock.POWER)
+    }
+
+    override fun getActualState(state: IBlockState, worldIn: IBlockAccess, pos: BlockPos): IBlockState {
+        return state.withProperty(ICircuitBlock.POWER, ICircuitBlock.getPower(worldIn, pos))
+    }
+
+    override val ignoredProperties: Array<IProperty<*>>?
+        get() = arrayOf(ICircuitBlock.POWER)
+
+    override fun createBlockState(): BlockStateContainer? {
+        return BlockStateContainer(this, BlockModSapling.STAGE, ICircuitBlock.POWER)
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

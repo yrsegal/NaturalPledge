@@ -33,6 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileLivingwoodFunnel
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.wand.IWandHUD
@@ -189,7 +190,7 @@ class BlockFunnel(name: String): BlockModContainer(name, Material.WOOD), ILexico
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
-        return null //todo
+        return LexiconEntries.funnel
     }
 
     @SideOnly(Side.CLIENT)
@@ -197,14 +198,8 @@ class BlockFunnel(name: String): BlockModContainer(name, Material.WOOD), ILexico
         val te = world.getTileEntity(pos) ?: return
         if (te is TileLivingwoodFunnel) {
             val stack = te.unsidedHandler.getStackInSlot(0) ?: return
-            if (stack.stackSize > 0) {
-                GlStateManager.pushMatrix()
-                RenderHelper.enableGUIStandardItemLighting()
-                GlStateManager.translate(res.scaledWidth / 2.0, res.scaledHeight / 2.0, 0.0)
-                mc.renderItem.renderItem(stack, ItemCameraTransforms.TransformType.GUI)
-                RenderHelper.disableStandardItemLighting()
-                GlStateManager.popMatrix()
-            }
+            if (stack.stackSize > 0)
+                mc.renderItem.renderItemIntoGUI(stack, res.scaledWidth / 2, res.scaledHeight / 2)
         }
     }
 }

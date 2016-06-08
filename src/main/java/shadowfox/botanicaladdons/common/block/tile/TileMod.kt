@@ -7,6 +7,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import vazkii.botania.api.internal.VanillaPacketDispatcher
 
 /**
  * @author WireSegal
@@ -30,7 +31,7 @@ open class TileMod : TileEntity() {
     }
 
     override fun getUpdateTag(): NBTTagCompound {
-        return writeToNBT(NBTTagCompound())
+        return writeToNBT(super.getUpdateTag())
     }
 
     override fun getUpdatePacket(): SPacketUpdateTileEntity? {
@@ -48,5 +49,11 @@ open class TileMod : TileEntity() {
     override fun onDataPacket(net: NetworkManager, packet: SPacketUpdateTileEntity) {
         super.onDataPacket(net, packet)
         readCustomNBT(packet.nbtCompound)
+    }
+
+    override fun markDirty() {
+        super.markDirty()
+        if (!worldObj.isRemote)
+            VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this)
     }
 }

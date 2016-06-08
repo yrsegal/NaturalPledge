@@ -499,13 +499,13 @@ class TileLivingwoodFunnel() : TileMod(), IHopper, ITickable {
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T> getCapability(capability: Capability<T>, facing: EnumFacing): T {
+    override fun <T> getCapability(capability: Capability<T>, facing: EnumFacing?): T {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return unsidedHandler as T
         return super.getCapability(capability, facing)
     }
 
-    override fun hasCapability(capability: Capability<*>, facing: EnumFacing): Boolean {
+    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
         return capability === CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing)
     }
 

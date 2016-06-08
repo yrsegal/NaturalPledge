@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.circuit
 
+import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
@@ -10,7 +11,10 @@ import net.minecraft.world.IBlockAccess
  */
 interface ICircuitBlock {
     companion object {
-        fun getPower(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos): Int {
+
+        val POWER = PropertyInteger.create("power", 0, 15)
+
+        fun getPower(blockAccess: IBlockAccess, pos: BlockPos): Int {
             for (i in 1..15) {
                 val state = blockAccess.getBlockState(pos.up(i))
                 if (state == null || state.block !is ICircuitBlock)

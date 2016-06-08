@@ -105,6 +105,8 @@ object ModRecipes {
     val recipeIrisSapling: RecipePureDaisy
     val recipeIrisLamp: IRecipe
 
+    val recipeFunnel: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -380,6 +382,13 @@ object ModRecipes {
                 " D ",
                 'D', LibOreDict.IRIS_DYES[16],
                 'L', Blocks.REDSTONE_LAMP)
+
+        recipeFunnel = addOreDictRecipe(ModBlocks.funnel,
+                "L L",
+                "LPL",
+                " L ",
+                'L', BotaniaOreDict.LIVING_WOOD,
+                'P', LibOreDict.CIRCUIT_PLANKS)
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {

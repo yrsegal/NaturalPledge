@@ -1,4 +1,5 @@
 tile.botanicaladdons:divineCore.name=Divine Ritual Core
+tile.botanicaladdons:funnel.name=Livingwood Funnel
 
 item.botanicaladdons:emblemNjord.name=Priestly Emblem: Njord
 item.botanicaladdons:emblemNjord.angry=You feel the air trembling with Njord's displeasure...
@@ -381,7 +382,7 @@ botanicaladdons.page.thunder2=The planks work too
 
 botanicaladdons.entry.circuit=Circuitree
 botanicaladdons.tagline.circuit=A redstone emitter
-botanicaladdons.page.circuit0=The &1Circuitree&0 emits a redstone signal of a strength equal to the number of &1Circuitree&0 blocks consecutively above it out of a &1Redstone Comparator&0. Any block from the tree can be used in the stack, including the sapling.
+botanicaladdons.page.circuit0=The &1Circuitree&0 emits a redstone signal of a strength equal to the number of &1Circuitree&0 blocks consecutively above it. Any block from the tree can be used in the stack, including the sapling.
 botanicaladdons.page.circuit1=I deeply apologize for the pun
 botanicaladdons.page.circuit2=The planks work too
 
@@ -429,3 +430,8 @@ botanicaladdons.entry.sapling=Iridescent Sapling
 botanicaladdons.tagline.sapling=A really big carnation
 botanicaladdons.page.sapling0=The &1Iridescent Sapling&0 has no true color of its own. Instead, it grows with whatever dirt is beneath it as a color. Not all dirt can be used in this way, including natural dirt. A good starting point is the special &1Pasture Seeds&0.
 botanicaladdons.page.sapling1=Deconstruction but no reconstruction
+
+botanicaladdons.entry.funnel=Livingwood Funnel
+botanicaladdons.tagline.funnel=A single-slot hopper
+botanicaladdons.page.funnel0=For some people, the &1Hopper&0 is too lax. It allows items through when it shouldn't, and sometimes moves them too fast. The &1Livingwood Funnel&0 is far, far stricter. It only allows one item through at a time, and can be filtered by placing an &1Item Frame&0 on one of its sides. Its contents can be seen by looking at it while holding a &1Wand of the Forest&0.
+botanicaladdons.page.funnel1=London loves queues
