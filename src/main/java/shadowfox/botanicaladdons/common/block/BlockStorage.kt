@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block
 
 import net.minecraft.block.SoundType
+import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
@@ -36,9 +37,9 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
         soundType = SoundType.METAL
     }
 
-    enum class Variants(val material: Material, val hardness: Float, val resistance: Float, val level: Int, val lightLevel: Int) : IStringSerializable {
-        THUNDERSTEEL(Material.IRON, 5f, 10f, 1, 0),
-        AQUAMARINE(Material.ROCK, 1.5f, 10f, -1, 10);
+    enum class Variants(val material: Material, val hardness: Float, val resistance: Float, val level: Int, val lightLevel: Int, val mapColor: MapColor) : IStringSerializable {
+        THUNDERSTEEL(Material.IRON, 5f, 10f, 1, 0, MapColor.SILVER),
+        AQUAMARINE(Material.ROCK, 1.5f, 10f, -1, 10, MapColor.BLUE);
 
         override fun toString(): String {
             return this.name.toLowerCase().split("_").joinToString("", transform = { it.capitalizeFirst() }).lowercaseFirst()
@@ -90,6 +91,10 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
 
     override fun getLightValue(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): Int {
         return state.getValue(TYPE).lightLevel
+    }
+
+    override fun getMapColor(state: IBlockState): MapColor? {
+        return state.getValue(TYPE).mapColor
     }
 
     override fun getEntry(p0: World, p1: BlockPos, p2: EntityPlayer, p3: ItemStack): LexiconEntry? {

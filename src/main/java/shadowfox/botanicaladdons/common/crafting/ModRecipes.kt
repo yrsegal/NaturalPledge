@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.IRecipe
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
@@ -120,7 +121,7 @@ object ModRecipes {
                 'Q', "gemQuartz",
                 'G', "ingotGold")
 
-        recipeNjordEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
+        recipeNjordEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
                 " P ",
                 "WSA",
                 " C ",
@@ -130,7 +131,7 @@ object ModRecipes {
                 'A', BotaniaOreDict.RUNE[3], // Air
                 'C', BotaniaItems.waterRing)
 
-        recipeIdunnEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
+        recipeIdunnEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
                 " T ",
                 "RSU",
                 " B ",
@@ -140,7 +141,7 @@ object ModRecipes {
                 'U', BotaniaOreDict.RUNE[5], // Summer
                 'B', BotaniaItems.knockbackBelt)
 
-        recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
+        recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
                 " G ",
                 "WSA",
                 " B ",
@@ -150,7 +151,7 @@ object ModRecipes {
                 'A', BotaniaOreDict.RUNE[3], // Air
                 'B', BotaniaItems.travelBelt)
 
-        recipeHeimdallEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java) ?: ItemStack(ModItems.emblem, 1, 32767),
+        recipeHeimdallEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
                 " G ",
                 "PSF",
                 " B ",

@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "facing=down": { "model": "botanicaladdons:funnelDown" },
+    "facing=north": { "model": "botanicaladdons:funnelSide" },
+    "facing=south": { "model": "botanicaladdons:funnelSide", "y": 180 },
+    "facing=west": { "model": "botanicaladdons:funnelSide", "y": 270 },
+    "facing=east": { "model": "botanicaladdons:funnelSide", "y": 90 }
+  }
+}

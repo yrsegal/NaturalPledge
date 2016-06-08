@@ -68,6 +68,9 @@ object LibNames {
     val CALICO_LOG = "calicoLog"
     val CALICO_LEAVES = "calicoLeaves"
     val IRIS_LAMP = "irisLamp"
+    val AQUA_GLASS = "aquaGlass"
+    val AQUA_PANE = "aquaPane"
+    val FUNNEL = "funnel"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

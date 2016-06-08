@@ -1,0 +1,9 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "axis=y": { "model": "botanicaladdons:calicoLog" },
+        "axis=z": { "model": "botanicaladdons:calicoLog", "x": 90 },
+        "axis=x": { "model": "botanicaladdons:calicoLog", "x": 90, "y": 90 },
+        "axis=none": { "model": "botanicaladdons:calicoBark" }
+    }
+}

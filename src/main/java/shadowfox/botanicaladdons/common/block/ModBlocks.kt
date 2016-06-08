@@ -11,6 +11,7 @@ import shadowfox.botanicaladdons.common.block.alt.BlockAltLeaves
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLog
 import shadowfox.botanicaladdons.common.block.alt.BlockAltPlanks
 import shadowfox.botanicaladdons.common.block.base.BlockMod
+import shadowfox.botanicaladdons.common.block.base.BlockModPane
 import shadowfox.botanicaladdons.common.block.colored.*
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentPlanks.BlockRainbowPlanks
 import shadowfox.botanicaladdons.common.block.dendrics.calico.*
@@ -20,6 +21,7 @@ import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitPlank
 import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitSapling
 import shadowfox.botanicaladdons.common.block.dendrics.sealing.*
 import shadowfox.botanicaladdons.common.block.dendrics.thunder.*
+import shadowfox.botanicaladdons.common.block.tile.TileLivingwoodFunnel
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.lib.LibNames
@@ -69,6 +71,11 @@ object ModBlocks {
     val calicoPlanks: BlockMod
     val calicoLeaves: BlockMod
     val calicoLog: BlockMod
+
+    val aquaGlass: BlockMod
+    val aquaPane: BlockModPane
+
+    val funnel: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -132,8 +139,14 @@ object ModBlocks {
         calicoLeaves = BlockCalicoLeaves(LibNames.CALICO_LEAVES)
         calicoLog = BlockCalicoLog(LibNames.CALICO_LOG)
 
+        aquaGlass = BlockAquamarineGlass(LibNames.AQUA_GLASS)
+        aquaPane = BlockAquamarinePane(LibNames.AQUA_PANE)
+
+        funnel = BlockFunnel(LibNames.FUNNEL)
+
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
+        GameRegistry.registerTileEntity(TileLivingwoodFunnel::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.FUNNEL).toString())
 
         OreDictionary.registerOre(LibOreDict.BLOCK_AQUAMARINE, ItemStack(storage, 1, BlockStorage.Variants.AQUAMARINE.ordinal))
         OreDictionary.registerOre(LibOreDict.BLOCK_THUNDERSTEEL, ItemStack(storage, 1, BlockStorage.Variants.THUNDERSTEEL.ordinal))
@@ -142,6 +155,7 @@ object ModBlocks {
         OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("dirt", ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("dirt", ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre("blockGlass", ItemStack(aquaGlass, 1, OreDictionary.WILDCARD_VALUE))
 
         OreDictionary.registerOre(LibOreDict.DYES[16], ItemStack(BotaniaBlocks.bifrostPerm, 1, OreDictionary.WILDCARD_VALUE))
     }

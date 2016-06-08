@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botanicaladdons:item/gaiaKiller"
+    "layer0": "botanicaladdons:item/funnel"
   }
 }

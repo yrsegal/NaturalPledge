@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block.base
 
 import net.minecraft.block.Block
+import net.minecraft.block.BlockPane
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
@@ -18,12 +19,9 @@ import shadowfox.botanicaladdons.common.core.tab.ModTab
 
 /**
  * @author WireSegal
- * Created at 5:45 PM on 3/20/16.
+ * Created at 1:20 PM on 6/4/16.
  */
-open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg variants: String) : Block(materialIn, color), ModelHandler.IBABlock {
-
-    constructor(name: String, materialIn: Material, vararg variants: String) : this(name, materialIn, materialIn.materialMapColor, *variants)
-
+open class BlockModPane(name: String, material: Material, canDrop: Boolean, vararg variants: String) : BlockPane(material, canDrop), ModelHandler.IVariantHolder, ModelHandler.IBABlock {
     override var variants: Array<out String> = variants
     override val bareName: String = name
 
