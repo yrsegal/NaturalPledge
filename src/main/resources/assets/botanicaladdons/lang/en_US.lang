@@ -61,6 +61,7 @@ item.botanicaladdons:toolbelt.name=Traveller's Toolbelt
 item.botanicaladdons:foodbelt.name=Traveller's Ration Belt
 item.botanicaladdons:travelStone.name=Traveller's Flowstone
 item.botanicaladdons:findStone.name=Traveller's Waystone
+item.botanicaladdons:deathStone.name=Stone of Return
 
 tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
@@ -343,6 +344,8 @@ botanicaladdons.entry.findStone=Traveller's Waystone
 botanicaladdons.tagline.findStone=GPS
 botanicaladdons.page.findStone0=&3Heimdall&0, being a god of travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Waystone&0. It can be bound to a point or named &otrack:&0 and a player's name to track that player, and will give you an indication of what direction to go as long as you're holding it, allowing for easy travels home or to a friend.
 botanicaladdons.page.findStone1=Remember those who have been forgotten
+botanicaladdons.page.findStone2=By combining the stone with the essence of death, you can make a version which targets past lives instead of the present. When you die, you'll reincarnate holding any &1Stones of Return&0 you had on you. These will point your way to the place you died. If you shift-click the stone in the air, it will clear its destination.
+botanicaladdons.page.findStone3=I will stand
 
 botanicaladdons.entry.star=Frozen Stars
 botanicaladdons.tagline.star=An ender light source

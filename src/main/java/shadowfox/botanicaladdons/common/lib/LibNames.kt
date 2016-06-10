@@ -20,6 +20,7 @@ object LibNames {
     val FINDER = "findStone"
     val RESOURCE = "resource"
     val FOODBELT = "foodbelt"
+    val DEATH_FINDER = "deathStone"
 
     val SPELL_LEAP = "leap"
     val SPELL_INTERDICT = "interdict"

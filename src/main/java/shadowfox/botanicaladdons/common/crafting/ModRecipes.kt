@@ -110,6 +110,8 @@ object ModRecipes {
     val recipeAquaGlass: IRecipe
     val recipeAquaPane: IRecipe
 
+    val recipeDeathStone: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -334,7 +336,7 @@ object ModRecipes {
                 " S ",
                 "R R",
                 'W', Blocks.WOOL,
-                'S', "treeSapling",
+                'S', ModBlocks.irisSapling,
                 'R', LibOreDict.LIFE_ROOT)
 
         recipeSealPlanks = addShapelessOreDictRecipe(ItemStack(ModBlocks.sealPlanks, 4),
@@ -346,7 +348,7 @@ object ModRecipes {
                 "R R",
                 'W', BotaniaOreDict.RUNE[13], // Wrath
                 'I', "ingotIron",
-                'S', "treeSapling",
+                'S', ModBlocks.irisSapling,
                 'R', LibOreDict.LIFE_ROOT)
 
         recipeThunderPlanks = addShapelessOreDictRecipe(ItemStack(ModBlocks.thunderPlanks, 4),
@@ -358,7 +360,7 @@ object ModRecipes {
                 "R R",
                 'D', "dustRedstone",
                 'C', Items.COMPARATOR,
-                'S', "treeSapling",
+                'S', ModBlocks.irisSapling,
                 'R', LibOreDict.LIFE_ROOT)
 
         recipeCircuitPlanks = addShapelessOreDictRecipe(ItemStack(ModBlocks.circuitPlanks, 4),
@@ -370,7 +372,7 @@ object ModRecipes {
                 "R R",
                 'W', LibOreDict.DYES[0], // White
                 'B', LibOreDict.DYES[15], // Black
-                'S', "treeSapling",
+                'S', ModBlocks.irisSapling,
                 'R', LibOreDict.LIFE_ROOT)
 
         recipeCalicoPlanks = addShapelessOreDictRecipe(ItemStack(ModBlocks.calicoPlanks, 4),
@@ -398,11 +400,15 @@ object ModRecipes {
                 "AGA",
                 "AAA",
                 'A', LibOreDict.AQUAMARINE,
-                'G', "blockGlassBlue")
+                'G', BotaniaBlocks.manaGlass)
 
-        recipeAquaPane = addOreDictRecipe(ModBlocks.aquaPane,
+        recipeAquaPane = addOreDictRecipe(ItemStack(ModBlocks.aquaPane, 16),
                 "GGG", "GGG", //GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
                 'G', ModBlocks.aquaGlass)
+
+        recipeDeathStone = addShapelessOreDictRecipe(ModItems.deathFinder,
+                ModItems.finder, "bone")
+
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {

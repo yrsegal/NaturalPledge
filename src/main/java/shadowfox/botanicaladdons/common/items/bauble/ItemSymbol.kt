@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.fml.relauncher.Side
@@ -22,6 +23,7 @@ import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.items.TempBaubleHelper
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.item.IBaubleRender
@@ -164,6 +166,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         if (playerAs !in specialPlayers) playerAs = ""
         GlStateManager.pushMatrix()
         if (type == IBaubleRender.RenderType.HEAD && playerAs in headPlayers) {
+            TempBaubleHelper.translateToHeadLevel(player)
+            faceTranslate()
             if (playerAs == vaz) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(POTATO_LOCATION)
                 val model = ModelTinyPotato()
@@ -171,20 +175,14 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 GlStateManager.rotate(-90F, 0F, 1F, 0F)
                 model.render()
             } else if (playerAs == jansey) {
-                IBaubleRender.Helper.translateToHeadLevel(player)
-                faceTranslate()
                 GlStateManager.translate(0f, 0.175f, 0.2f)
                 GlStateManager.rotate(180F, 0f, 1f, 0f)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else if (playerAs == willie) {
-                IBaubleRender.Helper.translateToHeadLevel(player)
-                faceTranslate()
                 GlStateManager.scale(0.5, 0.5, 0.5)
-                GlStateManager.translate(0f, 1.375f, 0.625f)
+                GlStateManager.translate(0f, -1.8f, 0.625f)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else {
-                IBaubleRender.Helper.translateToHeadLevel(player)
-                faceTranslate()
                 if (playerAs == wire) {
                     GlStateManager.scale(0.5, 0.5, 0.5)
                     GlStateManager.translate(0.25, 0.05, -0.1)
@@ -198,31 +196,18 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 }
             }
         } else if (type == IBaubleRender.RenderType.BODY && playerAs !in headPlayers) {
+            TempBaubleHelper.rotateIfSneaking(player)
+            chestTranslate()
             if (playerAs == l0ne) {
-                if (player.isSneaking) {
-                    GlStateManager.translate(0.0, 0.2, 0.0)
-                    GlStateManager.rotate(90 / Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
-                }
-                chestTranslate()
                 GlStateManager.rotate(90F, 0F, 1F, 0F)
                 GlStateManager.translate(0.25F, -0.75F, -0.055F)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, THIRD_PERSON_RIGHT_HAND)
             } else if (playerAs == wiiv) {
-                if (player.isSneaking) {
-                    GlStateManager.translate(0.0, 0.2, 0.0)
-                    GlStateManager.rotate(90 / Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
-                }
-                chestTranslate()
                 GlStateManager.scale(0.75, 0.75, 0.75)
                 GlStateManager.translate(0F, -0.5F, 0.1F)
                 GlStateManager.rotate(180F, 0F, 1F, 0F)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else if (playerAs == tris) {
-                if (player.isSneaking) {
-                    GlStateManager.translate(0.0, 0.2, 0.0)
-                    GlStateManager.rotate(90 / Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
-                }
-                chestTranslate()
                 val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
                 GlStateManager.translate(0F, -0.5F, if (armor) 0.325F else 0.2F)
                 GlStateManager.rotate(180F, 0F, 1F, 0F)
@@ -234,16 +219,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f)
                 ShaderHelper.releaseShader()
             } else {
-                if (player.isSneaking) {
-                    GlStateManager.translate(0.0, 0.3, 0.0)
-                    GlStateManager.rotate(90 / Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
-                }
                 val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
-                GlStateManager.rotate(180F, 1F, 0F, 0F)
-                GlStateManager.translate(0.0, -0.3, if (armor) 0.025 else 0.05)
-
+                GlStateManager.translate(0.0, -0.3, if (armor) 0.125 else 0.05)
                 ItemNBTHelper.setBoolean(renderStack, ItemFaithBauble.TAG_PENDANT, true)
-
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, THIRD_PERSON_RIGHT_HAND)
             }
         }
@@ -271,7 +249,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
     fun faceTranslate() {
         GlStateManager.rotate(90F, 0F, 1F, 0F)
         GlStateManager.rotate(180F, 1F, 0F, 0F)
-        GlStateManager.translate(0f, -1.55f, -0.3f)
+        GlStateManager.translate(0f, 0f, -0.3f)
     }
 
     fun chestTranslate() {

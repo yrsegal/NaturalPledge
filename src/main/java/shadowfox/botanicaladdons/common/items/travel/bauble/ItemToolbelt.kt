@@ -31,6 +31,7 @@ import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.items.TempBaubleHelper
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 import vazkii.botania.api.item.IBaubleRender
@@ -307,9 +308,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 model = ModelBiped()
 
             Minecraft.getMinecraft().renderEngine.bindTexture(beltTexture)
-            if (player.isSneaking)
-                GlStateManager.translate(0f, 0.3f, 0f)
-            vazkii.botania.api.item.IBaubleRender.Helper.rotateIfSneaking(player)
+            TempBaubleHelper.rotateIfSneaking(player)
 
             if (!player.isSneaking)
                 GlStateManager.translate(0F, 0.2F, 0F)

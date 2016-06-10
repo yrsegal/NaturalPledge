@@ -28,6 +28,7 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.items.TempBaubleHelper
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
@@ -143,25 +144,27 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         }
     }
 
+    fun faceTranslate() {
+        GlStateManager.rotate(90F, 0F, 1F, 0F)
+        GlStateManager.rotate(180F, 1F, 0F, 0F)
+        GlStateManager.translate(0f, 0f, -0.3f)
+    }
+
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
         val variant = getVariant(stack) ?: return
 
-        GlStateManager.pushMatrix()
         if (render == IBaubleRender.RenderType.BODY) {
-            if (player.isSneaking) {
-                GlStateManager.translate(0.0, 0.3, 0.0)
-                GlStateManager.rotate(90 / Math.PI.toFloat(), 1.0f, 0.0f, 0.0f)
-            }
-            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
-            GlStateManager.rotate(180F, 1F, 0F, 0F)
-            GlStateManager.translate(0.0, -0.3, if (armor) 0.025 else 0.05)
-
             val renderStack = stack.copy()
             ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
+            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
 
+            GlStateManager.pushMatrix()
+            TempBaubleHelper.rotateIfSneaking(player)
+            GlStateManager.rotate(180F, 1F, 0F, 0F)
+            GlStateManager.translate(0.0, -0.3, if (armor) 0.125 else 0.05)
             Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
+            GlStateManager.popMatrix()
         }
-        GlStateManager.popMatrix()
 
         if (!isFaithless(player))
             variant.onRenderTick(stack, player, render, renderTick)

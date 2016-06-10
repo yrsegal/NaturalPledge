@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.ItemRenderer
 import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.client.renderer.RenderItem
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
@@ -198,8 +199,11 @@ class BlockFunnel(name: String): BlockModContainer(name, Material.WOOD), ILexico
         val te = world.getTileEntity(pos) ?: return
         if (te is TileLivingwoodFunnel) {
             val stack = te.unsidedHandler.getStackInSlot(0) ?: return
-            if (stack.stackSize > 0)
+            if (stack.stackSize > 0) {
+                RenderHelper.enableGUIStandardItemLighting()
                 mc.renderItem.renderItemIntoGUI(stack, res.scaledWidth / 2, res.scaledHeight / 2)
+                RenderHelper.disableStandardItemLighting()
+            }
         }
     }
 }

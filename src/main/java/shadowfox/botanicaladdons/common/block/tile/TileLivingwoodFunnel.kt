@@ -349,7 +349,7 @@ class TileLivingwoodFunnel() : TileMod(), IHopper, ITickable {
     }
 
     fun entitiesOnFunnel(world: World, x: Double, y: Double, z: Double): EntityItem? {
-        val list = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(x, y, z, x + 1.0, y + 1.0, z + 1.0), EntitySelectors.IS_ALIVE)
+        val list = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(x, y - 0.5, z, x + 1.0, y + 1.0, z + 1.0), EntitySelectors.IS_ALIVE)
         return if (list.size > 0) list[0] else null
     }
 

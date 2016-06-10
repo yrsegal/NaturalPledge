@@ -43,6 +43,7 @@ object ModItems {
     val foodbelt: ItemMod
     val lightPlacer: ItemMod
     val finder: ItemMod
+    val deathFinder: ItemMod
 
     val fists: ItemMod
 
@@ -78,6 +79,7 @@ object ModItems {
         foodbelt = ItemFoodBelt(LibNames.FOODBELT)
         lightPlacer = ItemLightPlacer(LibNames.LIGHT_PLACER)
         finder = ItemWaystone(LibNames.FINDER)
+        deathFinder = ItemDeathCompass(LibNames.DEATH_FINDER)
 
         fists = ItemThunderFists(LibNames.THUNDERFIST, thunderMaterial)
 

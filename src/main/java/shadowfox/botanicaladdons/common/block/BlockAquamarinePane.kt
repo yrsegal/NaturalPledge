@@ -21,7 +21,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 1:26 PM on 6/4/16.
  */
-class BlockAquamarinePane(name: String) : BlockModPane(name, Material.GLASS, false), ILexiconable {
+class BlockAquamarinePane(name: String) : BlockModPane(name, Material.GLASS, true), ILexiconable {
 
     init {
         blockHardness = 0.3F
