@@ -221,12 +221,13 @@ misc.botanicaladdons.heimdallSmiles=It feels like you can see hues within hues a
 item.botanicaladdons:holySymbol.name=Holy Symbol
 item.botanicaladdons:holySymbol.potato.name=Tiny Headtato
 item.botanicaladdons:holySymbol.catalyst.name=Curse of the Catalyst
-item.botanicaladdons:holySymbol.heart.name=Crystalline Heart
+item.botanicaladdons:holySymbol.heart.name=Culmination of Being
 item.botanicaladdons:holySymbol.headdress.name=Cherokee Headdress
 item.botanicaladdons:holySymbol.tail.name=Fox Tail
 item.botanicaladdons:holySymbol.teru.name=Chesteru Teru Bozu
 item.botanicaladdons:holySymbol.mystery.name=Mysterious Pendant
 item.botanicaladdons:holySymbol.rainbow.name=Fabulosity Incarnate
+item.botanicaladdons:holySymbol.none.name=Cleared Symbol
 
 botanicaladdons.subtitle.woosh=Wind wooshes
 

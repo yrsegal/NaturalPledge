@@ -109,9 +109,13 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             }
         }
 
+        nameCheck("none", "none")
         nameCheck(vaz, "vazkii is bae")
-        nameCheck(wiiv, "rain rain go away")
+        nameCheck(wire, "change the world")
+        nameCheck(tris, "the power of the soul")
+        nameCheck(l0ne, "do the foxtrot")
         nameCheck(jansey, "derp faced chieftain")
+        nameCheck(wiiv, "rain rain go away")
         nameCheck(troll, "???")
         nameCheck(willie, "less fabulous than wire")
 
@@ -131,6 +135,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             wiiv -> "$above.teru"
             troll -> "$above.mystery"
             willie -> "$above.rainbow"
+            "none" -> "$above.none"
             else -> above
         }
     }
@@ -171,11 +176,12 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             if (playerAs == vaz) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(POTATO_LOCATION)
                 val model = ModelTinyPotato()
-                GlStateManager.translate(0.0F, -2.0F, 0.0F)
-                GlStateManager.rotate(-90F, 0F, 1F, 0F)
+                GlStateManager.translate(0F, 0.425F, 0.25F)
+                GlStateManager.rotate(180F, 0F, 0F, 1F)
                 model.render()
             } else if (playerAs == jansey) {
-                GlStateManager.translate(0f, 0.175f, 0.2f)
+                GlStateManager.scale(1.001, 1.001, 1.001)
+                GlStateManager.translate(0f, -1.35f, 0.25f)
                 GlStateManager.rotate(180F, 0f, 1f, 0f)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else if (playerAs == willie) {
@@ -185,7 +191,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             } else {
                 if (playerAs == wire) {
                     GlStateManager.scale(0.5, 0.5, 0.5)
-                    GlStateManager.translate(0.25, 0.05, -0.1)
+                    GlStateManager.translate(0.25, -3.05, -0.1)
                     GlStateManager.alphaFunc(GL11.GL_EQUAL, 1f)
                     ShaderHelper.useShader(ShaderHelper.halo)
                 }
