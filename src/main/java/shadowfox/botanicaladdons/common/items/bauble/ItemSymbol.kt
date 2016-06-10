@@ -200,7 +200,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             chestTranslate()
             if (playerAs == l0ne) {
                 GlStateManager.rotate(90F, 0F, 1F, 0F)
-                GlStateManager.translate(0.25F, -0.75F, -0.055F)
+                GlStateManager.translate(0.25F, -0.4F, -0.055F)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, THIRD_PERSON_RIGHT_HAND)
             } else if (playerAs == wiiv) {
                 GlStateManager.scale(0.75, 0.75, 0.75)

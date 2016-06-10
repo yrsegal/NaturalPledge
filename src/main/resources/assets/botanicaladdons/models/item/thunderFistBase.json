@@ -1,0 +1,128 @@
+{
+    "__comment": "Designed by WireSegal with BDcraft Cubik PRO 0.96 Beta - http://bdcraft.net",
+    "textures": {
+        "inner": "botanicaladdons:block/thundersteelBlock",
+        "outer": "botanicaladdons:item/thunderFist",
+        "manaDiamond": "botania:items/manaDiamond"
+    },
+    "elements": [
+        {
+            "from": [ 8.5, 12, 3.5 ],
+            "to": [ 9.5, 12.5, 13.5 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 1, 8 ], "texture": "#inner" },
+                "up":    { "uv": [ 0, 0, 1, 8 ], "texture": "#outer" },
+                "north": { "uv": [ 8.5, 3.5, 9.5, 4 ], "texture": "#inner" },
+                "south": { "uv": [ 0, 0, 1, 0.5 ], "texture": "#inner" },
+                "west":  { "uv": [ 15, 0, 7, 0.5 ], "texture": "#inner" },
+                "east":  { "uv": [ 7, 0, 15, 0.5 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 6.5, 12, 3.5 ],
+            "to": [ 7.5, 12.5, 13.5 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 1, 8 ], "texture": "#inner" },
+                "up":    { "uv": [ 0, 0, 1, 8 ], "texture": "#outer" },
+                "north": { "uv": [ 8.5, 3.5, 9.5, 4 ], "texture": "#inner" },
+                "south": { "uv": [ 0, 0, 1, 0.5 ], "texture": "#inner" },
+                "west":  { "uv": [ 15, 0, 7, 0.5 ], "texture": "#inner" },
+                "east":  { "uv": [ 7, 0, 15, 0.5 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 10.5, 10.5, 5.5 ],
+            "to": [ 11, 11.5, 13 ],
+            "faces": {
+                "down":  { "uv": [ 0.5, 7.5, 0, 0 ], "texture": "#outer" },
+                "up":    { "uv": [ 0, 0, 0.5, 7.5 ], "texture": "#outer" },
+                "north": { "uv": [ 0, 8, 0.5, 9 ], "texture": "#inner" },
+                "south": { "uv": [ 0, 0, 0.5, 1 ], "texture": "#inner" },
+                "east":  { "uv": [ 7, 0, 14.5, 1 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 5, 10.5, 5.5 ],
+            "to": [ 5.5, 11.5, 13 ],
+            "faces": {
+                "down":  { "uv": [ 0.5, 7.5, 0, 0 ], "texture": "#outer" },
+                "up":    { "uv": [ 0, 0, 0.5, 7.5 ], "texture": "#outer" },
+                "north": { "uv": [ 0, 8, 0.5, 9 ], "texture": "#inner" },
+                "south": { "uv": [ 0, 0, 0.5, 1 ], "texture": "#inner" },
+                "west":  { "uv": [ 14.5, 0, 7, 1 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 5.5, 9.5, 4 ],
+            "to": [ 10.5, 12, 13 ],
+            "faces": {
+                "down":  { "uv": [ 10.5, 12, 5.5, 3 ], "texture": "#outer" },
+                "up":    { "uv": [ 5.5, 3, 10.5, 12 ], "texture": "#outer" },
+                "north": { "uv": [ 5.5, 4, 10.5, 6.5 ], "texture": "#inner" },
+                "south": { "uv": [ 5.5, 4, 10.5, 6.5 ], "texture": "#inner" },
+                "west":  { "uv": [ 4, 4, 13, 6.5 ], "texture": "#inner" },
+                "east":  { "uv": [ 3, 4, 12, 6.5 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 7, 11.5, 8 ],
+            "to": [ 9, 13, 10 ],
+            "faces": {
+                "down":  { "uv": [ 7, 8, 9, 10 ], "texture": "#manaDiamond" },
+                "up":    { "uv": [ 7, 8, 9, 10 ], "texture": "#manaDiamond" },
+                "north": { "uv": [ 7, 6.5, 9, 8 ], "texture": "#manaDiamond" },
+                "south": { "uv": [ 7, 10, 9, 11.5 ], "texture": "#manaDiamond" },
+                "west":  { "uv": [ 7, 10, 9, 11.5 ], "texture": "#manaDiamond" },
+                "east":  { "uv": [ 7, 5.5, 9, 7 ], "texture": "#manaDiamond" }
+            }
+        },
+        {
+            "from": [ 6.5, 8, 3.5 ],
+            "to": [ 9.5, 11, 4.5 ],
+            "faces": {
+                "down":  { "uv": [ 10, 12.5, 6, 11.5 ], "texture": "#outer" },
+                "up":    { "uv": [ 6, 11.5, 10, 12.5 ], "texture": "#outer" },
+                "north": { "uv": [ 6, 4.5, 10, 6 ], "texture": "#inner" },
+                "south": { "uv": [ 6, 4.5, 10, 6 ], "texture": "#inner" },
+                "west":  { "uv": [ 3.5, 4.5, 4.5, 6 ], "texture": "#inner" },
+                "east":  { "uv": [ 11.5, 4.5, 12.5, 6 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 6.5, 11, 3.5 ],
+            "to": [ 7.5, 12, 4 ],
+            "faces": {
+                "down":  { "uv": [ 9.5, 4, 8.5, 3.5 ], "texture": "#outer" },
+                "up":    { "uv": [ 6.5, 3.5, 7.5, 4 ], "texture": "#outer" },
+                "north": { "uv": [ 8.5, 4, 9.5, 4.5 ], "texture": "#inner" },
+                "south": { "uv": [ 6.5, 4, 7.5, 4.5 ], "texture": "#inner" },
+                "west":  { "uv": [ 3.5, 4, 4, 4.5 ], "texture": "#inner" },
+                "east":  { "uv": [ 12, 4, 12.5, 4.5 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 8.5, 11, 3.5 ],
+            "to": [ 9.5, 12, 4 ],
+            "faces": {
+                "down":  { "uv": [ 9.5, 12.5, 8.5, 12 ], "texture": "#outer" },
+                "up":    { "uv": [ 6.5, 12, 7.5, 12.5 ], "texture": "#outer" },
+                "north": { "uv": [ 6.5, 4, 7.5, 4.5 ], "texture": "#inner" },
+                "south": { "uv": [ 8.5, 4, 9.5, 4.5 ], "texture": "#inner" },
+                "west":  { "uv": [ 3.5, 4, 4, 4.5 ], "texture": "#inner" },
+                "east":  { "uv": [ 12, 4, 12.5, 4.5 ], "texture": "#inner" }
+            }
+        },
+        {
+            "from": [ 7.5, 11, 3.5 ],
+            "to": [ 8.5, 11.5, 4 ],
+            "faces": {
+                "down":  { "uv": [ 8.5, 4, 7.5, 3.5 ], "texture": "#outer" },
+                "up":    { "uv": [ 7.5, 3.5, 8.5, 4 ], "texture": "#outer" },
+                "north": { "uv": [ 7.5, 4.5, 8.5, 5 ], "texture": "#inner" },
+                "south": { "uv": [ 7.5, 4.5, 8.5, 5 ], "texture": "#inner" },
+                "west":  { "uv": [ 3.5, 4.5, 4, 5 ], "texture": "#inner" },
+                "east":  { "uv": [ 12, 4.5, 12.5, 5 ], "texture": "#inner" }
+            }
+        }
+    ]
+}
