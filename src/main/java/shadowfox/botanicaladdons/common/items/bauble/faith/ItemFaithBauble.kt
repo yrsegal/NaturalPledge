@@ -144,12 +144,6 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         }
     }
 
-    fun faceTranslate() {
-        GlStateManager.rotate(90F, 0F, 1F, 0F)
-        GlStateManager.rotate(180F, 1F, 0F, 0F)
-        GlStateManager.translate(0f, 0f, -0.3f)
-    }
-
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
         val variant = getVariant(stack) ?: return
 
@@ -160,9 +154,11 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
 
             GlStateManager.pushMatrix()
             TempBaubleHelper.rotateIfSneaking(player)
+            TempBaubleHelper.translateToChest()
+            TempBaubleHelper.defaultTransforms()
             GlStateManager.rotate(180F, 1F, 0F, 0F)
-            GlStateManager.translate(0.0, -0.3, if (armor) 0.125 else 0.05)
-            Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
+            GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
+            Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.NONE)
             GlStateManager.popMatrix()
         }
 

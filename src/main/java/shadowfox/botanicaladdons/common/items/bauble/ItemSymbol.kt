@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.entity.Entity
@@ -14,7 +13,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.fml.relauncher.Side
@@ -172,7 +170,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         GlStateManager.pushMatrix()
         if (type == IBaubleRender.RenderType.HEAD && playerAs in headPlayers) {
             TempBaubleHelper.translateToHeadLevel(player)
-            faceTranslate()
+            TempBaubleHelper.translateToFace()
+            TempBaubleHelper.defaultTransforms()
             if (playerAs == vaz) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(POTATO_LOCATION)
                 val model = ModelTinyPotato()
@@ -180,18 +179,17 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 GlStateManager.rotate(180F, 0F, 0F, 1F)
                 model.render()
             } else if (playerAs == jansey) {
-                GlStateManager.scale(1.001, 1.001, 1.001)
-                GlStateManager.translate(0f, -1.35f, 0.25f)
+                GlStateManager.scale(1.8, 1.8, 1.8)
+                GlStateManager.translate(0f, 0f, 0.25f)
                 GlStateManager.rotate(180F, 0f, 1f, 0f)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else if (playerAs == willie) {
-                GlStateManager.scale(0.5, 0.5, 0.5)
-                GlStateManager.translate(0f, -1.8f, 0.625f)
+                GlStateManager.translate(0f, 0.875f, 0.625f)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else {
                 if (playerAs == wire) {
                     GlStateManager.scale(0.5, 0.5, 0.5)
-                    GlStateManager.translate(0.25, -3.05, -0.1)
+                    GlStateManager.translate(0.425, -0.3, -0.4)
                     GlStateManager.alphaFunc(GL11.GL_EQUAL, 1f)
                     ShaderHelper.useShader(ShaderHelper.halo)
                 }
@@ -203,19 +201,20 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             }
         } else if (type == IBaubleRender.RenderType.BODY && playerAs !in headPlayers) {
             TempBaubleHelper.rotateIfSneaking(player)
-            chestTranslate()
+            TempBaubleHelper.translateToChest()
+            TempBaubleHelper.defaultTransforms()
             if (playerAs == l0ne) {
                 GlStateManager.rotate(90F, 0F, 1F, 0F)
-                GlStateManager.translate(0.25F, -0.4F, -0.055F)
-                Minecraft.getMinecraft().renderItem.renderItem(renderStack, THIRD_PERSON_RIGHT_HAND)
+                GlStateManager.translate(0.5F, -0.75F, 0F)
+                Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else if (playerAs == wiiv) {
-                GlStateManager.scale(0.75, 0.75, 0.75)
-                GlStateManager.translate(0F, -0.5F, 0.1F)
+                GlStateManager.scale(1.36, 1.36, 1.36)
+                GlStateManager.translate(0F, -0.25F, 0F)
                 GlStateManager.rotate(180F, 0F, 1F, 0F)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else if (playerAs == tris) {
                 val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
-                GlStateManager.translate(0F, -0.5F, if (armor) 0.325F else 0.2F)
+                GlStateManager.translate(0F, -0.25F, if (armor) 0.325F else 0.2F)
                 GlStateManager.rotate(180F, 0F, 1F, 0F)
                 GlStateManager.enableBlend()
                 GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f)
@@ -226,9 +225,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 ShaderHelper.releaseShader()
             } else {
                 val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
-                GlStateManager.translate(0.0, -0.3, if (armor) 0.125 else 0.05)
+                GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
                 ItemNBTHelper.setBoolean(renderStack, ItemFaithBauble.TAG_PENDANT, true)
-                Minecraft.getMinecraft().renderItem.renderItem(renderStack, THIRD_PERSON_RIGHT_HAND)
+                Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             }
         }
         GlStateManager.popMatrix()
@@ -243,22 +242,12 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         GlStateManager.enableRescaleNormal()
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO)
         GlStateManager.pushMatrix()
-        ibakedmodel = ForgeHooksClient.handleCameraTransforms(ibakedmodel, THIRD_PERSON_RIGHT_HAND, false)
+        ibakedmodel = ForgeHooksClient.handleCameraTransforms(ibakedmodel, NONE, false)
         Minecraft.getMinecraft().renderItem.renderItem(stack, ibakedmodel)
         GlStateManager.cullFace(GlStateManager.CullFace.BACK)
         GlStateManager.popMatrix()
         GlStateManager.disableRescaleNormal()
         Minecraft.getMinecraft().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
         Minecraft.getMinecraft().textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap()
-    }
-
-    fun faceTranslate() {
-        GlStateManager.rotate(90F, 0F, 1F, 0F)
-        GlStateManager.rotate(180F, 1F, 0F, 0F)
-        GlStateManager.translate(0f, 0f, -0.3f)
-    }
-
-    fun chestTranslate() {
-        GlStateManager.rotate(180F, 1F, 0F, 0F)
     }
 }
