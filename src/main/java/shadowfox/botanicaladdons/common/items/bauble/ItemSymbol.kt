@@ -7,10 +7,12 @@ import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.renderer.texture.TextureMap
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
@@ -175,7 +177,8 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             if (playerAs == vaz) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(POTATO_LOCATION)
                 val model = ModelTinyPotato()
-                GlStateManager.translate(0F, 0.425F, 0.25F)
+                GlStateManager.scale(1.8, 1.8, 1.8)
+                GlStateManager.translate(0F, 1.75F, 0.25F)
                 GlStateManager.rotate(180F, 0F, 0F, 1F)
                 model.render()
             } else if (playerAs == jansey) {
@@ -231,6 +234,17 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             }
         }
         GlStateManager.popMatrix()
+    }
+
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+        super.getSubItems(itemIn, tab, subItems)
+        if (tab == null) {
+            for (player in specialPlayers) {
+                val stack = ItemStack(itemIn)
+                setPlayer(stack, player)
+                subItems.add(stack)
+            }
+        }
     }
 
     fun renderItem(stack: ItemStack) {
