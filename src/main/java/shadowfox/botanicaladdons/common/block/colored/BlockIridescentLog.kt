@@ -61,32 +61,13 @@ abstract class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
-        var axis = BlockLog.EnumAxis.Y
-        val i = meta and 12
         val j = meta and 3
-
-        if (i == 4) {
-            axis = BlockLog.EnumAxis.X
-        } else if (i == 8) {
-            axis = BlockLog.EnumAxis.Z
-        }
-
-        return this.defaultState.withProperty(AXIS, axis).withProperty(COLOR, COLORS[colorSet][j])
+        return super.getStateFromMeta(meta).withProperty(COLOR, COLORS[colorSet][j])
     }
 
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
-        var i = 0
-        i = i or (state.getValue(COLOR).metadata - (colorSet * 4))
-
-        when (state.getValue(BlockLog.LOG_AXIS)) {
-            BlockLog.EnumAxis.X -> i = i or 4
-            BlockLog.EnumAxis.Z -> i = i or 8
-            BlockLog.EnumAxis.NONE -> i = i or 12
-            else -> i = i or 0
-        }
-
-        return i
+        return (state.getValue(COLOR).ordinal - (colorSet * 4)) or super.getMetaFromState(state)
     }
 
     override fun createBlockState(): BlockStateContainer? {

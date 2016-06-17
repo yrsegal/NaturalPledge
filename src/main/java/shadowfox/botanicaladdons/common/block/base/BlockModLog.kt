@@ -91,22 +91,24 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
         var axis = BlockLog.EnumAxis.Y
         val i = meta and 12
 
-        if (i == 4) {
-            axis = BlockLog.EnumAxis.X
-        } else if (i == 8) {
-            axis = BlockLog.EnumAxis.Z
+        when (i) {
+            4 -> axis = BlockLog.EnumAxis.X
+            8 -> axis = BlockLog.EnumAxis.Z
+            12 -> axis = BlockLog.EnumAxis.NONE
         }
 
         return this.defaultState.withProperty(AXIS, axis)
     }
 
     override fun getMetaFromState(state: IBlockState?): Int {
+        state ?: return 0
         var i = 0
 
-        if (state!!.getValue(AXIS) == BlockLog.EnumAxis.X) {
-            i = i or 4
-        } else if (state.getValue(AXIS) == BlockLog.EnumAxis.Z) {
-            i = i or 8
+        when (state.getValue(AXIS)) {
+            BlockLog.EnumAxis.X -> i = i or 4
+            BlockLog.EnumAxis.Z -> i = i or 8
+            BlockLog.EnumAxis.NONE -> i = i or 12
+            else -> i = i or 0
         }
 
         return i

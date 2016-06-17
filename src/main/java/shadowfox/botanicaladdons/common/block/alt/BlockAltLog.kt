@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
+import shadowfox.botanicaladdons.common.block.colored.BlockIridescentLog
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -43,32 +44,13 @@ abstract class BlockAltLog(name: String, val colorSet: Int) : BlockModLog(name +
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
-        var axis = BlockLog.EnumAxis.Y
-        val i = meta and 12
         val j = meta and 3
-
-        if (i == 4) {
-            axis = BlockLog.EnumAxis.X
-        } else if (i == 8) {
-            axis = BlockLog.EnumAxis.Z
-        }
-
-        return this.defaultState.withProperty(AXIS, axis).withProperty(TYPE, AltGrassVariant.values()[colorSet * 4 + j])
+        return super.getStateFromMeta(meta).withProperty(TYPE, AltGrassVariant.values()[colorSet * 4 + j])
     }
 
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
-        var i = 0
-        i = i or (state.getValue(TYPE).ordinal - (colorSet * 4))
-
-        when (state.getValue(BlockLog.LOG_AXIS)) {
-            BlockLog.EnumAxis.X -> i = i or 4
-            BlockLog.EnumAxis.Z -> i = i or 8
-            BlockLog.EnumAxis.NONE -> i = i or 12
-            else -> i = i or 0
-        }
-
-        return i
+        return (state.getValue(TYPE).ordinal - (colorSet * 4)) or super.getMetaFromState(state)
     }
 
     override fun createBlockState(): BlockStateContainer? {
