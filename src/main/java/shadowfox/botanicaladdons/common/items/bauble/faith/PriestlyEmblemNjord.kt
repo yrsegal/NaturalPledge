@@ -41,31 +41,36 @@ class PriestlyEmblemNjord : IFaithVariant {
         val world = player.worldObj
         val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
 
-        if (player.isSneaking && world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, 0.175, 0.0)) && player.motionY > -0.5)
-            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
-                player.motionY -= 0.15
-                player.fallDistance = 0f
-            }
+        val shouldCost = world.totalWorldTime % 10 == 0L
+        if (!ManaItemHandler.requestManaExact(emblem, player, 1, false)) return
+
+        var flag = false
+
+        if (player.isSneaking && world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, 0.175, 0.0)) && player.motionY > -0.5) {
+            player.motionY -= 0.15
+            player.fallDistance = 0f
+            flag = true
+        }
 
         if (player.capabilities.isFlying || player.isSneaking) return
 
         if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, 0.175, 0.0)) && player.motionY < 0.5) {
-            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
-                player.motionY += 0.15
-                player.fallDistance = 0f
-            }
-        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.175, 0.0))) {
-            if (player.motionY < 0.0 && ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
-                player.motionY = 0.0
-                player.fallDistance = 0f
-                player.onGround = true
-            }
+            player.motionY += 0.15
+            player.fallDistance = 0f
+            flag = true
+        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.175, 0.0)) && player.motionY < 0.0) {
+            player.motionY = 0.0
+            player.fallDistance = 0f
+            player.onGround = true
+            flag = true
         } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15 + player.motionY, 0.0))) {
-            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
-                player.motionY += 0.15
-                player.fallDistance = 0f
-            }
+            player.motionY += 0.15
+            player.fallDistance = 0f
+            flag = true
         }
+
+        if (flag && shouldCost)
+            ManaItemHandler.requestManaExact(emblem, player, 1, true)
     }
 
     @SubscribeEvent
