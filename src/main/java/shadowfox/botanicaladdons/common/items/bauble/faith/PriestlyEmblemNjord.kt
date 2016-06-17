@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.math.MathHelper
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -40,15 +41,28 @@ class PriestlyEmblemNjord : IFaithVariant {
         val world = player.worldObj
         val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
 
+        if (player.isSneaking && world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, 0.175, 0.0)) && player.motionY > -0.5)
+            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
+                player.motionY -= 0.15
+                player.fallDistance = 0f
+            }
+
         if (player.capabilities.isFlying || player.isSneaking) return
 
-        if (world.containsAnyLiquid(player.entityBoundingBox)) {
-            if (player.motionY < 0.15 && ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
-                player.motionY = 0.15
+        if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, 0.175, 0.0)) && player.motionY < 0.5) {
+            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
+                player.motionY += 0.15
+                player.fallDistance = 0f
             }
-        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15, 0.0))) {
-            if (player.motionY < 0 && ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
+        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.175, 0.0))) {
+            if (player.motionY < 0.0 && ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
                 player.motionY = 0.0
+                player.fallDistance = 0f
+                player.onGround = true
+            }
+        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15 + player.motionY, 0.0))) {
+            if (ManaItemHandler.requestManaExact(emblem, player, 2, true)) {
+                player.motionY += 0.15
                 player.fallDistance = 0f
             }
         }
