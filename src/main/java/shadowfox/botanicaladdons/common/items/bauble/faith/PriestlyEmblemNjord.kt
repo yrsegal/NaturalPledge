@@ -46,7 +46,10 @@ class PriestlyEmblemNjord : IFaithVariant {
 
         var flag = false
 
-        if (player.isSneaking && world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, 0.175, 0.0)) && player.motionY > -0.5) {
+        val dist = -0.05
+        val shift = 0.175
+
+        if (!player.capabilities.isFlying && player.isSneaking && world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, dist + shift, 0.0)) && player.motionY > -0.5) {
             player.motionY -= 0.15
             player.fallDistance = 0f
             flag = true
@@ -54,18 +57,20 @@ class PriestlyEmblemNjord : IFaithVariant {
 
         if (player.capabilities.isFlying || player.isSneaking) return
 
-        if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, 0.175, 0.0)) && player.motionY < 0.5) {
+        if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, dist + shift, 0.0)) && player.motionY < 0.5) {
             player.motionY += 0.15
             player.fallDistance = 0f
             flag = true
-        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.175, 0.0)) && player.motionY < 0.0) {
+        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, dist, 0.0)) && player.motionY < 0.0) {
             player.motionY = 0.0
             player.fallDistance = 0f
             player.onGround = true
             flag = true
-        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, -0.15 + player.motionY, 0.0))) {
-            player.motionY += 0.15
+        } else if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, dist + player.motionY - 0.05, 0.0)) && player.motionY < 0.0) {
+            player.setPosition(player.posX, Math.floor(player.posY), player.posZ)
+            player.motionY /= 5
             player.fallDistance = 0f
+            player.onGround = true
             flag = true
         }
 
