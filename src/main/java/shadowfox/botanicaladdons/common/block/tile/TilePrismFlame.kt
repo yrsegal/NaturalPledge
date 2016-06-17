@@ -1,32 +1,28 @@
 package shadowfox.botanicaladdons.common.block.tile
 
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.ITickable
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 
 /**
  * @author WireSegal
  * Created at 1:46 PM on 5/4/16.
  */
-class TilePrismFlame : TileMod(), ITickable {
+class TilePrismFlame : TileModTickable() {
     private val TAG_COLOR = "color"
     private val TAG_INK = "phantomInk"
     var color = -1
     var inked = false
 
-    override fun update() {
-        try {
-            if (!inked || Botania.proxy.isClientPlayerWearingMonocle)
-                BotanicalAddons.proxy.particleEmission(worldObj, Vector3.fromBlockPos(pos), getLightColor())
-        } catch (ignored: NullPointerException) {
-        }
+    override fun updateEntity() {
+        if (worldObj.isRemote)
+            if (!inked || BotanicalAddons.PROXY.playerHasMonocle())
+                BotanicalAddons.PROXY.particleEmission(worldObj, Vector3.fromBlockPos(pos), getLightColor())
     }
 
     fun getLightColor(): Int {
         return when (color) {
-            -1 -> BotanicalAddons.proxy.rainbow(pos).rgb
+            -1 -> BotanicalAddons.PROXY.rainbow(pos).rgb
             else -> color
         }
     }

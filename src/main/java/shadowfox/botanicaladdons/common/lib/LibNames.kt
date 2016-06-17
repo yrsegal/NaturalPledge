@@ -1,6 +1,9 @@
 package shadowfox.botanicaladdons.common.lib
 
 object LibNames {
+
+    val DEV_ONLY_GAIA_SLAYER = "gaiaKiller"
+
     val PRIESTLY_EMBLEM = "priestEmblem"
     val HOLY_SYMBOL = "holySymbol"
     val SPELL_ICON = "spellIcon"
@@ -34,6 +37,7 @@ object LibNames {
     val SPELL_IDUNN_INFUSION = "lifeInfusion"
     val SPELL_THOR_INFUSION = "lightningInfusion"
     val SPELL_NJORD_INFUSION = "njordInfusion"
+    val SPELL_THUNDER_TRAP = "hypercharge"
 
 
     val AWAKENER = "divineCore"
@@ -72,6 +76,7 @@ object LibNames {
     val AQUA_GLASS = "aquaGlass"
     val AQUA_PANE = "aquaPane"
     val FUNNEL = "funnel"
+    val TRAP = "trap"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

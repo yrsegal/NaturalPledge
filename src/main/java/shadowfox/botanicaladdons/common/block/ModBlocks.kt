@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.block
 
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.item.EnumDyeColor
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -78,6 +77,8 @@ object ModBlocks {
 
     val funnel: BlockMod
 
+    val thunderTrap: BlockMod
+
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
         star = BlockFrozenStar(LibNames.STAR)
@@ -144,6 +145,8 @@ object ModBlocks {
         aquaPane = BlockAquamarinePane(LibNames.AQUA_PANE)
 
         funnel = BlockFunnel(LibNames.FUNNEL)
+
+        thunderTrap = BlockThunderTrap(LibNames.TRAP)
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())

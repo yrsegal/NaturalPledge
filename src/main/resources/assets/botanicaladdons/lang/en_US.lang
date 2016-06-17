@@ -40,6 +40,7 @@ item.botanicaladdons:iconWindInfusion.name=Tempest Infusion
 item.botanicaladdons:iconLightning.name=Lightning Strike
 item.botanicaladdons:iconStrength.name=Thunder's Force
 item.botanicaladdons:iconPull.name=Chains of Iron
+item.botanicaladdons:iconHypercharge.name=Hypercharge
 item.botanicaladdons:iconLightningInfusion.name=Thunder Infusion
 
 item.botanicaladdons:iconIridescence.name=Iridescent Tones
@@ -307,9 +308,10 @@ botanicaladdons.tagline.thorSpells=The art of war
 botanicaladdons.page.thorSpells0=The first spell that &3Thor&0's emblem grants, &1Lightning Strike&0, is a very simple lightning spell. Electricity will arc out of the caster, striking whatever they're looking at within 10 blocks. This won't do much unless you hit a mob, of course.
 botanicaladdons.page.thorSpells1=The second spell of &3Thor&0, &1Thunder's Force&0, is a strength spell. While you have the &1Terrestrial Focus&0, for half a minute you will hit with over twice the force you'd normally wield. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
 botanicaladdons.page.thorSpells2=The third spell of &3Thor&0, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
-botanicaladdons.page.thorSpells3=The final spell of &3Thor&0, &1Thunder Infusion&0, forces power into regular iron, making &1Thundersteel&0. If you can somehow augment your emblem's power, the metal might be more potent.
-botanicaladdons.page.thorSpells4=Block of awesome
-botanicaladdons.page.thorSpells5=And back again
+botanicaladdons.page.thorSpells3=The fourth spell of &3Thor&0, &1Hypercharge&0, forces electric energy into the air where it hits, creating a pocket of electric charge. Anyone foolish enough to walk into it will be
+botanicaladdons.page.thorSpells4=The final spell of &3Thor&0, &1Thunder Infusion&0, forces power into regular iron, making &1Thundersteel&0. If you can somehow augment your emblem's power, the metal might be more potent.
+botanicaladdons.page.thorSpells5=Block of awesome
+botanicaladdons.page.thorSpells6=And back again
 
 botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color

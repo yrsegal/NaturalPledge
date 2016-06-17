@@ -96,7 +96,7 @@ object LexiconEntries {
         idunnSpells = EntryPriestlyKnowledge("idunnSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.LIFEMAKER), PriestlyEmblemIdunn::class.java)
         idunnSpells.setLexiconPages(PageText("0"), PageText("1"))
         thorSpells = EntryPriestlyKnowledge("thorSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.LIGHTNING), PriestlyEmblemThor::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
-        thorSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"), PageText("3"), PageCraftingRecipe("4", ModRecipes.recipeThunderBlock), PageCraftingRecipe("5", ModRecipes.recipeThunderDeconversion))
+        thorSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"), PageText("3"), PageText("4"), PageCraftingRecipe("5", ModRecipes.recipeThunderBlock), PageCraftingRecipe("6", ModRecipes.recipeThunderDeconversion))
         heimdallSpells = EntryPriestlyKnowledge("heimdallSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.IRIDESCENCE), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdallSpells.setLexiconPages(PageText("0"), PageText("1"))
 
@@ -175,14 +175,14 @@ object LexiconEntries {
         LexiconRecipeMappings.map(ItemStack(ModItems.iridescentDye, 1, OreDictionary.WILDCARD_VALUE), heimdallSpells, 0)
         LexiconRecipeMappings.map(ItemStack(ModItems.awakenedDye, 1, OreDictionary.WILDCARD_VALUE), heimdallSpells, 0)
 
-        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.THUNDER_STEEL), thorSpells, 3)
-        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.THUNDER_STEEL, true), thorSpells, 3)
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.THUNDER_STEEL), thorSpells, 4)
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.THUNDER_STEEL, true), thorSpells, 4)
 
         LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.AQUAMARINE), njordSpells, 3)
         LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.AQUAMARINE, true), njordSpells, 3)
 
-        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.LIFE_ROOT), idunnSpells, 3)
-        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.LIFE_ROOT, true), idunnSpells, 3)
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.LIFE_ROOT), idunnSpells, 1)
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.LIFE_ROOT, true), idunnSpells, 1)
 
     }
 }

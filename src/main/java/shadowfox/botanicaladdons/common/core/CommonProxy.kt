@@ -11,7 +11,6 @@ import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.entity.ModEntities
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
@@ -26,7 +25,6 @@ import java.awt.Color
 open class CommonProxy {
     open fun pre(e: FMLPreInitializationEvent) {
         ModItems
-        IPreventBreakInCreative.register()
         ModBlocks
         ModAchievements
         ModPotions
@@ -68,4 +66,8 @@ open class CommonProxy {
 
     fun wireFrameRainbow() = wireFrameRainbow(0.6f)
     open fun wireFrameRainbow(saturation: Float) = Color(0xFFFFFF)
+
+    open fun playerHasMonocle(): Boolean {
+        return false
+    }
 }

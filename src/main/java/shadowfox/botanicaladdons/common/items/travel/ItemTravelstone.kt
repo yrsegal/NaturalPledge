@@ -31,7 +31,7 @@ class ItemTravelstone(name: String) : ItemMod(name), ModelHandler.IColorProvider
     override fun getColor(): IItemColor? {
         return IItemColor { itemStack, i ->
             if (i == 1)
-                BotanicalAddons.proxy.rainbow(0.25f).rgb
+                BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF
         }
     }

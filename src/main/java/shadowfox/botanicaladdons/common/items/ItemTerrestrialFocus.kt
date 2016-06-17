@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.common.items
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.EnumRarity
@@ -43,7 +42,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
     @SideOnly(Side.CLIENT)
     override fun getColor() = IItemColor { itemStack, i ->
         if (i == 1)
-            BotanicalAddons.proxy.rainbow(0.25f).rgb
+            BotanicalAddons.PROXY.rainbow(0.25f).rgb
         else 0xFFFFFF
     }
 
@@ -202,8 +201,5 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorPro
             }
         }
     }
-
-    override fun onEntitySwing(entityLiving: EntityLivingBase?, stack: ItemStack?) = true
-
 
 }

@@ -16,8 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
-import vazkii.botania.api.lexicon.LexiconEntry
-import java.util.*
 
 /**
  * @author WireSegal

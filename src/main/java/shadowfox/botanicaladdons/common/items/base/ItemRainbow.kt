@@ -36,12 +36,12 @@ open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Arra
 
     override fun getColor() = IItemColor { itemStack, i ->
         if (i == 0) when (itemStack.metadata) {
-            16 -> BotanicalAddons.proxy.rainbow().rgb
+            16 -> BotanicalAddons.PROXY.rainbow().rgb
             else -> EnumDyeColor.byMetadata(itemStack.metadata).mapColor.colorValue
         } else 0xFFFFFF
     }
 
-    override fun customLog() = "   |  Variants by dye color${if (rainbow) " and rainbow" else ""}"
+    override fun customLog() = "${ModelHandler.namePad} |  Variants by dye color${if (rainbow) " and rainbow" else ""}"
 
     override fun customLogVariant(variantId: Int, variant: String) = ""
 

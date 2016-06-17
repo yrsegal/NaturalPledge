@@ -1,0 +1,9 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "axis=y": { "model": "botanicaladdons:circuitLog" },
+        "axis=z": { "model": "botanicaladdons:circuitLog", "x": 90 },
+        "axis=x": { "model": "botanicaladdons:circuitLog", "x": 90, "y": 90 },
+        "axis=none": { "model": "botanicaladdons:circuitBark" }
+    }
+}

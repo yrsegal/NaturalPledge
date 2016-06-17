@@ -11,7 +11,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumRarity
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EntityDamageSource
 import net.minecraft.util.EnumHand
@@ -40,13 +39,13 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:43 PM on 4/20/16.
  */
-class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IManaUsingItem {
+class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IManaUsingItem {
     private val attackDamage: Float
 
     init {
         setMaxStackSize(1)
-        maxDamage = material.maxUses
-        attackDamage = 3.0f + material.damageVsEntity
+        maxDamage = 1561
+        attackDamage = 11.0f
     }
 
     companion object {
@@ -80,7 +79,7 @@ class ItemMjolnir(name: String, val material: Item.ToolMaterial) : ItemMod(name)
     override fun getRarity(stack: ItemStack): EnumRarity = BotaniaAPI.rarityRelic
 
     override fun getItemEnchantability(): Int {
-        return this.material.enchantability
+        return 26
     }
 
     override fun getIsRepairable(toRepair: ItemStack?, repair: ItemStack): Boolean {

@@ -9,11 +9,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.ItemRenderer
 import net.minecraft.client.renderer.RenderHelper
-import net.minecraft.client.renderer.RenderItem
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -21,7 +17,6 @@ import net.minecraft.inventory.Container
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
-import net.minecraft.stats.StatList
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityHopper
 import net.minecraft.util.*
@@ -31,7 +26,6 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileLivingwoodFunnel
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -43,7 +37,7 @@ import vazkii.botania.api.wand.IWandHUD
  * @author L0neKitsune
  * Created on 3/20/16.
  */
-class BlockFunnel(name: String): BlockModContainer(name, Material.WOOD), ILexiconable, IWandHUD {
+class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexiconable, IWandHUD {
     companion object {
         val FACING = PropertyDirection.create("facing", { facing -> facing != EnumFacing.UP })
         val ENABLED = PropertyBool.create("enabled")

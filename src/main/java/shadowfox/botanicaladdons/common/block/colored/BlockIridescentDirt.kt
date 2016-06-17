@@ -53,7 +53,7 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
             override val sortingVariantCount: Int
                 get() = 1
 
-            override fun customLog(): String = "   |  Variants by dye color"
+            override fun customLog(): String = "${ModelHandler.namePad} |  Variants by dye color"
             override fun customLogVariant(variantId: Int, variant: String): String = ""
             override fun shouldLogForVariant(variantId: Int, variant: String): Boolean = false
         }

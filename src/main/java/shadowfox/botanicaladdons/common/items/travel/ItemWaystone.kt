@@ -37,7 +37,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
     override fun getColor(): IItemColor? {
         return IItemColor { itemStack, i ->
             if (i == 1)
-                BotanicalAddons.Companion.proxy.rainbow(0.25f).rgb
+                BotanicalAddons.Companion.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF
         }
     }
@@ -104,7 +104,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
         val dirVec = getDirVec(worldIn, stack, entityIn) ?: return
         val endVec = startVec.copy().add(dirVec.copy().normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        BotanicalAddons.proxy.particleStream(worldIn, startVec.copy().add(dirVec.copy().normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.proxy.wireFrameRainbow().rgb)
+        BotanicalAddons.PROXY.particleStream(worldIn, startVec.copy().add(dirVec.copy().normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
     }
 
     fun getDirVec(world: World, stack: ItemStack, player: Entity): Vector3? {

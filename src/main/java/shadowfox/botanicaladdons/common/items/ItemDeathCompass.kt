@@ -11,7 +11,6 @@ import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.GameRules
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingDeathEvent
@@ -45,7 +44,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
     override fun getColor(): IItemColor? {
         return IItemColor { itemStack, i ->
             if (i == 1)
-                BotanicalAddons.proxy.rainbow(0.25f).rgb
+                BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF
         }
     }
@@ -68,7 +67,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
         val dirVec = getDirVec(stack, entityIn) ?: return
         val endVec = startVec.copy().add(dirVec.copy().normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        BotanicalAddons.proxy.particleStream(worldIn, startVec.copy().add(dirVec.copy().normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.proxy.wireFrameRainbow().rgb)
+        BotanicalAddons.PROXY.particleStream(worldIn, startVec.copy().add(dirVec.copy().normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
     }
 
     override fun onItemRightClick(stack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
@@ -104,7 +103,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
     fun onPlayerDeath(event: LivingDeathEvent) {
         val entity = event.entityLiving
         if (entity is EntityPlayer && entity.worldObj.gameRules.getBoolean("keepInventory")) {
-            for (i in 0..entity.inventory.sizeInventory-1) {
+            for (i in 0..entity.inventory.sizeInventory - 1) {
                 val stack = entity.inventory.getStackInSlot(i)
                 if (stack != null && stack.item == this) {
                     ItemNBTHelper.setInt(stack, TAG_X, (entity.posX - 0.5).toInt())

@@ -1,11 +1,7 @@
 package shadowfox.botanicaladdons.common.items
 
-import net.minecraft.init.Items
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.oredict.OreDictionary
-import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
@@ -58,14 +54,9 @@ object ModItems {
 
     val resource: ItemMod
 
-    val mjolnirMaterial: Item.ToolMaterial
-    val thunderMaterial: Item.ToolMaterial
-
     lateinit var gaiaKiller: ItemMod
 
     init {
-        mjolnirMaterial = EnumHelper.addToolMaterial("${LibMisc.MOD_ID}:MJOLNIR", 3, 1561, 9.0f, 8.0f, 26).setRepairItem(ItemStack(Items.IRON_INGOT))
-        thunderMaterial = EnumHelper.addToolMaterial("${LibMisc.MOD_ID}:THUNDER", 3, 1561, 9.0f, 2.5f, 14).setRepairItem(ItemStack(Items.IRON_INGOT))
 
         emblem = ItemFaithBauble(LibNames.PRIESTLY_EMBLEM)
         symbol = ItemSymbol(LibNames.HOLY_SYMBOL)
@@ -81,9 +72,9 @@ object ModItems {
         finder = ItemWaystone(LibNames.FINDER)
         deathFinder = ItemDeathCompass(LibNames.DEATH_FINDER)
 
-        fists = ItemThunderFists(LibNames.THUNDERFIST, thunderMaterial)
+        fists = ItemThunderFists(LibNames.THUNDERFIST)
 
-        mjolnir = ItemMjolnir(LibNames.MJOLNIR, mjolnirMaterial)
+        mjolnir = ItemMjolnir(LibNames.MJOLNIR)
         sealArrow = ItemSealerArrow(LibNames.SEAL_ARROW)
         apple = ItemImmortalApple(LibNames.APPLE)
         fateHorn = ItemFateHorn(LibNames.FATE_HORN)
@@ -95,8 +86,8 @@ object ModItems {
 
         resource = ItemResource(LibNames.RESOURCE)
 
-        if (BotanicalAddons.isDevEnv)
-            gaiaKiller = ItemGaiaSlayer("gaiaKiller")
+        if (BotanicalAddons.DEV_ENVIRONMENT)
+            gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)
 
         OreDictionary.registerOre(LibOreDict.HOLY_SYMBOL, symbol)
 

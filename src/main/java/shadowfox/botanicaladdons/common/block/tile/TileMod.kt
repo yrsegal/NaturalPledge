@@ -13,7 +13,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher
  * @author WireSegal
  * Created at 8:14 PM on 5/6/16.
  */
-open class TileMod : TileEntity() {
+abstract class TileMod : TileEntity() {
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean {
         return oldState.block !== newState.block
     }

@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.block.base
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockPane
-import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
 import net.minecraft.item.EnumRarity
@@ -21,7 +20,7 @@ import shadowfox.botanicaladdons.common.core.tab.ModTab
  * @author WireSegal
  * Created at 1:20 PM on 6/4/16.
  */
-open class BlockModPane(name: String, material: Material, canDrop: Boolean, vararg variants: String) : BlockPane(material, canDrop), ModelHandler.IVariantHolder, ModelHandler.IBABlock {
+open class BlockModPane(name: String, material: Material, canDrop: Boolean, vararg variants: String) : BlockPane(material, canDrop), ModelHandler.IVariantHolder, ModelHandler.IModBlock {
     override var variants: Array<out String> = variants
     override val bareName: String = name
 

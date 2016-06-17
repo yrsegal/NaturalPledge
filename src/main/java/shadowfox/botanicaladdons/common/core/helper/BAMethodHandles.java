@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.util.CooldownTracker;
 import net.minecraft.world.Explosion;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import shadowfox.botanicaladdons.common.lib.LibObfuscation;
 
@@ -66,7 +65,7 @@ public class BAMethodHandles {
             alwaysEdibleGetter = publicLookup().unreflectGetter(f);
 
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Couldn't initialize methodhandles! Things will be broken!");
+            BALogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -77,7 +76,7 @@ public class BAMethodHandles {
         try {
             return (Map) cooldownsGetter.invokeExact(cooldownTracker);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -92,7 +91,7 @@ public class BAMethodHandles {
         try {
             return (int) cooldownTicksGetter.invokeExact(cooldownTracker);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -103,7 +102,7 @@ public class BAMethodHandles {
         try {
             return (Object) cooldownMaker.invokeExact(tracker, createTicks, expireTicks);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -113,7 +112,7 @@ public class BAMethodHandles {
         try {
             return (int) expireTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -123,7 +122,7 @@ public class BAMethodHandles {
         try {
             return (int) createTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -133,7 +132,7 @@ public class BAMethodHandles {
         try {
             return (int) swingTicksGetter.invokeExact(entity);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -143,7 +142,7 @@ public class BAMethodHandles {
         try {
             swingTicksSetter.invokeExact(entity, ticks);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -153,7 +152,7 @@ public class BAMethodHandles {
         try {
             return (boolean) lightningEffectGetter.invokeExact(entity);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -163,7 +162,7 @@ public class BAMethodHandles {
         try {
             return (float) explosionSizeGetter.invokeExact(entity);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -173,7 +172,7 @@ public class BAMethodHandles {
         try {
             return (boolean) alwaysEdibleGetter.invokeExact(food);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }

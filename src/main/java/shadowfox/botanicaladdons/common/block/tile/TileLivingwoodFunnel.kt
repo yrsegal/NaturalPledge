@@ -15,7 +15,6 @@ import net.minecraft.tileentity.IHopper
 import net.minecraft.tileentity.TileEntityChest
 import net.minecraft.util.EntitySelectors
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.ITickable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
@@ -35,7 +34,7 @@ import shadowfox.botanicaladdons.common.block.BlockFunnel
  * @author L0neKitsune
  * Created on 3/20/16.
  */
-class TileLivingwoodFunnel() : TileMod(), IHopper, ITickable {
+class TileLivingwoodFunnel() : TileModTickable(), IHopper {
 
     override fun getDisplayName(): ITextComponent {
         return if (this.hasCustomName()) TextComponentString(this.name) else TextComponentTranslation(this.name)
@@ -50,6 +49,7 @@ class TileLivingwoodFunnel() : TileMod(), IHopper, ITickable {
     }
 
     override fun setField(id: Int, value: Int) {
+        //NO-OP
     }
 
     override fun getFieldCount(): Int {
@@ -72,7 +72,7 @@ class TileLivingwoodFunnel() : TileMod(), IHopper, ITickable {
     override fun getSizeInventory(): Int = 1
     override fun getStackInSlot(par1: Int): ItemStack? = inventory[par1]
 
-    override fun update() {
+    override fun updateEntity() {
         if (worldObj != null && !worldObj.isRemote) {
             --transferCooldown
 
@@ -487,8 +487,13 @@ class TileLivingwoodFunnel() : TileMod(), IHopper, ITickable {
     override fun getYPos(): Double = pos.y.toDouble()
     override fun getZPos(): Double = pos.z.toDouble()
 
-    override fun openInventory(p0: EntityPlayer?) { }
-    override fun closeInventory(p0: EntityPlayer?) { }
+    override fun openInventory(p0: EntityPlayer?) {
+        //NO-OP
+    }
+
+    override fun closeInventory(p0: EntityPlayer?) {
+        //NO-OP
+    }
 
     override fun getInventoryStackLimit(): Int = 1
 

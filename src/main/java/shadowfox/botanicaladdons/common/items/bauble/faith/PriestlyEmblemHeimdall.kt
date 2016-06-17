@@ -41,7 +41,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
     override fun getColor(): IItemColor? =
             IItemColor { itemStack, i ->
                 if (i == 1)
-                    BotanicalAddons.proxy.rainbow().rgb
+                    BotanicalAddons.PROXY.rainbow().rgb
                 else
                     0xFFFFFF
             }

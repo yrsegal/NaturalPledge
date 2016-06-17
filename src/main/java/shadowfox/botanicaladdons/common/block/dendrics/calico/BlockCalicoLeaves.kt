@@ -26,7 +26,9 @@ class BlockCalicoLeaves(name: String) : BlockModLeaves(name), IExplosionDampener
         return Item.getItemFromBlock(ModBlocks.calicoSapling)
     }
 
-    override fun onBlockExploded(world: World?, pos: BlockPos?, explosion: Explosion?) {}
+    override fun onBlockExploded(world: World?, pos: BlockPos?, explosion: Explosion?) {
+        //NO-OP
+    }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
         return LexiconEntries.calicoTree

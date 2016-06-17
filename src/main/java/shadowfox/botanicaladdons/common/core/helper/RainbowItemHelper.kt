@@ -32,10 +32,7 @@ object RainbowItemHelper {
     val TAG_COLOR = "color"
 
     init {
-        for (color in EnumDyeColor.values()) {
-            var colorint = color.mapColor.colorValue
-            defaultColors.add(colorint)
-        }
+        for (color in EnumDyeColor.values()) defaultColors.add(color.mapColor.colorValue)
         defaultColors.add(-1)
     }
 

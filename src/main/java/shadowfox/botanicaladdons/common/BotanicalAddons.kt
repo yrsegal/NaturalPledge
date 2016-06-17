@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
 import net.minecraftforge.fml.relauncher.Side
+import org.apache.logging.log4j.LogManager
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.CommonProxy
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
@@ -16,34 +17,37 @@ import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 class BotanicalAddons {
     companion object {
         @Mod.Instance(LibMisc.MOD_ID)
-        lateinit var instance: BotanicalAddons
-
-        lateinit var network: SimpleNetworkWrapper
+        lateinit var INSTANCE: BotanicalAddons
 
         @SidedProxy(serverSide = LibMisc.PROXY_COMMON,
                 clientSide = LibMisc.PROXY_CLIENT)
-        lateinit var proxy: CommonProxy
+        lateinit var PROXY: CommonProxy
 
-        var isDevEnv = false
+        val LOGGER = LogManager.getLogger(LibMisc.MOD_ID)
+
+        val DEV_ENVIRONMENT: Boolean by lazy {
+            Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean
+        }
+
+        val NETWORK: SimpleNetworkWrapper by lazy {
+            SimpleNetworkWrapper(LibMisc.MOD_ID)
+        }
     }
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
-        isDevEnv = Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean
+        NETWORK.registerMessage(PlayerItemMessage.PlayerItemMessageHandler::class.java, PlayerItemMessage::class.java, 0, Side.SERVER)
 
-        network = SimpleNetworkWrapper(LibMisc.MOD_ID)
-        network.registerMessage(PlayerItemMessage.PlayerItemMessageHandler::class.java, PlayerItemMessage::class.java, 0, Side.SERVER)
-
-        proxy.pre(event)
+        PROXY.pre(event)
     }
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
-        proxy.init(event)
+        PROXY.init(event)
     }
 
     @Mod.EventHandler
     fun post(event: FMLPostInitializationEvent) {
-        proxy.post(event)
+        PROXY.post(event)
     }
 }

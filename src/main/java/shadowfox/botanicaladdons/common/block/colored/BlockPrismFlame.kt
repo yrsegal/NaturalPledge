@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
 import net.minecraft.block.SoundType
-import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -16,6 +15,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import shadowfox.botanicaladdons.common.block.ModMaterials
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
@@ -30,7 +30,7 @@ import vazkii.botania.common.world.WorldTypeSkyblock
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockPrismFlame(name: String) : BlockModContainer(name, Material.CLOTH), ILexiconable {
+class BlockPrismFlame(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     init {
@@ -47,6 +47,7 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, Material.CLOTH), I
     override fun isFullCube(state: IBlockState?) = false
     override fun isPassable(world: IBlockAccess?, pos: BlockPos?) = true
     override fun getCollisionBoundingBox(state: IBlockState, world: World, pos: BlockPos) = NULL_AABB
+    override fun canSpawnInBlock(): Boolean = true
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, stack: ItemStack?, s: EnumFacing?, xs: Float, ys: Float, zs: Float): Boolean {
         if (WorldTypeSkyblock.isWorldSkyblock(world)) {

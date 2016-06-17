@@ -22,7 +22,9 @@ import java.util.*
  */
 class BlockCalicoSapling(name: String) : BlockModSapling(name), IExplosionDampener, ILexiconable {
 
-    override fun onBlockExploded(world: World?, pos: BlockPos?, explosion: Explosion?) {}
+    override fun onBlockExploded(world: World?, pos: BlockPos?, explosion: Explosion?) {
+        //NO-OP
+    }
 
     override fun generateTree(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
         if (!TerrainGen.saplingGrowTree(worldIn, rand, pos)) return

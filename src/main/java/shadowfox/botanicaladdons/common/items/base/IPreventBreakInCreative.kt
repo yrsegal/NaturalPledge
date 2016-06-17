@@ -11,22 +11,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
  */
 interface IPreventBreakInCreative {
     companion object {
-        private object EventHandler {
-
-            var registered = false
-
-            @SubscribeEvent(priority = EventPriority.HIGHEST)
-            fun onBlockBreak(e: BlockEvent.BreakEvent) {
-                if (e.player.isCreative && e.player.heldItemMainhand != null && e.player.heldItemMainhand!!.item is IPreventBreakInCreative) {
-                    e.isCanceled = true
-                }
-            }
+        init {
+            MinecraftForge.EVENT_BUS.register(this)
         }
 
-        fun register() {
-            if (!EventHandler.registered) {
-                MinecraftForge.EVENT_BUS.register(EventHandler)
-                EventHandler.registered = true
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        fun onBlockBreak(e: BlockEvent.BreakEvent) {
+            if (e.player.isCreative && e.player.heldItemMainhand != null && e.player.heldItemMainhand!!.item is IPreventBreakInCreative) {
+                e.isCanceled = true
             }
         }
     }

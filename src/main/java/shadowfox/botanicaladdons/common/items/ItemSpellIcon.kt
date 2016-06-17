@@ -20,7 +20,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
         LIGHTNING, STRENGTH, PULL,
         IRIDESCENCE(true), BIFROST_SPHERE(true),
         IRONROOT, LIFEMAKER,
-        WIND_INFUSION, LIGHTNING_INFUSION;
+        WIND_INFUSION, LIGHTNING_INFUSION, HYPERCHARGE;
 
         constructor() : this(false)
 
@@ -46,7 +46,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
     @SideOnly(Side.CLIENT)
     override fun getColor() = IItemColor { itemStack, i ->
         if (itemStack.itemDamage >= 0 && itemStack.itemDamage < Variants.values().size && Variants.values()[itemStack.itemDamage].iridescent)
-            BotanicalAddons.proxy.rainbow().rgb
+            BotanicalAddons.PROXY.rainbow().rgb
         else
             0xFFFFFF
     }

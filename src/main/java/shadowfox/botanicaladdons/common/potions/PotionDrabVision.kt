@@ -47,7 +47,7 @@ class PotionDrabVision(iconIndex: Int) : PotionMod(LibNames.DRAB_VISION, true, 0
                 if (target == null) Minecraft.getMinecraft().entityRenderer.stopUseShader()
                 else mc.entityRenderer.loadShader(target)
             } catch (var5: Exception) {
-
+                //NO-OP
             }
         } catch (err: JsonException) {
             // NO-OP

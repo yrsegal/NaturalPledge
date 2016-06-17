@@ -8,12 +8,6 @@
   },
   "variants": {
     "normal": [{}],
-    "inventory": [{
-      "model": "builtin/generated",
-      "textures": {
-        "layer0": "minecraft:blocks/fire_layer_0"
-      },
-      "transform": "forge:default-item"
-    }]
+    "inventory": [{}]
   }
 }

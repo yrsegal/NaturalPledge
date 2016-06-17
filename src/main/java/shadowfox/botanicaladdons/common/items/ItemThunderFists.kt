@@ -28,19 +28,19 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:20 PM on 5/18/16.
  */
-class ItemThunderFists(name: String, val toolMaterial: ToolMaterial) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative {
+class ItemThunderFists(name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative {
     val MANA_PER_DAMAGE = 40
 
     init {
         setMaxStackSize(1)
-        maxDamage = toolMaterial.maxUses
+        maxDamage = 1561
         addPropertyOverride(ResourceLocation("blocking")) {
             stack, worldIn, entityIn ->
             if (entityIn != null && entityIn.isHandActive && (entityIn.heldItemMainhand == stack || entityIn.heldItemOffhand == stack)) 1f else 0f
         }
     }
 
-    private val attackDamage = 3.0f + toolMaterial.damageVsEntity
+    private val attackDamage = 5.5f
 
     override fun getItemUseAction(stack: ItemStack?) = EnumAction.BLOCK
 
@@ -85,7 +85,7 @@ class ItemThunderFists(name: String, val toolMaterial: ToolMaterial) : ItemMod(n
         return multimap
     }
 
-    override fun getItemEnchantability(): Int = this.toolMaterial.enchantability
+    override fun getItemEnchantability(): Int = 14
     override fun getIsRepairable(stack: ItemStack?, repair: ItemStack): Boolean {
         return repair.item == ModItems.resource && (repair.itemDamage % ItemResource.Variants.values().size == ItemResource.Variants.THUNDER_STEEL.ordinal)
     }

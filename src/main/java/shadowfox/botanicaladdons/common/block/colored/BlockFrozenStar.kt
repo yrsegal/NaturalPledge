@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
 import net.minecraft.block.SoundType
-import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.creativetab.CreativeTabs
@@ -21,6 +20,7 @@ import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.block.ModMaterials
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.block.tile.TileStar
@@ -35,7 +35,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockFrozenStar(name: String) : BlockModContainer(name, Material.CLOTH), ModelHandler.IColorProvider, ILexiconable {
+class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), ModelHandler.IColorProvider, ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     companion object {
@@ -83,7 +83,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.CLOTH), M
     override fun getColor(): IItemColor = IItemColor {
         itemStack, i ->
         val color = RainbowItemHelper.getColor(itemStack)
-        if (color == -1) BotanicalAddons.proxy.rainbow().rgb else color
+        if (color == -1) BotanicalAddons.PROXY.rainbow().rgb else color
     }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
@@ -106,6 +106,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, Material.CLOTH), M
     override fun isPassable(worldIn: IBlockAccess?, pos: BlockPos?) = true
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
     override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: World?, pos: BlockPos?) = NULL_AABB
+    override fun canSpawnInBlock(): Boolean = true
 
     override fun getPickBlock(state: IBlockState?, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack? {
         val te = world.getTileEntity(pos)

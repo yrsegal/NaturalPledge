@@ -16,10 +16,10 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.fml.common.FMLLog
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.core.helper.BALogger
 import java.util.*
 
 /**
@@ -27,6 +27,11 @@ import java.util.*
  * Created at 2:12 PM on 3/20/16.
  */
 object ModelHandler {
+
+    lateinit var modName: String
+    val namePad: String by lazy {
+        "".padEnd(modName.length)
+    }
 
     interface IVariantHolder {
         @SideOnly(Side.CLIENT)
@@ -39,7 +44,7 @@ object ModelHandler {
         val extraVariants: Array<out String>
     }
 
-    interface IBABlock : IVariantHolder {
+    interface IModBlock : IVariantHolder {
         val variantEnum: Class<Enum<*>>?
         val ignoredProperties: Array<IProperty<*>>?
         val bareName: String
@@ -55,6 +60,9 @@ object ModelHandler {
     interface IBlockColorProvider : IColorProvider {
         @SideOnly(Side.CLIENT)
         fun getBlockColor(): IBlockColor?
+
+        @SideOnly(Side.CLIENT)
+        override fun getColor(): IItemColor? = null
     }
 
     interface ICustomLogHolder : IVariantHolder {
@@ -71,8 +79,9 @@ object ModelHandler {
 
     val resourceLocations = HashMap<String, ModelResourceLocation>()
 
-    fun preInit() {
-        FMLLog.info("BA | Starting model load")
+    fun preInit(name: String) {
+        modName = name
+        BALogger.info("$modName | Starting model load")
         for (holder in variantCache.sortedBy { (255 - getVariantCount(it)).toChar() + if (it is ItemBlock) "b" else "I" + if (it is Item) it.registryName.resourcePath else "" }) {
             registerModels(holder)
         }
@@ -113,8 +122,8 @@ object ModelHandler {
     }
 
     fun registerModels(item: Item, variants: Array<out String>, extra: Boolean) {
-        if (item is ItemBlock && item.getBlock() is IBABlock) {
-            val i = item.getBlock() as IBABlock
+        if (item is ItemBlock && item.getBlock() is IModBlock) {
+            val i = item.getBlock() as IModBlock
             val name = i.variantEnum
             val loc = i.ignoredProperties
             if (loc != null && loc.size > 0) {
@@ -138,21 +147,21 @@ object ModelHandler {
 
         for (variant in variants.withIndex()) {
             if (variant.index == 0) {
-                var print = "   | Registering "
+                var print = "$namePad | Registering "
                 if (variant.value != item.registryName.resourcePath || variants.size != 1)
                     print += "variant" + if (variants.size == 1) "" else "s" + " of "
                 print += if (item is ItemBlock) "block" else "item"
                 print += " ${item.registryName.resourcePath}"
-                FMLLog.info(print)
+                BALogger.info(print)
                 if (item is ICustomLogHolder)
-                    FMLLog.info(item.customLog())
+                    BALogger.info(item.customLog())
             }
             if ((variant.value != item.registryName.resourcePath || variants.size != 1)) {
                 if (item is ICustomLogHolder) {
                     if (item.shouldLogForVariant(variant.index + 1, variant.value))
-                        FMLLog.info(item.customLogVariant(variant.index + 1, variant.value))
+                        BALogger.info(item.customLogVariant(variant.index + 1, variant.value))
                 } else
-                    FMLLog.info("   |  Variant #${variant.index + 1}: ${variant.value}")
+                    BALogger.info("$namePad |  Variant #${variant.index + 1}: ${variant.value}")
             }
 
             val model = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variant.value).toString(), "inventory")
@@ -175,21 +184,21 @@ object ModelHandler {
                     val variantName = variantHeader + "=" + e.name
 
                     if (e.ordinal == 0) {
-                        var print = "   | Registering "
+                        var print = "$namePad | Registering "
                         if (variantName != item.registryName.resourcePath || enumclazz.enumConstants.size != 1)
                             print += "variant" + (if (enumclazz.enumConstants.size == 1) "" else "s") + " of "
                         print += if (item is ItemBlock) "block" else "item"
                         print += " " + item.registryName.resourcePath
-                        FMLLog.info(print)
+                        BALogger.info(print)
                         if (item is ICustomLogHolder)
-                            FMLLog.info(item.customLog())
+                            BALogger.info(item.customLog())
                     }
                     if (e.name != item.registryName.resourcePath || enumclazz.enumConstants.size != 1) {
                         if (item is ICustomLogHolder) {
                             if (item.shouldLogForVariant(e.ordinal, variantName))
-                                FMLLog.info(item.customLogVariant(e.ordinal + 1, variantName))
+                                BALogger.info(item.customLogVariant(e.ordinal + 1, variantName))
                         } else
-                            FMLLog.info("   |  Variant #${e.ordinal + 1}: $variantName")
+                            BALogger.info("$namePad |  Variant #${e.ordinal + 1}: $variantName")
                     }
 
                     val loc = ModelResourceLocation(locName, variantName)

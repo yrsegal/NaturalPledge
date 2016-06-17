@@ -19,10 +19,10 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
  */
 open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IColorProvider {
 
-    private val psiBlock: ModelHandler.IBABlock
+    private val psiBlock: ModelHandler.IModBlock
 
     init {
-        this.psiBlock = block as ModelHandler.IBABlock
+        this.psiBlock = block as ModelHandler.IModBlock
         if (this.variants.size > 1) {
             this.setHasSubtypes(true)
         }

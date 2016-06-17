@@ -116,12 +116,12 @@ class AwakeningEventHandler {
                     val partPos = Vector3(xp, pylonPos.y, zp)
                     val pyPos = Vector3(pylonPos.x + 0.5, pylonPos.y + 1, pylonPos.z + 0.5)
 
-                    val color = BotanicalAddons.proxy.rainbow(entity.source)
+                    val color = BotanicalAddons.PROXY.rainbow(entity.source)
                     val r = color.red / 255f
                     val g = color.green / 255f
                     val b = color.blue / 255f
 
-                    BotanicalAddons.proxy.particleStream(entity.worldObj, pyPos, pos, color.rgb)
+                    BotanicalAddons.PROXY.particleStream(entity.worldObj, pyPos, pos, color.rgb)
                     Botania.proxy.wispFX(entity.worldObj, partPos.x, partPos.y, partPos.z, r, g, b, 0.25f + Math.random().toFloat() * 0.1f, -0.075f - Math.random().toFloat() * 0.015f)
                 }
             }

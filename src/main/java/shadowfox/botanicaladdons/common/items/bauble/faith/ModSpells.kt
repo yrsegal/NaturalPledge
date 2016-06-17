@@ -19,17 +19,17 @@ import vazkii.botania.common.lib.LibOreDict
 object ModSpells {
     init {
 
-        SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, Spells.Heimdall.Iridescence())
-        SpellRegistry.registerSpell(LibNames.SPELL_SPHERE, Spells.Heimdall.BifrostWave())
+        SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, Spells.Heimdall.Iridescence)
+        SpellRegistry.registerSpell(LibNames.SPELL_SPHERE, Spells.Heimdall.BifrostWave)
 
-        SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot())
+        SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot)
         SpellRegistry.registerSpell(LibNames.SPELL_IDUNN_INFUSION,
                 Spells.ObjectInfusion(of(LIFEMAKER), LibOreDict.LIVING_WOOD,
                         of(LIFE_ROOT), of(LIFE_ROOT, true), 150, 0x0FF469))
 
-        SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap())
-        SpellRegistry.registerSpell(LibNames.SPELL_INTERDICT, Spells.Njord.Interdict())
-        SpellRegistry.registerSpell(LibNames.SPELL_PUSH, Spells.Njord.PushAway())
+        SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap)
+        SpellRegistry.registerSpell(LibNames.SPELL_INTERDICT, Spells.Njord.Interdict)
+        SpellRegistry.registerSpell(LibNames.SPELL_PUSH, Spells.Njord.PushAway)
         SpellRegistry.registerSpell(LibNames.SPELL_NJORD_INFUSION,
                 Spells.ObjectInfusion(of(WIND_INFUSION),
                         "gemPrismarine",
@@ -39,9 +39,10 @@ object ModSpells {
                         ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal), ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal),
                         1350, 0x00E5E5))
 
-        SpellRegistry.registerSpell(LibNames.SPELL_LIGHTNING, Spells.Thor.Lightning())
-        SpellRegistry.registerSpell(LibNames.SPELL_STRENGTH, Spells.Thor.Strength())
-        SpellRegistry.registerSpell(LibNames.SPELL_PULL, Spells.Thor.Pull())
+        SpellRegistry.registerSpell(LibNames.SPELL_LIGHTNING, Spells.Thor.Lightning)
+        SpellRegistry.registerSpell(LibNames.SPELL_STRENGTH, Spells.Thor.Strength)
+        SpellRegistry.registerSpell(LibNames.SPELL_PULL, Spells.Thor.Pull)
+        SpellRegistry.registerSpell(LibNames.SPELL_THUNDER_TRAP, Spells.Thor.LightningTrap)
         SpellRegistry.registerSpell(LibNames.SPELL_THOR_INFUSION,
                 Spells.ObjectInfusion(of(LIGHTNING_INFUSION),
                         "ingotIron",

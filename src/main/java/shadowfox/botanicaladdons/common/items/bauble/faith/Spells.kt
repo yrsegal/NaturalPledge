@@ -26,6 +26,7 @@ import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
@@ -37,11 +38,12 @@ import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
-import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.block.tile.TileBifrost
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
+
+import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
  * @author WireSegal
@@ -218,7 +220,7 @@ object Spells {
     }
 
     object Njord {
-        class Leap : IFocusSpell {
+        object Leap : IFocusSpell {
             override fun getIconStack() = of(LEAP)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
@@ -244,7 +246,7 @@ object Spells {
 
         //////////
 
-        class Interdict : IFocusSpell {
+        object Interdict : IFocusSpell {
             override fun getIconStack() = of(INTERDICT)
 
             val RANGE = 6.0
@@ -308,7 +310,7 @@ object Spells {
 
         //////////
 
-        class PushAway : IFocusSpell {
+        object PushAway : IFocusSpell {
 
             override fun getIconStack() = of(PUSH_AWAY)
 
@@ -335,7 +337,7 @@ object Spells {
     }
 
     object Thor {
-        class Lightning : IFocusSpell {
+        object Lightning : IFocusSpell {
             override fun getIconStack() = of(LIGHTNING)
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -363,11 +365,11 @@ object Spells {
                 } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
                     Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3(cast.hitVec), 1f, 0x00948B, 0x00E4D7)
                     player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
-                    return EnumActionResult.FAIL
+                    return EnumActionResult.SUCCESS
                 } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
                     Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), 1f, 0x00948B, 0x00E4D7)
                     player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
-                    return EnumActionResult.FAIL
+                    return EnumActionResult.SUCCESS
                 }
                 return EnumActionResult.FAIL
             }
@@ -375,7 +377,7 @@ object Spells {
 
         //////////
 
-        class Strength : IFocusSpell {
+        object Strength : IFocusSpell {
             override fun getIconStack() = of(STRENGTH)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
@@ -393,7 +395,7 @@ object Spells {
 
         //////////
 
-        class Pull : IFocusSpell {
+        object Pull : IFocusSpell {
             override fun getIconStack() = of(PULL)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
@@ -415,10 +417,38 @@ object Spells {
                 return 100
             }
         }
+
+        object LightningTrap : IFocusSpell {
+            override fun getIconStack() = of(HYPERCHARGE)
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 400
+            }
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
+                if (!ManaItemHandler.requestManaExact(focus, player, 1500, false)) return EnumActionResult.FAIL
+
+                val ray = Helper.raycast(player, 32.0)
+
+                if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK) {
+                    var pos = ray.blockPos
+                    if (!player.worldObj.getBlockState(pos).block.isReplaceable(player.worldObj, pos)) pos = pos.offset(ray.sideHit)
+
+                    if (player.canPlayerEdit(pos, ray.sideHit, null)) {
+                        ManaItemHandler.requestManaExact(focus, player, 1500, true)
+                        player.worldObj.setBlockState(pos, ModBlocks.thunderTrap.defaultState)
+                        Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromBlockPos(pos).add(0.5, 0.5, 0.5), 1f, 0x00948B, 0x00E4D7)
+                        player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                        return EnumActionResult.SUCCESS
+                    }
+                }
+                return EnumActionResult.FAIL
+            }
+        }
     }
 
     object Heimdall {
-        class Iridescence : IFocusSpell {
+        object Iridescence : IFocusSpell {
             override fun getIconStack() = of(IRIDESCENCE)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
@@ -428,7 +458,7 @@ object Spells {
                 val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
                 val awakened = (emblem.item as IPriestlyEmblem).isAwakened(emblem)
                 for (i in LibOreDict.DYES.withIndex()) {
-                    flag = Helper.craft(player, i.value, ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i.index), if (i.index == 16) BotanicalAddons.proxy.rainbow().rgb else EnumDyeColor.byMetadata(i.index).mapColor.colorValue) || flag
+                    flag = Helper.craft(player, i.value, ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i.index), if (i.index == 16) BotanicalAddons.PROXY.rainbow().rgb else EnumDyeColor.byMetadata(i.index).mapColor.colorValue) || flag
                 }
                 if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
                 return EnumActionResult.SUCCESS
@@ -441,7 +471,7 @@ object Spells {
 
         //////////
 
-        class BifrostWave : IFocusSpell {
+        object BifrostWave : IFocusSpell {
             override fun getIconStack() = of(BIFROST_SPHERE)
 
             val TAG_SOURCE = "source"
@@ -503,10 +533,10 @@ object Spells {
                 val state = world.getBlockState(pos)
                 val block = state.block
                 if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block is IFluidBlock) {
-                    world.setBlockState(pos, ModBlocks.bifrost.defaultState)
+                    world.setBlockState(pos, BotaniaBlocks.bifrost.defaultState)
                     val tileBifrost = world.getTileEntity(pos) as TileBifrost
                     tileBifrost.ticks = time
-                } else if (block == ModBlocks.bifrost) {
+                } else if (block == BotaniaBlocks.bifrost) {
                     val tileBifrost = world.getTileEntity(pos) as TileBifrost
                     if (tileBifrost.ticks < 2) {
                         tileBifrost.ticks = time
@@ -517,7 +547,7 @@ object Spells {
     }
 
     object Idunn {
-        class Ironroot : IFocusSpell {
+        object Ironroot : IFocusSpell {
             override fun getIconStack() = of(IRONROOT)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {

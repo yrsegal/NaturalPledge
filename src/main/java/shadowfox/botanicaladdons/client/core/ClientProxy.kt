@@ -1,5 +1,7 @@
 package shadowfox.botanicaladdons.client.core
 
+import baubles.common.lib.PlayerHandler
+import net.minecraft.client.Minecraft
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.client.registry.ClientRegistry
@@ -25,7 +27,7 @@ class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
         RenderingRegistry.registerEntityRenderingHandler(EntitySealedArrow::class.java, { RenderSealedArrow(it) })
-        ModelHandler.preInit()
+        ModelHandler.preInit("BA")
     }
 
     override fun init(e: FMLInitializationEvent) {
@@ -97,4 +99,9 @@ class ClientProxy : CommonProxy() {
     }
 
     override fun wireFrameRainbow(saturation: Float) = Color(Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200f, saturation, 1f))
+
+    override fun playerHasMonocle(): Boolean {
+        PlayerHandler.getPlayerBaubles(Minecraft.getMinecraft().thePlayer) ?: return false
+        return Botania.proxy.isClientPlayerWearingMonocle
+    }
 }

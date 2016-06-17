@@ -51,7 +51,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                 (if (getMana(itemStack) == 0)
                     0x600000
                 else
-                    BotanicalAddons.proxy.pulseColor(Color(0xB71010)).rgb)
+                    BotanicalAddons.PROXY.pulseColor(Color(0xB71010)).rgb)
             else 0xFFFFFF
         }
     }
@@ -68,7 +68,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     entity.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
                     if (!entity.equals(entityIn) && !ModPotions.faithlessness.hasEffect(entity)) flag = true
-                    BotanicalAddons.proxy.particleEmission(entity.worldObj, Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
+                    BotanicalAddons.PROXY.particleEmission(entity.worldObj, Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
                 }
         }
         if (entityIn is EntityPlayer && isSelected) {
@@ -99,11 +99,11 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                         flag = flag or 1
                     }
                     entity.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
-                    BotanicalAddons.proxy.particleEmission(entity.worldObj, Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), 0x5e0a02, 0.7F)
+                    BotanicalAddons.PROXY.particleEmission(entity.worldObj, Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), 0x5e0a02, 0.7F)
                     flag = flag or 2
                 }
 
-            BotanicalAddons.proxy.particleEmission(entityItem.worldObj, Vector3.fromEntity(entityItem).add(-0.5, 0.0, -0.5), 0x5e0a02, if (flag and 2 == 0) 0.1F else 0.9F)
+            BotanicalAddons.PROXY.particleEmission(entityItem.worldObj, Vector3.fromEntity(entityItem).add(-0.5, 0.0, -0.5), 0x5e0a02, if (flag and 2 == 0) 0.1F else 0.9F)
         }
         if (flag and 1 != 0)
             addMana(entityItem.entityItem, -MANA_PER_TICK)

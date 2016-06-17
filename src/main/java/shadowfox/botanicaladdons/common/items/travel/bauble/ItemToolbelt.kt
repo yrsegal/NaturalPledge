@@ -31,7 +31,6 @@ import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.items.TempBaubleHelper
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 import vazkii.botania.api.item.IBaubleRender
@@ -285,7 +284,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                                 player.dropItem(toolStack.copy(), false)
                             }
                         } else {
-                            BotanicalAddons.network.sendToServer(PlayerItemMessage(toolStack))
+                            BotanicalAddons.NETWORK.sendToServer(PlayerItemMessage(toolStack))
                         }
                     }
                     if (event.isCancelable) event.isCanceled = true
@@ -308,7 +307,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 model = ModelBiped()
 
             Minecraft.getMinecraft().renderEngine.bindTexture(beltTexture)
-            TempBaubleHelper.rotateIfSneaking(player)
+            IBaubleRender.Helper.rotateIfSneaking(player)
 
             if (!player.isSneaking)
                 GlStateManager.translate(0F, 0.2F, 0F)

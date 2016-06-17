@@ -19,7 +19,6 @@ import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
-import shadowfox.botanicaladdons.common.items.TempBaubleHelper
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
@@ -89,7 +88,7 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
                 ItemToolbelt.model = ModelBiped()
 
             Minecraft.getMinecraft().renderEngine.bindTexture(beltTexture)
-            TempBaubleHelper.rotateIfSneaking(player)
+            IBaubleRender.Helper.rotateIfSneaking(player)
 
             if (!player.isSneaking)
                 GlStateManager.translate(0F, 0.2F, 0F)

@@ -20,7 +20,7 @@ import shadowfox.botanicaladdons.common.core.tab.ModTab
  * @author WireSegal
  * Created at 5:45 PM on 3/20/16.
  */
-open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg variants: String) : Block(materialIn, color), ModelHandler.IBABlock {
+open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg variants: String) : Block(materialIn, color), ModelHandler.IModBlock {
 
     constructor(name: String, materialIn: Material, vararg variants: String) : this(name, materialIn, materialIn.materialMapColor, *variants)
 

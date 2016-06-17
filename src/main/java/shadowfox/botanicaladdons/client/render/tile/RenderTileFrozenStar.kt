@@ -22,7 +22,7 @@ class RenderTileFrozenStar : TileEntitySpecialRenderer<TileStar>() {
 
         val seed = (te.pos.x xor te.pos.y xor te.pos.z).toLong()
         var color = te.getColor()
-        if (color == -1) color = BotanicalAddons.proxy.rainbow(te.pos).rgb
+        if (color == -1) color = BotanicalAddons.PROXY.rainbow(te.pos).rgb
         val size = te.size
         RenderHelper.renderStar(color, size, size, size, seed)
 

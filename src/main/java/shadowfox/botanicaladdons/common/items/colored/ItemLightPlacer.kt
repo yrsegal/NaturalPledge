@@ -42,7 +42,7 @@ class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IColorProvider
     override fun getColor(): IItemColor = IItemColor { itemStack, i ->
         if (i == 0) {
             val color = (RainbowItemHelper.getColor(itemStack))
-            if (color == -1) BotanicalAddons.proxy.rainbow().rgb else BotanicalAddons.proxy.pulseColor(Color(color)).rgb
+            if (color == -1) BotanicalAddons.PROXY.rainbow().rgb else BotanicalAddons.PROXY.pulseColor(Color(color)).rgb
         } else 0xFFFFFF
     }
 

@@ -23,7 +23,6 @@ import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.items.TempBaubleHelper
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.item.IBaubleRender
@@ -92,7 +91,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
 
     @SideOnly(Side.CLIENT)
     override fun getColor(): IItemColor? {
-        return IItemColor { itemStack, i -> if (getPlayer(itemStack) == willie) BotanicalAddons.proxy.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
+        return IItemColor { itemStack, i -> if (getPlayer(itemStack) == willie) BotanicalAddons.PROXY.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
     }
 
     override val extraVariants: Array<out String>
@@ -166,14 +165,15 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
 
         if (getPlayer(renderStack) !in specialPlayers && player.uniqueID.toString() in specialPlayers && getPlayer(renderStack) != "none")
             setPlayer(renderStack, player.uniqueID.toString())
+        ItemNBTHelper.setBoolean(renderStack, ItemFaithBauble.TAG_PENDANT, true)
 
         var playerAs = getPlayer(renderStack)
         if (playerAs !in specialPlayers) playerAs = ""
         GlStateManager.pushMatrix()
         if (type == IBaubleRender.RenderType.HEAD && playerAs in headPlayers) {
-            TempBaubleHelper.translateToHeadLevel(player)
-            TempBaubleHelper.translateToFace()
-            TempBaubleHelper.defaultTransforms()
+            IBaubleRender.Helper.translateToHeadLevel(player)
+            IBaubleRender.Helper.translateToFace()
+            IBaubleRender.Helper.defaultTransforms()
             if (playerAs == vaz) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(POTATO_LOCATION)
                 val model = ModelTinyPotato()
@@ -203,9 +203,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
                 }
             }
         } else if (type == IBaubleRender.RenderType.BODY && playerAs !in headPlayers) {
-            TempBaubleHelper.rotateIfSneaking(player)
-            TempBaubleHelper.translateToChest()
-            TempBaubleHelper.defaultTransforms()
+            IBaubleRender.Helper.rotateIfSneaking(player)
+            IBaubleRender.Helper.translateToChest()
+            IBaubleRender.Helper.defaultTransforms()
             if (playerAs == l0ne) {
                 GlStateManager.rotate(90F, 0F, 1F, 0F)
                 GlStateManager.translate(0.5F, -0.75F, 0F)
@@ -229,7 +229,6 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             } else {
                 val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
                 GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
-                ItemNBTHelper.setBoolean(renderStack, ItemFaithBauble.TAG_PENDANT, true)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             }
         }

@@ -16,7 +16,9 @@ import vazkii.botania.api.lexicon.LexiconEntry
  */
 class BlockCalicoLog(name: String) : BlockModLog(name), IExplosionDampener, ILexiconable {
 
-    override fun onBlockExploded(world: World?, pos: BlockPos?, explosion: Explosion?) {}
+    override fun onBlockExploded(world: World?, pos: BlockPos?, explosion: Explosion?) {
+        //NO-OP
+    }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
         return LexiconEntries.calicoTree

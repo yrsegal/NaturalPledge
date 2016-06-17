@@ -3,10 +3,10 @@ package shadowfox.botanicaladdons.client.core;
 import com.google.common.base.Throwables;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import shadowfox.botanicaladdons.common.core.helper.BALogger;
 import shadowfox.botanicaladdons.common.lib.LibObfuscation;
 import vazkii.botania.client.core.handler.ClientMethodHandles;
 
@@ -26,11 +26,13 @@ public class BAClientMethodHandles {
 
     static {
         try {
+
             Field f = ReflectionHelper.findField(GuiIngame.class, LibObfuscation.GUIINGAME_REMAININGHIGHLIGHTTICKS);
             f.setAccessible(true);
             remainingHighlightSetter = MethodHandles.publicLookup().unreflectSetter(f);
+
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Couldn't initialize client methodhandles! Things will be broken!");
+            BALogger.INSTANCE.severe("Couldn't initialize client methodhandles! Things will be broken!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -40,7 +42,7 @@ public class BAClientMethodHandles {
         try {
             remainingHighlightSetter.invokeExact(gui, ticks);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -50,7 +52,7 @@ public class BAClientMethodHandles {
         try {
             return (double) ClientMethodHandles.renderPosX_getter.invokeExact(renderManager);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -60,7 +62,7 @@ public class BAClientMethodHandles {
         try {
             return (double) ClientMethodHandles.renderPosY_getter.invokeExact(renderManager);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }
@@ -70,7 +72,7 @@ public class BAClientMethodHandles {
         try {
             return (double) ClientMethodHandles.renderPosZ_getter.invokeExact(renderManager);
         } catch (Throwable t) {
-            FMLLog.severe("[BA]: Methodhandle failed!");
+            BALogger.INSTANCE.severe("Methodhandle failed!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }

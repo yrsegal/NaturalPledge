@@ -1,7 +1,5 @@
 package shadowfox.botanicaladdons.common.block.dendrics.circuit
 
-import net.minecraft.block.properties.IProperty
-import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
@@ -39,23 +37,20 @@ class BlockCircuitSapling(name: String) : BlockModSapling(name), ILexiconable, I
             worldIn.setBlockState(pos, state, 4)
     }
 
+    override fun getLightValue(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?): Int {
+        return 8
+    }
+
     override fun canProvidePower(state: IBlockState?): Boolean {
         return true
     }
 
+    override fun tickRate(worldIn: World): Int {
+        return 1
+    }
+
     override fun getWeakPower(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing?): Int {
-        return getActualState(blockState, blockAccess, pos).getValue(ICircuitBlock.POWER)
-    }
-
-    override fun getActualState(state: IBlockState, worldIn: IBlockAccess, pos: BlockPos): IBlockState {
-        return state.withProperty(ICircuitBlock.POWER, ICircuitBlock.getPower(worldIn, pos))
-    }
-
-    override val ignoredProperties: Array<IProperty<*>>?
-        get() = arrayOf(ICircuitBlock.POWER)
-
-    override fun createBlockState(): BlockStateContainer? {
-        return BlockStateContainer(this, BlockModSapling.STAGE, ICircuitBlock.POWER)
+        return ICircuitBlock.getPower(blockAccess, pos)
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

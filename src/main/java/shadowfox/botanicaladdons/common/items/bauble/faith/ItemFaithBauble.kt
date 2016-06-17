@@ -28,7 +28,6 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.TempBaubleHelper
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
@@ -153,9 +152,9 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
             val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
 
             GlStateManager.pushMatrix()
-            TempBaubleHelper.rotateIfSneaking(player)
-            TempBaubleHelper.translateToChest()
-            TempBaubleHelper.defaultTransforms()
+            IBaubleRender.Helper.rotateIfSneaking(player)
+            IBaubleRender.Helper.translateToChest()
+            IBaubleRender.Helper.defaultTransforms()
             GlStateManager.rotate(180F, 1F, 0F, 0F)
             GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
             Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.NONE)

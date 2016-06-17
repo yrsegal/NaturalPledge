@@ -72,7 +72,6 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.IRON), ILexicona
     }
 
     init {
-
         AwakeningEventHandler.register()
 
         setHardness(5F)
@@ -83,7 +82,7 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.IRON), ILexicona
 
     @SideOnly(Side.CLIENT)
     override fun randomDisplayTick(state: IBlockState, world: World, pos: BlockPos, rand: Random) {
-        val color = BotanicalAddons.proxy.rainbow(pos, 0.4f)
+        val color = BotanicalAddons.PROXY.rainbow(pos, 0.4f)
         val colorBright = color.brighter().rgb
         val colorDark = color.darker().rgb
         val origVector = Vector3(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
