@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
@@ -38,8 +39,8 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, ModMaterials.TRANS
         soundType = SoundType.CLOTH
     }
 
-    override val hasItem: Boolean
-        get() = false
+    override val item: ItemBlock?
+        get() = null
 
     override fun getBoundingBox(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?) = AABB
     override fun getRenderType(state: IBlockState?) = EnumBlockRenderType.INVISIBLE

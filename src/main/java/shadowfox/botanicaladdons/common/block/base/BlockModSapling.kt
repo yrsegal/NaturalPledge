@@ -38,7 +38,7 @@ abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod
     init {
         this.tickRandomly = true
         soundType = SoundType.PLANT
-        if (hasItem)
+        if (itemForm != null)
             OreDictionary.registerOre("treeSapling", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
     }
 

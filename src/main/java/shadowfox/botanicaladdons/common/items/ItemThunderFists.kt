@@ -72,7 +72,7 @@ class ItemThunderFists(name: String) : ItemMod(name), IWeightEnchantable, IPreve
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
         if (hand == EnumHand.OFF_HAND && playerIn.heldItemMainhand?.item == this)
             playerIn.activeHand = hand
-        return ActionResult(EnumActionResult.PASS, itemStackIn)
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand)
     }
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack): Multimap<String, AttributeModifier>? {

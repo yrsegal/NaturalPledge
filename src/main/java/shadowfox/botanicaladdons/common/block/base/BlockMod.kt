@@ -41,12 +41,14 @@ open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg 
         }
     }
 
+    val itemForm: ItemBlock? by lazy { item }
+
     init {
         if (variants.size == 0) {
             this.variants = arrayOf(name)
         }
         this.unlocalizedName = name
-        if (hasItem)
+        if (itemForm != null)
             ModTab.set(this)
     }
 
@@ -54,16 +56,13 @@ open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg 
         super.setUnlocalizedName(name)
         setRegistryName(name)
         GameRegistry.register(this)
-        if (hasItem)
-            GameRegistry.register(item, ResourceLocation(LibMisc.MOD_ID, name))
+        if (itemForm != null)
+            GameRegistry.register(itemForm, ResourceLocation(LibMisc.MOD_ID, name))
         return this
     }
 
-    open val item: ItemBlock
+    open val item: ItemBlock?
         get() = ItemModBlock(this)
-
-    open val hasItem: Boolean
-        get() = true
 
     @SideOnly(Side.CLIENT)
     override fun getCustomMeshDefinition() = null

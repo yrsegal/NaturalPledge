@@ -29,6 +29,7 @@ import java.util.*
 object ModelHandler {
 
     lateinit var modName: String
+    var debug = false
     val namePad: String by lazy {
         "".padEnd(modName.length)
     }
@@ -79,9 +80,10 @@ object ModelHandler {
 
     val resourceLocations = HashMap<String, ModelResourceLocation>()
 
-    fun preInit(name: String) {
+    fun preInit(name: String, shouldDebug: Boolean) {
         modName = name
-        BALogger.info("$modName | Starting model load")
+        debug = shouldDebug
+        log("$modName | Starting model load")
         for (holder in variantCache.sortedBy { (255 - getVariantCount(it)).toChar() + if (it is ItemBlock) "b" else "I" + if (it is Item) it.registryName.resourcePath else "" }) {
             registerModels(holder)
         }
@@ -152,16 +154,16 @@ object ModelHandler {
                     print += "variant" + if (variants.size == 1) "" else "s" + " of "
                 print += if (item is ItemBlock) "block" else "item"
                 print += " ${item.registryName.resourcePath}"
-                BALogger.info(print)
+                log(print)
                 if (item is ICustomLogHolder)
-                    BALogger.info(item.customLog())
+                    log(item.customLog())
             }
             if ((variant.value != item.registryName.resourcePath || variants.size != 1)) {
                 if (item is ICustomLogHolder) {
                     if (item.shouldLogForVariant(variant.index + 1, variant.value))
-                        BALogger.info(item.customLogVariant(variant.index + 1, variant.value))
+                        log(item.customLogVariant(variant.index + 1, variant.value))
                 } else
-                    BALogger.info("$namePad |  Variant #${variant.index + 1}: ${variant.value}")
+                    log("$namePad |  Variant #${variant.index + 1}: ${variant.value}")
             }
 
             val model = ModelResourceLocation(ResourceLocation(LibMisc.MOD_ID, variant.value).toString(), "inventory")
@@ -189,16 +191,16 @@ object ModelHandler {
                             print += "variant" + (if (enumclazz.enumConstants.size == 1) "" else "s") + " of "
                         print += if (item is ItemBlock) "block" else "item"
                         print += " " + item.registryName.resourcePath
-                        BALogger.info(print)
+                        log(print)
                         if (item is ICustomLogHolder)
-                            BALogger.info(item.customLog())
+                            log(item.customLog())
                     }
                     if (e.name != item.registryName.resourcePath || enumclazz.enumConstants.size != 1) {
                         if (item is ICustomLogHolder) {
                             if (item.shouldLogForVariant(e.ordinal, variantName))
-                                BALogger.info(item.customLogVariant(e.ordinal + 1, variantName))
+                                log(item.customLogVariant(e.ordinal + 1, variantName))
                         } else
-                            BALogger.info("$namePad |  Variant #${e.ordinal + 1}: $variantName")
+                            log("$namePad |  Variant #${e.ordinal + 1}: $variantName")
                     }
 
                     val loc = ModelResourceLocation(locName, variantName)
@@ -212,5 +214,9 @@ object ModelHandler {
 
     private fun getKey(item: Item, meta: Int): String {
         return "i_" + item.registryName + "@" + meta
+    }
+
+    fun log(text: String) {
+        if (debug) BALogger.info(text)
     }
 }

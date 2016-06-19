@@ -8,6 +8,7 @@ import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Blocks
 import net.minecraft.init.MobEffects
+import net.minecraft.item.ItemBlock
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumBlockRenderType
@@ -45,8 +46,8 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
     override fun getCollisionBoundingBox(state: IBlockState, world: World, pos: BlockPos) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
 
-    override val hasItem: Boolean
-        get() = false
+    override val item: ItemBlock?
+        get() = null
 
     override fun randomDisplayTick(stateIn: IBlockState, world: World, pos: BlockPos, rand: Random) {
         if (BotanicalAddons.PROXY.playerHasMonocle()) {

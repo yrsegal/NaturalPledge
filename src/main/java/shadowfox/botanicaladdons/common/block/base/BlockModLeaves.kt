@@ -62,7 +62,7 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
         this.setHardness(0.2f)
         this.setLightOpacity(1)
         this.soundType = SoundType.PLANT
-        if (hasItem)
+        if (itemForm != null)
             OreDictionary.registerOre("treeLeaves", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
     }
 

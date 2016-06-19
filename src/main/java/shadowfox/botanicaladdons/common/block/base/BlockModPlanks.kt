@@ -18,7 +18,7 @@ open class BlockModPlanks(name: String, vararg variants: String) : BlockMod(name
         soundType = SoundType.WOOD
         setHardness(2f)
         setResistance(5f)
-        if (hasItem)
+        if (itemForm != null)
             OreDictionary.registerOre("plankWood", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
     }
 

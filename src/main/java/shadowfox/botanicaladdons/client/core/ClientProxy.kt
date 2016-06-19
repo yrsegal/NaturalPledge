@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.client.render.entity.RenderSealedArrow
 import shadowfox.botanicaladdons.client.render.tile.RenderTileFrozenStar
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.CommonProxy
 import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
@@ -27,7 +28,7 @@ class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
         RenderingRegistry.registerEntityRenderingHandler(EntitySealedArrow::class.java, { RenderSealedArrow(it) })
-        ModelHandler.preInit("BA")
+        ModelHandler.preInit("BA", BotanicalAddons.DEV_ENVIRONMENT)
     }
 
     override fun init(e: FMLInitializationEvent) {
