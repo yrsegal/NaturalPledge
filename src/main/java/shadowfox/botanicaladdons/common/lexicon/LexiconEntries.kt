@@ -56,6 +56,7 @@ object LexiconEntries {
     val thunderFist: LexiconEntry
 
     val sealTree: LexiconEntry
+    val amp: LexiconEntry
     val thunderTree: LexiconEntry
     val circuitTree: LexiconEntry
     val calicoTree: LexiconEntry
@@ -127,6 +128,8 @@ object LexiconEntries {
 
         sealTree = EntryPriestlyKnowledge("seal", divinity, ModBlocks.sealSapling, PriestlyEmblemIdunn::class.java)
         sealTree.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeSealSapling), PageCraftingRecipe("2", ModRecipes.recipeSealPlanks))
+        amp = EntryPriestlyKnowledge("amp", divinity, ModBlocks.amp, PriestlyEmblemIdunn::class.java)
+        amp.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeAmp))
         thunderTree = EntryPriestlyKnowledge("thunder", divinity, ModBlocks.thunderSapling, PriestlyEmblemIdunn::class.java)
         thunderTree.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThunderSapling), PageCraftingRecipe("2", ModRecipes.recipeThunderPlanks))
         circuitTree = EntryPriestlyKnowledge("circuit", divinity, ModBlocks.circuitSapling, PriestlyEmblemIdunn::class.java)

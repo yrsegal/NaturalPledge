@@ -57,6 +57,8 @@ object ModBlocks {
     val sealLeaves: BlockMod
     val sealLog: BlockMod
 
+    val amp: BlockMod
+
     val thunderSapling: BlockMod
     val thunderPlanks: BlockMod
     val thunderLeaves: BlockMod
@@ -123,6 +125,8 @@ object ModBlocks {
         sealPlanks = BlockSealPlanks(LibNames.SEAL_PLANKS)
         sealLeaves = BlockSealLeaves(LibNames.SEAL_LEAVES)
         sealLog = BlockSealingLog(LibNames.SEAL_LOG)
+
+        amp = BlockAmplifier(LibNames.AMPLIFIER)
 
         ThunderEventHandler
         thunderSapling = BlockThunderSapling(LibNames.THUNDER_SAPLING)

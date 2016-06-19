@@ -3,7 +3,6 @@ tile.botanicaladdons:funnel.name=Livingwood Funnel
 tile.botanicaladdons:aquaGlass.name=Aquamarine Glass
 tile.botanicaladdons:aquaPane.name=Aquamarine Pane
 
-
 item.botanicaladdons:emblemNjord.name=Priestly Emblem: Njord
 item.botanicaladdons:emblemNjord.angry=You feel the air trembling with Njord's displeasure...
 item.botanicaladdons:emblemIdunn.name=Priestly Emblem: Idunn
@@ -102,6 +101,8 @@ tile.botanicaladdons:sealLog.name=Sealing Oak Log
 tile.botanicaladdons:sealPlanks.name=Sealing Oak Planks
 tile.botanicaladdons:sealLeaves.name=Sealing Oak Leaves
 tile.botanicaladdons:sealSapling.name=Sealing Oak Sapling
+
+tile.botanicaladdons:amp.name=Sonic Amplifier
 
 tile.botanicaladdons:thunderLog.name=Thunderous Oak Log
 tile.botanicaladdons:thunderPlanks.name=Thunderous Oak Planks
@@ -449,3 +450,8 @@ botanicaladdons.entry.funnel=Livingwood Funnel
 botanicaladdons.tagline.funnel=A single-slot hopper
 botanicaladdons.page.funnel0=For some people, the &1Hopper&0 is too lax. It allows items through when it shouldn't, and sometimes moves them too fast. The &1Livingwood Funnel&0 is far, far stricter. It only allows one item through at a time, and can be filtered by placing an &1Item Frame&0 on one of its sides. Its contents can be seen by looking at it while holding a &1Wand of the Forest&0.
 botanicaladdons.page.funnel1=London loves queues
+
+botanicaladdons.entry.amp=Sonic Amplifier
+botanicaladdons.tagline.amp=Louder sounds
+botanicaladdons.page.amp0=By dampening the sounds of the air within &1Note Blocks&0, the &1Sonic Amplifier&0 can reverberate sound, making sounds within a block or two sound far louder. The more you have, the louder the sound.
+botanicaladdons.page.amp1=Don't whisper

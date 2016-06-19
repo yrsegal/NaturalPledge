@@ -93,6 +93,8 @@ object ModRecipes {
     val recipeSealSapling: IRecipe
     val recipeSealPlanks: IRecipe
 
+    val recipeAmp: IRecipe
+
     val recipeThunderSapling: IRecipe
     val recipeThunderPlanks: IRecipe
 
@@ -341,6 +343,13 @@ object ModRecipes {
 
         recipeSealPlanks = addShapelessOreDictRecipe(ItemStack(ModBlocks.sealPlanks, 4),
                 ModBlocks.sealLog)
+
+        recipeAmp = addOreDictRecipe(ModBlocks.amp,
+                " N ",
+                "NRN",
+                " N ",
+                'N', Blocks.NOTEBLOCK,
+                'R', ModBlocks.sealPlanks)
 
         recipeThunderSapling = addOreDictRecipe(ModBlocks.thunderSapling,
                 "W I",

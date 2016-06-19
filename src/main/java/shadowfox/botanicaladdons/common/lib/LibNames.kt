@@ -60,6 +60,7 @@ object LibNames {
     val SEAL_PLANKS = "sealPlanks"
     val SEAL_LOG = "sealLog"
     val SEAL_LEAVES = "sealLeaves"
+    val AMPLIFIER = "amp"
     val THUNDER_SAPLING = "thunderSapling"
     val THUNDER_PLANKS = "thunderPlanks"
     val THUNDER_LOG = "thunderLog"

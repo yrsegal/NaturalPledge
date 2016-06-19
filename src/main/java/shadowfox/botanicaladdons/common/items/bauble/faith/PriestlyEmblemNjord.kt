@@ -94,7 +94,7 @@ class PriestlyEmblemNjord : IFaithVariant {
 
         ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
 
-        if (player.isSneaking || player.isSpectator) return
+        if (player.isSneaking || player.isSpectator || player.isInWater) return
 
         val ray = Spells.Helper.raycast(player, basePlayerRange, true) ?: return
 
