@@ -2,12 +2,17 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
+import net.minecraft.util.EnumActionResult
+import net.minecraft.util.EnumHand
 import net.minecraft.util.math.MathHelper
+import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
@@ -49,13 +54,15 @@ class PriestlyEmblemNjord : IFaithVariant {
         val dist = -0.05
         val shift = 0.175
 
-        if (!player.capabilities.isFlying && player.isSneaking && world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, dist + shift, 0.0)) && player.motionY > -0.5) {
+        if (player.isSpectator || player.capabilities.isFlying) return
+
+        if (player.isSneaking && world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, dist + shift, 0.0)) && player.motionY > -0.5) {
             player.motionY -= 0.15
             player.fallDistance = 0f
             flag = true
         }
 
-        if (player.capabilities.isFlying || player.isSneaking) return
+        if (player.isSneaking) return
 
         if (world.containsAnyLiquid(player.entityBoundingBox.offset(0.0, dist + shift, 0.0)) && player.motionY < 0.5) {
             player.motionY += 0.15
@@ -76,6 +83,53 @@ class PriestlyEmblemNjord : IFaithVariant {
 
         if (flag && shouldCost)
             ManaItemHandler.requestManaExact(emblem, player, 1, true)
+    }
+
+    @SubscribeEvent
+    fun onPlayerClick(e: PlayerInteractEvent.RightClickItem) {
+        val player = e.entityPlayer
+        var basePlayerRange = 5.0
+        if (player is EntityPlayerMP)
+            basePlayerRange = player.interactionManager.blockReachDistance
+
+        ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
+
+        if (player.isSneaking || player.isSpectator) return
+
+        val ray = Spells.Helper.raycast(player, basePlayerRange, true) ?: return
+
+        if (ray.typeOfHit == RayTraceResult.Type.BLOCK) {
+            val state = player.worldObj.getBlockState(ray.blockPos)
+            if (state.material.isLiquid) {
+                var helditem = player.heldItemMainhand
+                var result: EnumActionResult? = null
+                if (helditem != null) {
+                    result = helditem.item?.onItemUse(helditem, player, player.worldObj,
+                            ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
+                            ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+                    if (result == EnumActionResult.PASS) {
+                        helditem = player.heldItemOffhand
+                        if (helditem != null) {
+                            result = helditem.item?.onItemUse(helditem, player, player.worldObj,
+                                    ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
+                                    ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+                        }
+                    }
+                } else {
+                    helditem = player.heldItemOffhand
+                    if (helditem != null) {
+                        result = helditem.item?.onItemUse(helditem, player, player.worldObj,
+                                ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
+                                ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+                    }
+                }
+
+                if (result != null) {
+                    e.isCanceled = true
+                }
+            }
+        }
+
     }
 
     @SubscribeEvent

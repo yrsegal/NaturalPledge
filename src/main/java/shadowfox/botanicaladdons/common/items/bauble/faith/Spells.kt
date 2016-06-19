@@ -52,8 +52,8 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 object Spells {
 
     object Helper {
-        // Copied from Psi's PieceOperatorVectorRaycast
-        fun raycast(e: Entity, len: Double): RayTraceResult? {
+        // Copied from Psi's PieceOperatorVectorRaycast with minor changes
+        fun raycast(e: Entity, len: Double, stopOnLiquid: Boolean = false): RayTraceResult? {
             val vec = Vector3.fromEntity(e)
             if (e is EntityPlayer) {
                 vec.add(0.0, e.getEyeHeight().toDouble(), 0.0)
@@ -63,13 +63,13 @@ object Spells {
             if (look == null) {
                 return null
             } else {
-                return raycast(e.worldObj, vec, Vector3(look), len)
+                return raycast(e.worldObj, vec, Vector3(look), len, stopOnLiquid)
             }
         }
 
-        fun raycast(world: World, origin: Vector3, ray: Vector3, len: Double): RayTraceResult? {
+        fun raycast(world: World, origin: Vector3, ray: Vector3, len: Double, stopOnLiquid: Boolean = false): RayTraceResult? {
             val end = origin.copy().add(ray.copy().normalize().multiply(len))
-            val pos = world.rayTraceBlocks(origin.toVec3D(), end.toVec3D())
+            val pos = world.rayTraceBlocks(origin.toVec3D(), end.toVec3D(), stopOnLiquid)
             return pos
         }
 
