@@ -138,7 +138,7 @@ object LexiconEntries {
         calicoTree.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeCalicoSapling), PageCraftingRecipe("2", ModRecipes.recipeCalicoPlanks))
 
         awakening = EntryPriestlyKnowledge("awakening", divinity, ModBlocks.awakenerCore).setKnowledgeType(topKnowledgeTier).setPriority()
-        awakening.setLexiconPages(PageText("0"), PageText("1"), PageMultiblock("2", BlockAwakenerCore.multiblock), PageCraftingRecipe("3", ModRecipes.recipeDivineCore))
+        awakening.setLexiconPages(PageText("0"), PageText("1"), PageMultiblock("2", BlockAwakenerCore.multiblock), PageCraftingRecipe("3", listOf(*ModRecipes.recipesDivineCore)))
         consequences = EntryAwakenedKnowledge("wellshit", divinity, ItemStack(Blocks.DIRT, 1, BlockDirt.DirtType.PODZOL.metadata)).setKnowledgeType(topKnowledgeTier).setPriority()
         consequences.setLexiconPages(PageText("0"))
 
@@ -159,7 +159,9 @@ object LexiconEntries {
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
 
-        for (i in ModBlocks.altLogs) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), sapling, 0)
+        LexiconRecipeMappings.map(ItemStack(ModBlocks.irisSapling), sapling, 0)
+
+        for (i in ModBlocks.altLogs) for (j in 0..i.TYPE.allowedValues.size-1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
         for (i in ModBlocks.irisLogs) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.rainbowLog, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.sealLog, 1, OreDictionary.WILDCARD_VALUE), sealTree, 0)
@@ -167,7 +169,7 @@ object LexiconEntries {
         LexiconRecipeMappings.map(ItemStack(ModBlocks.circuitLog, 1, OreDictionary.WILDCARD_VALUE), circuitTree, 0)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.calicoLog, 1, OreDictionary.WILDCARD_VALUE), calicoTree, 0)
 
-        for (i in ModBlocks.altLeaves) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), sapling, 0)
+        for (i in ModBlocks.altLeaves) for (j in 0..i.TYPE.allowedValues.size-1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
         for (i in ModBlocks.irisLeaves) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.rainbowLeaves, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.sealLeaves, 1, OreDictionary.WILDCARD_VALUE), sealTree, 0)
@@ -175,8 +177,8 @@ object LexiconEntries {
         LexiconRecipeMappings.map(ItemStack(ModBlocks.circuitLeaves, 1, OreDictionary.WILDCARD_VALUE), circuitTree, 0)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.calicoLeaves, 1, OreDictionary.WILDCARD_VALUE), calicoTree, 0)
 
-        LexiconRecipeMappings.map(ItemStack(ModItems.iridescentDye, 1, OreDictionary.WILDCARD_VALUE), heimdallSpells, 0)
-        LexiconRecipeMappings.map(ItemStack(ModItems.awakenedDye, 1, OreDictionary.WILDCARD_VALUE), heimdallSpells, 0)
+        for (i in 0..16) LexiconRecipeMappings.map(ItemStack(ModItems.iridescentDye, 1, i), heimdallSpells, 0)
+        for (i in 0..16) LexiconRecipeMappings.map(ItemStack(ModItems.awakenedDye, 1, i), heimdallSpells, 0)
 
         LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.THUNDER_STEEL), thorSpells, 4)
         LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.THUNDER_STEEL, true), thorSpells, 4)

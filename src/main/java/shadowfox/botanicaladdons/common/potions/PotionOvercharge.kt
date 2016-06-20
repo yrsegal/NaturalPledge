@@ -15,6 +15,7 @@ class PotionOvercharge(iconIndex: Int) : PotionMod(LibNames.OVERCHARGED, true, 0
     val RANGE = 6
 
     override fun performEffect(entity: EntityLivingBase, amp: Int) {
+        if (entity.isDead) return
         val x = (Math.random() - 0.5) * RANGE * 2 + entity.posX
         val y = (Math.random() - 0.5) * RANGE * 2 + entity.posY
         val z = (Math.random() - 0.5) * RANGE * 2 + entity.posZ

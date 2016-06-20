@@ -27,7 +27,7 @@ class PotionFeatherweight(iconIndex: Int) : PotionMod(LibNames.FEATHERWEIGHT, tr
 
     @SubscribeEvent
     fun onTick(e: LivingEvent.LivingUpdateEvent) {
-        if (hasEffect(e.entityLiving)) {
+        if (hasEffect(e.entityLiving) && !e.entityLiving.isDead) {
             e.entityLiving.motionY = 0.025
             e.entityLiving.fallDistance = 0f
         }

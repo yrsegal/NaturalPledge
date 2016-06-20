@@ -41,7 +41,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
     companion object {
         val TAG_SIZE = "size"
 
-        val DEFAULT_SIZE = 0.05f
+        val DEFAULT_SIZE = 0.5f
 
         fun getSize(stack: ItemStack) = ItemNBTHelper.getFloat(stack, TAG_SIZE, DEFAULT_SIZE)
         fun setSize(stack: ItemStack, size: Float) = ItemNBTHelper.setFloat(stack, TAG_SIZE, size)
@@ -95,7 +95,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
             ItemMod.addToTooltip(tooltip, "#${Integer.toHexString(color).toUpperCase()}")
 
         if (getSize(stack) != DEFAULT_SIZE)
-            ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.customSize", getSize(stack) / 0.1f)
+            ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.customSize", getSize(stack))
     }
 
 

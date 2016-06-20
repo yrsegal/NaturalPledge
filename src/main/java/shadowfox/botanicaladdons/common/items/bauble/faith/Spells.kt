@@ -26,6 +26,7 @@ import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
@@ -177,17 +178,17 @@ object Spells {
         }
     }
 
-    class ObjectInfusion(val icon: ItemStack, oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int) : IFocusSpell {
+    class ObjectInfusion(val icon: ItemStack, oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int, transformer: ((EntityPlayer, ObjectInfusionEntry) -> Unit)? = null) : IFocusSpell {
 
         val objectInfusionEntries = mutableListOf<ObjectInfusionEntry>()
 
-        fun addEntry(oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int): ObjectInfusion {
-            objectInfusionEntries.add(ObjectInfusionEntry(oreKey, product, awakenedProduct, manaCost, color))
+        fun addEntry(oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int, transformer: ((EntityPlayer, ObjectInfusionEntry) -> Unit)? = null): ObjectInfusion {
+            objectInfusionEntries.add(ObjectInfusionEntry(oreKey, product, awakenedProduct, manaCost, color, transformer))
             return this
         }
 
         init {
-            addEntry(oreKey, product, awakenedProduct, manaCost, color)
+            addEntry(oreKey, product, awakenedProduct, manaCost, color, transformer)
         }
 
         override fun getIconStack() = icon
@@ -208,7 +209,10 @@ object Spells {
                         Helper.craft(player, entry.oreKey, entry.awakenedProduct, entry.color)
                     else
                         Helper.craft(player, entry.oreKey, entry.product, entry.color)
-            if (flag) ManaItemHandler.requestManaExact(focus, player, entry.manaCost, true)
+            if (flag) {
+                entry.transformer?.invoke(player, entry)
+                ManaItemHandler.requestManaExact(focus, player, entry.manaCost, true)
+            }
             return true
         }
 
@@ -216,7 +220,7 @@ object Spells {
             return 50
         }
 
-        data class ObjectInfusionEntry(val oreKey: String, val product: ItemStack, val awakenedProduct: ItemStack, val manaCost: Int, val color: Int)
+        data class ObjectInfusionEntry(val oreKey: String, val product: ItemStack, val awakenedProduct: ItemStack, val manaCost: Int, val color: Int, val transformer: ((EntityPlayer, ObjectInfusionEntry) -> Unit)? = null)
     }
 
     object Njord {
@@ -460,7 +464,10 @@ object Spells {
                 for (i in LibOreDict.DYES.withIndex()) {
                     flag = Helper.craft(player, i.value, ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i.index), if (i.index == 16) BotanicalAddons.PROXY.rainbow().rgb else EnumDyeColor.byMetadata(i.index).mapColor.colorValue) || flag
                 }
-                if (flag) ManaItemHandler.requestManaExact(focus, player, 150, true)
+                if (flag) {
+                    player.addStat(ModAchievements.iridescence)
+                    ManaItemHandler.requestManaExact(focus, player, 150, true)
+                }
                 return EnumActionResult.SUCCESS
             }
 

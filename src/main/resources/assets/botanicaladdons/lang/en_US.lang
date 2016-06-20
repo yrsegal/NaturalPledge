@@ -243,12 +243,24 @@ achievement.botanicaladdons:focus=Glass of Time
 achievement.botanicaladdons:focus.desc=Channel your soul through a Terrestrial Focus
 achievement.botanicaladdons:awakening=Chaining Intention
 achievement.botanicaladdons:awakening.desc=Infuse the Divine into your Priestly Emblem
-achievement.botanicaladdons:sacredItem=God Slaying Machine
-achievement.botanicaladdons:sacredItem.desc=Create a holy item from your divinity's power
-achievement.botanicaladdons:dendricSuffusion=Pitch-Black Forest
-achievement.botanicaladdons:dendricSuffusion.desc=Forge new life from the power of Idunn
+
+achievement.botanicaladdons:createLife=Pitch-Black Forest
+achievement.botanicaladdons:createLife.desc=Forge the essence of new life from the power of Idunn
+achievement.botanicaladdons:createThunder=Electric Angel
+achievement.botanicaladdons:createThunder.desc=Forge lightning into metal from the power of Thor
+achievement.botanicaladdons:createAqua=Blue Sky Fish
+achievement.botanicaladdons:createAqua.desc=Forge the storm into crystal from the power of Njord
 achievement.botanicaladdons:iridescence=Platinum Disco
 achievement.botanicaladdons:iridescence.desc=Forge Iridescence from the power of Heimdall
+
+achievement.botanicaladdons:sacredLife=Eternal Song
+achievement.botanicaladdons:sacredLife.desc=Create the Apples of Immortality from the true power of Idunn
+achievement.botanicaladdons:sacredThunder=God Slaying Machine
+achievement.botanicaladdons:sacredThunder.desc=Create Mjolnir from the true power of Thor
+achievement.botanicaladdons:sacredAqua=Rising Hero
+achievement.botanicaladdons:sacredAqua.desc=Create the Arrows of Ascension from the true power of Njord
+achievement.botanicaladdons:sacredHorn=Lost One's Weeping
+achievement.botanicaladdons:sacredHorn.desc=Create Gjallerhorn from the true power of Heimdall
 
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor

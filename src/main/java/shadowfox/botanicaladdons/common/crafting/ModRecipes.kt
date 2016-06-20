@@ -50,7 +50,7 @@ object ModRecipes {
     val recipeThorEmblem: IRecipe
     val recipeHeimdallEmblem: IRecipe
 
-    val recipeDivineCore: IRecipe
+    val recipesDivineCore: Array<IRecipe>
 
     val recipeTerrestrialFocus: IRecipe
 
@@ -170,12 +170,14 @@ object ModRecipes {
                 'F', BotaniaOreDict.RUNE[1], // Fire
                 'B', BotaniaItems.pixieRing)
 
-        recipeDivineCore = addOreDictRecipe(ModBlocks.awakenerCore,
-                " D ",
+        recipesDivineCore = Array(LibOreDict.HOLY_MATERIALS.size) {addOreDictRecipe(ModBlocks.awakenerCore,
+                " I ",
                 "DGD",
                 " D ",
+                'I', LibOreDict.HOLY_MATERIALS[it],
                 'D', BotaniaOreDict.MANA_DIAMOND,
                 'G', BotaniaOreDict.GAIA_INGOT)
+        }
 
         recipeTerrestrialFocus = addOreDictRecipe(ModItems.spellFocus,
                 " D ",

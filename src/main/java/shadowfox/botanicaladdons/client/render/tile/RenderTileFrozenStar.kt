@@ -24,7 +24,7 @@ class RenderTileFrozenStar : TileEntitySpecialRenderer<TileStar>() {
         var color = te.getColor()
         if (color == -1) color = BotanicalAddons.PROXY.rainbow(te.pos).rgb
         val size = te.size
-        RenderHelper.renderStar(color, size, size, size, seed)
+        RenderHelper.renderStar(color, size * 0.1f, size * 0.1f, size * 0.1f, seed)
 
         GlStateManager.color(1f, 1f, 1f)
         GlStateManager.disableBlend()

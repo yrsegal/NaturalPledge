@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block.tile
 
 import net.minecraft.nbt.NBTTagCompound
+import shadowfox.botanicaladdons.common.block.colored.BlockFrozenStar
 
 /**
  * @author WireSegal
@@ -10,7 +11,7 @@ class TileStar : TileMod() {
     private val TAG_COLOR = "color"
     private val TAG_SIZE = "size"
     var starColor = -1
-    var size = 0.05f
+    var size = BlockFrozenStar.DEFAULT_SIZE
 
     override fun writeCustomNBT(cmp: NBTTagCompound) {
         cmp.setInteger(TAG_COLOR, starColor)
