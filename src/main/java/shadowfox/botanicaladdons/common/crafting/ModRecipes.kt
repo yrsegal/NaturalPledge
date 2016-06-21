@@ -134,7 +134,7 @@ object ModRecipes {
                 " P ",
                 "WSA",
                 " C ",
-                'P', BotaniaOreDict.PIXIE_DUST,
+                'P', BotaniaOreDict.MANA_DIAMOND,
                 'W', BotaniaOreDict.RUNE[0], // Water
                 'S', "holySymbol",
                 'A', BotaniaOreDict.RUNE[3], // Air
@@ -142,20 +142,19 @@ object ModRecipes {
 
         recipeIdunnEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
                 " T ",
-                "RSU",
+                "ESE",
                 " B ",
-                'T', BotaniaOreDict.TERRA_STEEL,
-                'R', BotaniaOreDict.RUNE[4], // Spring
+                'T', BotaniaOreDict.LIVING_WOOD,
+                'E', BotaniaOreDict.RUNE[2], // Earth
                 'S', "holySymbol",
-                'U', BotaniaOreDict.RUNE[5], // Summer
                 'B', BotaniaItems.knockbackBelt)
 
         recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
                 " G ",
                 "WSA",
                 " B ",
-                'G', BotaniaOreDict.LIFE_ESSENCE,
-                'W', BotaniaOreDict.RUNE[13], // Wrath
+                'G', BotaniaOreDict.MANA_PEARL,
+                'W', BotaniaOreDict.RUNE[1], // Fire
                 'S', "holySymbol",
                 'A', BotaniaOreDict.RUNE[3], // Air
                 'B', BotaniaItems.travelBelt)
@@ -164,7 +163,7 @@ object ModRecipes {
                 " G ",
                 "PSF",
                 " B ",
-                'G', ItemStack(BotaniaBlocks.bifrostPerm),
+                'G', "dye",
                 'P', BotaniaOreDict.RUNE[15], // Pride
                 'S', "holySymbol",
                 'F', BotaniaOreDict.RUNE[1], // Fire
@@ -209,7 +208,7 @@ object ModRecipes {
                 "CL ",
                 "L L",
                 "PLD",
-                'P', BotaniaOreDict.PIXIE_DUST,
+                'P', BotaniaOreDict.RUNE[12], // Sloth
                 'L', Items.LEATHER,
                 'C', Blocks.CHEST,
                 'D', LibOreDict.IRIS_DYE)
