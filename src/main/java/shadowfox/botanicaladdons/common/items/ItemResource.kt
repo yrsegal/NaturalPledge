@@ -19,12 +19,19 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
 
         companion object {
             val variants: Array<String>
-                get() = Array(values().size, { values()[it].toString() }).plus(Array(values().size, { values()[it].toString() + "Active" }))
+                get() {
+                    val out = arrayListOf<String>()
+                    for (variant in values()) {
+                        out.add(variant.toString())
+                        out.add(variant.toString() + "Active")
+                    }
+                    return out.toTypedArray()
+                }
         }
     }
 
     companion object {
-        fun of(v: Variants, active: Boolean = false) = ItemStack(ModItems.resource, 1, v.ordinal + if (active) Variants.values().size else 0)
+        fun of(v: Variants, active: Boolean = false) = ItemStack(ModItems.resource, 1, v.ordinal * 2 + if (active) 1 else 0)
 
         fun String.capitalizeFirst(): String {
             if (this.length == 0) return this
@@ -42,6 +49,6 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
     }
 
     override fun hasEffect(stack: ItemStack): Boolean {
-        return stack.itemDamage >= Variants.values().size
+        return stack.itemDamage % 2 == 1
     }
 }

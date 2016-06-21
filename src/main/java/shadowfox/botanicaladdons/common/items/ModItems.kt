@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.items
 import net.minecraft.item.Item
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
@@ -57,6 +58,8 @@ object ModItems {
     lateinit var gaiaKiller: ItemMod
 
     init {
+
+        IPreventBreakInCreative
 
         emblem = ItemFaithBauble(LibNames.PRIESTLY_EMBLEM)
         symbol = ItemSymbol(LibNames.HOLY_SYMBOL)
