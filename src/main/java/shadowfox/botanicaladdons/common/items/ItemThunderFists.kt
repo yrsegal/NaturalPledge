@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items
 
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -17,19 +18,33 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
+import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import vazkii.botania.api.mana.ManaItemHandler
+import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 
 /**
  * @author WireSegal
  * Created at 9:20 PM on 5/18/16.
  */
-class ItemThunderFists(name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative {
+class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative {
+
     val MANA_PER_DAMAGE = 40
+
+    companion object {
+        val TAG_WIRE = "bloodjewelBracers"
+
+        fun isWire(stack: ItemStack) = ItemNBTHelper.getBoolean(stack.copy(), TAG_WIRE, false)
+        fun setWire(stack: ItemStack, flag: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_WIRE, flag)
+    }
 
     init {
         setMaxStackSize(1)
@@ -38,6 +53,18 @@ class ItemThunderFists(name: String) : ItemMod(name), IWeightEnchantable, IPreve
             stack, worldIn, entityIn ->
             if (entityIn != null && entityIn.isHandActive && (entityIn.heldItemMainhand == stack || entityIn.heldItemOffhand == stack)) 1f else 0f
         }
+        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "wire")) {
+            stack, worldIn, entityIn ->
+            if (isWire(stack)) 1f else 0f
+        }
+    }
+
+    override fun getUnlocalizedName(stack: ItemStack): String {
+        return super.getUnlocalizedName(stack) + if (isWire(stack)) ".bloodJewel" else ""
+    }
+
+    override fun hasEffect(stack: ItemStack): Boolean {
+        return super.hasEffect(stack) && !isWire(stack)
     }
 
     private val attackDamage = 5.5f
@@ -69,10 +96,18 @@ class ItemThunderFists(name: String) : ItemMod(name), IWeightEnchantable, IPreve
         return super.hitEntity(stack, target, attacker)
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
+    override fun onItemRightClick(stack: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
         if (hand == EnumHand.OFF_HAND && playerIn.heldItemMainhand?.item == this)
             playerIn.activeHand = hand
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand)
+        return super.onItemRightClick(stack, worldIn, playerIn, hand)
+    }
+
+    override fun onDroppedByPlayer(item: ItemStack, player: EntityPlayer): Boolean {
+
+        if (player.uniqueID.toString() == ItemSymbol.wire && player.isSneaking)
+            setWire(item, !isWire(item))
+
+        return true
     }
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack): Multimap<String, AttributeModifier>? {

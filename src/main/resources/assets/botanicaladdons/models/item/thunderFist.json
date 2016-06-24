@@ -39,6 +39,17 @@
     },
     "overrides": [{
         "predicate": {
+            "botanicaladdons:wire": 1,
+            "blocking": 1
+        },
+        "model": "botanicaladdons:item/thunderFistWireBlocking"
+    }, {
+        "predicate": {
+            "botanicaladdons:wire": 1
+        },
+        "model": "botanicaladdons:item/thunderFistWire"
+    }, {
+        "predicate": {
             "blocking": 1
         },
         "model": "botanicaladdons:item/thunderFistBlocking"

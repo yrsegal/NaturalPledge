@@ -18,6 +18,7 @@ item.botanicaladdons:appleImmortality.name=Apple of Immortality
 item.botanicaladdons:fateHorn.name=Gjallarhorn, Horn of Fate
 
 item.botanicaladdons:thunderFist.name=Fist of Thunder
+item.botanicaladdons:thunderFist.bloodJewel.name=Bloodjeweled Bracer
 
 item.botanicaladdons:thunderSteel.name=Thundersteel Ingot
 item.botanicaladdons:thunderSteelActive.name=Awakened Thundersteel Ingot
@@ -261,7 +262,6 @@ achievement.botanicaladdons:sacredAqua=Rising Hero
 achievement.botanicaladdons:sacredAqua.desc=Create the Arrows of Ascension from the true power of Njord
 achievement.botanicaladdons:sacredHorn=Lost One's Weeping
 achievement.botanicaladdons:sacredHorn.desc=Create Gjallerhorn from the true power of Heimdall
-
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted
