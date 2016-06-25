@@ -122,9 +122,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
             stack.clearCustomName()
     }
 
-    override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
-        val above = super.getUnlocalizedName(par1ItemStack)
-        val player = getPlayer(par1ItemStack ?: return above)
+    override fun getUnlocalizedName(stack: ItemStack): String {
+        val above = super.getUnlocalizedName(stack)
+        val player = getPlayer(stack)
         return when (player) {
             vaz -> "$above.potato"
             wire -> "$above.catalyst"
