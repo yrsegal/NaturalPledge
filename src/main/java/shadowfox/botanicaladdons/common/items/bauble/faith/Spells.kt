@@ -69,7 +69,7 @@ object Spells {
         }
 
         fun raycast(world: World, origin: Vector3, ray: Vector3, len: Double, stopOnLiquid: Boolean = false): RayTraceResult? {
-            val end = origin.copy().add(ray.copy().normalize().multiply(len))
+            val end = origin.add(ray.normalize().multiply(len))
             val pos = world.rayTraceBlocks(origin.toVec3D(), end.toVec3D(), stopOnLiquid)
             return pos
         }
@@ -407,7 +407,7 @@ object Spells {
 
                 if (focused != null && focused is EntityLivingBase)
                     if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
-                        val diff = Vector3.fromEntityCenter(player).sub(Vector3.fromEntityCenter(focused))
+                        val diff = Vector3.fromEntityCenter(player).subtract(Vector3.fromEntityCenter(focused))
                         focused.motionX += diff.x * 0.25
                         focused.motionY += diff.y * 0.25
                         focused.motionZ += diff.z * 0.25

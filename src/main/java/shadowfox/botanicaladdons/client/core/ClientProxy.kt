@@ -67,7 +67,7 @@ class ClientProxy : CommonProxy() {
     }
 
     override fun particleStream(world: World, from: Vector3, to: Vector3, color: Int) {
-        val motionVec = to.copy().sub(from).multiply(0.04)
+        val motionVec = to.subtract(from).multiply(0.04)
         val c = Color(color)
 
         val r = c.red / 255f

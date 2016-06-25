@@ -65,8 +65,8 @@ open class ItemModFood(name: String, foodValue: Int, saturation: Float, isWolfFo
         return super.setUnlocalizedName(name)
     }
 
-    override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
-        val dmg = par1ItemStack!!.itemDamage
+    override fun getUnlocalizedName(stack: ItemStack?): String {
+        val dmg = stack!!.itemDamage
         val variants = this.variants
         val name: String
         if (dmg >= variants.size) {

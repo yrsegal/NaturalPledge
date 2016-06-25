@@ -60,7 +60,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
     fun getMotionVec(e: Entity): Vector3 {
         if (e is EntityPlayer) {
             val last = Vector3(e.prevPosX, e.prevPosY, e.prevPosZ)
-            val vec = Vector3.fromEntity(e).sub(last)
+            val vec = Vector3.fromEntity(e).subtract(last)
             if (vec.mag() < 10)
                 return vec
         }

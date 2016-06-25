@@ -47,7 +47,7 @@ abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockMod
 
     override val item: ItemBlock
         get() = object : ItemModBlock(this) {
-            override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
+            override fun getUnlocalizedName(stack: ItemStack?): String {
                 return "tile.${LibMisc.MOD_ID}:${bareName.replace("\\d$".toRegex(), "")}"
             }
         }

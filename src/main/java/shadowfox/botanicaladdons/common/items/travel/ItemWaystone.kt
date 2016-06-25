@@ -52,7 +52,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
         val dirVec = getDirVec(playerIn.worldObj, stack, playerIn)
-        val distance = Math.round((dirVec ?: Vector3.zero).mag()).toInt()
+        val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (track != null) {
             if (dirVec == null)
                 addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingNotHere", track)
@@ -102,16 +102,16 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
 
         val startVec = Vector3.fromEntityCenter(entityIn)
         val dirVec = getDirVec(worldIn, stack, entityIn) ?: return
-        val endVec = startVec.copy().add(dirVec.copy().normalize().multiply(Math.min(dirVec.mag(), 10.0)))
+        val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        BotanicalAddons.PROXY.particleStream(worldIn, startVec.copy().add(dirVec.copy().normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+        BotanicalAddons.PROXY.particleStream(worldIn, startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
     }
 
     fun getDirVec(world: World, stack: ItemStack, player: Entity): Vector3? {
         val pos = getEndVec(world, stack) ?: return null
 
-        val entityPos = Vector3.fromEntityCenter(player).sub(Vector3(0.5, 0.5, 0.5))
-        return pos.copy().sub(entityPos)
+        val entityPos = Vector3.fromEntityCenter(player).subtract(Vector3(0.5, 0.5, 0.5))
+        return pos.subtract(entityPos)
     }
 
     fun getEndVec(world: World, stack: ItemStack): Vector3? {
@@ -120,7 +120,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
         if (track != null) {
             for (other in world.playerEntities) {
                 if (other.name == track) {
-                    pos = Vector3.fromEntityCenter(other).sub(Vector3(0.5, 0.5, 0.5))
+                    pos = Vector3.fromEntityCenter(other).subtract(Vector3(0.5, 0.5, 0.5))
                     break
                 }
             }

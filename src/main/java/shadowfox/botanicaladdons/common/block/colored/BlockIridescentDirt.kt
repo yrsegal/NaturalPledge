@@ -46,7 +46,7 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
 
     override val item: ItemBlock
         get() = object : ItemModBlock(this), ModelHandler.ICustomLogHolder {
-            override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
+            override fun getUnlocalizedName(stack: ItemStack?): String {
                 return "tile.${LibMisc.MOD_ID}:" + bareName
             }
 

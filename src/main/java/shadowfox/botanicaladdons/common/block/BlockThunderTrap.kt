@@ -53,7 +53,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
         if (BotanicalAddons.PROXY.playerHasMonocle()) {
             for (i in 0..1) {
                 val origVector = Vector3(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
-                val endVector = origVector.copy().add(rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0)
+                val endVector = origVector.add(rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0)
                 Botania.proxy.lightningFX(world, origVector, endVector, 5.0f, 0x00948B, 0x00E4D7)
             }
         } else if (rand.nextFloat() < 0.5f) {
@@ -71,7 +71,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
             if (!worldIn.isRemote) {
                 worldIn.setBlockState(pos, Blocks.AIR.defaultState)
 
-                val diffvec = Vector3.fromEntity(entityIn).sub(Vector3.fromBlockPos(pos)).multiply(5.0)
+                val diffvec = Vector3.fromEntity(entityIn).subtract(Vector3.fromBlockPos(pos)).multiply(5.0)
 
                 val fakeBolt = EntityLightningBolt(worldIn, entityIn.posX, entityIn.posY, entityIn.posZ, true)
                 val event = EntityStruckByLightningEvent(entityIn, fakeBolt)
@@ -93,7 +93,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
                     val fireVec = Vector3(MathHelper.cos(horangle).toDouble(),
                             MathHelper.sin(verangle).toDouble(),
                             MathHelper.sin(horangle).toDouble()).multiply(2.5)
-                    Botania.proxy.lightningFX(worldIn, posVec, posVec.copy().add(fireVec), 0.5f, 0x00948B, 0x00E4D7)
+                    Botania.proxy.lightningFX(worldIn, posVec, posVec.add(fireVec), 0.5f, 0x00948B, 0x00E4D7)
                 }
             }
             worldIn.playSound(null, pos, BotaniaSoundEvents.missile, SoundCategory.BLOCKS, 1f, 1f)

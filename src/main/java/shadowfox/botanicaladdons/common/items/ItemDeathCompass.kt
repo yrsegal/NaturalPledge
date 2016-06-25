@@ -51,7 +51,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         val dirVec = getDirVec(stack, playerIn)
-        val distance = Math.round((dirVec ?: Vector3.zero).mag()).toInt()
+        val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (getBinding(stack) != null) {
             if (distance < 5)
                 addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingBlockClose")
@@ -65,9 +65,9 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
 
         val startVec = Vector3.fromEntityCenter(entityIn)
         val dirVec = getDirVec(stack, entityIn) ?: return
-        val endVec = startVec.copy().add(dirVec.copy().normalize().multiply(Math.min(dirVec.mag(), 10.0)))
+        val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        BotanicalAddons.PROXY.particleStream(worldIn, startVec.copy().add(dirVec.copy().normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+        BotanicalAddons.PROXY.particleStream(worldIn, startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
     }
 
     override fun onItemRightClick(stack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
@@ -84,8 +84,8 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
     fun getDirVec(stack: ItemStack, player: Entity): Vector3? {
         val pos = getEndVec(stack) ?: return null
 
-        val entityPos = Vector3.fromEntityCenter(player).sub(Vector3(0.5, 0.5, 0.5))
-        return pos.copy().sub(entityPos)
+        val entityPos = Vector3.fromEntityCenter(player).subtract(Vector3(0.5, 0.5, 0.5))
+        return pos.subtract(entityPos)
     }
 
     fun getEndVec(stack: ItemStack): Vector3? {

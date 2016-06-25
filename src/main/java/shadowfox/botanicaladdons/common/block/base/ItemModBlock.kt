@@ -39,8 +39,8 @@ open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantH
         return super.setUnlocalizedName(par1Str)
     }
 
-    override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
-        val dmg = par1ItemStack!!.itemDamage
+    override fun getUnlocalizedName(stack: ItemStack?): String {
+        val dmg = stack!!.itemDamage
         val variants = this.variants
         val name: String
         if (dmg >= variants.size) {

@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.sacred
 
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
@@ -20,8 +21,11 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
@@ -126,7 +130,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
 
                 if (!world.isRemote) for (i in list) if (!i.isDead && i is EntityLivingBase) {
                     val motVec = Vector3(player.motionX, player.motionY, player.motionZ)
-                    val diffVec = Vector3.fromEntity(i).sub(Vector3.fromEntity(player))
+                    val diffVec = Vector3.fromEntity(i).subtract(Vector3.fromEntity(player))
                     val diff = motVec.dotProduct(diffVec) / (diffVec.mag() * motVec.mag())
                     if (diff > 0.75) {
                         if (!i.isActiveItemStackBlocking) {
@@ -176,7 +180,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
         entityLiving.motionZ = speedVec.z
         entityLiving.fallDistance = 0f
 
-        val targetVec = speedVec.copy().multiply(2.0).add(Vector3(entityLiving.positionVector))
+        val targetVec = speedVec.multiply(2.0).add(Vector3(entityLiving.positionVector))
 
         if (entityLiving.worldObj.isRemote) Botania.proxy.lightningFX(entityLiving.worldObj, Vector3(entityLiving.positionVector), targetVec, speedVec.mag().toFloat(), 0x00948B, 0x00E4D7)
         return false
