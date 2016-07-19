@@ -87,8 +87,10 @@ object ModRecipes {
 
     val recipeAquaBricks: IRecipe
     val recipeThunderBlock: IRecipe
+    val recipeThunderNugget: IRecipe
     val recipeAquaDeconversion: IRecipe
     val recipeThunderDeconversion: IRecipe
+    val recipeThunderReconversion: IRecipe
 
     val recipeSealSapling: IRecipe
     val recipeSealPlanks: IRecipe
@@ -113,6 +115,7 @@ object ModRecipes {
     val recipeAquaPane: IRecipe
 
     val recipeDeathStone: IRecipe
+    val recipesCrackleStar: Array<IRecipe>
 
     init {
 
@@ -169,13 +172,14 @@ object ModRecipes {
                 'F', BotaniaOreDict.RUNE[1], // Fire
                 'B', BotaniaItems.pixieRing)
 
-        recipesDivineCore = Array(LibOreDict.HOLY_MATERIALS.size) {addOreDictRecipe(ModBlocks.awakenerCore,
-                " I ",
-                "DGD",
-                " D ",
-                'I', LibOreDict.HOLY_MATERIALS[it],
-                'D', BotaniaOreDict.MANA_DIAMOND,
-                'G', BotaniaOreDict.GAIA_INGOT)
+        recipesDivineCore = Array(LibOreDict.HOLY_MATERIALS.size) {
+            addOreDictRecipe(ModBlocks.awakenerCore,
+                    " I ",
+                    "DGD",
+                    " D ",
+                    'I', LibOreDict.HOLY_MATERIALS[it],
+                    'D', BotaniaOreDict.MANA_DIAMOND,
+                    'G', BotaniaOreDict.GAIA_INGOT)
         }
 
         recipeTerrestrialFocus = addOreDictRecipe(ModItems.spellFocus,
@@ -184,7 +188,7 @@ object ModRecipes {
                 "ODO",
                 'D', BotaniaOreDict.MANA_DIAMOND,
                 'P', BotaniaOreDict.MANA_PEARL,
-                'O', Blocks.OBSIDIAN)
+                'O', "obsidian")
 
         recipeMortalStone = addOreDictRecipe(ModItems.mortalStone,
                 "PSP",
@@ -209,8 +213,8 @@ object ModRecipes {
                 "L L",
                 "PLD",
                 'P', BotaniaOreDict.RUNE[12], // Sloth
-                'L', Items.LEATHER,
-                'C', Blocks.CHEST,
+                'L', "leather",
+                'C', "chest",
                 'D', LibOreDict.IRIS_DYE)
 
         recipeTravelStone = addOreDictRecipe(ModItems.travelStone,
@@ -230,7 +234,7 @@ object ModRecipes {
                 'D', BotaniaOreDict.DREAMWOOD_TWIG)
 
         recipesDirt = Array(LibOreDict.DYES.size, {
-            addOreDictRecipe(ItemStack(if (it == 16) ModBlocks.rainbowDirt else ModBlocks.irisDirt, 10, it % 16),
+            addOreDictRecipe(ItemStack(if (it == 16) ModBlocks.rainbowDirt else ModBlocks.irisDirt, 9, it % 16),
                     "DDD",
                     "DID",
                     "DDD",
@@ -305,7 +309,7 @@ object ModRecipes {
                 "L L",
                 "PLD",
                 'P', BotaniaOreDict.PIXIE_DUST,
-                'L', Items.LEATHER,
+                'L', "leather",
                 'C', Items.CAKE,
                 'D', LibOreDict.IRIS_DYE)
 
@@ -327,11 +331,18 @@ object ModRecipes {
                 "TTT", "TTT", "TTT",
                 'T', LibOreDict.THUNDERSTEEL)
 
-        recipeAquaDeconversion = addShapelessOreDictRecipe(ItemStack(ModItems.resource, 9, AQUAMARINE.ordinal),
+        recipeThunderNugget = addShapelessOreDictRecipe(of(THUNDERNUGGET, false, 9),
+                LibOreDict.THUNDERSTEEL)
+
+        recipeAquaDeconversion = addShapelessOreDictRecipe(of(AQUAMARINE, false, 9),
                 LibOreDict.BLOCK_AQUAMARINE)
 
-        recipeThunderDeconversion = addShapelessOreDictRecipe(ItemStack(ModItems.resource, 9, THUNDER_STEEL.ordinal),
+        recipeThunderDeconversion = addShapelessOreDictRecipe(of(THUNDER_STEEL, false, 9),
                 LibOreDict.BLOCK_THUNDERSTEEL)
+
+        recipeThunderReconversion = addOreDictRecipe(of(THUNDER_STEEL),
+                "NNN", "NNN", "NNN",
+                'N', LibOreDict.THUNDERSTEEL_NUGGET)
 
 
         recipeSealSapling = addOreDictRecipe(ModBlocks.sealSapling,
@@ -419,6 +430,16 @@ object ModRecipes {
         recipeDeathStone = addShapelessOreDictRecipe(ModItems.deathFinder,
                 ModItems.finder, "bone")
 
+        recipesCrackleStar = Array(LibOreDict.DYES.size, {
+            addOreDictRecipe(RainbowItemHelper.forColor(it, ModBlocks.cracklingStar),
+                    " E ",
+                    "GDG",
+                    " G ",
+                    'E', BotaniaOreDict.ENDER_AIR_BOTTLE,
+                    'G', BotaniaOreDict.MANA_PEARL,
+                    'D', LibOreDict.IRIS_DYES[it])
+        })
+
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {
@@ -429,6 +450,9 @@ object ModRecipes {
         if (spell != null) {
             SpellRegistry.registerSpellRecipe("ingotIron", spell, of(THUNDER_STEEL), of(THUNDER_STEEL, true))
             SpellRegistry.registerSpellRecipe("blockIron", spell, ItemStack(ModBlocks.storage, 1, Variants.THUNDERSTEEL.ordinal))
+            if (OreDictionary.doesOreNameExist("nuggetIron"))
+                SpellRegistry.registerSpellRecipe("nuggetIron", spell, of(THUNDERNUGGET))
+
         }
 
         spell = SpellRegistry.getSpell(LibNames.SPELL_IDUNN_INFUSION)

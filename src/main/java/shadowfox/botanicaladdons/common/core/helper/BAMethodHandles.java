@@ -9,13 +9,16 @@ import net.minecraft.util.CooldownTracker;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import shadowfox.botanicaladdons.common.lib.LibObfuscation;
+import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static java.lang.invoke.MethodHandles.publicLookup;
 
@@ -30,7 +33,7 @@ public class BAMethodHandles {
     public static final Class cooldownClass;
     @Nonnull
     private static final MethodHandle cooldownsGetter, cooldownTicksGetter, cooldownMaker, expireTicksGetter, createTicksGetter,
-            swingTicksGetter, swingTicksSetter, lightningEffectGetter, explosionSizeGetter, alwaysEdibleGetter;
+            swingTicksGetter, swingTicksSetter, lightningEffectGetter, explosionSizeGetter, alwaysEdibleGetter, playersWhoAttackedGetter;
 
     static {
         try {
@@ -64,6 +67,9 @@ public class BAMethodHandles {
             f = ReflectionHelper.findField(ItemFood.class, LibObfuscation.ITEMFOOD_ALWAYSEDIBLE);
             alwaysEdibleGetter = publicLookup().unreflectGetter(f);
 
+            f = ReflectionHelper.findField(EntityDoppleganger.class, "playersWhoAttacked");
+            playersWhoAttackedGetter = publicLookup().unreflectGetter(f);
+
         } catch (Throwable t) {
             BALogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
             t.printStackTrace();
@@ -76,9 +82,7 @@ public class BAMethodHandles {
         try {
             return (Map) cooldownsGetter.invokeExact(cooldownTracker);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -91,9 +95,7 @@ public class BAMethodHandles {
         try {
             return (int) cooldownTicksGetter.invokeExact(cooldownTracker);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -102,9 +104,7 @@ public class BAMethodHandles {
         try {
             return (Object) cooldownMaker.invokeExact(tracker, createTicks, expireTicks);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -112,9 +112,7 @@ public class BAMethodHandles {
         try {
             return (int) expireTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -122,9 +120,7 @@ public class BAMethodHandles {
         try {
             return (int) createTicksGetter.invokeExact(cooldown);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -132,9 +128,7 @@ public class BAMethodHandles {
         try {
             return (int) swingTicksGetter.invokeExact(entity);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -142,9 +136,7 @@ public class BAMethodHandles {
         try {
             swingTicksSetter.invokeExact(entity, ticks);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -152,9 +144,7 @@ public class BAMethodHandles {
         try {
             return (boolean) lightningEffectGetter.invokeExact(entity);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -162,9 +152,7 @@ public class BAMethodHandles {
         try {
             return (float) explosionSizeGetter.invokeExact(entity);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -172,9 +160,21 @@ public class BAMethodHandles {
         try {
             return (boolean) alwaysEdibleGetter.invokeExact(food);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
+    }
+
+    public static List getPlayersWhoAttacked(@Nonnull EntityDoppleganger gaiaGuardian) {
+        try {
+            return (List) playersWhoAttackedGetter.invokeExact(gaiaGuardian);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    private static RuntimeException propagate(Throwable t) {
+        BALogger.INSTANCE.severe("Methodhandle failed!");
+        t.printStackTrace();
+        return Throwables.propagate(t);
     }
 }

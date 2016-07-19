@@ -55,10 +55,7 @@ object Spells {
     object Helper {
         // Copied from Psi's PieceOperatorVectorRaycast with minor changes
         fun raycast(e: Entity, len: Double, stopOnLiquid: Boolean = false): RayTraceResult? {
-            val vec = Vector3.fromEntity(e)
-            if (e is EntityPlayer) {
-                vec.add(0.0, e.getEyeHeight().toDouble(), 0.0)
-            }
+            val vec = Vector3.fromEntity(e).add(0.0, if (e is EntityPlayer) e.getEyeHeight().toDouble() else 0.0, 0.0)
 
             val look = e.lookVec
             if (look == null) {
@@ -389,11 +386,12 @@ object Spells {
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
-                return 600
+                return 900
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                player.addPotionEffect(PotionEffect(MobEffects.STRENGTH, 5, 0, true, true))
+                if (!player.worldObj.isRemote && cooldownRemaining > 300)
+                    player.addPotionEffect(PotionEffect(MobEffects.STRENGTH, 5, 0, true, true))
             }
         }
 
@@ -501,11 +499,11 @@ object Spells {
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
-                return 200
+                return 400
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                val timeElapsed = 200 - cooldownRemaining
+                val timeElapsed = 400 - cooldownRemaining
                 val stage = timeElapsed / 5
 
                 if (player.worldObj.isRemote) return
@@ -522,17 +520,10 @@ object Spells {
 
                 val pos = BlockPos(positionTag.getIntAt(0).toDouble(), positionTag.getIntAt(1) + stage - 1.5, positionTag.getIntAt(2).toDouble())
 
-                if (stage == 0 || stage == 4) {
-                    for (xShift in -1..1)
-                        for (zShift in -1..1) {
-                            makeBifrost(player.worldObj, pos.add(xShift, 0, zShift), cooldownRemaining)
-                        }
-                } else {
-                    for (rot in EnumFacing.HORIZONTALS)
-                        for (perpShift in -1..1) {
-                            makeBifrost(player.worldObj, pos.offset(rot, 2).offset(rot.rotateY(), perpShift), cooldownRemaining)
-                        }
-                }
+                if (stage == 0 || stage == 4) for (xShift in -1..1) for (zShift in -1..1)
+                    makeBifrost(player.worldObj, pos.add(xShift, 0, zShift), cooldownRemaining - 200)
+                else for (rot in EnumFacing.HORIZONTALS) for (perpShift in -1..1)
+                    makeBifrost(player.worldObj, pos.offset(rot, 2).offset(rot.rotateY(), perpShift), cooldownRemaining - 200)
 
             }
 
@@ -562,13 +553,15 @@ object Spells {
             }
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
-                return 600
+                return 900
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                player.addPotionEffect(ModPotionEffect(MobEffects.RESISTANCE, 5, 4, true, true))
-                player.addPotionEffect(ModPotionEffect(MobEffects.WEAKNESS, 5, 4, true, true))
-                player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 5, 0, true, true))
+                if (!player.worldObj.isRemote && cooldownRemaining > 300) {
+                    player.addPotionEffect(ModPotionEffect(MobEffects.RESISTANCE, 5, 4, true, true))
+                    player.addPotionEffect(ModPotionEffect(MobEffects.WEAKNESS, 5, 4, true, true))
+                    player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 5, 0, true, true))
+                }
             }
         }
     }

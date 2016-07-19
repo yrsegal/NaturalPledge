@@ -84,7 +84,7 @@ class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { na
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
     }
 

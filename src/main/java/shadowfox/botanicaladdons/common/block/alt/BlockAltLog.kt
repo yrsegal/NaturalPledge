@@ -1,6 +1,5 @@
 package shadowfox.botanicaladdons.common.block.alt
 
-import net.minecraft.block.BlockLog
 import net.minecraft.block.SoundType
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
@@ -11,7 +10,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
-import shadowfox.botanicaladdons.common.block.colored.BlockIridescentLog
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry

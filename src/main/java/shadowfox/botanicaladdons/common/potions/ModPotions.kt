@@ -13,6 +13,7 @@ object ModPotions {
     val overcharged: PotionMod
     val featherweight: PotionMod
     val immortal: PotionMod
+    val everburn: PotionMod
 
     private var iconIndex = 0
 
@@ -23,5 +24,6 @@ object ModPotions {
         overcharged = PotionOvercharge(iconIndex++)
         featherweight = PotionFeatherweight(iconIndex++)
         immortal = PotionImmortality(iconIndex++)
+        everburn = PotionEverburn(iconIndex++)
     }
 }

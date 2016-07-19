@@ -27,14 +27,14 @@ import vazkii.botania.common.core.helper.Vector3
  * @author WireSegal
  * Created at 8:31 PM on 5/5/16.
  */
-class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.IColorProvider {
+class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.IItemColorProvider {
 
     init {
         setMaxStackSize(1)
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i ->
             if (i == 1)
                 BotanicalAddons.Companion.PROXY.rainbow(0.25f).rgb
@@ -93,8 +93,8 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
 
-        if (stack.hasDisplayName() && stack.displayName.toLowerCase().matches("^track:?\\s+".toRegex())) {
-            ItemNBTHelper.setString(stack, TAG_TRACK, stack.displayName.replace("^track:?".toRegex(), "").trim())
+        if (stack.hasDisplayName() && stack.displayName.toLowerCase().trim().matches("^track:?\\s+".toRegex())) {
+            ItemNBTHelper.setString(stack, TAG_TRACK, stack.displayName.trim().replace("^track:?".toRegex(), "").trim())
             stack.clearCustomName()
         }
 

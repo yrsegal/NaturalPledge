@@ -50,6 +50,8 @@ open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg 
         this.unlocalizedName = name
         if (itemForm != null)
             ModTab.set(this)
+        else
+            ModelHandler.variantCache.add(this)
     }
 
     override fun setUnlocalizedName(name: String): Block {

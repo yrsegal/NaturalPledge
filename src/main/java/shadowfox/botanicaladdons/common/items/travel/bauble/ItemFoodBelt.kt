@@ -49,32 +49,31 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
 
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
         if (player is EntityPlayer && !player.worldObj.isRemote && player.ticksExisted % 20 === 0) {
-            val foods = mutableListOf<Pair<Int, ItemStack>>()
+            val foods = mutableMapOf<Int, ItemStack>()
             for (i in 0..8) {
                 val food = player.inventory.getStackInSlot(i) ?: continue
                 if (isEdible(food, player)) {
-                    foods.add(Pair(i, food))
+                    foods.put(i, food)
                 } else if (food.item == ModItems.infiniteFruit) {
                     if (ManaItemHandler.requestManaExact(food, player, 500, false)) {
-                        foods.add(Pair(i, food))
+                        foods.put(i, food)
                     }
                 }
             }
-            if (foods.size == 0)
-                return
-            val food = foods.sortedByDescending {
-                if (it.second.item is ItemFood) (it.second.item as ItemFood).getSaturationModifier(it.second) * (it.second.item as ItemFood).getHealAmount(it.second)
-                else if (it.second.item == ModItems.infiniteFruit) Float.MAX_VALUE
-                else 0f
-            }[0]
 
-            if (food.second.item is ItemFood) {
-                var newFood = food.second.onItemUseFinish(player.worldObj, player)
+            val food = foods.entries.sortedByDescending {
+                if (it.value.item is ItemFood) (it.value.item as ItemFood).getSaturationModifier(it.value) * (it.value.item as ItemFood).getHealAmount(it.value)
+                else if (it.value.item == ModItems.infiniteFruit) Float.MAX_VALUE
+                else 0f
+            }.firstOrNull() ?: return
+
+            if (food.value.item is ItemFood) {
+                var newFood = food.value.onItemUseFinish(player.worldObj, player)
                 if (newFood != null && newFood.stackSize <= 0)
                     newFood = null
-                player.inventory.setInventorySlotContents(food.first, newFood)
-            } else if (food.second.item == ModItems.infiniteFruit) {
-                ManaItemHandler.requestManaExact(food.second, player, 500, false)
+                player.inventory.setInventorySlotContents(food.key, newFood)
+            } else if (food.value.item == ModItems.infiniteFruit) {
+                ManaItemHandler.requestManaExact(food.value, player, 500, false)
                 val amountNeeded = 20 - player.foodStats.foodLevel
                 for (i in 1..amountNeeded) player.foodStats.addStats(1, 1f)
             }
@@ -101,7 +100,7 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
     }
 
     private fun isEdible(food: ItemStack?, player: EntityPlayer): Boolean {
-        if (food == null) return false
+        food ?: return false
         if (!player.canEat(false)) return false
 
         var flag = false
@@ -113,16 +112,13 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
             flag = true
             for (i in 0..15) {
                 val fakePlayer = FakePlayerPotion(player.worldObj, GameProfile(null, "foodBeltPlayer"))
-                fakePlayer.setPosition(0.0, 999.0, 0.0)
-                captureSounds = true
-                food.copy().onItemUseFinish(player.worldObj, fakePlayer)
-                captureSounds = false
+                fakePlayer.testFinishItemUse(food)
 
                 var returnFlag = true
 
                 if (fakePlayer.activePotionEffects.size > 0)
                     returnFlag = returnFlag && fakePlayer.isPotionActive(MobEffects.SATURATION) && fakePlayer.activePotionEffects.size == 1
-                if (fakePlayer.position.x != 0 && fakePlayer.position.y != 999 && fakePlayer.position.z != 0)
+                if (fakePlayer.position.x != 0 && fakePlayer.position.y != 1000 && fakePlayer.position.z != 0)
                     returnFlag = false
                 flag = flag && returnFlag
 
@@ -134,13 +130,17 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
 
     class FakePlayerPotion(world: World, profile: GameProfile) : EntityPlayer(world, profile) {
 
-        override fun onNewPotionEffect(par1PotionEffect: PotionEffect) {
-            if (!this.worldObj.isRemote)
-                par1PotionEffect.potion.applyAttributesModifiersToEntity(this, this.attributeMap, par1PotionEffect.amplifier)
+        init {
+            setPosition(0.0, 1000.0, 0.0)
+        }
+
+        fun testFinishItemUse(stack: ItemStack) {
+            captureSounds = true
+            stack.copy().onItemUseFinish(worldObj, this)
+            captureSounds = false
         }
 
         override fun canCommandSenderUseCommand(permLevel: Int, commandName: String?) = false
-        override fun getPosition() = BlockPos(this.posX, this.posY + 0.5, this.posZ)
         override fun isSpectator() = false
         override fun isCreative() = false
 

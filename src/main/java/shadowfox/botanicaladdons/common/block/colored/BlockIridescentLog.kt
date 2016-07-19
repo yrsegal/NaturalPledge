@@ -1,6 +1,5 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import net.minecraft.block.BlockLog
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
@@ -86,7 +85,7 @@ abstract class BlockIridescentLog(name: String, val colorSet: Int) : BlockModLog
         return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR).mapColor.colorValue }
     }
 
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
     }
 

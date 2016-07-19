@@ -51,6 +51,9 @@ object ModSpells {
                         150, 0xE5DD00, { player, entry -> player.addStat(ModAchievements.createThunder) }).addEntry(
                         "blockIron",
                         ItemStack(ModBlocks.storage, 1, THUNDERSTEEL.ordinal), ItemStack(ModBlocks.storage, 1, THUNDERSTEEL.ordinal),
-                        1350, 0xE5DD00, { player, entry -> player.addStat(ModAchievements.createThunder) }))
+                        1350, 0xE5DD00, { player, entry -> player.addStat(ModAchievements.createThunder) }).addEntry(
+                        "nuggetIron",
+                        of(THUNDERNUGGET), of(THUNDERNUGGET),
+                        16, 0xE5DD00, { player, entry -> player.addStat(ModAchievements.createThunder) }))
     }
 }

@@ -27,12 +27,7 @@ class BlockCalicoSapling(name: String) : BlockModSapling(name), IExplosionDampen
     }
 
     override fun generateTree(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        if (!TerrainGen.saplingGrowTree(worldIn, rand, pos)) return
-
-        worldIn.setBlockState(pos, Blocks.AIR.defaultState, 4)
-
-        if (!WorldGenTrees(true, 4, ModBlocks.calicoLog.defaultState, ModBlocks.calicoLeaves.defaultState, false).generate(worldIn, rand, pos))
-            worldIn.setBlockState(pos, state, 4)
+        defaultSaplingBehavior(worldIn, pos, state, rand, ModBlocks.calicoLog, ModBlocks.calicoLeaves)
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

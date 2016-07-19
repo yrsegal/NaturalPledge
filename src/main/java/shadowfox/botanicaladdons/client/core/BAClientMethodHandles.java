@@ -42,9 +42,7 @@ public class BAClientMethodHandles {
         try {
             remainingHighlightSetter.invokeExact(gui, ticks);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -52,9 +50,7 @@ public class BAClientMethodHandles {
         try {
             return (double) ClientMethodHandles.renderPosX_getter.invokeExact(renderManager);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -62,9 +58,7 @@ public class BAClientMethodHandles {
         try {
             return (double) ClientMethodHandles.renderPosY_getter.invokeExact(renderManager);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
     }
 
@@ -72,9 +66,13 @@ public class BAClientMethodHandles {
         try {
             return (double) ClientMethodHandles.renderPosZ_getter.invokeExact(renderManager);
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Methodhandle failed!");
-            t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw propagate(t);
         }
+    }
+
+    private static RuntimeException propagate(Throwable t) {
+        BALogger.INSTANCE.severe("Client methodhandle failed!");
+        t.printStackTrace();
+        return Throwables.propagate(t);
     }
 }

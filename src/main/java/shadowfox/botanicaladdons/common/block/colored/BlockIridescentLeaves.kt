@@ -85,7 +85,7 @@ abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockMod
         return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR).mapColor.colorValue }
     }
 
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
     }
 

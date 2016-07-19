@@ -41,7 +41,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * Created at 1:50 PM on 4/13/16.
  */
 class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })),
-        IManaUsingItem, IBaubleRender, ModelHandler.IColorProvider, IPriestlyEmblem {
+        IManaUsingItem, IBaubleRender, ModelHandler.IItemColorProvider, IPriestlyEmblem {
 
     companion object {
 
@@ -57,7 +57,8 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
                 PriestlyEmblemNjord(),
                 PriestlyEmblemIdunn(),
                 PriestlyEmblemThor(),
-                PriestlyEmblemHeimdall()
+                PriestlyEmblemHeimdall()/*,
+                PriestlyEmblemLoki()*/
         )
 
         init {
@@ -101,7 +102,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor() = IItemColor { stack, tintindex ->
+    override fun getItemColor() = IItemColor { stack, tintindex ->
         val variant = getVariant(stack)
         if (variant == null || variant.color == null)
             0xFFFFFF
@@ -155,7 +156,6 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
             IBaubleRender.Helper.rotateIfSneaking(player)
             IBaubleRender.Helper.translateToChest()
             IBaubleRender.Helper.defaultTransforms()
-            GlStateManager.rotate(180F, 1F, 0F, 0F)
             GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
             Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.NONE)
             GlStateManager.popMatrix()
@@ -200,14 +200,13 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
-        if (variant != null && player is EntityPlayer) {
+        if (variant != null && player is EntityPlayer && !player.worldObj.isRemote) {
             player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
             if (isAwakened(stack))
                 player.attackEntityFrom(faithSource, Float.MAX_VALUE)
             else {
                 variant.punishTheFaithless(stack, player)
-                if (player.worldObj.isRemote)
-                    player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)))
+                player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)))
             }
         }
         setAwakened(stack, false)

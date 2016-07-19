@@ -52,6 +52,7 @@ object LexiconEntries {
     val prism: LexiconEntry
     val irisDirt: LexiconEntry
     val lamp: LexiconEntry
+    val crackle: LexiconEntry
 
     val thunderFist: LexiconEntry
 
@@ -122,6 +123,8 @@ object LexiconEntries {
         irisDirt.setLexiconPages(PageText("0"), PageCraftingRecipe("1", listOf(*ModRecipes.recipesDirt)), PageText("2"), PageCraftingRecipe("3", listOf(*ModRecipes.recipesIrisPlanks)))
         lamp = EntryPriestlyKnowledge("lamp", divinity, ModBlocks.irisLamp, PriestlyEmblemHeimdall::class.java)
         lamp.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeIrisLamp))
+        crackle = EntryPriestlyKnowledge("crackle", divinity, ModBlocks.cracklingStar, PriestlyEmblemHeimdall::class.java)
+        crackle.setLexiconPages(PageText("0"), PageCraftingRecipe("1", listOf(*ModRecipes.recipesCrackleStar)))
 
         thunderFist = EntryPriestlyKnowledge("fist", divinity, ModItems.fists, PriestlyEmblemThor::class.java)
         thunderFist.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThunderFists))
@@ -161,7 +164,7 @@ object LexiconEntries {
 
         LexiconRecipeMappings.map(ItemStack(ModBlocks.irisSapling), sapling, 0)
 
-        for (i in ModBlocks.altLogs) for (j in 0..i.TYPE.allowedValues.size-1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
+        for (i in ModBlocks.altLogs) for (j in 0..i.TYPE.allowedValues.size - 1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
         for (i in ModBlocks.irisLogs) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.rainbowLog, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.sealLog, 1, OreDictionary.WILDCARD_VALUE), sealTree, 0)
@@ -169,7 +172,7 @@ object LexiconEntries {
         LexiconRecipeMappings.map(ItemStack(ModBlocks.circuitLog, 1, OreDictionary.WILDCARD_VALUE), circuitTree, 0)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.calicoLog, 1, OreDictionary.WILDCARD_VALUE), calicoTree, 0)
 
-        for (i in ModBlocks.altLeaves) for (j in 0..i.TYPE.allowedValues.size-1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
+        for (i in ModBlocks.altLeaves) for (j in 0..i.TYPE.allowedValues.size - 1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
         for (i in ModBlocks.irisLeaves) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.rainbowLeaves, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.sealLeaves, 1, OreDictionary.WILDCARD_VALUE), sealTree, 0)

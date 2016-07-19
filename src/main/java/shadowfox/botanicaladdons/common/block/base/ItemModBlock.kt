@@ -17,7 +17,7 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
  * @author WireSegal
  * Created at 5:48 PM on 3/20/16.
  */
-open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IColorProvider {
+open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IItemColorProvider {
 
     private val psiBlock: ModelHandler.IModBlock
 
@@ -68,7 +68,7 @@ open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantH
         get() = this.psiBlock.variants
 
     @SideOnly(Side.CLIENT)
-    override fun getColor() = if (this.psiBlock is ModelHandler.IColorProvider) this.psiBlock.getColor() else null
+    override fun getItemColor() = if (this.psiBlock is ModelHandler.IItemColorProvider) this.psiBlock.getItemColor() else null
 
     override fun getRarity(stack: ItemStack): EnumRarity? {
         return this.psiBlock.getBlockRarity(stack)

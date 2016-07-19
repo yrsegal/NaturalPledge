@@ -80,7 +80,8 @@ class PriestlyEmblemThor : IFaithVariant {
         if (stackInHand != null && isHeavyWeapon(stackInHand) && e.target is EntityLivingBase) {
             if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 10, true)) {
                 Botania.proxy.lightningFX(e.entityPlayer.worldObj, Vector3.fromEntityCenter(e.entityPlayer), Vector3.fromEntityCenter(e.target), 1f, 0x00948B, 0x00E4D7)
-                (e.target as EntityLivingBase).addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 100, 3, true, false))
+                if (!e.entityPlayer.worldObj.isRemote)
+                    (e.target as EntityLivingBase).addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 100, 3, true, false))
             }
         }
     }

@@ -26,6 +26,7 @@ item.botanicaladdons:lifeRoot.name=Soulroot
 item.botanicaladdons:lifeRootActive.name=Awakened Soulroot
 item.botanicaladdons:aquamarine.name=Aquamarine Shard
 item.botanicaladdons:aquamarineActive.name=Awakened Aquamarine Shard
+item.botanicaladdons:thundernugget.name=Thundersteel Nugget
 
 tile.botanicaladdons:thundersteelBlock.name=Block of Thundersteel
 tile.botanicaladdons:aquamarineBlock.name=Aquamarine Bricks
@@ -66,6 +67,7 @@ item.botanicaladdons:deathStone.name=Stone of Return
 
 tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
+tile.botanicaladdons:cracklingStar.name=Crackling Star
 tile.botanicaladdons:irisDirt.name=Iridescent Dirt
 tile.botanicaladdons:rainbowDirt.name=Iridescent Dirt
 tile.botanicaladdons:irisPlanks.name=Iridescent Planks
@@ -120,6 +122,7 @@ tile.botanicaladdons:calicoPlanks.name=Calico Planks
 tile.botanicaladdons:calicoLeaves.name=Calico Leaves
 tile.botanicaladdons:calicoSapling.name=Calico Sapling
 
+misc.botanicaladdons.color.-1=&cERROR&r
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange
 misc.botanicaladdons.color.2=Magenta
@@ -233,6 +236,24 @@ item.botanicaladdons:holySymbol.rainbow.name=Fabulosity Incarnate
 item.botanicaladdons:holySymbol.none.name=Cleared Symbol
 
 botanicaladdons.subtitle.woosh=Wind wooshes
+
+fluid.botanicaladdons_thundersteel.name=Molten Thundersteel
+
+material.soulroot.name=Soulroot
+material.thundersteel.name=Thundersteel
+material.aquamarine.name=Aquamarine
+
+modifier.thunderclast.name=Thunderclast
+modifier.thunderclast.desc=§oIt's heavy...§r\nIt might hit hard, but it's really hard to hold now.
+modifier.sparking.name=Sparking
+modifier.sparking.desc=§oSimply shocking results!§r\nIt shocks things! And sometimes other things!
+modifier.storming.name=Storming
+modifier.storming.desc=§oIt's raining somewhere§r\nMake your enemies fly any which way!
+modifier.aerodynamic.name=Aerodynamic
+modifier.aerodynamic.desc=§oIt's a bit high up here§r\nThis tool is completely unfazed by being in the air.
+modifier.soulbonded.name=Soulbonded
+modifier.soulbonded.desc=§oPhotosynthesize!§r\nBe like a tree, and your bonded tool will grow back like one.
+
 
 death.attack.botanicaladdons.faith=%s had a crisis of faith
 death.attack.botanicaladdons.hammer=%s experienced kinetic energy
@@ -467,3 +488,8 @@ botanicaladdons.entry.amp=Sonic Amplifier
 botanicaladdons.tagline.amp=Louder sounds
 botanicaladdons.page.amp0=By dampening the sounds of the air within &1Note Blocks&0, the &1Sonic Amplifier&0 can reverberate sound, making sounds within a block or two sound far louder. The more you have, the louder the sound.
 botanicaladdons.page.amp1=Don't whisper
+
+botanicaladdons.entry.crackle=Crackling Stars
+botanicaladdons.tagline.crackle=An unstable light source
+botanicaladdons.page.crackle0=The &1Crackling Star&0 is the form of the stars, trapped upon earth, and brought forth through &4Iridescence&0. They appear as a ball of light, but will distribute their mass to nearby &0Crackling Stars&0. They give off light with the same strength as &1Glowstone&0, and can be made in any of the colors of &4Iridescence&0.
+botanicaladdons.page.crackle1=Wire's frames

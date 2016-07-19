@@ -81,7 +81,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
             enumfacing = EnumFacing.DOWN
         }
 
-        return this.defaultState.withProperty(FACING, enumfacing).withProperty(ENABLED, java.lang.Boolean.valueOf(true))
+        return this.defaultState.withProperty(FACING, enumfacing).withProperty(ENABLED, true)
     }
 
     override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {

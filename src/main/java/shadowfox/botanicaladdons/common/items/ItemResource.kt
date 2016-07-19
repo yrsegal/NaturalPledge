@@ -10,28 +10,41 @@ import vazkii.botania.api.BotaniaAPI
  * Created at 11:14 PM on 5/20/16.
  */
 class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
-    enum class Variants {
-        THUNDER_STEEL, LIFE_ROOT, AQUAMARINE;
+    enum class Variants(val awakenable: Boolean) {
+        THUNDER_STEEL, LIFE_ROOT, AQUAMARINE, THUNDERNUGGET(false);
+
+        constructor() : this(true)
 
         override fun toString(): String {
             return this.name.toLowerCase().split("_").joinToString("", transform = { it.capitalizeFirst() }).lowercaseFirst()
         }
 
         companion object {
-            val variants: Array<String>
-                get() {
-                    val out = arrayListOf<String>()
-                    for (variant in values()) {
-                        out.add(variant.toString())
-                        out.add(variant.toString() + "Active")
-                    }
-                    return out.toTypedArray()
+            val variants: Array<String> by lazy {
+                val out = arrayListOf<String>()
+                for (variant in values()) {
+                    out.add(variant.toString())
+                    if (variant.awakenable) out.add(variant.toString() + "Active")
                 }
+                out.toTypedArray()
+            }
+
+            val variantPairs: Array<Pair<Variants, Boolean>> by lazy {
+                val out = arrayListOf<Pair<Variants, Boolean>>()
+                for (variant in values()) {
+                    out.add(variant to false)
+                    if (variant.awakenable) out.add(variant to true)
+                }
+                out.toTypedArray()
+            }
+
         }
     }
 
     companion object {
-        fun of(v: Variants, active: Boolean = false) = ItemStack(ModItems.resource, 1, v.ordinal * 2 + if (active) 1 else 0)
+        fun of(v: Variants, active: Boolean = false, size: Int = 1) = ItemStack(ModItems.resource, size, v.ordinal * 2 + if (active && v.awakenable) 1 else 0)
+
+        fun variantFor(stack: ItemStack) = Variants.variantPairs.elementAtOrNull(stack.itemDamage)
 
         fun String.capitalizeFirst(): String {
             if (this.length == 0) return this
@@ -49,6 +62,6 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
     }
 
     override fun hasEffect(stack: ItemStack): Boolean {
-        return stack.itemDamage % 2 == 1
+        return variantFor(stack)?.second ?: false || super.hasEffect(stack)
     }
 }

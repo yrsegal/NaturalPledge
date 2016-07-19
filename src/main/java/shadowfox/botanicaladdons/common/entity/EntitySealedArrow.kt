@@ -24,8 +24,9 @@ class EntitySealedArrow : EntityArrow {
         return ItemStack(ModItems.sealArrow)
     }
 
-    override fun arrowHit(living: EntityLivingBase?) {
+    override fun arrowHit(living: EntityLivingBase) {
         super.arrowHit(living)
-        living?.addPotionEffect(ModPotionEffect(ModPotions.featherweight, 900))
+        if (!living.worldObj.isRemote)
+            living.addPotionEffect(ModPotionEffect(ModPotions.featherweight, 900))
     }
 }

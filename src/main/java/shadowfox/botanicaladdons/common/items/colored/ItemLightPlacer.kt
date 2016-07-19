@@ -28,7 +28,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 5:50 PM on 5/6/16.
  */
-class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IColorProvider, IManaUsingItem, IPhantomInkable {
+class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IItemColorProvider, IManaUsingItem, IPhantomInkable {
 
     init {
         setMaxStackSize(1)
@@ -39,7 +39,7 @@ class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IColorProvider
 
     override fun usesMana(p0: ItemStack?) = true
 
-    override fun getColor(): IItemColor = IItemColor { itemStack, i ->
+    override fun getItemColor(): IItemColor = IItemColor { itemStack, i ->
         if (i == 0) {
             val color = (RainbowItemHelper.getColor(itemStack))
             if (color == -1) BotanicalAddons.PROXY.rainbow().rgb else BotanicalAddons.PROXY.pulseColor(Color(color)).rgb

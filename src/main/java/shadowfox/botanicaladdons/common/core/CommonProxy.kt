@@ -10,6 +10,7 @@ import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.entity.ModEntities
+import shadowfox.botanicaladdons.common.integration.tinkers.TinkersProxy
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -37,6 +38,7 @@ open class CommonProxy {
         ModSpells
         ModRecipes
         LexiconEntries
+        TinkersProxy.loadTinkers()
     }
 
     open fun post(e: FMLPostInitializationEvent) {
@@ -55,6 +57,10 @@ open class CommonProxy {
         //NO-OP
     }
 
+    open fun wispLine(world: World, start: Vector3, line: Vector3, color: Int, stepsPerBlock: Double, time: Int) {
+        //NO-OP
+    }
+
     open fun pulseColor(color: Color) = Color(0xFFFFFF)
 
     fun rainbow() = rainbow(1f)
@@ -70,4 +76,5 @@ open class CommonProxy {
     open fun playerHasMonocle(): Boolean {
         return false
     }
+
 }

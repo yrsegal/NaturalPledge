@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.base
 
+import net.minecraft.block.Block
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -15,12 +16,15 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraft.world.gen.feature.WorldGenTrees
 import net.minecraftforge.common.EnumPlantType
 import net.minecraftforge.common.IPlantable
+import net.minecraftforge.event.terraingen.TerrainGen
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
+import shadowfox.botanicaladdons.common.block.ModBlocks
 import java.util.*
 
 /**
@@ -31,6 +35,19 @@ abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod
 
     companion object {
         val STAGE = PropertyInteger.create("stage", 0, 1)
+
+        fun defaultSaplingBehavior(world: World, pos: BlockPos, state: IBlockState, rand: Random, wood: IBlockState, leaves: IBlockState) {
+            if (!TerrainGen.saplingGrowTree(world, rand, pos)) return
+
+            world.setBlockState(pos, Blocks.AIR.defaultState, 4)
+
+            if (!WorldGenTrees(true, 4, wood, leaves, false).generate(world, rand, pos))
+                world.setBlockState(pos, state, 4)
+        }
+
+        fun defaultSaplingBehavior(world: World, pos: BlockPos, state: IBlockState, rand: Random, wood: Block, leaves: Block) {
+            defaultSaplingBehavior(world, pos, state, rand, wood.defaultState, leaves.defaultState)
+        }
     }
 
     val AABB = AxisAlignedBB(0.1, 0.0, 0.1, 0.9, 0.8, 0.9)
@@ -39,12 +56,13 @@ abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod
         this.tickRandomly = true
         soundType = SoundType.PLANT
         if (itemForm != null)
-            OreDictionary.registerOre("treeSapling", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
+            for (variant in variants.indices)
+                OreDictionary.registerOre("treeSapling", ItemStack(this, 1, variant))
     }
 
     override fun canPlaceBlockAt(worldIn: World, pos: BlockPos): Boolean {
         val soil = worldIn.getBlockState(pos.down())
-        return super.canPlaceBlockAt(worldIn, pos) && soil.block.canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this)
+        return super.canPlaceBlockAt(worldIn, pos) && soil.block.canSustainPlant(soil, worldIn, pos.down(), EnumFacing.UP, this)
     }
 
     open fun canSustain(state: IBlockState): Boolean {

@@ -11,4 +11,14 @@ class ItemAwakenedDye(name: String) : ItemRainbow(name, true) {
     override fun hasEffect(stack: ItemStack?): Boolean {
         return true
     }
+
+    override fun mapOreDict(keys: Array<String>): ItemAwakenedDye {
+        super.mapOreDict(keys)
+        return this
+    }
+
+    override fun mapOreKey(key: String): ItemAwakenedDye {
+        super.mapOreKey(key)
+        return this
+    }
 }

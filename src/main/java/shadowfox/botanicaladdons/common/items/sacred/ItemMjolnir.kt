@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.items.sacred
 
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
@@ -21,11 +20,8 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
@@ -91,7 +87,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
     }
 
     override fun getIsRepairable(toRepair: ItemStack?, repair: ItemStack): Boolean {
-        return repair.item == ModItems.resource && (repair.itemDamage % ItemResource.Variants.values().size == ItemResource.Variants.THUNDER_STEEL.ordinal)
+        return repair.item == ModItems.resource && ItemResource.variantFor(repair)?.first == ItemResource.Variants.THUNDER_STEEL
     }
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack?): Multimap<String, AttributeModifier>? {

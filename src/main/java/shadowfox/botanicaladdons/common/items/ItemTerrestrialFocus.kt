@@ -37,10 +37,10 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 9:21 AM on 4/18/16.
  */
-class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IColorProvider, IManaUsingItem {
+class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IItemColorProvider, IManaUsingItem {
 
     @SideOnly(Side.CLIENT)
-    override fun getColor() = IItemColor { itemStack, i ->
+    override fun getItemColor() = IItemColor { itemStack, i ->
         if (i == 1)
             BotanicalAddons.PROXY.rainbow(0.25f).rgb
         else 0xFFFFFF

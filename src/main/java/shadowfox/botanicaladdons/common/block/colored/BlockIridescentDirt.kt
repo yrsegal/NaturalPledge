@@ -68,7 +68,7 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
     }
 

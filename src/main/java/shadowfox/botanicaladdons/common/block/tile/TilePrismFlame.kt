@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.block.tile
 
 import net.minecraft.nbt.NBTTagCompound
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import vazkii.botania.common.core.helper.Vector3
 
 /**
@@ -17,14 +18,7 @@ class TilePrismFlame : TileModTickable() {
     override fun updateEntity() {
         if (worldObj.isRemote)
             if (!inked || BotanicalAddons.PROXY.playerHasMonocle())
-                BotanicalAddons.PROXY.particleEmission(worldObj, Vector3.fromBlockPos(pos), getLightColor())
-    }
-
-    fun getLightColor(): Int {
-        return when (color) {
-            -1 -> BotanicalAddons.PROXY.rainbow(pos).rgb
-            else -> color
-        }
+                BotanicalAddons.PROXY.particleEmission(worldObj, Vector3.fromBlockPos(pos), RainbowItemHelper.colorFromIntAndPos(color, pos))
     }
 
     override fun writeCustomNBT(cmp: NBTTagCompound) {

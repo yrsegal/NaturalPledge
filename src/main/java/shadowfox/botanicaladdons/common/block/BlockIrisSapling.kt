@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraft.world.gen.feature.WorldGenTrees
 import shadowfox.botanicaladdons.api.SaplingVariantRegistry
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.sapling.IIridescentSaplingVariant
 import shadowfox.botanicaladdons.api.sapling.IridescentSaplingBaseVariant
 import shadowfox.botanicaladdons.common.block.base.BlockModSapling
@@ -52,6 +53,10 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
                     ModBlocks.irisDirt.defaultState.withProperty(BlockIridescentDirt.COLOR, EnumDyeColor.byMetadata(it))
                 })
             }
+
+            override fun toString(): String {
+                return "${LibMisc.MOD_ID}:{ soil=irisDirt wood=irisWood[0-3] leaves=irisLeaves[0-3] }";
+            }
         }
 
         class AltGrassSaplingVariant : IIridescentSaplingVariant {
@@ -78,6 +83,10 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
                     BotaniaBlocks.altGrass.defaultState.withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.values()[it])
                 })
             }
+
+            override fun toString(): String {
+                return "${LibMisc.MOD_ID}:{ soil=altGrass wood=altWood[0-1] leaves=altLeaves[0-1] }";
+            }
         }
     }
 
@@ -99,15 +108,7 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
         val soil = worldIn.getBlockState(pos.down()) ?: return
         val variant = SaplingVariantRegistry.getVariant(soil) ?: return
 
-        if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return
-
-        worldIn.setBlockState(pos, Blocks.AIR.defaultState, 4)
-
-        if (!WorldGenTrees(true, 4, variant.getWood(soil), variant.getLeaves(soil), false).generate(worldIn, rand, pos)) {
-            worldIn.setBlockState(pos, state, 4)
-        } else {
-            worldIn.setBlockState(pos.down(), soil, 4)
-        }
+        defaultSaplingBehavior(worldIn, pos, state, rand, variant.getWood(soil), variant.getLeaves(soil))
     }
 
     override fun canGrow(worldIn: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean {

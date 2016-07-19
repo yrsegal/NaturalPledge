@@ -37,7 +37,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 10:33 PM on 4/15/16.
  */
-class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHandler.IExtraVariantHolder, ModelHandler.IColorProvider {
+class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHandler.IExtraVariantHolder, ModelHandler.IItemColorProvider {
 
     companion object {
 
@@ -90,7 +90,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i -> if (getPlayer(itemStack) == willie) BotanicalAddons.PROXY.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
     }
 

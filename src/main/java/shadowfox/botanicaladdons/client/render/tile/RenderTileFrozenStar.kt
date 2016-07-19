@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import vazkii.botania.client.core.helper.RenderHelper
+import java.util.*
 
 /**
  * @author WireSegal
@@ -20,7 +21,7 @@ class RenderTileFrozenStar : TileEntitySpecialRenderer<TileStar>() {
         GlStateManager.color(1f, 1f, 1f)
         GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5)
 
-        val seed = (te.pos.x xor te.pos.y xor te.pos.z).toLong()
+        val seed = Objects.hash(te.pos.x, te.pos.y, te.pos.z).toLong()
         var color = te.getColor()
         if (color == -1) color = BotanicalAddons.PROXY.rainbow(te.pos).rgb
         val size = te.size

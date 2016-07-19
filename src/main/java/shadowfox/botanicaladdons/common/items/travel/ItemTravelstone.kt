@@ -20,7 +20,7 @@ import java.util.*
  * @author WireSegal
  * Created at 8:31 PM on 5/5/16.
  */
-class ItemTravelstone(name: String) : ItemMod(name), ModelHandler.IColorProvider {
+class ItemTravelstone(name: String) : ItemMod(name), ModelHandler.IItemColorProvider {
 
     init {
         MinecraftForge.EVENT_BUS.register(Companion)
@@ -28,7 +28,7 @@ class ItemTravelstone(name: String) : ItemMod(name), ModelHandler.IColorProvider
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i ->
             if (i == 1)
                 BotanicalAddons.PROXY.rainbow(0.25f).rgb

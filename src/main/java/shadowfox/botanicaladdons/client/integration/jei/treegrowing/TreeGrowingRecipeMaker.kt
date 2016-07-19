@@ -1,8 +1,10 @@
 package shadowfox.botanicaladdons.client.integration.jei.treegrowing
 
+import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.api.SaplingVariantRegistry
 import shadowfox.botanicaladdons.api.sapling.IStackConvertible
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.ModBlocks
 
 object TreeGrowingRecipeMaker {
@@ -13,22 +15,21 @@ object TreeGrowingRecipeMaker {
             for (variant in variants) for (state in variant.displaySoilBlockstates) {
                 val leaves = variant.getLeaves(state)
                 val wood = variant.getWood(state)
-                val soilstack = if (state.block is IStackConvertible)
-                    (state.block as IStackConvertible).itemStackFromState(state) ?: continue
-                else
-                    ItemStack(state.block, 1, state.block.getMetaFromState(state))
-                val leavesstack = if (leaves.block is IStackConvertible)
-                    (leaves.block as IStackConvertible).itemStackFromState(leaves) ?: continue
-                else
-                    ItemStack(leaves.block, 1, leaves.block.getMetaFromState(leaves))
-                val woodstack = if (wood.block is IStackConvertible)
-                    (wood.block as IStackConvertible).itemStackFromState(wood) ?: continue
-                else
-                    ItemStack(wood.block, 1, wood.block.getMetaFromState(wood))
 
-                if (soilstack.item == null || leavesstack.item == null || woodstack.item == null) continue
+                val soilStack = convertState(state)
+                val leavesStack = convertState(leaves)
+                val woodStack = convertState(wood)
 
-                out.add(TreeGrowingRecipeJEI(ItemStack(ModBlocks.irisSapling), soilstack, woodstack, leavesstack))
+                if (soilStack == null || leavesStack == null || woodStack == null) {
+                    BotanicalAddons.LOGGER.warn("Sapling variant {$variant} has a null stack, skipping. Report this to the modmaker of that mod")
+                    continue
+                }
+                if (soilStack.item == null || leavesStack.item == null || woodStack.item == null) {
+                    BotanicalAddons.LOGGER.warn("Sapling variant {$variant} has a block without an item, skipping. Report this to the modmaker of that mod")
+                    continue
+                }
+
+                out.add(TreeGrowingRecipeJEI(ItemStack(ModBlocks.irisSapling), soilStack, woodStack, leavesStack))
             }
 
             for (recipe in SaplingVariantRegistry.getSaplingRecipeRegistry())
@@ -36,4 +37,11 @@ object TreeGrowingRecipeMaker {
 
             return out
         }
+
+    private fun convertState(state: IBlockState): ItemStack? {
+        return if (state.block is IStackConvertible)
+            (state.block as IStackConvertible).itemStackFromState(state)
+        else
+            ItemStack(state.block, 1, state.block.getMetaFromState(state))
+    }
 }

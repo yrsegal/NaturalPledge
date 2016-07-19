@@ -78,6 +78,7 @@ object LibNames {
     val AQUA_PANE = "aquaPane"
     val FUNNEL = "funnel"
     val TRAP = "trap"
+    val CRACKLING = "cracklingStar"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"
@@ -85,6 +86,7 @@ object LibNames {
     val OVERCHARGED = "overcharged"
     val FEATHERWEIGHT = "featherweight"
     val IMMORTALITY = "immortality"
+    val EVERBURN = "everburn"
 
     val HEAVY = "heavy"
     val LIGHT = "light"

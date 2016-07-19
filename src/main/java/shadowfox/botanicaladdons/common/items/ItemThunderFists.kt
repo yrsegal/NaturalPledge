@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.items
 
 import com.google.common.collect.Multimap
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -13,17 +12,14 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumAction
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
-import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
+import shadowfox.botanicaladdons.common.items.ItemResource.Variants.THUNDER_STEEL
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
@@ -122,7 +118,7 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
 
     override fun getItemEnchantability(): Int = 14
     override fun getIsRepairable(stack: ItemStack?, repair: ItemStack): Boolean {
-        return repair.item == ModItems.resource && (repair.itemDamage % ItemResource.Variants.values().size == ItemResource.Variants.THUNDER_STEEL.ordinal)
+        return repair.item == ModItems.resource && ItemResource.variantFor(repair)?.first == THUNDER_STEEL
     }
 
     override fun canApplyWeightEnchantment(stack: ItemStack, ench: Enchantment) = true

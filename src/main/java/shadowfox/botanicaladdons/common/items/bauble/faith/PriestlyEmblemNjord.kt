@@ -9,7 +9,6 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
-import net.minecraft.util.text.TextComponentTranslation
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
@@ -124,7 +123,7 @@ class PriestlyEmblemNjord : IFaithVariant {
                     }
                 }
 
-                if (result != null) {
+                if (result != null && result != EnumActionResult.PASS) {
                     e.isCanceled = true
                 }
             }

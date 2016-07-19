@@ -49,6 +49,7 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, ModMaterials.TRANS
     override fun isPassable(world: IBlockAccess?, pos: BlockPos?) = true
     override fun getCollisionBoundingBox(state: IBlockState, world: World, pos: BlockPos) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
+    override fun isReplaceable(worldIn: IBlockAccess?, pos: BlockPos?) = false
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, stack: ItemStack?, s: EnumFacing?, xs: Float, ys: Float, zs: Float): Boolean {
         if (WorldTypeSkyblock.isWorldSkyblock(world)) {

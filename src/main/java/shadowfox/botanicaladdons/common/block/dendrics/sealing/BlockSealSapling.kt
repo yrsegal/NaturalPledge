@@ -34,12 +34,7 @@ class BlockSealSapling(name: String) : BlockModSapling(name), ISealingBlock, ILe
     }
 
     override fun generateTree(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return
-
-        worldIn.setBlockState(pos, Blocks.AIR.defaultState, 4)
-
-        if (!WorldGenTrees(true, 4, ModBlocks.sealLog.defaultState, ModBlocks.sealLeaves.defaultState, false).generate(worldIn, rand, pos))
-            worldIn.setBlockState(pos, state, 4)
+        defaultSaplingBehavior(worldIn, pos, state, rand, ModBlocks.sealLog, ModBlocks.sealLeaves)
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

@@ -17,9 +17,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.ModelHandler
-import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.ModMaterials
 import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.base.ItemModBlock
@@ -35,7 +36,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), ModelHandler.IColorProvider, ILexiconable {
+class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), ModelHandler.IItemColorProvider, ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     companion object {
@@ -80,10 +81,10 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
         return mutableListOf()
     }
 
-    override fun getColor(): IItemColor = IItemColor {
+    @SideOnly(Side.CLIENT)
+    override fun getItemColor(): IItemColor = IItemColor {
         itemStack, i ->
-        val color = RainbowItemHelper.getColor(itemStack)
-        if (color == -1) BotanicalAddons.PROXY.rainbow().rgb else color
+        RainbowItemHelper.colorFromInt(RainbowItemHelper.getColor(itemStack))
     }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
@@ -107,6 +108,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
     override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: World?, pos: BlockPos?) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
+    override fun isReplaceable(worldIn: IBlockAccess?, pos: BlockPos?) = false
 
     override fun getPickBlock(state: IBlockState?, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack? {
         val te = world.getTileEntity(pos)

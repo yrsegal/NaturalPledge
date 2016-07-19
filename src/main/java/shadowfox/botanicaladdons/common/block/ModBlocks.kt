@@ -21,6 +21,7 @@ import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitPlank
 import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitSapling
 import shadowfox.botanicaladdons.common.block.dendrics.sealing.*
 import shadowfox.botanicaladdons.common.block.dendrics.thunder.*
+import shadowfox.botanicaladdons.common.block.tile.TileCracklingStar
 import shadowfox.botanicaladdons.common.block.tile.TileLivingwoodFunnel
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
@@ -80,6 +81,7 @@ object ModBlocks {
     val funnel: BlockMod
 
     val thunderTrap: BlockMod
+    val cracklingStar: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -151,8 +153,10 @@ object ModBlocks {
         funnel = BlockFunnel(LibNames.FUNNEL)
 
         thunderTrap = BlockThunderTrap(LibNames.TRAP)
+        cracklingStar = BlockCracklingStar(LibNames.CRACKLING)
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
+        GameRegistry.registerTileEntity(TileCracklingStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.CRACKLING).toString())
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
         GameRegistry.registerTileEntity(TileLivingwoodFunnel::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.FUNNEL).toString())
 

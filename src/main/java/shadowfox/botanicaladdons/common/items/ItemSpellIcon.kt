@@ -14,7 +14,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemMod
  * @author WireSegal
  * Created at 12:41 PM on 4/19/16.
  */
-class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHandler.IColorProvider {
+class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHandler.IItemColorProvider {
     enum class Variants(val iridescent: Boolean) {
         LEAP, INTERDICT, PUSH_AWAY,
         LIGHTNING, STRENGTH, PULL,
@@ -44,7 +44,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor() = IItemColor { itemStack, i ->
+    override fun getItemColor() = IItemColor { itemStack, i ->
         if (itemStack.itemDamage >= 0 && itemStack.itemDamage < Variants.values().size && Variants.values()[itemStack.itemDamage].iridescent)
             BotanicalAddons.PROXY.rainbow().rgb
         else

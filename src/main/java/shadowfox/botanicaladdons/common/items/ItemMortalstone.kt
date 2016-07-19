@@ -29,7 +29,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 12:15 PM on 4/25/16.
  */
-class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordantItem, IManaItem, IManaTooltipDisplay, ModelHandler.IColorProvider {
+class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordantItem, IManaItem, IManaTooltipDisplay, ModelHandler.IItemColorProvider {
 
     val RANGE = 5.0
 
@@ -45,7 +45,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i ->
             if (i == 1)
                 (if (getMana(itemStack) == 0)
@@ -62,7 +62,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         if (entityIn is EntityPlayer)
             addMana(stack, ManaItemHandler.requestMana(stack, entityIn, MANA_PER_TICK * 3, true))
 
-        if (isSelected && (entityIn !is EntityPlayer || ManaItemHandler.requestManaExact(stack, entityIn, MANA_PER_TICK, false))) {
+        if (isSelected && !entityIn.worldObj.isRemote && (entityIn !is EntityPlayer || ManaItemHandler.requestManaExact(stack, entityIn, MANA_PER_TICK, false))) {
             val entities = worldIn.getEntitiesWithinAABB(EntityPlayer::class.java, entityIn.entityBoundingBox.expandXyz(RANGE))
             for (entity in entities)
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
@@ -71,7 +71,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                     BotanicalAddons.PROXY.particleEmission(entity.worldObj, Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
                 }
         }
-        if (entityIn is EntityPlayer && isSelected) {
+        if (entityIn is EntityPlayer && isSelected && !entityIn.worldObj.isRemote) {
             if (flag)
                 addMana(stack, -MANA_PER_TICK)
             entityIn.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
@@ -90,7 +90,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
     override fun getEntityLifespan(itemStack: ItemStack?, world: World?) = Int.MAX_VALUE
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         var flag = 0
-        if (getMana(entityItem.entityItem) > 0) {
+        if (getMana(entityItem.entityItem) > 0 && !entityItem.worldObj.isRemote) {
 
             val entities = entityItem.worldObj.getEntitiesWithinAABB(EntityPlayer::class.java, entityItem.entityBoundingBox.expandXyz(RANGE))
             for (entity in entities)

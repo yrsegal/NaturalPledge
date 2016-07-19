@@ -17,6 +17,7 @@ object LibOreDict {
     val HOLY_SYMBOL = "holySymbol"
 
     val THUNDERSTEEL = "ingotThundersteel"
+    val THUNDERSTEEL_NUGGET = "nuggetThundersteel"
     val THUNDERSTEEL_AWAKENED = "ingotThundersteelAwakened"
 
     val LIFE_ROOT = "lifeRoot"

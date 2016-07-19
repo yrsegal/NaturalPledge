@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.api;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import shadowfox.botanicaladdons.api.lib.LibMisc;
 import shadowfox.botanicaladdons.api.priest.IFocusSpell;
@@ -43,7 +44,7 @@ public final class SpellRegistry {
         String modId = Loader.instance().activeModContainer().getModId();
         String transformedName = name;
         if (!modId.equals(LibMisc.MOD_ID))
-            transformedName = modId + ":" + name;
+            transformedName = modId + ":" + new ResourceLocation(name).getResourcePath();
 
         if (spellRegistry.containsKey(transformedName) && !force)
             return null;

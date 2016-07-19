@@ -84,8 +84,7 @@ object ModItems {
 
         iridescentDye = ItemRainbow(LibNames.IRIDESCENT_DYE, true).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey("dye")
         awakenedDye = ItemAwakenedDye(LibNames.IRIDESCENT_DYE_AWAKENED).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey(LibOreDict.IRIS_DYE_AWAKENED).mapOreKey("dye")
-        manaDye = ItemManaDye(LibNames.INFINITE_DYE)
-        manaDye.mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey("dye")
+        manaDye = ItemManaDye(LibNames.INFINITE_DYE).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey("dye")
 
         resource = ItemResource(LibNames.RESOURCE)
 
@@ -94,6 +93,7 @@ object ModItems {
 
         OreDictionary.registerOre(LibOreDict.HOLY_SYMBOL, symbol)
 
+        OreDictionary.registerOre(LibOreDict.THUNDERSTEEL_NUGGET, ItemResource.of(ItemResource.Variants.THUNDERNUGGET))
         OreDictionary.registerOre(LibOreDict.THUNDERSTEEL, ItemResource.of(ItemResource.Variants.THUNDER_STEEL))
         OreDictionary.registerOre(LibOreDict.THUNDERSTEEL, ItemResource.of(ItemResource.Variants.THUNDER_STEEL, true))
         OreDictionary.registerOre(LibOreDict.THUNDERSTEEL_AWAKENED, ItemResource.of(ItemResource.Variants.THUNDER_STEEL, true))

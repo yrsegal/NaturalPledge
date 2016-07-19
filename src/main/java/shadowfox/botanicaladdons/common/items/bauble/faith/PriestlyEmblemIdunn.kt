@@ -46,17 +46,14 @@ class PriestlyEmblemIdunn : IFaithVariant {
 
         if (!ManaItemHandler.requestManaExact(stack, player, 10, false)) return
 
-        if (world.totalWorldTime % 40 == 0L)
-            for (x in -RANGE..RANGE)
-                for (y in -RANGE..RANGE)
-                    for (z in -RANGE..RANGE) {
-                        val pos = BlockPos(player.posX + x, player.posY + y, player.posZ + z)
-                        val state = world.getBlockState(pos)
-                        val block = state.block
-                        if (block is BlockSapling || block is ISaplingBlock)
-                            saplings.add(Pair(pos, state))
-
-                    }
+        if (world.totalWorldTime % 40 == 0L) for (pos in BlockPos.getAllInBoxMutable(
+                BlockPos(player.posX - RANGE, player.posY - RANGE, player.posZ - RANGE),
+                BlockPos(player.posX + RANGE, player.posY + RANGE, player.posZ + RANGE))) {
+            val state = world.getBlockState(pos)
+            val block = state.block
+            if (block is BlockSapling || block is ISaplingBlock)
+                saplings.add(pos to state)
+        }
 
         if (saplings.size == 0) return
 

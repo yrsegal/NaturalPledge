@@ -33,7 +33,7 @@ import java.util.*
  * @author WireSegal
  * Created at 10:02 PM on 6/8/16.
  */
-class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.IColorProvider {
+class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.IItemColorProvider {
 
     init {
         setMaxStackSize(1)
@@ -41,7 +41,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i ->
             if (i == 1)
                 BotanicalAddons.PROXY.rainbow(0.25f).rgb

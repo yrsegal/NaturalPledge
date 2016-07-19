@@ -301,7 +301,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
     override fun getBaubleType(p0: ItemStack?) = BaubleType.BELT
 
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partTicks: Float) {
-        if (type == vazkii.botania.api.item.IBaubleRender.RenderType.BODY) {
+        if (type == IBaubleRender.RenderType.BODY) {
 
             if (model == null)
                 model = ModelBiped()

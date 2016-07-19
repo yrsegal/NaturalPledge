@@ -63,7 +63,8 @@ open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name
         this.setLightOpacity(1)
         this.soundType = SoundType.PLANT
         if (itemForm != null)
-            OreDictionary.registerOre("treeLeaves", ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
+            for (variant in variants.indices)
+                OreDictionary.registerOre("treeLeaves", ItemStack(this, 1, variant))
     }
 
     override fun getFlammability(world: IBlockAccess?, pos: BlockPos?, face: EnumFacing?) = 60

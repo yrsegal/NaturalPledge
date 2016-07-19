@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common
 
 import net.minecraft.launchwrapper.Launch
+import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.relauncher.Side
 import org.apache.logging.log4j.LogManager
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.CommonProxy
+import shadowfox.botanicaladdons.common.network.LeftClickMessage
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES)
@@ -29,6 +31,10 @@ class BotanicalAddons {
             Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean
         }
 
+        val TINKERS_LOADED: Boolean by lazy {
+            Loader.isModLoaded("tconstruct")
+        }
+
         val NETWORK: SimpleNetworkWrapper by lazy {
             SimpleNetworkWrapper(LibMisc.MOD_ID)
         }
@@ -37,6 +43,7 @@ class BotanicalAddons {
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
         NETWORK.registerMessage(PlayerItemMessage.PlayerItemMessageHandler::class.java, PlayerItemMessage::class.java, 0, Side.SERVER)
+        NETWORK.registerMessage(LeftClickMessage.LeftClickMessageHandler::class.java, LeftClickMessage::class.java, 1, Side.SERVER)
 
         PROXY.pre(event)
     }

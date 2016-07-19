@@ -29,12 +29,7 @@ class BlockCircuitSapling(name: String) : BlockModSapling(name), ILexiconable, I
     }
 
     override fun generateTree(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        if (!TerrainGen.saplingGrowTree(worldIn, rand, pos)) return
-
-        worldIn.setBlockState(pos, Blocks.AIR.defaultState, 4)
-
-        if (!WorldGenTrees(true, 4, ModBlocks.circuitLog.defaultState, ModBlocks.circuitLeaves.defaultState, false).generate(worldIn, rand, pos))
-            worldIn.setBlockState(pos, state, 4)
+        defaultSaplingBehavior(worldIn, pos, state, rand, ModBlocks.circuitLog, ModBlocks.circuitLeaves)
     }
 
     override fun getLightValue(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?): Int {

@@ -49,4 +49,14 @@ class ItemManaDye(name: String) : ItemRainbow(name, true), IManaItem, IManaToolt
         }
         return null
     }
+
+    override fun mapOreDict(keys: Array<String>): ItemManaDye {
+        super.mapOreDict(keys)
+        return this
+    }
+
+    override fun mapOreKey(key: String): ItemManaDye {
+        super.mapOreKey(key)
+        return this
+    }
 }

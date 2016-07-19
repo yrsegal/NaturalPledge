@@ -18,7 +18,7 @@ interface IPreventBreakInCreative {
         }
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
-        fun onTryToGetAbilityToCheckIfCanGetAbilityBreakBlock(e: PlayerEvent.HarvestCheck) { // I was tired when I wrote this name
+        fun onTryToGetAbilityToCheckIfCanGetAbilityToBreakBlock(e: PlayerEvent.HarvestCheck) { // I was tired when I wrote this name
             if (e.entityPlayer.isCreative && e.entityPlayer.heldItemMainhand?.item is IPreventBreakInCreative) {
                 e.isCanceled = true
             }

@@ -110,6 +110,10 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
         return newink
     }
 
+    val oreSets = hashMapOf<String, List<ItemStack>>() // Caching
+
+    fun getOres(key: String): List<ItemStack> = oreSets.getOrPut(key) { OreDictionary.getOres(key, false) }
+
     fun checkStack(stack: ItemStack, keys: Array<String>): Boolean {
         for (key in keys) {
             if (checkStack(stack, key))
@@ -119,7 +123,7 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
     }
 
     fun checkStack(stack: ItemStack, key: String): Boolean {
-        val ores = OreDictionary.getOres(key, false)
+        val ores = getOres(key)
         for (ore in ores) {
             if (OreDictionary.itemMatches(stack, ore, false))
                 return true

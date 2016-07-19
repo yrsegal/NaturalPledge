@@ -12,7 +12,7 @@ import shadowfox.botanicaladdons.common.lib.LibOreDict
  * @author WireSegal
  * Created at 9:27 AM on 4/29/16.
  */
-open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Array(16 + if (rainbow) 1 else 0, { name + LibOreDict.COLORS[it] })), ModelHandler.IColorProvider, ModelHandler.ICustomLogHolder {
+open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Array(16 + if (rainbow) 1 else 0, { name + LibOreDict.COLORS[it] })), ModelHandler.IItemColorProvider, ModelHandler.ICustomLogHolder {
     companion object {
         fun String.capitalizeFirst(): String {
             if (this.length == 0) return this
@@ -22,19 +22,20 @@ open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Arra
 
     val types = 16 + if (rainbow) 1 else 0
 
-    fun mapOreDict(keys: Array<String>): ItemRainbow {
+    open fun mapOreDict(keys: Array<String>): ItemRainbow {
         if (keys.size < types) return this
         for (i in 0..types - 1)
             OreDictionary.registerOre(keys[i], ItemStack(this, 1, i))
         return this
     }
 
-    fun mapOreKey(key: String): ItemRainbow {
-        OreDictionary.registerOre(key, ItemStack(this, 1, OreDictionary.WILDCARD_VALUE))
+    open fun mapOreKey(key: String): ItemRainbow {
+        for (variant in variants.indices)
+            OreDictionary.registerOre(key, ItemStack(this, 1, variant))
         return this
     }
 
-    override fun getColor() = IItemColor { itemStack, i ->
+    override fun getItemColor() = IItemColor { itemStack, i ->
         if (i == 0) when (itemStack.metadata) {
             16 -> BotanicalAddons.PROXY.rainbow().rgb
             else -> EnumDyeColor.byMetadata(itemStack.metadata).mapColor.colorValue

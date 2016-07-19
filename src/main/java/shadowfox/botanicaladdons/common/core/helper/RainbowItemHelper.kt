@@ -4,7 +4,10 @@ import net.minecraft.block.Block
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.math.BlockPos
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import vazkii.botania.common.core.helper.ItemNBTHelper
+import java.awt.Color
 import java.util.*
 
 /**
@@ -38,4 +41,7 @@ object RainbowItemHelper {
 
     fun setColor(stack: ItemStack, color: Int) = ItemNBTHelper.setInt(stack, TAG_COLOR, color)
     fun getColor(stack: ItemStack) = ItemNBTHelper.getInt(stack, TAG_COLOR, -1)
+
+    fun colorFromInt(color: Int): Int = if (color == -1) BotanicalAddons.PROXY.rainbow().rgb else color
+    fun colorFromIntAndPos(color: Int, pos: BlockPos) = if (color == -1) BotanicalAddons.PROXY.rainbow(pos).rgb else color
 }

@@ -5,6 +5,7 @@ import net.minecraft.init.SoundEvents
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
@@ -19,6 +20,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
+import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
@@ -107,11 +109,11 @@ class AwakeningEventHandler {
                     val loc = BlockPos(0, 2, 0)
 
                     val pylonPos = Vector3(entity.source.x + loc.x.toDouble(), entity.source.y + loc.y.toDouble(), entity.source.z + loc.z.toDouble())
-                    var worldTime = entity.ticksExisted / 5.0
+                    val worldTime = entity.ticksExisted / 5.0
 
                     val rad = 1.5f + Math.random().toFloat() * 0.1f
-                    val xp = pylonPos.x + 0.5 + Math.cos(worldTime) * rad
-                    val zp = pylonPos.z + 0.5 + Math.sin(worldTime) * rad
+                    val xp = pylonPos.x + 0.5 + MathHelper.cos(worldTime.toFloat()) * rad
+                    val zp = pylonPos.z + 0.5 + MathHelper.sin(worldTime.toFloat()) * rad
 
                     val partPos = Vector3(xp, pylonPos.y, zp)
                     val pyPos = Vector3(pylonPos.x + 0.5, pylonPos.y + 1, pylonPos.z + 0.5)
@@ -137,7 +139,7 @@ class AwakeningEventHandler {
             if (fits && entity.entityData.hasKey("divineBattle") && entity.entityData.getBoolean("divineBattle")) {
                 val players = getPlayersAround(entity)
 
-                val playersWhoAttacked = ReflectionHelper.getPrivateValue<List<UUID>, EntityDoppleganger>(EntityDoppleganger::class.java, entity, "playersWhoAttacked")
+                val playersWhoAttacked = BAMethodHandles.getPlayersWhoAttacked(entity)
 
                 entity.worldObj.playSound(entity.source.x.toDouble(), entity.source.y.toDouble(), entity.source.z.toDouble(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 1.0f, 1.0f, false)
 

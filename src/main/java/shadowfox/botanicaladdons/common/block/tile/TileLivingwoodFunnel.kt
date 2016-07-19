@@ -516,8 +516,7 @@ class TileLivingwoodFunnel() : TileModTickable(), IHopper {
 
     class FunnelWrapper(val hopper: TileLivingwoodFunnel) : InvWrapper(hopper) {
         override fun insertItem(slot: Int, stack: ItemStack?, simulate: Boolean): ItemStack? {
-            if (stack == null)
-                return null
+            stack ?: return null
             if (simulate || hopper.transferCooldown > 1)
                 return super.insertItem(slot, stack, simulate)
 

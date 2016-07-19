@@ -54,7 +54,7 @@ class BlockColoredLamp(name: String) : BlockMod(name, Material.REDSTONE_LIGHT), 
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getColor(): IItemColor? {
+    override fun getItemColor(): IItemColor? {
         return IItemColor { itemStack, i -> powerColor(0) }
     }
 

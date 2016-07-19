@@ -8,11 +8,13 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.render.entity.RenderSealedArrow
 import shadowfox.botanicaladdons.client.render.tile.RenderTileFrozenStar
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.CommonProxy
+import shadowfox.botanicaladdons.common.core.helper.BALogger
 import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
 import vazkii.botania.client.core.handler.ClientTickHandler
 import vazkii.botania.common.Botania
@@ -28,7 +30,7 @@ class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
         RenderingRegistry.registerEntityRenderingHandler(EntitySealedArrow::class.java, { RenderSealedArrow(it) })
-        ModelHandler.preInit("BA", BotanicalAddons.DEV_ENVIRONMENT)
+        ModelHandler.preInit(LibMisc.MOD_ID, BotanicalAddons.DEV_ENVIRONMENT, BALogger.coreLog)
     }
 
     override fun init(e: FMLInitializationEvent) {
@@ -77,6 +79,27 @@ class ClientProxy : CommonProxy() {
         Botania.proxy.wispFX(world, from.x, from.y, from.z, r, g, b, 0.4f, motionVec.x.toFloat(), motionVec.y.toFloat(), motionVec.z.toFloat())
     }
 
+    override fun wispLine(world: World, start: Vector3, line: Vector3, color: Int, stepsPerBlock: Double, time: Int) {
+        val len = line.mag()
+        val ray = line.multiply(1 / len)
+        val steps = (len * stepsPerBlock).toInt()
+
+        for (i in 0..steps - 1) {
+            val extended = ray.multiply(i / stepsPerBlock)
+            val x = start.x + extended.x
+            val y = start.y + extended.y
+            val z = start.z + extended.z
+
+            val c = Color(color)
+
+            val r = c.red.toFloat() / 255.0f
+            val g = c.green.toFloat() / 255.0f
+            val b = c.blue.toFloat() / 255.0f
+
+            Botania.proxy.wispFX(world, x, y, z, r, g, b, time * 0.0125f)
+        }
+    }
+
     override fun pulseColor(color: Color): Color {
         val add = (Math.sin(ClientTickHandler.ticksInGame * 0.2) * 24).toInt()
         val newColor = Color(Math.max(Math.min(color.red + add, 255), 0),
@@ -94,9 +117,8 @@ class ClientProxy : CommonProxy() {
 
     override fun rainbow(pos: BlockPos, saturation: Float): Color {
         val ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks
-        val seed = (pos.x xor pos.y xor pos.z).toLong()
-        val index = Random(seed).nextInt(100000)
-        return Color(Color.HSBtoRGB((index + ticks) * 0.005F, saturation, 1F))
+        val seed = Objects.hash(pos.x, pos.y, pos.z)
+        return Color(Color.HSBtoRGB((seed + ticks) * 0.005F, saturation, 1F))
     }
 
     override fun wireFrameRainbow(saturation: Float) = Color(Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200f, saturation, 1f))
