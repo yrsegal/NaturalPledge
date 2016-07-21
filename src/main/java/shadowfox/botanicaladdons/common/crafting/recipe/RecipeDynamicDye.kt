@@ -18,7 +18,7 @@ import java.awt.Color
  */
 class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
 
-    override fun matches(inv: InventoryCrafting, worldIn: World): Boolean {
+    override fun matches(inv: InventoryCrafting, worldIn: World?): Boolean {
         var ink: ItemStack? = null
         var foundDye = false
         var foundRainbow = false

@@ -16,11 +16,11 @@ import vazkii.botania.common.item.lens.ItemLens
  */
 class RecipeRainbowLensDye : IRecipe {
 
-    val ores by lazy {
+    val ores: MutableList<ItemStack> by lazy {
         OreDictionary.getOres(LibOreDict.DYES[16])
     }
 
-    override fun matches(var1: InventoryCrafting, var2: World): Boolean {
+    override fun matches(var1: InventoryCrafting, var2: World?): Boolean {
         var foundLens = false
         var foundDye = false
 
