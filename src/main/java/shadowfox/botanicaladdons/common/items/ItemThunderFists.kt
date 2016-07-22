@@ -16,6 +16,8 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
@@ -59,6 +61,7 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
         return super.getUnlocalizedName(stack) + if (isWire(stack)) ".bloodJewel" else ""
     }
 
+    @SideOnly(Side.CLIENT)
     override fun hasEffect(stack: ItemStack): Boolean {
         return super.hasEffect(stack) && !isWire(stack)
     }
