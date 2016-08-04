@@ -39,9 +39,12 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
     }
 
     init {
-        this.defaultState = this.blockState.baseState.withProperty(COLOR, EnumDyeColor.WHITE)
         soundType = SoundType.GROUND
         blockHardness = 0.5f
+    }
+
+    override fun createDefaultState(): IBlockState {
+        return defaultState.withProperty(COLOR, EnumDyeColor.WHITE)
     }
 
     override val item: ItemBlock

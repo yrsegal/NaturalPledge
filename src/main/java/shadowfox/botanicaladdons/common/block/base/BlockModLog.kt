@@ -28,13 +28,16 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
 
     init {
         blockHardness = 2.0f
-        defaultState = defaultState.withProperty(AXIS, BlockLog.EnumAxis.Y)
         soundType = SoundType.WOOD
         if (itemForm != null) {
             for (variant in variants.indices)
                 OreDictionary.registerOre("logWood", ItemStack(this, 1, variant))
             FurnaceRecipes.instance().addSmeltingRecipeForBlock(this, ItemStack(Items.COAL, 1, 1), 0.15f)
         }
+    }
+
+    override fun createDefaultState(): IBlockState {
+        return defaultState.withProperty(AXIS, BlockLog.EnumAxis.Y)
     }
 
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {

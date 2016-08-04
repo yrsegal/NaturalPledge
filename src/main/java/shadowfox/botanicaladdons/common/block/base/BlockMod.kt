@@ -4,6 +4,7 @@ import net.minecraft.block.Block
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
+import net.minecraft.block.state.IBlockState
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
@@ -20,11 +21,10 @@ import shadowfox.botanicaladdons.common.core.tab.ModTab
  * @author WireSegal
  * Created at 5:45 PM on 3/20/16.
  */
-open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg variants: String) : Block(materialIn, color), ModelHandler.IModBlock {
+open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg override var variants: String) : Block(materialIn, color), ModelHandler.IModBlock {
 
     constructor(name: String, materialIn: Material, vararg variants: String) : this(name, materialIn, materialIn.materialMapColor, *variants)
 
-    override var variants: Array<out String> = variants
     override val bareName: String = name
 
     companion object {
@@ -47,12 +47,15 @@ open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg 
         if (variants.size == 0) {
             this.variants = arrayOf(name)
         }
+        defaultState = createDefaultState()
         this.unlocalizedName = name
         if (itemForm != null)
             ModTab.set(this)
         else
             ModelHandler.variantCache.add(this)
     }
+
+    open fun createDefaultState(): IBlockState = defaultState
 
     override fun setUnlocalizedName(name: String): Block {
         super.setUnlocalizedName(name)

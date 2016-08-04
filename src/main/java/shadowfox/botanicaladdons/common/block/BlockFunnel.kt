@@ -58,10 +58,12 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         get() = arrayOf(ENABLED)
 
     init {
-        this.defaultState = this.blockState.baseState.withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, true)
         blockHardness = 2f
     }
 
+    override fun createDefaultState(): IBlockState {
+        return defaultState.withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, true)
+    }
 
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?): AxisAlignedBB {
         return FULL_BLOCK_AABB

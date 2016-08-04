@@ -25,7 +25,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 10:45 PM on 5/13/16.
  */
-abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(4, { name + COLORS[colorSet][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
+abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(4, { name + COLORS[set][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {
@@ -52,7 +52,7 @@ abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockMod
             }
         }
 
-    abstract val COLOR: PropertyEnum<EnumDyeColor>
+    abstract val colorSet: Int
 
     init {
         if (colorSet < 0 || colorSet >= 4)
@@ -61,20 +61,20 @@ abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockMod
 
     override fun getStateFromMeta(meta: Int): IBlockState {
         val i = meta and 3
-        return super.getStateFromMeta(meta).withProperty(COLOR, COLORS[colorSet][i])
+        return super.getStateFromMeta(meta).withProperty(COLOR_PROPS[colorSet], COLORS[colorSet][i])
     }
 
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
-        return super.getMetaFromState(state) or (state.getValue(COLOR).metadata - (colorSet * 4))
+        return super.getMetaFromState(state) or (state.getValue(COLOR_PROPS[colorSet]).metadata - (colorSet * 4))
     }
 
     override fun createBlockState(): BlockStateContainer? {
-        return BlockStateContainer(this, COLOR, DECAYABLE, CHECK_DECAY)
+        return BlockStateContainer(this, COLOR_PROPS[colorSet], DECAYABLE, CHECK_DECAY)
     }
 
     override fun createStackedBlock(state: IBlockState): ItemStack? {
-        return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR)))
+        return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR_PROPS[colorSet])))
     }
 
     override fun getPickBlock(state: IBlockState?, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack? {
@@ -82,7 +82,7 @@ abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockMod
     }
 
     override fun getBlockColor(): IBlockColor? {
-        return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR).mapColor.colorValue }
+        return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR_PROPS[colorSet]).mapColor.colorValue }
     }
 
     override fun getItemColor(): IItemColor? {
@@ -94,7 +94,7 @@ abstract class BlockIridescentLeaves(name: String, val colorSet: Int) : BlockMod
     }
 
     override fun getMapColor(state: IBlockState): MapColor {
-        return state.getValue(COLOR).mapColor
+        return state.getValue(COLOR_PROPS[colorSet]).mapColor
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

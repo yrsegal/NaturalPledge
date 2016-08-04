@@ -9,6 +9,11 @@ object SpellCraftingRecipeHandler : IRecipeHandler<SpellCraftingRecipeJEI> {
         return SpellCraftingRecipeJEI::class.java
     }
 
+    override fun getRecipeCategoryUid(recipe: SpellCraftingRecipeJEI): String {
+        return "${LibMisc.MOD_ID}:spellCrafting"
+    }
+
+    @Suppress("OverridingDeprecatedMember")
     override fun getRecipeCategoryUid(): String {
         return "${LibMisc.MOD_ID}:spellCrafting"
     }

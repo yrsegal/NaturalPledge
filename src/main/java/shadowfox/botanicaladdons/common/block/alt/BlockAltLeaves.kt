@@ -18,7 +18,7 @@ import vazkii.botania.api.state.enums.AltGrassVariant
  * @author WireSegal
  * Created at 8:15 PM on 5/16/16.
  */
-abstract class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(name + colorSet, *Array(if (colorSet == 0) 4 else 2, { name + AltGrassVariant.values()[colorSet * 4 + it].getName().capitalizeFirst() })), ILexiconable {
+abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(if (set == 0) 4 else 2, { name + AltGrassVariant.values()[set * 4 + it].getName().capitalizeFirst() })), ILexiconable {
 
     companion object {
         val TYPE_PROPS = Array(2) { i ->
@@ -36,7 +36,7 @@ abstract class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(
     override val canBeOpaque: Boolean
         get() = false
 
-    abstract val TYPE: PropertyEnum<AltGrassVariant>
+    abstract val colorSet: Int
 
     init {
         if (colorSet < 0 || colorSet >= 2)
@@ -45,20 +45,20 @@ abstract class BlockAltLeaves(name: String, val colorSet: Int) : BlockModLeaves(
 
     override fun getStateFromMeta(meta: Int): IBlockState {
         val i = meta and 3
-        return super.getStateFromMeta(meta).withProperty(TYPE, AltGrassVariant.values()[colorSet * 4 + i])
+        return super.getStateFromMeta(meta).withProperty(TYPE_PROPS[colorSet], AltGrassVariant.values()[colorSet * 4 + i])
     }
 
     override fun getMetaFromState(state: IBlockState?): Int {
         state ?: return 0
-        return super.getMetaFromState(state) or (state.getValue(TYPE).ordinal - (colorSet * 4))
+        return super.getMetaFromState(state) or (state.getValue(TYPE_PROPS[colorSet]).ordinal - (colorSet * 4))
     }
 
     override fun createBlockState(): BlockStateContainer? {
-        return BlockStateContainer(this, TYPE, DECAYABLE, CHECK_DECAY)
+        return BlockStateContainer(this, TYPE_PROPS[colorSet], DECAYABLE, CHECK_DECAY)
     }
 
     override fun createStackedBlock(state: IBlockState): ItemStack? {
-        return ItemStack(this, 1, state.getValue(TYPE).ordinal - colorSet * 4)
+        return ItemStack(this, 1, state.getValue(TYPE_PROPS[colorSet]).ordinal - colorSet * 4)
     }
 
     override fun getPickBlock(state: IBlockState?, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack? {

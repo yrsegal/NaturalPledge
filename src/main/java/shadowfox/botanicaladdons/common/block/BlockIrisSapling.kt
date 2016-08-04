@@ -12,13 +12,18 @@ import shadowfox.botanicaladdons.api.SaplingVariantRegistry
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.sapling.IIridescentSaplingVariant
 import shadowfox.botanicaladdons.api.sapling.IridescentSaplingBaseVariant
+import shadowfox.botanicaladdons.common.block.alt.BlockAltLeaves
+import shadowfox.botanicaladdons.common.block.alt.BlockAltLog
 import shadowfox.botanicaladdons.common.block.base.BlockModSapling
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentDirt
+import shadowfox.botanicaladdons.common.block.colored.BlockIridescentLeaves
+import shadowfox.botanicaladdons.common.block.colored.BlockIridescentLog
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.BotaniaStateProps
 import vazkii.botania.api.state.enums.AltGrassVariant
+import vazkii.botania.common.block.BlockAltGrass
 import java.util.*
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
@@ -34,14 +39,14 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
                 val dye = soil.getValue(BlockIridescentDirt.COLOR)
                 val colorSet = dye.metadata / 4
                 val block = ModBlocks.irisLeaves[colorSet]
-                return block.defaultState.withProperty(block.COLOR, dye)
+                return block.defaultState.withProperty(BlockIridescentLeaves.COLOR_PROPS[block.colorSet], dye)
             }
 
             override fun getWood(soil: IBlockState): IBlockState {
                 val dye = soil.getValue(BlockIridescentDirt.COLOR)
                 val colorSet = dye.metadata / 4
                 val block = ModBlocks.irisLogs[colorSet]
-                return block.defaultState.withProperty(block.COLOR, dye)
+                return block.defaultState.withProperty(BlockIridescentLog.COLOR_PROPS[block.colorSet], dye)
             }
 
             override fun matchesSoil(soil: IBlockState): Boolean {
@@ -64,14 +69,14 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
                 val variant = soil.getValue(BotaniaStateProps.ALTGRASS_VARIANT)
                 val colorSet = variant.ordinal / 4
                 val block = ModBlocks.altLeaves[colorSet]
-                return block.defaultState.withProperty(block.TYPE, variant)
+                return block.defaultState.withProperty(BlockAltLeaves.TYPE_PROPS[block.colorSet], variant)
             }
 
             override fun getWood(soil: IBlockState): IBlockState {
                 val variant = soil.getValue(BotaniaStateProps.ALTGRASS_VARIANT)
                 val colorSet = variant.ordinal / 4
                 val block = ModBlocks.altLogs[colorSet]
-                return block.defaultState.withProperty(block.TYPE, variant)
+                return block.defaultState.withProperty(BlockAltLog.TYPE_PROPS[block.colorSet], variant)
             }
 
             override fun matchesSoil(soil: IBlockState): Boolean {

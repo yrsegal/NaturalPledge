@@ -12,7 +12,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
 
-object TreeGrowingCategory : IRecipeCategory {
+object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
 
     private val background = JEIPluginBotanicalAddons.helpers.guiHelper.createDrawable(ResourceLocation(LibMisc.MOD_ID, "textures/gui/jei/tree.png"), 0, 0, 87, 37)
 
@@ -37,22 +37,21 @@ object TreeGrowingCategory : IRecipeCategory {
     }
 
     @SuppressWarnings("unchecked")
-    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: IRecipeWrapper) {
+    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: TreeGrowingRecipeJEI) {
 
         recipeLayout.itemStacks.init(SAPLING_SLOT, true, 6, 1)
         recipeLayout.itemStacks.init(SOIL_SLOT, true, 6, 18)
         recipeLayout.itemStacks.init(LEAVES_SLOT, false, 60, 1)
         recipeLayout.itemStacks.init(WOOD_SLOT, false, 60, 18)
 
-        if (recipeWrapper is TreeGrowingRecipeJEI) {
-            recipeLayout.itemStacks.set(SAPLING_SLOT, recipeWrapper.sapling)
-            if (recipeWrapper.soil == null)
-                recipeLayout.itemStacks.set(SOIL_SLOT, defaultSoil)
-            else
-                recipeLayout.itemStacks.set(SOIL_SLOT, recipeWrapper.soil)
-            recipeLayout.itemStacks.set(LEAVES_SLOT, recipeWrapper.leaves)
-            recipeLayout.itemStacks.set(WOOD_SLOT, recipeWrapper.wood)
-        }
+        recipeLayout.itemStacks.set(SAPLING_SLOT, recipeWrapper.sapling)
+        if (recipeWrapper.soil == null)
+            recipeLayout.itemStacks.set(SOIL_SLOT, defaultSoil)
+        else
+            recipeLayout.itemStacks.set(SOIL_SLOT, recipeWrapper.soil)
+        recipeLayout.itemStacks.set(LEAVES_SLOT, recipeWrapper.leaves)
+        recipeLayout.itemStacks.set(WOOD_SLOT, recipeWrapper.wood)
+
     }
 
     val defaultSoil = listOf(ItemStack(Blocks.DIRT), ItemStack(Blocks.GRASS))

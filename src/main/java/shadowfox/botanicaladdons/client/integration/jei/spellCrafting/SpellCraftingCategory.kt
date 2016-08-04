@@ -10,7 +10,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
 
-object SpellCraftingCategory : IRecipeCategory {
+object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
 
     private val background = JEIPluginBotanicalAddons.helpers.guiHelper.createDrawable(ResourceLocation(LibMisc.MOD_ID, "textures/gui/jei/spell.png"), 0, 0, 108, 30)
 
@@ -34,20 +34,17 @@ object SpellCraftingCategory : IRecipeCategory {
         // NO-OP
     }
 
-    @SuppressWarnings("unchecked")
-    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: IRecipeWrapper) {
+    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: SpellCraftingRecipeJEI) {
 
         recipeLayout.itemStacks.init(INPUT_SLOT, true, 0, 5)
         recipeLayout.itemStacks.init(FOCUS_SLOT, true, 17, 5)
         recipeLayout.itemStacks.init(SPELL_SLOT, false, 56, 5)
         recipeLayout.itemStacks.init(OUTPUT_SLOT, false, 80, 5)
 
-        if (recipeWrapper is SpellCraftingRecipeJEI) {
-            recipeLayout.itemStacks.set(INPUT_SLOT, recipeWrapper.getInputsTyped())
-            recipeLayout.itemStacks.set(FOCUS_SLOT, recipeWrapper.getFocusTyped())
-            recipeLayout.itemStacks.set(SPELL_SLOT, recipeWrapper.getIconTyped())
-            recipeLayout.itemStacks.set(OUTPUT_SLOT, recipeWrapper.getOutputsTyped())
-        }
+        recipeLayout.itemStacks.set(INPUT_SLOT, recipeWrapper.getInputsTyped())
+        recipeLayout.itemStacks.set(FOCUS_SLOT, recipeWrapper.getFocusTyped())
+        recipeLayout.itemStacks.set(SPELL_SLOT, recipeWrapper.getIconTyped())
+        recipeLayout.itemStacks.set(OUTPUT_SLOT, recipeWrapper.getOutputsTyped())
     }
 
     private val INPUT_SLOT = 0

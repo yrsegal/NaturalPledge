@@ -164,7 +164,7 @@ object LexiconEntries {
 
         LexiconRecipeMappings.map(ItemStack(ModBlocks.irisSapling), sapling, 0)
 
-        for (i in ModBlocks.altLogs) for (j in 0..i.TYPE.allowedValues.size - 1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
+        for (i in ModBlocks.altLogs) for (j in i.variants.indices) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
         for (i in ModBlocks.irisLogs) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.rainbowLog, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.sealLog, 1, OreDictionary.WILDCARD_VALUE), sealTree, 0)
@@ -172,7 +172,7 @@ object LexiconEntries {
         LexiconRecipeMappings.map(ItemStack(ModBlocks.circuitLog, 1, OreDictionary.WILDCARD_VALUE), circuitTree, 0)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.calicoLog, 1, OreDictionary.WILDCARD_VALUE), calicoTree, 0)
 
-        for (i in ModBlocks.altLeaves) for (j in 0..i.TYPE.allowedValues.size - 1) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
+        for (i in ModBlocks.altLeaves) for (j in i.variants.indices) LexiconRecipeMappings.map(ItemStack(i, 1, j), sapling, 0)
         for (i in ModBlocks.irisLeaves) LexiconRecipeMappings.map(ItemStack(i, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.rainbowLeaves, 1, OreDictionary.WILDCARD_VALUE), irisDirt, 2)
         LexiconRecipeMappings.map(ItemStack(ModBlocks.sealLeaves, 1, OreDictionary.WILDCARD_VALUE), sealTree, 0)

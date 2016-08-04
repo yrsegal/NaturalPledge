@@ -9,6 +9,11 @@ object TreeGrowingRecipeHandler : IRecipeHandler<TreeGrowingRecipeJEI> {
         return TreeGrowingRecipeJEI::class.java
     }
 
+    override fun getRecipeCategoryUid(recipe: TreeGrowingRecipeJEI): String {
+        return "${LibMisc.MOD_ID}:treeGrowing"
+    }
+
+    @Suppress("OverridingDeprecatedMember")
     override fun getRecipeCategoryUid(): String {
         return "${LibMisc.MOD_ID}:treeGrowing"
     }
