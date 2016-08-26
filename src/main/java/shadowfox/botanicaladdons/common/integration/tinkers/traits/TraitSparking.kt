@@ -31,7 +31,7 @@ class TraitSparking : AbstractTrait("sparking", TinkersIntegration.THUNDERSTEEL_
         if (!event.isCanceled)
             stricken.onStruckByLightning(fakeBolt)
         if (player.worldObj.isRemote && stricken != player)
-            Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(stricken), 1f, 0x00948B, 0x00E4D7)
+            Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(stricken), 1f, 0x00948B, 0x00E4D7)
         player.worldObj.playSound(null, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
     }
 }

@@ -12,6 +12,7 @@ import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.potions.ModPotions
@@ -46,19 +47,6 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
 
     override fun getRarity(stack: ItemStack?) = BotaniaAPI.rarityRelic
 
-    fun particleRing(world: World, x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float) {
-        val m = 0.15F
-        val mv = 0.35F
-        for (i in 0..359 step 8) {
-            val rad = i.toDouble() * Math.PI / 180.0
-            val dispx = x + 0.5 - Math.cos(rad) * range.toFloat()
-            val dispy = y + 0.5
-            val dispz = z + 0.5 - Math.sin(rad) * range.toFloat()
-
-            Botania.proxy.wispFX(world, dispx, dispy, dispz, r, g, b, 0.2F, (Math.random() - 0.5).toFloat() * m, (Math.random() - 0.5).toFloat() * mv, (Math.random() - 0.5F).toFloat() * m)
-        }
-    }
-
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
         val entities = player.worldObj.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), { it?.isNonBoss ?: false })
         var doit = true
@@ -73,7 +61,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
         val g = 0xB4 / 255f
         val b = 0x12 / 255f
 
-        particleRing(player.worldObj, player.posX, player.posY, player.posZ, RANGE, r, g, b)
+        BotanicalAddons.PROXY.particleRing(player.posX, player.posY, player.posZ, RANGE, r, g, b)
 
         if (!player.worldObj.isRemote)
             player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1f, 0.001f)

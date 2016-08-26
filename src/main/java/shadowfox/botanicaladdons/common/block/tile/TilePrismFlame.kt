@@ -18,7 +18,7 @@ class TilePrismFlame : TileModTickable() {
     override fun updateEntity() {
         if (worldObj.isRemote)
             if (!inked || BotanicalAddons.PROXY.playerHasMonocle())
-                BotanicalAddons.PROXY.particleEmission(worldObj, Vector3.fromBlockPos(pos), RainbowItemHelper.colorFromIntAndPos(color, pos))
+                BotanicalAddons.PROXY.particleEmission(Vector3.fromBlockPos(pos), RainbowItemHelper.colorFromIntAndPos(color, pos))
     }
 
     override fun writeCustomNBT(cmp: NBTTagCompound) {

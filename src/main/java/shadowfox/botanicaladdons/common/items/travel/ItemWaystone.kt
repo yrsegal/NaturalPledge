@@ -76,7 +76,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
                     val x1 = (pos.x + Math.random()).toFloat()
                     val y1 = (pos.y + 1).toFloat()
                     val z1 = (pos.z + Math.random()).toFloat()
-                    Botania.proxy.wispFX(player.worldObj, x1.toDouble(), y1.toDouble(), z1.toDouble(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat() * 0.5f, -0.05f + Math.random().toFloat() * 0.05f)
+                    Botania.proxy.wispFX(x1.toDouble(), y1.toDouble(), z1.toDouble(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat() * 0.5f, -0.05f + Math.random().toFloat() * 0.05f)
                     return EnumActionResult.SUCCESS
                 }
             } else {
@@ -104,7 +104,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
         val dirVec = getDirVec(worldIn, stack, entityIn) ?: return
         val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        BotanicalAddons.PROXY.particleStream(worldIn, startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+        BotanicalAddons.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
     }
 
     fun getDirVec(world: World, stack: ItemStack, player: Entity): Vector3? {

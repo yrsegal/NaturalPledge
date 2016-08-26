@@ -178,7 +178,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
 
         val targetVec = speedVec.multiply(2.0).add(Vector3(entityLiving.positionVector))
 
-        if (entityLiving.worldObj.isRemote) Botania.proxy.lightningFX(entityLiving.worldObj, Vector3(entityLiving.positionVector), targetVec, speedVec.mag().toFloat(), 0x00948B, 0x00E4D7)
+        if (entityLiving.worldObj.isRemote) Botania.proxy.lightningFX(Vector3(entityLiving.positionVector), targetVec, speedVec.mag().toFloat(), 0x00948B, 0x00E4D7)
         return false
     }
 

@@ -147,7 +147,7 @@ object Spells {
                         val x = item.posX + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
                         val y = item.posY - item.yOffset + 0.5
                         val z = item.posZ + (Math.random() - 0.5) * 2.1 * item.width.toDouble()
-                        Botania.proxy.sparkleFX(item.worldObj, x, y, z, r, g, b, 3.5f, 15)
+                        Botania.proxy.sparkleFX(x, y, z, r, g, b, 3.5f, 15)
 
                         val m = 0.01
                         val d3 = 10.0
@@ -276,23 +276,10 @@ object Spells {
                 return flag
             }
 
-            fun particleRing(world: World, x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float) {
-                val m = 0.15F
-                val mv = 0.35F
-                for (i in 0..359 step 8) {
-                    val rad = i.toDouble() * Math.PI / 180.0
-                    val dispx = x + 0.5 - Math.cos(rad) * range.toFloat()
-                    val dispy = y + 0.5
-                    val dispz = z + 0.5 - Math.sin(rad) * range.toFloat()
-
-                    Botania.proxy.wispFX(world, dispx, dispy, dispz, r, g, b, 0.2F, (Math.random() - 0.5).toFloat() * m, (Math.random() - 0.5).toFloat() * mv, (Math.random() - 0.5F).toFloat() * m)
-                }
-            }
-
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 if (ManaItemHandler.requestManaExact(focus, player, 5, false)) {
 
-                    particleRing(player.worldObj, player.posX, player.posY, player.posZ, RANGE, 0F, 0F, 1F)
+                    BotanicalAddons.PROXY.particleRing(player.posX, player.posY, player.posZ, RANGE, 0F, 0F, 1F)
 
                     val exclude: EntityLivingBase = player
                     val entities = player.worldObj.getEntitiesInAABBexcluding(exclude,
@@ -359,16 +346,16 @@ object Spells {
                         MinecraftForge.EVENT_BUS.post(event)
                         if (!event.isCanceled)
                             focused.onStruckByLightning(fakeBolt)
-                        Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(focused), 1f, 0x00948B, 0x00E4D7)
+                        Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(focused), 1f, 0x00948B, 0x00E4D7)
                         player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                         return EnumActionResult.SUCCESS
                     }
                 } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3(cast.hitVec), 1f, 0x00948B, 0x00E4D7)
+                    Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3(cast.hitVec), 1f, 0x00948B, 0x00E4D7)
                     player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
-                    Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), 1f, 0x00948B, 0x00E4D7)
+                    Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), 1f, 0x00948B, 0x00E4D7)
                     player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 }
@@ -439,7 +426,7 @@ object Spells {
                     if (player.canPlayerEdit(pos, ray.sideHit, null)) {
                         ManaItemHandler.requestManaExact(focus, player, 1500, true)
                         player.worldObj.setBlockState(pos, ModBlocks.thunderTrap.defaultState)
-                        Botania.proxy.lightningFX(player.worldObj, Vector3.fromEntityCenter(player), Vector3.fromBlockPos(pos).add(0.5, 0.5, 0.5), 1f, 0x00948B, 0x00E4D7)
+                        Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromBlockPos(pos).add(0.5, 0.5, 0.5), 1f, 0x00948B, 0x00E4D7)
                         player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                         return EnumActionResult.SUCCESS
                     }

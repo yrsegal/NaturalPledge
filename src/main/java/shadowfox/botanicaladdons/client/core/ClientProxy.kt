@@ -39,8 +39,8 @@ class ClientProxy : CommonProxy() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileStar::class.java, RenderTileFrozenStar())
     }
 
-    override fun particleEmission(world: World, pos: Vector3, color: Int, probability: Float) {
-        if (world.isRemote && Math.random() < probability) {
+    override fun particleEmission(pos: Vector3, color: Int, probability: Float) {
+        if (Math.random() < probability) {
             val v = 0.1F
 
             var r = (color shr 16 and 0xFF) / 0xFF.toFloat()
@@ -64,11 +64,11 @@ class ClientProxy : CommonProxy() {
             val s = 0.2F + Math.random().toFloat() * 0.1F
             val m = 0.03F + Math.random().toFloat() * 0.015F
 
-            Botania.proxy.wispFX(world, x, y, z, r, g, b, s, -m)
+            Botania.proxy.wispFX(x, y, z, r, g, b, s, -m)
         }
     }
 
-    override fun particleStream(world: World, from: Vector3, to: Vector3, color: Int) {
+    override fun particleStream(from: Vector3, to: Vector3, color: Int) {
         val motionVec = to.subtract(from).multiply(0.04)
         val c = Color(color)
 
@@ -76,10 +76,10 @@ class ClientProxy : CommonProxy() {
         val g = c.green / 255f
         val b = c.blue / 255f
 
-        Botania.proxy.wispFX(world, from.x, from.y, from.z, r, g, b, 0.4f, motionVec.x.toFloat(), motionVec.y.toFloat(), motionVec.z.toFloat())
+        Botania.proxy.wispFX(from.x, from.y, from.z, r, g, b, 0.4f, motionVec.x.toFloat(), motionVec.y.toFloat(), motionVec.z.toFloat())
     }
 
-    override fun wispLine(world: World, start: Vector3, line: Vector3, color: Int, stepsPerBlock: Double, time: Int) {
+    override fun wispLine(start: Vector3, line: Vector3, color: Int, stepsPerBlock: Double, time: Int) {
         val len = line.mag()
         val ray = line.multiply(1 / len)
         val steps = (len * stepsPerBlock).toInt()
@@ -96,7 +96,20 @@ class ClientProxy : CommonProxy() {
             val g = c.green.toFloat() / 255.0f
             val b = c.blue.toFloat() / 255.0f
 
-            Botania.proxy.wispFX(world, x, y, z, r, g, b, time * 0.0125f)
+            Botania.proxy.wispFX(x, y, z, r, g, b, time * 0.0125f)
+        }
+    }
+
+    override fun particleRing(x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float) {
+        val m = 0.15F
+        val mv = 0.35F
+        for (i in 0..359 step 8) {
+            val rad = i.toDouble() * Math.PI / 180.0
+            val dispx = x + 0.5 - Math.cos(rad) * range.toFloat()
+            val dispy = y + 0.5
+            val dispz = z + 0.5 - Math.sin(rad) * range.toFloat()
+
+            Botania.proxy.wispFX(dispx, dispy, dispz, r, g, b, 0.2F, (Math.random() - 0.5).toFloat() * m, (Math.random() - 0.5).toFloat() * mv, (Math.random() - 0.5F).toFloat() * m)
         }
     }
 

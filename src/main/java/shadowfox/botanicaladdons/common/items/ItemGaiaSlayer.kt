@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
+import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.common.entity.EntityDoppleganger
 
@@ -21,8 +22,8 @@ class ItemGaiaSlayer(name: String) : ItemMod(name) {
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
         if (target is EntityDoppleganger) {
             if (target.health >= 0.5f) target.health = 0.5f
-            target.mobSpawnTicks = 0
-            target.tpDelay = 10000
+            BAMethodHandles.setMobSpawnTicks(target, 0)
+            BAMethodHandles.setTpDelay(target, 10000)
         }
         return super.hitEntity(stack, target, attacker)
     }

@@ -16,6 +16,7 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.brew.ModBrews
+import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 
@@ -45,19 +46,23 @@ open class CommonProxy {
         // NO-OP
     }
 
-    fun particleEmission(world: World, pos: Vector3, color: Int) {
-        particleEmission(world, pos, color, 0.3F)
+    fun particleEmission(pos: Vector3, color: Int) {
+        particleEmission(pos, color, 0.3F)
     }
 
-    open fun particleEmission(world: World, pos: Vector3, color: Int, probability: Float) {
+    open fun particleEmission(pos: Vector3, color: Int, probability: Float) {
         // NO-OP
     }
 
-    open fun particleStream(world: World, from: Vector3, to: Vector3, color: Int) {
+    open fun particleStream(from: Vector3, to: Vector3, color: Int) {
         //NO-OP
     }
 
-    open fun wispLine(world: World, start: Vector3, line: Vector3, color: Int, stepsPerBlock: Double, time: Int) {
+    open fun wispLine(start: Vector3, line: Vector3, color: Int, stepsPerBlock: Double, time: Int) {
+        //NO-OP
+    }
+
+    open fun particleRing(x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float) {
         //NO-OP
     }
 

@@ -33,7 +33,8 @@ public class BAMethodHandles {
     public static final Class cooldownClass;
     @Nonnull
     private static final MethodHandle cooldownsGetter, cooldownTicksGetter, cooldownMaker, expireTicksGetter, createTicksGetter,
-            swingTicksGetter, swingTicksSetter, lightningEffectGetter, explosionSizeGetter, alwaysEdibleGetter, playersWhoAttackedGetter;
+            swingTicksGetter, swingTicksSetter, lightningEffectGetter, explosionSizeGetter, alwaysEdibleGetter, playersWhoAttackedGetter,
+            mobSpawnTicksSetter, tpDelaySetter;
 
     static {
         try {
@@ -69,6 +70,12 @@ public class BAMethodHandles {
 
             f = ReflectionHelper.findField(EntityDoppleganger.class, "playersWhoAttacked");
             playersWhoAttackedGetter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(EntityDoppleganger.class, "mobSpawnTicks");
+            mobSpawnTicksSetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityDoppleganger.class, "tpDelay");
+            tpDelaySetter = publicLookup().unreflectSetter(f);
 
         } catch (Throwable t) {
             BALogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
@@ -171,6 +178,23 @@ public class BAMethodHandles {
             throw propagate(t);
         }
     }
+
+    public static void setMobSpawnTicks(@Nonnull EntityDoppleganger gaiaGuardian, int ticks) {
+        try {
+            mobSpawnTicksSetter.invokeExact(gaiaGuardian, ticks);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void setTpDelay(@Nonnull EntityDoppleganger gaiaGuardian, int ticks) {
+        try {
+            tpDelaySetter.invokeExact(gaiaGuardian, ticks);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
 
     private static RuntimeException propagate(Throwable t) {
         BALogger.INSTANCE.severe("Methodhandle failed!");

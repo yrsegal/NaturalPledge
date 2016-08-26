@@ -25,7 +25,7 @@ class TileCracklingStar : TileModTickable() {
                 val blockAt = world.getBlockState(pos.add(vec.x, vec.y, vec.z))
                 if (blockAt.block == currentBlock.block) {
                     flag = true
-                    BotanicalAddons.PROXY.wispLine(world, Vector3.fromBlockPos(pos).add(0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05), vec, RainbowItemHelper.colorFromInt(starColor), Math.random() * 6.0, 10)
+                    BotanicalAddons.PROXY.wispLine(Vector3.fromBlockPos(pos).add(0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05), vec, RainbowItemHelper.colorFromInt(starColor), Math.random() * 6.0, 10)
                 }
             }
 
@@ -34,7 +34,7 @@ class TileCracklingStar : TileModTickable() {
             for (i in TriFacing.values()) makeLine(i.vec)
             if (!flag) {
                 val color = Color(RainbowItemHelper.colorFromIntAndPos(starColor, pos))
-                Botania.proxy.wispFX(world, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, color.red / 255f, color.green / 255f, color.blue / 255f, 0.25f)
+                Botania.proxy.wispFX(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, color.red / 255f, color.green / 255f, color.blue / 255f, 0.25f)
             }
         }
     }

@@ -67,7 +67,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHand
         val dirVec = getDirVec(stack, entityIn) ?: return
         val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        BotanicalAddons.PROXY.particleStream(worldIn, startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+        BotanicalAddons.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
     }
 
     override fun onItemRightClick(stack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
