@@ -51,7 +51,9 @@ item.botanicaladdons:iconIronroot.name=Shield of Roots
 item.botanicaladdons:iconLifemaker.name=Life Catalyst
 
 enchantment.botanicaladdons.light=Streamlined
+enchantment.botanicaladdons.light.desc=Quicker to swing, you move lithely while you hold it, at the cost of reduced damage.
 enchantment.botanicaladdons.heavy=Crushing
+enchantment.botanicaladdons.heavy.desc=Slower to swing, you move slowly while you hold it, giving you heavily increased damage.
 
 jei.botanicaladdons.recipe.spellCrafting=Spell Infusion
 jei.botanicaladdons.recipe.treeGrowing=Tree Growth
