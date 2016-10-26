@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.util.CooldownTracker;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -16,9 +17,9 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import static java.lang.invoke.MethodHandles.publicLookup;
 
@@ -34,7 +35,7 @@ public class BAMethodHandles {
     @Nonnull
     private static final MethodHandle cooldownsGetter, cooldownTicksGetter, cooldownMaker, expireTicksGetter, createTicksGetter,
             swingTicksGetter, swingTicksSetter, lightningEffectGetter, explosionSizeGetter, alwaysEdibleGetter, playersWhoAttackedGetter,
-            mobSpawnTicksSetter, tpDelaySetter;
+            mobSpawnTicksSetter, tpDelaySetter, isJumpingSetter, jumpTicksGetter, capturePositionInvoker;
 
     static {
         try {
@@ -76,6 +77,15 @@ public class BAMethodHandles {
 
             f = ReflectionHelper.findField(EntityDoppleganger.class, "tpDelay");
             tpDelaySetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityLivingBase.class, LibObfuscation.ENTITYLIVINGBASE_ISJUMPING);
+            isJumpingSetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityLivingBase.class, LibObfuscation.ENTITYLIVINGBASE_JUMPTICKS);
+            jumpTicksGetter = publicLookup().unreflectGetter(f);
+
+            Method m = ReflectionHelper.findMethod(NetHandlerPlayServer.class, null, LibObfuscation.NETHANDLERPLAYSERVER_CAPTURECURRENTPOSITION);
+            capturePositionInvoker = publicLookup().unreflect(m);
 
         } catch (Throwable t) {
             BALogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
@@ -195,6 +205,29 @@ public class BAMethodHandles {
         }
     }
 
+    public static void setIsJumping(@Nonnull EntityLivingBase entity, boolean isJumping) {
+        try {
+            isJumpingSetter.invokeExact(entity, isJumping);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static int getJumpTicks(@Nonnull EntityLivingBase entity) {
+        try {
+            return (int) jumpTicksGetter.invokeExact(entity);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void captureCurrentPosition(@Nonnull NetHandlerPlayServer net) {
+        try {
+            capturePositionInvoker.invokeExact(net);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
 
     private static RuntimeException propagate(Throwable t) {
         BALogger.INSTANCE.severe("Methodhandle failed!");

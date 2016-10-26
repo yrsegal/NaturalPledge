@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.items.base
 
+import baubles.api.BaublesApi
 import baubles.api.IBauble
-import baubles.common.lib.PlayerHandler
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -54,7 +54,7 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     }
 
     init {
-        setMaxStackSize(1)
+        maxStackSize = 1
     }
 
     override fun onItemRightClick(par1ItemStack: ItemStack, par2World: World, par3EntityPlayer: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
@@ -62,13 +62,13 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
             return ActionResult.newResult(EnumActionResult.FAIL, par1ItemStack)
 
         if (canEquip(par1ItemStack, par3EntityPlayer)) {
-            val baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer)
-            for (i in 0..baubles.sizeInventory - 1) {
-                if (baubles.isItemValidForSlot(i, par1ItemStack)) {
+            val baubles = BaublesApi.getBaublesHandler(par3EntityPlayer)
+            for (i in 0..baubles.slots - 1) {
+                if (baubles.isItemValidForSlot(i, par1ItemStack, par3EntityPlayer)) {
                     val stackInSlot = baubles.getStackInSlot(i)
                     if (stackInSlot == null || (stackInSlot.item as IBauble).canUnequip(stackInSlot, par3EntityPlayer)) {
                         if (!par2World.isRemote) {
-                            baubles.setInventorySlotContents(i, par1ItemStack.copy())
+                            baubles.setStackInSlot(i, par1ItemStack.copy())
                             if (!par3EntityPlayer.capabilities.isCreativeMode)
                                 par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null)
                         }
@@ -124,8 +124,8 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     override fun canUnequip(stack: ItemStack, player: EntityLivingBase) = true
     override fun canEquip(stack: ItemStack, player: EntityLivingBase) = true
 
-    override fun hasPhantomInk(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, "phantomInk", false)
-    override fun setPhantomInk(stack: ItemStack, ink: Boolean) = ItemNBTHelper.setBoolean(stack, "phantomInk", ink)
+    override fun hasPhantomInk(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false)
+    override fun setPhantomInk(stack: ItemStack, ink: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink)
 
     override fun hasContainerItem(stack: ItemStack): Boolean = this.getContainerItem(stack) != null
     override fun getContainerItem(itemStack: ItemStack): ItemStack? = this.getCosmeticItem(itemStack)
@@ -147,8 +147,6 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     }
 
     open fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        val type = this.getBaubleType(stack)
-        addToTooltip(tooltip, "botania.baubletype." + type.name.toLowerCase())
         val key = RenderHelper.getKeyDisplayString("Baubles Inventory")
         if (key != null) {
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.baubletooltip", key)

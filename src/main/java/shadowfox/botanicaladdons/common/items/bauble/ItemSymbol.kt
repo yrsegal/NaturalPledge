@@ -158,7 +158,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         super.addHiddenTooltip(stack, player, tooltip, advanced)
     }
 
-    override fun getBaubleType(stack: ItemStack?) = BaubleType.AMULET
+    override fun getBaubleType(stack: ItemStack?) = BaubleType.TRINKET
 
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, p3: Float) {
         val renderStack = stack.copy()

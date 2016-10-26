@@ -14,6 +14,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.CommonProxy
 import shadowfox.botanicaladdons.common.network.LeftClickMessage
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
+import shadowfox.botanicaladdons.common.network.SetPositionMessage
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES)
 class BotanicalAddons {
@@ -44,6 +45,7 @@ class BotanicalAddons {
     fun preInit(event: FMLPreInitializationEvent) {
         NETWORK.registerMessage(PlayerItemMessage.PlayerItemMessageHandler::class.java, PlayerItemMessage::class.java, 0, Side.SERVER)
         NETWORK.registerMessage(LeftClickMessage.LeftClickMessageHandler::class.java, LeftClickMessage::class.java, 1, Side.SERVER)
+        NETWORK.registerMessage(SetPositionMessage.SetPositionMessageHandler::class.java, SetPositionMessage::class.java, 2, Side.SERVER)
 
         PROXY.pre(event)
     }

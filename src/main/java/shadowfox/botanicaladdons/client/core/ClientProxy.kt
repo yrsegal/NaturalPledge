@@ -1,9 +1,8 @@
 package shadowfox.botanicaladdons.client.core
 
-import baubles.common.lib.PlayerHandler
+import baubles.api.BaublesApi
 import net.minecraft.client.Minecraft
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -20,7 +19,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
-import java.util.*
 
 /**
  * @author WireSegal
@@ -130,14 +128,14 @@ class ClientProxy : CommonProxy() {
 
     override fun rainbow(pos: BlockPos, saturation: Float): Color {
         val ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks
-        val seed = Objects.hash(pos.x, pos.y, pos.z)
+        val seed = (pos.x xor pos.y xor pos.z) * 255 xor pos.hashCode()
         return Color(Color.HSBtoRGB((seed + ticks) * 0.005F, saturation, 1F))
     }
 
     override fun wireFrameRainbow(saturation: Float) = Color(Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200f, saturation, 1f))
 
     override fun playerHasMonocle(): Boolean {
-        PlayerHandler.getPlayerBaubles(Minecraft.getMinecraft().thePlayer) ?: return false
+        BaublesApi.getBaublesHandler(Minecraft.getMinecraft().thePlayer) ?: return false
         return Botania.proxy.isClientPlayerWearingMonocle
     }
 }

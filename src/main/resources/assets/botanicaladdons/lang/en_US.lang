@@ -50,6 +50,11 @@ item.botanicaladdons:iconBifrostSphere.name=Wave of Bifrost
 item.botanicaladdons:iconIronroot.name=Shield of Roots
 item.botanicaladdons:iconLifemaker.name=Life Catalyst
 
+item.botanicaladdons:cloakNjord.name=Cloak of Njord
+item.botanicaladdons:cloakIdunn.name=Cloak of Idunn
+item.botanicaladdons:cloakThor.name=Cloak of Thor
+item.botanicaladdons:cloakHeimdall.name=Cloak of Heimdall
+
 enchantment.botanicaladdons.light=Streamlined
 enchantment.botanicaladdons.light.desc=Quicker to swing, you move lithely while you hold it, at the cost of reduced damage.
 enchantment.botanicaladdons.heavy=Crushing

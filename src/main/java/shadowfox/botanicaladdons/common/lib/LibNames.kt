@@ -24,6 +24,7 @@ object LibNames {
     val RESOURCE = "resource"
     val FOODBELT = "foodbelt"
     val DEATH_FINDER = "deathStone"
+    val DIVINE_CLOAK = "divineCloak"
 
     val SPELL_LEAP = "leap"
     val SPELL_INTERDICT = "interdict"

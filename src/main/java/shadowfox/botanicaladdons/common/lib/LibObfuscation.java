@@ -25,4 +25,9 @@ public class LibObfuscation {
 
     // Food handling
     public static final String[] ITEMFOOD_ALWAYSEDIBLE = new String[]{"e", "field_77852_bZ", "alwaysEdible"};
+
+    // Heimdall Cloak
+    public static final String[] ENTITYLIVINGBASE_ISJUMPING = new String[]{"be", "field_70703_bu", "isJumping"};
+    public static final String[] ENTITYLIVINGBASE_JUMPTICKS = new String[]{"bC", "field_70773_bE", "jumpTicks"};
+    public static final String[] NETHANDLERPLAYSERVER_CAPTURECURRENTPOSITION = new String[]{"d", "func_184342_d", "captureCurrentPosition"};
 }

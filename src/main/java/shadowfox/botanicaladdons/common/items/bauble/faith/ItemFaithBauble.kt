@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import baubles.api.BaubleType
-import baubles.common.lib.PlayerHandler
+import baubles.api.BaublesApi
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
@@ -70,7 +70,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>? = null): ItemStack? {
             if (isFaithless(player)) return null
 
-            val baubles = PlayerHandler.getPlayerBaubles(player)
+            val baubles = BaublesApi.getBaublesHandler(player)
             val stack = baubles.getStackInSlot(0)
             if (stack != null && stack.item is IPriestlyEmblem) {
                 val variantInstance = (stack.item as IPriestlyEmblem).getVariant(stack)

@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.items.travel.bauble
 
 import baubles.api.BaubleType
-import baubles.common.lib.PlayerHandler
+import baubles.api.BaublesApi
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
@@ -122,9 +122,9 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
         }
 
         fun getEquippedBelt(player: EntityPlayer): ItemStack? {
-            val inv = PlayerHandler.getPlayerBaubles(player)
+            val inv = BaublesApi.getBaublesHandler(player)
             var beltStack: ItemStack? = null
-            for (i in 0..inv.sizeInventory) {
+            for (i in 0..inv.slots - 1) {
                 val stack = inv.getStackInSlot(i)
                 if (stack != null && stack.item is ItemToolbelt) {
                     beltStack = stack

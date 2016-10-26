@@ -22,7 +22,7 @@ class BlockThunderLeaves(name: String) : BlockModLeaves(name), IThunderAbsorber,
         get() = false
 
     override fun getItemDropped(state: IBlockState?, rand: Random?, fortune: Int): Item? {
-        return Item.getItemFromBlock(ModBlocks.sealSapling)
+        return Item.getItemFromBlock(ModBlocks.thunderSapling)
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
