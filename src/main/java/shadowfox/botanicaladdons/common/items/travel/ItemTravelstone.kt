@@ -47,12 +47,12 @@ class ItemTravelstone(name: String) : ItemMod(name), ModelHandler.IItemColorProv
                 if (playersWithStepup.contains(s)) {
                     if (shouldPlayerHaveStepup(player)) {
                         if (player.isSneaking)
-                            player.stepHeight = 0.50001f // Not 0.5F because that is the default
+                            player.stepHeight = 0.60001f // Not 0.5F because that is the default
                         else
                             player.stepHeight = 1f
 
                     } else {
-                        player.stepHeight = 0.5f
+                        player.stepHeight = 0.6f
                         playersWithStepup.remove(s)
                     }
                 } else if (shouldPlayerHaveStepup(player)) {

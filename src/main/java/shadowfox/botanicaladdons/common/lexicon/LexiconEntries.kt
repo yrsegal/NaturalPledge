@@ -74,6 +74,11 @@ object LexiconEntries {
 
     val funnel: LexiconEntry
 
+    val garbNjord: LexiconEntry
+    val garbIdunn: LexiconEntry
+    val garbThor: LexiconEntry
+    val garbHeimdall: LexiconEntry
+
     init {
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
 
@@ -101,6 +106,15 @@ object LexiconEntries {
         thorSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"), PageText("3"), PageText("4"), PageCraftingRecipe("5", ModRecipes.recipeThunderBlock), PageCraftingRecipe("6", ModRecipes.recipeThunderDeconversion))
         heimdallSpells = EntryPriestlyKnowledge("heimdallSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.IRIDESCENCE), PriestlyEmblemHeimdall::class.java)
         heimdallSpells.setLexiconPages(PageText("0"), PageText("1"))
+
+        garbNjord = EntryPriestlyKnowledge("garbNjord", divinity, ItemStack(ModItems.cloak, 1, 0), PriestlyEmblemNjord::class.java)
+        garbNjord.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeNjordCloak))
+        garbIdunn = EntryPriestlyKnowledge("garbIdunn", divinity, ItemStack(ModItems.cloak, 1, 1), PriestlyEmblemIdunn::class.java)
+        garbIdunn.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeIdunnCloak))
+        garbThor = EntryPriestlyKnowledge("garbThor", divinity, ItemStack(ModItems.cloak, 1, 2), PriestlyEmblemThor::class.java)
+        garbThor.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThorCloak))
+        garbHeimdall = EntryPriestlyKnowledge("garbHeimdall", divinity, ItemStack(ModItems.cloak, 1, 3), PriestlyEmblemHeimdall::class.java)
+        garbHeimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallCloak))
 
         drabBrew = EntryPriestlyKnowledge("drabBrew", divinity, ItemStack(ModItems.iridescentDye, 1, EnumDyeColor.GRAY.metadata), PriestlyEmblemHeimdall::class.java)
         drabBrew.setLexiconPages(PageBrew(ModRecipes.drabBrew, "0a", "0b"))

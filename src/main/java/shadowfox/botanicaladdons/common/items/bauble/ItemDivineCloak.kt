@@ -18,6 +18,7 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingFallEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -46,8 +47,8 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             MinecraftForge.EVENT_BUS.register(this)
         }
 
-        fun damageSourceEarthquake(e: EntityPlayer): DamageSource {
-            return EntityDamageSource("${LibMisc.MOD_ID}.earthquake", e)
+        fun damageSourceEarthquake(e: EntityPlayer? = null): DamageSource {
+            return if (e == null) DamageSource("${LibMisc.MOD_ID}.earthquake") else EntityDamageSource("${LibMisc.MOD_ID}.earthquake", e)
         }
 
         @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
@@ -67,11 +68,39 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
                         for (entity in entities) if (entity != player && entity.onGround)
                             entity.attackEntityFrom(damageSourceEarthquake(player), damage * 2)
 
+                        player.attackEntityFrom(damageSourceEarthquake(), 0.00005f)
                         for (pos in BlockPos.getAllInBoxMutable(BlockPos(player.positionVector).add(-1, -1, -1), BlockPos(player.positionVector).add(1, -1, 1))) {
                             val state = player.worldObj.getBlockState(pos)
                             if (state.isFullCube)
                                 player.worldObj.playEvent(2001, pos, state.block.getMetaFromState(state))
                         }
+                    }
+                }
+            }
+        }
+
+        val epsilon = Math.cos(Math.PI / 6)
+        val inverseEpsilon = Math.sin(Math.PI / 6)
+
+        private var no = false
+
+        @SubscribeEvent
+        fun onDamage(e: LivingAttackEvent) {
+            if (no) return
+            val player = e.entityLiving
+            if (player is EntityPlayer) {
+                val baubles = BaublesApi.getBaublesHandler(player)
+                val body = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
+                if (body != null && body.item is ItemDivineCloak && body.itemDamage == 1 && e.source.entity != null) {
+                    val look = player.lookVec.normalize()
+                    val origin = e.source.entity!!
+                    val dir = player.positionVector.subtract(origin.positionVector).normalize()
+                    val dot = look.dotProduct(dir)
+                    if (dot < inverseEpsilon) {
+                        e.isCanceled = true
+                        no = true
+                        player.attackEntityFrom(e.source, if (dot > epsilon) e.amount else 0.00005f)
+                        no = false
                     }
                 }
             }
@@ -101,19 +130,17 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
         }
     }
 
-    val model: Any by lazy {
-        ModelCloak()
-    }
+    private var model: Any? = null
 
-    val cloakNjord = ResourceLocation(LibMisc.MOD_ID, "textures/model/njordCloak.png")
-    val cloakIdunn = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunnCloak.png")
-    val cloakThor = ResourceLocation(LibMisc.MOD_ID, "textures/model/thorCloak.png")
-    val cloakHeimdall = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdallCloak.png")
+    private val cloakNjord = ResourceLocation(LibMisc.MOD_ID, "textures/model/njordCloak.png")
+    private val cloakIdunn = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunnCloak.png")
+    private val cloakThor = ResourceLocation(LibMisc.MOD_ID, "textures/model/thorCloak.png")
+    private val cloakHeimdall = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdallCloak.png")
 
-    val cloakNjordGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/njordCloakGlow.png")
-    val cloakIdunnGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunnCloakGlow.png")
-    val cloakThorGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/thorCloakGlow.png")
-    val cloakHeimdallGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdallCloakGlow.png")
+    private val cloakNjordGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/njordCloakGlow.png")
+    private val cloakIdunnGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunnCloakGlow.png")
+    private val cloakThorGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/thorCloakGlow.png")
+    private val cloakHeimdallGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdallCloakGlow.png")
 
     fun getCloakTexture(stack: ItemStack): ResourceLocation {
         return when (stack.itemDamage) {
@@ -135,8 +162,9 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
 
     @SideOnly(Side.CLIENT)
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partialTicks: Float) {
+        if (model == null) model = ModelCloak()
         if (type == vazkii.botania.api.item.IBaubleRender.RenderType.BODY) {
-            vazkii.botania.api.item.IBaubleRender.Helper.rotateIfSneaking(player)
+            IBaubleRender.Helper.rotateIfSneaking(player)
             val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
             GlStateManager.translate(0.0f, if (armor) -0.07f else -0.01f, 0.0f)
             val s = 0.0625f
@@ -146,9 +174,9 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             GlStateManager.enableRescaleNormal()
             Minecraft.getMinecraft().renderEngine.bindTexture(this.getCloakTexture(stack))
             (model as ModelCloak).render(1.0f)
-            val light = 15728880
-            val lightmapX = light % 65536
-            val lightmapY = light / 65536
+            val light = 0xF000F0
+            val lightmapX = light % 0x10000
+            val lightmapY = light / 0x10000
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX.toFloat(), lightmapY.toFloat())
             Minecraft.getMinecraft().renderEngine.bindTexture(this.getCloakGlowTexture(stack))
             (model as ModelCloak).render(1.0f)

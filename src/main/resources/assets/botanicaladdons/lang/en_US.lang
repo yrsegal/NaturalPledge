@@ -263,8 +263,10 @@ modifier.soulbonded.desc=§oPhotosynthesize!§r\nBe like a tree, and your bonded
 
 
 death.attack.botanicaladdons.faith=%s had a crisis of faith
-death.attack.botanicaladdons.hammer=%s experienced kinetic energy
-death.attack.botanicaladdons.hammer.player=%s experienced %s's kinetic energy
+death.attack.botanicaladdons.hammer=%s discovered kinetic energy
+death.attack.botanicaladdons.hammer.player=%s discovered %s had kinetic energy
+death.attack.botanicaladdons.earthquake=%s found out earthquakes hurt
+death.attack.botanicaladdons.earthquake.player=%s heard from %s that earthquakes hurt
 
 achievement.botanicaladdons:donEmblem=The New Millenium
 achievement.botanicaladdons:donEmblem.desc=Pledge your soul to a divinity
@@ -328,6 +330,10 @@ botanicaladdons.page.njordSpells5=And back again
 botanicaladdons.page.njordSpells6=Use me underwater
 botanicaladdons.page.njordSpells7=And some panes
 
+botanicaladdons.entry.garbNjord=Priestly Fashion - Njord
+botanicaladdons.tagline.garbNjord=Feather Fall
+botanicaladdons.page.garbNjord0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Njord's robes allow the user to float softly to the ground while falling.
+botanicaladdons.page.garbNjord1=Worked for Belkar
 
 botanicaladdons.entry.idunn=Faith in Idunn
 botanicaladdons.tagline.idunn=Life, spring, and immortality
@@ -337,7 +343,12 @@ botanicaladdons.page.idunn1=Ash sunk down of alfen race
 botanicaladdons.entry.idunnSpells=Life Magic
 botanicaladdons.tagline.idunnSpells=The art of growth
 botanicaladdons.page.idunnSpells0=The first spell that &3Idunn&0's emblem grants, &1Shield of Roots&0, is a powerful protection spell. While you have the &1Terrestrial Focus&0, for half a minute you will be unable to move, take, or deal melee damage. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
-botanicaladdons.page.idunnSpells1=The second and final spell of &3Idunn&0, &1Life Catalyst&0, forces power into livingwood, twisting it to become &1Soulroot&0. If you can somehow augment your emblem's power, the root's lifeforce might be more potent.
+botanicaladdons.page.idunnSpells1=The secgond and final spell of &3Idunn&0, &1Life Catalyst&0, forces power into livingwood, twisting it to become &1Soulroot&0. If you can somehow augment your emblem's power, the root's lifeforce might be more potent.
+
+botanicaladdons.entry.garbIdunn=Priestly Fashion - Idunn
+botanicaladdons.tagline.garbIdunn=Head on or backstab
+botanicaladdons.page.garbIdunn0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Idunn's robes protect their wearer from attacks to the side, making all combat head on.
+botanicaladdons.page.garbIdunn1=Bring it on! I &olive&0 for this!
 
 botanicaladdons.entry.thor=Faith in Thor
 botanicaladdons.tagline.thor=Thunder, strength, and wrath
@@ -354,6 +365,11 @@ botanicaladdons.page.thorSpells4=The final spell of &3Thor&0, &1Thunder Infusion
 botanicaladdons.page.thorSpells5=Block of awesome
 botanicaladdons.page.thorSpells6=And back again
 
+botanicaladdons.entry.garbThor=Priestly Fashion - Thor
+botanicaladdons.tagline.garbThor=Smashy smashy
+botanicaladdons.page.garbThor0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Thor's robes shield their wearer from the brunt of fall damage, instead spreading it to anything around.
+botanicaladdons.page.garbThor1=Superhero landing!
+
 botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color
 botanicaladdons.page.heimdall0=The &4Æsir&0 god of the Bifrost, &3Heimdall&0, seems like an interesting god to channel. Wielding his aspect of the &3Divine&0 makes your eyes see more vibrantly, seeing light even in the shadow. When carrying a &1Rod of the Bifrost&0, you leave a trail of rainbow &4Bifrost&0 below you, allowing you to run in the sky.
@@ -363,6 +379,11 @@ botanicaladdons.entry.heimdallSpells=Bifrost Magic
 botanicaladdons.tagline.heimdallSpells=The art of Iridescence
 botanicaladdons.page.heimdallSpells0=The first spell that &3Heimdall&0's emblem grants, &1Iridescent Tones&0, creates a resonating sound that vibrates with the essence of color. Casting it on any dye will crystallize it, converting it into &1Iridescent Crystal&0. This crystal acts as a higher-potency dye, able to colorize even things like dirt.
 botanicaladdons.page.heimdallSpells1=The second spell of &3Heimdall&0, &1Wave of Bifrost&0, creates for you a safe haven. When you cast it, a sphere of &4Bifrost&0 will rise around you, stopping your fall and giving you temporary protection from anything around you.
+
+botanicaladdons.entry.garbHeimdall=Priestly Fashion - Heimdall
+botanicaladdons.tagline.garbHeimdall=A different way to move
+botanicaladdons.page.garbHeimdall0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fasionable, provide a tangible benefit. Heimdall's robes make their wearer blink towards their vision whenever they jump while sprinting, giving them a different type of motion.
+botanicaladdons.page.garbHeimdall1=Ever get that feeling of déjà vu?
 
 botanicaladdons.entry.drabBrew=Brew of Monochromacy
 botanicaladdons.tagline.drabBrew=Negating color

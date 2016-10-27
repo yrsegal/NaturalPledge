@@ -5,6 +5,7 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockPlanks
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
+import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
@@ -116,6 +117,11 @@ object ModRecipes {
 
     val recipeDeathStone: IRecipe
     val recipesCrackleStar: Array<IRecipe>
+
+    val recipeNjordCloak: IRecipe
+    val recipeIdunnCloak: IRecipe
+    val recipeThorCloak: IRecipe
+    val recipeHeimdallCloak: IRecipe
 
     init {
 
@@ -440,6 +446,37 @@ object ModRecipes {
                     'D', LibOreDict.IRIS_DYES[it])
         })
 
+        recipeNjordCloak = addOreDictRecipe(ItemStack(ModItems.cloak, 1, 0),
+                "CCC",
+                "MCM",
+                "MSM",
+                'C', ItemStack(Blocks.WOOL, 1, EnumDyeColor.WHITE.metadata),
+                'M', "feather",
+                'S', LibOreDict.AQUAMARINE)
+
+        recipeIdunnCloak = addOreDictRecipe(ItemStack(ModItems.cloak, 1, 1),
+                "CCC",
+                "MCM",
+                "MSM",
+                'C', ItemStack(Blocks.WOOL, 1, EnumDyeColor.LIME.metadata),
+                'M', BotaniaOreDict.LIVING_WOOD,
+                'S', LibOreDict.LIFE_ROOT)
+
+        recipeThorCloak = addOreDictRecipe(ItemStack(ModItems.cloak, 1, 2),
+                "CCC",
+                "MCM",
+                "MSM",
+                'C', ItemStack(Blocks.WOOL, 1, EnumDyeColor.BLACK.metadata),
+                'M', "nuggetGold",
+                'S', LibOreDict.THUNDERSTEEL)
+
+        recipeHeimdallCloak = addOreDictRecipe(ItemStack(ModItems.cloak, 1, 3),
+                "CCC",
+                "MCM",
+                "MSM",
+                'C', ItemStack(Blocks.WOOL, 1, EnumDyeColor.SILVER.metadata),
+                'M', Items.CHORUS_FRUIT,
+                'S', LibOreDict.IRIS_DYE)
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {
