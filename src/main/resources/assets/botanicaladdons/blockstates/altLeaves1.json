@@ -1,7 +1,28 @@
 {
-    "forge_marker": 1,
-    "variants": {
-        "type=infused": { "model": "botanicaladdons:altLeavesInfused" },
-        "type=mutated": { "model": "botanicaladdons:altLeavesMutated" }
-    }
+	"variants": {
+		"check_decay=true,decayable=true,type=infused": {
+			"model": "botanicaladdons:altLeavesInfused"
+		},
+		"check_decay=true,decayable=true,type=mutated": {
+			"model": "botanicaladdons:altLeavesMutated"
+		},
+		"check_decay=true,decayable=false,type=infused": {
+			"model": "botanicaladdons:altLeavesInfused"
+		},
+		"check_decay=true,decayable=false,type=mutated": {
+			"model": "botanicaladdons:altLeavesMutated"
+		},
+		"check_decay=false,decayable=true,type=infused": {
+			"model": "botanicaladdons:altLeavesInfused"
+		},
+		"check_decay=false,decayable=true,type=mutated": {
+			"model": "botanicaladdons:altLeavesMutated"
+		},
+		"check_decay=false,decayable=false,type=infused": {
+			"model": "botanicaladdons:altLeavesInfused"
+		},
+		"check_decay=false,decayable=false,type=mutated": {
+			"model": "botanicaladdons:altLeavesMutated"
+		}
+	}
 }

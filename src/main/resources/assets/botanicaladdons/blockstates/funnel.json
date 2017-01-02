@@ -1,10 +1,14 @@
 {
-  "forge_marker": 1,
-  "variants": {
-    "facing=down": { "model": "botanicaladdons:funnelDown" },
-    "facing=north": { "model": "botanicaladdons:funnelSide" },
-    "facing=south": { "model": "botanicaladdons:funnelSide", "y": 180 },
-    "facing=west": { "model": "botanicaladdons:funnelSide", "y": 270 },
-    "facing=east": { "model": "botanicaladdons:funnelSide", "y": 90 }
-  }
+	"variants": {
+		"enabled=true,facing=down": { "model": "botanicaladdons:funnelDown" },
+		"enabled=false,facing=down": { "model": "botanicaladdons:funnelDown" },
+		"enabled=true,facing=north": { "model": "botanicaladdons:funnelSide" },
+		"enabled=false,facing=north": { "model": "botanicaladdons:funnelSide" },
+		"enabled=true,facing=south": { "model": "botanicaladdons:funnelSide", "y": 180 },
+		"enabled=false,facing=south": { "model": "botanicaladdons:funnelSide", "y": 180 },
+		"enabled=true,facing=west": { "model": "botanicaladdons:funnelSide", "y": 270 },
+		"enabled=false,facing=west": { "model": "botanicaladdons:funnelSide", "y": 270 },
+		"enabled=false,facing=east": { "model": "botanicaladdons:funnelSide", "y": 90 },
+		"enabled=true,facing=east": { "model": "botanicaladdons:funnelSide", "y": 90 }
+	}
 }

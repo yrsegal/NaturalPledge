@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "power=0": { "model": "botanicaladdons:irisLamp" },
         "power=1": { "model": "botanicaladdons:irisLamp" },

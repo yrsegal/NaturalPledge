@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "axis=y,type=dry": { "model": "botanicaladdons:altWoodDry" },
         "axis=z,type=dry": { "model": "botanicaladdons:altWoodDry", "x": 90 },

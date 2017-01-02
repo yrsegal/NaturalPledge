@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "type=dry": { "model": "botanicaladdons:altPlanksDry" },
         "type=golden": { "model": "botanicaladdons:altPlanksGolden" },

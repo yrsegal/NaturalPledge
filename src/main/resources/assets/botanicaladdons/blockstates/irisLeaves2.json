@@ -1,9 +1,52 @@
 {
-    "forge_marker": 1,
-    "variants": {
-        "color=silver": { "model": "botanicaladdons:irisLeaves" },
-        "color=cyan": { "model": "botanicaladdons:irisLeaves" },
-        "color=purple": { "model": "botanicaladdons:irisLeaves" },
-        "color=blue": { "model": "botanicaladdons:irisLeaves" }
-    }
+	"variants": {
+		"check_decay=true,color=silver,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=true,color=silver,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=true,color=cyan,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=true,color=cyan,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=true,color=purple,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=true,color=purple,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=true,color=blue,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=true,color=blue,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=silver,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=silver,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=cyan,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=cyan,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=purple,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=purple,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=blue,decayable=true": {
+			"model": "botanicaladdons:irisLeaves"
+		},
+		"check_decay=false,color=blue,decayable=false": {
+			"model": "botanicaladdons:irisLeaves"
+		}
+	}
 }

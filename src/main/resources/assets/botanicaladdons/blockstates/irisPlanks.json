@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "color=white": { "model": "botanicaladdons:irisPlanks" },
         "color=orange": { "model": "botanicaladdons:irisPlanks" },

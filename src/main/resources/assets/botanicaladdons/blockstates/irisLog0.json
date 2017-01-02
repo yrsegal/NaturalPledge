@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "axis=y,color=white": { "model": "botanicaladdons:irisLog" },
         "axis=z,color=white": { "model": "botanicaladdons:irisLog", "x": 90 },

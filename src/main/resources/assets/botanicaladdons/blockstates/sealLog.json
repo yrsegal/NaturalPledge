@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "axis=y": { "model": "botanicaladdons:sealLog" },
         "axis=z": { "model": "botanicaladdons:sealLog", "x": 90 },

@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "axis=y": { "model": "botanicaladdons:rainbowLog" },
         "axis=z": { "model": "botanicaladdons:rainbowLog", "x": 90 },

@@ -1,9 +1,52 @@
 {
-    "forge_marker": 1,
-    "variants": {
-        "type=dry": { "model": "botanicaladdons:altLeavesDry" },
-        "type=golden": { "model": "botanicaladdons:altLeavesGolden" },
-        "type=vivid": { "model": "botanicaladdons:altLeavesVivid" },
-        "type=scorched": { "model": "botanicaladdons:altLeavesScorched" }
-    }
+	"variants": {
+		"check_decay=true,decayable=true,type=dry": {
+			"model": "botanicaladdons:altLeavesDry"
+		},
+		"check_decay=true,decayable=true,type=golden": {
+			"model": "botanicaladdons:altLeavesGolden"
+		},
+		"check_decay=true,decayable=true,type=vivid": {
+			"model": "botanicaladdons:altLeavesVivid"
+		},
+		"check_decay=true,decayable=true,type=scorched": {
+			"model": "botanicaladdons:altLeavesScorched"
+		},
+		"check_decay=true,decayable=false,type=dry": {
+			"model": "botanicaladdons:altLeavesDry"
+		},
+		"check_decay=true,decayable=false,type=golden": {
+			"model": "botanicaladdons:altLeavesGolden"
+		},
+		"check_decay=true,decayable=false,type=vivid": {
+			"model": "botanicaladdons:altLeavesVivid"
+		},
+		"check_decay=true,decayable=false,type=scorched": {
+			"model": "botanicaladdons:altLeavesScorched"
+		},
+		"check_decay=false,decayable=true,type=dry": {
+			"model": "botanicaladdons:altLeavesDry"
+		},
+		"check_decay=false,decayable=true,type=golden": {
+			"model": "botanicaladdons:altLeavesGolden"
+		},
+		"check_decay=false,decayable=true,type=vivid": {
+			"model": "botanicaladdons:altLeavesVivid"
+		},
+		"check_decay=false,decayable=true,type=scorched": {
+			"model": "botanicaladdons:altLeavesScorched"
+		},
+		"check_decay=false,decayable=false,type=dry": {
+			"model": "botanicaladdons:altLeavesDry"
+		},
+		"check_decay=false,decayable=false,type=golden": {
+			"model": "botanicaladdons:altLeavesGolden"
+		},
+		"check_decay=false,decayable=false,type=vivid": {
+			"model": "botanicaladdons:altLeavesVivid"
+		},
+		"check_decay=false,decayable=false,type=scorched": {
+			"model": "botanicaladdons:altLeavesScorched"
+		}
+	}
 }

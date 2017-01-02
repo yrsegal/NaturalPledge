@@ -1,5 +1,4 @@
 {
-    "forge_marker": 1,
     "variants": {
         "axis=y,type=infused": { "model": "botanicaladdons:altWoodInfused" },
         "axis=z,type=infused": { "model": "botanicaladdons:altWoodInfused", "x": 90 },
