@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
+import com.teamwizardry.librarianlib.common.network.PacketHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.OpenGlHelper
@@ -25,7 +26,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.network.SetPositionMessage
@@ -65,8 +65,9 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
                     if (damage > 0.0f) {
                         e.isCanceled = true
                         val entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expand(4.0, 3.0, 4.0))
-                        for (entity in entities) if (entity != player && entity.onGround)
-                            entity.attackEntityFrom(damageSourceEarthquake(player), damage * 2)
+                        entities
+                                .filter { it != player && it.onGround }
+                                .forEach { it.attackEntityFrom(damageSourceEarthquake(player), damage * 2) }
 
                         player.attackEntityFrom(damageSourceEarthquake(), 0.00005f)
                         for (pos in BlockPos.getAllInBoxMutable(BlockPos(player.positionVector).add(-1, -1, -1), BlockPos(player.positionVector).add(1, -1, 1))) {
@@ -123,7 +124,7 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
                 val blockAt = BlockPos(vec)
                 if (!player.worldObj.getBlockState(blockAt).isFullCube && !player.worldObj.getBlockState(blockAt.up()).isFullCube) {
                     BAMethodHandles.setIsJumping(player, false)
-                    BotanicalAddons.NETWORK.sendToServer(SetPositionMessage(vec))
+                    PacketHandler.NETWORK.sendToServer(SetPositionMessage(vec))
                     player.worldObj.playSound(vec.xCoord, vec.yCoord, vec.zCoord, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f, false)
                 }
             }

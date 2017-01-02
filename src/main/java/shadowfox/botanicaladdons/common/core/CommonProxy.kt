@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.core
 
 import com.teamwizardry.librarianlib.common.util.EasyConfigHandler
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -83,6 +84,10 @@ open class CommonProxy {
 
     open fun playerHasMonocle(): Boolean {
         return false
+    }
+
+    open fun getClientPlayer(): EntityPlayer? {
+        return null
     }
 
 }

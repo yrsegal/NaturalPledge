@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.network.PacketHandler
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
@@ -14,7 +15,7 @@ import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -32,9 +33,10 @@ import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
-import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
+import shadowfox.botanicaladdons.common.network.SetToolbeltItemClient
+import shadowfox.botanicaladdons.common.network.SetToolbeltItemServer
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.item.IBlockProvider
 import vazkii.botania.client.core.handler.ClientTickHandler
@@ -124,14 +126,9 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
 
         fun getEquippedBelt(player: EntityPlayer): ItemStack? {
             val inv = BaublesApi.getBaublesHandler(player)
-            var beltStack: ItemStack? = null
-            for (i in 0..inv.slots - 1) {
-                val stack = inv.getStackInSlot(i)
-                if (stack != null && stack.item is ItemToolbelt) {
-                    beltStack = stack
-                }
-            }
-            return beltStack
+            return (0 until inv.slots)
+                    .map { inv.getStackInSlot(it) }
+                    .lastOrNull { it != null && it.item is ItemToolbelt }
         }
 
 
@@ -267,10 +264,11 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                     if (toolStack == null && heldItem != null) {
                         val heldItemObject = heldItem.item
                         if (!(heldItemObject is IToolbeltBlacklisted && !heldItemObject.allowedInToolbelt(heldItem)) && heldItemObject !is ItemBaubleBox) {
-                            if (!event.world.isRemote) {
+                            if (!event.world.isRemote && player is EntityPlayerMP) {
                                 val item = heldItem.copy()
 
                                 setItem(beltStack, item, segment)
+                                PacketHandler.NETWORK.sendTo(SetToolbeltItemClient(item, segment), player)
 
                                 player.inventory.decrStackSize(player.inventory.currentItem, 64)
                                 player.inventory.markDirty()
@@ -279,13 +277,10 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                     } else if (toolStack != null) {
                         setItem(beltStack, null, segment)
                         if (!event.world.isRemote) {
-                            if (player.heldItemMainhand == null) {
-                                player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, toolStack.copy())
-                            } else if (!player.inventory.addItemStackToInventory(toolStack.copy())) {
-                                player.dropItem(toolStack.copy(), false)
-                            }
+                            if (player is EntityPlayerMP) PacketHandler.NETWORK.sendTo(SetToolbeltItemClient(null, segment), player)
                         } else {
-                            BotanicalAddons.NETWORK.sendToServer(PlayerItemMessage(toolStack))
+                            PacketHandler.NETWORK.sendToServer(PlayerItemMessage(toolStack))
+                            PacketHandler.NETWORK.sendToServer(SetToolbeltItemServer(null, segment))
                         }
                     }
                     if (event.isCancelable) event.isCanceled = true

@@ -1,18 +1,15 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
+//import shadowfox.botanicaladdons.common.network.LeftClickMessage
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
-import net.minecraft.init.MobEffects
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.network.LeftClickMessage
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 
@@ -41,7 +38,7 @@ class PriestlyEmblemLoki : IFaithVariant {
     @SubscribeEvent
     fun leftClick(evt: PlayerInteractEvent.LeftClickEmpty) {
         if (evt.itemStack != null && evt.itemStack?.item == Items.FIRE_CHARGE && !evt.entityPlayer.cooldownTracker.hasCooldown(Items.FIRE_CHARGE)) {
-            BotanicalAddons.NETWORK.sendToServer(LeftClickMessage())
+//            BotanicalAddons.NETWORK.sendToServer(LeftClickMessage())
         }
     }
 

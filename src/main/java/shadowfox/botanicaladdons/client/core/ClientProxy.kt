@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.client.core
 
 import baubles.api.BaublesApi
 import net.minecraft.client.Minecraft
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -132,5 +133,9 @@ class ClientProxy : CommonProxy() {
     override fun playerHasMonocle(): Boolean {
         BaublesApi.getBaublesHandler(Minecraft.getMinecraft().thePlayer) ?: return false
         return Botania.proxy.isClientPlayerWearingMonocle
+    }
+
+    override fun getClientPlayer(): EntityPlayer? {
+        return Minecraft.getMinecraft().thePlayer
     }
 }
