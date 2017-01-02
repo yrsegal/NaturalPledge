@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.core
 
+import com.teamwizardry.librarianlib.common.util.EasyConfigHandler
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -24,6 +25,7 @@ import java.awt.Color
  * Created at 5:07 PM on 4/12/16.
  */
 open class CommonProxy {
+
     open fun pre(e: FMLPreInitializationEvent) {
         ModTab
         ModItems
@@ -33,6 +35,7 @@ open class CommonProxy {
         ModBrews
         ModEnchantments
         ModEntities
+        EasyConfigHandler.init()
     }
 
     open fun init(e: FMLInitializationEvent) {

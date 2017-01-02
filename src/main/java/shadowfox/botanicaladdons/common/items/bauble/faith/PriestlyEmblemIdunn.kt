@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.BlockSapling
 import net.minecraft.block.IGrowable
 import net.minecraft.block.state.IBlockState
@@ -17,7 +18,6 @@ import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import java.util.*
 
 /**
@@ -52,7 +52,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
             val state = world.getBlockState(pos)
             val block = state.block
             if (block is BlockSapling || block is ISaplingBlock)
-                saplings.add(pos to state)
+                saplings.add(BlockPos(pos) to state)
         }
 
         if (saplings.size == 0) return

@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block.base
 
 import com.teamwizardry.librarianlib.common.base.block.BlockMod
+import com.teamwizardry.librarianlib.common.util.ConfigPropertyBoolean
 import net.minecraft.block.Block
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
 import java.util.*
 
@@ -40,6 +42,10 @@ abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod
     companion object : IFuelHandler {
         override fun getBurnTime(fuel: ItemStack)
                 = if (fuel.item is ItemBlock && (fuel.item as ItemBlock).block is BlockModSapling) 100 else 0
+
+        @JvmStatic
+        @ConfigPropertyBoolean(LibMisc.MOD_ID, "general", "one_bonemeal", "Only require one bonemeal to generate saplings.", false)
+        var oneBonemeal = false
 
         init {
             GameRegistry.registerFuelHandler(this)
@@ -136,7 +142,7 @@ abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod
     }
 
     fun grow(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        if ((state.getValue(STAGE) as Int).toInt() == 0) {
+        if (!oneBonemeal && (state.getValue(STAGE) as Int).toInt() == 0) {
             worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4)
         } else {
             this.generateTree(worldIn, pos, state, rand)

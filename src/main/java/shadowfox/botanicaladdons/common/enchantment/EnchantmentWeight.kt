@@ -64,7 +64,7 @@ class EnchantmentWeight(name: String, val heavy: Boolean) : EnchantmentMod(name,
     }
 
     override fun calcDamageByCreature(level: Int, creatureType: EnumCreatureAttribute?): Float {
-        return 1.0f + Math.max(0, level - 1).toFloat() * 0.5f * if (heavy) 1 else -3
+        return 1.0f + Math.max(0, level - 1).toFloat() * 0.5f * if (heavy) 2 else -3
     }
 
     override fun onEntityDamaged(user: EntityLivingBase, target: Entity, level: Int) {

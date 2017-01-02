@@ -375,9 +375,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
         if (map.size > 0) addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.contains")
         else addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.containsNothing")
 
-        for (key in map.keys.sorted()) {
-            tooltip.add("${map[key]}x ${TextFormatting.WHITE}$key")
-        }
+        map.keys.sorted().mapTo(tooltip) { "${map[it]}x ${TextFormatting.WHITE}$it" }
         super.addHiddenTooltip(stack, player, tooltip, advanced)
 
     }
