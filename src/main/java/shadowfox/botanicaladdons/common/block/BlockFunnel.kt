@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModContainer
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
@@ -26,7 +27,6 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.common.block.base.BlockModContainer
 import shadowfox.botanicaladdons.common.block.tile.TileLivingwoodFunnel
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
@@ -59,10 +59,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
 
     init {
         blockHardness = 2f
-    }
-
-    override fun createDefaultState(): IBlockState {
-        return defaultState.withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, true)
+        defaultState = defaultState.withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, true)
     }
 
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?): AxisAlignedBB {
@@ -86,7 +83,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         return this.defaultState.withProperty(FACING, enumfacing).withProperty(ENABLED, true)
     }
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {
+    override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
         return TileLivingwoodFunnel()
     }
 

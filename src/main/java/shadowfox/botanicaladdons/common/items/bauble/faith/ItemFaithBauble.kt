@@ -2,10 +2,10 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
@@ -19,36 +19,29 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
-import vazkii.botania.common.core.helper.ItemNBTHelper
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 
 /**
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
 class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })),
-        IManaUsingItem, IBaubleRender, ModelHandler.IItemColorProvider, IPriestlyEmblem {
+        IManaUsingItem, IBaubleRender, IItemColorProvider, IPriestlyEmblem {
 
     companion object {
-
-        fun String.capitalizeFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
-        }
 
         val TAG_PENDANT = "pendant"
         val TAG_AWAKENED = "awakened"
@@ -62,9 +55,9 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         )
 
         init {
-            for (variant in priestVariants)
-                if (variant.hasSubscriptions())
-                    MinecraftForge.EVENT_BUS.register(variant)
+            priestVariants
+                    .filter { it.hasSubscriptions() }
+                    .forEach { MinecraftForge.EVENT_BUS.register(it) }
         }
 
         fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>? = null): ItemStack? {
@@ -81,11 +74,9 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         }
 
         fun emblemOf(variant: Class<out IFaithVariant>): ItemStack? {
-            for (i in priestVariants.withIndex()) {
-                if (variant.isInstance(i.value))
-                    return ItemStack(ModItems.emblem, 1, i.index)
-            }
-            return null
+            return priestVariants.withIndex()
+                    .firstOrNull { variant.isInstance(it.value) }
+                    ?.let { ItemStack(ModItems.emblem, 1, it.index) }
         }
 
         fun isFaithless(player: EntityPlayer): Boolean {
@@ -101,14 +92,14 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor() = IItemColor { stack, tintindex ->
-        val variant = getVariant(stack)
-        if (variant == null || variant.color == null)
-            0xFFFFFF
-        else
-            variant.color!!.getColorFromItemstack(stack, tintindex)
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { stack, tintindex ->
+            val variant = getVariant(stack)
+            if (variant == null || variant.color == null)
+                0xFFFFFF
+            else
+                variant.color!!.getColorFromItemstack(stack, tintindex)
+        }
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PENDANT)) {
@@ -171,7 +162,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     }
 
     override fun getVariant(stack: ItemStack): IFaithVariant? {
-        return if (priestVariants.size == 0) null else priestVariants[stack.itemDamage % priestVariants.size]
+        return if (priestVariants.isEmpty()) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
 
     private fun checkDiscordant(stack: ItemStack?): Boolean {

@@ -1,23 +1,19 @@
 package shadowfox.botanicaladdons.common.block.colored
 
+import com.teamwizardry.librarianlib.common.base.block.BlockMod
+import com.teamwizardry.librarianlib.common.base.block.IBlockColorProvider
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.IBlockColor
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.client.core.ModelHandler
-import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -27,7 +23,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 12:57 PM on 5/31/16.
  */
-class BlockColoredLamp(name: String) : BlockMod(name, Material.REDSTONE_LIGHT), ModelHandler.IBlockColorProvider, ILexiconable {
+class BlockColoredLamp(name: String) : BlockMod(name, Material.REDSTONE_LIGHT), IBlockColorProvider, ILexiconable {
 
     companion object {
         val POWER = PropertyInteger.create("power", 0, 15)
@@ -39,10 +35,10 @@ class BlockColoredLamp(name: String) : BlockMod(name, Material.REDSTONE_LIGHT), 
         }
 
         fun blockPower(world: World, pos: BlockPos): Int {
-            var redstone = 0
-            for (facing in EnumFacing.VALUES) {
-                redstone = Math.max(redstone, world.getRedstonePower(pos.offset(facing), facing))
-            }
+            val redstone = EnumFacing.VALUES
+                    .map { world.getRedstonePower(pos.offset(it), it) }
+                    .max()
+                    ?: 0
             return redstone
         }
 
@@ -53,15 +49,11 @@ class BlockColoredLamp(name: String) : BlockMod(name, Material.REDSTONE_LIGHT), 
         return if (state.getValue(POWER) > 0) 15 else 0
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i -> powerColor(0) }
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i -> powerColor(0) }
 
-    @SideOnly(Side.CLIENT)
-    override fun getBlockColor(): IBlockColor? {
-        return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> powerColor(iBlockState.getValue(POWER)) }
-    }
+    override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
+        get() = { iBlockState, iBlockAccess, blockPos, i -> powerColor(iBlockState.getValue(POWER)) }
 
     init {
         soundType = SoundType.GLASS

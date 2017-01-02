@@ -24,23 +24,23 @@ class RecipeRainbowLensDye : IRecipe {
         var foundLens = false
         var foundDye = false
 
-        for (i in 0..var1.sizeInventory - 1) {
-            val stack = var1.getStackInSlot(i)
-            if (stack != null) {
-                if (stack.item is ILens && !foundLens) {
-                    foundLens = true
-                } else {
-                    if (foundDye) {
-                        return false
+        (0 until var1.sizeInventory)
+                .asSequence()
+                .mapNotNull { var1.getStackInSlot(it) }
+                .forEach {
+                    if (it.item is ILens && !foundLens) {
+                        foundLens = true
+                    } else {
+                        if (foundDye) {
+                            return false
+                        }
+
+                        if (!isRainbow(it))
+                            return false
+
+                        foundDye = true
                     }
-
-                    if (!isRainbow(stack))
-                        return false
-
-                    foundDye = true
                 }
-            }
-        }
 
         return foundLens && foundDye
     }

@@ -1,11 +1,14 @@
 package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
+import com.teamwizardry.librarianlib.client.core.ModelHandler
+import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.base.IExtraVariantHolder
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
-import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
@@ -17,11 +20,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.client.ForgeHooksClient
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
@@ -31,13 +31,13 @@ import vazkii.botania.client.core.helper.ShaderHelper
 import vazkii.botania.client.core.proxy.ClientProxy
 import vazkii.botania.client.lib.LibResources
 import vazkii.botania.client.model.ModelTinyPotato
-import vazkii.botania.common.core.helper.ItemNBTHelper
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 
 /**
  * @author WireSegal
  * Created at 10:33 PM on 4/15/16.
  */
-class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHandler.IExtraVariantHolder, ModelHandler.IItemColorProvider {
+class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVariantHolder, IItemColorProvider {
 
     companion object {
 
@@ -72,27 +72,23 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getCustomMeshDefinition(): ItemMeshDefinition? {
-        return ItemMeshDefinition {
-            when (getPlayer(it)) {
-                vaz -> ModelHandler.resourceLocations["headtato"]
-                wire -> ModelHandler.resourceLocations["catalyst"]
-                tris -> ModelHandler.resourceLocations["heart"]
-                l0ne -> ModelHandler.resourceLocations["tail"]
-                jansey -> ModelHandler.resourceLocations["headdress"]
-                wiiv -> ModelHandler.resourceLocations["teruHead"]
-                troll -> ModelHandler.resourceLocations["emblemMystery"]
-                willie -> ModelHandler.resourceLocations["fabulosity"]
-                else -> ModelHandler.resourceLocations["holySymbol"]
-            }
+    override val meshDefinition: ((ItemStack) -> ModelResourceLocation)?
+        get() = {
+            ModelHandler.resourceLocations[LibMisc.MOD_ID]!![when (getPlayer(it)) {
+                vaz -> "headtato"
+                wire -> "catalyst"
+                tris -> "heart"
+                l0ne -> "tail"
+                jansey -> "headdress"
+                wiiv -> "teruHead"
+                troll -> "emblemMystery"
+                willie -> "fabulosity"
+                else -> "holySymbol"
+            }] as ModelResourceLocation
         }
-    }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i -> if (getPlayer(itemStack) == willie) BotanicalAddons.PROXY.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i -> if (getPlayer(itemStack) == willie) BotanicalAddons.PROXY.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
 
     override val extraVariants: Array<out String>
         get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "emblemMystery", "fabulosity", "holySymbol")
@@ -102,7 +98,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, ModelHand
         var nameChanged = false
         val displayName = stack.displayName.toLowerCase()
         fun nameCheck(player: String, checkName: String) {
-            if (!nameChanged && getPlayer(stack) != player && displayName.equals(checkName)) {
+            if (!nameChanged && getPlayer(stack) != player && displayName == checkName) {
                 setPlayer(stack, player)
                 nameChanged = true
             }

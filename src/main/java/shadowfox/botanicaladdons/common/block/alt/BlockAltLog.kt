@@ -11,6 +11,7 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -19,17 +20,13 @@ import vazkii.botania.api.state.enums.AltGrassVariant
  * @author WireSegal
  * Created at 11:37 AM on 5/16/16.
  */
+@Suppress("LeakingThis")
 abstract class BlockAltLog(name: String, set: Int) : BlockModLog(name + set, *Array(if (set == 0) 4 else 2, { name + AltGrassVariant.values()[set * 4 + it].getName().capitalizeFirst() })), ILexiconable {
     companion object {
         val TYPE_PROPS = Array(2) { i ->
             PropertyEnum.create("type", AltGrassVariant::class.java) {
                 (it?.ordinal ?: -1) < ((i + 1) * 4) && (it?.ordinal ?: -1) >= (i * 4)
             }
-        }
-
-        fun String.capitalizeFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
         }
     }
 

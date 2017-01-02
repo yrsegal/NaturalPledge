@@ -7,13 +7,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.render.entity.RenderSealedArrow
 import shadowfox.botanicaladdons.client.render.tile.RenderTileFrozenStar
-import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.CommonProxy
-import shadowfox.botanicaladdons.common.core.helper.BALogger
 import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
 import vazkii.botania.client.core.handler.ClientTickHandler
 import vazkii.botania.common.Botania
@@ -27,13 +24,11 @@ import java.awt.Color
 class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
-        RenderingRegistry.registerEntityRenderingHandler(EntitySealedArrow::class.java, { RenderSealedArrow(it) })
-        ModelHandler.preInit(LibMisc.MOD_ID, BotanicalAddons.DEV_ENVIRONMENT, BALogger.coreLog)
+        RenderingRegistry.registerEntityRenderingHandler(EntitySealedArrow::class.java, ::RenderSealedArrow)
     }
 
     override fun init(e: FMLInitializationEvent) {
         super.init(e)
-        ModelHandler.init()
         ClientRegistry.bindTileEntitySpecialRenderer(TileStar::class.java, RenderTileFrozenStar())
     }
 

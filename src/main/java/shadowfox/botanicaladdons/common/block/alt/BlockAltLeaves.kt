@@ -10,6 +10,7 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -25,11 +26,6 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
             PropertyEnum.create("type", AltGrassVariant::class.java) {
                 (it?.ordinal ?: -1) < ((i + 1) * 4) && (it?.ordinal ?: -1) >= (i * 4)
             }
-        }
-
-        fun String.capitalizeFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
         }
     }
 

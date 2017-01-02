@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
+import com.teamwizardry.librarianlib.common.base.block.BlockMod
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
@@ -21,7 +22,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.block.base.BlockMod
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
@@ -46,8 +46,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
     override fun getCollisionBoundingBox(state: IBlockState, world: World, pos: BlockPos) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
 
-    override val item: ItemBlock?
-        get() = null
+    override fun createItemForm() = null
 
     override fun randomDisplayTick(stateIn: IBlockState, world: World, pos: BlockPos, rand: Random) {
         if (BotanicalAddons.PROXY.playerHasMonocle()) {

@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -14,13 +15,11 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.Botania
 import vazkii.botania.common.achievement.ICraftAchievement
 
 /**

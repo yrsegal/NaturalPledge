@@ -1,6 +1,9 @@
 package shadowfox.botanicaladdons.common.items
 
-import net.minecraft.client.renderer.color.IItemColor
+import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
@@ -17,15 +20,10 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerDropsEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
-import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import java.util.*
 
@@ -33,21 +31,20 @@ import java.util.*
  * @author WireSegal
  * Created at 10:02 PM on 6/8/16.
  */
-class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.IItemColorProvider {
+class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
 
     init {
         setMaxStackSize(1)
         MinecraftForge.EVENT_BUS.register(this)
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i ->
+
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
             if (i == 1)
                 BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF
         }
-    }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         val dirVec = getDirVec(stack, playerIn)

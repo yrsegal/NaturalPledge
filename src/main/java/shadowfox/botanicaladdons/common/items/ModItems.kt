@@ -1,10 +1,10 @@
 package shadowfox.botanicaladdons.common.items
 
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.item.Item
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemDivineCloak
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol

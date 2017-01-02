@@ -40,7 +40,7 @@ import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
 import vazkii.botania.common.block.tile.TileBifrost
-import vazkii.botania.common.core.helper.ItemNBTHelper
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 

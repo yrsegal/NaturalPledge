@@ -1,10 +1,12 @@
 package shadowfox.botanicaladdons.common.items
 
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
+import shadowfox.botanicaladdons.common.lib.lowercaseFirst
 import vazkii.botania.api.BotaniaAPI
 
 /**
@@ -18,7 +20,7 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
         constructor() : this(true)
 
         override fun toString(): String {
-            return this.name.toLowerCase().split("_").joinToString("", transform = { it.capitalizeFirst() }).lowercaseFirst()
+            return this.name.toLowerCase().split("_").joinToString("", transform = String::capitalizeFirst).lowercaseFirst()
         }
 
         companion object {
@@ -48,15 +50,7 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
 
         fun variantFor(stack: ItemStack) = Variants.variantPairs.elementAtOrNull(stack.itemDamage)
 
-        fun String.capitalizeFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
-        }
 
-        fun String.lowercaseFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).toLowerCase() + this.slice(1..this.length - 1)
-        }
     }
 
     override fun getRarity(stack: ItemStack): EnumRarity? {

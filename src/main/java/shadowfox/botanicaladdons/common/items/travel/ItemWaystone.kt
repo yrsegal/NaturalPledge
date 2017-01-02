@@ -1,6 +1,9 @@
 package shadowfox.botanicaladdons.common.items.travel
 
-import net.minecraft.client.renderer.color.IItemColor
+import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -11,36 +14,29 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
-import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 
 /**
  * @author WireSegal
  * Created at 8:31 PM on 5/5/16.
  */
-class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.IItemColorProvider {
+class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
 
     init {
         setMaxStackSize(1)
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i ->
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
             if (i == 1)
                 BotanicalAddons.Companion.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF
         }
-    }
 
     companion object {
         val TAG_X = "x"
@@ -68,7 +64,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, ModelHandler.
         }
     }
 
-    override fun onItemUse(stack: ItemStack?, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+    override fun onItemUse(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
         if (player.isSneaking && ItemNBTHelper.getString(stack, TAG_TRACK, null) == null) {
             if (world.isRemote) {
                 player.swingArm(hand)

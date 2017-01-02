@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
+import com.teamwizardry.librarianlib.common.base.block.BlockMod
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
@@ -10,7 +11,6 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLeaves
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLog
 import shadowfox.botanicaladdons.common.block.alt.BlockAltPlanks
-import shadowfox.botanicaladdons.common.block.base.BlockMod
 import shadowfox.botanicaladdons.common.block.base.BlockModPane
 import shadowfox.botanicaladdons.common.block.colored.*
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentPlanks.BlockRainbowPlanks

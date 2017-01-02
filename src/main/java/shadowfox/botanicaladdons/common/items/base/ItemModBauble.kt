@@ -2,6 +2,8 @@ package shadowfox.botanicaladdons.common.items.base
 
 import baubles.api.BaublesApi
 import baubles.api.IBauble
+import com.teamwizardry.librarianlib.client.util.TooltipHelper
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -17,7 +19,7 @@ import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.client.core.helper.RenderHelper
 import vazkii.botania.common.achievement.ModAchievements
-import vazkii.botania.common.core.helper.ItemNBTHelper
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import vazkii.botania.common.entity.EntityDoppleganger
 import java.util.*
 
@@ -104,10 +106,6 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
 
     }
 
-    override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
-        //NO-OP
-    }
-
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
         if (getLastPlayerHashcode(stack) != player.hashCode()) {
             onEquippedOrLoadedIntoWorld(stack, player);
@@ -116,7 +114,7 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        tooltipIfShift(tooltip) {
+        TooltipHelper.tooltipIfShift(tooltip) {
             addHiddenTooltip(stack, player, tooltip, advanced)
         }
     }
@@ -149,16 +147,16 @@ abstract class ItemModBauble(name: String, vararg variants: String) : ItemMod(na
     open fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         val key = RenderHelper.getKeyDisplayString("Baubles Inventory")
         if (key != null) {
-            addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.baubletooltip", key)
+            TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.baubletooltip", key)
         }
 
         val cosmetic = this.getCosmeticItem(stack)
         if (cosmetic != null) {
-            addToTooltip(tooltip, "botaniamisc.hasCosmetic", cosmetic.displayName)
+            TooltipHelper.addToTooltip(tooltip, "botaniamisc.hasCosmetic", cosmetic.displayName)
         }
 
         if (this.hasPhantomInk(stack)) {
-            addToTooltip(tooltip, "botaniamisc.hasPhantomInk")
+            TooltipHelper.addToTooltip(tooltip, "botaniamisc.hasPhantomInk")
         }
     }
 

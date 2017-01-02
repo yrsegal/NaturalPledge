@@ -1,13 +1,16 @@
 package shadowfox.botanicaladdons.common.block.colored
 
+import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.base.block.BlockModContainer
+import com.teamwizardry.librarianlib.common.base.block.ItemModBlock
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
-import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
@@ -17,26 +20,19 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.ModMaterials
-import shadowfox.botanicaladdons.common.block.base.BlockModContainer
-import shadowfox.botanicaladdons.common.block.base.ItemModBlock
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
-import vazkii.botania.common.core.helper.ItemNBTHelper
 
 /**
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), ModelHandler.IItemColorProvider, ILexiconable {
+class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), IItemColorProvider, ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     companion object {
@@ -48,12 +44,9 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
         fun setSize(stack: ItemStack, size: Float) = ItemNBTHelper.setFloat(stack, TAG_SIZE, size)
     }
 
-    override val item: ItemBlock
-        get() = object : ItemModBlock(this) {
+    override fun createItemForm() = object : ItemModBlock(this) {
             override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
-                for (color in RainbowItemHelper.defaultColors) {
-                    subItems.add(RainbowItemHelper.colorStack(color, this))
-                }
+                RainbowItemHelper.defaultColors.mapTo(subItems) { RainbowItemHelper.colorStack(it, this) }
             }
         }
 
@@ -66,7 +59,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED
     }
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {
+    override fun createTileEntity(worldIn: World, state: IBlockState): TileEntity {
         return TileStar()
     }
 
@@ -81,22 +74,22 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
         return mutableListOf()
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor = IItemColor {
-        itemStack, i ->
-        RainbowItemHelper.colorFromInt(RainbowItemHelper.getColor(itemStack))
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = {
+            itemStack, i ->
+            RainbowItemHelper.colorFromInt(RainbowItemHelper.getColor(itemStack))
+        }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         super.addInformation(stack, player, tooltip, advanced)
         val color = RainbowItemHelper.getColor(stack)
         if (color in RainbowItemHelper.defaultColors)
-            ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${RainbowItemHelper.defaultColors.indexOf(color)}")
+            addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${RainbowItemHelper.defaultColors.indexOf(color)}")
         else
-            ItemMod.addToTooltip(tooltip, "#${Integer.toHexString(color).toUpperCase()}")
+            addToTooltip(tooltip, "#${Integer.toHexString(color).toUpperCase()}")
 
         if (getSize(stack) != DEFAULT_SIZE)
-            ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.customSize", getSize(stack))
+            addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.customSize", getSize(stack))
     }
 
 

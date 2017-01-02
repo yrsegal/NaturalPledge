@@ -1,20 +1,18 @@
 package shadowfox.botanicaladdons.common.items
 
-import net.minecraft.client.renderer.color.IItemColor
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.items.base.ItemMod
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 
 /**
  * @author WireSegal
  * Created at 12:41 PM on 4/19/16.
  */
-class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHandler.IItemColorProvider {
+class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), IItemColorProvider {
     enum class Variants(val iridescent: Boolean) {
         LEAP, INTERDICT, PUSH_AWAY,
         LIGHTNING, STRENGTH, PULL,
@@ -25,7 +23,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
         constructor() : this(false)
 
         override fun toString(): String {
-            return this.name.toLowerCase().split("_").joinToString("", transform = { it.capitalizeFirst() })
+            return this.name.toLowerCase().split("_").joinToString("", transform = String::capitalizeFirst)
         }
 
         companion object {
@@ -36,20 +34,15 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), ModelHand
 
     companion object {
         fun of(variant: Variants) = ItemStack(ModItems.spellIcon, 1, variant.ordinal)
+    }
 
-        fun String.capitalizeFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
+            if (itemStack.itemDamage >= 0 && itemStack.itemDamage < Variants.values().size && Variants.values()[itemStack.itemDamage].iridescent)
+                BotanicalAddons.PROXY.rainbow().rgb
+            else
+                0xFFFFFF
         }
-    }
-
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor() = IItemColor { itemStack, i ->
-        if (itemStack.itemDamage >= 0 && itemStack.itemDamage < Variants.values().size && Variants.values()[itemStack.itemDamage].iridescent)
-            BotanicalAddons.PROXY.rainbow().rgb
-        else
-            0xFFFFFF
-    }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
         // NO-OP

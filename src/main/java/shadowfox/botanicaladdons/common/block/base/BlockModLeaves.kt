@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.base
 
+import com.teamwizardry.librarianlib.common.base.block.BlockMod
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
@@ -28,6 +29,7 @@ import shadowfox.botanicaladdons.common.block.ModBlocks
 import java.util.*
 
 
+@Suppress("LeakingThis")
 open class BlockModLeaves(name: String, vararg variants: String) : BlockMod(name, Material.LEAVES, *variants), IShearable, IStackConvertible {
     companion object {
         val DECAYABLE = PropertyBool.create("decayable")

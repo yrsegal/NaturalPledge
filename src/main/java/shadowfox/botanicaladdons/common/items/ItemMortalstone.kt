@@ -1,6 +1,8 @@
 package shadowfox.botanicaladdons.common.items
 
-import net.minecraft.client.renderer.color.IItemColor
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
@@ -8,12 +10,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IDiscordantItem
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
@@ -21,7 +19,6 @@ import vazkii.botania.api.mana.IManaItem
 import vazkii.botania.api.mana.IManaTooltipDisplay
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 
@@ -29,7 +26,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 12:15 PM on 4/25/16.
  */
-class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordantItem, IManaItem, IManaTooltipDisplay, ModelHandler.IItemColorProvider {
+class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordantItem, IManaItem, IManaTooltipDisplay, IItemColorProvider {
 
     val RANGE = 5.0
 
@@ -44,9 +41,8 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         setMaxStackSize(1)
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i ->
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
             if (i == 1)
                 (if (getMana(itemStack) == 0)
                     0x600000
@@ -54,7 +50,6 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                     BotanicalAddons.PROXY.pulseColor(Color(0xB71010)).rgb)
             else 0xFFFFFF
         }
-    }
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
         var flag = false
@@ -67,7 +62,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
             for (entity in entities)
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     entity.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
-                    if (!entity.equals(entityIn) && !ModPotions.faithlessness.hasEffect(entity)) flag = true
+                    if (entity != entityIn && !ModPotions.faithlessness.hasEffect(entity)) flag = true
                     BotanicalAddons.PROXY.particleEmission(Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
                 }
         }
@@ -78,12 +73,12 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         }
     }
 
-    override fun addMana(stack: ItemStack?, mana: Int) = ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, Math.min(mana + getMana(stack), getMaxMana(stack))))
+    override fun addMana(stack: ItemStack, mana: Int) = ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, Math.min(mana + getMana(stack), getMaxMana(stack))))
     override fun canExportManaToItem(stack: ItemStack?, p1: ItemStack?): Boolean = false
     override fun canExportManaToPool(stack: ItemStack?, p1: TileEntity?): Boolean = false
     override fun canReceiveManaFromItem(stack: ItemStack?, p1: ItemStack?) = true
     override fun canReceiveManaFromPool(stack: ItemStack?, p1: TileEntity?) = false
-    override fun getMana(stack: ItemStack?) = ItemNBTHelper.getInt(stack, TAG_MANA, getMaxMana(stack))
+    override fun getMana(stack: ItemStack) = ItemNBTHelper.getInt(stack, TAG_MANA, getMaxMana(stack))
     override fun getMaxMana(stack: ItemStack?) = MAX_MANA
     override fun isNoExport(stack: ItemStack?) = true
 
@@ -111,9 +106,9 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         return false
     }
 
-    override fun showDurabilityBar(stack: ItemStack?) = getMana(stack) < getMaxMana(stack) - MANA_PER_TICK
-    override fun getDurabilityForDisplay(stack: ItemStack?) = 1 - getManaFractionForDisplay(stack).toDouble()
-    override fun getManaFractionForDisplay(stack: ItemStack?) = getMana(stack) / getMaxMana(stack).toFloat()
+    override fun showDurabilityBar(stack: ItemStack) = getMana(stack) < getMaxMana(stack) - MANA_PER_TICK
+    override fun getDurabilityForDisplay(stack: ItemStack) = 1 - getManaFractionForDisplay(stack).toDouble()
+    override fun getManaFractionForDisplay(stack: ItemStack) = getMana(stack) / getMaxMana(stack).toFloat()
 
     override fun usesMana(p0: ItemStack) = true
     override fun isDiscordant(stack: ItemStack) = true

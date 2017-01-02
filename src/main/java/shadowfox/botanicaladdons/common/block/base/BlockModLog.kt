@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.base
 
+import com.teamwizardry.librarianlib.common.base.block.BlockMod
 import net.minecraft.block.BlockLog
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -21,9 +22,10 @@ import net.minecraftforge.oredict.OreDictionary
  * @author WireSegal
  * Created at 10:36 AM on 5/7/16.
  */
+@Suppress("LeakingThis")
 open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, Material.WOOD, *variants) {
     companion object {
-        val AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis::class.java)
+        val AXIS: PropertyEnum<BlockLog.EnumAxis> = PropertyEnum.create("axis", BlockLog.EnumAxis::class.java)
     }
 
     init {
@@ -34,10 +36,7 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
                 OreDictionary.registerOre("logWood", ItemStack(this, 1, variant))
             FurnaceRecipes.instance().addSmeltingRecipeForBlock(this, ItemStack(Items.COAL, 1, 1), 0.15f)
         }
-    }
-
-    override fun createDefaultState(): IBlockState {
-        return defaultState.withProperty(AXIS, BlockLog.EnumAxis.Y)
+        defaultState = defaultState.withProperty(AXIS, BlockLog.EnumAxis.Y)
     }
 
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {

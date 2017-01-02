@@ -2,6 +2,8 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
+import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
@@ -36,7 +38,6 @@ import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.item.IBlockProvider
 import vazkii.botania.client.core.handler.ClientTickHandler
-import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.item.ItemBaubleBox
 import java.util.*
 

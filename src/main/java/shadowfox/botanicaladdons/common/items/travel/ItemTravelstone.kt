@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.items.travel
 
-import net.minecraft.client.renderer.color.IItemColor
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
@@ -8,33 +9,27 @@ import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import java.util.*
 
 /**
  * @author WireSegal
  * Created at 8:31 PM on 5/5/16.
  */
-class ItemTravelstone(name: String) : ItemMod(name), ModelHandler.IItemColorProvider {
+class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider {
 
     init {
         MinecraftForge.EVENT_BUS.register(Companion)
         setMaxStackSize(1)
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i ->
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
             if (i == 1)
                 BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF
         }
-    }
 
     companion object {
         val playersWithStepup: MutableList<String> = ArrayList()

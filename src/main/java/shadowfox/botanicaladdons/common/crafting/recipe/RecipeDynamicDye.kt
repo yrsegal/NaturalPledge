@@ -23,28 +23,27 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
         var foundDye = false
         var foundRainbow = false
 
-        for (i in 0..inv.sizeInventory - 1) {
-            val stack = inv.getStackInSlot(i)
+        (0 until inv.sizeInventory)
+                .asSequence()
+                .mapNotNull { inv.getStackInSlot(it) }
+                .forEach {
+                    if (it.item == dyable) {
+                        ink = it
+                    } else {
+                        if (!checkStack(it, if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)) {
+                            return false
+                        }
 
-            if (stack != null) {
-                if (stack.item == dyable) {
-                    ink = stack
-                } else {
-                    if (!checkStack(stack, if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)) {
-                        return false
+                        if (foundRainbow) return false
+
+                        if (checkStack(it, (if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)[16])) {
+                            if (foundDye) return false
+                            foundRainbow = true
+                        }
+
+                        foundDye = true
                     }
-
-                    if (foundRainbow) return false
-
-                    if (checkStack(stack, (if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)[16])) {
-                        if (foundDye) return false
-                        foundRainbow = true
-                    }
-
-                    foundDye = true
                 }
-            }
-        }
 
         return ink != null && foundDye
     }
@@ -115,20 +114,12 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
     fun getOres(key: String): List<ItemStack> = oreSets.getOrPut(key) { OreDictionary.getOres(key, false) }
 
     fun checkStack(stack: ItemStack, keys: Array<String>): Boolean {
-        for (key in keys) {
-            if (checkStack(stack, key))
-                return true
-        }
-        return false
+        return keys.any { checkStack(stack, it) }
     }
 
     fun checkStack(stack: ItemStack, key: String): Boolean {
         val ores = getOres(key)
-        for (ore in ores) {
-            if (OreDictionary.itemMatches(stack, ore, false))
-                return true
-        }
-        return false
+        return ores.any { OreDictionary.itemMatches(stack, it, false) }
     }
 
     fun getColorFromDye(stack: ItemStack, dyes: Array<String>): Int {

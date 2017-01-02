@@ -15,6 +15,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
  * @author WireSegal
  * Created at 9:37 AM on 5/19/16.
  */
+@Suppress("LeakingThis")
 open class EnchantmentMod(name: String, rarity: Rarity, type: EnumEnchantmentType, vararg applicableSlots: EntityEquipmentSlot) : Enchantment(rarity, type, applicableSlots) {
     init {
         setName("${LibMisc.MOD_ID}.$name")
@@ -27,13 +28,7 @@ open class EnchantmentMod(name: String, rarity: Rarity, type: EnumEnchantmentTyp
     private fun getEntityEquipmentForLevel(entityIn: EntityLivingBase): Iterable<ItemStack>? {
         val list = Lists.newArrayList<ItemStack>()
 
-        for (entityequipmentslot in applicableSlots) {
-            val itemstack = entityIn.getItemStackFromSlot(entityequipmentslot)
-
-            if (itemstack != null) {
-                list.add(itemstack)
-            }
-        }
+        applicableSlots.mapNotNullTo(list) { entityIn.getItemStackFromSlot(it) }
 
         return if (list.size > 0) list else null
     }
@@ -41,22 +36,19 @@ open class EnchantmentMod(name: String, rarity: Rarity, type: EnumEnchantmentTyp
     fun getMaxLevel(entity: EntityLivingBase): Int {
         val iterable = getEntityEquipmentForLevel(entity) ?: return 0
 
-        var i = 0
-        for (itemstack in iterable) {
-            val j = EnchantmentHelper.getEnchantmentLevel(this, itemstack)
-            if (j > i) i = j
-        }
+        val i = iterable
+                .map { EnchantmentHelper.getEnchantmentLevel(this, it) }
+                .max()
+                ?: 0
         return i
     }
 
     fun getTotalLevel(entity: EntityLivingBase): Int {
         val iterable = getEntityEquipmentForLevel(entity) ?: return 0
 
-        var i = 0
-        for (itemstack in iterable) {
-            val j = EnchantmentHelper.getEnchantmentLevel(this, itemstack)
-            i += j
-        }
+        val i = iterable
+                .map { EnchantmentHelper.getEnchantmentLevel(this, it) }
+                .sum()
         return i
     }
 }

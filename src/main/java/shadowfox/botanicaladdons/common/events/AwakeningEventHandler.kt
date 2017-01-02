@@ -14,7 +14,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.relauncher.ReflectionHelper
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
@@ -25,7 +24,6 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.entity.EntityDoppleganger
-import java.util.*
 
 /**
  * @author WireSegal
@@ -59,16 +57,11 @@ class AwakeningEventHandler {
     }
 
     private fun fitsLocation(entityDoppleganger: EntityDoppleganger): Boolean {
-        for (coords in CORE_LOCATIONS) {
-            val pos = entityDoppleganger.source.add(coords)
-
-            val state = entityDoppleganger.worldObj.getBlockState(pos)
-            val block = state.block
-            if (block != ModBlocks.awakenerCore) {
-                return false;
-            }
-        }
-        return true
+        return CORE_LOCATIONS
+                .map { entityDoppleganger.source.add(it) }
+                .map { entityDoppleganger.worldObj.getBlockState(it) }
+                .map { it.block }
+                .none { it != ModBlocks.awakenerCore }
     }
 
     @SubscribeEvent

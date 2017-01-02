@@ -1,13 +1,13 @@
 package shadowfox.botanicaladdons.common.items
 
 import com.google.common.collect.Multimap
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.common.entity.EntityDoppleganger
 
 /**

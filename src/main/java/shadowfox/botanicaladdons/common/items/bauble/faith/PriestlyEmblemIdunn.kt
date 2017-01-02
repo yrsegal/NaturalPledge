@@ -17,7 +17,7 @@ import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.core.helper.ItemNBTHelper
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import java.util.*
 
 /**

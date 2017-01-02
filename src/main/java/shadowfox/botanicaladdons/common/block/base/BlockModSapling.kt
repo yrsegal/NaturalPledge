@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.base
 
+import com.teamwizardry.librarianlib.common.base.block.BlockMod
 import net.minecraft.block.Block
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
@@ -9,6 +10,7 @@ import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
@@ -20,11 +22,12 @@ import net.minecraft.world.gen.feature.WorldGenTrees
 import net.minecraftforge.common.EnumPlantType
 import net.minecraftforge.common.IPlantable
 import net.minecraftforge.event.terraingen.TerrainGen
+import net.minecraftforge.fml.common.IFuelHandler
+import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
-import shadowfox.botanicaladdons.common.block.ModBlocks
 import java.util.*
 
 /**
@@ -33,7 +36,14 @@ import java.util.*
  */
 abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod(name, Material.PLANTS, *variants), IPlantable, IGrowable, ISaplingBlock {
 
-    companion object {
+    companion object : IFuelHandler {
+        override fun getBurnTime(fuel: ItemStack)
+                = if (fuel.item is ItemBlock && (fuel.item as ItemBlock).block is BlockModSapling) 100 else 0
+
+        init {
+            GameRegistry.registerFuelHandler(this)
+        }
+
         val STAGE = PropertyInteger.create("stage", 0, 1)
 
         fun defaultSaplingBehavior(world: World, pos: BlockPos, state: IBlockState, rand: Random, wood: IBlockState, leaves: IBlockState) {

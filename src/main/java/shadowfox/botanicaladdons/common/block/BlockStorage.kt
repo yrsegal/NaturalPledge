@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
+import com.teamwizardry.librarianlib.common.base.block.BlockMod
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material
@@ -14,10 +15,9 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import shadowfox.botanicaladdons.common.block.base.BlockMod
-import shadowfox.botanicaladdons.common.items.ItemResource.Companion.capitalizeFirst
-import shadowfox.botanicaladdons.common.items.ItemResource.Companion.lowercaseFirst
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
+import shadowfox.botanicaladdons.common.lib.lowercaseFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 
@@ -42,7 +42,7 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
         AQUAMARINE(Material.ROCK, 1.5f, 10f, -1, 10, MapColor.BLUE);
 
         override fun toString(): String {
-            return this.name.toLowerCase().split("_").joinToString("", transform = { it.capitalizeFirst() }).lowercaseFirst()
+            return this.name.toLowerCase().split("_").joinToString("", transform = String::capitalizeFirst).lowercaseFirst()
         }
 
         override fun getName() = name.toLowerCase()

@@ -1,23 +1,23 @@
 package shadowfox.botanicaladdons.common.block.colored
 
+import com.teamwizardry.librarianlib.client.util.TooltipHelper
+import com.teamwizardry.librarianlib.common.base.block.IBlockColorProvider
+import com.teamwizardry.librarianlib.common.base.block.ItemModBlock
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.IBlockColor
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.block.base.BlockModLog
-import shadowfox.botanicaladdons.common.block.base.ItemModBlock
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 
@@ -25,7 +25,8 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 10:36 AM on 5/7/16.
  */
-abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + set, *Array(4, { name + COLORS[set][it].toString().capitalizeFirst() })), ModelHandler.IBlockColorProvider, ILexiconable {
+@Suppress("LeakingThis")
+abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + set, *Array(4, { name + COLORS[set][it].toString().capitalizeFirst() })), IBlockColorProvider, ILexiconable {
     companion object {
         val COLOR_PROPS: Array<PropertyEnum<EnumDyeColor>> = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {
@@ -38,19 +39,15 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
             }
 
         }
-
-        fun String.capitalizeFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
-        }
     }
 
-    override val item: ItemBlock
-        get() = object : ItemModBlock(this) {
-            override fun getUnlocalizedName(stack: ItemStack?): String {
+    override fun createItemForm(): ItemBlock? {
+        return object : ItemModBlock(this) {
+            override fun getUnlocalizedName(stack: ItemStack): String {
                 return "tile.${LibMisc.MOD_ID}:${bareName.replace("\\d$".toRegex(), "")}"
             }
         }
+    }
 
     abstract val colorSet: Int
 
@@ -81,16 +78,14 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
         return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR_PROPS[colorSet])))
     }
 
-    override fun getBlockColor(): IBlockColor? {
-        return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR_PROPS[colorSet]).mapColor.colorValue }
-    }
+    override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
+        get() = { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR_PROPS[colorSet]).mapColor.colorValue }
 
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
 
     override fun addInformation(stack: ItemStack?, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + (stack?.itemDamage ?: 0)}")
+        TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + (stack?.itemDamage ?: 0)}")
     }
 
     override fun getMapColor(state: IBlockState): MapColor {

@@ -1,6 +1,8 @@
 package shadowfox.botanicaladdons.common.items
 
 import com.google.common.collect.Multimap
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
@@ -23,10 +25,8 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.THUNDER_STEEL
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 
 /**

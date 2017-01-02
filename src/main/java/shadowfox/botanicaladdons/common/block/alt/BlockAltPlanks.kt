@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.base.BlockModPlanks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -20,11 +21,6 @@ import vazkii.botania.api.state.enums.AltGrassVariant
 class BlockAltPlanks(name: String) : BlockModPlanks(name, *Array(6, { name + AltGrassVariant.values()[it].getName().capitalizeFirst() })), ILexiconable {
     companion object {
         val TYPE = PropertyEnum.create("type", AltGrassVariant::class.java)
-
-        fun String.capitalizeFirst(): String {
-            if (this.length == 0) return this
-            return this.slice(0..0).capitalize() + this.slice(1..this.length - 1)
-        }
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState? {

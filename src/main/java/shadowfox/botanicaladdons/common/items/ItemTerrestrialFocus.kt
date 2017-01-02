@@ -1,7 +1,9 @@
 package shadowfox.botanicaladdons.common.items
 
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
@@ -22,29 +24,26 @@ import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.core.helper.CooldownHelper
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
-import vazkii.botania.common.core.helper.ItemNBTHelper
 
 /**
  * @author WireSegal
  * Created at 9:21 AM on 4/18/16.
  */
-class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IItemColorProvider, IManaUsingItem {
+class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IManaUsingItem {
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor() = IItemColor { itemStack, i ->
-        if (i == 1)
-            BotanicalAddons.PROXY.rainbow(0.25f).rgb
-        else 0xFFFFFF
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
+            if (i == 1)
+                BotanicalAddons.PROXY.rainbow(0.25f).rgb
+            else 0xFFFFFF
+        }
 
     override fun usesMana(p0: ItemStack) = getSpell(p0) != null
 
@@ -80,7 +79,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), ModelHandler.IItemColo
             if (spell == null)
                 ItemNBTHelper.removeEntry(focus, TAG_SPELL)
             else
-                ItemNBTHelper.setString(focus, TAG_SPELL, SpellRegistry.getSpellName(spell))
+                ItemNBTHelper.setString(focus, TAG_SPELL, SpellRegistry.getSpellName(spell) ?: "")
         }
 
         object EventHandler {

@@ -1,11 +1,11 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
+import com.teamwizardry.librarianlib.common.base.item.ItemModFood
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.stats.Achievement
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
-import shadowfox.botanicaladdons.common.items.base.ItemModFood
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI

@@ -1,7 +1,10 @@
 package shadowfox.botanicaladdons.common.items.colored
 
+import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemBlock
@@ -13,22 +16,19 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.ModelHandler
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.core.helper.ItemNBTHelper
 import java.awt.Color
 
 /**
  * @author WireSegal
  * Created at 5:50 PM on 5/6/16.
  */
-class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IItemColorProvider, IManaUsingItem, IPhantomInkable {
+class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUsingItem, IPhantomInkable {
 
     init {
         setMaxStackSize(1)
@@ -39,12 +39,13 @@ class ItemLightPlacer(name: String) : ItemMod(name), ModelHandler.IItemColorProv
 
     override fun usesMana(p0: ItemStack?) = true
 
-    override fun getItemColor(): IItemColor = IItemColor { itemStack, i ->
-        if (i == 0) {
-            val color = (RainbowItemHelper.getColor(itemStack))
-            if (color == -1) BotanicalAddons.PROXY.rainbow().rgb else BotanicalAddons.PROXY.pulseColor(Color(color)).rgb
-        } else 0xFFFFFF
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
+            if (i == 0) {
+                val color = (RainbowItemHelper.getColor(itemStack))
+                if (color == -1) BotanicalAddons.PROXY.rainbow().rgb else BotanicalAddons.PROXY.pulseColor(Color(color)).rgb
+            } else 0xFFFFFF
+        }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         if (hasPhantomInk(stack))

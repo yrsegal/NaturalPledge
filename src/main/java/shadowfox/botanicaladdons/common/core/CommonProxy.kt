@@ -1,12 +1,12 @@
 package shadowfox.botanicaladdons.common.core
 
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
+import shadowfox.botanicaladdons.common.core.tab.ModTab
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.entity.ModEntities
@@ -16,7 +16,6 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.brew.ModBrews
-import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 
@@ -26,6 +25,7 @@ import java.awt.Color
  */
 open class CommonProxy {
     open fun pre(e: FMLPreInitializationEvent) {
+        ModTab
         ModItems
         ModBlocks
         ModAchievements
