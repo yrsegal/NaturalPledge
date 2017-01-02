@@ -4,7 +4,6 @@ import com.teamwizardry.librarianlib.client.util.TooltipHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.recipe.IRecipeCategory
-import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
