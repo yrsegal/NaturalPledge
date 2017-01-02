@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.client.integration.jei.treegrowing
 
+import com.teamwizardry.librarianlib.client.util.TooltipHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.recipe.IRecipeCategory

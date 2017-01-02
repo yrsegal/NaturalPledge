@@ -1,12 +1,12 @@
 package shadowfox.botanicaladdons.common.block.colored
 
+import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
-import shadowfox.botanicaladdons.common.items.base.ItemMod
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -25,6 +25,6 @@ class BlockRainbowLeaves(name: String) : BlockModLeaves(name), ILexiconable {
     }
 
     override fun addInformation(stack: ItemStack?, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        ItemMod.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
+        addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
     }
 }
