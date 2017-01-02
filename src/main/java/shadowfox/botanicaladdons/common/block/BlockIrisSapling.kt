@@ -2,12 +2,10 @@ package shadowfox.botanicaladdons.common.block
 
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraft.world.gen.feature.WorldGenTrees
 import shadowfox.botanicaladdons.api.SaplingVariantRegistry
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.sapling.IIridescentSaplingVariant
@@ -23,7 +21,6 @@ import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.BotaniaStateProps
 import vazkii.botania.api.state.enums.AltGrassVariant
-import vazkii.botania.common.block.BlockAltGrass
 import java.util.*
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
@@ -114,6 +111,7 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
         val variant = SaplingVariantRegistry.getVariant(soil) ?: return
 
         defaultSaplingBehavior(worldIn, pos, state, rand, variant.getWood(soil), variant.getLeaves(soil))
+        worldIn.setBlockState(pos.down(), soil)
     }
 
     override fun canGrow(worldIn: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean {
