@@ -32,7 +32,7 @@ open class BlockModLog(name: String, vararg variants: String) : BlockMod(name, M
         blockHardness = 2.0f
         soundType = SoundType.WOOD
         if (itemForm != null) {
-            for (variant in variants.indices)
+            for (variant in this.variants.indices)
                 OreDictionary.registerOre("logWood", ItemStack(this, 1, variant))
             FurnaceRecipes.instance().addSmeltingRecipeForBlock(this, ItemStack(Items.COAL, 1, 1), 0.15f)
         }

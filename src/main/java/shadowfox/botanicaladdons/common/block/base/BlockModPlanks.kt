@@ -21,7 +21,7 @@ open class BlockModPlanks(name: String, vararg variants: String) : BlockMod(name
         setHardness(2f)
         setResistance(5f)
         if (itemForm != null)
-            for (variant in variants.indices)
+            for (variant in this.variants.indices)
                 OreDictionary.registerOre("plankWood", ItemStack(this, 1, variant))
     }
 

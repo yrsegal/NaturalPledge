@@ -34,6 +34,7 @@ import java.util.*
  * @author WireSegal
  * Created at 10:13 PM on 5/27/16.
  */
+@Suppress("LeakingThis")
 abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod(name, Material.PLANTS, *variants), IPlantable, IGrowable, ISaplingBlock {
 
     companion object : IFuelHandler {
@@ -66,7 +67,7 @@ abstract class BlockModSapling(name: String, vararg variants: String) : BlockMod
         this.tickRandomly = true
         soundType = SoundType.PLANT
         if (itemForm != null)
-            for (variant in variants.indices)
+            for (variant in this.variants.indices)
                 OreDictionary.registerOre("treeSapling", ItemStack(this, 1, variant))
     }
 
