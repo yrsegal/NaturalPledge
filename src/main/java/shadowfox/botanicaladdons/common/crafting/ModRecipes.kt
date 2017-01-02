@@ -123,6 +123,8 @@ object ModRecipes {
     val recipeThorCloak: IRecipe
     val recipeHeimdallCloak: IRecipe
 
+    val recipeIronBelt: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -477,6 +479,16 @@ object ModRecipes {
                 'C', ItemStack(Blocks.WOOL, 1, EnumDyeColor.SILVER.metadata),
                 'M', Items.CHORUS_FRUIT,
                 'S', LibOreDict.IRIS_DYE)
+
+        recipeIronBelt = addOreDictRecipe(ModItems.ironBelt,
+                "WI ",
+                "I I",
+                "AIE",
+                'W', BotaniaOreDict.RUNE[0], // Water
+                'I', "ingotIron",
+                'A', LibOreDict.AQUAMARINE,
+                'E', BotaniaOreDict.RUNE[2]) // Earth
+
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {

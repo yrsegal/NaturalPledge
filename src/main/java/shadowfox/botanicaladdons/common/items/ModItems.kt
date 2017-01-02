@@ -7,6 +7,7 @@ import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemDivineCloak
+import shadowfox.botanicaladdons.common.items.bauble.ItemIronBelt
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.colored.ItemAwakenedDye
@@ -58,6 +59,8 @@ object ModItems {
 
     val cloak: ItemMod
 
+    val ironBelt: ItemIronBelt
+
     lateinit var gaiaKiller: ItemMod
 
     init {
@@ -92,6 +95,8 @@ object ModItems {
         resource = ItemResource(LibNames.RESOURCE)
 
         cloak = ItemDivineCloak(LibNames.DIVINE_CLOAK)
+
+        ironBelt = ItemIronBelt(LibNames.IRON_BELT)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

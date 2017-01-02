@@ -43,6 +43,8 @@ object LexiconEntries {
 
     val drabBrew: LexiconEntry
 
+    val ironBelt: LexiconEntry
+
     val toolbelt: LexiconEntry
     val foodbelt: LexiconEntry
     val flowstone: LexiconEntry
@@ -118,6 +120,9 @@ object LexiconEntries {
 
         drabBrew = EntryPriestlyKnowledge("drabBrew", divinity, ItemStack(ModItems.iridescentDye, 1, EnumDyeColor.GRAY.metadata), PriestlyEmblemHeimdall::class.java)
         drabBrew.setLexiconPages(PageBrew(ModRecipes.drabBrew, "0a", "0b"))
+
+        ironBelt = EntryPriestlyKnowledge("ironBelt", divinity, ModItems.ironBelt, PriestlyEmblemNjord::class.java)
+        ironBelt.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeIronBelt))
 
         toolbelt = EntryPriestlyKnowledge("toolbelt", divinity, ModItems.toolbelt, PriestlyEmblemHeimdall::class.java)
         toolbelt.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeToolbelt))

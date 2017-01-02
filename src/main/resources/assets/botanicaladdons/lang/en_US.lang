@@ -55,6 +55,8 @@ item.botanicaladdons:cloakIdunn.name=Cloak of Idunn
 item.botanicaladdons:cloakThor.name=Cloak of Thor
 item.botanicaladdons:cloakHeimdall.name=Cloak of Heimdall
 
+item.botanicaladdons:ironBelt.name=Weighted Belt
+
 enchantment.botanicaladdons.light=Streamlined
 enchantment.botanicaladdons.light.desc=Quicker to swing, you move lithely while you hold it, at the cost of reduced damage.
 enchantment.botanicaladdons.heavy=Crushing
@@ -521,3 +523,8 @@ botanicaladdons.entry.crackle=Crackling Stars
 botanicaladdons.tagline.crackle=An unstable light source
 botanicaladdons.page.crackle0=The &1Crackling Star&0 is the form of the stars, trapped upon earth, and brought forth through &4Iridescence&0. They appear as a ball of light, but will distribute their mass to nearby &0Crackling Stars&0. They give off light with the same strength as &1Glowstone&0, and can be made in any of the colors of &4Iridescence&0.
 botanicaladdons.page.crackle1=Wire's frames
+
+botanicaladdons.entry.ironBelt=Weighted Belt
+botanicaladdons.tagline.ironBelt=An unstable light source
+botanicaladdons.page.ironBelt0=The &1Crackling Star&0 is the form of the stars, trapped upon earth, and brought forth through &4Iridescence&0. They appear as a ball of light, but will distribute their mass to nearby &0Crackling Stars&0. They give off light with the same strength as &1Glowstone&0, and can be made in any of the colors of &4Iridescence&0.
+botanicaladdons.page.ironBelt1=Wire's frames

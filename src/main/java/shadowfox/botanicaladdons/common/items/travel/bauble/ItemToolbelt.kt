@@ -53,7 +53,6 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
         val glowTexture = ResourceLocation(LibMisc.MOD_ID, "textures/misc/toolbelt.png")
         val beltTexture = ResourceLocation(LibMisc.MOD_ID, "textures/model/toolbelt.png")
 
-        @SideOnly(Side.CLIENT)
         var model: Any? = null
 
         val SEGMENTS = 12

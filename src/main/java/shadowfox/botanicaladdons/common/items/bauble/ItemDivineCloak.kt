@@ -57,25 +57,26 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             if (player is EntityPlayer) {
                 val baubles = BaublesApi.getBaublesHandler(player)
                 val body = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
-                if (body != null && body.item is ItemDivineCloak && body.itemDamage == 2) {
+                if (body != null && body.item is ItemDivineCloak) {
+                    if (body.itemDamage == 2) {
+                        val jump = player.getActivePotionEffect(MobEffects.JUMP_BOOST)
+                        val f = if (jump == null) 0.0f else (jump.amplifier + 1).toFloat()
+                        val damage = Math.min((e.distance - 3.0f - f) * e.damageMultiplier, 5.0f)
+                        if (damage > 0.0f) {
+                            e.isCanceled = true
+                            val entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expand(4.0, 3.0, 4.0))
+                            entities
+                                    .filter { it != player && it.onGround }
+                                    .forEach { it.attackEntityFrom(damageSourceEarthquake(player), damage * 2) }
 
-                    val jump = player.getActivePotionEffect(MobEffects.JUMP_BOOST)
-                    val f = if (jump == null) 0.0f else (jump.amplifier + 1).toFloat()
-                    val damage = Math.min((e.distance - 3.0f - f) * e.damageMultiplier, 5.0f)
-                    if (damage > 0.0f) {
-                        e.isCanceled = true
-                        val entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expand(4.0, 3.0, 4.0))
-                        entities
-                                .filter { it != player && it.onGround }
-                                .forEach { it.attackEntityFrom(damageSourceEarthquake(player), damage * 2) }
-
-                        player.attackEntityFrom(damageSourceEarthquake(), 0.00005f)
-                        for (pos in BlockPos.getAllInBoxMutable(BlockPos(player.positionVector).add(-1, -1, -1), BlockPos(player.positionVector).add(1, -1, 1))) {
-                            val state = player.worldObj.getBlockState(pos)
-                            if (state.isFullCube)
-                                player.worldObj.playEvent(2001, pos, state.block.getMetaFromState(state))
+                            player.attackEntityFrom(damageSourceEarthquake(), 0.00005f)
+                            for (pos in BlockPos.getAllInBoxMutable(BlockPos(player.positionVector).add(-1, -1, -1), BlockPos(player.positionVector).add(1, -1, 1))) {
+                                val state = player.worldObj.getBlockState(pos)
+                                if (state.isFullCube)
+                                    player.worldObj.playEvent(2001, pos, state.block.getMetaFromState(state))
+                            }
                         }
-                    }
+                    } else if (body.itemDamage == 0) e.isCanceled = true
                 }
             }
         }
