@@ -10,7 +10,6 @@ import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.TooltipHelper
 import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
 
 object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
