@@ -37,7 +37,9 @@ class RecipeEnchantmentRemoval : IRecipe {
         val finalEnchanted = enchanted!!
 
         val index = getEnchantmentIndex(finalTome, finalEnchanted)
-        val enchantmentTag = finalEnchanted.enchantmentTagList.getCompoundTagAt(index)
+        val list = (if (finalEnchanted.item === Items.ENCHANTED_BOOK)
+            Items.ENCHANTED_BOOK.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList)
+        val enchantmentTag = list.getCompoundTagAt(index)
         val enchantment = Enchantment.getEnchantmentByID(enchantmentTag.getShort("id").toInt())
                 ?: return ForgeHooks.defaultRecipeGetRemainingItems(inv)
         val level = enchantmentTag.getShort("lvl").toInt()
