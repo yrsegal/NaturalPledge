@@ -61,6 +61,8 @@ object ModItems {
 
     val ironBelt: ItemIronBelt
 
+    val xpTome: ItemXPStealer
+
     lateinit var gaiaKiller: ItemMod
 
     init {
@@ -97,6 +99,8 @@ object ModItems {
         cloak = ItemDivineCloak(LibNames.DIVINE_CLOAK)
 
         ironBelt = ItemIronBelt(LibNames.IRON_BELT)
+
+        xpTome = ItemXPStealer(LibNames.XP_TOME)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

@@ -57,6 +57,8 @@ item.botanicaladdons:cloakHeimdall.name=Cloak of Heimdall
 
 item.botanicaladdons:ironBelt.name=Weighted Belt
 
+item.botanicaladdons:xpTome.name=Tome of the Ages
+
 enchantment.botanicaladdons.light=Streamlined
 enchantment.botanicaladdons.light.desc=Quicker to swing, you move lithely while you hold it, at the cost of reduced damage.
 enchantment.botanicaladdons.heavy=Crushing
@@ -528,3 +530,8 @@ botanicaladdons.entry.ironBelt=Weighted Belt
 botanicaladdons.tagline.ironBelt=Prevents floating
 botanicaladdons.page.ironBelt0=While waterwalking is nice, sometimes a priest of &3Njord&0 needs to walk on the bottom of the ocean. While sneaking can work, it's sometimes nicer to just sink. The &1Weighted Belt&0 will drag you down in air, and prevent waterwalking.
 botanicaladdons.page.ironBelt1=Fancier cement shoes
+
+botanicaladdons.entry.xpTome=Tome of the Ages
+botanicaladdons.tagline.xpTome=Break down enchantments
+botanicaladdons.page.xpTome0=Enchantments rarely go exactly as planned, and using &1Spellbinding Cloth&0 doesn't give anything back. The &1Tome of the Ages&0 transfers one enchantment at a time into the ancient collective knowledge of the forests, and releases the experience of the enchantment, which can be retrieved with a simple use of the book. Sneak-using the book will steal your experience, allowing you to store it, if imperfectly.
+botanicaladdons.page.xpTome1=All hail the second Eaton

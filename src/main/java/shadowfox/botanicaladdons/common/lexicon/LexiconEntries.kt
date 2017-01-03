@@ -81,6 +81,8 @@ object LexiconEntries {
     val garbThor: LexiconEntry
     val garbHeimdall: LexiconEntry
 
+    val xpTome: LexiconEntry
+
     init {
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
 
@@ -178,6 +180,9 @@ object LexiconEntries {
 
         funnel = EntryPriestlyKnowledge("funnel", divinity, ModBlocks.funnel, PriestlyEmblemIdunn::class.java)
         funnel.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeFunnel))
+
+        xpTome = EntryPriestlyKnowledge("xpTome", divinity, ModItems.xpTome, PriestlyEmblemIdunn::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        xpTome.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeXpTome))
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
 

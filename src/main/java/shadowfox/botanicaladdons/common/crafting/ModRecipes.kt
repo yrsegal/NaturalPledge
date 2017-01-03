@@ -21,10 +21,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
-import shadowfox.botanicaladdons.common.crafting.recipe.RecipeDynamicDye
-import shadowfox.botanicaladdons.common.crafting.recipe.RecipeItemDuplication
-import shadowfox.botanicaladdons.common.crafting.recipe.RecipePureDaisyExclusion
-import shadowfox.botanicaladdons.common.crafting.recipe.RecipeRainbowLensDye
+import shadowfox.botanicaladdons.common.crafting.recipe.*
 import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.*
 import shadowfox.botanicaladdons.common.items.ModItems
@@ -125,13 +122,17 @@ object ModRecipes {
 
     val recipeIronBelt: IRecipe
 
+    val recipeXpTome: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:itemDuplicate", RecipeItemDuplication::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:enchantRemover", RecipeEnchantmentRemoval::class.java, RecipeSorter.Category.SHAPELESS, "")
         GameRegistry.addRecipe(RecipeDynamicDye(ModItems.lightPlacer, true))
         GameRegistry.addRecipe(RecipeRainbowLensDye())
+        GameRegistry.addRecipe(RecipeEnchantmentRemoval())
 
         recipeSymbol = addOreDictRecipe(ModItems.symbol,
                 "S S",
@@ -489,6 +490,15 @@ object ModRecipes {
                 'A', LibOreDict.AQUAMARINE,
                 'E', BotaniaOreDict.RUNE[2]) // Earth
 
+        recipeXpTome = addOreDictRecipe(ModItems.xpTome,
+                "CRP",
+                "RBR",
+                " RC",
+                'C', BotaniaOreDict.MANAWEAVE_CLOTH,
+                'R', LibOreDict.LIFE_ROOT,
+                'P', BotaniaOreDict.PIXIE_DUST,
+                'B', Items.BOOK)
+
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {
@@ -501,7 +511,6 @@ object ModRecipes {
             SpellRegistry.registerSpellRecipe("blockIron", spell, ItemStack(ModBlocks.storage, 1, Variants.THUNDERSTEEL.ordinal))
             if (OreDictionary.doesOreNameExist("nuggetIron"))
                 SpellRegistry.registerSpellRecipe("nuggetIron", spell, of(THUNDERNUGGET))
-
         }
 
         spell = SpellRegistry.getSpell(LibNames.SPELL_IDUNN_INFUSION)

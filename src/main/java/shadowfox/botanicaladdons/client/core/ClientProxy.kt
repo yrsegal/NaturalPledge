@@ -25,6 +25,7 @@ import java.awt.Color
 class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
+        TooltipBarHandler
         RenderingRegistry.registerEntityRenderingHandler(EntitySealedArrow::class.java, ::RenderSealedArrow)
     }
 
