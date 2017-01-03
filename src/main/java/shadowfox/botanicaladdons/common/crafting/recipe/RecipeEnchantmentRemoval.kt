@@ -94,6 +94,12 @@ class RecipeEnchantmentRemoval : IRecipe {
         if ((finalEnchanted.tagCompound?.size ?: 0) == 0)
             finalEnchanted.tagCompound = null
 
+        if (finalEnchanted.item === Items.ENCHANTED_BOOK && list.tagCount() == 0) {
+            val newStack = ItemStack(Items.BOOK, finalEnchanted.stackSize)
+            newStack.tagCompound = finalEnchanted.tagCompound
+            return newStack
+        }
+
         return finalEnchanted
     }
 
