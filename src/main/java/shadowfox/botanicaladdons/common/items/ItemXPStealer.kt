@@ -12,6 +12,9 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextFormatting.*
 import net.minecraft.world.World
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.client.core.ITooltipBarItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import java.awt.Color
@@ -25,10 +28,26 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
         setMaxStackSize(1)
     }
 
-    override fun getItemStackDisplayName(stack: ItemStack): String {
+    companion object {
+        init {
+            MinecraftForge.EVENT_BUS.register(this)
+        }
+
+        @SubscribeEvent
+        fun interceptTooltip(e: ItemTooltipEvent) {
+            if (e.itemStack.item is ItemXPStealer) {
+                val displayName = e.toolTip[0]
+                val level = e.itemStack.xpLevels
+                if (level == 0) return
+                e.toolTip[0] = "$RESET($GREEN$BOLD$level$RESET) $displayName"
+            }
+        }
+    }
+
+    override fun getHighlightTip(stack: ItemStack, displayName: String): String {
         val level = stack.xpLevels
-        if (level == 0) return super.getItemStackDisplayName(stack)
-        return super.getItemStackDisplayName(stack) + " $RESET($GREEN$BOLD${stack.xpLevels}$RESET)"
+        if (level == 0) return displayName
+        return "$RESET($GREEN$BOLD$level$RESET) $displayName"
     }
 
     override fun hasEffect(stack: ItemStack): Boolean {
