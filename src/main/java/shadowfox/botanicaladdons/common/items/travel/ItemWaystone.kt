@@ -3,23 +3,25 @@ package shadowfox.botanicaladdons.common.items.travel
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.network.PacketHandler
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
-import net.minecraft.util.EnumActionResult
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
+import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.network.TargetNotFoundPacket
+import shadowfox.botanicaladdons.common.network.TargetPositionPacket
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
+import java.util.*
 
 /**
  * @author WireSegal
@@ -34,7 +36,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->
             if (i == 1)
-                BotanicalAddons.Companion.PROXY.rainbow(0.25f).rgb
+                BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF
         }
 
@@ -43,11 +45,13 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         val TAG_Y = "y"
         val TAG_Z = "z"
         val TAG_TRACK = "player"
+
+        val LAST_KNOWN_POSITIONS = mutableMapOf<String, Pair<Int, Vec3d>>()
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
-        val dirVec = getDirVec(playerIn.worldObj, stack, playerIn)
+        val dirVec = getDirVec(stack, playerIn)
         val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (track != null) {
             if (dirVec == null)
@@ -65,7 +69,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     }
 
     override fun onItemUse(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
-        if (player.isSneaking && ItemNBTHelper.getString(stack, TAG_TRACK, null) == null) {
+        if (player.isSneaking) {
             if (world.isRemote) {
                 player.swingArm(hand)
                 for (i in 0..9) {
@@ -79,6 +83,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
                 ItemNBTHelper.setInt(stack, TAG_X, pos.x)
                 ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
                 ItemNBTHelper.setInt(stack, TAG_Z, pos.z)
+                ItemNBTHelper.removeEntry(stack, TAG_TRACK)
                 world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
                 return EnumActionResult.SUCCESS
             }
@@ -87,39 +92,77 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         return EnumActionResult.PASS
     }
 
+    override fun onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+        if (player.isSneaking) {
+            if (world.isRemote) {
+                player.swingArm(hand)
+                for (i in 0..9) {
+                    val x1 = (player.posX + Math.random()).toFloat()
+                    val y1 = (player.posY + 1).toFloat()
+                    val z1 = (player.posZ + Math.random()).toFloat()
+                    Botania.proxy.wispFX(x1.toDouble(), y1.toDouble(), z1.toDouble(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat() * 0.5f, -0.05f + Math.random().toFloat() * 0.05f)
+                    return ActionResult(EnumActionResult.SUCCESS, stack)
+                }
+            } else {
+                ItemNBTHelper.removeEntry(stack, TAG_X)
+                ItemNBTHelper.removeEntry(stack, TAG_Y)
+                ItemNBTHelper.removeEntry(stack, TAG_Z)
+                ItemNBTHelper.removeEntry(stack, TAG_TRACK)
+                world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
+                return ActionResult(EnumActionResult.SUCCESS, stack)
+            }
+        }
+        return ActionResult(EnumActionResult.PASS, stack)
+    }
+
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
 
-        if (stack.hasDisplayName() && stack.displayName.toLowerCase().trim().matches("^track:?\\s+".toRegex())) {
+        if (stack.hasDisplayName() && stack.displayName.toLowerCase(Locale.ROOT).trim().matches("^track[:\\s]\\s*.+$".toRegex())) {
             ItemNBTHelper.setString(stack, TAG_TRACK, stack.displayName.trim().replace("^track:?".toRegex(), "").trim())
             stack.clearCustomName()
         }
 
-        if (!worldIn.isRemote || entityIn !is EntityLivingBase || entityIn.heldItemMainhand != stack && entityIn.heldItemOffhand != stack) return
+        if (entityIn !is EntityPlayer || entityIn.heldItemMainhand != stack && entityIn.heldItemOffhand != stack) return
 
-        val startVec = Vector3.fromEntityCenter(entityIn)
-        val dirVec = getDirVec(worldIn, stack, entityIn) ?: return
-        val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
+        if (!worldIn.isRemote && entityIn is EntityPlayerMP) {
+            val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
+            if (track != null) {
+                var flag = false
+                for (other in worldIn.playerEntities) {
+                    if (other.name == track) {
+                        PacketHandler.NETWORK.sendTo(TargetPositionPacket(Vector3.fromEntityCenter(other).subtract(Vector3(0.5, 0.5, 0.5)).toVec3D(), track), entityIn)
+                        flag = true
+                        break
+                    }
+                }
+                if (!flag)
+                    PacketHandler.NETWORK.sendTo(TargetNotFoundPacket(track), entityIn)
+            }
+        } else {
+            val startVec = Vector3.fromEntityCenter(entityIn)
+            val dirVec = getDirVec(stack, entityIn) ?: return
+            val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        BotanicalAddons.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+            BotanicalAddons.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+        }
     }
 
-    fun getDirVec(world: World, stack: ItemStack, player: Entity): Vector3? {
-        val pos = getEndVec(world, stack) ?: return null
+    fun getDirVec(stack: ItemStack, player: Entity): Vector3? {
+        val pos = getEndVec(player, stack) ?: return null
 
         val entityPos = Vector3.fromEntityCenter(player).subtract(Vector3(0.5, 0.5, 0.5))
         return pos.subtract(entityPos)
     }
 
-    fun getEndVec(world: World, stack: ItemStack): Vector3? {
+    fun getEndVec(player: Entity, stack: ItemStack): Vector3? {
         var pos: Vector3? = null
         val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
         if (track != null) {
-            for (other in world.playerEntities) {
-                if (other.name == track) {
-                    pos = Vector3.fromEntityCenter(other).subtract(Vector3(0.5, 0.5, 0.5))
-                    break
-                }
-            }
+            if (player.worldObj.isRemote) {
+                val lastKnown = LAST_KNOWN_POSITIONS[track] ?: return null
+                if (lastKnown.first != player.worldObj.provider.dimension) return null
+                return Vector3(lastKnown.second)
+            } else return null
         } else {
             if (getBinding(stack) != null)
                 pos = Vector3.fromBlockPos(getBinding(stack))

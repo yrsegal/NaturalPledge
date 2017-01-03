@@ -86,8 +86,8 @@ open class CommonProxy {
         return false
     }
 
-    open fun getClientPlayer(): EntityPlayer? {
-        return null
+    open fun getClientPlayer(): EntityPlayer {
+        throw UnsupportedOperationException("Server side doesn't have a client side player!")
     }
 
 }

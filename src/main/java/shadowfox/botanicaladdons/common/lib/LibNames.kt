@@ -26,6 +26,8 @@ object LibNames {
     val DEATH_FINDER = "deathStone"
     val DIVINE_CLOAK = "divineCloak"
     val IRON_BELT = "ironBelt"
+    val XP_TOME = "xpTome"
+
 
     val SPELL_LEAP = "leap"
     val SPELL_INTERDICT = "interdict"

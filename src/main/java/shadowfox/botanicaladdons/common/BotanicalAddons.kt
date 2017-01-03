@@ -12,10 +12,7 @@ import net.minecraftforge.fml.relauncher.Side
 import org.apache.logging.log4j.LogManager
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.CommonProxy
-import shadowfox.botanicaladdons.common.network.PlayerItemMessage
-import shadowfox.botanicaladdons.common.network.SetPositionMessage
-import shadowfox.botanicaladdons.common.network.SetToolbeltItemClient
-import shadowfox.botanicaladdons.common.network.SetToolbeltItemServer
+import shadowfox.botanicaladdons.common.network.*
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES)
 class BotanicalAddons {
@@ -44,6 +41,8 @@ class BotanicalAddons {
         PacketHandler.register(SetToolbeltItemClient::class.java, Side.CLIENT)
         PacketHandler.register(SetToolbeltItemServer::class.java, Side.SERVER)
         PacketHandler.register(SetPositionMessage::class.java, Side.SERVER)
+        PacketHandler.register(TargetPositionPacket::class.java, Side.CLIENT)
+        PacketHandler.register(TargetNotFoundPacket::class.java, Side.CLIENT)
 
         PROXY.pre(event)
     }

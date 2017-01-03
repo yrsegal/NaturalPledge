@@ -135,7 +135,7 @@ class ClientProxy : CommonProxy() {
         return Botania.proxy.isClientPlayerWearingMonocle
     }
 
-    override fun getClientPlayer(): EntityPlayer? {
+    override fun getClientPlayer(): EntityPlayer {
         return Minecraft.getMinecraft().thePlayer
     }
 }
