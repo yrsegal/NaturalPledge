@@ -42,7 +42,6 @@ class BotanicalAddons {
         PacketHandler.register(SetToolbeltItemServer::class.java, Side.SERVER)
         PacketHandler.register(SetPositionMessage::class.java, Side.SERVER)
         PacketHandler.register(TargetPositionPacket::class.java, Side.CLIENT)
-        PacketHandler.register(TargetNotFoundPacket::class.java, Side.CLIENT)
 
         PROXY.pre(event)
     }

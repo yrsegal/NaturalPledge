@@ -24,6 +24,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
+import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import java.util.*
 
@@ -64,7 +65,9 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
         val dirVec = getDirVec(stack, entityIn) ?: return
         val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
+        Botania.proxy.setWispFXDepthTest(false)
         BotanicalAddons.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+        Botania.proxy.setWispFXDepthTest(true)
     }
 
     override fun onItemRightClick(stack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {

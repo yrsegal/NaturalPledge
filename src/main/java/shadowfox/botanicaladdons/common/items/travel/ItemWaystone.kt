@@ -7,15 +7,17 @@ import com.teamwizardry.librarianlib.common.network.PacketHandler
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
+import net.minecraftforge.fml.relauncher.Side
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.network.TargetNotFoundPacket
 import shadowfox.botanicaladdons.common.network.TargetPositionPacket
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
@@ -41,12 +43,36 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         }
 
     companion object {
+        init {
+            MinecraftForge.EVENT_BUS.register(this)
+        }
+
         val TAG_X = "x"
         val TAG_Y = "y"
         val TAG_Z = "z"
         val TAG_TRACK = "player"
 
         val LAST_KNOWN_POSITIONS = mutableMapOf<String, Pair<Int, Vec3d>>()
+
+        @SubscribeEvent
+        fun onWorldTick(e: TickEvent.WorldTickEvent) {
+            if (e.phase == TickEvent.Phase.START && e.side == Side.CLIENT) {
+                LAST_KNOWN_POSITIONS
+            } else if (e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
+                val names = linkedMapOf<String, Pair<Int, Vec3d>>()
+
+
+                for (entity in e.world.playerEntities)
+                    names.put(entity.displayNameString.toLowerCase(Locale.ROOT), e.world.provider.dimension to Vector3.fromEntityCenter(entity).subtract(Vector3(0.5, 0.5, 0.5)).toVec3D())
+
+                val keys = names.keys.toTypedArray()
+                val special = names.values.toList()
+                val dims = special.map { it.first }.toTypedArray()
+                val poses = special.map { it.second }.toTypedArray()
+                PacketHandler.NETWORK.sendToAll(TargetPositionPacket(keys, dims, poses))
+            }
+        }
+
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
@@ -124,27 +150,13 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
 
         if (entityIn !is EntityPlayer || entityIn.heldItemMainhand != stack && entityIn.heldItemOffhand != stack) return
 
-        if (!worldIn.isRemote && entityIn is EntityPlayerMP) {
-            val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
-            if (track != null) {
-                var flag = false
-                for (other in worldIn.playerEntities) {
-                    if (other.name == track) {
-                        PacketHandler.NETWORK.sendTo(TargetPositionPacket(Vector3.fromEntityCenter(other).subtract(Vector3(0.5, 0.5, 0.5)).toVec3D(), track), entityIn)
-                        flag = true
-                        break
-                    }
-                }
-                if (!flag)
-                    PacketHandler.NETWORK.sendTo(TargetNotFoundPacket(track), entityIn)
-            }
-        } else {
-            val startVec = Vector3.fromEntityCenter(entityIn)
-            val dirVec = getDirVec(stack, entityIn) ?: return
-            val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
+        val startVec = Vector3.fromEntityCenter(entityIn)
+        val dirVec = getDirVec(stack, entityIn) ?: return
+        val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-            BotanicalAddons.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
-        }
+        Botania.proxy.setWispFXDepthTest(false)
+        BotanicalAddons.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, BotanicalAddons.PROXY.wireFrameRainbow().rgb)
+        Botania.proxy.setWispFXDepthTest(true)
     }
 
     fun getDirVec(stack: ItemStack, player: Entity): Vector3? {
@@ -159,7 +171,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
         if (track != null) {
             if (player.worldObj.isRemote) {
-                val lastKnown = LAST_KNOWN_POSITIONS[track] ?: return null
+                val lastKnown = LAST_KNOWN_POSITIONS[track.toLowerCase(Locale.ROOT)] ?: return null
                 if (lastKnown.first != player.worldObj.provider.dimension) return null
                 return Vector3(lastKnown.second)
             } else return null
