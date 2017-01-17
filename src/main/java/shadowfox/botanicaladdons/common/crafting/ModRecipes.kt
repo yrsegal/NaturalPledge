@@ -136,7 +136,7 @@ object ModRecipes {
         RecipeSorter.register("${LibMisc.MOD_ID}:enchantRemover", RecipeEnchantmentRemoval::class.java, RecipeSorter.Category.SHAPELESS, "")
         GameRegistry.addRecipe(RecipeDynamicDye(ModItems.lightPlacer, true))
         GameRegistry.addRecipe(RecipeRainbowLensDye())
-        GameRegistry.addRecipe(RecipeEnchantmentRemoval())
+        GameRegistry.addRecipe(RecipeEnchantmentRemoval)
 
         recipeSymbol = addOreDictRecipe(ModItems.symbol,
                 "S S",

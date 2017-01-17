@@ -3,13 +3,13 @@ package shadowfox.botanicaladdons.common.crafting.recipe
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.init.Items
+import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.resetSeed
 import shadowfox.botanicaladdons.common.items.xp
 import shadowfox.botanicaladdons.common.items.xpSeed
 import java.util.*
@@ -19,7 +19,7 @@ import java.util.*
  * @author WireSegal
  * Created at 9:35 AM on 1/3/17.
  */
-class RecipeEnchantmentRemoval : IRecipe {
+object RecipeEnchantmentRemoval : IRecipe {
     override fun getRemainingItems(inv: InventoryCrafting): Array<ItemStack?> {
         var tome: ItemStack? = null
         var enchanted: ItemStack? = null
@@ -57,7 +57,6 @@ class RecipeEnchantmentRemoval : IRecipe {
             else if (stack.item == ModItems.xpTome) {
                 val final = stack.copy()
                 final.xp += k
-                final.resetSeed = true
                 final
             } else ForgeHooks.getContainerItem(inv.getStackInSlot(it))
         }
@@ -105,7 +104,9 @@ class RecipeEnchantmentRemoval : IRecipe {
         return finalEnchanted
     }
 
-    override fun matches(inv: InventoryCrafting, worldIn: World?): Boolean {
+    override fun matches(inv: InventoryCrafting, worldIn: World?) = matches(inv)
+
+    fun matches(inv: IInventory): Boolean {
         var foundTome = false
         var foundEnchanted = false
         (0 until inv.sizeInventory)

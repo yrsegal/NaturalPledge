@@ -17,8 +17,10 @@ import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.PlayerEvent
 import shadowfox.botanicaladdons.client.core.ITooltipBarItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.crafting.recipe.RecipeEnchantmentRemoval
 import java.awt.Color
 
 /**
@@ -44,6 +46,18 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
                 e.toolTip[0] = "$RESET($GREEN$BOLD$level$RESET) $displayName"
             }
         }
+
+        @SubscribeEvent
+        fun resetSeed(e: PlayerEvent.ItemCraftedEvent) {
+            val matrix = e.craftMatrix
+            if (RecipeEnchantmentRemoval.matches(matrix)) {
+                e.player.removeExperienceLevel(0)
+                (0 until matrix.sizeInventory)
+                        .mapNotNull { matrix.getStackInSlot(it) }
+                        .filter { it.item == ModItems.xpTome }
+                        .forEach { it.xpSeed = e.player.xpSeed }
+            }
+        }
     }
 
     override fun getHighlightTip(stack: ItemStack, displayName: String): String {
@@ -57,16 +71,8 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
     }
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
-        if (!worldIn.isRemote && entityIn is EntityPlayer) {
-            if (stack.resetSeed) {
-                stack.resetSeed = false
-                entityIn.removeExperienceLevel(0)
-
-                if (entityIn is EntityPlayerMP)
-                    entityIn.connection.sendPacket(SPacketSetExperience(entityIn.experience, entityIn.experienceTotal, entityIn.experienceLevel))
-            }
+        if (!worldIn.isRemote && entityIn is EntityPlayer)
             stack.xpSeed = entityIn.xpSeed
-        }
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
@@ -117,10 +123,6 @@ private val TAG_XP_AMOUNT = "xp"
 var ItemStack.xpSeed: Int
     get() = ItemNBTHelper.getInt(this, TAG_SEED, 0)
     set(value) = ItemNBTHelper.setInt(this, TAG_SEED, value)
-
-var ItemStack.resetSeed: Boolean
-    get() = ItemNBTHelper.getBoolean(this, TAG_RESET_SEED, false)
-    set(value) = ItemNBTHelper.setBoolean(this, TAG_RESET_SEED, value)
 
 var ItemStack.xp: Int
     get() = ItemNBTHelper.getInt(this, TAG_XP_AMOUNT, 0)
