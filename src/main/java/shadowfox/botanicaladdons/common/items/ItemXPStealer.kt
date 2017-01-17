@@ -73,7 +73,7 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
         if (!worldIn.isRemote) {
             if ((itemStackIn.xp == 0 || playerIn.isSneaking) && (playerIn.experienceLevel > 0 || playerIn.experience > 0)) {
                 val levels = playerIn.experienceLevel
-                itemStackIn.xp += (playerIn.experience * getLevelCap(levels + 1)).toInt() + (0 until levels).sumBy(::getLevelCap)
+                itemStackIn.xp += (playerIn.experience * getLevelCap(levels)).toInt() + (0 until levels).sumBy(::getLevelCap)
                 playerIn.experienceLevel = 0
                 playerIn.experience = 0.0f
                 playerIn.experienceTotal = 0
