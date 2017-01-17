@@ -8,9 +8,11 @@ import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.Style
@@ -67,6 +69,7 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
             te.playerName = playerIn.cachedUniqueIdString
             te.tickSet = worldIn.totalWorldTime
             if (!worldIn.isRemote) {
+                worldIn.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_STARE, SoundCategory.PLAYERS, 1f, 100f)
                 playerIn.addChatComponentMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.actuatorBind")
                         .setStyle(Style().setColor(TextFormatting.DARK_GREEN)))
                 te.markDirty()
