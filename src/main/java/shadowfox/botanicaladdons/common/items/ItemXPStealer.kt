@@ -86,6 +86,7 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
                 return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
 
             playerIn.addExperience(itemStackIn.xp)
+            playerIn.addScore(-itemStackIn.xp)
             itemStackIn.xp = 0
 
             if (playerIn is EntityPlayerMP)
