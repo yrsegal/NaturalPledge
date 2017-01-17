@@ -20,7 +20,7 @@ class RenderTileEnderActuator : TileEntitySpecialRenderer<TileEnderBind>() {
     val s = color[1]
     val maxV = color[2]
 
-    val ticksToActivate = 80
+    val ticksToActivate = 85
     val warmupTicks = 15
 
     override fun renderTileEntityAt(te: TileEnderBind, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int) {

@@ -188,10 +188,10 @@ object LexiconEntries {
         xpTome.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeXpTome))
 
 
-        corporeaRecall = EntryPriestlyKnowledge("corporeaRecall", BotaniaAPI.categoryEnder, ModItems.corporeaFocus, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        corporeaRecall = EntryPriestlyKnowledge("corporeaRecall", BotaniaAPI.categoryEnder, ModBlocks.corporeaResonator, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         corporeaRecall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeCorporeaResonator), PageCraftingRecipe("2", ModRecipes.recipeRecallStone))
 
-        enderActuator = EntryPriestlyKnowledge("enderActuator", BotaniaAPI.categoryEnder, ModBlocks.enderActuator, PriestlyEmblemHeimdall::class.java)
+        enderActuator = EntryPriestlyKnowledge("enderActuator", BotaniaAPI.categoryEnder, ModBlocks.enderActuator, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         enderActuator.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeEnderActuator))
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
