@@ -71,16 +71,19 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         if (!worldIn.isRemote) {
-            if ((itemStackIn.xp == 0 || playerIn.isSneaking) && playerIn.experienceTotal > 0) {
-                itemStackIn.xp += playerIn.experienceTotal
+            if ((itemStackIn.xp == 0 || playerIn.isSneaking) && (playerIn.experienceLevel > 0 || playerIn.experience > 0)) {
+                val levels = playerIn.experienceLevel
+                itemStackIn.xp += (playerIn.experience * getLevelCap(levels + 1)).toInt() + (0 until levels).sumBy(::getLevelCap)
                 playerIn.experienceLevel = 0
                 playerIn.experience = 0.0f
                 playerIn.experienceTotal = 0
+                if (playerIn is EntityPlayerMP)
+                    playerIn.connection.sendPacket(SPacketSetExperience(playerIn.experience, playerIn.experienceTotal, playerIn.experienceLevel))
                 return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
             }
 
             if (itemStackIn.xp == 0)
-                return ActionResult(EnumActionResult.PASS, itemStackIn)
+                return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
 
             playerIn.addExperience(itemStackIn.xp)
             itemStackIn.xp = 0
