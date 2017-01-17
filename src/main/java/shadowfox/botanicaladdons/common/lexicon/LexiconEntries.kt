@@ -83,6 +83,9 @@ object LexiconEntries {
 
     val xpTome: LexiconEntry
 
+    val corporeaRecall: LexiconEntry
+    val enderActuator: LexiconEntry
+
     init {
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
 
@@ -183,6 +186,13 @@ object LexiconEntries {
 
         xpTome = EntryPriestlyKnowledge("xpTome", divinity, ModItems.xpTome, PriestlyEmblemIdunn::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         xpTome.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeXpTome))
+
+
+        corporeaRecall = EntryPriestlyKnowledge("corporeaRecall", BotaniaAPI.categoryEnder, ModItems.corporeaFocus, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        corporeaRecall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeCorporeaResonator), PageCraftingRecipe("2", ModRecipes.recipeRecallStone))
+
+        enderActuator = EntryPriestlyKnowledge("enderActuator", BotaniaAPI.categoryEnder, ModBlocks.enderActuator, PriestlyEmblemHeimdall::class.java)
+        enderActuator.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeEnderActuator))
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
 

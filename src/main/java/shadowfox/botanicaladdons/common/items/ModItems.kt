@@ -17,6 +17,7 @@ import shadowfox.botanicaladdons.common.items.sacred.ItemFateHorn
 import shadowfox.botanicaladdons.common.items.sacred.ItemImmortalApple
 import shadowfox.botanicaladdons.common.items.sacred.ItemMjolnir
 import shadowfox.botanicaladdons.common.items.sacred.ItemSealerArrow
+import shadowfox.botanicaladdons.common.items.travel.ItemDeathCompass
 import shadowfox.botanicaladdons.common.items.travel.ItemTravelstone
 import shadowfox.botanicaladdons.common.items.travel.ItemWaystone
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemFoodBelt
@@ -63,6 +64,8 @@ object ModItems {
 
     val xpTome: ItemXPStealer
 
+    val corporeaFocus: ItemCorporeaFocus
+
     lateinit var gaiaKiller: ItemMod
 
     init {
@@ -101,6 +104,7 @@ object ModItems {
         ironBelt = ItemIronBelt(LibNames.IRON_BELT)
 
         xpTome = ItemXPStealer(LibNames.XP_TOME)
+        corporeaFocus = ItemCorporeaFocus(LibNames.CORPOREA_FOCUS)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

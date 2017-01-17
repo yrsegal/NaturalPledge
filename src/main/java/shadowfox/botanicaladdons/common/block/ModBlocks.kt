@@ -1,8 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
 import com.teamwizardry.librarianlib.common.base.block.BlockMod
-import net.minecraft.block.properties.PropertyEnum
-import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -27,7 +25,6 @@ import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
-import vazkii.botania.api.state.enums.AltGrassVariant
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
@@ -82,6 +79,9 @@ object ModBlocks {
 
     val thunderTrap: BlockMod
     val cracklingStar: BlockMod
+
+    val corporeaResonator: BlockMod
+    val enderActuator: BlockMod
 
     init {
         awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
@@ -154,6 +154,9 @@ object ModBlocks {
 
         thunderTrap = BlockThunderTrap(LibNames.TRAP)
         cracklingStar = BlockCracklingStar(LibNames.CRACKLING)
+
+        corporeaResonator = BlockCorporeaResonator(LibNames.CORPOREA_RESONATOR)
+        enderActuator = BlockEnderBind(LibNames.ENDER_ACTUATOR)
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TileCracklingStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.CRACKLING).toString())

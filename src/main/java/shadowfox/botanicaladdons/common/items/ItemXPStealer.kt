@@ -4,7 +4,9 @@ import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
+import net.minecraft.network.play.server.SPacketSetExperience
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
@@ -55,29 +57,37 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
     }
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
-        if (entityIn is EntityPlayer) {
+        if (!worldIn.isRemote && entityIn is EntityPlayer) {
             if (stack.resetSeed) {
                 stack.resetSeed = false
                 entityIn.removeExperienceLevel(0)
+
+                if (entityIn is EntityPlayerMP)
+                    entityIn.connection.sendPacket(SPacketSetExperience(entityIn.experience, entityIn.experienceTotal, entityIn.experienceLevel))
             }
             stack.xpSeed = entityIn.xpSeed
         }
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-        if ((itemStackIn.xp == 0 || playerIn.isSneaking) && playerIn.experienceTotal > 0) {
-            itemStackIn.xp += playerIn.experienceTotal
-            playerIn.experienceLevel = 0
-            playerIn.experience = 0.0f
-            playerIn.experienceTotal = 0
-            return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+        if (!worldIn.isRemote) {
+            if ((itemStackIn.xp == 0 || playerIn.isSneaking) && playerIn.experienceTotal > 0) {
+                itemStackIn.xp += playerIn.experienceTotal
+                playerIn.experienceLevel = 0
+                playerIn.experience = 0.0f
+                playerIn.experienceTotal = 0
+                return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+            }
+
+            if (itemStackIn.xp == 0)
+                return ActionResult(EnumActionResult.PASS, itemStackIn)
+
+            playerIn.addExperience(itemStackIn.xp)
+            itemStackIn.xp = 0
+
+            if (playerIn is EntityPlayerMP)
+                playerIn.connection.sendPacket(SPacketSetExperience(playerIn.experience, playerIn.experienceTotal, playerIn.experienceLevel))
         }
-
-        if (itemStackIn.xp == 0)
-            return ActionResult(EnumActionResult.PASS, itemStackIn)
-
-        playerIn.addExperience(itemStackIn.xp)
-        itemStackIn.xp = 0
         return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
     }
 

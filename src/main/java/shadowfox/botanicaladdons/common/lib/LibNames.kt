@@ -27,6 +27,7 @@ object LibNames {
     val DIVINE_CLOAK = "divineCloak"
     val IRON_BELT = "ironBelt"
     val XP_TOME = "xpTome"
+    val CORPOREA_FOCUS = "corporeaFocus"
 
 
     val SPELL_LEAP = "leap"
@@ -83,6 +84,8 @@ object LibNames {
     val FUNNEL = "funnel"
     val TRAP = "trap"
     val CRACKLING = "cracklingStar"
+    val CORPOREA_RESONATOR = "corporeaResonator"
+    val ENDER_ACTUATOR = "actuator"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"

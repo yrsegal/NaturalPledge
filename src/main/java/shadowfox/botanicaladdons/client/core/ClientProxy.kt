@@ -9,7 +9,9 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.client.render.entity.RenderSealedArrow
+import shadowfox.botanicaladdons.client.render.tile.RenderTileEnderActuator
 import shadowfox.botanicaladdons.client.render.tile.RenderTileFrozenStar
+import shadowfox.botanicaladdons.common.block.BlockEnderBind.TileEnderBind
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.core.CommonProxy
 import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
@@ -32,6 +34,7 @@ class ClientProxy : CommonProxy() {
     override fun init(e: FMLInitializationEvent) {
         super.init(e)
         ClientRegistry.bindTileEntitySpecialRenderer(TileStar::class.java, RenderTileFrozenStar())
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEnderBind::class.java, RenderTileEnderActuator())
     }
 
     override fun particleEmission(pos: Vector3, color: Int, probability: Float) {

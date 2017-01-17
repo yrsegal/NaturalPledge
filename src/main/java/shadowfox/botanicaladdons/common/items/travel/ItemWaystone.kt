@@ -95,7 +95,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     }
 
     override fun onItemUse(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
-        if (player.isSneaking) {
+        if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
             if (world.isRemote) {
                 player.swingArm(hand)
                 for (i in 0..9) {
@@ -103,8 +103,8 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
                     val y1 = (pos.y + 1).toFloat()
                     val z1 = (pos.z + Math.random()).toFloat()
                     Botania.proxy.wispFX(x1.toDouble(), y1.toDouble(), z1.toDouble(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat() * 0.5f, -0.05f + Math.random().toFloat() * 0.05f)
-                    return EnumActionResult.SUCCESS
                 }
+                return EnumActionResult.SUCCESS
             } else {
                 ItemNBTHelper.setInt(stack, TAG_X, pos.x)
                 ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
@@ -119,7 +119,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     }
 
     override fun onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-        if (player.isSneaking) {
+        if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
             if (world.isRemote) {
                 player.swingArm(hand)
                 for (i in 0..9) {

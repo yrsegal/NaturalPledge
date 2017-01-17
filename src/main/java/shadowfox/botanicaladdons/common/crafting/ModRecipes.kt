@@ -124,6 +124,10 @@ object ModRecipes {
 
     val recipeXpTome: IRecipe
 
+    val recipeCorporeaResonator: IRecipe
+    val recipeRecallStone: IRecipe
+    val recipeEnderActuator: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -498,6 +502,27 @@ object ModRecipes {
                 'R', LibOreDict.LIFE_ROOT,
                 'P', BotaniaOreDict.PIXIE_DUST,
                 'B', Items.BOOK)
+
+        recipeCorporeaResonator = addOreDictRecipe(ModBlocks.corporeaResonator,
+                "ABA",
+                "OSO",
+                "BAB",
+                'A', BotaniaOreDict.ENDER_AIR_BOTTLE,
+                'B', LibOreDict.IRIS_DYES[3], // Black
+                'O', "obsidian",
+                'S', BotaniaItems.corporeaSpark)
+
+        recipeRecallStone = addShapelessOreDictRecipe(ModItems.corporeaFocus,
+                ModItems.finder, BotaniaItems.corporeaSpark)
+
+        recipeEnderActuator = addOreDictRecipe(ModBlocks.enderActuator,
+                "PBE",
+                "BCB",
+                "EBP",
+                'P', BotaniaOreDict.MANA_PEARL,
+                'B', LibOreDict.IRIS_DYES[15], // Black
+                'E', Items.ENDER_EYE,
+                'C', "chestEnder")
 
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)

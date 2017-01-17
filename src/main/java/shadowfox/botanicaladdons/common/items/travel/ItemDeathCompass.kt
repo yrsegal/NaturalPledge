@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.items
+package shadowfox.botanicaladdons.common.items.travel
 
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
@@ -71,7 +71,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
     }
 
     override fun onItemRightClick(stack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
-        if (player.isSneaking && getBinding(stack) != null) {
+        if (player.isSneaking && getBinding(stack) != null && hand == EnumHand.MAIN_HAND) {
             ItemNBTHelper.removeEntry(stack, TAG_X)
             ItemNBTHelper.removeEntry(stack, TAG_Y)
             ItemNBTHelper.removeEntry(stack, TAG_Z)
@@ -162,14 +162,10 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             val cmp1 = cmp.getCompoundTag(TAG_PLAYER_KEPT_DROPS)
 
             val count = cmp1.getInteger(TAG_DROP_COUNT)
-            for (i in 0..count - 1) {
-                val cmp2 = cmp1.getCompoundTag(TAG_DROP_PREFIX + i)
-                val stack = ItemStack.loadItemStackFromNBT(cmp2)
-                if (stack != null) {
-                    val copy = stack.copy()
-                    event.player.inventory.addItemStackToInventory(copy)
-                }
-            }
+            (0..count - 1)
+                    .map { cmp1.getCompoundTag(TAG_DROP_PREFIX + it) }
+                    .mapNotNull { ItemStack.loadItemStackFromNBT(it)?.copy() }
+                    .forEach { event.player.inventory.addItemStackToInventory(it) }
 
             cmp.setTag(TAG_PLAYER_KEPT_DROPS, NBTTagCompound())
         }
