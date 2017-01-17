@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.client.render.tile
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import org.lwjgl.opengl.GL11
+import shadowfox.botanicaladdons.common.block.BlockEnderBind.Companion.DEFAULT_COLOR
 import shadowfox.botanicaladdons.common.block.BlockEnderBind.TileEnderBind
 import vazkii.botania.client.core.helper.RenderHelper
 import java.awt.Color
@@ -14,12 +15,13 @@ import java.util.*
  */
 class RenderTileEnderActuator : TileEntitySpecialRenderer<TileEnderBind>() {
 
-    val h = 98 / 255f
-    val s = 0.76f
-    val maxV = 0.46f
+    val color: FloatArray = Color.RGBtoHSB(DEFAULT_COLOR.red, DEFAULT_COLOR.green, DEFAULT_COLOR.blue, null)
+    val h = color[0]
+    val s = color[1]
+    val maxV = color[2]
 
-    val ticksToActivate = 50
-    val warmupTicks = 30
+    val ticksToActivate = 80
+    val warmupTicks = 15
 
     override fun renderTileEntityAt(te: TileEnderBind, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int) {
         if (te.playerName == null) return

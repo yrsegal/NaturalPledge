@@ -37,7 +37,7 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILexiconable {
 
     companion object {
-        val DEFAULT_COLOR = Color(0x3C751C)
+        val DEFAULT_COLOR = Color(0x1B7463)
 
         val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
     }
