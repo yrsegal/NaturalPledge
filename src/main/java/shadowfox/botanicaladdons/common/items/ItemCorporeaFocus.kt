@@ -115,7 +115,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
 
                 resonator.doCorporeaRequest(name, count, spark)
                 event.player.addChatMessage(TextComponentTranslation("botaniamisc.requestMsg",
-                        if (count == Int.MAX_VALUE) TextComponentTranslation("misc.botanicaladdons.all") else count,
+                        if (count == Int.MAX_VALUE) "\u221E" else count,
                         WordUtils.capitalizeFully(name),
                         CorporeaHelper.lastRequestMatches + CorporeaHelper.lastRequestExtractions,
                         CorporeaHelper.lastRequestExtractions)
