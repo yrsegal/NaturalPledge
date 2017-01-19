@@ -5,12 +5,14 @@ import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import com.teamwizardry.librarianlib.common.util.MethodHandleHelper
 import net.minecraft.client.Minecraft
+import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
@@ -28,11 +30,13 @@ import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator
 import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator.TileCorporeaResonator
 import vazkii.botania.api.corporea.CorporeaHelper
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController
+import vazkii.botania.api.corporea.ICorporeaSpark
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
 import vazkii.botania.common.achievement.ModAchievements
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex
+import vazkii.botania.common.entity.EntityCorporeaSpark
 import java.util.regex.Pattern
 
 /**
@@ -51,10 +55,33 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
             CorporeaHelper.registerAutoCompleteController(this)
         }
 
-        val patternsGetter = MethodHandleHelper.wrapperForStaticGetter(TileCorporeaIndex::class.java, "patterns")
+        private val patternsGetter = MethodHandleHelper.wrapperForStaticGetter(TileCorporeaIndex::class.java, "patterns")
         @Suppress("UNCHECKED_CAST")
-        val patterns: Map<Pattern, TileCorporeaIndex.IRegexStacker> by lazy {
+        private val patterns: Map<Pattern, TileCorporeaIndex.IRegexStacker> by lazy {
             patternsGetter() as Map<Pattern, TileCorporeaIndex.IRegexStacker>
+        }
+
+        private val restartNetwork = MethodHandleHelper.wrapperForMethod(EntityCorporeaSpark::class.java, arrayOf("restartNetwork"))
+
+        private val setMaster = MethodHandleHelper.wrapperForSetter(EntityCorporeaSpark::class.java, "master")
+
+        private fun getNearbySparks(spark: Entity): List<ICorporeaSpark> {
+            return spark.worldObj.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(spark.posX - 8.0, spark.posY - 8.0, spark.posZ - 8.0, spark.posX + 8.0, spark.posY + 8.0, spark.posZ + 8.0)) {
+                it is ICorporeaSpark
+            }.filterIsInstance<ICorporeaSpark>()
+        }
+
+        private fun findNetwork(spark: ICorporeaSpark) {
+            if (spark !is EntityCorporeaSpark) return
+
+            val sparks = getNearbySparks(spark)
+            if (sparks.isNotEmpty()) for (other in sparks) if (other.network == spark.network && !(other as Entity).isDead) {
+                val master = (other.master ?: if (other.isMaster) other else null) ?: continue
+
+                setMaster(spark, master)
+                restartNetwork(spark, arrayOf())
+                break
+            }
         }
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -64,6 +91,9 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
                 val pos = getBinding(item, event.player.worldObj) ?: return
                 val resonator = event.player.worldObj.getTileEntity(pos) as? TileCorporeaResonator ?: return
                 val spark = CorporeaHelper.getSparkForBlock(event.player.worldObj, pos) ?: return
+
+                (spark as Entity).onUpdate()
+                if (spark.master == null) findNetwork(spark)
 
                 val msg = event.message.toLowerCase().trim { it <= ' ' }
 
@@ -85,10 +115,10 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
 
                 resonator.doCorporeaRequest(name, count, spark)
                 event.player.addChatMessage(TextComponentTranslation("botaniamisc.requestMsg",
-                        Integer.valueOf(count),
+                        if (count == Int.MAX_VALUE) TextComponentTranslation("misc.botanicaladdons.all") else count,
                         WordUtils.capitalizeFully(name),
-                        Integer.valueOf(CorporeaHelper.lastRequestMatches),
-                        Integer.valueOf(CorporeaHelper.lastRequestExtractions))
+                        CorporeaHelper.lastRequestMatches + CorporeaHelper.lastRequestExtractions,
+                        CorporeaHelper.lastRequestExtractions)
                         .setStyle(Style().setColor(TextFormatting.LIGHT_PURPLE)))
                 event.isCanceled = true
                 if (CorporeaHelper.lastRequestExtractions >= 50000) event.player.addStat(ModAchievements.superCorporeaRequest, 1)
