@@ -107,6 +107,7 @@ class PriestlyEmblemNjord : IFaithVariant {
             val state = player.worldObj.getBlockState(ray.blockPos)
             if (state.material.isLiquid) {
                 var helditem = player.heldItemMainhand
+                if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                 var result: EnumActionResult? = null
                 if (helditem != null) {
                     result = helditem.item?.onItemUse(helditem, player, player.worldObj,
@@ -120,13 +121,16 @@ class PriestlyEmblemNjord : IFaithVariant {
                                     ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
                         }
                     }
+                    if (result != null && result != EnumActionResult.PASS) player.swingArm(EnumHand.MAIN_HAND)
                 } else {
                     helditem = player.heldItemOffhand
+                    if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                     if (helditem != null) {
                         result = helditem.item?.onItemUse(helditem, player, player.worldObj,
                                 ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
                                 ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
                     }
+                    if (result != null && result != EnumActionResult.PASS) player.swingArm(EnumHand.OFF_HAND)
                 }
 
                 if (result != null && result != EnumActionResult.PASS) {
