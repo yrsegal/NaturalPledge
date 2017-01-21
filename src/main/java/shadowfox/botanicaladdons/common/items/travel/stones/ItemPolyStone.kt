@@ -48,10 +48,10 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
         fun onPlayerTick(e: LivingEvent.LivingUpdateEvent) {
             val entity = e.entityLiving
             if (entity is EntityPlayer) {
-                val baubles = BaublesApi.getBaublesHandler(entity)
+                val baubles = BaublesApi.getBaublesHandler(entity) ?: return
                 if (BaubleType.RING.validSlots
                         .map { baubles.getStackInSlot(it) }
-                        .none { it.item == BotaniaItems.swapRing }) return
+                        .none { it?.item == BotaniaItems.swapRing }) return
 
                 val currentStack = entity.heldItemMainhand
                 if (currentStack != null && currentStack.item is ISortableTool) {
