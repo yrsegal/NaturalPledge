@@ -1,8 +1,11 @@
 package shadowfox.botanicaladdons.common.core
 
+import com.teamwizardry.librarianlib.common.network.PacketHandler
 import com.teamwizardry.librarianlib.common.util.EasyConfigHandler
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -16,10 +19,13 @@ import shadowfox.botanicaladdons.common.integration.tinkers.TinkersProxy
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
+import shadowfox.botanicaladdons.common.network.SpamlessMessagePacket
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.brew.ModBrews
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
+
+
 
 /**
  * @author WireSegal
@@ -88,6 +94,12 @@ open class CommonProxy {
 
     open fun getClientPlayer(): EntityPlayer {
         throw UnsupportedOperationException("Server side doesn't have a client side player!")
+    }
+
+    // From ShadowMC
+    open fun sendSpamlessMessage(player: EntityPlayer, msg: ITextComponent, id: Int) {
+        if (player !is EntityPlayerMP) return
+        PacketHandler.NETWORK.sendTo(SpamlessMessagePacket(msg, id), player)
     }
 
 }

@@ -60,6 +60,10 @@ item.botanicaladdons:ironBelt.name=Weighted Belt
 item.botanicaladdons:xpTome.name=Tome of the Ages
 
 item.botanicaladdons:corporeaFocus.name=Stone of Recall
+item.botanicaladdons:sleepStone.name=Stone of Meditation
+item.botanicaladdons:portalStone.name=Stone of Nether Fracture
+item.botanicaladdons:polyStone.name=Stone of Assimilation
+item.botanicaladdons:stoneStone.name=Stone of Collection
 
 enchantment.botanicaladdons.light=Streamlined
 enchantment.botanicaladdons.light.desc=Quicker to swing, you move lithely while you hold it, at the cost of reduced damage.

@@ -1,5 +1,5 @@
 {
-  "parent": "botanicaladdons:item/_standard_item",
+  "parent": "item/handheld",
   "textures": {
     "layer0": "botanicaladdons:item/prismRodCrystal",
     "layer1": "botanicaladdons:item/prismRod"

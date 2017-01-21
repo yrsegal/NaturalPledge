@@ -28,6 +28,10 @@ object LibNames {
     val IRON_BELT = "ironBelt"
     val XP_TOME = "xpTome"
     val CORPOREA_FOCUS = "corporeaFocus"
+    val PORTAL_STONE = "portalStone"
+    val SLEEP_STONE = "sleepStone"
+    val POLY_STONE = "polyStone"
+    val STONE_STONE = "stoneStone"
 
 
     val SPELL_LEAP = "leap"

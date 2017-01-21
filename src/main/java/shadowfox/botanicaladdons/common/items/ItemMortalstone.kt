@@ -11,6 +11,7 @@ import net.minecraft.potion.PotionEffect
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.item.IDiscordantItem
+import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.potions.ModPotions
@@ -26,7 +27,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 12:15 PM on 4/25/16.
  */
-class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordantItem, IManaItem, IManaTooltipDisplay, IItemColorProvider {
+class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordantItem, IManaItem, IManaTooltipDisplay, IItemColorProvider, IStoneItem {
 
     val RANGE = 5.0
 
@@ -40,6 +41,8 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
     init {
         setMaxStackSize(1)
     }
+
+    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->

@@ -17,11 +17,9 @@ import shadowfox.botanicaladdons.common.items.sacred.ItemFateHorn
 import shadowfox.botanicaladdons.common.items.sacred.ItemImmortalApple
 import shadowfox.botanicaladdons.common.items.sacred.ItemMjolnir
 import shadowfox.botanicaladdons.common.items.sacred.ItemSealerArrow
-import shadowfox.botanicaladdons.common.items.travel.ItemDeathCompass
-import shadowfox.botanicaladdons.common.items.travel.ItemTravelstone
-import shadowfox.botanicaladdons.common.items.travel.ItemWaystone
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemFoodBelt
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
+import shadowfox.botanicaladdons.common.items.travel.stones.*
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.common.item.ModItems as BotaniaItems
@@ -65,6 +63,8 @@ object ModItems {
     val xpTome: ItemXPStealer
 
     val corporeaFocus: ItemCorporeaFocus
+    val sleepStone: ItemSleepStone
+    val portalStone: ItemPortalStone
 
     lateinit var gaiaKiller: ItemMod
 
@@ -105,6 +105,8 @@ object ModItems {
 
         xpTome = ItemXPStealer(LibNames.XP_TOME)
         corporeaFocus = ItemCorporeaFocus(LibNames.CORPOREA_FOCUS)
+        sleepStone = ItemSleepStone(LibNames.SLEEP_STONE)
+        portalStone = ItemPortalStone(LibNames.PORTAL_STONE)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

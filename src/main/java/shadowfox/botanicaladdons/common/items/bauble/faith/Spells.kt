@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import com.google.common.base.Predicate
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
@@ -40,10 +41,8 @@ import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
 import vazkii.botania.common.block.tile.TileBifrost
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
-
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
@@ -167,11 +166,7 @@ object Spells {
 
         fun checkStack(stack: ItemStack, key: String): Boolean {
             val ores = OreDictionary.getOres(key, false)
-            for (ore in ores) {
-                if (OreDictionary.itemMatches(stack, ore, false))
-                    return true
-            }
-            return false
+            return ores.any { OreDictionary.itemMatches(stack, it, false) }
         }
     }
 
@@ -191,9 +186,7 @@ object Spells {
         override fun getIconStack() = icon
 
         override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult? {
-            var flag = false
-            for (i in objectInfusionEntries) if (processEntry(player, focus, i))
-                flag = true
+            val flag = objectInfusionEntries.any { processEntry(player, focus, it) }
             return if (flag) EnumActionResult.SUCCESS else EnumActionResult.FAIL
         }
 

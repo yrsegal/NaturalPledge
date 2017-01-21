@@ -4,6 +4,7 @@ import baubles.api.BaublesApi
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -141,5 +142,10 @@ class ClientProxy : CommonProxy() {
 
     override fun getClientPlayer(): EntityPlayer {
         return Minecraft.getMinecraft().thePlayer
+    }
+
+    override fun sendSpamlessMessage(player: EntityPlayer, msg: ITextComponent, id: Int) {
+        val chat = Minecraft.getMinecraft().ingameGUI.chatGUI
+        chat.printChatMessageWithOptionalDeletion(msg, id)
     }
 }

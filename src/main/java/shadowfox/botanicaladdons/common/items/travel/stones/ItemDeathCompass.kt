@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.items.travel
+package shadowfox.botanicaladdons.common.items.travel.stones
 
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
@@ -20,6 +20,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerDropsEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
+import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import vazkii.botania.api.sound.BotaniaSoundEvents
@@ -32,13 +33,14 @@ import java.util.*
  * @author WireSegal
  * Created at 10:02 PM on 6/8/16.
  */
-class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
+class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider, IStoneItem {
 
     init {
         setMaxStackSize(1)
         MinecraftForge.EVENT_BUS.register(this)
     }
 
+    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->
@@ -136,13 +138,11 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             val cmp = NBTTagCompound()
             cmp.setInteger(TAG_DROP_COUNT, keeps.size)
 
-            var i = 0
-            for (keep in keeps) {
+            for ((i, keep) in keeps.withIndex()) {
                 val stack = keep.entityItem
                 val cmp1 = NBTTagCompound()
                 stack.writeToNBT(cmp1)
                 cmp.setTag(TAG_DROP_PREFIX + i, cmp1)
-                i++
             }
 
             val data = event.entityPlayer.entityData

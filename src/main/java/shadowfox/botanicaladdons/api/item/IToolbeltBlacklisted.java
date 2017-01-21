@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public interface IToolbeltBlacklisted {
     /**
      * @param stack The stack to check.
-     * @return Whether the stack is allowed in the Botanist's Toolbelt.
+     * @return Whether the stack is allowed in the Traveller's Toolbelt.
      */
     boolean allowedInToolbelt(@Nonnull ItemStack stack);
 }

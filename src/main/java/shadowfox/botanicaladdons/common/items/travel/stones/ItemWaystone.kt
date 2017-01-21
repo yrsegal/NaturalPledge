@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.items.travel
+package shadowfox.botanicaladdons.common.items.travel.stones
 
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
@@ -16,6 +16,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.relauncher.Side
+import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.network.TargetPositionPacket
@@ -29,11 +30,13 @@ import java.util.*
  * @author WireSegal
  * Created at 8:31 PM on 5/5/16.
  */
-class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
+class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider, IStoneItem {
 
     init {
         setMaxStackSize(1)
     }
+
+    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->

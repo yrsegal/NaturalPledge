@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.items.travel
+package shadowfox.botanicaladdons.common.items.travel.stones
 
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
@@ -9,6 +9,7 @@ import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
+import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.ModItems
 import java.util.*
@@ -17,12 +18,14 @@ import java.util.*
  * @author WireSegal
  * Created at 8:31 PM on 5/5/16.
  */
-class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider {
+class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider, IStoneItem {
 
     init {
         MinecraftForge.EVENT_BUS.register(Companion)
         setMaxStackSize(1)
     }
+
+    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->

@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.common.items
+package shadowfox.botanicaladdons.common.items.travel.stones
 
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
@@ -22,6 +22,7 @@ import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.commons.lang3.text.WordUtils
+import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator
 import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator.TileCorporeaResonator
@@ -40,7 +41,7 @@ import java.util.regex.Pattern
  * @author WireSegal
  * Created at 7:45 PM on 1/16/17.
  */
-class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
+class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider, IStoneItem {
     companion object : ICorporeaAutoCompleteController {
         val TAG_X = "x"
         val TAG_Y = "y"
@@ -105,10 +106,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
                     }
                 }
 
-                if (name == "this") {
-                    val stack1 = event.player.heldItemMainhand
-                    if (stack1 != null) name = stack1.displayName.toLowerCase().trim { it <= ' ' }
-                }
+                if (name == "this") name = item.displayName.toLowerCase().trim { it <= ' ' }
 
                 resonator.doCorporeaRequest(name, count, spark)
                 event.player.addChatMessage(TextComponentTranslation("botaniamisc.requestMsg",
@@ -135,6 +133,8 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
             return if (y == Int.MIN_VALUE) null else BlockPos(x, y, z)
         }
     }
+
+    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override fun getBinding(stack: ItemStack): BlockPos? {
         val x = ItemNBTHelper.getInt(stack, TAG_X, 0)

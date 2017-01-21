@@ -6,7 +6,7 @@ import com.teamwizardry.librarianlib.common.util.writeString
 import io.netty.buffer.ByteBuf
 import net.minecraft.util.math.Vec3d
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
-import shadowfox.botanicaladdons.common.items.travel.ItemWaystone
+import shadowfox.botanicaladdons.common.items.travel.stones.ItemWaystone
 
 /**
  * @author WireSegal
