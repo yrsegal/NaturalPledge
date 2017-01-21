@@ -10,9 +10,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.MobEffects
 import net.minecraft.item.ItemFood
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
@@ -52,13 +50,9 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
             val foods = mutableMapOf<Int, ItemStack>()
             for (i in 0..8) {
                 val food = player.inventory.getStackInSlot(i) ?: continue
-                if (isEdible(food, player)) {
+                if (isEdible(food, player)
+                        || (food.item == ModItems.infiniteFruit && ManaItemHandler.requestManaExact(food, player, 500, false)))
                     foods.put(i, food)
-                } else if (food.item == ModItems.infiniteFruit) {
-                    if (ManaItemHandler.requestManaExact(food, player, 500, false)) {
-                        foods.put(i, food)
-                    }
-                }
             }
 
             val food = foods.entries.sortedByDescending {
@@ -74,8 +68,7 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
                 player.inventory.setInventorySlotContents(food.key, newFood)
             } else if (food.value.item == ModItems.infiniteFruit) {
                 ManaItemHandler.requestManaExact(food.value, player, 500, false)
-                val amountNeeded = 20 - player.foodStats.foodLevel
-                for (i in 1..amountNeeded) player.foodStats.addStats(1, 1f)
+                for (i in 0 until 20) player.foodStats.addStats(1, 1f)
             }
         }
     }
