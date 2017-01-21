@@ -86,6 +86,10 @@ object LexiconEntries {
     val corporeaRecall: LexiconEntry
     val enderActuator: LexiconEntry
 
+    val sleepStone: LexiconEntry
+    val netherStone: LexiconEntry
+    val polyStone: LexiconEntry
+
     init {
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
 
@@ -193,6 +197,15 @@ object LexiconEntries {
 
         enderActuator = EntryPriestlyKnowledge("enderActuator", BotaniaAPI.categoryEnder, ModBlocks.enderActuator, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         enderActuator.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeEnderActuator))
+
+        sleepStone = EntryPriestlyKnowledge("sleepStone", divinity, ModItems.sleepStone, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        sleepStone.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeSleepStone))
+
+        netherStone = EntryPriestlyKnowledge("netherStone", divinity, ModItems.portalStone, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        netherStone.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeNetherStone))
+
+        polyStone = EntryPriestlyKnowledge("polyStone", divinity, ModItems.polyStone, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        polyStone.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipePolyStone))
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
 

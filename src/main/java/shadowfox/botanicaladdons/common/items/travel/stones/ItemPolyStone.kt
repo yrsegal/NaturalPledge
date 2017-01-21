@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.ModItems
+import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.ISortableTool
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 import vazkii.botania.common.item.ModItems as BotaniaItems
@@ -23,7 +24,7 @@ import vazkii.botania.common.item.ModItems as BotaniaItems
  * @author WireSegal
  * Created at 10:19 AM on 1/21/17.
  */
-class ItemPolyStone(name: String) : ItemModTool(name, ToolMaterial.IRON, setOf()), IItemColorProvider, ISortableTool {
+class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMaterial, setOf()), IItemColorProvider, ISortableTool {
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->
             if (i == 1)

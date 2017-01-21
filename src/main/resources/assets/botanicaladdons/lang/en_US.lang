@@ -63,7 +63,6 @@ item.botanicaladdons:corporeaFocus.name=Stone of Recall
 item.botanicaladdons:sleepStone.name=Stone of Meditation
 item.botanicaladdons:portalStone.name=Stone of Nether Fracture
 item.botanicaladdons:polyStone.name=Stone of Assimilation
-item.botanicaladdons:stoneStone.name=Stone of Collection
 
 enchantment.botanicaladdons.light=Streamlined
 enchantment.botanicaladdons.light.desc=Quicker to swing, you move lithely while you hold it, at the cost of reduced damage.
@@ -557,3 +556,18 @@ botanicaladdons.entry.enderActuator=Ender Actuator
 botanicaladdons.tagline.enderActuator=Control your Ender Chest remotely
 botanicaladdons.page.enderActuator0=The &1Ender Actuator&0 is an interesting block, allowing resonance with your &4Ender Chest&0 from across the world. To activate one, click a disabled one and it will begin to shine. As long as you are in the same dimension as a bound &1Actuator&0, it will act as an interface for your &4Ender Chest&0 for machines to use.
 botanicaladdons.page.enderActuator1=Not a tessaract
+
+botanicaladdons.entry.sleepStone=Stone of Meditation
+botanicaladdons.tagline.sleepStone=Sleep far away from a base
+botanicaladdons.page.sleepStone0=When travelling far away from home, it can often be hard to seep to accelerate the night. If you use a &1Stone of Meditation&0, it allows you to simulate sleep from far away from a base. Hold it and you'll begin to meditate, simulating sleep in a &1Bed&0.
+botanicaladdons.page.sleepStone1=Peer into the Spirit
+
+botanicaladdons.entry.netherStone=Stone of Nether Fracture
+botanicaladdons.tagline.netherStone=Point to your last portal
+botanicaladdons.page.netherStone0=The &1Stone of Nether Fracture&0 acts like a &1Traveller's Waystone&0, except it points directly to the last &4Nether Portal&0 you stepped through. Like the &1Stone of Return&0, shift-clicking in the air will lear its destination.
+botanicaladdons.page.netherStone1=Keralian resonance
+
+botanicaladdons.entry.polyStone=Stone of Assimilation
+botanicaladdons.tagline.polyStone=Break things your tools won't normally
+botanicaladdons.page.polyStone0=If a regular &4Manasteel Tool&0 won't do the job, the &1Stone of Assimilation&0 just might. Anything a regular tool can't break quickly, like &1Glass&0 or &1Leaves&0, the Stone of Assimilation can. It works with the &1Ring of Correction&0. It can also be enchanted just like a regular manasteel tool.
+botanicaladdons.page.polyStone1=We are all stones on this blessed day

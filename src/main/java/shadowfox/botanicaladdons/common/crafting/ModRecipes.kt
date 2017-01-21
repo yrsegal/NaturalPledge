@@ -128,6 +128,10 @@ object ModRecipes {
     val recipeRecallStone: IRecipe
     val recipeEnderActuator: IRecipe
 
+    val recipeSleepStone: IRecipe
+    val recipeNetherStone: IRecipe
+    val recipePolyStone: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -523,6 +527,31 @@ object ModRecipes {
                 'B', LibOreDict.IRIS_DYES[15], // Black
                 'E', Items.ENDER_EYE,
                 'C', "chestEnder")
+
+        recipeSleepStone = addOreDictRecipe(ModItems.sleepStone,
+                "CCS",
+                "WWW",
+                'C', ItemStack(Blocks.CARPET, 1, OreDictionary.WILDCARD_VALUE),
+                'S', ModItems.travelStone,
+                'W', ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE))
+
+        recipeNetherStone = addOreDictRecipe(ModItems.portalStone,
+                "OOO",
+                "OSO",
+                "OOO",
+                'O', "obsidian",
+                'S', ModItems.finder)
+
+        recipePolyStone = addOreDictRecipe(ModItems.polyStone,
+                "MPM",
+                "SFA",
+                "MHM",
+                'M', BotaniaBlocks.manaGlass,
+                'P', BotaniaItems.manasteelPick,
+                'S', BotaniaItems.manasteelShovel,
+                'F', ModItems.travelStone,
+                'A', BotaniaItems.manasteelAxe,
+                'H', BotaniaItems.manasteelShears)
 
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)

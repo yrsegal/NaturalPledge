@@ -76,16 +76,14 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
-        if (attemptSleep(player)) {
-            player.activeHand = hand
-            return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
-        }
-        return ActionResult(EnumActionResult.FAIL, itemStackIn)
+        if (worldIn.isRemote) return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+        if (attemptSleep(player)) player.activeHand = hand
+        return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
     }
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
         if (player !is EntityPlayer) return
-        if (!attemptSleep(player))
+        if (!player.worldObj.isRemote && !attemptSleep(player))
             player.resetActiveHand()
     }
 
@@ -96,10 +94,10 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
         }
         entityLiving.worldObj.playSound(null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
 
-        for (i in 0..20) {
-            val x1 = (entityLiving.posX + Math.random()).toFloat()
-            val y1 = (entityLiving.posY + 0.5 + Math.random()).toFloat()
-            val z1 = (entityLiving.posZ + Math.random()).toFloat()
+        for (i in 0..50) {
+            val x1 = (entityLiving.posX - 0.5 + Math.random()).toFloat()
+            val y1 = (entityLiving.posY + Math.random() * 2).toFloat()
+            val z1 = (entityLiving.posZ - 0.5 + Math.random()).toFloat()
             Botania.proxy.wispFX(x1.toDouble(), y1.toDouble(), z1.toDouble(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat() * 0.5f, -0.05f + Math.random().toFloat() * 0.05f)
         }
 
