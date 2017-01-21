@@ -4,7 +4,6 @@ import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import com.teamwizardry.librarianlib.common.util.MethodHandleHelper
-import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -22,8 +21,6 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import org.apache.commons.lang3.text.WordUtils
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator
@@ -92,7 +89,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
                 val resonator = event.player.worldObj.getTileEntity(pos) as? TileCorporeaResonator ?: return
                 val spark = CorporeaHelper.getSparkForBlock(event.player.worldObj, pos) ?: return
 
-                (spark as Entity).onUpdate()
+                if (spark.master == null) (spark as Entity).onUpdate()
                 if (spark.master == null) findNetwork(spark)
 
                 val msg = event.message.toLowerCase().trim { it <= ' ' }
@@ -125,9 +122,8 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
             }
         }
 
-        @SideOnly(Side.CLIENT)
         override fun shouldAutoComplete(): Boolean {
-            return Minecraft.getMinecraft().thePlayer.heldItemMainhand?.item is ItemCorporeaFocus
+            return BotanicalAddons.PROXY.getClientPlayer().heldItemMainhand?.item is ItemCorporeaFocus
         }
 
         fun getBinding(stack: ItemStack, world: World): BlockPos? {

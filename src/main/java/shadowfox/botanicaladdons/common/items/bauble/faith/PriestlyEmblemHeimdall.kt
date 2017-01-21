@@ -79,6 +79,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
                 if (ManaItemHandler.requestManaExact(emblem, player, 10, false)) {
                     val motVec = getMotionVec(player)
                     val pos = BlockPos(player.posX + motVec.x, Math.floor(player.posY + if (player.isSneaking) -2.75 else -.75), player.posZ + motVec.z)
+                    if (pos.y < 0 || pos.y >= 256) return
                     val state = world.getBlockState(pos)
                     val block = state.block
                     if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block is IFluidBlock) {
