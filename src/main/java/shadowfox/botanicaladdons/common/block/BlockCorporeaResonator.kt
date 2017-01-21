@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.block
 import com.teamwizardry.librarianlib.common.base.block.BlockModContainer
 import com.teamwizardry.librarianlib.common.base.block.TileMod
 import com.teamwizardry.librarianlib.common.util.autoregister.TileRegister
+import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
@@ -37,6 +38,11 @@ class BlockCorporeaResonator(name: String) : BlockModContainer(name, Material.IR
 
     override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
         return TileCorporeaResonator()
+    }
+
+    init {
+        soundType = SoundType.METAL
+        setHardness(5.5f)
     }
 
     @TileRegister("resonator")

@@ -109,7 +109,7 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
 
                 var returnFlag = true
 
-                if (fakePlayer.activePotionEffects.size > 0)
+                if (fakePlayer.activePotionEffects.isNotEmpty())
                     returnFlag = returnFlag && fakePlayer.isPotionActive(MobEffects.SATURATION) && fakePlayer.activePotionEffects.size == 1
                 if (fakePlayer.position.x != 0 && fakePlayer.position.y != 1000 && fakePlayer.position.z != 0)
                     returnFlag = false

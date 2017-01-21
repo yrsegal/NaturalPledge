@@ -2,11 +2,15 @@ package shadowfox.botanicaladdons.common.items.travel.stones
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
+import com.google.common.collect.HashMultimap
+import com.google.common.collect.Multimap
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemModTool
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumHand
 import net.minecraftforge.common.MinecraftForge
@@ -109,6 +113,9 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
         }
         return 6.0F
     }
+
+    override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier>
+            = HashMultimap.create()
 
     override fun getSortingPriority(stack: ItemStack) = 10
     override fun getSortingType(stack: ItemStack): ISortableTool.ToolType = NONE
