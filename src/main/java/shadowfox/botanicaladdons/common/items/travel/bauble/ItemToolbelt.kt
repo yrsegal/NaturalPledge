@@ -148,6 +148,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             @SideOnly(Side.CLIENT)
             @SubscribeEvent
             fun onRenderHUDPost(event: RenderGameOverlayEvent.Post) {
+                if (event.type != RenderGameOverlayEvent.ElementType.ALL) return
                 val player = Minecraft.getMinecraft().thePlayer
                 val beltStack = getEquippedBelt(player)
                 if (beltStack != null && isEquipped(beltStack)) {
@@ -267,8 +268,9 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 val label = mc.fontRendererObj.getStringWidth(name)
                 val setRecipe = resolution.scaledWidth / 2 - label / 2
                 val y = resolution.scaledHeight / 2 - 65
-                Gui.drawRect(setRecipe - 6, y - 6, setRecipe + label + 6, y + 15, 0x11000000)
-                Gui.drawRect(setRecipe - 4, y - 4, setRecipe + label + 4, y + 13, 0x11000000)
+                val color = 0x22000000
+                Gui.drawRect(setRecipe - 6, y - 6, setRecipe + label + 6, y + 15, color)
+                Gui.drawRect(setRecipe - 4, y - 4, setRecipe + label + 4, y + 13, color)
                 mc.fontRendererObj.drawStringWithShadow(name, setRecipe.toFloat(), y.toFloat(), 0xFFFFFF)
             }
 
