@@ -65,6 +65,7 @@ object ModItems {
     val corporeaFocus: ItemCorporeaFocus
     val sleepStone: ItemSleepStone
     val portalStone: ItemPortalStone
+    val polyStone: ItemPolyStone
 
     lateinit var gaiaKiller: ItemMod
 
@@ -107,6 +108,7 @@ object ModItems {
         corporeaFocus = ItemCorporeaFocus(LibNames.CORPOREA_FOCUS)
         sleepStone = ItemSleepStone(LibNames.SLEEP_STONE)
         portalStone = ItemPortalStone(LibNames.PORTAL_STONE)
+        polyStone = ItemPolyStone(LibNames.POLY_STONE)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

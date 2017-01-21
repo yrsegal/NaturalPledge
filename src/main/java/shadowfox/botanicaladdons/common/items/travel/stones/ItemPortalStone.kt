@@ -15,7 +15,6 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
-import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import vazkii.botania.api.sound.BotaniaSoundEvents
@@ -27,7 +26,7 @@ import vazkii.botania.common.core.helper.Vector3
  * @author WireSegal
  * Created at 9:33 PM on 1/20/17.
  */
-class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider, IStoneItem {
+class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
 
     companion object {
         val TAG_X = "x"
@@ -40,8 +39,6 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
         setMaxStackSize(1)
         MinecraftForge.EVENT_BUS.register(this)
     }
-
-    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->

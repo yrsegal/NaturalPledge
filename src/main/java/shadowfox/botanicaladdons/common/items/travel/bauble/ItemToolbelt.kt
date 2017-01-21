@@ -7,6 +7,8 @@ import com.teamwizardry.librarianlib.common.network.PacketHandler
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
@@ -23,6 +25,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.text.TextFormatting
+import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
@@ -143,6 +146,16 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             }
 
             @SideOnly(Side.CLIENT)
+            @SubscribeEvent
+            fun onRenderHUDPost(event: RenderGameOverlayEvent.Post) {
+                val player = Minecraft.getMinecraft().thePlayer
+                val beltStack = getEquippedBelt(player)
+                if (beltStack != null && isEquipped(beltStack)) {
+                    renderHUD(event.resolution, player, beltStack)
+                }
+            }
+
+            @SideOnly(Side.CLIENT)
             fun render(stack: ItemStack, player: EntityPlayer, partialTicks: Float) {
                 val mc = Minecraft.getMinecraft()
                 val tess = Tessellator.getInstance()
@@ -241,6 +254,24 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 }
                 GlStateManager.popMatrix()
             }
+
+            @SideOnly(Side.CLIENT)
+            fun renderHUD(resolution: ScaledResolution, player: EntityPlayer, stack: ItemStack) {
+                val mc = Minecraft.getMinecraft()
+                val slot = getSegmentLookedAt(stack, player)
+                val item = getItemForSlot(stack, slot) ?: return
+
+                GlStateManager.enableBlend()
+                GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
+                val name = item.displayName
+                val label = mc.fontRendererObj.getStringWidth(name)
+                val setRecipe = resolution.scaledWidth / 2 - label / 2
+                val y = resolution.scaledHeight / 2 - 65
+                Gui.drawRect(setRecipe - 6, y - 6, setRecipe + label + 6, y + 15, 0x11000000)
+                Gui.drawRect(setRecipe - 4, y - 4, setRecipe + label + 4, y + 13, 0x11000000)
+                mc.fontRendererObj.drawStringWithShadow(name, setRecipe.toFloat(), y.toFloat(), 0xFFFFFF)
+            }
+
 
             @SubscribeEvent fun onPlayerInteract(event: PlayerInteractEvent.RightClickItem) {
                 if (event.hand == EnumHand.MAIN_HAND)

@@ -117,7 +117,6 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
 }
 
 private val TAG_SEED = "seed"
-private val TAG_RESET_SEED = "reset"
 private val TAG_XP_AMOUNT = "xp"
 
 var ItemStack.xpSeed: Int

@@ -16,7 +16,6 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.event.ForgeEventFactory
-import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
@@ -25,7 +24,7 @@ import vazkii.botania.common.Botania
  * @author WireSegal
  * Created at 9:59 PM on 1/20/17.
  */
-class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider, IStoneItem {
+class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->
             if (i == 1)
@@ -33,7 +32,9 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider, IStoneIt
             else 0xFFFFFF
         }
 
-    override fun allowedInHolderStone(stack: ItemStack) = true
+    init {
+        setMaxStackSize(1)
+    }
 
     override fun getItemUseAction(stack: ItemStack) = EnumAction.BOW
     override fun getMaxItemUseDuration(stack: ItemStack) = 100
@@ -42,19 +43,18 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider, IStoneIt
         val bedLocation = position
         val ret = ForgeEventFactory.onPlayerSleepInBed(this, bedLocation)
         if (ret != null) return ret
-        if (!worldObj.isRemote) {
-            if (isPlayerSleeping || !isEntityAlive) return SleepResult.OTHER_PROBLEM
 
-            if (!worldObj.provider.isSurfaceWorld) return SleepResult.NOT_POSSIBLE_HERE
+        if (isPlayerSleeping || !isEntityAlive) return SleepResult.OTHER_PROBLEM
 
-            if (worldObj.isDaytime) return SleepResult.NOT_POSSIBLE_NOW
+        if (!worldObj.provider.isSurfaceWorld) return SleepResult.NOT_POSSIBLE_HERE
 
-            if (Math.abs(posX - bedLocation.x.toDouble()) > 3.0 || Math.abs(posY - bedLocation.y.toDouble()) > 2.0 || Math.abs(posZ - bedLocation.z.toDouble()) > 3.0) return SleepResult.TOO_FAR_AWAY
+        if (worldObj.isDaytime) return SleepResult.NOT_POSSIBLE_NOW
 
-            val list = worldObj.getEntitiesWithinAABB(EntityMob::class.java, AxisAlignedBB(bedLocation.x.toDouble() - 8.0, bedLocation.y.toDouble() - 5.0, bedLocation.z.toDouble() - 8.0, bedLocation.x.toDouble() + 8.0, bedLocation.y.toDouble() + 5.0, bedLocation.z.toDouble() + 8.0))
+        if (Math.abs(posX - bedLocation.x.toDouble()) > 3.0 || Math.abs(posY - bedLocation.y.toDouble()) > 2.0 || Math.abs(posZ - bedLocation.z.toDouble()) > 3.0) return SleepResult.TOO_FAR_AWAY
 
-            if (!list.isEmpty()) return SleepResult.NOT_SAFE
-        }
+        val list = worldObj.getEntitiesWithinAABB(EntityMob::class.java, AxisAlignedBB(bedLocation.x.toDouble() - 8.0, bedLocation.y.toDouble() - 5.0, bedLocation.z.toDouble() - 8.0, bedLocation.x.toDouble() + 8.0, bedLocation.y.toDouble() + 5.0, bedLocation.z.toDouble() + 8.0))
+
+        if (!list.isEmpty()) return SleepResult.NOT_SAFE
         return SleepResult.OK
     }
 

@@ -20,7 +20,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerDropsEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
-import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import vazkii.botania.api.sound.BotaniaSoundEvents
@@ -33,14 +32,12 @@ import java.util.*
  * @author WireSegal
  * Created at 10:02 PM on 6/8/16.
  */
-class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider, IStoneItem {
+class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
 
     init {
         setMaxStackSize(1)
         MinecraftForge.EVENT_BUS.register(this)
     }
-
-    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->

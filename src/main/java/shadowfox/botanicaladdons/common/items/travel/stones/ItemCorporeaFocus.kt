@@ -22,7 +22,6 @@ import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.commons.lang3.text.WordUtils
-import shadowfox.botanicaladdons.api.item.IStoneItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator
 import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator.TileCorporeaResonator
@@ -41,7 +40,7 @@ import java.util.regex.Pattern
  * @author WireSegal
  * Created at 7:45 PM on 1/16/17.
  */
-class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider, IStoneItem {
+class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
     companion object : ICorporeaAutoCompleteController {
         val TAG_X = "x"
         val TAG_Y = "y"
@@ -133,8 +132,6 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
             return if (y == Int.MIN_VALUE) null else BlockPos(x, y, z)
         }
     }
-
-    override fun allowedInHolderStone(stack: ItemStack) = true
 
     override fun getBinding(stack: ItemStack): BlockPos? {
         val x = ItemNBTHelper.getInt(stack, TAG_X, 0)
