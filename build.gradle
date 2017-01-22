@@ -58,8 +58,6 @@ configurations {
 
 dependencies {
     deobfCompile "mezz.jei:jei_${config.jei_version}"
-    deobfCompile "slimeknights.mantle:Mantle:${config.mantle_version}"
-    deobfCompile "slimeknights:TConstruct:${config.tinkers_version}"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     required "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

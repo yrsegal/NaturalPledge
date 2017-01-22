@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.client.integration.jei
 
 import mezz.jei.api.*
+import mezz.jei.api.ingredients.IModIngredientRegistration
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingCategory
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingRecipeHandler
@@ -37,6 +38,14 @@ class JEIPluginBotanicalAddons : IModPlugin {
     }
 
     override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {
+        // NO-OP
+    }
+
+    override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {
+        // NO-OP
+    }
+
+    override fun registerIngredients(registry: IModIngredientRegistration) {
         // NO-OP
     }
 }

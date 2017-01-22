@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.client.integration.jei.treegrowing
 import com.teamwizardry.librarianlib.client.util.TooltipHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IRecipeLayout
+import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.IRecipeCategory
 import net.minecraft.client.Minecraft
 import net.minecraft.init.Blocks
@@ -14,6 +15,12 @@ import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
 object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
 
     private val background = JEIPluginBotanicalAddons.helpers.guiHelper.createDrawable(ResourceLocation(LibMisc.MOD_ID, "textures/gui/jei/tree.png"), 0, 0, 87, 37)
+
+    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: TreeGrowingRecipeJEI, ingredients: IIngredients?) {
+        setRecipe(recipeLayout, recipeWrapper)
+    }
+
+    override fun getIcon() = null
 
     override fun getUid(): String {
         return "${LibMisc.MOD_ID}:treeGrowing"
