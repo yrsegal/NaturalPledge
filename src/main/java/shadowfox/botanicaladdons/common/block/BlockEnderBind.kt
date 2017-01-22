@@ -91,31 +91,33 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
 
     @TileRegister("actuator")
     class TileEnderBind : TileMod() {
+        val handler = object : IItemHandler {
+            override fun getStackInSlot(slot: Int) = null
+            override fun insertItem(slot: Int, stack: ItemStack?, simulate: Boolean) = stack
+            override fun getSlots() = 1
+            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) = null
+        }
+
         @Save var playerName: String? = null
         @Save var tickSet = 0L
 
-        private var cachedCap: IItemHandler? = null
-
-        fun createCapability(): IItemHandler? {
-            val player = playerName ?: return null
+        fun createCapability(): IItemHandler {
+            val player = playerName ?: return handler
             return world.playerEntities
                     .filter { it.cachedUniqueIdString == player }
                     .firstOrNull()?.inventoryEnderChest
-                    ?.let(::InvWrapper)
+                    ?.let(::InvWrapper) ?: handler
         }
 
         override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {
-            cachedCap = createCapability()
-            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return cachedCap != null
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return true
             return super.hasCapability(capability, facing)
         }
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : Any?> getCapability(capability: Capability<T>?, facing: EnumFacing?): T? {
-            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && cachedCap != null) {
-                val cap = cachedCap as T
-                cachedCap = null
-                return cap
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+                return createCapability() as T
             }
             return super.getCapability(capability, facing)
         }
