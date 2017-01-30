@@ -4,12 +4,12 @@ import com.teamwizardry.librarianlib.common.base.PotionMod
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.util.JsonException
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.init.MobEffects
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import net.minecraftforge.fml.relauncher.Side
@@ -26,16 +26,15 @@ import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
 
     init {
-        if (FMLLaunchHandler.side().isClient)
-            MinecraftForge.EVENT_BUS.register(this)
+        MinecraftForge.EVENT_BUS.register(this)
     }
-
-    override fun isReady(ticks: Int, amplifier: Int) = true
 
     val greyscale = ResourceLocation("shaders/post/desaturate.json")
 
-    override fun performEffect(entity: EntityLivingBase, amp: Int) {
-        if (entity.getActivePotionEffect(MobEffects.NIGHT_VISION) != null) {
+    @SubscribeEvent
+    fun onLivingUpdate(e: LivingEvent.LivingUpdateEvent) {
+        val entity = e.entityLiving
+        if (hasEffect(entity) && entity.getActivePotionEffect(MobEffects.NIGHT_VISION) != null) {
             val effect = getEffect(entity) ?: return
             entity.removeActivePotionEffect(this)
             entity.removeActivePotionEffect(MobEffects.NIGHT_VISION)
@@ -61,7 +60,7 @@ class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
     }
 
     @SideOnly(Side.CLIENT)
-    internal fun setShader(target: ResourceLocation?) {
+    private fun setShader(target: ResourceLocation?) {
         try {
             val mc = Minecraft.getMinecraft()
             if (OpenGlHelper.shadersSupported && !mc.entityRenderer.isShaderActive) try {
