@@ -47,14 +47,12 @@ class PriestlyEmblemHeimdall : IFaithVariant {
             }
 
     override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
-        if (!player.worldObj.isRemote && ManaItemHandler.requestManaExact(stack, player, 1, true))
+        if (!player.worldObj.isRemote && ManaItemHandler.requestManaExact(stack, player, 1, true) && !ModPotions.drab.hasEffect(player))
             player.addPotionEffect(PotionEffect(MobEffects.NIGHT_VISION, 610, 0, true, false))
-
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        player.addPotionEffect(ModPotionEffect(ModPotions.drab, 600))
-        player.removeActivePotionEffect(MobEffects.NIGHT_VISION)
+        player.addPotionEffect(ModPotionEffect(ModPotions.drab, 600, 2))
     }
 
     fun getMotionVec(e: Entity): Vector3 {

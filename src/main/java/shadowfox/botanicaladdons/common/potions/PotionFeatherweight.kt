@@ -1,18 +1,18 @@
 package shadowfox.botanicaladdons.common.potions
 
+import com.teamwizardry.librarianlib.common.base.PotionMod
 import net.minecraft.entity.EntityLivingBase
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.common.lib.LibNames
-import shadowfox.botanicaladdons.common.potions.base.PotionMod
 
 
 /**
  * @author WireSegal
  * Created at 11:32 AM on 4/18/16.
  */
-class PotionFeatherweight(iconIndex: Int) : PotionMod(LibNames.FEATHERWEIGHT, true, 0x87CEEB, iconIndex, true) {
+class PotionFeatherweight : PotionMod(LibNames.FEATHERWEIGHT, true, 0x87CEEB) {
 
     init {
         MinecraftForge.EVENT_BUS.register(this)

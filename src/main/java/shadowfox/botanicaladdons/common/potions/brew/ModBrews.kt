@@ -15,6 +15,6 @@ object ModBrews {
 
     init {
         immortality = BrewMod(LibNames.IMMORTALITY, 16000, PotionEffect(ModPotions.immortal, 1800)).setNotBloodPendantInfusable()
-        drained = BrewMod(LibNames.DRAB_VISION, 1000, PotionEffect(ModPotions.drab, 4800))
+        drained = BrewMod(LibNames.DRAB_VISION, 1000, PotionEffect(ModPotions.drab, 4800, 1))
     }
 }

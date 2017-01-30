@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.potions
 
-import shadowfox.botanicaladdons.common.potions.base.PotionMod
+import com.teamwizardry.librarianlib.common.base.PotionMod
 
 /**
  * @author WireSegal
@@ -15,15 +15,13 @@ object ModPotions {
     val immortal: PotionMod
     val everburn: PotionMod
 
-    private var iconIndex = 0
-
     init {
-        faithlessness = PotionFaithlessness(iconIndex++)
-        drab = PotionDrabVision(iconIndex++)
-        rooted = PotionRooted(iconIndex++)
-        overcharged = PotionOvercharge(iconIndex++)
-        featherweight = PotionFeatherweight(iconIndex++)
-        immortal = PotionImmortality(iconIndex++)
-        everburn = PotionEverburn(iconIndex++)
+        faithlessness = PotionFaithlessness()
+        drab = PotionDrabVision()
+        rooted = PotionRooted()
+        overcharged = PotionOvercharge()
+        featherweight = PotionFeatherweight()
+        immortal = PotionImmortality()
+        everburn = PotionEverburn()
     }
 }

@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.potions.base
 
+import com.teamwizardry.librarianlib.common.base.PotionMod
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
@@ -21,7 +22,7 @@ class ModPotionEffect : PotionEffect {
     constructor(potionEffect: PotionEffect) : super(potionEffect)
 
     override fun isCurativeItem(stack: ItemStack?): Boolean {
-        if (potion is PotionMod && (potion as PotionMod).noClear)
+        if (potion is PotionMod && potion.isBadEffect)
             return false
         else
             return super.isCurativeItem(stack)

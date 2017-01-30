@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
@@ -11,6 +12,7 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.ResourceLocation
@@ -32,7 +34,6 @@ import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 
 /**
  * @author WireSegal
@@ -117,7 +118,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     override fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
     override fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
 
-    override fun getRarity(stack: ItemStack) = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
+    override fun getRarity(stack: ItemStack): EnumRarity = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
 
     override fun getBaubleType(stack: ItemStack) = BaubleType.AMULET
 
