@@ -40,6 +40,8 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
         maxDamage = 0
     }
 
+    override fun isItemTool(stack: ItemStack) = true
+
     companion object {
         init {
             MinecraftForge.EVENT_BUS.register(this)
