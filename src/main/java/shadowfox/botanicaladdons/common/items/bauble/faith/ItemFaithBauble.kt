@@ -25,6 +25,7 @@ import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemModBauble
@@ -189,6 +190,8 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         return false
     }
 
+    val FAITH_HATES_YOU = 857974
+
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
@@ -198,7 +201,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
                 player.attackEntityFrom(faithSource, Float.MAX_VALUE)
             else {
                 variant.punishTheFaithless(stack, player)
-                player.addChatComponentMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)))
+                BotanicalAddons.PROXY.sendSpamlessMessage(player, TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
             }
         }
         setAwakened(stack, false)
