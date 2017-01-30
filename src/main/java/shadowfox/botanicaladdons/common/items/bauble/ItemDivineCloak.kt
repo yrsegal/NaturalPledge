@@ -114,7 +114,7 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
         super.onWornTick(stack, player)
         if (stack.itemDamage == 0) {
-            if ((player !is EntityPlayer || !player.capabilities.isFlying) && !player.onGround && !player.isElytraFlying)
+            if ((player !is EntityPlayer || !player.capabilities.isFlying) && !player.onGround && !player.isElytraFlying && !player.isInWater)
                 player.motionY += 0.05
             player.fallDistance = 0f
         } else if (stack.itemDamage == 3) {
