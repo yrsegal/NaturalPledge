@@ -76,7 +76,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
                 val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemHeimdall::class.java) ?: return
                 if (ManaItemHandler.requestManaExact(emblem, player, 10, false)) {
                     val motVec = getMotionVec(player)
-                    val pos = BlockPos(player.posX + motVec.x, Math.floor(player.posY + if (player.isSneaking) -2.75 else -.75), player.posZ + motVec.z)
+                    val pos = BlockPos(player.posX + motVec.x, Math.floor(player.posY + if (player.isSneaking) -2.99 else -.99), player.posZ + motVec.z)
                     if (pos.y < 0 || pos.y >= 256) return
                     val state = world.getBlockState(pos)
                     val block = state.block
