@@ -177,6 +177,6 @@ object ModBlocks {
         OreDictionary.registerOre("dirt", ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("blockGlass", ItemStack(aquaGlass, 1, OreDictionary.WILDCARD_VALUE))
 
-        OreDictionary.registerOre(LibOreDict.DYES[16], ItemStack(BotaniaBlocks.bifrostPerm, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.DYES[16], BotaniaBlocks.bifrostPerm)
     }
 }

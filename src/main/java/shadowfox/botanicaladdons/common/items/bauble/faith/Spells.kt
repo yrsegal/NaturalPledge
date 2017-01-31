@@ -439,9 +439,8 @@ object Spells {
                 player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
                 val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
                 val awakened = (emblem.item as IPriestlyEmblem).isAwakened(emblem)
-                for (i in LibOreDict.DYES.withIndex()) {
+                for (i in LibOreDict.DYES.withIndex())
                     flag = Helper.craft(player, i.value, ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i.index), if (i.index == 16) BotanicalAddons.PROXY.rainbow().rgb else EnumDyeColor.byMetadata(i.index).mapColor.colorValue) || flag
-                }
                 if (flag) {
                     player.addStat(ModAchievements.iridescence)
                     ManaItemHandler.requestManaExact(focus, player, 150, true)
