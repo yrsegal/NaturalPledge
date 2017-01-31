@@ -8,11 +8,13 @@ import net.minecraft.entity.IProjectile
 import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.MobEffects
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagInt
 import net.minecraft.nbt.NBTTagList
+import net.minecraft.network.play.server.SPacketEntityVelocity
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.*
 import net.minecraft.util.math.AxisAlignedBB
@@ -263,6 +265,8 @@ object Spells {
                         entity.motionY = velocity * vec.y
                         entity.motionZ = velocity * vec.z
                         entity.fallDistance = 0f
+                        if (entity is EntityPlayerMP)
+                            entity.connection.sendPacket(SPacketEntityVelocity(entity))
                         flag = true
                     }
                 }
@@ -390,6 +394,8 @@ object Spells {
                         focused.motionY += diff.y * 0.25
                         focused.motionZ += diff.z * 0.25
                         focused.addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 100, 1))
+                        if (focused is EntityPlayerMP)
+                            focused.connection.sendPacket(SPacketEntityVelocity(focused))
                         return EnumActionResult.SUCCESS
                     }
                 return EnumActionResult.FAIL
