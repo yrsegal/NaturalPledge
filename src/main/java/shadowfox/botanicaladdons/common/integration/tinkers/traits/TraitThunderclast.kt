@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil
  * Created at 5:00 PM on 6/25/16.
  */
 class TraitThunderclast : AbstractTrait("thunderclast", TinkersIntegration.THUNDERSTEEL_COLOR) {
-    override fun applyEffect(rootCompound: NBTTagCompound?, modifierTag: NBTTagCompound?) {
+    override fun applyEffect(rootCompound: NBTTagCompound, modifierTag: NBTTagCompound) {
         if (!TinkerUtil.hasTrait(rootCompound, identifier)) {
             val data = TagUtil.getToolStats(rootCompound)
             data.attack *= 1.75f

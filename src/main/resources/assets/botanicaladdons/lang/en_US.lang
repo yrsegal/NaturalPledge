@@ -259,6 +259,38 @@ item.botanicaladdons:holySymbol.none.name=Cleared Symbol
 botanicaladdons.subtitle.woosh=Wind wooshes
 
 fluid.botanicaladdons_thundersteel.name=Molten Thundersteel
+fluid.botanicaladdons_manasteel.name=Molten Manasteel
+fluid.botanicaladdons_terrasteel.name=Molten Terrasteel
+fluid.botanicaladdons_elementium.name=Molten Elementium
+
+material.manasteel.name=Manasteel
+material.terrasteel.name=Terrasteel
+material.elementium.name=Elementium
+material.livingwood.name=Livingwood
+material.dreamwood.name=Dreamwood
+material.livingrock.name=Livingrock
+
+modifier.arcane.name=Arcane
+modifier.worldforged.name=Worldforged
+modifier.unyielding.name=Unyielding
+modifier.elsetouched.name=Elsetouched
+modifier.alfwrought.name=Alfwrought
+modifier.regrowth.name=Regrowth
+modifier.idealistic.name=Idealistic
+modifier.stargazer.name=Stargazer
+modifier.elemental.name=Elemental
+modifier.enduring.name=Enduring
+
+modifier.arcane.desc=§oIt's learning...§r\nIt'll probably last longer if it learns to use itself right!
+modifier.worldforged.desc=§oAncient and mysterious!§r\nWho knows what this tool could do in the right circumstances?
+modifier.unyielding.desc=§oStrong as the earth§r\nIt'll hold on right until the end!
+modifier.elsetouched.desc=§oSomething feels unnatural§r\nIt bears markings you've never seen before...
+modifier.alfwrought.desc=§oFine craftmanship§r\nElves are good at metal forging, apparently. Time to imitate their designs!
+modifier.regrowth.desc=§oIt's alive!§r\nThe wood shudders under your hands, reforming itself occasionally.
+modifier.idealistic.desc=§oNever stop dreaming§r\nYou can't help but dream when you look at the swirling designs of the tool.
+modifier.stargazer.desc=§oGuided by the stars§r\nFight in the domain of dreams, and let your dreams help you.
+modifier.elemental.desc=§oIt feels different§r\nThe environment makes this tool shift and warp.
+modifier.enduring.desc=§oUntil the end§r\nThis tool feels better built the closer it is to breaking.
 
 material.soulroot.name=Soulroot
 material.thundersteel.name=Thundersteel

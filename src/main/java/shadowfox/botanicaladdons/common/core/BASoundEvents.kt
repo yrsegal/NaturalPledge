@@ -14,7 +14,7 @@ object BASoundEvents {
     val woosh: SoundEvent
 
     init {
-        var loc = ResourceLocation(LibMisc.MOD_ID, "woosh")
+        val loc = ResourceLocation(LibMisc.MOD_ID, "woosh")
         woosh = SoundEvent(loc)
         GameRegistry.register(woosh, loc)
     }

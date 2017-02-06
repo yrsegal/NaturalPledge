@@ -69,7 +69,11 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.IRON), ILexicona
                 return world.getBlockState(pos).block.isBeaconBase(world, pos, pos.add(BlockPos(-relPos.x, -relPos.y, -relPos.z)))
             }
         }
+
+        fun captureBlockDrops(start: Boolean) = ModBlocks.awakenerCore.captureDrops(start)
     }
+
+    fun captureBlockDrops(start: Boolean) = captureDrops(start)
 
     init {
         AwakeningEventHandler.register()

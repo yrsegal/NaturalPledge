@@ -25,6 +25,7 @@ import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
+import vazkii.botania.api.state.enums.StorageVariant
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
@@ -32,7 +33,7 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
  * Created at 2:46 PM on 4/17/16.
  */
 object ModBlocks {
-    val awakenerCore: BlockMod
+    val awakenerCore: BlockAwakenerCore
     val star: BlockMod
     val flame: BlockMod
     val irisDirt: BlockMod
@@ -176,6 +177,10 @@ object ModBlocks {
         OreDictionary.registerOre("dirt", ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("dirt", ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("blockGlass", ItemStack(aquaGlass, 1, OreDictionary.WILDCARD_VALUE))
+
+        OreDictionary.registerOre(LibOreDict.BLOCK_MANASTEEL, ItemStack(BotaniaBlocks.storage, 1, StorageVariant.MANASTEEL.ordinal))
+        OreDictionary.registerOre(LibOreDict.BLOCK_TERRASTEEL, ItemStack(BotaniaBlocks.storage, 1, StorageVariant.TERRASTEEL.ordinal))
+        OreDictionary.registerOre(LibOreDict.BLOCK_ELEMENTIUM, ItemStack(BotaniaBlocks.storage, 1, StorageVariant.ELEMENTIUM.ordinal))
 
         OreDictionary.registerOre(LibOreDict.DYES[16], BotaniaBlocks.bifrostPerm)
     }

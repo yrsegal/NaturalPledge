@@ -2,11 +2,13 @@ package shadowfox.botanicaladdons.common.integration.tinkers
 
 import net.minecraft.block.Block
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import slimeknights.tconstruct.library.Util
 import slimeknights.tconstruct.library.fluid.FluidMolten
 import slimeknights.tconstruct.smeltery.block.BlockMolten
 import vazkii.botania.client.lib.LibResources
@@ -19,10 +21,20 @@ import java.util.*
 object TinkersFluids {
 
     val thundersteel = FluidMolten("${LibMisc.MOD_ID}_thundersteel", TinkersIntegration.THUNDERSTEEL_FLUID_COLOR)
+    val manasteel = FluidMolten("${LibMisc.MOD_ID}_manasteel", Util.enumChatFormattingToColor(TextFormatting.AQUA))
+    val terrasteel = FluidMolten("${LibMisc.MOD_ID}_terrasteel", Util.enumChatFormattingToColor(TextFormatting.GREEN))
+    val elementium = FluidMolten("${LibMisc.MOD_ID}_elementium", Util.enumChatFormattingToColor(TextFormatting.LIGHT_PURPLE))
 
     init {
         thundersteel.temperature = 769
+        manasteel.temperature = 769
+        terrasteel.temperature = 1000
+        elementium.temperature = 769
+
         registerFluid(thundersteel)
+        registerFluid(manasteel)
+        registerFluid(terrasteel)
+        registerFluid(elementium)
     }
 
     private fun registerFluid(fluid: Fluid) {

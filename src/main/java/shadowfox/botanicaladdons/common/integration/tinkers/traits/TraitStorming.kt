@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait
  * @author WireSegal
  * Created at 5:00 PM on 6/25/16.
  */
-class TraitStorming : AbstractTrait("storming", TinkersIntegration.SOULROOT_COLORS[0]) {
+class TraitStorming : AbstractTrait("storming", TinkersIntegration.AQUAMARINE_COLORS[0]) {
     override fun knockBack(tool: ItemStack?, player: EntityLivingBase?, target: EntityLivingBase, damage: Float, knockback: Float, newKnockback: Float, isCritical: Boolean): Float {
         return Math.min(newKnockback - 2, 0f)
     }
