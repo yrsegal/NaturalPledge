@@ -7,6 +7,7 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import shadowfox.botanicaladdons.common.items.ModItems
@@ -97,7 +98,9 @@ object RecipeEnchantmentRemoval : IRecipe {
 
         if (finalEnchanted.item === Items.ENCHANTED_BOOK && list.tagCount() == 0) {
             val newStack = ItemStack(Items.BOOK, finalEnchanted.stackSize)
-            newStack.tagCompound = finalEnchanted.tagCompound
+            val finalTag = finalEnchanted.tagCompound ?: NBTTagCompound()
+            finalTag.removeTag("StoredEnchantments")
+            if (finalTag.size > 0) newStack.tagCompound = finalTag
             return newStack
         }
 
