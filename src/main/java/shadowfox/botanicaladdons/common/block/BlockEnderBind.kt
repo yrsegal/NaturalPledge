@@ -109,13 +109,13 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
                     ?.let(::InvWrapper) ?: handler
         }
 
-        override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {
+        override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
             if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return true
             return super.hasCapability(capability, facing)
         }
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T : Any?> getCapability(capability: Capability<T>?, facing: EnumFacing?): T? {
+        override fun <T : Any> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
             if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
                 return createCapability() as T
             }

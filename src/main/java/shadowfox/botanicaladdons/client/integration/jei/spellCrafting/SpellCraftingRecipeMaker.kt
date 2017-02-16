@@ -4,5 +4,5 @@ import shadowfox.botanicaladdons.api.SpellRegistry
 
 object SpellCraftingRecipeMaker {
     val recipes: List<SpellCraftingRecipeJEI>
-        get() = SpellRegistry.getSpellRecipeRegistry().mapNotNull { SpellCraftingRecipeJEI(it) }
+        get() = SpellRegistry.getSpellRecipeRegistry().map(::SpellCraftingRecipeJEI)
 }

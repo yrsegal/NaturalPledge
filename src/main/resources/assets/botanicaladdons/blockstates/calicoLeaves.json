@@ -1,15 +1,6 @@
 {
 	"variants": {
-		"check_decay=true,decayable=true": {
-			"model": "botanicaladdons:calicoLeaves"
-		},
-		"check_decay=true,decayable=false": {
-			"model": "botanicaladdons:calicoLeaves"
-		},
-		"check_decay=false,decayable=true": {
-			"model": "botanicaladdons:calicoLeaves"
-		},
-		"check_decay=false,decayable=false": {
+		"normal": {
 			"model": "botanicaladdons:calicoLeaves"
 		}
 	}

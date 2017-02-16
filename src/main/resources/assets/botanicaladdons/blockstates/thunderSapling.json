@@ -1,9 +1,6 @@
 {
 	"variants": {
-		"stage=0": {
-			"model": "botanicaladdons:thunderSapling"
-		},
-		"stage=1": {
+		"normal": {
 			"model": "botanicaladdons:thunderSapling"
 		}
 	}

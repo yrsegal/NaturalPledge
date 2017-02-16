@@ -1,15 +1,6 @@
 {
 	"variants": {
-		"check_decay=true,decayable=true": {
-			"model": "botanicaladdons:thunderLeaves"
-		},
-		"check_decay=true,decayable=false": {
-			"model": "botanicaladdons:thunderLeaves"
-		},
-		"check_decay=false,decayable=true": {
-			"model": "botanicaladdons:thunderLeaves"
-		},
-		"check_decay=false,decayable=false": {
+		"normal": {
 			"model": "botanicaladdons:thunderLeaves"
 		}
 	}

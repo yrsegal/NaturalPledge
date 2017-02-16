@@ -54,11 +54,11 @@ class BlockCorporeaResonator(name: String) : BlockModContainer(name, Material.IR
             override fun extractItem(slot: Int, amount: Int, simulate: Boolean) = null
         }
 
-        override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?)
+        override fun hasCapability(capability: Capability<*>, facing: EnumFacing?)
                 = capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing)
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T : Any?> getCapability(capability: Capability<T>?, facing: EnumFacing?): T?
+        override fun <T : Any> getCapability(capability: Capability<T>, facing: EnumFacing?): T?
                 = if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) handler as T else super.getCapability(capability, facing)
 
         override fun doCorporeaRequest(request: Any, count: Int, spark: ICorporeaSpark) {

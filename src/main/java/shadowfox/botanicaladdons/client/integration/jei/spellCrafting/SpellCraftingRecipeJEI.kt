@@ -12,6 +12,8 @@ import shadowfox.botanicaladdons.common.items.ModItems
 
 class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
 
+    val oredictCache = OreDictionary.getOres(recipe.input)
+
     companion object {
         fun getFocusStack(spell: IFocusSpell): ItemStack {
             val stack = ItemStack(ModItems.spellFocus)
@@ -23,8 +25,8 @@ class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
     override fun getIngredients(ingredients: IIngredients) {
         val stackHelper = JEIPluginBotanicalAddons.helpers.stackHelper
 
-        val inputs = stackHelper.expandRecipeItemStackInputs(recipe.input.toList())
-        ingredients.setInputLists(ItemStack::class.java, inputs)
+        val inputs = stackHelper.toItemStackList(recipe.input)
+        ingredients.setInputLists(ItemStack::class.java, listOf(inputs))
 
         val recipeOutput = recipe.output[0]
         ingredients.setOutput(ItemStack::class.java, recipeOutput)

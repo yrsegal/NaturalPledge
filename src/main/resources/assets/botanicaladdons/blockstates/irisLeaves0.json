@@ -1,52 +1,16 @@
 {
 	"variants": {
-		"check_decay=true,color=white,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
+		"color=white": {
+			"model": "botanicaladdons:irisLeaves0"
 		},
-		"check_decay=true,color=white,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
+		"color=orange": {
+			"model": "botanicaladdons:irisLeaves0"
 		},
-		"check_decay=true,color=orange,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
+		"color=magenta": {
+			"model": "botanicaladdons:irisLeaves0"
 		},
-		"check_decay=true,color=orange,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=true,color=magenta,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=true,color=magenta,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=true,color=light_blue,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=true,color=light_blue,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=white,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=white,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=orange,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=orange,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=magenta,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=magenta,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=light_blue,decayable=true": {
-			"model": "botanicaladdons:irisLeaves"
-		},
-		"check_decay=false,color=light_blue,decayable=false": {
-			"model": "botanicaladdons:irisLeaves"
+		"color=light_blue": {
+			"model": "botanicaladdons:irisLeaves0"
 		}
 	}
 }

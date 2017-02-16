@@ -1,9 +1,6 @@
 {
 	"variants": {
-		"stage=0": {
-			"model": "botanicaladdons:irisSapling"
-		},
-		"stage=1": {
+		"normal": {
 			"model": "botanicaladdons:irisSapling"
 		}
 	}

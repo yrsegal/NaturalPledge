@@ -17,16 +17,13 @@ import net.minecraft.item.ItemBlock
 @Suppress("LeakingThis")
 open class BlockModPane(name: String, materialIn: Material, canDrop: Boolean, vararg variants: String) : BlockPane(materialIn, canDrop), IModBlock {
 
-    override val variants: Array<out String>
-
+    val modId: String = currentModId
     override val bareName: String = name
-    val modId: String
+    override val variants: Array<out String> = VariantHelper.beginSetupBlock(name, variants)
 
     val itemForm: ItemBlock? by lazy { createItemForm() }
 
     init {
-        modId = currentModId
-        this.variants = VariantHelper.beginSetupBlock(name, variants)
         VariantHelper.finishSetupBlock(this, name, itemForm, creativeTab)
     }
 
