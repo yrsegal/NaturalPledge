@@ -34,7 +34,7 @@ import shadowfox.botanicaladdons.common.block.BlockFunnel
  * @author L0neKitsune
  * Created on 3/20/16.
  */
-class TileLivingwoodFunnel() : TileModTickable(), IHopper {
+class TileLivingwoodFunnel : TileModTickable(), IHopper {
 
     override fun getDisplayName(): ITextComponent {
         return if (this.hasCustomName()) TextComponentString(this.name) else TextComponentTranslation(this.name)
@@ -399,17 +399,13 @@ class TileLivingwoodFunnel() : TileModTickable(), IHopper {
 
     private fun inventoryEmpty(inventory: IInventory, side: EnumFacing): Boolean {
         if (inventory is ISidedInventory) {
-            for (l in inventory.getSlotsForFace(side)) {
-                if (inventory.getStackInSlot(l) != null) {
-                    return false
-                }
-            }
+            inventory.getSlotsForFace(side)
+                    .filter { inventory.getStackInSlot(it) != null }
+                    .forEach { return false }
         } else {
-            for (k in 0..inventory.sizeInventory - 1) {
-                if (inventory.getStackInSlot(k) != null) {
-                    return false
-                }
-            }
+            (0..inventory.sizeInventory - 1)
+                    .filter { inventory.getStackInSlot(it) != null }
+                    .forEach { return false }
         }
 
         return true
@@ -468,7 +464,7 @@ class TileLivingwoodFunnel() : TileModTickable(), IHopper {
 
     }
 
-    override fun writeCustomNBT(cmp: NBTTagCompound) {
+    override fun writeCustomNBT(cmp: NBTTagCompound, sync: Boolean) {
         val nbttaglist = NBTTagList()
 
         for (i in inventory.indices) {
@@ -504,7 +500,7 @@ class TileLivingwoodFunnel() : TileModTickable(), IHopper {
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T> getCapability(capability: Capability<T>, facing: EnumFacing?): T {
+    override fun <T: Any> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return unsidedHandler as T
         return super.getCapability(capability, facing)

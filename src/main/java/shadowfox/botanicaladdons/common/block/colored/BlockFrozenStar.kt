@@ -66,7 +66,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
     override fun getDrops(world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int): MutableList<ItemStack> {
         val te = world.getTileEntity(pos)
         if (te is TileStar) {
-            val stack = RainbowItemHelper.colorStack(te.getColor(), this)
+            val stack = RainbowItemHelper.colorStack(te.color, this)
             if (te.size != DEFAULT_SIZE)
                 setSize(stack, te.size)
             return mutableListOf(stack)
@@ -106,7 +106,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
     override fun getPickBlock(state: IBlockState?, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack? {
         val te = world.getTileEntity(pos)
         if (te is TileStar) {
-            val stack = RainbowItemHelper.colorStack(te.getColor(), this)
+            val stack = RainbowItemHelper.colorStack(te.color, this)
             if (te.size != DEFAULT_SIZE)
                 setSize(stack, te.size)
             return stack
@@ -118,7 +118,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
         val te = world.getTileEntity(pos)
         if (te is TileStar) {
             te.size = getSize(stack)
-            te.starColor = RainbowItemHelper.getColor(stack)
+            te.color = RainbowItemHelper.getColor(stack)
         }
     }
 

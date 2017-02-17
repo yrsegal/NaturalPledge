@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.tile
 
+import com.teamwizardry.librarianlib.common.util.saving.Save
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
@@ -14,71 +15,27 @@ import java.awt.Color
  * Created at 1:46 PM on 5/4/16.
  */
 class TileCracklingStar : TileModTickable() {
-    private val TAG_COLOR = "color"
-    var starColor = -1
+    @Save var color = -1
+
+    @Save var blockPos: BlockPos? = BlockPos(0, -1, 0)
 
     override fun updateEntity() {
         if (world.isRemote) {
-            var flag = false
-            val currentBlock = world.getBlockState(pos)
-            fun makeLine(vec: Vector3) {
-                val blockAt = world.getBlockState(pos.add(vec.x, vec.y, vec.z))
-                if (blockAt.block == currentBlock.block) {
-                    flag = true
-                    BotanicalAddons.PROXY.wispLine(Vector3.fromBlockPos(pos).add(0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05), vec, RainbowItemHelper.colorFromInt(starColor), Math.random() * 6.0, 10)
-                }
-            }
-
-            for (i in EnumFacing.VALUES) makeLine(Vector3(i.directionVec.x.toDouble(), i.directionVec.y.toDouble(), i.directionVec.z.toDouble()))
-            for (i in BiFacing.values()) makeLine(i.vec)
-            for (i in TriFacing.values()) makeLine(i.vec)
-            if (!flag) {
-                val color = Color(RainbowItemHelper.colorFromIntAndPos(starColor, pos))
+            if (blockPos == null) blockPos = BlockPos(0, -1, 0)
+            if (blockPos?.y != -1 && blockPos != getPos()) {
+                val vec = Vector3.fromBlockPos(blockPos).subtract(Vector3.fromBlockPos(getPos()))
+                BotanicalAddons.PROXY.wispLine(Vector3.fromBlockPos(getPos()).add(0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05), vec, RainbowItemHelper.colorFromInt(color), Math.random() * 6.0, 10)
+                BotanicalAddons.PROXY.wispLine(Vector3.fromBlockPos(blockPos).add(0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05, 0.5 + (Math.random() - 0.5) * 0.05), vec.negate(), RainbowItemHelper.colorFromInt(color), Math.random() * 6.0, 10)
+            } else {
+                val color = Color(RainbowItemHelper.colorFromIntAndPos(color, pos))
                 Botania.proxy.wispFX(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, color.red / 255f, color.green / 255f, color.blue / 255f, 0.25f)
             }
+        } else if (blockPos != null){
+            val other = world.getTileEntity(blockPos) as? TileCracklingStar
+            if (other == null) {
+                blockPos = null
+                markDirty()
+            }
         }
-    }
-
-    enum class BiFacing(x: Int, y: Int, z: Int) {
-        UP_NORTH(0, 1, -1),
-        UP_SOUTH(0, 1, 1),
-        UP_WEST(-1, 1, 0),
-        UP_EAST(1, 1, 0),
-        DOWN_NORTH(0, -1, -1),
-        DOWN_SOUTH(0, -1, 1),
-        DOWN_WEST(-1, -1, 0),
-        DOWN_EAST(1, -1, 0),
-        EAST_NORTH(1, 0, -1),
-        EAST_SOUTH(1, 0, 1),
-        WEST_NORTH(-1, 0, 1),
-        WEST_SOUTH(-1, 0, -1);
-
-        val vec: Vector3 = Vector3(x.toDouble(), y.toDouble(), z.toDouble())
-    }
-
-    enum class TriFacing(x: Int, y: Int, z: Int) {
-        UP_SOUTH_EAST(1, 1, 1),
-        UP_SOUTH_WEST(-1, 1, 1),
-        UP_NORTH_EAST(1, 1, -1),
-        UP_NORTH_WEST(-1, 1, -1),
-        DOWN_SOUTH_WEST(-1, -1, 1),
-        DOWN_SOUTH_EAST(1, -1, 1),
-        DOWN_NORTH_WEST(-1, -1, -1),
-        DOWN_NORTH_EAST(1, -1, -1);
-
-        val vec: Vector3 = Vector3(x.toDouble(), y.toDouble(), z.toDouble())
-    }
-
-    override fun writeCustomNBT(cmp: NBTTagCompound) {
-        cmp.setInteger(TAG_COLOR, starColor)
-    }
-
-    override fun readCustomNBT(cmp: NBTTagCompound) {
-        if (cmp.hasKey(TAG_COLOR))
-            this.starColor = cmp.getInteger(TAG_COLOR)
-    }
-
-    fun getColor(): Int {
-        return this.starColor
     }
 }

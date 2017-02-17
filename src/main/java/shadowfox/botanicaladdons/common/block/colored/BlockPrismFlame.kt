@@ -68,7 +68,7 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, ModMaterials.TRANS
         if (te is TilePrismFlame) {
             te.color = RainbowItemHelper.getColor(stack)
             if (stack.item is IPhantomInkable)
-                te.inked = (stack.item as IPhantomInkable).hasPhantomInk(stack)
+                te.phantomInk = (stack.item as IPhantomInkable).hasPhantomInk(stack)
         }
     }
 

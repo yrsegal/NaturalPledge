@@ -4,6 +4,7 @@ import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.block.BlockModContainer
 import com.teamwizardry.librarianlib.common.base.block.ItemModBlock
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.util.DimWithPos
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
@@ -26,12 +27,14 @@ import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
+import vazkii.botania.api.wand.IWandable
+import java.util.*
 
 /**
  * @author WireSegal
  * Created at 1:37 PM on 5/4/16.
  */
-class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), IItemColorProvider, ILexiconable {
+class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TRANSPARENT), IItemColorProvider, IWandable, ILexiconable {
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     override fun createItemForm() = object : ItemModBlock(this) {
@@ -56,7 +59,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
     override fun getDrops(world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int): MutableList<ItemStack> {
         val te = world.getTileEntity(pos)
         if (te is TileCracklingStar) {
-            val stack = RainbowItemHelper.colorStack(te.getColor(), this)
+            val stack = RainbowItemHelper.colorStack(te.color, this)
             return mutableListOf(stack)
         }
         return mutableListOf()
@@ -91,7 +94,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
     override fun getPickBlock(state: IBlockState?, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack? {
         val te = world.getTileEntity(pos)
         if (te is TileCracklingStar) {
-            val stack = RainbowItemHelper.colorStack(te.getColor(), this)
+            val stack = RainbowItemHelper.colorStack(te.color, this)
             return stack
         }
         return super.getPickBlock(state, target, world, pos, player)
@@ -100,7 +103,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
     override fun onBlockPlacedBy(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
         val te = world.getTileEntity(pos)
         if (te is TileCracklingStar) {
-            te.starColor = RainbowItemHelper.getColor(stack)
+            te.color = RainbowItemHelper.getColor(stack)
         }
     }
 
@@ -120,6 +123,32 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
 
     override fun getSubBlocks(itemIn: Item?, tab: CreativeTabs?, list: MutableList<ItemStack>) {
         // NO-OP
+    }
+
+    companion object {
+        val playerPositions = mutableMapOf<UUID, DimWithPos>()
+    }
+
+    override fun onUsedByWand(player: EntityPlayer?, stack: ItemStack, world: World, pos: BlockPos, side: EnumFacing): Boolean {
+        if (player == null || world.isRemote) return false
+        val dwp = playerPositions[player.uniqueID]
+
+        val here = DimWithPos(world.provider.dimension, pos)
+
+        if (dwp == null)
+            playerPositions.put(player.uniqueID, here)
+        else {
+            playerPositions.remove(player.uniqueID)
+            if (dwp == here) {
+                val te = world.getTileEntity(pos) as? TileCracklingStar ?: return true
+                te.blockPos = null
+            } else if (dwp.dim == here.dim) {
+                val otherTe = world.getTileEntity(dwp.pos) as? TileCracklingStar ?: return true
+                otherTe.blockPos = pos
+                otherTe.markDirty()
+            }
+        }
+        return true
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

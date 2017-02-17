@@ -216,7 +216,7 @@ object ModRecipes {
                 'M', BotaniaOreDict.RUNE[8]) // Mana
 
         recipesStar = Array(LibOreDict.DYES.size, {
-            addOreDictRecipe(RainbowItemHelper.forColor(it, ModBlocks.star),
+            addOreDictRecipe(RainbowItemHelper.forColor(it, ItemStack(ModBlocks.star, 5)),
                     " E ",
                     "GDG",
                     " G ",
@@ -448,7 +448,7 @@ object ModRecipes {
                 ModItems.finder, "bone")
 
         recipesCrackleStar = Array(LibOreDict.DYES.size, {
-            addOreDictRecipe(RainbowItemHelper.forColor(it, ModBlocks.cracklingStar),
+            addOreDictRecipe(RainbowItemHelper.forColor(it, ItemStack(ModBlocks.cracklingStar, 10)),
                     " E ",
                     "GDG",
                     " G ",
