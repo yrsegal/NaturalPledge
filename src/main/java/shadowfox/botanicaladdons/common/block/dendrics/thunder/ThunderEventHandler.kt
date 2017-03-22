@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.init.Blocks
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Vec3d
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -25,7 +26,7 @@ object ThunderEventHandler {
     @SubscribeEvent
     fun catchWorldTick(e: TickEvent.WorldTickEvent) {
         val toRemove = mutableListOf<Entity>()
-        val toAdd = mutableListOf<Entity>()
+        val toAdd = mutableListOf<BlockPos>()
         for (effect in e.world.weatherEffects) if (effect is EntityLightningBolt && !BAMethodHandles.getEffectOnly(effect)) {
 
             if (effect.ticksExisted > 5) continue
@@ -40,18 +41,15 @@ object ThunderEventHandler {
             if (thunderabsorbers.size == 0) continue
 
             val absorber = thunderabsorbers[e.world.rand.nextInt(thunderabsorbers.size)]
-            toAdd.add(EntityLightningBolt(e.world, absorber.x.toDouble(), absorber.y.toDouble(), absorber.z.toDouble(), true))
+            toAdd.add(absorber)
             toRemove.add(effect)
 
-            for (pos in BlockPos.getAllInBox(effect.position.add(-FIRERANGE, -FIRERANGE, -FIRERANGE), effect.position.add(FIRERANGE, FIRERANGE, FIRERANGE))) {
-                if (e.world.getBlockState(pos).block == Blocks.FIRE)
-                    e.world.setBlockState(pos, Blocks.AIR.defaultState)
-            }
+            BlockPos.getAllInBoxMutable(effect.position.add(-FIRERANGE, -FIRERANGE, -FIRERANGE), effect.position.add(FIRERANGE, FIRERANGE, FIRERANGE))
+                    .filter { e.world.getBlockState(it).block == Blocks.FIRE }
+                    .forEach { e.world.setBlockState(it, Blocks.AIR.defaultState) }
         }
 
-        for (effect in toAdd) {
-            e.world.addWeatherEffect(effect)
-        }
+        for (effect in toAdd) e.world.addWeatherEffect(EntityLightningBolt(e.world, effect.x.toDouble(), effect.y.toDouble(), effect.z.toDouble(), true))
 
         for (effect in toRemove) {
             e.world.removeEntityDangerously(effect)
