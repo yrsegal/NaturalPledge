@@ -9,12 +9,6 @@ import slimeknights.tconstruct.library.utils.ToolHelper
 
 class TraitAlfwrought : AbstractTrait("alfwrought", TinkersIntegration.ELEMENTIUM_COLOR) {
 
-    private fun getIntTag(stack: ItemStack, key: String): Int {
-        val tag = TagUtil.getToolTag(stack)
-
-        return tag.getInteger(key)
-    }
-
     private fun getOrigIntTag(stack: ItemStack, key: String): Int {
         val tag = TagUtil.getToolTag(stack)
         val origTag = tag.getCompoundTag(Tags.TOOL_DATA_ORIG)
@@ -29,17 +23,20 @@ class TraitAlfwrought : AbstractTrait("alfwrought", TinkersIntegration.ELEMENTIU
 
     private fun setIntTag(stack: ItemStack, key: String, value: Int) {
         val tag = TagUtil.getToolTag(stack)
-
         tag.setInteger(key, value)
     }
 
     override fun onRepair(tool: ItemStack, amount: Int) {
-        val newDurability = getIntTag(tool, Tags.DURABILITY) + Math.max(amount, 25)
-        if (getOrigIntTag(tool, Tags.DURABILITY) == 0) setOrigIntTag(tool, Tags.DURABILITY, getIntTag(tool, Tags.DURABILITY))
-        if (newDurability / getOrigIntTag(tool, Tags.DURABILITY) > 3) return
-        if (ToolHelper.getCurrentDurability(tool) == 0) {
-            setIntTag(tool, Tags.DURABILITY, getIntTag(tool, Tags.DURABILITY) + Math.max(amount, 25))
+        val newDurability = ToolHelper.getMaxDurability(tool) + Math.max(amount, 25)
+
+        var orig = getOrigIntTag(tool, Tags.DURABILITY)
+        if (getOrigIntTag(tool, Tags.DURABILITY) == 0) {
+            orig = ToolHelper.getMaxDurability(tool)
+            setOrigIntTag(tool, Tags.DURABILITY, orig)
         }
+
+        if (newDurability / orig > 3) return
+        if (ToolHelper.getCurrentDurability(tool) == 0) setIntTag(tool, Tags.DURABILITY, newDurability)
     }
 }
 
