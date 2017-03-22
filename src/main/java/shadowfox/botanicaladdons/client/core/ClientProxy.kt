@@ -139,13 +139,4 @@ class ClientProxy : CommonProxy() {
         BaublesApi.getBaublesHandler(Minecraft.getMinecraft().thePlayer) ?: return false
         return Botania.proxy.isClientPlayerWearingMonocle
     }
-
-    override fun getClientPlayer(): EntityPlayer {
-        return Minecraft.getMinecraft().thePlayer
-    }
-
-    override fun sendSpamlessMessage(player: EntityPlayer, msg: ITextComponent, id: Int) {
-        val chat = Minecraft.getMinecraft().ingameGUI.chatGUI
-        chat.printChatMessageWithOptionalDeletion(msg, id)
-    }
 }

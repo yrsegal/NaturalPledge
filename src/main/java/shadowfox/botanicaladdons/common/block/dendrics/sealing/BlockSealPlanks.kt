@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.sealing
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModPlanks
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -9,7 +10,6 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.sapling.ISealingBlock
-import shadowfox.botanicaladdons.common.block.base.BlockModPlanks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry

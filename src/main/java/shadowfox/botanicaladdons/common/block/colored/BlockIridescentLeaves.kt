@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block.colored
 
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.base.block.BlockModLeaves
 import com.teamwizardry.librarianlib.common.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.common.base.block.ItemModBlock
 import net.minecraft.block.material.MapColor
@@ -9,6 +10,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
+import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
@@ -16,11 +18,12 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
+import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
+import java.util.*
 
 /**
  * @author WireSegal
@@ -50,6 +53,10 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
         }
     }
 
+    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item? {
+        return ModBlocks.irisSapling.itemForm
+    }
+
     abstract val colorSet: Int
 
     init {
@@ -75,8 +82,8 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
         return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR_PROPS[colorSet])))
     }
 
-    override fun getPickBlock(state: IBlockState?, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack? {
-        return createStackedBlock(state ?: return null)
+    override fun getPickBlock(state: IBlockState, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack {
+        return createStackedBlock(state) ?: super.getPickBlock(state, target, world, pos, player)
     }
 
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?

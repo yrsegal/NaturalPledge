@@ -4,6 +4,7 @@ import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
@@ -201,7 +202,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
                 player.attackEntityFrom(faithSource, Float.MAX_VALUE)
             else {
                 variant.punishTheFaithless(stack, player)
-                BotanicalAddons.PROXY.sendSpamlessMessage(player, TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
+                player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
             }
         }
         setAwakened(stack, false)

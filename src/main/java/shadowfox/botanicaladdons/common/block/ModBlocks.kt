@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block
 
 import com.teamwizardry.librarianlib.common.base.block.BlockMod
+import com.teamwizardry.librarianlib.common.base.block.BlockModPane
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -9,7 +10,6 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLeaves
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLog
 import shadowfox.botanicaladdons.common.block.alt.BlockAltPlanks
-import shadowfox.botanicaladdons.common.block.base.BlockModPane
 import shadowfox.botanicaladdons.common.block.colored.*
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentPlanks.BlockRainbowPlanks
 import shadowfox.botanicaladdons.common.block.dendrics.calico.*
@@ -33,7 +33,7 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
  * Created at 2:46 PM on 4/17/16.
  */
 object ModBlocks {
-    val awakenerCore: BlockAwakenerCore
+    val awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
     val star: BlockMod
     val flame: BlockMod
     val irisDirt: BlockMod
@@ -85,7 +85,6 @@ object ModBlocks {
     val enderActuator: BlockMod
 
     init {
-        awakenerCore = BlockAwakenerCore(LibNames.AWAKENER)
         star = BlockFrozenStar(LibNames.STAR)
         flame = BlockPrismFlame(LibNames.PRISM_FLAME)
         irisDirt = BlockIridescentDirt(LibNames.IRIS_DIRT)

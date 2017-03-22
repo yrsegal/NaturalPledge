@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.thunder
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModSapling
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
@@ -9,7 +10,6 @@ import net.minecraft.world.World
 import net.minecraft.world.gen.feature.WorldGenTrees
 import net.minecraftforge.event.terraingen.TerrainGen
 import shadowfox.botanicaladdons.common.block.ModBlocks
-import shadowfox.botanicaladdons.common.block.base.BlockModSapling
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry

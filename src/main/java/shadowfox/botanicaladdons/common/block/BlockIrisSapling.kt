@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModSapling
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
@@ -12,7 +13,6 @@ import shadowfox.botanicaladdons.api.sapling.IIridescentSaplingVariant
 import shadowfox.botanicaladdons.api.sapling.IridescentSaplingBaseVariant
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLeaves
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLog
-import shadowfox.botanicaladdons.common.block.base.BlockModSapling
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentDirt
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentLeaves
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentLog

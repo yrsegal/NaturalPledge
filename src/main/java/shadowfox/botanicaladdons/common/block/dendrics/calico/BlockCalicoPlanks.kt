@@ -1,11 +1,11 @@
 package shadowfox.botanicaladdons.common.block.dendrics.calico
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModPlanks
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
 import net.minecraft.world.World
-import shadowfox.botanicaladdons.common.block.base.BlockModPlanks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry

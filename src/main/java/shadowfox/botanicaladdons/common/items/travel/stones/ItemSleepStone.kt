@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.travel.stones
 
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.monster.EntityMob
 import net.minecraft.entity.player.EntityPlayer
@@ -67,9 +68,9 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
 
         if (!player.worldObj.isRemote) {
             if (sleepResult == SleepResult.NOT_POSSIBLE_NOW)
-                BotanicalAddons.PROXY.sendSpamlessMessage(player, TextComponentTranslation("tile.bed.noSleep"), MESSAGE_ID)
+                player.sendSpamlessMessage(TextComponentTranslation("tile.bed.noSleep"), MESSAGE_ID)
             else if (sleepResult == SleepResult.NOT_SAFE)
-                BotanicalAddons.PROXY.sendSpamlessMessage(player, TextComponentTranslation("tile.bed.notSafe"), MESSAGE_ID)
+                player.sendSpamlessMessage(TextComponentTranslation("tile.bed.notSafe"), MESSAGE_ID)
         }
 
         return sleepResult == SleepResult.OK

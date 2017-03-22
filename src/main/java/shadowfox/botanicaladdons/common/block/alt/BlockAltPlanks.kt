@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.alt
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModPlanks
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
@@ -7,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import shadowfox.botanicaladdons.common.block.base.BlockModPlanks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable

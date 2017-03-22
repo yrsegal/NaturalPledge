@@ -19,7 +19,6 @@ import shadowfox.botanicaladdons.common.integration.tinkers.TinkersProxy
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
-import shadowfox.botanicaladdons.common.network.SpamlessMessagePacket
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.brew.ModBrews
 import vazkii.botania.common.core.helper.Vector3
@@ -91,15 +90,4 @@ open class CommonProxy {
     open fun playerHasMonocle(): Boolean {
         return false
     }
-
-    open fun getClientPlayer(): EntityPlayer {
-        throw UnsupportedOperationException("Server side doesn't have a client side player!")
-    }
-
-    // From ShadowMC
-    open fun sendSpamlessMessage(player: EntityPlayer, msg: ITextComponent, id: Int) {
-        if (player !is EntityPlayerMP) return
-        PacketHandler.NETWORK.sendTo(SpamlessMessagePacket(msg, id), player)
-    }
-
 }

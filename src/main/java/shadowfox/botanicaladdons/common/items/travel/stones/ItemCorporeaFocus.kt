@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.travel.stones
 
+import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
@@ -97,7 +98,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
                 var name = ""
                 var count = 0
 
-                for ((pattern, stacker) in patterns) {
+                for ((pattern, stacker) in patterns.entries) {
                     val matcher = pattern.matcher(msg)
                     if (matcher.matches()) {
                         count = stacker.getCount(matcher)
@@ -120,7 +121,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
         }
 
         override fun shouldAutoComplete(): Boolean {
-            return BotanicalAddons.PROXY.getClientPlayer().heldItemMainhand?.item is ItemCorporeaFocus
+            return LibrarianLib.PROXY.getClientPlayer().heldItemMainhand?.item is ItemCorporeaFocus
         }
 
         fun getBinding(stack: ItemStack, world: World): BlockPos? {

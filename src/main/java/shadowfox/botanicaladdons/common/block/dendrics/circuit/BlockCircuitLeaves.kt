@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.circuit
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModLeaves
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
@@ -9,7 +10,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.ModBlocks
-import shadowfox.botanicaladdons.common.block.base.BlockModLeaves
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -46,7 +46,7 @@ class BlockCircuitLeaves(name: String) : BlockModLeaves(name), ICircuitBlock, IL
         return LexiconEntries.circuitTree
     }
 
-    override fun getItemDropped(state: IBlockState?, rand: Random?, fortune: Int): Item? {
+    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item? {
         return Item.getItemFromBlock(ModBlocks.circuitSapling)
     }
 }

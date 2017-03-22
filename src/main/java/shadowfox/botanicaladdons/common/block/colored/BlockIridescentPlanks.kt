@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block.colored
 
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.common.base.block.BlockModPlanks
 import com.teamwizardry.librarianlib.common.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.common.base.block.ItemModBlock
 import net.minecraft.block.properties.PropertyEnum
@@ -14,7 +15,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.block.base.BlockModPlanks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.api.lexicon.ILexiconable

@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
+import com.teamwizardry.librarianlib.common.base.block.BlockModPane
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -12,7 +13,6 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.common.block.base.BlockModPane
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
@@ -21,7 +21,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * @author WireSegal
  * Created at 1:26 PM on 6/4/16.
  */
-class BlockAquamarinePane(name: String) : BlockModPane(name, Material.GLASS, true), ILexiconable {
+class BlockAquamarinePane(name: String) : BlockModPane(name, true, ModBlocks.aquaGlass.defaultState), ILexiconable {
 
     init {
         blockHardness = 0.3F
