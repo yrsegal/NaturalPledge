@@ -2,7 +2,7 @@
   "textures": {
     "particle": "botania:blocks/livingrock0",
     "all": "botania:model/pool",
-    "liquid": "botania:blocksmana_water"
+    "liquid": "botania:blocks/manaWater"
   },
   "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
   "elements": [

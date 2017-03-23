@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"color=brown": {
+			"model": "botanicaladdons:irisLeaves3"
+		},
+		"color=green": {
+			"model": "botanicaladdons:irisLeaves3"
+		},
+		"color=red": {
+			"model": "botanicaladdons:irisLeaves3"
+		},
+		"color=black": {
+			"model": "botanicaladdons:irisLeaves3"
+		}
+	}
+}

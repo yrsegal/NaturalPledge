@@ -1,149 +1,149 @@
-tile.botanicaladdons:divine_core.name=Divine Ritual Core
+tile.botanicaladdons:divineCore.name=Divine Ritual Core
 tile.botanicaladdons:funnel.name=Livingwood Funnel
-tile.botanicaladdons:aqua_glass.name=Aquamarine Glass
-tile.botanicaladdons:aqua_pane.name=Aquamarine Pane
+tile.botanicaladdons:aquaGlass.name=Aquamarine Glass
+tile.botanicaladdons:aquaPane.name=Aquamarine Pane
 
-item.botanicaladdons:emblem_njord.name=Priestly Emblem: Njord
-item.botanicaladdons:emblem_njord.angry=You feel the air trembling with Njord's displeasure...
-item.botanicaladdons:emblem_idunn.name=Priestly Emblem: Idunn
-item.botanicaladdons:emblem_idunn.angry=You feel your soul freeze under Idunn's baleful stare...
-item.botanicaladdons:emblem_thor.name=Priestly Emblem: Thor
-item.botanicaladdons:emblem_thor.angry=You feel the skies rumbling with Thor's rage...
-item.botanicaladdons:emblem_heimdall.name=Priestly Emblem: Heimdall
-item.botanicaladdons:emblem_heimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
+item.botanicaladdons:emblemNjord.name=Priestly Emblem: Njord
+item.botanicaladdons:emblemNjord.angry=You feel the air trembling with Njord's displeasure...
+item.botanicaladdons:emblemIdunn.name=Priestly Emblem: Idunn
+item.botanicaladdons:emblemIdunn.angry=You feel your soul freeze under Idunn's baleful stare...
+item.botanicaladdons:emblemThor.name=Priestly Emblem: Thor
+item.botanicaladdons:emblemThor.angry=You feel the skies rumbling with Thor's rage...
+item.botanicaladdons:emblemHeimdall.name=Priestly Emblem: Heimdall
+item.botanicaladdons:emblemHeimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
 
-item.botanicaladdons:seal_arrow.name=Arrow of Ascension
+item.botanicaladdons:sealArrow.name=Arrow of Ascension
 item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
-item.botanicaladdons:apple_immortality.name=Apple of Immortality
-item.botanicaladdons:fate_horn.name=Gjallarhorn, Horn of Fate
+item.botanicaladdons:appleImmortality.name=Apple of Immortality
+item.botanicaladdons:fateHorn.name=Gjallarhorn, Horn of Fate
 
-item.botanicaladdons:thunder_fist.name=Fist of Thunder
-item.botanicaladdons:thunder_fist.blood_jewel.name=Bloodjeweled Bracer
+item.botanicaladdons:thunderFist.name=Fist of Thunder
+item.botanicaladdons:thunderFist.bloodJewel.name=Bloodjeweled Bracer
 
-item.botanicaladdons:thunder_steel.name=Thundersteel Ingot
-item.botanicaladdons:thunder_steel_active.name=Awakened Thundersteel Ingot
-item.botanicaladdons:life_root.name=Soulroot
-item.botanicaladdons:life_root_active.name=Awakened Soulroot
+item.botanicaladdons:thunderSteel.name=Thundersteel Ingot
+item.botanicaladdons:thunderSteelActive.name=Awakened Thundersteel Ingot
+item.botanicaladdons:lifeRoot.name=Soulroot
+item.botanicaladdons:lifeRootActive.name=Awakened Soulroot
 item.botanicaladdons:aquamarine.name=Aquamarine Shard
-item.botanicaladdons:aquamarine_active.name=Awakened Aquamarine Shard
+item.botanicaladdons:aquamarineActive.name=Awakened Aquamarine Shard
 item.botanicaladdons:thundernugget.name=Thundersteel Nugget
 
-tile.botanicaladdons:thundersteel_block.name=Block of Thundersteel
-tile.botanicaladdons:aquamarine_block.name=Aquamarine Bricks
+tile.botanicaladdons:thundersteelBlock.name=Block of Thundersteel
+tile.botanicaladdons:aquamarineBlock.name=Aquamarine Bricks
 
-item.botanicaladdons:mortal_stone.name=Mortalstone
+item.botanicaladdons:mortalStone.name=Mortalstone
 
-item.botanicaladdons:icon_leap.name=Rush of Wind
-item.botanicaladdons:icon_interdict.name=Galeforce
-item.botanicaladdons:icon_push_away.name=Sudden Gust
-item.botanicaladdons:icon_wind_infusion.name=Tempest Infusion
+item.botanicaladdons:iconLeap.name=Rush of Wind
+item.botanicaladdons:iconInterdict.name=Galeforce
+item.botanicaladdons:iconPushAway.name=Sudden Gust
+item.botanicaladdons:iconWindInfusion.name=Tempest Infusion
 
-item.botanicaladdons:icon_lightning.name=Lightning Strike
-item.botanicaladdons:icon_strength.name=Thunder's Force
-item.botanicaladdons:icon_pull.name=Chains of Iron
-item.botanicaladdons:icon_hypercharge.name=Hypercharge
-item.botanicaladdons:icon_lightning_infusion.name=Thunder Infusion
+item.botanicaladdons:iconLightning.name=Lightning Strike
+item.botanicaladdons:iconStrength.name=Thunder's Force
+item.botanicaladdons:iconPull.name=Chains of Iron
+item.botanicaladdons:iconHypercharge.name=Hypercharge
+item.botanicaladdons:iconLightningInfusion.name=Thunder Infusion
 
-item.botanicaladdons:icon_iridescence.name=Iridescent Tones
-item.botanicaladdons:icon_bifrost_sphere.name=Wave of Bifrost
+item.botanicaladdons:iconIridescence.name=Iridescent Tones
+item.botanicaladdons:iconBifrostSphere.name=Wave of Bifrost
 
-item.botanicaladdons:icon_ironroot.name=Shield of Roots
-item.botanicaladdons:icon_lifemaker.name=Life Catalyst
+item.botanicaladdons:iconIronroot.name=Shield of Roots
+item.botanicaladdons:iconLifemaker.name=Life Catalyst
 
-item.botanicaladdons:cloak_njord.name=Cloak of Njord
-item.botanicaladdons:cloak_idunn.name=Cloak of Idunn
-item.botanicaladdons:cloak_thor.name=Cloak of Thor
-item.botanicaladdons:cloak_heimdall.name=Cloak of Heimdall
+item.botanicaladdons:cloakNjord.name=Cloak of Njord
+item.botanicaladdons:cloakIdunn.name=Cloak of Idunn
+item.botanicaladdons:cloakThor.name=Cloak of Thor
+item.botanicaladdons:cloakHeimdall.name=Cloak of Heimdall
 
-item.botanicaladdons:iron_belt.name=Weighted Belt
+item.botanicaladdons:ironBelt.name=Weighted Belt
 
-item.botanicaladdons:xp_tome.name=Tome of the Ages
+item.botanicaladdons:xpTome.name=Tome of the Ages
 
-item.botanicaladdons:corporea_focus.name=Stone of Recall
-item.botanicaladdons:sleep_stone.name=Stone of Meditation
-item.botanicaladdons:portal_stone.name=Stone of Nether Fracture
-item.botanicaladdons:poly_stone.name=Stone of Assimilation
+item.botanicaladdons:corporeaFocus.name=Stone of Recall
+item.botanicaladdons:sleepStone.name=Stone of Meditation
+item.botanicaladdons:portalStone.name=Stone of Nether Fracture
+item.botanicaladdons:polyStone.name=Stone of Assimilation
 
 enchantment.botanicaladdons.light=Streamlined
 enchantment.botanicaladdons.light.desc=Quicker to swing, you move lithely while you hold it, at the cost of reduced damage.
 enchantment.botanicaladdons.heavy=Crushing
 enchantment.botanicaladdons.heavy.desc=Slower to swing, you move slowly while you hold it, giving you heavily increased damage.
 
-jei.botanicaladdons.recipe.spell_crafting=Spell Infusion
-jei.botanicaladdons.recipe.tree_growing=Tree Growth
+jei.botanicaladdons.recipe.spellCrafting=Spell Infusion
+jei.botanicaladdons.recipe.treeGrowing=Tree Growth
 
-item.botanicaladdons:spell_focus.name=Terrestrial Focus
+item.botanicaladdons:spellFocus.name=Terrestrial Focus
 
-item.botanicaladdons:prism_rod.name=Rod of the Prismatic Lake
+item.botanicaladdons:prismRod.name=Rod of the Prismatic Lake
 item.botanicaladdons:toolbelt.name=Traveller's Toolbelt
 item.botanicaladdons:foodbelt.name=Traveller's Ration Belt
-item.botanicaladdons:travel_stone.name=Traveller's Flowstone
-item.botanicaladdons:find_stone.name=Traveller's Waystone
-item.botanicaladdons:death_stone.name=Stone of Return
+item.botanicaladdons:travelStone.name=Traveller's Flowstone
+item.botanicaladdons:findStone.name=Traveller's Waystone
+item.botanicaladdons:deathStone.name=Stone of Return
 
-tile.botanicaladdons:prism_flame.name=Prismatic Flash
+tile.botanicaladdons:prismFlame.name=Prismatic Flash
 tile.botanicaladdons:star.name=Frozen Star
-tile.botanicaladdons:crackling_star.name=Crackling Star
-tile.botanicaladdons:iris_dirt.name=Iridescent Dirt
-tile.botanicaladdons:rainbow_dirt.name=Iridescent Dirt
-tile.botanicaladdons:iris_planks.name=Iridescent Planks
-tile.botanicaladdons:rainbow_planks.name=Iridescent Planks
-tile.botanicaladdons:iris_log.name=Iridescent Log
-tile.botanicaladdons:rainbow_log.name=Iridescent Log
-tile.botanicaladdons:iris_leaves.name=Iridescent Leaves
-tile.botanicaladdons:rainbow_leaves.name=Iridescent Leaves
-tile.botanicaladdons:iris_sapling.name=Iridescent Sapling
-tile.botanicaladdons:iris_lamp.name=Iridescent Lantern
+tile.botanicaladdons:cracklingStar.name=Crackling Star
+tile.botanicaladdons:irisDirt.name=Iridescent Dirt
+tile.botanicaladdons:rainbowDirt.name=Iridescent Dirt
+tile.botanicaladdons:irisPlanks.name=Iridescent Planks
+tile.botanicaladdons:rainbowPlanks.name=Iridescent Planks
+tile.botanicaladdons:irisLog.name=Iridescent Log
+tile.botanicaladdons:rainbowLog.name=Iridescent Log
+tile.botanicaladdons:irisLeaves.name=Iridescent Leaves
+tile.botanicaladdons:rainbowLeaves.name=Iridescent Leaves
+tile.botanicaladdons:irisSapling.name=Iridescent Sapling
+tile.botanicaladdons:irisLamp.name=Iridescent Lantern
 
-tile.botanicaladdons:alt_log_dry.name=Dry Iridescent Log
-tile.botanicaladdons:alt_log_golden.name=Golden Iridescent Log
-tile.botanicaladdons:alt_log_vivid.name=Vivid Iridescent Log
-tile.botanicaladdons:alt_log_scorched.name=Scorched Iridescent Log
-tile.botanicaladdons:alt_log_infused.name=Infused Iridescent Log
-tile.botanicaladdons:alt_log_mutated.name=Mutated Iridescent Log
+tile.botanicaladdons:altLogDry.name=Dry Iridescent Log
+tile.botanicaladdons:altLogGolden.name=Golden Iridescent Log
+tile.botanicaladdons:altLogVivid.name=Vivid Iridescent Log
+tile.botanicaladdons:altLogScorched.name=Scorched Iridescent Log
+tile.botanicaladdons:altLogInfused.name=Infused Iridescent Log
+tile.botanicaladdons:altLogMutated.name=Mutated Iridescent Log
 
-tile.botanicaladdons:alt_leaves_dry.name=Dry Iridescent Leaves
-tile.botanicaladdons:alt_leaves_golden.name=Golden Iridescent Leaves
-tile.botanicaladdons:alt_leaves_vivid.name=Vivid Iridescent Leaves
-tile.botanicaladdons:alt_leaves_scorched.name=Scorched Iridescent Leaves
-tile.botanicaladdons:alt_leaves_infused.name=Infused Iridescent Leaves
-tile.botanicaladdons:alt_leaves_mutated.name=Mutated Iridescent Leaves
+tile.botanicaladdons:altLeavesDry.name=Dry Iridescent Leaves
+tile.botanicaladdons:altLeavesGolden.name=Golden Iridescent Leaves
+tile.botanicaladdons:altLeavesVivid.name=Vivid Iridescent Leaves
+tile.botanicaladdons:altLeavesScorched.name=Scorched Iridescent Leaves
+tile.botanicaladdons:altLeavesInfused.name=Infused Iridescent Leaves
+tile.botanicaladdons:altLeavesMutated.name=Mutated Iridescent Leaves
 
-tile.botanicaladdons:alt_planks_dry.name=Dry Iridescent Planks
-tile.botanicaladdons:alt_planks_golden.name=Golden Iridescent Planks
-tile.botanicaladdons:alt_planks_vivid.name=Vivid Iridescent Planks
-tile.botanicaladdons:alt_planks_scorched.name=Scorched Iridescent Planks
-tile.botanicaladdons:alt_planks_infused.name=Infused Iridescent Planks
-tile.botanicaladdons:alt_planks_mutated.name=Mutated Iridescent Planks
+tile.botanicaladdons:altPlanksDry.name=Dry Iridescent Planks
+tile.botanicaladdons:altPlanksGolden.name=Golden Iridescent Planks
+tile.botanicaladdons:altPlanksVivid.name=Vivid Iridescent Planks
+tile.botanicaladdons:altPlanksScorched.name=Scorched Iridescent Planks
+tile.botanicaladdons:altPlanksInfused.name=Infused Iridescent Planks
+tile.botanicaladdons:altPlanksMutated.name=Mutated Iridescent Planks
 
-tile.botanicaladdons:seal_log.name=Sealing Oak Log
-tile.botanicaladdons:seal_planks.name=Sealing Oak Planks
-tile.botanicaladdons:seal_leaves.name=Sealing Oak Leaves
-tile.botanicaladdons:seal_sapling.name=Sealing Oak Sapling
+tile.botanicaladdons:sealLog.name=Sealing Oak Log
+tile.botanicaladdons:sealPlanks.name=Sealing Oak Planks
+tile.botanicaladdons:sealLeaves.name=Sealing Oak Leaves
+tile.botanicaladdons:sealSapling.name=Sealing Oak Sapling
 
 tile.botanicaladdons:amp.name=Sonic Amplifier
 
-tile.botanicaladdons:thunder_log.name=Thunderous Oak Log
-tile.botanicaladdons:thunder_planks.name=Thunderous Oak Planks
-tile.botanicaladdons:thunder_leaves.name=Thunderous Oak Leaves
-tile.botanicaladdons:thunder_sapling.name=Thunderous Oak Sapling
+tile.botanicaladdons:thunderLog.name=Thunderous Oak Log
+tile.botanicaladdons:thunderPlanks.name=Thunderous Oak Planks
+tile.botanicaladdons:thunderLeaves.name=Thunderous Oak Leaves
+tile.botanicaladdons:thunderSapling.name=Thunderous Oak Sapling
 
-tile.botanicaladdons:circuit_log.name=Circuitree Log
-tile.botanicaladdons:circuit_planks.name=Circuitree Planks
-tile.botanicaladdons:circuit_leaves.name=Circuitree Leaves
-tile.botanicaladdons:circuit_sapling.name=Circuitree Sapling
+tile.botanicaladdons:circuitLog.name=Circuitree Log
+tile.botanicaladdons:circuitPlanks.name=Circuitree Planks
+tile.botanicaladdons:circuitLeaves.name=Circuitree Leaves
+tile.botanicaladdons:circuitSapling.name=Circuitree Sapling
 
-tile.botanicaladdons:calico_log.name=Calico Log
-tile.botanicaladdons:calico_planks.name=Calico Planks
-tile.botanicaladdons:calico_leaves.name=Calico Leaves
-tile.botanicaladdons:calico_sapling.name=Calico Sapling
+tile.botanicaladdons:calicoLog.name=Calico Log
+tile.botanicaladdons:calicoPlanks.name=Calico Planks
+tile.botanicaladdons:calicoLeaves.name=Calico Leaves
+tile.botanicaladdons:calicoSapling.name=Calico Sapling
 
-tile.botanicaladdons:corporea_resonator.name=Corporea Resonator
+tile.botanicaladdons:corporeaResonator.name=Corporea Resonator
 tile.botanicaladdons:actuator.name=Ender Actuator
 
-misc.botanicaladdons.actuator_bind=The Actuator screams with the song of your soul...
+misc.botanicaladdons.actuatorBind=The Actuator screams with the song of your soul...
 
-misc.botanicaladdons.color._1=&cERROR&r
+misc.botanicaladdons.color.-1=&cERROR&r
 misc.botanicaladdons.color.0=White
 misc.botanicaladdons.color.1=Orange
 misc.botanicaladdons.color.2=Magenta
@@ -166,95 +166,95 @@ misc.botanicaladdons.color.mixed=Color Mixture
 
 misc.botanicaladdons.baubletooltip=Press &b%s&7 to open the Baubles menu
 
-misc.botanicaladdons.custom_size=Radius: %s Blocks
+misc.botanicaladdons.customSize=Radius: %s Blocks
 
 misc.botanicaladdons.tracking=Seeking %s, %s blocks away
-misc.botanicaladdons.tracking_close=Seeking %s, close by
-misc.botanicaladdons.tracking_not_here=Seeking %s, an eternity away
-misc.botanicaladdons.tracking_block=Seeking a location, %s blocks away
-misc.botanicaladdons.tracking_block_close=Seeking a location, close by
+misc.botanicaladdons.trackingClose=Seeking %s, close by
+misc.botanicaladdons.trackingNotHere=Seeking %s, an eternity away
+misc.botanicaladdons.trackingBlock=Seeking a location, %s blocks away
+misc.botanicaladdons.trackingBlockClose=Seeking a location, close by
 
-item.botanicaladdons:dye_shard_white.name=White Iridescent Shard
-item.botanicaladdons:dye_shard_orange.name=Orange Iridescent Shard
-item.botanicaladdons:dye_shard_magenta.name=Magenta Iridescent Shard
-item.botanicaladdons:dye_shard_light_blue.name=Light Blue Iridescent Shard
-item.botanicaladdons:dye_shard_yellow.name=Yellow Iridescent Shard
-item.botanicaladdons:dye_shard_lime.name=Lime Iridescent Shard
-item.botanicaladdons:dye_shard_pink.name=Pink Iridescent Shard
-item.botanicaladdons:dye_shard_gray.name=Gray Iridescent Shard
-item.botanicaladdons:dye_shard_light_gray.name=Light Gray Iridescent Shard
-item.botanicaladdons:dye_shard_cyan.name=Cyan Iridescent Shard
-item.botanicaladdons:dye_shard_purple.name=Purple Iridescent Shard
-item.botanicaladdons:dye_shard_blue.name=Blue Iridescent Shard
-item.botanicaladdons:dye_shard_brown.name=Brown Iridescent Shard
-item.botanicaladdons:dye_shard_green.name=Green Iridescent Shard
-item.botanicaladdons:dye_shard_red.name=Red Iridescent Shard
-item.botanicaladdons:dye_shard_black.name=Black Iridescent Shard
-item.botanicaladdons:dye_shard_rainbow.name=Bifrost Iridescent Shard
+item.botanicaladdons:dyeShardWhite.name=White Iridescent Shard
+item.botanicaladdons:dyeShardOrange.name=Orange Iridescent Shard
+item.botanicaladdons:dyeShardMagenta.name=Magenta Iridescent Shard
+item.botanicaladdons:dyeShardLightBlue.name=Light Blue Iridescent Shard
+item.botanicaladdons:dyeShardYellow.name=Yellow Iridescent Shard
+item.botanicaladdons:dyeShardLime.name=Lime Iridescent Shard
+item.botanicaladdons:dyeShardPink.name=Pink Iridescent Shard
+item.botanicaladdons:dyeShardGray.name=Gray Iridescent Shard
+item.botanicaladdons:dyeShardLightGray.name=Light Gray Iridescent Shard
+item.botanicaladdons:dyeShardCyan.name=Cyan Iridescent Shard
+item.botanicaladdons:dyeShardPurple.name=Purple Iridescent Shard
+item.botanicaladdons:dyeShardBlue.name=Blue Iridescent Shard
+item.botanicaladdons:dyeShardBrown.name=Brown Iridescent Shard
+item.botanicaladdons:dyeShardGreen.name=Green Iridescent Shard
+item.botanicaladdons:dyeShardRed.name=Red Iridescent Shard
+item.botanicaladdons:dyeShardBlack.name=Black Iridescent Shard
+item.botanicaladdons:dyeShardRainbow.name=Bifrost Iridescent Shard
 
-item.botanicaladdons:iris_dye_white.name=White Iridescent Crystal
-item.botanicaladdons:iris_dye_orange.name=Orange Iridescent Crystal
-item.botanicaladdons:iris_dye_magenta.name=Magenta Iridescent Crystal
-item.botanicaladdons:iris_dye_light_blue.name=Light Blue Iridescent Crystal
-item.botanicaladdons:iris_dye_yellow.name=Yellow Iridescent Crystal
-item.botanicaladdons:iris_dye_lime.name=Lime Iridescent Crystal
-item.botanicaladdons:iris_dye_pink.name=Pink Iridescent Crystal
-item.botanicaladdons:iris_dye_gray.name=Gray Iridescent Crystal
-item.botanicaladdons:iris_dye_light_gray.name=Light Gray Iridescent Crystal
-item.botanicaladdons:iris_dye_cyan.name=Cyan Iridescent Crystal
-item.botanicaladdons:iris_dye_purple.name=Purple Iridescent Crystal
-item.botanicaladdons:iris_dye_blue.name=Blue Iridescent Crystal
-item.botanicaladdons:iris_dye_brown.name=Brown Iridescent Crystal
-item.botanicaladdons:iris_dye_green.name=Green Iridescent Crystal
-item.botanicaladdons:iris_dye_red.name=Red Iridescent Crystal
-item.botanicaladdons:iris_dye_black.name=Black Iridescent Crystal
-item.botanicaladdons:iris_dye_rainbow.name=Bifrost Iridescent Crystal
+item.botanicaladdons:irisDyeWhite.name=White Iridescent Crystal
+item.botanicaladdons:irisDyeOrange.name=Orange Iridescent Crystal
+item.botanicaladdons:irisDyeMagenta.name=Magenta Iridescent Crystal
+item.botanicaladdons:irisDyeLightBlue.name=Light Blue Iridescent Crystal
+item.botanicaladdons:irisDyeYellow.name=Yellow Iridescent Crystal
+item.botanicaladdons:irisDyeLime.name=Lime Iridescent Crystal
+item.botanicaladdons:irisDyePink.name=Pink Iridescent Crystal
+item.botanicaladdons:irisDyeGray.name=Gray Iridescent Crystal
+item.botanicaladdons:irisDyeLightGray.name=Light Gray Iridescent Crystal
+item.botanicaladdons:irisDyeCyan.name=Cyan Iridescent Crystal
+item.botanicaladdons:irisDyePurple.name=Purple Iridescent Crystal
+item.botanicaladdons:irisDyeBlue.name=Blue Iridescent Crystal
+item.botanicaladdons:irisDyeBrown.name=Brown Iridescent Crystal
+item.botanicaladdons:irisDyeGreen.name=Green Iridescent Crystal
+item.botanicaladdons:irisDyeRed.name=Red Iridescent Crystal
+item.botanicaladdons:irisDyeBlack.name=Black Iridescent Crystal
+item.botanicaladdons:irisDyeRainbow.name=Bifrost Iridescent Crystal
 
-item.botanicaladdons:iris_dye_awakened_white.name=White Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_orange.name=Orange Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_magenta.name=Magenta Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_light_blue.name=Light Blue Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_yellow.name=Yellow Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_lime.name=Lime Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_pink.name=Pink Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_gray.name=Gray Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_light_gray.name=Light Gray Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_cyan.name=Cyan Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_purple.name=Purple Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_blue.name=Blue Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_brown.name=Brown Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_green.name=Green Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_red.name=Red Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_black.name=Black Awakened Crystal
-item.botanicaladdons:iris_dye_awakened_rainbow.name=Bifrost Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedWhite.name=White Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedOrange.name=Orange Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedMagenta.name=Magenta Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedLightBlue.name=Light Blue Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedYellow.name=Yellow Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedLime.name=Lime Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedPink.name=Pink Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedGray.name=Gray Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedLightGray.name=Light Gray Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedCyan.name=Cyan Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedPurple.name=Purple Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedBlue.name=Blue Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedBrown.name=Brown Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedGreen.name=Green Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedRed.name=Red Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedBlack.name=Black Awakened Crystal
+item.botanicaladdons:irisDyeAwakenedRainbow.name=Bifrost Awakened Crystal
 
-item.botanicaladdons:gaia_killer.name=Slayer of Guardians
+item.botanicaladdons:gaiaKiller.name=Slayer of Guardians
 
-item_group.botanicaladdons.divine=Natural Pledge
+itemGroup.botanicaladdons.divine=Natural Pledge
 
 misc.botanicaladdons.contains=Contains:
-misc.botanicaladdons.contains_nothing=Empty
+misc.botanicaladdons.containsNothing=Empty
 
-misc.botanicaladdons.njord_watches=The wind seems to hold its breath as the ritual begins...
-misc.botanicaladdons.idunn_watches=Your lifeforce seems to glow as the ritual begins...
-misc.botanicaladdons.thor_watches=The air feels charged as the ritual begins...
-misc.botanicaladdons.heimdall_watches=The world feels vibrant as the ritual begins...
+misc.botanicaladdons.njordWatches=The wind seems to hold its breath as the ritual begins...
+misc.botanicaladdons.idunnWatches=Your lifeforce seems to glow as the ritual begins...
+misc.botanicaladdons.thorWatches=The air feels charged as the ritual begins...
+misc.botanicaladdons.heimdallWatches=The world feels vibrant as the ritual begins...
 
-misc.botanicaladdons.njord_smiles=All the winds of the world seem to flow out of your emblem as it awakens!
-misc.botanicaladdons.idunn_smiles=It seems like you can feel everything alive in the world as your emblem awakens!
-misc.botanicaladdons.thor_smiles=It feels like thunder is flowing through your veins as your emblem awakens!
-misc.botanicaladdons.heimdall_smiles=It feels like you can see hues within hues as your emblem awakens!
+misc.botanicaladdons.njordSmiles=All the winds of the world seem to flow out of your emblem as it awakens!
+misc.botanicaladdons.idunnSmiles=It seems like you can feel everything alive in the world as your emblem awakens!
+misc.botanicaladdons.thorSmiles=It feels like thunder is flowing through your veins as your emblem awakens!
+misc.botanicaladdons.heimdallSmiles=It feels like you can see hues within hues as your emblem awakens!
 
-item.botanicaladdons:holy_symbol.name=Holy Symbol
-item.botanicaladdons:holy_symbol.potato.name=Tiny Headtato
-item.botanicaladdons:holy_symbol.catalyst.name=Curse of the Catalyst
-item.botanicaladdons:holy_symbol.heart.name=Culmination of Being
-item.botanicaladdons:holy_symbol.headdress.name=Cherokee Headdress
-item.botanicaladdons:holy_symbol.tail.name=Fox Tail
-item.botanicaladdons:holy_symbol.teru.name=Chesteru Teru Bozu
-item.botanicaladdons:holy_symbol.mystery.name=Mysterious Pendant
-item.botanicaladdons:holy_symbol.rainbow.name=Fabulosity Incarnate
-item.botanicaladdons:holy_symbol.none.name=Cleared Symbol
+item.botanicaladdons:holySymbol.name=Holy Symbol
+item.botanicaladdons:holySymbol.potato.name=Tiny Headtato
+item.botanicaladdons:holySymbol.catalyst.name=Curse of the Catalyst
+item.botanicaladdons:holySymbol.heart.name=Culmination of Being
+item.botanicaladdons:holySymbol.headdress.name=Cherokee Headdress
+item.botanicaladdons:holySymbol.tail.name=Fox Tail
+item.botanicaladdons:holySymbol.teru.name=Chesteru Teru Bozu
+item.botanicaladdons:holySymbol.mystery.name=Mysterious Pendant
+item.botanicaladdons:holySymbol.rainbow.name=Fabulosity Incarnate
+item.botanicaladdons:holySymbol.none.name=Cleared Symbol
 
 botanicaladdons.subtitle.woosh=Wind wooshes
 
@@ -314,30 +314,30 @@ death.attack.botanicaladdons.hammer.player=%s discovered %s had kinetic energy
 death.attack.botanicaladdons.earthquake=%s found out earthquakes hurt
 death.attack.botanicaladdons.earthquake.player=%s heard from %s that earthquakes hurt
 
-achievement.botanicaladdons:don_emblem=The New Millenium
-achievement.botanicaladdons:don_emblem.desc=Pledge your soul to a divinity
+achievement.botanicaladdons:donEmblem=The New Millenium
+achievement.botanicaladdons:donEmblem.desc=Pledge your soul to a divinity
 achievement.botanicaladdons:focus=Glass of Time
 achievement.botanicaladdons:focus.desc=Channel your soul through a Terrestrial Focus
 achievement.botanicaladdons:awakening=Chaining Intention
 achievement.botanicaladdons:awakening.desc=Infuse the Divine into your Priestly Emblem
 
-achievement.botanicaladdons:create_life=Pitch-Black Forest
-achievement.botanicaladdons:create_life.desc=Forge the essence of new life from the power of Idunn
-achievement.botanicaladdons:create_thunder=Electric Angel
-achievement.botanicaladdons:create_thunder.desc=Forge lightning into metal from the power of Thor
-achievement.botanicaladdons:create_aqua=Blue Sky Fish
-achievement.botanicaladdons:create_aqua.desc=Forge the storm into crystal from the power of Njord
+achievement.botanicaladdons:createLife=Pitch-Black Forest
+achievement.botanicaladdons:createLife.desc=Forge the essence of new life from the power of Idunn
+achievement.botanicaladdons:createThunder=Electric Angel
+achievement.botanicaladdons:createThunder.desc=Forge lightning into metal from the power of Thor
+achievement.botanicaladdons:createAqua=Blue Sky Fish
+achievement.botanicaladdons:createAqua.desc=Forge the storm into crystal from the power of Njord
 achievement.botanicaladdons:iridescence=Platinum Disco
 achievement.botanicaladdons:iridescence.desc=Forge Iridescence from the power of Heimdall
 
-achievement.botanicaladdons:sacred_life=Eternal Song
-achievement.botanicaladdons:sacred_life.desc=Create the Apples of Immortality from the true power of Idunn
-achievement.botanicaladdons:sacred_thunder=God Slaying Machine
-achievement.botanicaladdons:sacred_thunder.desc=Create Mjolnir from the true power of Thor
-achievement.botanicaladdons:sacred_aqua=Rising Hero
-achievement.botanicaladdons:sacred_aqua.desc=Create the Arrows of Ascension from the true power of Njord
-achievement.botanicaladdons:sacred_horn=Lost One's Weeping
-achievement.botanicaladdons:sacred_horn.desc=Create Gjallerhorn from the true power of Heimdall
+achievement.botanicaladdons:sacredLife=Eternal Song
+achievement.botanicaladdons:sacredLife.desc=Create the Apples of Immortality from the true power of Idunn
+achievement.botanicaladdons:sacredThunder=God Slaying Machine
+achievement.botanicaladdons:sacredThunder.desc=Create Mjolnir from the true power of Thor
+achievement.botanicaladdons:sacredAqua=Rising Hero
+achievement.botanicaladdons:sacredAqua.desc=Create the Arrows of Ascension from the true power of Njord
+achievement.botanicaladdons:sacredHorn=Lost One's Weeping
+achievement.botanicaladdons:sacredHorn.desc=Create Gjallerhorn from the true power of Heimdall
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted
@@ -350,91 +350,91 @@ botanicaladdons.brew.immortality=Divinity's Grace
 
 botanicaladdons.category.divinity=Divinity
 
-botanicaladdons.entry.divinity_intro=Divine Faith
-botanicaladdons.tagline.divinity_intro=Kneel before the gods
-botanicaladdons.page.divinity_intro0=Traces of divine work are evident in this world. &4Mana&0, for one. The stuff of magic isn't possibly made by mortal hand. It is only a question of how to connect with these gods.
-botanicaladdons.page.divinity_intro1=The &1Holy Symbol&0 is the needed artifact for this connection, with what seems to be a wild storm of unrealized potential. Although crafted of simple materials, it has a ready acceptance of other magic. This is the gate to the &3Divine&0, and can be used to forge direct connections in the form of a &1Priestly Emblem&0. Wearing one will grant you more knowledge in this section.
-botanicaladdons.page.divinity_intro2=A key to the zodiac
-botanicaladdons.page.divinity_intro3=The connection the &1Priestly Emblems&0 give you are strong, but don't contain the full power you can harness. An interface to channel the power of a god on earth is required, to allow you to fully command the power you have gained. This interface is the &1Terrestrial Focus&0, a device which can cast &3Divine&0 spells.
-botanicaladdons.page.divinity_intro4=Taking a level in Wizard
-botanicaladdons.page.divinity_intro5=Even then, some may not wish to bind themselves to a god, but instead to fight them. By oversaturating the connection between a priest and their follower with &4Mana&0, you can fully cut it off. This can be accomplished by holding a &1Mortalstone&0, which forces &4Mana&0 into the soul of anyone around you.
-botanicaladdons.page.divinity_intro6=The Kaj's weapon
+botanicaladdons.entry.divinityIntro=Divine Faith
+botanicaladdons.tagline.divinityIntro=Kneel before the gods
+botanicaladdons.page.divinityIntro0=Traces of divine work are evident in this world. &4Mana&0, for one. The stuff of magic isn't possibly made by mortal hand. It is only a question of how to connect with these gods.
+botanicaladdons.page.divinityIntro1=The &1Holy Symbol&0 is the needed artifact for this connection, with what seems to be a wild storm of unrealized potential. Although crafted of simple materials, it has a ready acceptance of other magic. This is the gate to the &3Divine&0, and can be used to forge direct connections in the form of a &1Priestly Emblem&0. Wearing one will grant you more knowledge in this section.
+botanicaladdons.page.divinityIntro2=A key to the zodiac
+botanicaladdons.page.divinityIntro3=The connection the &1Priestly Emblems&0 give you are strong, but don't contain the full power you can harness. An interface to channel the power of a god on earth is required, to allow you to fully command the power you have gained. This interface is the &1Terrestrial Focus&0, a device which can cast &3Divine&0 spells.
+botanicaladdons.page.divinityIntro4=Taking a level in Wizard
+botanicaladdons.page.divinityIntro5=Even then, some may not wish to bind themselves to a god, but instead to fight them. By oversaturating the connection between a priest and their follower with &4Mana&0, you can fully cut it off. This can be accomplished by holding a &1Mortalstone&0, which forces &4Mana&0 into the soul of anyone around you.
+botanicaladdons.page.divinityIntro6=The Kaj's weapon
 
 botanicaladdons.entry.njord=Faith in Njord
 botanicaladdons.tagline.njord=Wind, sea, and sky
 botanicaladdons.page.njord0=The &4Vanir&0 god of the fluid elements, &3Njord&0, seems like a worthy choice for your faith. Wielding his aspect of the &3Divine&0 makes your body hydrophobic, rising above any kind of fluid. You also gain attacks with the force of the wind, barreling your foes back with your every hit.
 botanicaladdons.page.njord1=At the doom of men he will come back
 
-botanicaladdons.entry.njord_spells=Movement Magic
-botanicaladdons.tagline.njord_spells=The art of changing flows
-botanicaladdons.page.njord_spells0=The first spell that &3Njord&0's emblem grants, &1Rush of Wind&0, is a simple launching motion. It accelerates the caster in the direction they look, allowing for rudimentary flight. Any device that allows the user to glide seems an interesting combination with this.
-botanicaladdons.page.njord_spells1=The second spell of &3Njord&0, &1Galeforce&0, is a general protection spell. Most beings and projectiles will be pushed back from the player, giving them a sphere of safety.
-botanicaladdons.page.njord_spells2=The third spell of &3Njord&0, &1Sudden Gust&0, allows for corralling animals without harming them. The being the player looks at will be forced back when it's cast, as if the player had hit them.
-botanicaladdons.page.njord_spells3=The final spell of &3Njord&0, &1Tempest Infusion&0, forces the strength of a storm into a shard of the sea, making &1Aquamarine&0. If you can somehow augment your emblem's power, the storm within the shard might be more potent.
-botanicaladdons.page.njord_spells4=It's so pretty
-botanicaladdons.page.njord_spells5=And back again
-botanicaladdons.page.njord_spells6=Use me underwater
-botanicaladdons.page.njord_spells7=And some panes
+botanicaladdons.entry.njordSpells=Movement Magic
+botanicaladdons.tagline.njordSpells=The art of changing flows
+botanicaladdons.page.njordSpells0=The first spell that &3Njord&0's emblem grants, &1Rush of Wind&0, is a simple launching motion. It accelerates the caster in the direction they look, allowing for rudimentary flight. Any device that allows the user to glide seems an interesting combination with this.
+botanicaladdons.page.njordSpells1=The second spell of &3Njord&0, &1Galeforce&0, is a general protection spell. Most beings and projectiles will be pushed back from the player, giving them a sphere of safety.
+botanicaladdons.page.njordSpells2=The third spell of &3Njord&0, &1Sudden Gust&0, allows for corralling animals without harming them. The being the player looks at will be forced back when it's cast, as if the player had hit them.
+botanicaladdons.page.njordSpells3=The final spell of &3Njord&0, &1Tempest Infusion&0, forces the strength of a storm into a shard of the sea, making &1Aquamarine&0. If you can somehow augment your emblem's power, the storm within the shard might be more potent.
+botanicaladdons.page.njordSpells4=It's so pretty
+botanicaladdons.page.njordSpells5=And back again
+botanicaladdons.page.njordSpells6=Use me underwater
+botanicaladdons.page.njordSpells7=And some panes
 
-botanicaladdons.entry.garb_njord=Priestly Fashion - Njord
-botanicaladdons.tagline.garb_njord=Feather Fall
-botanicaladdons.page.garb_njord0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Njord's robes allow the user to float softly to the ground while falling.
-botanicaladdons.page.garb_njord1=Worked for Belkar
+botanicaladdons.entry.garbNjord=Priestly Fashion - Njord
+botanicaladdons.tagline.garbNjord=Feather Fall
+botanicaladdons.page.garbNjord0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Njord's robes allow the user to float softly to the ground while falling.
+botanicaladdons.page.garbNjord1=Worked for Belkar
 
 botanicaladdons.entry.idunn=Faith in Idunn
 botanicaladdons.tagline.idunn=Life, spring, and immortality
 botanicaladdons.page.idunn0=The &4Vanir&0 god of the living elements, &3Idunn&0, seems like a good choice to declare yourself for. Wielding her aspect of the &3Divine&0 makes your body naturally catalytic to the growth of trees, giving saplings around you an effect similar to &1Bonemeal&0. You can manually apply this affect by sneak-clicking with an empty hand.
 botanicaladdons.page.idunn1=Ash sunk down of alfen race
 
-botanicaladdons.entry.idunn_spells=Life Magic
-botanicaladdons.tagline.idunn_spells=The art of growth
-botanicaladdons.page.idunn_spells0=The first spell that &3Idunn&0's emblem grants, &1Shield of Roots&0, is a powerful protection spell. While you have the &1Terrestrial Focus&0, for half a minute you will be unable to move, take, or deal melee damage. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
-botanicaladdons.page.idunn_spells1=The secgond and final spell of &3Idunn&0, &1Life Catalyst&0, forces power into livingwood, twisting it to become &1Soulroot&0. If you can somehow augment your emblem's power, the root's lifeforce might be more potent.
+botanicaladdons.entry.idunnSpells=Life Magic
+botanicaladdons.tagline.idunnSpells=The art of growth
+botanicaladdons.page.idunnSpells0=The first spell that &3Idunn&0's emblem grants, &1Shield of Roots&0, is a powerful protection spell. While you have the &1Terrestrial Focus&0, for half a minute you will be unable to move, take, or deal melee damage. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
+botanicaladdons.page.idunnSpells1=The secgond and final spell of &3Idunn&0, &1Life Catalyst&0, forces power into livingwood, twisting it to become &1Soulroot&0. If you can somehow augment your emblem's power, the root's lifeforce might be more potent.
 
-botanicaladdons.entry.garb_idunn=Priestly Fashion - Idunn
-botanicaladdons.tagline.garb_idunn=Head on or backstab
-botanicaladdons.page.garb_idunn0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Idunn's robes protect their wearer from attacks to the side, making all combat head on.
-botanicaladdons.page.garb_idunn1=Bring it on! I &olive&0 for this!
+botanicaladdons.entry.garbIdunn=Priestly Fashion - Idunn
+botanicaladdons.tagline.garbIdunn=Head on or backstab
+botanicaladdons.page.garbIdunn0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Idunn's robes protect their wearer from attacks to the side, making all combat head on.
+botanicaladdons.page.garbIdunn1=Bring it on! I &olive&0 for this!
 
 botanicaladdons.entry.thor=Faith in Thor
 botanicaladdons.tagline.thor=Thunder, strength, and wrath
 botanicaladdons.page.thor0=The &4Æsir&0 god of the sky, &3Thor&0, seems like a powerful god to ally with. Wielding his aspect of the &3Divine&0 makes your body makes your body swift, similar to the &1Soujourner's Sash&0. When using axes, the closest thing you could find to a hammer, &3Thor&0 will add force to your hit, slowing down whatever poor mob is stricken.
 botanicaladdons.page.thor1=In anger smite the earth
 
-botanicaladdons.entry.thor_spells=Battle Magic
-botanicaladdons.tagline.thor_spells=The art of war
-botanicaladdons.page.thor_spells0=The first spell that &3Thor&0's emblem grants, &1Lightning Strike&0, is a very simple lightning spell. Electricity will arc out of the caster, striking whatever they're looking at within 10 blocks. This won't do much unless you hit a mob, of course.
-botanicaladdons.page.thor_spells1=The second spell of &3Thor&0, &1Thunder's Force&0, is a strength spell. While you have the &1Terrestrial Focus&0, for half a minute you will hit with over twice the force you'd normally wield. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
-botanicaladdons.page.thor_spells2=The third spell of &3Thor&0, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
-botanicaladdons.page.thor_spells3=The fourth spell of &3Thor&0, &1Hypercharge&0, forces electric energy into the air where it hits, creating a pocket of electric charge. Anyone foolish enough to walk into it will be
-botanicaladdons.page.thor_spells4=The final spell of &3Thor&0, &1Thunder Infusion&0, forces power into regular iron, making &1Thundersteel&0. If you can somehow augment your emblem's power, the metal might be more potent.
-botanicaladdons.page.thor_spells5=Block of awesome
-botanicaladdons.page.thor_spells6=And back again
+botanicaladdons.entry.thorSpells=Battle Magic
+botanicaladdons.tagline.thorSpells=The art of war
+botanicaladdons.page.thorSpells0=The first spell that &3Thor&0's emblem grants, &1Lightning Strike&0, is a very simple lightning spell. Electricity will arc out of the caster, striking whatever they're looking at within 10 blocks. This won't do much unless you hit a mob, of course.
+botanicaladdons.page.thorSpells1=The second spell of &3Thor&0, &1Thunder's Force&0, is a strength spell. While you have the &1Terrestrial Focus&0, for half a minute you will hit with over twice the force you'd normally wield. Giving the &1Focus&0 to someone else in that time will treat them as if they had been the one to cast the spell.
+botanicaladdons.page.thorSpells2=The third spell of &3Thor&0, &1Chains of Iron&0, almost seems to intrude upon the domain of &4Movement magic&0. It pulls the mob you look at towards you, as if you were a magnet and it iron. The pulled mob becomes slow for ten seconds, making their escape much harder.
+botanicaladdons.page.thorSpells3=The fourth spell of &3Thor&0, &1Hypercharge&0, forces electric energy into the air where it hits, creating a pocket of electric charge. Anyone foolish enough to walk into it will be
+botanicaladdons.page.thorSpells4=The final spell of &3Thor&0, &1Thunder Infusion&0, forces power into regular iron, making &1Thundersteel&0. If you can somehow augment your emblem's power, the metal might be more potent.
+botanicaladdons.page.thorSpells5=Block of awesome
+botanicaladdons.page.thorSpells6=And back again
 
-botanicaladdons.entry.garb_thor=Priestly Fashion - Thor
-botanicaladdons.tagline.garb_thor=Smashy smashy
-botanicaladdons.page.garb_thor0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Thor's robes shield their wearer from the brunt of fall damage, instead spreading it to anything around.
-botanicaladdons.page.garb_thor1=Superhero landing!
+botanicaladdons.entry.garbThor=Priestly Fashion - Thor
+botanicaladdons.tagline.garbThor=Smashy smashy
+botanicaladdons.page.garbThor0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fashionable, provide a tangible benefit. Thor's robes shield their wearer from the brunt of fall damage, instead spreading it to anything around.
+botanicaladdons.page.garbThor1=Superhero landing!
 
 botanicaladdons.entry.heimdall=Faith in Heimdall
 botanicaladdons.tagline.heimdall=Fate, travel, and color
 botanicaladdons.page.heimdall0=The &4Æsir&0 god of the Bifrost, &3Heimdall&0, seems like an interesting god to channel. Wielding his aspect of the &3Divine&0 makes your eyes see more vibrantly, seeing light even in the shadow (except when your eyes almost can't see color at all through &4Drab Vision&0). When carrying a &1Rod of the Bifrost&0, you leave a trail of rainbow &4Bifrost&0 below you, allowing you to run in the sky.
 botanicaladdons.page.heimdall1=The warder of heaven
 
-botanicaladdons.entry.heimdall_spells=Bifrost Magic
-botanicaladdons.tagline.heimdall_spells=The art of Iridescence
-botanicaladdons.page.heimdall_spells0=The first spell that &3Heimdall&0's emblem grants, &1Iridescent Tones&0, creates a resonating sound that vibrates with the essence of color. Casting it on any dye will crystallize it, converting it into &1Iridescent Crystal&0. This crystal acts as a higher-potency dye, able to colorize even things like dirt.
-botanicaladdons.page.heimdall_spells1=The second spell of &3Heimdall&0, &1Wave of Bifrost&0, creates for you a safe haven. When you cast it, a sphere of &4Bifrost&0 will rise around you, stopping your fall and giving you temporary protection from anything around you.
+botanicaladdons.entry.heimdallSpells=Bifrost Magic
+botanicaladdons.tagline.heimdallSpells=The art of Iridescence
+botanicaladdons.page.heimdallSpells0=The first spell that &3Heimdall&0's emblem grants, &1Iridescent Tones&0, creates a resonating sound that vibrates with the essence of color. Casting it on any dye will crystallize it, converting it into &1Iridescent Crystal&0. This crystal acts as a higher-potency dye, able to colorize even things like dirt.
+botanicaladdons.page.heimdallSpells1=The second spell of &3Heimdall&0, &1Wave of Bifrost&0, creates for you a safe haven. When you cast it, a sphere of &4Bifrost&0 will rise around you, stopping your fall and giving you temporary protection from anything around you.
 
-botanicaladdons.entry.garb_heimdall=Priestly Fashion - Heimdall
-botanicaladdons.tagline.garb_heimdall=A different way to move
-botanicaladdons.page.garb_heimdall0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fasionable, provide a tangible benefit. Heimdall's robes make their wearer blink towards their vision whenever they jump while sprinting, giving them a different type of motion.
-botanicaladdons.page.garb_heimdall1=Ever get that feeling of déjà vu?
+botanicaladdons.entry.garbHeimdall=Priestly Fashion - Heimdall
+botanicaladdons.tagline.garbHeimdall=A different way to move
+botanicaladdons.page.garbHeimdall0=No priest would be caught dead without a ceremonial robe, although robes aren't actually required to pay allegiance to a divinity.<br>These robes, beyond being fasionable, provide a tangible benefit. Heimdall's robes make their wearer blink towards their vision whenever they jump while sprinting, giving them a different type of motion.
+botanicaladdons.page.garbHeimdall1=Ever get that feeling of déjà vu?
 
-botanicaladdons.entry.drab_brew=Brew of Monochromacy
-botanicaladdons.tagline.drab_brew=Negating color
-botanicaladdons.page.drab_brew0a=An interesting brew, it saps color out of the sight of the person who drinks it. It is most useful when in incense form.
-botanicaladdons.page.drab_brew0b=Instant colorblindness
+botanicaladdons.entry.drabBrew=Brew of Monochromacy
+botanicaladdons.tagline.drabBrew=Negating color
+botanicaladdons.page.drabBrew0a=An interesting brew, it saps color out of the sight of the person who drinks it. It is most useful when in incense form.
+botanicaladdons.page.drabBrew0b=Instant colorblindness
 
 botanicaladdons.entry.toolbelt=Traveller's Toolbelt
 botanicaladdons.tagline.toolbelt=Storage on the go
@@ -446,17 +446,17 @@ botanicaladdons.tagline.foodbelt=A second mouth
 botanicaladdons.page.foodbelt0=&3Heimdall&0, being a god of travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Ration Belt&0. Instead of rushing from place to place like some botanist's belts do, this toolbelt will automatically sate your stomach from food in your hotbar, allowing you to focus more on the journey.
 botanicaladdons.page.foodbelt1=Strength before weakness
 
-botanicaladdons.entry.travel_stone=Traveller's Flowstone
-botanicaladdons.tagline.travel_stone=A component sash
-botanicaladdons.page.travel_stone0=&3Heimdall&0, being a god of travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Flowstone&0. As a traveller may use belts other than the &1Sashes&0, it gives you the little quirks that make those belts so useful without sacrificing leisure. Specifically, it makes you jump higher and scale small walls.
-botanicaladdons.page.travel_stone1=Life before death
+botanicaladdons.entry.travelStone=Traveller's Flowstone
+botanicaladdons.tagline.travelStone=A component sash
+botanicaladdons.page.travelStone0=&3Heimdall&0, being a god of travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Flowstone&0. As a traveller may use belts other than the &1Sashes&0, it gives you the little quirks that make those belts so useful without sacrificing leisure. Specifically, it makes you jump higher and scale small walls.
+botanicaladdons.page.travelStone1=Life before death
 
-botanicaladdons.entry.find_stone=Traveller's Waystone
-botanicaladdons.tagline.find_stone=GPS
-botanicaladdons.page.find_stone0=&3Heimdall&0, being a god of travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Waystone&0. It can be bound to a point or named &otrack:&0 and a player's name to track that player, and will give you an indication of what direction to go as long as you're holding it, allowing for easy travels home or to a friend.
-botanicaladdons.page.find_stone1=Remember those who have been forgotten
-botanicaladdons.page.find_stone2=By combining the stone with the essence of death, you can make a version which targets past lives instead of the present. When you die, you'll reincarnate holding any &1Stones of Return&0 you had on you. These will point your way to the place you died. If you shift-click the stone in the air, it will clear its destination.
-botanicaladdons.page.find_stone3=I will stand
+botanicaladdons.entry.findStone=Traveller's Waystone
+botanicaladdons.tagline.findStone=GPS
+botanicaladdons.page.findStone0=&3Heimdall&0, being a god of travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Waystone&0. It can be bound to a point or named &otrack:&0 and a player's name to track that player, and will give you an indication of what direction to go as long as you're holding it, allowing for easy travels home or to a friend.
+botanicaladdons.page.findStone1=Remember those who have been forgotten
+botanicaladdons.page.findStone2=By combining the stone with the essence of death, you can make a version which targets past lives instead of the present. When you die, you'll reincarnate holding any &1Stones of Return&0 you had on you. These will point your way to the place you died. If you shift-click the stone in the air, it will clear its destination.
+botanicaladdons.page.findStone3=I will stand
 
 botanicaladdons.entry.star=Frozen Stars
 botanicaladdons.tagline.star=An ender light source
@@ -473,12 +473,12 @@ botanicaladdons.tagline.prism=Rainbow lights
 botanicaladdons.page.prism0=One particularly frustrating property of the &1Mana Lens: Flash&0 is its tendency to lock the color of a &1Mana Flash&0 immediately upon making it. Even if you want to make a rainbow &1Flash&0, you'll get one color. By using the power of the &1Rod of the Prismatic Lake&0, you can make that rainbow. It can be tinged with &1Phantom Ink&0, and dyed with any &4Iridescent&0 dye like leather armor.
 botanicaladdons.page.prism1=All the colors of the wind
 
-botanicaladdons.entry.iris_dirt=Iridescent Dirt
-botanicaladdons.tagline.iris_dirt=Dirt in lots of colors
-botanicaladdons.page.iris_dirt0=Using the power of &4Iridescence&0, you can make dirt that shimmers every color of the rainbow. This mystical dirt is capable of growing trees and plants without water or a hoe. It can be converted back to regular dirt using a &1Pure Daisy&0.
-botanicaladdons.page.iris_dirt1=Beauty from the dross
-botanicaladdons.page.iris_dirt2=Using the &1Iridescent Sapling&0, you can create a variety of tree that grows in all the colors of &1Iridescent Dirt&0. This can be achieved simply by planting the sapling on any colored dirt and letting it grow.
-botanicaladdons.page.iris_dirt3=2x4s
+botanicaladdons.entry.irisDirt=Iridescent Dirt
+botanicaladdons.tagline.irisDirt=Dirt in lots of colors
+botanicaladdons.page.irisDirt0=Using the power of &4Iridescence&0, you can make dirt that shimmers every color of the rainbow. This mystical dirt is capable of growing trees and plants without water or a hoe. It can be converted back to regular dirt using a &1Pure Daisy&0.
+botanicaladdons.page.irisDirt1=Beauty from the dross
+botanicaladdons.page.irisDirt2=Using the &1Iridescent Sapling&0, you can create a variety of tree that grows in all the colors of &1Iridescent Dirt&0. This can be achieved simply by planting the sapling on any colored dirt and letting it grow.
+botanicaladdons.page.irisDirt3=2x4s
 
 botanicaladdons.entry.lamp=Iridescent Lantern
 botanicaladdons.tagline.lamp=A power-level indicating light
@@ -537,10 +537,10 @@ botanicaladdons.tagline.mjolnir=A hammer that throws you forward
 botanicaladdons.page.mjolnir0=Now that you are fully connected to &3Thor&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Crusher&0, &1Mjolnir&0. This hammer is so unnaturally balanced that swinging it will fling you forward, increasing your knockback when you're attacking and providing a convenient escape strategy.
 botanicaladdons.page.mjolnir1=It's not a boomerang
 
-botanicaladdons.entry.fate_horn=The Horn of Fate
-botanicaladdons.tagline.fate_horn=A horn that gives mobs existential crises
-botanicaladdons.page.fate_horn0=Now that you are fully connected to &3Heimdall&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Horn of Fate&0, &1Gjallerhorn&0. This horn's sound reveals a mob's fate to it, making it barely able to move while it comprehends what it has seen.
-botanicaladdons.page.fate_horn1=Don't let the existential dread set in
+botanicaladdons.entry.fateHorn=The Horn of Fate
+botanicaladdons.tagline.fateHorn=A horn that gives mobs existential crises
+botanicaladdons.page.fateHorn0=Now that you are fully connected to &3Heimdall&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Horn of Fate&0, &1Gjallerhorn&0. This horn's sound reveals a mob's fate to it, making it barely able to move while it comprehends what it has seen.
+botanicaladdons.page.fateHorn1=Don't let the existential dread set in
 
 botanicaladdons.entry.ascension=Arrows of Ascension
 botanicaladdons.tagline.ascension=Arrows which remove weight
@@ -568,38 +568,38 @@ botanicaladdons.tagline.crackle=An unstable light source
 botanicaladdons.page.crackle0=The &1Crackling Star&0 is the form of the stars, trapped upon earth, and brought forth through &4Iridescence&0. They appear as a ball of light, but will distribute their mass to a &1Crackling Star&0 it's bound to with a &1Wand of the Forest&0. They give off light with the same strength as &1Glowstone&0, and can be made in any of the colors of &4Iridescence&0.
 botanicaladdons.page.crackle1=Wire's frames
 
-botanicaladdons.entry.iron_belt=Weighted Belt
-botanicaladdons.tagline.iron_belt=Prevents floating
-botanicaladdons.page.iron_belt0=While waterwalking is nice, sometimes a priest of &3Njord&0 needs to walk on the bottom of the ocean. While sneaking can work, it's sometimes nicer to just sink. The &1Weighted Belt&0 will drag you down in air, and prevent waterwalking.
-botanicaladdons.page.iron_belt1=Fancier cement shoes
+botanicaladdons.entry.ironBelt=Weighted Belt
+botanicaladdons.tagline.ironBelt=Prevents floating
+botanicaladdons.page.ironBelt0=While waterwalking is nice, sometimes a priest of &3Njord&0 needs to walk on the bottom of the ocean. While sneaking can work, it's sometimes nicer to just sink. The &1Weighted Belt&0 will drag you down in air, and prevent waterwalking.
+botanicaladdons.page.ironBelt1=Fancier cement shoes
 
-botanicaladdons.entry.xp_tome=Tome of the Ages
-botanicaladdons.tagline.xp_tome=Break down enchantments
-botanicaladdons.page.xp_tome0=Enchantments rarely go exactly as planned, and using &1Spellbinding Cloth&0 doesn't give anything back. The &1Tome of the Ages&0 transfers one enchantment at a time into the ancient collective knowledge of the forests, and releases the experience of the enchantment, which can be retrieved with a simple use of the book. Sneak-using the book will steal your experience, allowing you to store it, if imperfectly.
-botanicaladdons.page.xp_tome1=All hail the second Eaton
+botanicaladdons.entry.xpTome=Tome of the Ages
+botanicaladdons.tagline.xpTome=Break down enchantments
+botanicaladdons.page.xpTome0=Enchantments rarely go exactly as planned, and using &1Spellbinding Cloth&0 doesn't give anything back. The &1Tome of the Ages&0 transfers one enchantment at a time into the ancient collective knowledge of the forests, and releases the experience of the enchantment, which can be retrieved with a simple use of the book. Sneak-using the book will steal your experience, allowing you to store it, if imperfectly.
+botanicaladdons.page.xpTome1=All hail the second Eaton
 
-botanicaladdons.entry.corporea_recall=Remote Corporea
-botanicaladdons.tagline.corporea_recall=Request items from a Corporea network remotely
-botanicaladdons.page.corporea_recall0=The &1Corporea Resonator&0 and its counterpart, the &1Stone of Recall&0, allow for accessing a corporea network from far away. If you bind a &1Stone&0 to a &1Resonator&0 as if it was a &1Waystone&0, holding the Stone will allow you to trigger the &1Resonator&0 as if it was a &1Corporea Index&0, dropping the results as if it was a &1Corporea Funnel&0.
-botanicaladdons.page.corporea_recall1=Let's Go! Soul Resonance!
-botanicaladdons.page.corporea_recall2=I can't remember...
+botanicaladdons.entry.corporeaRecall=Remote Corporea
+botanicaladdons.tagline.corporeaRecall=Request items from a Corporea network remotely
+botanicaladdons.page.corporeaRecall0=The &1Corporea Resonator&0 and its counterpart, the &1Stone of Recall&0, allow for accessing a corporea network from far away. If you bind a &1Stone&0 to a &1Resonator&0 as if it was a &1Waystone&0, holding the Stone will allow you to trigger the &1Resonator&0 as if it was a &1Corporea Index&0, dropping the results as if it was a &1Corporea Funnel&0.
+botanicaladdons.page.corporeaRecall1=Let's Go! Soul Resonance!
+botanicaladdons.page.corporeaRecall2=I can't remember...
 
-botanicaladdons.entry.ender_actuator=Ender Actuator
-botanicaladdons.tagline.ender_actuator=Control your Ender Chest remotely
-botanicaladdons.page.ender_actuator0=The &1Ender Actuator&0 is an interesting block, allowing resonance with your &4Ender Chest&0 from across the world. To activate one, click a disabled one and it will begin to shine. As long as you are in the same dimension as a bound &1Actuator&0, it will act as an interface for your &4Ender Chest&0 for machines to use.
-botanicaladdons.page.ender_actuator1=Not a tessaract
+botanicaladdons.entry.enderActuator=Ender Actuator
+botanicaladdons.tagline.enderActuator=Control your Ender Chest remotely
+botanicaladdons.page.enderActuator0=The &1Ender Actuator&0 is an interesting block, allowing resonance with your &4Ender Chest&0 from across the world. To activate one, click a disabled one and it will begin to shine. As long as you are in the same dimension as a bound &1Actuator&0, it will act as an interface for your &4Ender Chest&0 for machines to use.
+botanicaladdons.page.enderActuator1=Not a tessaract
 
-botanicaladdons.entry.sleep_stone=Stone of Meditation
-botanicaladdons.tagline.sleep_stone=Sleep far away from a base
-botanicaladdons.page.sleep_stone0=When travelling far away from home, it can often be hard to seep to accelerate the night. If you use a &1Stone of Meditation&0, it allows you to simulate sleep from far away from a base. Hold it and you'll begin to meditate, simulating sleep in a &1Bed&0.
-botanicaladdons.page.sleep_stone1=Peer into the Spirit
+botanicaladdons.entry.sleepStone=Stone of Meditation
+botanicaladdons.tagline.sleepStone=Sleep far away from a base
+botanicaladdons.page.sleepStone0=When travelling far away from home, it can often be hard to seep to accelerate the night. If you use a &1Stone of Meditation&0, it allows you to simulate sleep from far away from a base. Hold it and you'll begin to meditate, simulating sleep in a &1Bed&0.
+botanicaladdons.page.sleepStone1=Peer into the Spirit
 
-botanicaladdons.entry.nether_stone=Stone of Nether Fracture
-botanicaladdons.tagline.nether_stone=Point to your last portal
-botanicaladdons.page.nether_stone0=The &1Stone of Nether Fracture&0 acts like a &1Traveller's Waystone&0, except it points directly to the last &4Nether Portal&0 you stepped through. Like the &1Stone of Return&0, shift-clicking in the air will lear its destination.
-botanicaladdons.page.nether_stone1=Keralian resonance
+botanicaladdons.entry.netherStone=Stone of Nether Fracture
+botanicaladdons.tagline.netherStone=Point to your last portal
+botanicaladdons.page.netherStone0=The &1Stone of Nether Fracture&0 acts like a &1Traveller's Waystone&0, except it points directly to the last &4Nether Portal&0 you stepped through. Like the &1Stone of Return&0, shift-clicking in the air will lear its destination.
+botanicaladdons.page.netherStone1=Keralian resonance
 
-botanicaladdons.entry.poly_stone=Stone of Assimilation
-botanicaladdons.tagline.poly_stone=Break things your tools won't normally
-botanicaladdons.page.poly_stone0=If a regular &4Manasteel Tool&0 won't do the job, the &1Stone of Assimilation&0 just might. Anything a regular tool can't break quickly, like &1Glass&0 or &1Leaves&0, the Stone of Assimilation can. It works with the &1Ring of Correction&0. It can also be enchanted just like a regular manasteel tool.
-botanicaladdons.page.poly_stone1=We are all stones on this blessed day
+botanicaladdons.entry.polyStone=Stone of Assimilation
+botanicaladdons.tagline.polyStone=Break things your tools won't normally
+botanicaladdons.page.polyStone0=If a regular &4Manasteel Tool&0 won't do the job, the &1Stone of Assimilation&0 just might. Anything a regular tool can't break quickly, like &1Glass&0 or &1Leaves&0, the Stone of Assimilation can. It works with the &1Ring of Correction&0. It can also be enchanted just like a regular manasteel tool.
+botanicaladdons.page.polyStone1=We are all stones on this blessed day

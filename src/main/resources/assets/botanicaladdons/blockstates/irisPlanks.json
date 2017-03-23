@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "color=white": { "model": "botanicaladdons:irisPlanks" },
+        "color=orange": { "model": "botanicaladdons:irisPlanks" },
+        "color=magenta": { "model": "botanicaladdons:irisPlanks" },
+        "color=light_blue": { "model": "botanicaladdons:irisPlanks" },
+        "color=yellow": { "model": "botanicaladdons:irisPlanks" },
+        "color=lime": { "model": "botanicaladdons:irisPlanks" },
+        "color=pink": { "model": "botanicaladdons:irisPlanks" },
+        "color=gray": { "model": "botanicaladdons:irisPlanks" },
+        "color=silver": { "model": "botanicaladdons:irisPlanks" },
+        "color=cyan": { "model": "botanicaladdons:irisPlanks" },
+        "color=purple": { "model": "botanicaladdons:irisPlanks" },
+        "color=blue": { "model": "botanicaladdons:irisPlanks" },
+        "color=brown": { "model": "botanicaladdons:irisPlanks" },
+        "color=green": { "model": "botanicaladdons:irisPlanks" },
+        "color=red": { "model": "botanicaladdons:irisPlanks" },
+        "color=black": { "model": "botanicaladdons:irisPlanks" }
+    }
+}

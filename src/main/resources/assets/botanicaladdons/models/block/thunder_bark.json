@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "botanicaladdons:blocklightning_wood_side"
-  }
-}

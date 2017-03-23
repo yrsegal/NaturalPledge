@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "botanicaladdons:item/prismRodCrystal",
+    "layer1": "botanicaladdons:item/prismRod"
+  }
+}

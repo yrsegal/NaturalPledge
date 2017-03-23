@@ -1,0 +1,96 @@
+{
+"__comment": "Designed by Tristaric with BDcraft Cubik PRO 0.96 Beta - http://bdcraft.net",
+"textures": {
+    "texture": "botanicaladdons:block/pedestalLivingrock",
+    "particle": "botania:blocks/livingrock0"
+},
+"elements": [ 
+{
+    "from": [ 1, 10, 1 ],
+    "to": [ 15, 16, 15 ],
+    "faces": {
+        "down":  { "uv": [ 0.5, 8.5, 7.5, 15.5 ], "texture": "#texture" },
+        "up":    { "uv": [ 0.5, 0.5, 7.5, 7.5 ], "texture": "#texture", "cullface": "up" },
+        "north": { "uv": [ 0.5, 8, 7.5, 11 ], "texture": "#texture" },
+        "south": { "uv": [ 0.5, 8, 7.5, 11 ], "texture": "#texture" },
+        "west":  { "uv": [ 0.5, 8, 7.5, 11 ], "texture": "#texture" },
+        "east":  { "uv": [ 0.5, 8, 7.5, 11 ], "texture": "#texture" }
+    }
+},
+{
+    "from": [ 4, 3, 4 ],
+    "to": [ 12, 10, 12 ],
+    "faces": {
+        "north": { "uv": [ 2, 11, 6, 14.5 ], "texture": "#texture" },
+        "south": { "uv": [ 2, 11, 6, 14.5 ], "texture": "#texture" },
+        "west":  { "uv": [ 2, 11, 6, 14.5 ], "texture": "#texture" },
+        "east":  { "uv": [ 2, 11, 6, 14.5 ], "texture": "#texture" }
+    }
+},
+{
+    "from": [ 3, 2, 3 ],
+    "to": [ 13, 3, 13 ],
+    "faces": {
+        "up":    { "uv": [ 1.5, 9.5, 6.5, 14.5 ], "texture": "#texture" },
+        "north": { "uv": [ 1.5, 14.5, 6.5, 15 ], "texture": "#texture" },
+        "south": { "uv": [ 1.5, 14.5, 6.5, 15 ], "texture": "#texture" },
+        "west":  { "uv": [ 1.5, 14.5, 6.5, 15 ], "texture": "#texture" },
+        "east":  { "uv": [ 1.5, 14.5, 6.5, 15 ], "texture": "#texture" }
+    }
+},
+{
+    "from": [ 2, 0, 2 ],
+    "to": [ 14, 2, 14 ],
+    "faces": {
+        "down":  { "uv": [ 1, 9, 7, 15 ], "texture": "#texture", "cullface": "down" },
+        "up":    { "uv": [ 1, 9, 7, 15 ], "texture": "#texture" },
+        "north": { "uv": [ 1, 15, 7, 16 ], "texture": "#texture" },
+        "south": { "uv": [ 1, 15, 7, 16 ], "texture": "#texture" },
+        "west":  { "uv": [ 1, 15, 7, 16 ], "texture": "#texture" },
+        "east":  { "uv": [ 1, 15, 7, 16 ], "texture": "#texture" }
+    }
+}
+],
+"display": {
+    "thirdperson_righthand": {
+        "rotation": [ 75, 45, 0 ],
+        "translation": [ 0, 2.5, 0 ],
+        "scale": [ 0.375, 0.375, 0.375 ]
+    },
+    "thirdperson_lefthand": {
+        "rotation": [ 75, 45, 0 ],
+        "translation": [ 0, 2.5, 0 ],
+        "scale": [ 0.375, 0.375, 0.375 ]
+    },
+    "head": {
+        "rotation": [ 0, 0, 0 ],
+        "translation": [ 0, 13, 0 ],
+        "scale": [ 1, 1, 1 ]
+    },
+    "ground": {
+        "rotation": [ 0, 0, 0 ],
+        "translation": [ 0, 3, 0 ],
+        "scale": [ 0.25, 0.25, 0.25 ]
+    },
+    "fixed": {
+        "rotation": [ 0, 0, 0 ],
+        "translation": [ 0, 0, 0 ],
+        "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_righthand": {
+        "rotation": [ 0, 45, 0 ],
+        "translation": [ 0, 0, 0 ],
+        "scale": [ 0.4, 0.4, 0.4 ]
+    },
+    "firstperson_lefthand": {
+        "rotation": [ 0, 45, 0 ],
+        "translation": [ 0, 0, 0 ],
+        "scale": [ 0.4, 0.4, 0.4 ]
+    },
+    "gui": {
+        "rotation": [ 30, 225, 0 ],
+        "translation": [ 0, 0, 0 ],
+        "scale": [ 0.625, 0.625, 0.625 ]
+    }
+}
+}

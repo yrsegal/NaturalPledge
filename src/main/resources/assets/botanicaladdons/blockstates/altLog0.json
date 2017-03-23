@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "axis=y,type=dry": { "model": "botanicaladdons:altWoodDry" },
+        "axis=z,type=dry": { "model": "botanicaladdons:altWoodDry", "x": 90 },
+        "axis=x,type=dry": { "model": "botanicaladdons:altWoodDry", "x": 90, "y": 90 },
+        "axis=none,type=dry": { "model": "botanicaladdons:altBarkDry" },
+        "axis=y,type=golden": { "model": "botanicaladdons:altWoodGolden" },
+        "axis=z,type=golden": { "model": "botanicaladdons:altWoodGolden", "x": 90 },
+        "axis=x,type=golden": { "model": "botanicaladdons:altWoodGolden", "x": 90, "y": 90 },
+        "axis=none,type=golden": { "model": "botanicaladdons:altBarkGolden" },
+        "axis=y,type=vivid": { "model": "botanicaladdons:altWoodVivid" },
+        "axis=z,type=vivid": { "model": "botanicaladdons:altWoodVivid", "x": 90 },
+        "axis=x,type=vivid": { "model": "botanicaladdons:altWoodVivid", "x": 90, "y": 90 },
+        "axis=none,type=vivid": { "model": "botanicaladdons:altBarkVivid" },
+        "axis=y,type=scorched": { "model": "botanicaladdons:altWoodScorched" },
+        "axis=z,type=scorched": { "model": "botanicaladdons:altWoodScorched", "x": 90 },
+        "axis=x,type=scorched": { "model": "botanicaladdons:altWoodScorched", "x": 90, "y": 90 },
+        "axis=none,type=scorched": { "model": "botanicaladdons:altBarkScorched" }
+    }
+}

@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "botanicaladdons:blockthundersteel_block"
+    "all": "botanicaladdons:block/thundersteelBlock"
   }
 }

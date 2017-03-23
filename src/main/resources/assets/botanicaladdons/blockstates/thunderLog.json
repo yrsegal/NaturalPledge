@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "axis=y": { "model": "botanicaladdons:thunderLog" },
+        "axis=z": { "model": "botanicaladdons:thunderLog", "x": 90 },
+        "axis=x": { "model": "botanicaladdons:thunderLog", "x": 90, "y": 90 },
+        "axis=none": { "model": "botanicaladdons:thunderBark" }
+    }
+}
