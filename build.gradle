@@ -46,6 +46,16 @@ minecraft {
 
 repositories {
     maven {
+        url "http://mvn.rx14.co.uk/shadowfacts/"
+    }
+}
+
+dependencies {
+    compile group: "net.shadowfacts", name: "Forgelin", version: "1.4.0"
+}
+
+repositories {
+    maven {
         url "http://dvs1.progwml6.com/files/maven"
     }
     maven {
