@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "botanicaladdons:block/circuit_wood_top",
+    "side": "botanicaladdons:block/circuit_wood"
+  }
+}

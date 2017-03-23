@@ -1,0 +1,6 @@
+{
+  "parent": "block/pane_noside",
+  "textures": {
+    "pane": "botanicaladdons:block/glass_aqua"
+  }
+}

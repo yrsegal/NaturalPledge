@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"type=infused": {
+			"model": "botanicaladdons:alt_leaves_infused"
+		},
+		"type=mutated": {
+			"model": "botanicaladdons:alt_leaves_mutated"
+		}
+	}
+}

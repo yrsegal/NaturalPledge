@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "botanicaladdons:block/altWoodScorchedTop",
-    "side": "botanicaladdons:block/altWoodScorchedSide"
-  }
-}
