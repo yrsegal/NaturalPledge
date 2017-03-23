@@ -72,7 +72,6 @@ configurations {
 dependencies {
     deobfCompile "mezz.jei:jei_${config.jei_version}"
 
-    compile "net.shadowfacts:Forgelin:1.2.0"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     required "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

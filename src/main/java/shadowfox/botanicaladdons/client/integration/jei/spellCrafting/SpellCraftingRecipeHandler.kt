@@ -13,11 +13,6 @@ object SpellCraftingRecipeHandler : IRecipeHandler<SpellCraftingRecipeJEI> {
         return "${LibMisc.MOD_ID}:spellCrafting"
     }
 
-    @Suppress("OverridingDeprecatedMember")
-    override fun getRecipeCategoryUid(): String {
-        return "${LibMisc.MOD_ID}:spellCrafting"
-    }
-
     override fun getRecipeWrapper(recipe: SpellCraftingRecipeJEI): IRecipeWrapper {
         return recipe
     }

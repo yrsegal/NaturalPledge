@@ -25,7 +25,7 @@ class BlockCircuitSapling(name: String) : BlockModSapling(name), ILexiconable, I
 
     override fun updateTick(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
         super.updateTick(worldIn, pos, state, rand)
-        worldIn.notifyNeighborsOfStateChange(pos, this)
+        worldIn.notifyNeighborsOfStateChange(pos, this, true)
     }
 
     override fun generateTree(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {

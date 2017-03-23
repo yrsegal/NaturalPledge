@@ -1,5 +1,7 @@
 package shadowfox.botanicaladdons.common.crafting.recipe
 
+import com.teamwizardry.librarianlib.common.util.nonnullListOf
+import com.teamwizardry.librarianlib.common.util.toNonnullList
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.init.Items
@@ -8,6 +10,8 @@ import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.nbt.NBTTagList
+import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import shadowfox.botanicaladdons.common.items.ModItems
@@ -21,12 +25,13 @@ import java.util.*
  * Created at 9:35 AM on 1/3/17.
  */
 object RecipeEnchantmentRemoval : IRecipe {
-    override fun getRemainingItems(inv: InventoryCrafting): Array<ItemStack?> {
+    override fun getRemainingItems(inv: InventoryCrafting): NonNullList<ItemStack> {
         var tome: ItemStack? = null
         var enchanted: ItemStack? = null
         (0 until inv.sizeInventory)
                 .asSequence()
                 .mapNotNull { inv.getStackInSlot(it) }
+                .filterNot { it.isEmpty }
                 .forEach {
                     if (it.item == ModItems.xpTome)
                         tome = it
@@ -39,7 +44,7 @@ object RecipeEnchantmentRemoval : IRecipe {
 
         val index = getEnchantmentIndex(finalTome, finalEnchanted)
         val list = (if (finalEnchanted.item === Items.ENCHANTED_BOOK)
-            Items.ENCHANTED_BOOK.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList)
+            Items.ENCHANTED_BOOK.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: NBTTagList()
         val enchantmentTag = list.getCompoundTagAt(index)
         val enchantment = Enchantment.getEnchantmentByID(enchantmentTag.getShort("id").toInt())
                 ?: return ForgeHooks.defaultRecipeGetRemainingItems(inv)
@@ -54,13 +59,13 @@ object RecipeEnchantmentRemoval : IRecipe {
 
         return Array(inv.sizeInventory) {
             val stack = inv.getStackInSlot(it)
-            if (stack == null || stack == finalEnchanted) null
+            if (stack.isEmpty || stack == finalEnchanted) ItemStack.EMPTY
             else if (stack.item == ModItems.xpTome) {
                 val final = stack.copy()
                 final.xp += k
                 final
             } else ForgeHooks.getContainerItem(inv.getStackInSlot(it))
-        }
+        }.toNonnullList()
     }
 
     override fun getRecipeOutput(): ItemStack? {
@@ -97,7 +102,7 @@ object RecipeEnchantmentRemoval : IRecipe {
             finalEnchanted.tagCompound = null
 
         if (finalEnchanted.item === Items.ENCHANTED_BOOK && list.tagCount() == 0) {
-            val newStack = ItemStack(Items.BOOK, finalEnchanted.stackSize)
+            val newStack = ItemStack(Items.BOOK, finalEnchanted.count)
             val finalTag = finalEnchanted.tagCompound ?: NBTTagCompound()
             finalTag.removeTag("StoredEnchantments")
             if (finalTag.size > 0) newStack.tagCompound = finalTag

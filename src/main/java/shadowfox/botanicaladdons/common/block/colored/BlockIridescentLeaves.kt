@@ -78,7 +78,7 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
         return BlockStateContainer(this, COLOR_PROPS[colorSet], DECAYABLE, CHECK_DECAY)
     }
 
-    override fun createStackedBlock(state: IBlockState): ItemStack? {
+    fun createStackedBlock(state: IBlockState): ItemStack? {
         return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR_PROPS[colorSet])))
     }
 

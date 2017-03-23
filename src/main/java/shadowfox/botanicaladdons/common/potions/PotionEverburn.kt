@@ -16,7 +16,7 @@ class PotionEverburn : PotionMod(LibNames.EVERBURN, true, 0xDD581F) {
         if (entity.health <= 1f)
             entity.extinguish()
         else if (!entity.isBurning) {
-            entity.attackEntityFrom(DamageSource.inFire, 1f)
+            entity.attackEntityFrom(DamageSource.IN_FIRE, 1f)
             entity.setFire(5)
         }
     }

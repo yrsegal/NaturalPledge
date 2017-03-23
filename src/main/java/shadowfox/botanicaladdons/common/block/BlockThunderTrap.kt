@@ -43,7 +43,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
     override fun isPassable(world: IBlockAccess?, pos: BlockPos?) = true
-    override fun getCollisionBoundingBox(state: IBlockState, world: World, pos: BlockPos) = NULL_AABB
+    override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: IBlockAccess?, pos: BlockPos?) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
 
     override fun createItemForm() = null
@@ -77,7 +77,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
                 MinecraftForge.EVENT_BUS.post(event)
                 if (!event.isCanceled) {
                     entityIn.onStruckByLightning(fakeBolt)
-                    entityIn.attackEntityFrom(DamageSource.lightningBolt, 15f)
+                    entityIn.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 15f)
                     if (entityIn is EntityLivingBase) {
                         entityIn.knockBack(null, 1f, diffvec.x, diffvec.y)
 

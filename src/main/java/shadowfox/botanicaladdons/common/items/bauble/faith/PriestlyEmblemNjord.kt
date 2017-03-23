@@ -45,11 +45,11 @@ class PriestlyEmblemNjord : IFaithVariant {
     @SubscribeEvent
     fun floatInWater(e: TickEvent.PlayerTickEvent) {
         val player = e.player
-        val world = player.worldObj
+        val world = player.world
         val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
 
         val belt = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.BELT.validSlots[0])
-        if (belt != null && belt.item is ItemIronBelt) return
+        if (!belt.isEmpty && belt.item is ItemIronBelt) return
 
         val shouldCost = world.totalWorldTime % 10 == 0L
         if (!ManaItemHandler.requestManaExact(emblem, player, 1, false)) return
@@ -104,19 +104,19 @@ class PriestlyEmblemNjord : IFaithVariant {
         val ray = Spells.Helper.raycast(player, basePlayerRange, true) ?: return
 
         if (ray.typeOfHit == RayTraceResult.Type.BLOCK) {
-            val state = player.worldObj.getBlockState(ray.blockPos)
+            val state = player.world.getBlockState(ray.blockPos)
             if (state.material.isLiquid) {
                 var helditem = player.heldItemMainhand
                 if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                 var result: EnumActionResult? = null
                 if (helditem != null) {
-                    result = helditem.item?.onItemUse(helditem, player, player.worldObj,
+                    result = helditem.item?.onItemUse(player, player.world,
                             ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
                             ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
                     if (result == EnumActionResult.PASS) {
                         helditem = player.heldItemOffhand
                         if (helditem != null) {
-                            result = helditem.item?.onItemUse(helditem, player, player.worldObj,
+                            result = helditem.item?.onItemUse(player, player.world,
                                     ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
                                     ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
                         }
@@ -126,7 +126,7 @@ class PriestlyEmblemNjord : IFaithVariant {
                     helditem = player.heldItemOffhand
                     if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                     if (helditem != null) {
-                        result = helditem.item?.onItemUse(helditem, player, player.worldObj,
+                        result = helditem.item?.onItemUse(player, player.world,
                                 ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
                                 ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
                     }
@@ -152,17 +152,22 @@ class PriestlyEmblemNjord : IFaithVariant {
                         -MathHelper.cos(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble())
     }
 
+    private var no = false
+
     @SubscribeEvent
     fun onPlayerFall(e: LivingAttackEvent) {
+        if (no) return
         val player = e.entityLiving
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
-            if (e.source == DamageSource.fall || e.source == DamageSource.flyIntoWall) {
+            if (e.source == DamageSource.FALL || e.source == DamageSource.FLY_INTO_WALL) {
                 if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
                     e.isCanceled = true
                 else if (e.amount > 4f && ManaItemHandler.requestManaExact(emblem, player, 10, true)) {
                     e.isCanceled = true
+                    no = true
                     player.attackEntityFrom(e.source, 4f)
+                    no = false
                 }
             }
         }

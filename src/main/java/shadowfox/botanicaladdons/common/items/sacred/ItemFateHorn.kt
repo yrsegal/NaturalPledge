@@ -39,17 +39,17 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
     override fun getItemUseAction(stack: ItemStack) = EnumAction.BOW
     override fun getMaxItemUseDuration(stack: ItemStack?) = 72000
 
-    override fun onItemRightClick(itemStackIn: ItemStack?, worldIn: World?, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World?, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
         playerIn.activeHand = hand
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand)
+        return super.onItemRightClick(worldIn, playerIn, hand)
     }
 
     override fun getRarity(stack: ItemStack?) = BotaniaAPI.rarityRelic
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
-        val entities = player.worldObj.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), { it?.isNonBoss ?: false })
+        val entities = player.world.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), { it?.isNonBoss ?: false })
         var doit = true
-        if (entities.size > 0 && player is EntityPlayer && !player.worldObj.isRemote)
+        if (entities.size > 0 && player is EntityPlayer && !player.world.isRemote)
             doit = ManaItemHandler.requestManaExact(stack, player, 2, true)
         if (doit)
             for (entity in entities)
@@ -62,8 +62,8 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
 
         BotanicalAddons.PROXY.particleRing(player.posX, player.posY, player.posZ, RANGE, r, g, b)
 
-        if (!player.worldObj.isRemote)
-            player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1f, 0.001f)
+        if (!player.world.isRemote)
+            player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1f, 0.001f)
 
     }
 

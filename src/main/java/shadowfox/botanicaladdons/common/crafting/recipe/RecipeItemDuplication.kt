@@ -4,6 +4,7 @@ import net.minecraft.block.Block
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.ShapelessOreRecipe
 
@@ -17,13 +18,13 @@ class RecipeItemDuplication(resource: Any, val product: ItemStack) : ShapelessOr
 
     constructor(resource: Any, product: Block) : this(resource, ItemStack(product))
 
-    override fun getRemainingItems(inv: InventoryCrafting): Array<out ItemStack?>? {
-        val ret = arrayOfNulls<ItemStack>(inv.sizeInventory)
+    override fun getRemainingItems(inv: InventoryCrafting): NonNullList<ItemStack> {
+        val ret = NonNullList.withSize(inv.sizeInventory, ItemStack.EMPTY)
         for (i in ret.indices) {
             val stack = inv.getStackInSlot(i)
             if (stack != null && stack.item == product.item && stack.itemDamage == product.itemDamage) {
                 val newStack = stack.copy()
-                newStack.stackSize = 1
+                newStack.count = 1
                 ret[i] = newStack
             } else
                 ret[i] = ForgeHooks.getContainerItem(stack)

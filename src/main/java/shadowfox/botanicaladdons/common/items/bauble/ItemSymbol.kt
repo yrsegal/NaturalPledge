@@ -5,6 +5,7 @@ import com.teamwizardry.librarianlib.client.core.ModelHandler
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.IExtraVariantHolder
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
@@ -23,7 +24,6 @@ import net.minecraftforge.client.ForgeHooksClient
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.item.ICosmeticBauble
@@ -32,6 +32,7 @@ import vazkii.botania.client.core.proxy.ClientProxy
 import vazkii.botania.client.lib.LibResources
 import vazkii.botania.client.model.ModelTinyPotato
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import net.minecraft.util.NonNullList
 
 /**
  * @author WireSegal
@@ -93,7 +94,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
     override val extraVariants: Array<out String>
         get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "emblemMystery", "fabulosity", "holySymbol")
 
-    override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
+    override fun onEquipped(stack: ItemStack, player: EntityLivingBase) {
         super.onEquipped(stack, player)
         var nameChanged = false
         val displayName = stack.displayName.toLowerCase()
@@ -149,12 +150,12 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
         }
     }
 
-    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         addToTooltip(tooltip, "botaniamisc.cosmeticBauble")
         super.addHiddenTooltip(stack, player, tooltip, advanced)
     }
 
-    override fun getBaubleType(stack: ItemStack?) = BaubleType.TRINKET
+    override fun getBaubleType(stack: ItemStack) = BaubleType.TRINKET
 
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, p3: Float) {
         val renderStack = stack.copy()
@@ -231,7 +232,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
         GlStateManager.popMatrix()
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         super.getSubItems(itemIn, tab, subItems)
         if (tab == null) {
             for (player in specialPlayers) {

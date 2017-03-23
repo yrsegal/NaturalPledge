@@ -22,9 +22,7 @@ object ModTab : ModCreativeTab("divine") {
         return true
     }
 
-    override fun getIconItemStack(): ItemStack {
-        return ItemStack(ModItems.symbol)
-    }
+    override val iconStack by lazy { ItemStack(ModItems.symbol) }
 
     override fun getRelevantEnchantmentTypes(): Array<out EnumEnchantmentType>? {
         return arrayOf(ModEnchantments.WEIGHTY)

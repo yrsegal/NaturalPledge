@@ -62,7 +62,7 @@ object Spells {
             if (look == null) {
                 return null
             } else {
-                return raycast(e.worldObj, vec, Vector3(look), len, stopOnLiquid)
+                return raycast(e.world, vec, Vector3(look), len, stopOnLiquid)
             }
         }
 
@@ -90,7 +90,7 @@ object Spells {
             val lookVector = e.lookVec
             val reachVector = positionVector.addVector(lookVector.xCoord * maxDistance, lookVector.yCoord * maxDistance, lookVector.zCoord * maxDistance)
             var lookedEntity: Entity? = null
-            val entitiesInBoundingBox = e.worldObj.getEntitiesWithinAABBExcludingEntity(e, e.entityBoundingBox.addCoord(lookVector.xCoord * maxDistance, lookVector.yCoord * maxDistance, lookVector.zCoord * maxDistance).expand(1.0, 1.0, 1.0))
+            val entitiesInBoundingBox = e.world.getEntitiesWithinAABBExcludingEntity(e, e.entityBoundingBox.addCoord(lookVector.xCoord * maxDistance, lookVector.yCoord * maxDistance, lookVector.zCoord * maxDistance).expand(1.0, 1.0, 1.0))
             var minDistance = distance
             val var14 = entitiesInBoundingBox.iterator()
 
@@ -127,7 +127,7 @@ object Spells {
 
         // Copied from Psi's ItemCAD, with minor modifications
         fun craft(player: EntityPlayer, `in`: String, out: ItemStack, colorVal: Int): Boolean {
-            val items = player.worldObj.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(player.posX - 8, player.posY - 8, player.posZ - 8, player.posX + 8, player.posY + 8, player.posZ + 8))
+            val items = player.world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(player.posX - 8, player.posY - 8, player.posZ - 8, player.posX + 8, player.posY + 8, player.posZ + 8))
 
             val color = Color(colorVal)
             val r = color.red / 255f
@@ -140,7 +140,7 @@ object Spells {
                 val stack = item.entityItem
                 if (stack != null && (stack.item != out.item || stack.itemDamage != out.itemDamage) && checkStack(stack, `in`)) {
                     val outCopy = out.copy()
-                    outCopy.stackSize = stack.stackSize
+                    outCopy.count = stack.count
                     item.setEntityItemStack(outCopy)
                     did = true
 
@@ -153,11 +153,11 @@ object Spells {
                         val m = 0.01
                         val d3 = 10.0
                         for (j in 0..2) {
-                            val d0 = item.worldObj.rand.nextGaussian() * m
-                            val d1 = item.worldObj.rand.nextGaussian() * m
-                            val d2 = item.worldObj.rand.nextGaussian() * m
+                            val d0 = item.world.rand.nextGaussian() * m
+                            val d1 = item.world.rand.nextGaussian() * m
+                            val d2 = item.world.rand.nextGaussian() * m
 
-                            item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d2 * d3, d0, d1, d2)
+                            item.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, item.posX + item.world.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d0 * d3, item.posY + item.world.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.world.rand.nextFloat() * item.width * 2.0f - item.width.toDouble() - d2 * d3, d0, d1, d2)
                         }
                     }
                 }
@@ -194,7 +194,7 @@ object Spells {
 
         fun processEntry(player: EntityPlayer, focus: ItemStack, entry: ObjectInfusionEntry): Boolean {
             if (!ManaItemHandler.requestManaExact(focus, player, entry.manaCost, false)) return false
-            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
+            player.world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
             val emblem = ItemFaithBauble.getEmblem(player) ?: return false
             val flag =
                     if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
@@ -231,8 +231,8 @@ object Spells {
                     player.motionZ = speedVec.z
 
                     player.fallDistance = 0f
-                    if (player.worldObj.totalWorldTime % 5 == 0L)
-                        player.worldObj.playSound(player, player.posX + player.motionX, player.posY + player.motionY, player.posZ + player.motionZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
+                    if (player.world.totalWorldTime % 5 == 0L)
+                        player.world.playSound(player, player.posX + player.motionX, player.posY + player.motionY, player.posZ + player.motionZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
 
                     return EnumActionResult.SUCCESS
                 }
@@ -279,12 +279,12 @@ object Spells {
                     BotanicalAddons.PROXY.particleRing(player.posX, player.posY, player.posZ, RANGE, 0F, 0F, 1F)
 
                     val exclude: EntityLivingBase = player
-                    val entities = player.worldObj.getEntitiesInAABBexcluding(exclude,
+                    val entities = player.world.getEntitiesInAABBexcluding(exclude,
                             player.entityBoundingBox.expand(RANGE, RANGE, RANGE), SELECTOR)
 
                     if (pushEntities(player.posX, player.posY, player.posZ, RANGE, VELOCITY, entities)) {
-                        if (player.worldObj.totalWorldTime % 3 == 0L)
-                            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
+                        if (player.world.totalWorldTime % 3 == 0L)
+                            player.world.playSound(player, player.posX, player.posY, player.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                         ManaItemHandler.requestManaExact(focus, player, 5, true)
                     }
                     return EnumActionResult.SUCCESS
@@ -307,7 +307,7 @@ object Spells {
                         focused.knockBack(player, 1.5f,
                                 MathHelper.sin(player.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
                                 -MathHelper.cos(player.rotationYaw * Math.PI.toFloat() / 180).toDouble())
-                        player.worldObj.playSound(player, focused.posX, focused.posY, focused.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
+                        player.world.playSound(player, focused.posX, focused.posY, focused.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                         return EnumActionResult.SUCCESS
                     }
                     return EnumActionResult.FAIL
@@ -338,22 +338,22 @@ object Spells {
                 if (focused != null && focused is EntityLivingBase) {
                     if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
                         focused.attackEntityFrom(DamageSource.causePlayerDamage(player), if (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem)) 10f else 5f)
-                        val fakeBolt = EntityLightningBolt(player.worldObj, focused.posX, focused.posY, focused.posZ, true)
+                        val fakeBolt = EntityLightningBolt(player.world, focused.posX, focused.posY, focused.posZ, true)
                         val event = EntityStruckByLightningEvent(focused, fakeBolt)
                         MinecraftForge.EVENT_BUS.post(event)
                         if (!event.isCanceled)
                             focused.onStruckByLightning(fakeBolt)
                         Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(focused), 1f, 0x00948B, 0x00E4D7)
-                        player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                        player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                         return EnumActionResult.SUCCESS
                     }
                 } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
                     Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3(cast.hitVec), 1f, 0x00948B, 0x00E4D7)
-                    player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                    player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
                     Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), 1f, 0x00948B, 0x00E4D7)
-                    player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                    player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 }
                 return EnumActionResult.FAIL
@@ -374,7 +374,7 @@ object Spells {
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                if (!player.worldObj.isRemote && cooldownRemaining > 300)
+                if (!player.world.isRemote && cooldownRemaining > 300)
                     player.addPotionEffect(PotionEffect(MobEffects.STRENGTH, 5, 0, true, true))
             }
         }
@@ -420,13 +420,13 @@ object Spells {
 
                 if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK) {
                     var pos = ray.blockPos
-                    if (!player.worldObj.getBlockState(pos).block.isReplaceable(player.worldObj, pos)) pos = pos.offset(ray.sideHit)
+                    if (!player.world.getBlockState(pos).block.isReplaceable(player.world, pos)) pos = pos.offset(ray.sideHit)
 
                     if (player.canPlayerEdit(pos, ray.sideHit, null)) {
                         ManaItemHandler.requestManaExact(focus, player, 1500, true)
-                        player.worldObj.setBlockState(pos, ModBlocks.thunderTrap.defaultState)
+                        player.world.setBlockState(pos, ModBlocks.thunderTrap.defaultState)
                         Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromBlockPos(pos).add(0.5, 0.5, 0.5), 1f, 0x00948B, 0x00E4D7)
-                        player.worldObj.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                        player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                         return EnumActionResult.SUCCESS
                     }
                 }
@@ -442,7 +442,7 @@ object Spells {
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 var flag = false
                 if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return EnumActionResult.FAIL
-                player.worldObj.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
+                player.world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
                 val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
                 val awakened = (emblem.item as IPriestlyEmblem).isAwakened(emblem)
                 for (i in LibOreDict.DYES.withIndex())
@@ -491,11 +491,11 @@ object Spells {
                 val timeElapsed = 400 - cooldownRemaining
                 val stage = timeElapsed / 5
 
-                if (player.worldObj.isRemote) return
+                if (player.world.isRemote) return
 
                 if (stage * 5 != timeElapsed) return
 
-                val positionTag = ItemNBTHelper.getList(focus, TAG_SOURCE, 3, true)
+                val positionTag = ItemNBTHelper.getList(focus, TAG_SOURCE, 3)
 
                 if (stage >= 5 || positionTag == null) {
                     if (positionTag != null)
@@ -506,9 +506,9 @@ object Spells {
                 val pos = BlockPos(positionTag.getIntAt(0).toDouble(), positionTag.getIntAt(1) + stage - 1.5, positionTag.getIntAt(2).toDouble())
 
                 if (stage == 0 || stage == 4) for (xShift in -1..1) for (zShift in -1..1)
-                    makeBifrost(player.worldObj, pos.add(xShift, 0, zShift), cooldownRemaining - 200)
+                    makeBifrost(player.world, pos.add(xShift, 0, zShift), cooldownRemaining - 200)
                 else for (rot in EnumFacing.HORIZONTALS) for (perpShift in -1..1)
-                    makeBifrost(player.worldObj, pos.offset(rot, 2).offset(rot.rotateY(), perpShift), cooldownRemaining - 200)
+                    makeBifrost(player.world, pos.offset(rot, 2).offset(rot.rotateY(), perpShift), cooldownRemaining - 200)
 
             }
 
@@ -542,7 +542,7 @@ object Spells {
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                if (!player.worldObj.isRemote && cooldownRemaining > 300) {
+                if (!player.world.isRemote && cooldownRemaining > 300) {
                     player.addPotionEffect(ModPotionEffect(MobEffects.RESISTANCE, 5, 4, true, true))
                     player.addPotionEffect(ModPotionEffect(MobEffects.WEAKNESS, 5, 4, true, true))
                     player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 5, 0, true, true))

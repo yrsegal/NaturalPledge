@@ -51,9 +51,9 @@ class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
     fun updateShaders(e: RenderGameOverlayEvent.Pre) {
         if (FMLLaunchHandler.side().isServer) return
         val mc = Minecraft.getMinecraft()
-        if (mc.thePlayer == null) return
+        if (mc.player == null) return
         if (e.type == RenderGameOverlayEvent.ElementType.ALL) {
-            if ((getEffect(mc.thePlayer)?.amplifier ?: 0) > 0 && ItemFaithBauble.getEmblem(mc.thePlayer, PriestlyEmblemHeimdall::class.java) == null) {
+            if ((getEffect(mc.player)?.amplifier ?: 0) > 0 && ItemFaithBauble.getEmblem(mc.player, PriestlyEmblemHeimdall::class.java) == null) {
                 setShader(greyscale)
             } else Minecraft.getMinecraft().entityRenderer.stopUseShader()
         }

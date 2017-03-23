@@ -94,7 +94,8 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         }
     }
 
-    override fun onItemUse(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+    override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+        val stack = player.getHeldItem(hand)
         if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
             if (world.isRemote) {
                 player.swingArm(hand)
@@ -118,7 +119,8 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         return EnumActionResult.PASS
     }
 
-    override fun onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+    override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+        val stack = player.getHeldItem(hand)
         if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
             if (world.isRemote) {
                 player.swingArm(hand)
@@ -170,9 +172,9 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         var pos: Vector3? = null
         val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
         if (track != null) {
-            if (player.worldObj.isRemote) {
+            if (player.world.isRemote) {
                 val lastKnown = LAST_KNOWN_POSITIONS[track.toLowerCase(Locale.ROOT)] ?: return null
-                if (lastKnown.first != player.worldObj.provider.dimension) return null
+                if (lastKnown.first != player.world.provider.dimension) return null
                 return Vector3(lastKnown.second)
             } else return null
         } else {

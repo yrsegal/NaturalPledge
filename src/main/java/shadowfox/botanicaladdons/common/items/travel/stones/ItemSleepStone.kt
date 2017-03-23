@@ -47,13 +47,13 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
 
         if (isPlayerSleeping || !isEntityAlive) return SleepResult.OTHER_PROBLEM
 
-        if (!worldObj.provider.isSurfaceWorld) return SleepResult.NOT_POSSIBLE_HERE
+        if (!world.provider.isSurfaceWorld) return SleepResult.NOT_POSSIBLE_HERE
 
-        if (worldObj.isDaytime) return SleepResult.NOT_POSSIBLE_NOW
+        if (world.isDaytime) return SleepResult.NOT_POSSIBLE_NOW
 
         if (Math.abs(posX - bedLocation.x.toDouble()) > 3.0 || Math.abs(posY - bedLocation.y.toDouble()) > 2.0 || Math.abs(posZ - bedLocation.z.toDouble()) > 3.0) return SleepResult.TOO_FAR_AWAY
 
-        val list = worldObj.getEntitiesWithinAABB(EntityMob::class.java, AxisAlignedBB(bedLocation.x.toDouble() - 8.0, bedLocation.y.toDouble() - 5.0, bedLocation.z.toDouble() - 8.0, bedLocation.x.toDouble() + 8.0, bedLocation.y.toDouble() + 5.0, bedLocation.z.toDouble() + 8.0))
+        val list = world.getEntitiesWithinAABB(EntityMob::class.java, AxisAlignedBB(bedLocation.x.toDouble() - 8.0, bedLocation.y.toDouble() - 5.0, bedLocation.z.toDouble() - 8.0, bedLocation.x.toDouble() + 8.0, bedLocation.y.toDouble() + 5.0, bedLocation.z.toDouble() + 8.0))
 
         if (!list.isEmpty()) return SleepResult.NOT_SAFE
         return SleepResult.OK
@@ -66,7 +66,7 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
     fun attemptSleep(player: EntityPlayer): Boolean {
         val sleepResult = player.trySleepCustom()
 
-        if (!player.worldObj.isRemote) {
+        if (!player.world.isRemote) {
             if (sleepResult == SleepResult.NOT_POSSIBLE_NOW)
                 player.sendSpamlessMessage(TextComponentTranslation("tile.bed.noSleep"), MESSAGE_ID)
             else if (sleepResult == SleepResult.NOT_SAFE)
@@ -76,7 +76,8 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
         return sleepResult == SleepResult.OK
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+    override fun onItemRightClick(worldIn: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+        val itemStackIn = player.getHeldItem(hand)
         if (worldIn.isRemote) return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
         if (attemptSleep(player)) player.activeHand = hand
         return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
@@ -84,7 +85,7 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
         if (player !is EntityPlayer) return
-        if (!player.worldObj.isRemote && !attemptSleep(player))
+        if (!player.world.isRemote && !attemptSleep(player))
             player.resetActiveHand()
     }
 
@@ -93,7 +94,7 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
             val i = worldIn.worldInfo.worldTime + 24000L
             worldIn.worldInfo.worldTime = i - i % 24000L
         }
-        entityLiving.worldObj.playSound(null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
+        entityLiving.world.playSound(null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
 
         for (i in 0..50) {
             val x1 = (entityLiving.posX - 0.5 + Math.random()).toFloat()

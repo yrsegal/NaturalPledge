@@ -60,7 +60,7 @@ object ThunderEventHandler {
     @SubscribeEvent
     fun catchPlayerStruck(e: EntityStruckByLightningEvent) {
         for (pos in BlockPos.getAllInBox(e.lightning.position.add(-MAXRANGE, -MAXRANGE, -MAXRANGE), e.lightning.position.add(MAXRANGE, MAXRANGE, MAXRANGE))) {
-            val state = e.lightning.worldObj.getBlockState(pos)
+            val state = e.lightning.world.getBlockState(pos)
             if (state.block is IThunderAbsorber) {
                 e.isCanceled = true
                 return

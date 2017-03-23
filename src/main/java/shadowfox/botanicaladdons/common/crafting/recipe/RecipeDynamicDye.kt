@@ -5,6 +5,7 @@ import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
+import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
@@ -26,6 +27,7 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
         (0 until inv.sizeInventory)
                 .asSequence()
                 .mapNotNull { inv.getStackInSlot(it) }
+                .filterNot { it.isEmpty }
                 .forEach {
                     if (it.item == dyable) {
                         ink = it
@@ -67,7 +69,7 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
                     ink = stack
 
                     val newstack = stack.copy()
-                    newstack.stackSize = 1
+                    newstack.count = 1
 
                     if (RainbowItemHelper.getColor(stack) != -1) {
                         val color = Color(RainbowItemHelper.getColor(stack))
@@ -143,7 +145,7 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
         return null
     }
 
-    override fun getRemainingItems(inv: InventoryCrafting?): Array<out ItemStack>? {
+    override fun getRemainingItems(inv: InventoryCrafting?): NonNullList<ItemStack> {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv)
     }
 }

@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
+import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
@@ -9,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
 import vazkii.botania.api.item.IBaubleRender
 

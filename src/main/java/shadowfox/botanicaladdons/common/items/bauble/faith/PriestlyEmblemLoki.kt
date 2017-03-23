@@ -47,7 +47,7 @@ class PriestlyEmblemLoki : IFaithVariant {
         if (e.entityLiving !is EntityPlayer) return
         val bauble = ItemFaithBauble.getEmblem(e.entityLiving as EntityPlayer, PriestlyEmblemLoki::class.java) ?: return
         val awakened = (bauble.item as IPriestlyEmblem).isAwakened(bauble)
-        if (e.source.isFireDamage && (e.source != DamageSource.lava || awakened)) {
+        if (e.source.isFireDamage && (e.source != DamageSource.LAVA || awakened)) {
             e.isCanceled = true
             e.entityLiving.heal(0.025f)
         }

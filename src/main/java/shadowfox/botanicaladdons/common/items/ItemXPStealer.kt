@@ -75,34 +75,35 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
             stack.xpSeed = entityIn.xpSeed
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+    override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+        val stack = playerIn.getHeldItem(hand)
         if (!worldIn.isRemote) {
-            if ((itemStackIn.xp == 0 || playerIn.isSneaking) && (playerIn.experienceLevel > 0 || playerIn.experience > 0)) {
+            if ((stack.xp == 0 || playerIn.isSneaking) && (playerIn.experienceLevel > 0 || playerIn.experience > 0)) {
                 val levels = playerIn.experienceLevel
-                itemStackIn.xp += (playerIn.experience * getLevelCap(levels)).toInt() + (0 until levels).sumBy(::getLevelCap)
+                stack.xp += (playerIn.experience * getLevelCap(levels)).toInt() + (0 until levels).sumBy(::getLevelCap)
                 playerIn.experienceLevel = 0
                 playerIn.experience = 0.0f
                 playerIn.experienceTotal = 0
                 if (playerIn is EntityPlayerMP)
                     playerIn.connection.sendPacket(SPacketSetExperience(playerIn.experience, playerIn.experienceTotal, playerIn.experienceLevel))
-                return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+                return ActionResult(EnumActionResult.SUCCESS, stack)
             }
 
-            if (itemStackIn.xp == 0)
-                return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+            if (stack.xp == 0)
+                return ActionResult(EnumActionResult.SUCCESS, stack)
 
-            playerIn.addExperience(itemStackIn.xp)
-            playerIn.addScore(-itemStackIn.xp)
-            itemStackIn.xp = 0
+            playerIn.addExperience(stack.xp)
+            playerIn.addScore(-stack.xp)
+            stack.xp = 0
 
             if (playerIn is EntityPlayerMP)
                 playerIn.connection.sendPacket(SPacketSetExperience(playerIn.experience, playerIn.experienceTotal, playerIn.experienceLevel))
         }
-        return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+        return ActionResult(EnumActionResult.SUCCESS, stack)
     }
 
-    override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer, worldIn: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
-        return onItemRightClick(stack, worldIn, playerIn, hand).type
+    override fun onItemUse(playerIn: EntityPlayer, worldIn: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+        return onItemRightClick(worldIn, playerIn, hand).type
     }
 
     override fun getPercentage(stack: ItemStack): Float {

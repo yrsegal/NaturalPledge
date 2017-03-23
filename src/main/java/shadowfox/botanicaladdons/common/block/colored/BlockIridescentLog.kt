@@ -74,10 +74,6 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
         return COLORS[colorSet].indexOf(state?.getValue(COLOR_PROPS[colorSet]) ?: return 0)
     }
 
-    override fun createStackedBlock(state: IBlockState): ItemStack? {
-        return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR_PROPS[colorSet])))
-    }
-
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
         get() = { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR_PROPS[colorSet]).mapColor.colorValue }
 

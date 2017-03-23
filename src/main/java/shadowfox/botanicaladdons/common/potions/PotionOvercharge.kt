@@ -19,6 +19,6 @@ class PotionOvercharge : PotionMod(LibNames.OVERCHARGED, true, 0x00E4D7) {
         val x = (Math.random() - 0.5) * RANGE * 2 + entity.posX
         val y = (Math.random() - 0.5) * RANGE * 2 + entity.posY
         val z = (Math.random() - 0.5) * RANGE * 2 + entity.posZ
-        entity.worldObj.addWeatherEffect(EntityLightningBolt(entity.worldObj, x, y, z, false))
+        entity.world.addWeatherEffect(EntityLightningBolt(entity.world, x, y, z, false))
     }
 }

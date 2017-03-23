@@ -72,7 +72,7 @@ class BlockColoredLamp(name: String) : BlockMod(name, Material.REDSTONE_LIGHT), 
         return defaultState.withProperty(POWER, meta)
     }
 
-    override fun neighborChanged(state: IBlockState, world: World, pos: BlockPos, blockIn: Block) {
+    override fun neighborChanged(state: IBlockState, world: World, pos: BlockPos, blockIn: Block?, fromPos: BlockPos?) {
         val power = blockPower(world, pos)
         if (state.getValue(POWER) != power)
             world.setBlockState(pos, state.withProperty(POWER, power), 2)

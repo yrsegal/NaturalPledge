@@ -60,7 +60,8 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.mixed")
     }
 
-    override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer, worldIn: World, posIn: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
+    override fun onItemUse(playerIn: EntityPlayer, worldIn: World, posIn: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
+        val stack = playerIn.getHeldItem(hand)
         var pos = posIn
         val iblockstate = worldIn.getBlockState(pos)
         val block = iblockstate.block
@@ -69,9 +70,9 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
             pos = pos.offset(facing)
         }
 
-        if (ManaItemHandler.requestManaExactForTool(stack, playerIn, MANA_PER_FLAME, false) && playerIn.canPlayerEdit(pos, facing, stack) && worldIn.canBlockBePlaced(ModBlocks.flame, pos, false, facing, null, stack)) {
+        if (ManaItemHandler.requestManaExactForTool(stack, playerIn, MANA_PER_FLAME, false) && playerIn.canPlayerEdit(pos, facing, stack) && worldIn.mayPlace(ModBlocks.flame, pos, false, facing, null)) {
             val i = this.getMetadata(stack.metadata)
-            val iblockstate1 = ModBlocks.flame.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, i, playerIn)
+            val iblockstate1 = ModBlocks.flame.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, i, playerIn)
 
             if (placeBlockAt(stack, playerIn, worldIn, pos, iblockstate1)) {
                 val soundtype = ModBlocks.flame.soundType

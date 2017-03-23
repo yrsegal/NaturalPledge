@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
 import net.minecraft.client.Minecraft
@@ -29,7 +30,6 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
@@ -68,7 +68,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
 
             val baubles = BaublesApi.getBaublesHandler(player)
             val stack = baubles.getStackInSlot(0)
-            if (stack != null && stack.item is IPriestlyEmblem) {
+            if (!stack.isEmpty && stack.item is IPriestlyEmblem) {
                 val variantInstance = (stack.item as IPriestlyEmblem).getVariant(stack)
                 if (variant == null || (variantInstance != null && variant.isInstance(variantInstance)))
                     return stack
@@ -176,7 +176,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         return checkDiscordant(player.heldItemOffhand) || checkDiscordant(player.heldItemMainhand) || !isAwakened(stack)
     }
 
-    override fun onEquipped(stack: ItemStack, player: EntityLivingBase?) {
+    override fun onEquipped(stack: ItemStack, player: EntityLivingBase) {
         super.onEquipped(stack, player)
 
         if (player is EntityPlayer)
@@ -196,7 +196,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
-        if (variant != null && player is EntityPlayer && !player.worldObj.isRemote) {
+        if (variant != null && player is EntityPlayer && !player.world.isRemote) {
             player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
             if (isAwakened(stack))
                 player.attackEntityFrom(faithSource, Float.MAX_VALUE)
@@ -208,7 +208,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         setAwakened(stack, false)
     }
 
-    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         super.addHiddenTooltip(stack, player, tooltip, advanced)
         val variant = getVariant(stack) ?: return
         variant.addToTooltip(stack, player, tooltip, advanced)

@@ -9,7 +9,7 @@ import net.minecraft.util.ITickable
  */
 abstract class TileModTickable : TileMod(), ITickable {
     override fun update() {
-        if (!isInvalid && worldObj.isBlockLoaded(getPos(), !worldObj.isRemote)) {
+        if (!isInvalid && world.isBlockLoaded(getPos(), !world.isRemote)) {
             updateEntity()
         }
     }

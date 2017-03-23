@@ -51,7 +51,7 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
         setLightLevel(0.5F)
     }
 
-    override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, heldItem: ItemStack?, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
+    override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         val te = worldIn.getTileEntity(pos) as? TileEnderBind ?: return false
         if (te.playerName == null) {
             if (worldIn.isRemote) {
@@ -70,7 +70,7 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
             te.tickSet = worldIn.totalWorldTime
             if (!worldIn.isRemote) {
                 worldIn.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_STARE, SoundCategory.PLAYERS, 1f, 100f)
-                playerIn.addChatComponentMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.actuatorBind")
+                playerIn.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.actuatorBind")
                         .setStyle(Style().setColor(TextFormatting.DARK_GREEN)))
                 te.markDirty()
             }
@@ -92,10 +92,11 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
     @TileRegister("actuator")
     class TileEnderBind : TileMod() {
         val handler = object : IItemHandler {
-            override fun getStackInSlot(slot: Int) = null
-            override fun insertItem(slot: Int, stack: ItemStack?, simulate: Boolean) = stack
+            override fun getStackInSlot(slot: Int) = ItemStack.EMPTY
+            override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean) = stack
             override fun getSlots() = 1
-            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) = null
+            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) = ItemStack.EMPTY
+            override fun getSlotLimit(slot: Int) = 64
         }
 
         @Save var playerName: String? = null

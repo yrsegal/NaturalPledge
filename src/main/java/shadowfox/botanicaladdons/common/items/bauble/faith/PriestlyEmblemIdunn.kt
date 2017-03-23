@@ -37,7 +37,7 @@ class PriestlyEmblemIdunn : IFaithVariant {
     val RANGE = 5
     override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
         val saplings = ArrayList<Pair<BlockPos, IBlockState>>()
-        val world = player.worldObj
+        val world = player.world
 
         if (!world.isRemote) {
             val cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0)

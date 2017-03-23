@@ -15,7 +15,7 @@ import shadowfox.botanicaladdons.common.core.tab.ModTab
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.entity.ModEntities
-import shadowfox.botanicaladdons.common.integration.tinkers.TinkersProxy
+//import shadowfox.botanicaladdons.common.integration.tinkers.TinkersProxy
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -48,7 +48,7 @@ open class CommonProxy {
         ModSpells
         ModRecipes
         LexiconEntries
-        TinkersProxy.loadTinkers()
+//        TinkersProxy.loadTinkers()
     }
 
     open fun post(e: FMLPostInitializationEvent) {

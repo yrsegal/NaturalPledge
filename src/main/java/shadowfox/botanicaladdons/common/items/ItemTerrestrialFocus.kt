@@ -85,7 +85,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
         object EventHandler {
             @SubscribeEvent
             fun handleRightClick(e: PlayerInteractEvent.RightClickBlock) {
-                if (e.itemStack?.item is ItemTerrestrialFocus) {
+                if (e.itemStack.item is ItemTerrestrialFocus) {
                     e.useBlock = Event.Result.DENY
                     e.useItem = Event.Result.ALLOW
                 }
@@ -105,13 +105,13 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
         val spellIndex = if (spellName == null && spells.size != 0) -1 else if (spellName !in spells) -2 else spells.indexOf(spellName)
         if (spellIndex == -2) {
             setSpell(stack, null)
-            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
+            player.world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.2F) * 0.7F)
         } else {
             val name = spells[(spellIndex + 1) % spells.size]
             setSpellByName(stack, name)
-            player.worldObj.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F)
+            player.world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.2F) * 0.7F)
             ItemsRemainingRenderHandler.set(SpellRegistry.getSpell(name)?.iconStack, -2)
-            if (player.worldObj.isRemote) {
+            if (player.world.isRemote) {
                 displayItemName(30)
             }
 
@@ -150,7 +150,8 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
         return ret
     }
 
-    override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer, worldIn: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
+    override fun onItemUse(playerIn: EntityPlayer, worldIn: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
+        val stack = playerIn.getHeldItem(hand)
         if (playerIn.isSneaking) {
             shiftSpellWithSneak(stack, playerIn)
             return EnumActionResult.SUCCESS
@@ -161,7 +162,8 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
         return result
     }
 
-    override fun onItemRightClick(stack: ItemStack, worldIn: World?, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World?, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
+        val stack = playerIn.getHeldItem(hand)
         if (playerIn.isSneaking) {
             shiftSpellWithSneak(stack, playerIn)
             return ActionResult(EnumActionResult.SUCCESS, stack)

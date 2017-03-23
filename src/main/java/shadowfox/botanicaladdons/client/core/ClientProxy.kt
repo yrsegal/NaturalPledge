@@ -136,7 +136,7 @@ class ClientProxy : CommonProxy() {
     override fun wireFrameRainbow(saturation: Float) = Color(Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200f, saturation, 1f))
 
     override fun playerHasMonocle(): Boolean {
-        BaublesApi.getBaublesHandler(Minecraft.getMinecraft().thePlayer) ?: return false
+        BaublesApi.getBaublesHandler(Minecraft.getMinecraft().player) ?: return false
         return Botania.proxy.isClientPlayerWearingMonocle
     }
 }

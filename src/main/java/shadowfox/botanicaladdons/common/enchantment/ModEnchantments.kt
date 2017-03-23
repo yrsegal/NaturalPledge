@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.enchantment
 
 import net.minecraft.enchantment.EnumEnchantmentType
 import net.minecraftforge.common.util.EnumHelper
+import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.lib.LibNames
 
@@ -11,14 +12,11 @@ import shadowfox.botanicaladdons.common.lib.LibNames
  */
 object ModEnchantments {
 
-    val WEIGHTY: EnumEnchantmentType = EnumHelper.addEnchantmentType("${LibMisc.MOD_ID}:WEIGHTY")
+    val WEIGHTY: EnumEnchantmentType = EnumHelper.addEnchantmentType("${LibMisc.MOD_ID}:WEIGHTY") {
+        it is IWeightEnchantable
+    }!!
 
-    val heavy: EnchantmentWeight
-    val lightweight: EnchantmentWeight
+    val heavy: EnchantmentWeight = EnchantmentWeight(LibNames.HEAVY, true)
+    val lightweight: EnchantmentWeight = EnchantmentWeight(LibNames.LIGHT, false)
 
-    init {
-
-        heavy = EnchantmentWeight(LibNames.HEAVY, true)
-        lightweight = EnchantmentWeight(LibNames.LIGHT, false)
-    }
 }

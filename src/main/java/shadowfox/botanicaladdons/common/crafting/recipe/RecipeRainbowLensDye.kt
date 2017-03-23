@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.crafting.recipe
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
+import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
@@ -27,6 +28,7 @@ class RecipeRainbowLensDye : IRecipe {
         (0 until var1.sizeInventory)
                 .asSequence()
                 .mapNotNull { var1.getStackInSlot(it) }
+                .filterNot { it.isEmpty }
                 .forEach {
                     if (it.item is ILens && !foundLens) {
                         foundLens = true
@@ -82,7 +84,7 @@ class RecipeRainbowLensDye : IRecipe {
         return null
     }
 
-    override fun getRemainingItems(inv: InventoryCrafting?): Array<out ItemStack>? {
+    override fun getRemainingItems(inv: InventoryCrafting?): NonNullList<ItemStack> {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv)
     }
 }

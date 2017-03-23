@@ -40,14 +40,14 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
         maxDamage = 0
     }
 
-    override fun isItemTool(stack: ItemStack) = true
+    override fun isEnchantable(stack: ItemStack?) = true
 
     companion object {
         init {
             MinecraftForge.EVENT_BUS.register(this)
         }
 
-        val NONE: ISortableTool.ToolType = EnumHelper.addEnum(ISortableTool.ToolType::class.java, "NONE", arrayOf())
+        val NONE: ISortableTool.ToolType = EnumHelper.addEnum(ISortableTool.ToolType::class.java, "NONE", arrayOf())!!
 
         // Direct copy from ItemSwapRing, except for adding the NONE check and changing the type check
         @SubscribeEvent
@@ -62,10 +62,10 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
                 val currentStack = entity.heldItemMainhand
                 if (currentStack != null && currentStack.item is ISortableTool) {
                     val tool = currentStack.item as ISortableTool
-                    val pos = ToolCommons.raytraceFromEntity(entity.worldObj, entity, true, 4.5)
+                    val pos = ToolCommons.raytraceFromEntity(entity.world, entity, true, 4.5)
                     var typeToFind: ISortableTool.ToolType? = null
                     if (entity.isSwingInProgress && pos != null && pos.blockPos != null) {
-                        val bestTool = entity.worldObj.getBlockState(pos.blockPos)
+                        val bestTool = entity.world.getBlockState(pos.blockPos)
                         // Changed type check
                         if (!bestTool.material.isLiquid && ModItems.polyStone.getStrVsBlock(null, bestTool) != 1.0F)
                             typeToFind = NONE

@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.entity
 
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.EntityRegistry
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
@@ -13,6 +14,6 @@ object ModEntities {
     var id = 0
 
     init {
-        EntityRegistry.registerModEntity(EntitySealedArrow::class.java, "${LibMisc.MOD_ID}:sealArrow", id++, BotanicalAddons.INSTANCE, 256, 2, true)
+        EntityRegistry.registerModEntity(ResourceLocation("${LibMisc.MOD_ID}:sealArrow"), EntitySealedArrow::class.java, "${LibMisc.MOD_ID}:sealArrow", id++, BotanicalAddons.INSTANCE, 256, 2, true)
     }
 }

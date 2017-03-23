@@ -15,11 +15,13 @@ import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import org.jetbrains.annotations.NotNull
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.ModMaterials
 import shadowfox.botanicaladdons.common.block.tile.TileCracklingStar
@@ -38,7 +40,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
     override fun createItemForm() = object : ItemModBlock(this) {
-            override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+            override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
                 RainbowItemHelper.defaultColors.mapTo(subItems) { RainbowItemHelper.colorStack(it, this) }
             }
         }
@@ -87,7 +89,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
     override fun isFullCube(state: IBlockState?) = false
     override fun isPassable(worldIn: IBlockAccess?, pos: BlockPos?) = true
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
-    override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: World?, pos: BlockPos?) = NULL_AABB
+    override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: IBlockAccess?, pos: BlockPos?) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
     override fun isReplaceable(worldIn: IBlockAccess?, pos: BlockPos?) = false
 
@@ -121,7 +123,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
         worldIn.setBlockToAir(pos)
     }
 
-    override fun getSubBlocks(itemIn: Item?, tab: CreativeTabs?, list: MutableList<ItemStack>) {
+    override fun getSubBlocks(itemIn: Item?, tab: CreativeTabs?, list: NonNullList<ItemStack>) {
         // NO-OP
     }
 

@@ -95,10 +95,10 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
         return super.hitEntity(stack, target, attacker)
     }
 
-    override fun onItemRightClick(stack: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
         if (hand == EnumHand.OFF_HAND && playerIn.heldItemMainhand?.item == this)
             playerIn.activeHand = hand
-        return super.onItemRightClick(stack, worldIn, playerIn, hand)
+        return super.onItemRightClick(worldIn, playerIn, hand)
     }
 
     override fun onDroppedByPlayer(item: ItemStack, player: EntityPlayer): Boolean {
@@ -113,8 +113,8 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
         val multimap = super.getAttributeModifiers(slot, stack)
         if (slot == EntityEquipmentSlot.MAINHAND) {
             val offset = EnchantmentWeight.getWeight(stack)
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.attributeUnlocalizedName, AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage.toDouble(), 0))
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.attributeUnlocalizedName, AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.0 + offset * -.3, 0))
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage.toDouble(), 0))
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.name, AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.0 + offset * -.3, 0))
         }
         return multimap
     }

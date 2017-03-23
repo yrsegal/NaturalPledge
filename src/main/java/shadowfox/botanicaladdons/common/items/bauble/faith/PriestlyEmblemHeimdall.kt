@@ -47,7 +47,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
             }
 
     override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
-        if (!player.worldObj.isRemote && ManaItemHandler.requestManaExact(stack, player, 1, true) && !ModPotions.drab.hasEffect(player))
+        if (!player.world.isRemote && ManaItemHandler.requestManaExact(stack, player, 1, true) && !ModPotions.drab.hasEffect(player))
             player.addPotionEffect(PotionEffect(MobEffects.NIGHT_VISION, 610, 0, true, false))
     }
 
@@ -69,7 +69,7 @@ class PriestlyEmblemHeimdall : IFaithVariant {
     @SubscribeEvent
     fun bifrostPlatform(e: LivingEvent.LivingUpdateEvent) {
         val player = e.entityLiving
-        val world = player.worldObj
+        val world = player.world
         if (world.isRemote) return
         if (player is EntityPlayer) {
             if ((player.heldItemMainhand?.item == ModItems.rainbowRod ?: false) || (player.heldItemOffhand?.item == ModItems.rainbowRod ?: false)) {

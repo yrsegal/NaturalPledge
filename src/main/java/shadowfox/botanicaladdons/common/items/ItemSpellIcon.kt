@@ -5,6 +5,7 @@ import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 
@@ -44,7 +45,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), IItemColo
                 0xFFFFFF
         }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         // NO-OP
     }
 }

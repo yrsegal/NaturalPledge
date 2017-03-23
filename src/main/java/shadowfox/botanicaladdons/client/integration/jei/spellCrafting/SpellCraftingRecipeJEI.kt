@@ -32,14 +32,6 @@ class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
         ingredients.setOutput(ItemStack::class.java, recipeOutput)
     }
 
-    override fun getInputs(): List<Any> {
-        return listOf(recipe.input, getFocusStack(recipe.spell), recipe.spell.iconStack)
-    }
-
-    override fun getOutputs(): List<Any> {
-        return getOutputsTyped()
-    }
-
     fun getOutputsTyped(): List<ItemStack> {
         return listOf(*recipe.output)
     }

@@ -32,7 +32,7 @@ class ItemGaiaSlayer(name: String) : ItemMod(name) {
         val multimap = super.getAttributeModifiers(slot, stack)
 
         if (slot == EntityEquipmentSlot.MAINHAND) {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.attributeUnlocalizedName, AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 8.0, 0))
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 8.0, 0))
         }
 
         return multimap

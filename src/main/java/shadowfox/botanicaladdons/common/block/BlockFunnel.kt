@@ -66,7 +66,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         return FULL_BLOCK_AABB
     }
 
-    override fun addCollisionBoxToList(state: IBlockState, worldIn: World, pos: BlockPos, axis: AxisAlignedBB, lists: List<AxisAlignedBB>, collider: Entity?) {
+    override fun addCollisionBoxToList(state: IBlockState, worldIn: World, pos: BlockPos, axis: AxisAlignedBB, lists: List<AxisAlignedBB>, collider: Entity?, actual: Boolean) {
         addCollisionBoxToList(pos, axis, lists, BASE_AABB)
         addCollisionBoxToList(pos, axis, lists, SOUTH_AABB)
         addCollisionBoxToList(pos, axis, lists, NORTH_AABB)
@@ -74,7 +74,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         addCollisionBoxToList(pos, axis, lists, EAST_AABB)
     }
 
-    override fun onBlockPlaced(worldIn: World?, pos: BlockPos?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase?): IBlockState {
+    override fun getStateForPlacement(world: World?, pos: BlockPos?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase?, hand: EnumHand?): IBlockState {
         var enumfacing = facing!!.opposite
         if (enumfacing == EnumFacing.UP) {
             enumfacing = EnumFacing.DOWN
@@ -106,7 +106,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         this.updateState(worldIn, pos, state)
     }
 
-    override fun neighborChanged(state: IBlockState, worldIn: World, pos: BlockPos, blockIn: Block?) {
+    override fun neighborChanged(state: IBlockState, worldIn: World, pos: BlockPos, blockIn: Block?, fromPos: BlockPos?) {
         this.updateState(worldIn, pos, state)
     }
 
@@ -191,8 +191,8 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
     override fun renderHUD(mc: Minecraft, res: ScaledResolution, world: World, pos: BlockPos) {
         val te = world.getTileEntity(pos) ?: return
         if (te is TileLivingwoodFunnel) {
-            val stack = te.unsidedHandler.getStackInSlot(0) ?: return
-            if (stack.stackSize > 0) {
+            val stack = te.unsidedHandler.getStackInSlot(0)
+            if (!stack.isEmpty) {
                 RenderHelper.enableGUIStandardItemLighting()
                 mc.renderItem.renderItemIntoGUI(stack, res.scaledWidth / 2, res.scaledHeight / 2)
                 RenderHelper.disableStandardItemLighting()

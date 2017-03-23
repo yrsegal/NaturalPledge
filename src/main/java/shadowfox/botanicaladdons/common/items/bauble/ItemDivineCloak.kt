@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
+import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.common.network.PacketHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
@@ -27,7 +28,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import shadowfox.botanicaladdons.common.network.SetPositionMessage
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.client.model.ModelCloak
@@ -57,23 +57,23 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             if (player is EntityPlayer) {
                 val baubles = BaublesApi.getBaublesHandler(player)
                 val body = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
-                if (body != null && body.item is ItemDivineCloak) {
+                if (!body.isEmpty && body.item is ItemDivineCloak) {
                     if (body.itemDamage == 2) {
                         val jump = player.getActivePotionEffect(MobEffects.JUMP_BOOST)
                         val f = if (jump == null) 0.0f else (jump.amplifier + 1).toFloat()
                         val damage = Math.min((e.distance - 3.0f - f) * e.damageMultiplier, 5.0f)
                         if (damage > 0.0f) {
                             e.isCanceled = true
-                            val entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expand(4.0, 3.0, 4.0))
+                            val entities = player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expand(4.0, 3.0, 4.0))
                             entities
                                     .filter { it != player && it.onGround }
                                     .forEach { it.attackEntityFrom(damageSourceEarthquake(player), damage * 2) }
 
                             player.attackEntityFrom(damageSourceEarthquake(), 0.00005f)
                             for (pos in BlockPos.getAllInBoxMutable(BlockPos(player.positionVector).add(-1, -1, -1), BlockPos(player.positionVector).add(1, -1, 1))) {
-                                val state = player.worldObj.getBlockState(pos)
+                                val state = player.world.getBlockState(pos)
                                 if (state.isFullCube)
-                                    player.worldObj.playEvent(2001, pos, state.block.getMetaFromState(state))
+                                    player.world.playEvent(2001, pos, state.block.getMetaFromState(state))
                             }
                         }
                     } else if (body.itemDamage == 0) e.isCanceled = true
@@ -93,7 +93,7 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             if (player is EntityPlayer) {
                 val baubles = BaublesApi.getBaublesHandler(player)
                 val body = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
-                if (body != null && body.item is ItemDivineCloak && body.itemDamage == 1 && e.source.entity != null) {
+                if (!body.isEmpty && body.item is ItemDivineCloak && body.itemDamage == 1 && e.source.entity != null) {
                     val look = player.lookVec.normalize()
                     val origin = e.source.entity!!
                     val dir = player.positionVector.subtract(origin.positionVector).normalize()
@@ -109,7 +109,7 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
         }
     }
 
-    override fun getBaubleType(p0: ItemStack?) = BaubleType.BODY
+    override fun getBaubleType(stack: ItemStack) = BaubleType.BODY
 
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
         super.onWornTick(stack, player)
@@ -118,15 +118,15 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
                 player.motionY += 0.05
             player.fallDistance = 0f
         } else if (stack.itemDamage == 3) {
-            if (player.worldObj.isRemote && player.isSprinting && BAMethodHandles.getJumpTicks(player) == 10) {
+            if (player.world.isRemote && player.isSprinting && BAMethodHandles.getJumpTicks(player) == 10) {
                 val look = player.lookVec
                 val dist = 6.0
                 val vec = Vec3d(player.posX + look.xCoord * dist, player.posY + look.yCoord * dist, player.posZ + look.zCoord * dist)
                 val blockAt = BlockPos(vec)
-                if (!player.worldObj.getBlockState(blockAt).isFullCube && !player.worldObj.getBlockState(blockAt.up()).isFullCube) {
+                if (!player.world.getBlockState(blockAt).isFullCube && !player.world.getBlockState(blockAt.up()).isFullCube) {
                     BAMethodHandles.setIsJumping(player, false)
                     PacketHandler.NETWORK.sendToServer(SetPositionMessage(vec))
-                    player.worldObj.playSound(vec.xCoord, vec.yCoord, vec.zCoord, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f, false)
+                    player.world.playSound(vec.xCoord, vec.yCoord, vec.zCoord, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f, false)
                 }
             }
         }

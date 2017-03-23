@@ -26,8 +26,8 @@ object SoundSealEventHandler {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     fun onPlaySound(e: PlaySoundEvent) {
-        if (Minecraft.getMinecraft().theWorld != null && e.resultSound != null) {
-            val world = Minecraft.getMinecraft().theWorld
+        if (Minecraft.getMinecraft().world != null && e.resultSound != null) {
+            val world = Minecraft.getMinecraft().world
             if (e.resultSound !is ITickableSound) {
 
                 val x = e.resultSound.xPosF.toDouble()

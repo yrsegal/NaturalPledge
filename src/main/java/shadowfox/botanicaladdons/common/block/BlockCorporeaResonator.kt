@@ -48,10 +48,11 @@ class BlockCorporeaResonator(name: String) : BlockModContainer(name, Material.IR
     @TileRegister("resonator")
     class TileCorporeaResonator : TileMod(), ICorporeaRequestor {
         val handler = object : IItemHandler {
-            override fun getStackInSlot(slot: Int) = null
-            override fun insertItem(slot: Int, stack: ItemStack?, simulate: Boolean) = stack
+            override fun getStackInSlot(slot: Int) = ItemStack.EMPTY
+            override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean) = stack
             override fun getSlots() = 1
-            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) = null
+            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) = ItemStack.EMPTY
+            override fun getSlotLimit(slot: Int) = 64
         }
 
         override fun hasCapability(capability: Capability<*>, facing: EnumFacing?)
@@ -67,28 +68,28 @@ class BlockCorporeaResonator(name: String) : BlockModContainer(name, Material.IR
                 val stacks = CorporeaHelper.requestItem(request, count, spark, true, true)
                 spark.onItemsRequested(stacks)
                 for (stack in stacks) {
-                    if (inv != null && ItemHandlerHelper.insertItemStacked(inv, stack, true) == null) {
+                    if (inv != null && ItemHandlerHelper.insertItemStacked(inv, stack, true).isEmpty) {
                         ItemHandlerHelper.insertItemStacked(inv, stack, false)
                     } else {
-                        val item = EntityItem(worldObj, pos.x.toDouble() + 0.5, pos.y.toDouble() + 1.5, pos.z.toDouble() + 0.5, stack)
-                        worldObj.spawnEntityInWorld(item)
+                        val item = EntityItem(world, pos.x.toDouble() + 0.5, pos.y.toDouble() + 1.5, pos.z.toDouble() + 0.5, stack)
+                        world.spawnEntity(item)
                     }
                 }
             }
         }
 
         private fun getInv(): IItemHandler? {
-            var te = worldObj.getTileEntity(pos.down())
-            var ret = InventoryHelper.getInventory(worldObj, pos.down(), EnumFacing.UP)
-                    ?: InventoryHelper.getInventory(worldObj, pos.down(), null)
+            var te = world.getTileEntity(pos.down())
+            var ret = InventoryHelper.getInventory(world, pos.down(), EnumFacing.UP)
+                    ?: InventoryHelper.getInventory(world, pos.down(), null)
 
             if (ret != null && te !is TileCorporeaFunnel) {
                 return ret
             } else {
-                te = worldObj.getTileEntity(pos.down(2))
-                ret = InventoryHelper.getInventory(worldObj, pos.down(2), EnumFacing.UP)
+                te = world.getTileEntity(pos.down(2))
+                ret = InventoryHelper.getInventory(world, pos.down(2), EnumFacing.UP)
 
-                if (ret == null) ret = InventoryHelper.getInventory(worldObj, pos.down(2), null)
+                if (ret == null) ret = InventoryHelper.getInventory(world, pos.down(2), null)
 
                 return if (ret != null && te !is TileCorporeaFunnel) ret else null
             }

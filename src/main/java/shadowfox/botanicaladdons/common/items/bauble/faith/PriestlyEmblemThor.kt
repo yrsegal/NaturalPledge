@@ -51,12 +51,16 @@ class PriestlyEmblemThor : IFaithVariant {
         }
     }
 
+    private var no = false
+
     @SubscribeEvent
     fun onHitBySomething(e: LivingAttackEvent) {
+        if (no) return
         val player = e.entityLiving
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemThor::class.java) ?: return
-            if (e.source == DamageSource.lightningBolt) {
+            if (e.source == DamageSource.LIGHTNING_BOLT) {
+                no = true
                 if (e.amount != 0f && (emblem.item as IPriestlyEmblem).isAwakened(emblem)) {
                     e.isCanceled = true
                     player.attackEntityFrom(e.source, 0f)
@@ -64,6 +68,7 @@ class PriestlyEmblemThor : IFaithVariant {
                     e.isCanceled = true
                     player.attackEntityFrom(e.source, 4f)
                 }
+                no = false
             }
         }
     }
@@ -80,7 +85,7 @@ class PriestlyEmblemThor : IFaithVariant {
         if (stackInHand != null && isHeavyWeapon(stackInHand) && e.target is EntityLivingBase) {
             if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 10, true)) {
                 Botania.proxy.lightningFX(Vector3.fromEntityCenter(e.entityPlayer), Vector3.fromEntityCenter(e.target), 1f, 0x00948B, 0x00E4D7)
-                if (!e.entityPlayer.worldObj.isRemote)
+                if (!e.entityPlayer.world.isRemote)
                     (e.target as EntityLivingBase).addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 100, 3, true, false))
             }
         }

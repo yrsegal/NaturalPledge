@@ -81,7 +81,8 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
         Botania.proxy.setWispFXDepthTest(true)
     }
 
-    override fun onItemRightClick(stack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+        val stack = player.getHeldItem(hand)
         if (player.isSneaking && getBinding(stack) != null && hand == EnumHand.MAIN_HAND) {
             ItemNBTHelper.removeEntry(stack, TAG_X)
             ItemNBTHelper.removeEntry(stack, TAG_Y)
@@ -89,7 +90,7 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
             worldIn.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
         }
 
-        return super.onItemRightClick(stack, worldIn, player, hand)
+        return super.onItemRightClick(worldIn, player, hand)
     }
 
     fun getDirVec(stack: ItemStack, player: Entity): Vector3? {

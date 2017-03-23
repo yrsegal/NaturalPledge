@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 
 import baubles.api.BaubleType
 import com.mojang.authlib.GameProfile
+import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
@@ -17,7 +18,6 @@ import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.ModItems
@@ -43,10 +43,10 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
         }
     }
 
-    override fun getBaubleType(p0: ItemStack?) = BaubleType.BELT
+    override fun getBaubleType(stack: ItemStack) = BaubleType.BELT
 
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
-        if (player is EntityPlayer && !player.worldObj.isRemote && player.ticksExisted % 20 === 0) {
+        if (player is EntityPlayer && !player.world.isRemote && player.ticksExisted % 20 == 0) {
             val foods = mutableMapOf<Int, ItemStack>()
             for (i in 0..8) {
                 val food = player.inventory.getStackInSlot(i) ?: continue
@@ -62,8 +62,8 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
             }.firstOrNull() ?: return
 
             if (food.value.item is ItemFood) {
-                var newFood = food.value.onItemUseFinish(player.worldObj, player)
-                if (newFood != null && newFood.stackSize <= 0)
+                var newFood = food.value.onItemUseFinish(player.world, player)
+                if (newFood != null && newFood.count <= 0)
                     newFood = null
                 player.inventory.setInventorySlotContents(food.key, newFood)
             } else if (food.value.item == ModItems.infiniteFruit) {
@@ -104,7 +104,7 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
 
             flag = true
             for (i in 0..15) {
-                val fakePlayer = FakePlayerPotion(player.worldObj, GameProfile(null, "foodBeltPlayer"))
+                val fakePlayer = FakePlayerPotion(player.world, GameProfile(null, "foodBeltPlayer"))
                 fakePlayer.testFinishItemUse(food)
 
                 var returnFlag = true
@@ -129,13 +129,11 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
 
         fun testFinishItemUse(stack: ItemStack) {
             captureSounds = true
-            stack.copy().onItemUseFinish(worldObj, this)
+            stack.copy().onItemUseFinish(world, this)
             captureSounds = false
         }
 
-        override fun canCommandSenderUseCommand(permLevel: Int, commandName: String?) = false
         override fun isSpectator() = false
         override fun isCreative() = false
-
     }
 }

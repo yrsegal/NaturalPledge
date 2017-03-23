@@ -4,7 +4,7 @@ import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
-import com.teamwizardry.librarianlib.common.util.MethodHandleHelper
+import com.teamwizardry.librarianlib.common.util.handles.MethodHandleHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -64,7 +64,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
         private val setMaster = MethodHandleHelper.wrapperForSetter(EntityCorporeaSpark::class.java, "master")
 
         private fun getNearbySparks(spark: Entity): List<ICorporeaSpark> {
-            return spark.worldObj.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(spark.posX - 8.0, spark.posY - 8.0, spark.posZ - 8.0, spark.posX + 8.0, spark.posY + 8.0, spark.posZ + 8.0)) {
+            return spark.world.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(spark.posX - 8.0, spark.posY - 8.0, spark.posZ - 8.0, spark.posX + 8.0, spark.posY + 8.0, spark.posZ + 8.0)) {
                 it is ICorporeaSpark
             }.filterIsInstance<ICorporeaSpark>()
         }
@@ -86,9 +86,9 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
         fun onChatMessage(event: ServerChatEvent) {
             val item = event.player.heldItemMainhand ?: return
             if (item.item is ItemCorporeaFocus) {
-                val pos = getBinding(item, event.player.worldObj) ?: return
-                val resonator = event.player.worldObj.getTileEntity(pos) as? TileCorporeaResonator ?: return
-                val spark = CorporeaHelper.getSparkForBlock(event.player.worldObj, pos) ?: return
+                val pos = getBinding(item, event.player.world) ?: return
+                val resonator = event.player.world.getTileEntity(pos) as? TileCorporeaResonator ?: return
+                val spark = CorporeaHelper.getSparkForBlock(event.player.world, pos) ?: return
 
                 if (spark.master == null) (spark as Entity).onUpdate()
                 if (spark.master == null) findNetwork(spark)
@@ -109,7 +109,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
                 if (name == "this") name = item.displayName.toLowerCase().trim { it <= ' ' }
 
                 resonator.doCorporeaRequest(name, count, spark)
-                event.player.addChatMessage(TextComponentTranslation("botaniamisc.requestMsg",
+                event.player.sendMessage(TextComponentTranslation("botaniamisc.requestMsg",
                         if (count == Int.MAX_VALUE) "\u221E" else count,
                         WordUtils.capitalizeFully(name),
                         CorporeaHelper.lastRequestMatches + CorporeaHelper.lastRequestExtractions,
@@ -141,7 +141,8 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
         return if (y == Int.MIN_VALUE) null else BlockPos(x, y, z)
     }
 
-    override fun onItemUse(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+    override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+        val stack = player.getHeldItem(hand)
         if (player.isSneaking && world.getBlockState(pos).block is BlockCorporeaResonator) {
             if (world.isRemote) {
                 player.swingArm(hand)

@@ -45,15 +45,16 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, ModMaterials.TRANS
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
     override fun isPassable(world: IBlockAccess?, pos: BlockPos?) = true
-    override fun getCollisionBoundingBox(state: IBlockState, world: World, pos: BlockPos) = NULL_AABB
+    override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: IBlockAccess?, pos: BlockPos?) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
     override fun isReplaceable(worldIn: IBlockAccess?, pos: BlockPos?) = false
 
-    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, stack: ItemStack?, s: EnumFacing?, xs: Float, ys: Float, zs: Float): Boolean {
+    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, s: EnumFacing?, xs: Float, ys: Float, zs: Float): Boolean {
+        val stack = player.getHeldItem(hand)
         if (WorldTypeSkyblock.isWorldSkyblock(world)) {
             if (stack != null && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
                 if (!world.isRemote)
-                    stack.stackSize--
+                    stack.count--
                 if (!player.inventory.addItemStackToInventory(ItemStack(ModItems.lexicon)))
                     player.dropItem(ItemStack(ModItems.lexicon), false)
                 return true

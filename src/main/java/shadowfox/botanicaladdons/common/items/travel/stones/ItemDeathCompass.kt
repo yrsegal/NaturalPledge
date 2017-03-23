@@ -69,7 +69,8 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
         Botania.proxy.setWispFXDepthTest(true)
     }
 
-    override fun onItemRightClick(stack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+        val stack = player.getHeldItem(hand)
         if (player.isSneaking && getBinding(stack) != null && hand == EnumHand.MAIN_HAND) {
             ItemNBTHelper.removeEntry(stack, TAG_X)
             ItemNBTHelper.removeEntry(stack, TAG_Y)
@@ -77,7 +78,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             worldIn.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
         }
 
-        return super.onItemRightClick(stack, worldIn, player, hand)
+        return super.onItemRightClick(worldIn, player, hand)
     }
 
     fun getDirVec(stack: ItemStack, player: Entity): Vector3? {
@@ -101,7 +102,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
     @SubscribeEvent
     fun onPlayerDeath(event: LivingDeathEvent) {
         val entity = event.entityLiving
-        if (entity is EntityPlayer && entity.worldObj.gameRules.getBoolean("keepInventory")) {
+        if (entity is EntityPlayer && entity.world.gameRules.getBoolean("keepInventory")) {
             for (i in 0..entity.inventory.sizeInventory - 1) {
                 val stack = entity.inventory.getStackInSlot(i)
                 if (stack != null && stack.item == this) {
@@ -126,7 +127,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             }
         }
 
-        if (event.entityPlayer.worldObj.gameRules.getBoolean("keepInventory"))
+        if (event.entityPlayer.world.gameRules.getBoolean("keepInventory"))
             return
 
         if (keeps.size > 0) {
@@ -161,7 +162,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             val count = cmp1.getInteger(TAG_DROP_COUNT)
             (0..count - 1)
                     .map { cmp1.getCompoundTag(TAG_DROP_PREFIX + it) }
-                    .mapNotNull { ItemStack.loadItemStackFromNBT(it)?.copy() }
+                    .mapNotNull(::ItemStack)
                     .forEach { event.player.inventory.addItemStackToInventory(it) }
 
             cmp.setTag(TAG_PLAYER_KEPT_DROPS, NBTTagCompound())

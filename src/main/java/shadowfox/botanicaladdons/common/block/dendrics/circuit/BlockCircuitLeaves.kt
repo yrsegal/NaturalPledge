@@ -23,7 +23,7 @@ class BlockCircuitLeaves(name: String) : BlockModLeaves(name), ICircuitBlock, IL
 
     override fun updateTick(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random?) {
         super.updateTick(worldIn, pos, state, rand)
-        worldIn.notifyNeighborsOfStateChange(pos, this)
+        worldIn.notifyNeighborsOfStateChange(pos, this, true)
     }
 
     override fun getLightValue(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?): Int {

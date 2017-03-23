@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
+import shadowfox.botanicaladdons.api.sapling.IStackConvertible
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
@@ -61,12 +62,8 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
         return BlockStateContainer(this, TYPE_PROPS[colorSet], DECAYABLE, CHECK_DECAY)
     }
 
-    override fun createStackedBlock(state: IBlockState): ItemStack? {
-        return ItemStack(this, 1, state.getValue(TYPE_PROPS[colorSet]).ordinal - colorSet * 4)
-    }
-
     override fun getPickBlock(state: IBlockState, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack {
-        return createStackedBlock(state) ?: super.getPickBlock(state, target, world, pos, player)
+        return ItemStack(this, 1, state.getValue(TYPE_PROPS[colorSet]).ordinal - colorSet * 4)
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {

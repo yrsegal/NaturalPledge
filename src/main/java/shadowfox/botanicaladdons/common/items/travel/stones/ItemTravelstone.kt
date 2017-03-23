@@ -76,7 +76,7 @@ class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider {
             playersWithStepup.remove("$username:true")
         }
 
-        fun playerStr(player: EntityPlayer) = "${player.gameProfile.name}:${player.worldObj.isRemote}"
+        fun playerStr(player: EntityPlayer) = "${player.gameProfile.name}:${player.world.isRemote}"
 
         fun getTravelStack(player: EntityPlayer): ItemStack? {
             val mainStack = player.heldItemMainhand

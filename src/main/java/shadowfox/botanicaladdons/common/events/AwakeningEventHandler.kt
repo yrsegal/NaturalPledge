@@ -53,13 +53,13 @@ class AwakeningEventHandler {
     private fun getPlayersAround(entityDoppleganger: EntityDoppleganger): MutableList<EntityPlayer> {
         val source = entityDoppleganger.source
         val range = 15F
-        return entityDoppleganger.worldObj.getEntitiesWithinAABB(EntityPlayer::class.java, AxisAlignedBB(source.x + 0.5 - range, source.y + 0.5 - range, source.z + 0.5 - range, source.x + 0.5 + range, source.y + 0.5 + range, source.z + 0.5 + range))
+        return entityDoppleganger.world.getEntitiesWithinAABB(EntityPlayer::class.java, AxisAlignedBB(source.x + 0.5 - range, source.y + 0.5 - range, source.z + 0.5 - range, source.x + 0.5 + range, source.y + 0.5 + range, source.z + 0.5 + range))
     }
 
     private fun fitsLocation(entityDoppleganger: EntityDoppleganger): Boolean {
         return CORE_LOCATIONS
                 .map { entityDoppleganger.source.add(it) }
-                .map { entityDoppleganger.worldObj.getBlockState(it) }
+                .map { entityDoppleganger.world.getBlockState(it) }
                 .map { it.block }
                 .none { it != ModBlocks.awakenerCore }
     }
@@ -76,13 +76,13 @@ class AwakeningEventHandler {
 
                 val players = getPlayersAround(entity)
 
-                if (entity.worldObj.isRemote)
+                if (entity.world.isRemote)
                     for (player in players) {
                         val emblem = ItemFaithBauble.getEmblem(player)
                         if (emblem != null) {
                             val variant = (emblem.item as IPriestlyEmblem).getVariant(emblem)
                             if (variant != null)
-                                player.addChatComponentMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}Watches").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
+                                player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}Watches").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
                         }
                     }
             }
@@ -96,7 +96,7 @@ class AwakeningEventHandler {
         if (entity is EntityDoppleganger && entity.isHardMode) {
             if (entity.entityData.hasKey("divineBattle") && entity.entityData.getBoolean("divineBattle")) {
                 e.entityLiving.heal(0.02f) // 1 heart every five seconds, making it far harder to fight the Guardian. Consider it GGIII.
-                if (entity.worldObj.isRemote) {
+                if (entity.world.isRemote) {
                     val pos = Vector3.fromEntityCenter(entity).subtract(Vector3(0.0, 0.2, 0.0))
 
                     val loc = BlockPos(0, 2, 0)
@@ -134,7 +134,7 @@ class AwakeningEventHandler {
 
                 val playersWhoAttacked = BAMethodHandles.getPlayersWhoAttacked(entity)
 
-                entity.worldObj.playSound(entity.source.x.toDouble(), entity.source.y.toDouble(), entity.source.z.toDouble(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 1.0f, 1.0f, false)
+                entity.world.playSound(entity.source.x.toDouble(), entity.source.y.toDouble(), entity.source.z.toDouble(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 1.0f, 1.0f, false)
 
                 for (player in players) {
                     if (player.uniqueID in playersWhoAttacked) {
@@ -143,8 +143,8 @@ class AwakeningEventHandler {
                             val variant = (emblem.item as IPriestlyEmblem).getVariant(emblem)
                             if (variant != null) {
                                 player.addStat(ModAchievements.awakening)
-                                if (entity.worldObj.isRemote)
-                                    player.addChatComponentMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}Smiles").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
+                                if (entity.world.isRemote)
+                                    player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}Smiles").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
                                 (emblem.item as IPriestlyEmblem).setAwakened(emblem, true)
                             }
                         }

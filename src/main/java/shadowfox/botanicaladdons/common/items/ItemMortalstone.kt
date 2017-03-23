@@ -57,7 +57,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         if (entityIn is EntityPlayer)
             addMana(stack, ManaItemHandler.requestMana(stack, entityIn, MANA_PER_TICK * 3, true))
 
-        if (isSelected && !entityIn.worldObj.isRemote && (entityIn !is EntityPlayer || ManaItemHandler.requestManaExact(stack, entityIn, MANA_PER_TICK, false))) {
+        if (isSelected && !entityIn.world.isRemote && (entityIn !is EntityPlayer || ManaItemHandler.requestManaExact(stack, entityIn, MANA_PER_TICK, false))) {
             val entities = worldIn.getEntitiesWithinAABB(EntityPlayer::class.java, entityIn.entityBoundingBox.expandXyz(RANGE))
             for (entity in entities)
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
@@ -66,7 +66,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                     BotanicalAddons.PROXY.particleEmission(Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
                 }
         }
-        if (entityIn is EntityPlayer && isSelected && !entityIn.worldObj.isRemote) {
+        if (entityIn is EntityPlayer && isSelected && !entityIn.world.isRemote) {
             if (flag)
                 addMana(stack, -MANA_PER_TICK)
             entityIn.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
@@ -85,9 +85,9 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
     override fun getEntityLifespan(itemStack: ItemStack?, world: World?) = Int.MAX_VALUE
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         var flag = 0
-        if (getMana(entityItem.entityItem) > 0 && !entityItem.worldObj.isRemote) {
+        if (getMana(entityItem.entityItem) > 0 && !entityItem.world.isRemote) {
 
-            val entities = entityItem.worldObj.getEntitiesWithinAABB(EntityPlayer::class.java, entityItem.entityBoundingBox.expandXyz(RANGE))
+            val entities = entityItem.world.getEntitiesWithinAABB(EntityPlayer::class.java, entityItem.entityBoundingBox.expandXyz(RANGE))
             for (entity in entities)
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityItem.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     if ((ModPotions.faithlessness.getEffect(entity) ?: PotionEffect(ModPotions.faithlessness)).duration <= 5) {

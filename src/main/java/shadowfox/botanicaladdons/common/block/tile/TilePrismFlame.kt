@@ -15,7 +15,7 @@ class TilePrismFlame : TileModTickable() {
     @Save var phantomInk = false
 
     override fun updateEntity() {
-        if (worldObj.isRemote)
+        if (world.isRemote)
             if (!phantomInk || BotanicalAddons.PROXY.playerHasMonocle())
                 BotanicalAddons.PROXY.particleEmission(Vector3.fromBlockPos(pos), RainbowItemHelper.colorFromIntAndPos(color, pos))
     }
