@@ -1,7 +1,0 @@
-{
-  "parent": "botanicaladdons:item/_standard_item",
-  "textures": {
-    "layer0": "botanicaladdons:item/baseStone",
-    "layer1": "botanicaladdons:item/eihwaz"
-  }
-}

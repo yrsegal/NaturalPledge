@@ -1,0 +1,7 @@
+{
+  "parent": "block/pane_side",
+  "textures": {
+    "edge": "botanicaladdons:blockpane_aqua_top",
+    "pane": "botanicaladdons:blockglass_aqua"
+  }
+}

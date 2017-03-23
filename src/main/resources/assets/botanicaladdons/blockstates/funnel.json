@@ -1,14 +1,14 @@
 {
 	"variants": {
-		"enabled=true,facing=down": { "model": "botanicaladdons:funnelDown" },
-		"enabled=false,facing=down": { "model": "botanicaladdons:funnelDown" },
-		"enabled=true,facing=north": { "model": "botanicaladdons:funnelSide" },
-		"enabled=false,facing=north": { "model": "botanicaladdons:funnelSide" },
-		"enabled=true,facing=south": { "model": "botanicaladdons:funnelSide", "y": 180 },
-		"enabled=false,facing=south": { "model": "botanicaladdons:funnelSide", "y": 180 },
-		"enabled=true,facing=west": { "model": "botanicaladdons:funnelSide", "y": 270 },
-		"enabled=false,facing=west": { "model": "botanicaladdons:funnelSide", "y": 270 },
-		"enabled=false,facing=east": { "model": "botanicaladdons:funnelSide", "y": 90 },
-		"enabled=true,facing=east": { "model": "botanicaladdons:funnelSide", "y": 90 }
+		"enabled=true,facing=down": { "model": "botanicaladdons:funnel_down" },
+		"enabled=false,facing=down": { "model": "botanicaladdons:funnel_down" },
+		"enabled=true,facing=north": { "model": "botanicaladdons:funnel_side" },
+		"enabled=false,facing=north": { "model": "botanicaladdons:funnel_side" },
+		"enabled=true,facing=south": { "model": "botanicaladdons:funnel_side", "y": 180 },
+		"enabled=false,facing=south": { "model": "botanicaladdons:funnel_side", "y": 180 },
+		"enabled=true,facing=west": { "model": "botanicaladdons:funnel_side", "y": 270 },
+		"enabled=false,facing=west": { "model": "botanicaladdons:funnel_side", "y": 270 },
+		"enabled=false,facing=east": { "model": "botanicaladdons:funnel_side", "y": 90 },
+		"enabled=true,facing=east": { "model": "botanicaladdons:funnel_side", "y": 90 }
 	}
 }

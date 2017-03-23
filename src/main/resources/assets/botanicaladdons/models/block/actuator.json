@@ -2,8 +2,8 @@
 	"parent": "block/block",
 	"__comment": "Copyright © InsomniaKitten 2017",
 	"textures": {
-		"texture": "botanicaladdons:block/enderActuator",
-		"particle": "botanicaladdons:block/enderActuator"
+		"texture": "botanicaladdons:blockender_actuator",
+		"particle": "botanicaladdons:blockender_actuator"
 		},
 	"elements": [
 		{

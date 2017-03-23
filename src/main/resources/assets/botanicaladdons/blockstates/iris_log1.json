@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "axis=y,color=yellow": { "model": "botanicaladdons:iris_log" },
+        "axis=z,color=yellow": { "model": "botanicaladdons:iris_log", "x": 90 },
+        "axis=x,color=yellow": { "model": "botanicaladdons:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=yellow": { "model": "botanicaladdons:iris_bark" },
+        "axis=y,color=lime": { "model": "botanicaladdons:iris_log" },
+        "axis=z,color=lime": { "model": "botanicaladdons:iris_log", "x": 90 },
+        "axis=x,color=lime": { "model": "botanicaladdons:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=lime": { "model": "botanicaladdons:iris_bark" },
+        "axis=y,color=pink": { "model": "botanicaladdons:iris_log" },
+        "axis=z,color=pink": { "model": "botanicaladdons:iris_log", "x": 90 },
+        "axis=x,color=pink": { "model": "botanicaladdons:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=pink": { "model": "botanicaladdons:iris_bark" },
+        "axis=y,color=gray": { "model": "botanicaladdons:iris_log" },
+        "axis=z,color=gray": { "model": "botanicaladdons:iris_log", "x": 90 },
+        "axis=x,color=gray": { "model": "botanicaladdons:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=gray": { "model": "botanicaladdons:iris_bark" }
+    }
+}

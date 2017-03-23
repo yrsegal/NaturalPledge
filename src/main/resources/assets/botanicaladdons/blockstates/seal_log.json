@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "axis=y": { "model": "botanicaladdons:seal_log" },
+        "axis=z": { "model": "botanicaladdons:seal_log", "x": 90 },
+        "axis=x": { "model": "botanicaladdons:seal_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "botanicaladdons:seal_bark" }
+    }
+}

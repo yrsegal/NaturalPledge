@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "botanicaladdons:blockcalico_sapling"
+  }
+}

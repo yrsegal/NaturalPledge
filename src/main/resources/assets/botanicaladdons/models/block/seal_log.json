@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "botanicaladdons:blocksealing_wood_top",
+    "side": "botanicaladdons:blocksealing_wood_side"
+  }
+}

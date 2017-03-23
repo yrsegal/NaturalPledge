@@ -1,7 +1,0 @@
-{
-  "parent": "block/pane_post",
-  "textures": {
-    "edge": "botanicaladdons:block/paneAquaTop",
-    "pane": "botanicaladdons:block/glassAqua"
-  }
-}

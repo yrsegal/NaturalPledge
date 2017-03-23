@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "axis=y": { "model": "botanicaladdons:rainbowLog" },
-        "axis=z": { "model": "botanicaladdons:rainbowLog", "x": 90 },
-        "axis=x": { "model": "botanicaladdons:rainbowLog", "x": 90, "y": 90 },
-        "axis=none": { "model": "botanicaladdons:rainbowBark" }
-    }
-}

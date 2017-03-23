@@ -1,0 +1,12 @@
+{
+  "parent": "botanicaladdons:item/_standard_item",
+  "textures": {
+    "layer0": "botanicaladdons:itememblem_thor"
+  },
+  "overrides" : [{
+    "predicate": {
+      "botanicaladdons:pendant": 1
+    },
+    "model": "botanicaladdons:itempendant_thor"
+  }]
+}

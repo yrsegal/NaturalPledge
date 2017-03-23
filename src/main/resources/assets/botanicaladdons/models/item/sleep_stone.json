@@ -1,0 +1,7 @@
+{
+  "parent": "botanicaladdons:item/_standard_item",
+  "textures": {
+    "layer0": "botanicaladdons:itembase_stone",
+    "layer1": "botanicaladdons:item/ingwaz"
+  }
+}

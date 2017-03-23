@@ -1,8 +1,0 @@
-{
-    "parent": "botanicaladdons:item/thunderFist",
-    "textures": {
-        "inner": "blocks/coal_block",
-        "outer": "blocks/coal_block",
-        "manaDiamond": "blocks/redstone_block"
-    }
-}

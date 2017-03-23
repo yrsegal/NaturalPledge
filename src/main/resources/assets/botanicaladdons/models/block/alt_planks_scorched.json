@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "botanicaladdons:blockalt_planks_scorched"
+  }
+}
