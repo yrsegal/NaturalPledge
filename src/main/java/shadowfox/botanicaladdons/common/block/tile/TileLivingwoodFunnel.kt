@@ -4,6 +4,7 @@ import com.teamwizardry.librarianlib.common.util.forCap
 import com.teamwizardry.librarianlib.common.util.nonnullListOf
 import com.teamwizardry.librarianlib.common.util.saving.Save
 import com.teamwizardry.librarianlib.common.util.saving.SaveMethodGetter
+import com.teamwizardry.librarianlib.common.util.saving.SaveMethodSetter
 import net.minecraft.block.BlockChest
 import net.minecraft.block.BlockHopper
 import net.minecraft.entity.Entity
@@ -61,7 +62,7 @@ class TileLivingwoodFunnel : TileModTickable() {
 
     private var inventoryCompound: NBTTagCompound
         @SaveMethodGetter("inventory") get() = inventory.serializeNBT()
-        @SaveMethodGetter("getter") set(value) = inventory.deserializeNBT(value)
+        @SaveMethodSetter("getter") set(value) = inventory.deserializeNBT(value)
 
     override fun updateEntity() {
         if (!world.isRemote) {
