@@ -62,7 +62,7 @@ class TileLivingwoodFunnel : TileModTickable() {
 
     private var inventoryCompound: NBTTagCompound
         @SaveMethodGetter("inventory") get() = inventory.serializeNBT()
-        @SaveMethodSetter("getter") set(value) = inventory.deserializeNBT(value)
+        @SaveMethodSetter("inventory") set(value) = inventory.deserializeNBT(value)
 
     override fun updateEntity() {
         if (!world.isRemote) {
