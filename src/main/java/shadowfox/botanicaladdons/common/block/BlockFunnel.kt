@@ -146,7 +146,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
     }
 
     override fun getMetaFromState(state: IBlockState): Int {
-        return (if (state.getValue(ENABLED)) 8 else 0) and state.getValue(FACING).index
+        return (if (state.getValue(ENABLED)) 8 else 0) or state.getValue(FACING).index
     }
 
     override fun withRotation(state: IBlockState, rot: Rotation): IBlockState {
