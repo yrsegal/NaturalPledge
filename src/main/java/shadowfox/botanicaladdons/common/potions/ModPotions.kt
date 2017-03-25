@@ -14,6 +14,7 @@ object ModPotions {
     val featherweight: PotionMod
     val immortal: PotionMod
     val everburn: PotionMod
+    val trapSeer: PotionMod
 
     init {
         faithlessness = PotionFaithlessness()
@@ -23,5 +24,6 @@ object ModPotions {
         featherweight = PotionFeatherweight()
         immortal = PotionImmortality()
         everburn = PotionEverburn()
+        trapSeer = PotionTrapSeer()
     }
 }

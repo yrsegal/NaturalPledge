@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "botanicaladdons:empty"
+		},
+		"facing=south": {
+			"model": "botanicaladdons:empty"
+		},
+		"facing=west": {
+			"model": "botanicaladdons:empty"
+		},
+		"facing=east": {
+			"model": "botanicaladdons:empty"
+		}
+	}
+}

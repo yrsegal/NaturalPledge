@@ -23,6 +23,7 @@ import shadowfox.botanicaladdons.common.block.tile.TileCracklingStar
 import shadowfox.botanicaladdons.common.block.tile.TileLivingwoodFunnel
 import shadowfox.botanicaladdons.common.block.tile.TilePrismFlame
 import shadowfox.botanicaladdons.common.block.tile.TileStar
+import shadowfox.botanicaladdons.common.block.trap.*
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.api.state.enums.StorageVariant
@@ -83,6 +84,14 @@ object ModBlocks {
 
     val corporeaResonator: BlockMod
     val enderActuator: BlockMod
+
+    val disorientTrap: BlockMod
+    val infernoTrap: BlockMod
+    val launchTrap: BlockMod
+    val rootTrap: BlockMod
+    val sandTrap: BlockMod
+    val signalTrap: BlockMod
+    val wrathTrap: BlockMod
 
     init {
         star = BlockFrozenStar(LibNames.STAR)
@@ -157,6 +166,14 @@ object ModBlocks {
 
         corporeaResonator = BlockCorporeaResonator(LibNames.CORPOREA_RESONATOR)
         enderActuator = BlockEnderBind(LibNames.ENDER_ACTUATOR)
+
+        disorientTrap = BlockDisorientationTrap()
+        infernoTrap = BlockInfernoTrap()
+        launchTrap = BlockLaunchTrap()
+        rootTrap = BlockRootTrap()
+        sandTrap = BlockSandTrap()
+        signalTrap = BlockSignalTrap()
+        wrathTrap = BlockWrathTrap()
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TileCracklingStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.CRACKLING).toString())

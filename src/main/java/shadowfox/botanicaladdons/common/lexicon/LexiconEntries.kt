@@ -100,13 +100,13 @@ object LexiconEntries {
                 PageText("3"), PageCraftingRecipe("4", ModRecipes.recipeTerrestrialFocus),
                 PageText("5"), PageCraftingRecipe("6", ModRecipes.recipeMortalStone))
 
-        njord = EntryPriestBarredKnowledge("njord", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java), PriestlyEmblemNjord::class.java)
+        njord = ModEntry("njord", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java))
         njord.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeNjordEmblem))
-        idunn = EntryPriestBarredKnowledge("idunn", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java), PriestlyEmblemIdunn::class.java)
+        idunn = ModEntry("idunn", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java))
         idunn.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeIdunnEmblem))
-        thor = EntryPriestBarredKnowledge("thor", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java), PriestlyEmblemThor::class.java)
+        thor = ModEntry("thor", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java))
         thor.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThorEmblem))
-        heimdall = EntryPriestBarredKnowledge("heimdall", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
+        heimdall = ModEntry("heimdall", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java)).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallEmblem))
 
         njordSpells = EntryPriestlyKnowledge("njordSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.INTERDICT), PriestlyEmblemNjord::class.java)
