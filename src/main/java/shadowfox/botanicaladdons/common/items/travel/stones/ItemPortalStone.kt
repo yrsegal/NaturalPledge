@@ -52,9 +52,9 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
         val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (getBinding(stack) != null) {
             if (distance < 5)
-                TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingBlockClose")
+                TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block_close")
             else
-                TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingBlock", distance)
+                TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block", distance)
         }
     }
 

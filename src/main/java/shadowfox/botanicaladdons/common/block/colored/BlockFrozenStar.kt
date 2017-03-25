@@ -90,7 +90,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
             addToTooltip(tooltip, "#${Integer.toHexString(color).toUpperCase()}")
 
         if (getSize(stack) != DEFAULT_SIZE)
-            addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.customSize", getSize(stack))
+            addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.custom_size", getSize(stack))
     }
 
 

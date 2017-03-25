@@ -51,9 +51,9 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
         val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (getBinding(stack) != null) {
             if (distance < 5)
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingBlockClose")
+                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block_close")
             else
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingBlock", distance)
+                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block", distance)
         }
     }
 

@@ -169,7 +169,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     }
 
     private fun checkDiscordant(stack: ItemStack): Boolean {
-        return stack != null && stack.item is IDiscordantItem && (stack.item as IDiscordantItem).isDiscordant(stack)
+        return !stack.isEmpty && stack.item is IDiscordantItem && (stack.item as IDiscordantItem).isDiscordant(stack)
     }
 
     override fun canUnequip(stack: ItemStack, player: EntityLivingBase): Boolean {
@@ -182,7 +182,8 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         if (player is EntityPlayer)
             player.addStat(ModAchievements.donEmblem)
 
-        setAwakened(stack, false)
+        if (!player.world.isRemote)
+            setAwakened(stack, false)
     }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {

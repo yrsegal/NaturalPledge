@@ -81,16 +81,16 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (track != null) {
             if (dirVec == null)
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingNotHere", track)
+                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_not_here", track)
             else if (distance < 5)
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingClose", track)
+                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_close", track)
             else
                 addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking", track, distance)
         } else if (getBinding(stack) != null) {
             if (distance < 5)
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingBlockClose")
+                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block_close")
             else
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.trackingBlock", distance)
+                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block", distance)
         }
     }
 
