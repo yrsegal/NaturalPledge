@@ -150,7 +150,7 @@ object ModRecipes {
                 'Q', "gemQuartz",
                 'G', "ingotGold")
 
-        recipeNjordEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
+        recipeNjordEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemNjord::class.java),
                 " P ",
                 "WSA",
                 " C ",
@@ -160,7 +160,7 @@ object ModRecipes {
                 'A', BotaniaOreDict.RUNE[3], // Air
                 'C', BotaniaItems.waterRing)
 
-        recipeIdunnEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
+        recipeIdunnEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemIdunn::class.java),
                 " T ",
                 "ESE",
                 " B ",
@@ -169,7 +169,7 @@ object ModRecipes {
                 'S', "holySymbol",
                 'B', BotaniaItems.knockbackBelt)
 
-        recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
+        recipeThorEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemThor::class.java),
                 " G ",
                 "WSA",
                 " B ",
@@ -179,7 +179,7 @@ object ModRecipes {
                 'A', BotaniaOreDict.RUNE[3], // Air
                 'B', BotaniaItems.travelBelt)
 
-        recipeHeimdallEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java) ?: ItemStack(ModItems.emblem, 1, OreDictionary.WILDCARD_VALUE),
+        recipeHeimdallEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java),
                 " G ",
                 "PSF",
                 " B ",
@@ -430,7 +430,7 @@ object ModRecipes {
                 "L L",
                 "LPL",
                 " L ",
-                'L', BotaniaOreDict.LIVING_WOOD,
+                'L', ItemStack(BotaniaBlocks.livingwood, 1, 1),
                 'P', LibOreDict.CIRCUIT_PLANKS)
 
         recipeAquaGlass = addOreDictRecipe(ModBlocks.aquaGlass,
@@ -575,23 +575,23 @@ object ModRecipes {
             for (i in LibOreDict.DYES.withIndex()) SpellRegistry.registerSpellRecipe(i.value, spell, ItemStack(ModItems.iridescentDye, 1, i.index), ItemStack(ModItems.awakenedDye, 1, i.index))
 
 
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.sealSapling), null, ItemStack(ModBlocks.sealLog), ItemStack(ModBlocks.sealLeaves))
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.thunderSapling), null, ItemStack(ModBlocks.thunderLog), ItemStack(ModBlocks.thunderLeaves))
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.circuitSapling), null, ItemStack(ModBlocks.circuitLog), ItemStack(ModBlocks.circuitLeaves))
-        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.calicoSapling), null, ItemStack(ModBlocks.calicoLog), ItemStack(ModBlocks.calicoLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.sealSapling), ItemStack.EMPTY, ItemStack(ModBlocks.sealLog), ItemStack(ModBlocks.sealLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.thunderSapling), ItemStack.EMPTY, ItemStack(ModBlocks.thunderLog), ItemStack(ModBlocks.thunderLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.circuitSapling), ItemStack.EMPTY, ItemStack(ModBlocks.circuitLog), ItemStack(ModBlocks.circuitLeaves))
+        SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.calicoSapling), ItemStack.EMPTY, ItemStack(ModBlocks.calicoLog), ItemStack(ModBlocks.calicoLeaves))
 
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.OAK.metadata), null,
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.OAK.metadata), ItemStack.EMPTY,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.OAK.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.OAK.metadata))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.SPRUCE.metadata), null,
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.SPRUCE.metadata), ItemStack.EMPTY,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.SPRUCE.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.SPRUCE.metadata))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.BIRCH.metadata), null,
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.BIRCH.metadata), ItemStack.EMPTY,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.BIRCH.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.BIRCH.metadata))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.metadata), null,
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.metadata), ItemStack.EMPTY,
                 ItemStack(Blocks.LOG, 1, BlockPlanks.EnumType.JUNGLE.metadata), ItemStack(Blocks.LEAVES, 1, BlockPlanks.EnumType.JUNGLE.metadata))
 
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.ACACIA.metadata), null,
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.ACACIA.metadata), ItemStack.EMPTY,
                 ItemStack(Blocks.LOG2, 1, BlockPlanks.EnumType.ACACIA.metadata - 4), ItemStack(Blocks.LEAVES2, 1, BlockPlanks.EnumType.ACACIA.metadata - 4))
-        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.DARK_OAK.metadata), null,
+        SaplingVariantRegistry.registerRecipe(ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.DARK_OAK.metadata), ItemStack.EMPTY,
                 ItemStack(Blocks.LOG2, 1, BlockPlanks.EnumType.DARK_OAK.metadata - 4), ItemStack(Blocks.LEAVES2, 1, BlockPlanks.EnumType.DARK_OAK.metadata - 4))
     }
 

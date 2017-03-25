@@ -10,7 +10,7 @@ object SpellCraftingRecipeHandler : IRecipeHandler<SpellCraftingRecipeJEI> {
     }
 
     override fun getRecipeCategoryUid(recipe: SpellCraftingRecipeJEI): String {
-        return "${LibMisc.MOD_ID}:spellCrafting"
+        return "${LibMisc.MOD_ID}:spell_crafting"
     }
 
     override fun getRecipeWrapper(recipe: SpellCraftingRecipeJEI): IRecipeWrapper {

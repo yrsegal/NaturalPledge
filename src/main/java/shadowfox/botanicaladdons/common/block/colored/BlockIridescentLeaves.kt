@@ -18,6 +18,7 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.api.sapling.IStackConvertible
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
@@ -30,7 +31,7 @@ import java.util.*
  * Created at 10:45 PM on 5/13/16.
  */
 @Suppress("LeakingThis")
-abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(4, { name + COLORS[set][it].toString().capitalizeFirst() })), IBlockColorProvider, ILexiconable {
+abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(4, { name + COLORS[set][it].toString().capitalizeFirst() })), IBlockColorProvider, ILexiconable, IStackConvertible {
     companion object {
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {
@@ -52,6 +53,8 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
             }
         }
     }
+
+    override fun itemStackFromState(state: IBlockState) = ItemStack(this, 1, state.getValue(COLOR_PROPS[colorSet]).metadata - (colorSet * 4))
 
     override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item? {
         return ModBlocks.irisSapling.itemForm

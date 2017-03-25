@@ -10,6 +10,7 @@ import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingC
 import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeHandler
 import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeMaker
 import shadowfox.botanicaladdons.common.block.ModBlocks
+import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.items.ModItems
 
 /**
@@ -26,9 +27,8 @@ class JEIPluginBotanicalAddons : IModPlugin {
     override fun register(registry: IModRegistry) {
         helpers = registry.jeiHelpers
 
-        registry.addRecipeHandlers(SpellCraftingRecipeHandler, TreeGrowingRecipeHandler)
-
         registry.addRecipeCategories(SpellCraftingCategory, TreeGrowingCategory)
+        registry.addRecipeHandlers(SpellCraftingRecipeHandler, TreeGrowingRecipeHandler)
 
         registry.addRecipes(SpellCraftingRecipeMaker.recipes)
         registry.addRecipes(TreeGrowingRecipeMaker.recipes)
@@ -42,7 +42,13 @@ class JEIPluginBotanicalAddons : IModPlugin {
     }
 
     override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {
-        // NO-OP
+        subtypeRegistry.registerSubtypeInterpreter(ModBlocks.star.itemForm) {
+            RainbowItemHelper.getColor(it).toString()
+        }
+
+        subtypeRegistry.registerSubtypeInterpreter(ModBlocks.cracklingStar.itemForm) {
+            RainbowItemHelper.getColor(it).toString()
+        }
     }
 
     override fun registerIngredients(registry: IModIngredientRegistration) {

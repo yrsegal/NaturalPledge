@@ -53,7 +53,7 @@ public final class SaplingVariantRegistry {
     }
 
     @Nullable
-    public static SaplingGrowthRecipe registerRecipe(@Nonnull ItemStack sapling, @Nullable ItemStack soil, @Nonnull ItemStack wood, @Nonnull ItemStack leaves) {
+    public static SaplingGrowthRecipe registerRecipe(@Nonnull ItemStack sapling, @Nonnull ItemStack soil, @Nonnull ItemStack wood, @Nonnull ItemStack leaves) {
         return registerRecipe(new SaplingGrowthRecipe(sapling, soil, wood, leaves));
     }
 

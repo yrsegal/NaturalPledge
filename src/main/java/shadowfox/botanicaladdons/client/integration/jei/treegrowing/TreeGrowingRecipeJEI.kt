@@ -13,6 +13,6 @@ class TreeGrowingRecipeJEI(val sapling: ItemStack, val soil: ItemStack, val wood
         val inputs = stackHelper.expandRecipeItemStackInputs(listOf(sapling, soil))
         ingredients.setInputLists(ItemStack::class.java, inputs)
 
-        ingredients.setOutput(ItemStack::class.java, wood)
+        ingredients.setOutputs(ItemStack::class.java, listOf(wood, leaves))
     }
 }

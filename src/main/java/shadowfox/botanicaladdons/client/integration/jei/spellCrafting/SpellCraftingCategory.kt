@@ -29,11 +29,11 @@ object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
     override fun getIcon() = null
 
     override fun getUid(): String {
-        return "${LibMisc.MOD_ID}:spellCrafting"
+        return "${LibMisc.MOD_ID}:spell_crafting"
     }
 
     override fun getTitle(): String {
-        return TooltipHelper.local("jei.${LibMisc.MOD_ID}.recipe.spellCrafting")
+        return TooltipHelper.local("jei.${LibMisc.MOD_ID}.recipe.spell_crafting")
     }
 
     override fun getBackground(): IDrawable {

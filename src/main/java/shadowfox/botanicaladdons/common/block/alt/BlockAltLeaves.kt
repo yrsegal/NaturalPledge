@@ -24,7 +24,7 @@ import java.util.*
  * Created at 8:15 PM on 5/16/16.
  */
 @Suppress("LeakingThis")
-abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(if (set == 0) 4 else 2, { name + AltGrassVariant.values()[set * 4 + it].getName().capitalizeFirst() })), ILexiconable {
+abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(if (set == 0) 4 else 2, { name + AltGrassVariant.values()[set * 4 + it].getName().capitalizeFirst() })), ILexiconable, IStackConvertible {
 
     companion object {
         val TYPE_PROPS = Array(2) { i ->
@@ -47,6 +47,8 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
     override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item? {
         return ModBlocks.irisSapling.itemForm
     }
+
+    override fun itemStackFromState(state: IBlockState) = ItemStack(this, 1, state.getValue(TYPE_PROPS[colorSet]).ordinal - (colorSet * 4))
 
     override fun getStateFromMeta(meta: Int): IBlockState {
         val i = meta and 3

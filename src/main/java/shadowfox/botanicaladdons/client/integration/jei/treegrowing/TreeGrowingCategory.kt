@@ -38,11 +38,11 @@ object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
     override fun getIcon() = null
 
     override fun getUid(): String {
-        return "${LibMisc.MOD_ID}:treeGrowing"
+        return "${LibMisc.MOD_ID}:tree_growing"
     }
 
     override fun getTitle(): String {
-        return TooltipHelper.local("jei.${LibMisc.MOD_ID}.recipe.treeGrowing")
+        return TooltipHelper.local("jei.${LibMisc.MOD_ID}.recipe.tree_growing")
     }
 
     override fun getBackground(): IDrawable {

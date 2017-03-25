@@ -10,7 +10,7 @@ object TreeGrowingRecipeHandler : IRecipeHandler<TreeGrowingRecipeJEI> {
     }
 
     override fun getRecipeCategoryUid(recipe: TreeGrowingRecipeJEI): String {
-        return "${LibMisc.MOD_ID}:treeGrowing"
+        return "${LibMisc.MOD_ID}:tree_growing"
     }
 
     override fun getRecipeWrapper(recipe: TreeGrowingRecipeJEI): IRecipeWrapper {
