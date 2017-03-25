@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.client.integration.jei
 
+import com.teamwizardry.librarianlib.common.util.nbt
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import net.minecraft.item.ItemStack
@@ -12,6 +13,7 @@ import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingR
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.items.ModItems
+import vazkii.botania.common.item.ModItems as BotaniaItems
 
 /**
  * @author WireSegal
@@ -48,6 +50,24 @@ class JEIPluginBotanicalAddons : IModPlugin {
 
         subtypeRegistry.registerSubtypeInterpreter(ModBlocks.cracklingStar.itemForm) {
             RainbowItemHelper.getColor(it).toString()
+        }
+
+        // Botania
+
+        subtypeRegistry.registerSubtypeInterpreter(BotaniaItems.twigWand) {
+            it.nbt["color1"].toString() + it.nbt["color2"].toString()
+        }
+
+        subtypeRegistry.registerSubtypeInterpreter(BotaniaItems.brewVial) {
+            it.nbt["brewKey"].toString()
+        }
+
+        subtypeRegistry.registerSubtypeInterpreter(BotaniaItems.brewFlask) {
+            it.nbt["brewKey"].toString()
+        }
+
+        subtypeRegistry.registerSubtypeInterpreter(BotaniaItems.incenseStick) {
+            it.nbt["brewKey"].toString()
         }
     }
 

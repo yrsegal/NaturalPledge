@@ -8,13 +8,14 @@ import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
+import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import vazkii.botania.common.entity.EntityDoppleganger
 
 /**
  * @author WireSegal
  * Created at 5:34 PM on 4/17/16.
  */
-class ItemGaiaSlayer(name: String) : ItemMod(name) {
+class ItemGaiaSlayer(name: String) : ItemMod(name), IPreventBreakInCreative {
     init {
         setMaxStackSize(1)
     }
