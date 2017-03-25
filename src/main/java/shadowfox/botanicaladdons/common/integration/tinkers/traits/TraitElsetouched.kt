@@ -26,7 +26,7 @@
 //
 //class TraitElsetouched : AbstractTrait("elsetouched", TinkersIntegration.ELEMENTIUM_COLOR) {
 //
-//    override fun onHit(tool: ItemStack?, player: EntityLivingBase, target: EntityLivingBase, damage: Float, isCritical: Boolean) {
+//    override fun onHit(tool: ItemStack, player: EntityLivingBase, target: EntityLivingBase, damage: Float, isCritical: Boolean) {
 //        if (Math.random() < 0.25 && (player !is EntityPlayer || ManaItemHandler.requestManaExact(tool, player as EntityPlayer?, 10, true))) {
 //            val useEffects = player is EntityPlayer && (ModItems.elementiumHelm as ItemElementiumHelm).hasArmorSet(player as EntityPlayer?)
 //            summonPixie(player, target, damage / 2f, useEffects)
@@ -35,7 +35,7 @@
 //
 //
 //
-//    override fun beforeBlockBreak(tool: ItemStack?, event: BlockEvent.BreakEvent?) {
+//    override fun beforeBlockBreak(tool: ItemStack, event: BlockEvent.BreakEvent?) {
 //        ModItems.elementiumShovel.onBlockStartBreak(tool, event!!.pos, event.player)
 //    }
 //

@@ -12,7 +12,7 @@ import vazkii.botania.api.lexicon.*
  * Created at 1:44 PM on 4/16/16.
  */
 open class ModEntry : LexiconEntry, IAddonEntry {
-    constructor(unlocalizedName: String, category: LexiconCategory, stack: ItemStack?) : super(unlocalizedName, category) {
+    constructor(unlocalizedName: String, category: LexiconCategory, stack: ItemStack) : super(unlocalizedName, category) {
         if (stack != null) icon = stack
         BotaniaAPI.addEntry(this, category)
     }
@@ -21,7 +21,7 @@ open class ModEntry : LexiconEntry, IAddonEntry {
 
     constructor(unlocalizedName: String, category: LexiconCategory, item: Item) : this(unlocalizedName, category, ItemStack(item))
 
-    constructor(unlocalizedName: String, category: LexiconCategory) : this(unlocalizedName, category, null as ItemStack?)
+    constructor(unlocalizedName: String, category: LexiconCategory) : this(unlocalizedName, category, null as ItemStack)
 
     override fun setLexiconPages(vararg pages: LexiconPage): LexiconEntry {
         for (page in pages) {

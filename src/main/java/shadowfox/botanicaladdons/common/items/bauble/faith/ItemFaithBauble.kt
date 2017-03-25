@@ -3,7 +3,7 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
+import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
 import net.minecraft.client.Minecraft
@@ -76,10 +76,10 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
             return null
         }
 
-        fun emblemOf(variant: Class<out IFaithVariant>): ItemStack? {
+        fun emblemOf(variant: Class<out IFaithVariant>): ItemStack {
             return priestVariants.withIndex()
                     .firstOrNull { variant.isInstance(it.value) }
-                    ?.let { ItemStack(ModItems.emblem, 1, it.index) }
+                    ?.let { ItemStack(ModItems.emblem, 1, it.index) } ?: ItemStack.EMPTY
         }
 
         fun isFaithless(player: EntityPlayer): Boolean {
@@ -168,7 +168,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         return if (priestVariants.isEmpty()) null else priestVariants[stack.itemDamage % priestVariants.size]
     }
 
-    private fun checkDiscordant(stack: ItemStack?): Boolean {
+    private fun checkDiscordant(stack: ItemStack): Boolean {
         return stack != null && stack.item is IDiscordantItem && (stack.item as IDiscordantItem).isDiscordant(stack)
     }
 

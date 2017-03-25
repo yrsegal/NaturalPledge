@@ -34,17 +34,17 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
 
     val RANGE = 7.0
 
-    override fun usesMana(p0: ItemStack?) = true
+    override fun usesMana(p0: ItemStack) = true
 
     override fun getItemUseAction(stack: ItemStack) = EnumAction.BOW
-    override fun getMaxItemUseDuration(stack: ItemStack?) = 72000
+    override fun getMaxItemUseDuration(stack: ItemStack) = 72000
 
     override fun onItemRightClick(worldIn: World?, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
         playerIn.activeHand = hand
         return super.onItemRightClick(worldIn, playerIn, hand)
     }
 
-    override fun getRarity(stack: ItemStack?) = BotaniaAPI.rarityRelic
+    override fun getRarity(stack: ItemStack) = BotaniaAPI.rarityRelic
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
         val entities = player.world.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), { it?.isNonBoss ?: false })
@@ -67,7 +67,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
 
     }
 
-    override fun getAchievementOnCraft(p0: ItemStack?, p1: EntityPlayer?, p2: IInventory?): Achievement? {
+    override fun getAchievementOnCraft(p0: ItemStack, p1: EntityPlayer?, p2: IInventory?): Achievement? {
         return ModAchievements.sacredHorn
     }
 }

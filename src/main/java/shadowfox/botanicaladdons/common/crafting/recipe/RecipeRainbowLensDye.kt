@@ -9,6 +9,7 @@ import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.api.mana.ILens
+import vazkii.botania.common.item.ModItems.lens
 import vazkii.botania.common.item.lens.ItemLens
 
 /**
@@ -48,31 +49,24 @@ class RecipeRainbowLensDye : IRecipe {
     }
 
     fun isRainbow(stack: ItemStack): Boolean {
-        for (ore in ores)
-            if (OreDictionary.itemMatches(ore, stack, false))
-                return true
-        return false
+        return ores.any { OreDictionary.itemMatches(it, stack, false) }
     }
 
-    override fun getCraftingResult(var1: InventoryCrafting): ItemStack? {
-        var lens: ItemStack? = null
+    override fun getCraftingResult(var1: InventoryCrafting): ItemStack {
+        var lens: ItemStack = ItemStack.EMPTY
 
-        for (lensCopy in 0..var1.sizeInventory - 1) {
-            val stack = var1.getStackInSlot(lensCopy)
-            if (stack != null) {
-                if (stack.item is ILens && lens == null) {
-                    lens = stack
-                }
-            }
-        }
+        (0..var1.sizeInventory - 1)
+                .map { var1.getStackInSlot(it) }
+                .filter { it != null && it.item is ILens && lens.isEmpty }
+                .forEach { lens = it }
 
-        if (lens!!.item is ILens) {
+        if (lens.item is ILens) {
             lens.item
             val var6 = lens.copy()
             ItemLens.setLensColor(var6, 16)
             return var6
         } else {
-            return null
+            return ItemStack.EMPTY
         }
     }
 
@@ -80,8 +74,8 @@ class RecipeRainbowLensDye : IRecipe {
         return 10
     }
 
-    override fun getRecipeOutput(): ItemStack? {
-        return null
+    override fun getRecipeOutput(): ItemStack {
+        return ItemStack.EMPTY
     }
 
     override fun getRemainingItems(inv: InventoryCrafting?): NonNullList<ItemStack> {

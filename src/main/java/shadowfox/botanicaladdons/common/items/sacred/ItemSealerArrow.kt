@@ -40,13 +40,13 @@ class ItemSealerArrow(name: String) : ItemModArrow(name), ICraftAchievement {
         return if (shooter == null) EntitySealedArrow(worldIn, position.xCoord, position.yCoord, position.zCoord) else EntitySealedArrow(worldIn, shooter)
     }
 
-    override fun getRarity(stack: ItemStack?): EnumRarity? {
+    override fun getRarity(stack: ItemStack): EnumRarity? {
         return BotaniaAPI.rarityRelic
     }
 
     override fun isInfinite(stack: ItemStack, bow: ItemStack, player: EntityPlayer) = false
 
-    override fun getAchievementOnCraft(p0: ItemStack?, p1: EntityPlayer?, p2: IInventory?): Achievement? {
+    override fun getAchievementOnCraft(p0: ItemStack, p1: EntityPlayer?, p2: IInventory?): Achievement? {
         return ModAchievements.sacredAqua
     }
 }

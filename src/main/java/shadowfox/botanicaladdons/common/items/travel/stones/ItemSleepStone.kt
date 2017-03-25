@@ -89,7 +89,7 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
             player.resetActiveHand()
     }
 
-    override fun onItemUseFinish(stack: ItemStack, worldIn: World, entityLiving: EntityLivingBase): ItemStack? {
+    override fun onItemUseFinish(stack: ItemStack, worldIn: World, entityLiving: EntityLivingBase): ItemStack {
         if (worldIn.gameRules.getBoolean("doDaylightCycle")) {
             val i = worldIn.worldInfo.worldTime + 24000L
             worldIn.worldInfo.worldTime = i - i % 24000L

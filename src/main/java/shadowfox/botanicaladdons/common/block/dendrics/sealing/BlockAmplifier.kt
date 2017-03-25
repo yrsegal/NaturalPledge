@@ -38,7 +38,7 @@ class BlockAmplifier(name: String) : BlockMod(name, Material.WOOD), ISealingBloc
         return dist <= 2f
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sealTree
     }
 }

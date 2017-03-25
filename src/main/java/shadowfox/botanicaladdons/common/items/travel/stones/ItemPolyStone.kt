@@ -40,7 +40,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
         maxDamage = 0
     }
 
-    override fun isEnchantable(stack: ItemStack?) = true
+    override fun isEnchantable(stack: ItemStack) = true
 
     companion object {
         init {
@@ -57,7 +57,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
                 val baubles = BaublesApi.getBaublesHandler(entity) ?: return
                 if (BaubleType.RING.validSlots
                         .map { baubles.getStackInSlot(it) }
-                        .none { it?.item == BotaniaItems.swapRing }) return
+                        .none { it.item == BotaniaItems.swapRing }) return
 
                 val currentStack = entity.heldItemMainhand
                 if (currentStack != null && currentStack.item is ISortableTool) {
@@ -67,7 +67,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
                     if (entity.isSwingInProgress && pos != null && pos.blockPos != null) {
                         val bestTool = entity.world.getBlockState(pos.blockPos)
                         // Changed type check
-                        if (!bestTool.material.isLiquid && ModItems.polyStone.getStrVsBlock(null, bestTool) != 1.0F)
+                        if (!bestTool.material.isLiquid && ModItems.polyStone.getStrVsBlock(ItemStack.EMPTY, bestTool) != 1.0F)
                             typeToFind = NONE
                     }
 
@@ -106,7 +106,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
     private val defaultToolClasses = arrayOf("pickaxe", "shovel", "axe")
     private val toolsToCheck = arrayOf(Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_AXE).map(::ItemStack)
 
-    override fun getStrVsBlock(stack: ItemStack?, state: IBlockState): Float {
+    override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float {
         defaultToolClasses.forEach {
             if (state.block.isToolEffective(it, state)) return super.getStrVsBlock(stack, state)
         }

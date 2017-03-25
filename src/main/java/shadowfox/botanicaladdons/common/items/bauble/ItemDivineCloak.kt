@@ -2,7 +2,7 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
-import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
+import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import com.teamwizardry.librarianlib.common.network.PacketHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
@@ -134,15 +134,15 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
 
     private var model: Any? = null
 
-    private val cloakNjord = ResourceLocation(LibMisc.MOD_ID, "textures/model/njordCloak.png")
-    private val cloakIdunn = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunnCloak.png")
-    private val cloakThor = ResourceLocation(LibMisc.MOD_ID, "textures/model/thorCloak.png")
-    private val cloakHeimdall = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdallCloak.png")
+    private val cloakNjord = ResourceLocation(LibMisc.MOD_ID, "textures/model/njord_cloak.png")
+    private val cloakIdunn = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunn_cloak.png")
+    private val cloakThor = ResourceLocation(LibMisc.MOD_ID, "textures/model/thor_cloak.png")
+    private val cloakHeimdall = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdall_cloak.png")
 
-    private val cloakNjordGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/njordCloakGlow.png")
-    private val cloakIdunnGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunnCloakGlow.png")
-    private val cloakThorGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/thorCloakGlow.png")
-    private val cloakHeimdallGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdallCloakGlow.png")
+    private val cloakNjordGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/njord_cloak_glow.png")
+    private val cloakIdunnGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunn_cloak_glow.png")
+    private val cloakThorGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/thor_cloak_glow.png")
+    private val cloakHeimdallGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdall_cloak_glow.png")
 
     fun getCloakTexture(stack: ItemStack): ResourceLocation {
         return when (stack.itemDamage) {

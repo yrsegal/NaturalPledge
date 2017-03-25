@@ -61,10 +61,11 @@ class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider {
         fun onPlayerJump(e: LivingEvent.LivingJumpEvent) {
             if (e.entityLiving is EntityPlayer) {
                 val player = e.entityLiving as EntityPlayer
-                getTravelStack(player) ?: return
+                if (shouldPlayerHaveStepup(player)) {
 
-                player.motionY += 0.2f
-                player.fallDistance -= 2f
+                    player.motionY += 0.2f
+                    player.fallDistance -= 2f
+                }
             }
 
         }
@@ -78,19 +79,19 @@ class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider {
 
         fun playerStr(player: EntityPlayer) = "${player.gameProfile.name}:${player.world.isRemote}"
 
-        fun getTravelStack(player: EntityPlayer): ItemStack? {
+        fun getTravelStack(player: EntityPlayer): ItemStack {
             val mainStack = player.heldItemMainhand
             val offStack = player.heldItemOffhand
 
-            if (mainStack != null && mainStack.item == ModItems.travelStone)
+            if (!offStack.isEmpty && mainStack.item == ModItems.travelStone)
                 return mainStack
-            if (offStack != null && offStack.item == ModItems.travelStone)
+            if (!offStack.isEmpty && offStack.item == ModItems.travelStone)
                 return offStack
-            return null
+            return ItemStack.EMPTY
         }
 
         fun shouldPlayerHaveStepup(player: EntityPlayer): Boolean {
-            return getTravelStack(player) != null
+            return !getTravelStack(player).isEmpty
         }
     }
 

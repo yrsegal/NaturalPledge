@@ -13,7 +13,7 @@ import shadowfox.botanicaladdons.common.entity.EntitySealedArrow
 class RenderSealedArrow(renderManager: RenderManager) : RenderArrow<EntitySealedArrow>(renderManager) {
 
     companion object {
-        val TEX = ResourceLocation(LibMisc.MOD_ID, "textures/model/sealArrow.png")
+        val TEX = ResourceLocation(LibMisc.MOD_ID, "textures/model/seal_arrow.png")
     }
 
     override fun getEntityTexture(entity: EntitySealedArrow?) = TEX

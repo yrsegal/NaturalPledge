@@ -39,7 +39,7 @@ class BlockAquamarinePane(name: String) : BlockModPane(name, true, ModBlocks.aqu
         return super.canPaneConnectTo(world, pos, dir) || world.getBlockState(pos.offset(dir))?.block == ModBlocks.aquaGlass
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.njordSpells
     }
 }

@@ -103,6 +103,6 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.IRON), ILexicona
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?) = LexiconEntries.awakening
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack) = LexiconEntries.awakening
 }
 

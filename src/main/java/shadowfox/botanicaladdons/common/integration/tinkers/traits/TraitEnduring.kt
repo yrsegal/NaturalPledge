@@ -8,7 +8,7 @@
 //
 //class TraitEnduring : AbstractTrait("enduring", TinkersIntegration.LIVINGROCK_COLOR) {
 //
-//    override fun onToolDamage(tool: ItemStack?, damage: Int, newDamage: Int, entity: EntityLivingBase?): Int {
+//    override fun onToolDamage(tool: ItemStack, damage: Int, newDamage: Int, entity: EntityLivingBase?): Int {
 //        val chance = tool!!.itemDamage.toFloat() * MAX_CHANCE / ToolHelper.getMaxDurability(tool).toFloat()
 //        return if (Math.random() <= chance) 0 else newDamage
 //    }

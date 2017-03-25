@@ -16,7 +16,7 @@
 // */
 //class TraitSoulbonded : AbstractTrait("soulbonded", TinkersIntegration.SOULROOT_COLORS[0]) {
 //
-//    override fun onUpdate(tool: ItemStack?, world: World?, entity: Entity, itemSlot: Int, isSelected: Boolean) {
+//    override fun onUpdate(tool: ItemStack, world: World?, entity: Entity, itemSlot: Int, isSelected: Boolean) {
 //
 //        val skylight = (entity.world.getLightFor(EnumSkyBlock.SKY, entity.position) * entity.world.provider.getSunBrightnessFactor(1F)).toInt()
 //        val blocklight = entity.world.getLightFor(EnumSkyBlock.BLOCK, entity.position)

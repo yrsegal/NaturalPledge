@@ -21,7 +21,7 @@ class ModPotionEffect : PotionEffect {
 
     constructor(potionEffect: PotionEffect) : super(potionEffect)
 
-    override fun isCurativeItem(stack: ItemStack?): Boolean {
+    override fun isCurativeItem(stack: ItemStack): Boolean {
         if (potion is PotionMod && potion.isBadEffect)
             return false
         else

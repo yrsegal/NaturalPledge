@@ -70,7 +70,7 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
             te.tickSet = worldIn.totalWorldTime
             if (!worldIn.isRemote) {
                 worldIn.playSound(null, pos, SoundEvents.ENTITY_ENDERMEN_STARE, SoundCategory.PLAYERS, 1f, 100f)
-                playerIn.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.actuatorBind")
+                playerIn.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.actuator_bind")
                         .setStyle(Style().setColor(TextFormatting.DARK_GREEN)))
                 te.markDirty()
             }
@@ -87,7 +87,7 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?) = LexiconEntries.enderActuator
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack) = LexiconEntries.enderActuator
 
     @TileRegister("actuator")
     class TileEnderBind : TileMod() {

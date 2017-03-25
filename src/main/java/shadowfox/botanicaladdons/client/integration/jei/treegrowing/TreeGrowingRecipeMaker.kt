@@ -20,7 +20,7 @@ object TreeGrowingRecipeMaker {
                 val leavesStack = convertState(leaves)
                 val woodStack = convertState(wood)
 
-                if (soilStack == null || leavesStack == null || woodStack == null) {
+                if (soilStack.isEmpty || leavesStack.isEmpty || woodStack.isEmpty) {
                     BotanicalAddons.LOGGER.warn("Sapling variant {$variant} has a null stack, skipping. Report this to the modmaker of that mod")
                     continue
                 }
@@ -38,10 +38,10 @@ object TreeGrowingRecipeMaker {
             return out
         }
 
-    private fun convertState(state: IBlockState): ItemStack? {
+    private fun convertState(state: IBlockState): ItemStack {
         return if (state.block is IStackConvertible)
             (state.block as IStackConvertible).itemStackFromState(state)
         else
-            ItemStack(state.block, 1, state.block.getMetaFromState(state))
+            ItemStack(state.block, 1, state.block.damageDropped(state))
     }
 }

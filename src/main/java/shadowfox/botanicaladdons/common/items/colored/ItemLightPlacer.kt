@@ -37,7 +37,7 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
     val MANA_PER_FLAME = 100
     val TAG_INK = "phantomInk"
 
-    override fun usesMana(p0: ItemStack?) = true
+    override fun usesMana(p0: ItemStack) = true
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->

@@ -16,16 +16,16 @@
 //        return nightTime && canSeeSky
 //    }
 //
-//    override fun miningSpeed(tool: ItemStack?, event: PlayerEvent.BreakSpeed?) {
+//    override fun miningSpeed(tool: ItemStack, event: PlayerEvent.BreakSpeed?) {
 //        if (isStargazing(event!!.entityPlayer))
 //            event.newSpeed = event.newSpeed * 1.5f
 //    }
 //
-//    override fun damage(tool: ItemStack?, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, newDamage: Float, isCritical: Boolean): Float {
+//    override fun damage(tool: ItemStack, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, newDamage: Float, isCritical: Boolean): Float {
 //        return if (isStargazing(player)) newDamage * 1.5f else newDamage
 //    }
 //
-//    override fun onToolDamage(tool: ItemStack?, damage: Int, newDamage: Int, entity: EntityLivingBase): Int {
+//    override fun onToolDamage(tool: ItemStack, damage: Int, newDamage: Int, entity: EntityLivingBase): Int {
 //        return if (isStargazing(entity) && Math.random() < 0.5f) 0 else newDamage
 //    }
 //

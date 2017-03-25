@@ -11,7 +11,7 @@ import shadowfox.botanicaladdons.common.items.base.ItemRainbow
  */
 class ItemAwakenedDye(name: String) : ItemRainbow(name, true) {
     @SideOnly(Side.CLIENT)
-    override fun hasEffect(stack: ItemStack?): Boolean {
+    override fun hasEffect(stack: ItemStack): Boolean {
         return true
     }
 

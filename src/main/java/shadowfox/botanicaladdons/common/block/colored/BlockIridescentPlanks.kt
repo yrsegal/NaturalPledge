@@ -70,7 +70,7 @@ class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { na
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.irisDirt
     }
 }

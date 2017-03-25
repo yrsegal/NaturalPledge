@@ -3,7 +3,7 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
-import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
+import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import com.teamwizardry.librarianlib.common.network.PacketHandler
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.block.Block
@@ -108,17 +108,17 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             return pitch > -33.75 && pitch < 45
         }
 
-        fun getItemForSlot(stack: ItemStack, slot: Int): ItemStack? {
-            if (slot >= SEGMENTS) return null
+        fun getItemForSlot(stack: ItemStack, slot: Int): ItemStack {
+            if (slot >= SEGMENTS) return ItemStack.EMPTY
             else {
-                val cmp = getStoredCompound(stack, slot) ?: return null
+                val cmp = getStoredCompound(stack, slot) ?: return ItemStack.EMPTY
                 return ItemStack(cmp)
             }
         }
 
         fun getStoredCompound(stack: ItemStack, slot: Int): NBTTagCompound? = ItemNBTHelper.getCompound(stack, TAG_ITEM_PREFIX + slot)
-        fun setItem(beltStack: ItemStack, stack: ItemStack?, pos: Int) {
-            if (stack == null) ItemNBTHelper.setCompound(beltStack, TAG_ITEM_PREFIX + pos, NBTTagCompound())
+        fun setItem(beltStack: ItemStack, stack: ItemStack, pos: Int) {
+            if (stack.isEmpty) ItemNBTHelper.setCompound(beltStack, TAG_ITEM_PREFIX + pos, NBTTagCompound())
             else {
                 val tag = NBTTagCompound()
                 stack.writeToNBT(tag)
@@ -126,11 +126,11 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             }
         }
 
-        fun getEquippedBelt(player: EntityPlayer): ItemStack? {
+        fun getEquippedBelt(player: EntityPlayer): ItemStack {
             val inv = BaublesApi.getBaublesHandler(player)
             return (0 until inv.slots)
                     .map { inv.getStackInSlot(it) }
-                    .lastOrNull { !it.isEmpty && it.item is ItemToolbelt }
+                    .lastOrNull { !it.isEmpty && it.item is ItemToolbelt } ?: ItemStack.EMPTY
         }
 
 
@@ -140,7 +140,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             fun onRenderWorldLast(event: RenderWorldLastEvent) {
                 val player = Minecraft.getMinecraft().player
                 val beltStack = getEquippedBelt(player)
-                if (beltStack != null && isEquipped(beltStack)) {
+                if (!beltStack.isEmpty && isEquipped(beltStack)) {
                     render(beltStack, player, event.partialTicks)
                 }
             }
@@ -151,7 +151,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 if (event.type != RenderGameOverlayEvent.ElementType.ALL) return
                 val player = Minecraft.getMinecraft().player
                 val beltStack = getEquippedBelt(player)
-                if (beltStack != null && isEquipped(beltStack)) {
+                if (!beltStack.isEmpty && isEquipped(beltStack)) {
                     renderHUD(event.resolution, player, beltStack)
                 }
             }
@@ -168,7 +168,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 GlStateManager.pushMatrix()
                 GlStateManager.enableBlend()
                 GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
-                val alpha = (Math.sin(((ClientTickHandler.ticksInGame + partialTicks) * 0.2f).toDouble()).toFloat() * 0.5f + 0.5f) * 0.4f + 0.3f
+                val alpha = (MathHelper.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2f) * 0.5f + 0.5f) * 0.4f + 0.3f
 
                 val posX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks
                 val posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks
@@ -203,7 +203,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                         inside = true
 
                     val slotStack = getItemForSlot(stack, seg)
-                    if (slotStack != null) {
+                    if (!slotStack.isEmpty) {
                         mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
                         val scale = 0.6f
                         GlStateManager.scale(scale, scale, scale)
@@ -260,18 +260,19 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             fun renderHUD(resolution: ScaledResolution, player: EntityPlayer, stack: ItemStack) {
                 val mc = Minecraft.getMinecraft()
                 val slot = getSegmentLookedAt(stack, player)
-                val item = getItemForSlot(stack, slot) ?: return
+                val item = getItemForSlot(stack, slot)
+                if (item.isEmpty) return
 
                 GlStateManager.enableBlend()
                 GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
                 val name = item.displayName
-                val label = mc.fontRendererObj.getStringWidth(name)
+                val label = mc.fontRenderer.getStringWidth(name)
                 val setRecipe = resolution.scaledWidth / 2 - label / 2
                 val y = resolution.scaledHeight / 2 - 65
                 val color = 0x22000000
                 Gui.drawRect(setRecipe - 6, y - 6, setRecipe + label + 6, y + 15, color)
                 Gui.drawRect(setRecipe - 4, y - 4, setRecipe + label + 4, y + 13, color)
-                mc.fontRendererObj.drawStringWithShadow(name, setRecipe.toFloat(), y.toFloat(), 0xFFFFFF)
+                mc.fontRenderer.drawStringWithShadow(name, setRecipe.toFloat(), y.toFloat(), 0xFFFFFF)
             }
 
 
@@ -281,7 +282,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
             }
 
             @SubscribeEvent fun onPlayerInteractEmpty(event: PlayerInteractEvent.RightClickEmpty) {
-                if (event.entityPlayer.heldItemMainhand == null)
+                if (event.entityPlayer.heldItemMainhand.isEmpty)
                     firePlayerInteraction(event)
             }
 
@@ -290,10 +291,10 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 val beltStack = getEquippedBelt(player)
 
                 val heldItem = event.itemStack
-                if (beltStack != null && isEquipped(beltStack)) {
+                if (!beltStack.isEmpty && isEquipped(beltStack)) {
                     val segment = getSegmentLookedAt(beltStack, player)
                     val toolStack = getItemForSlot(beltStack, segment)
-                    if (toolStack == null && heldItem != null) {
+                    if (toolStack.isEmpty && !heldItem.isEmpty) {
                         val heldItemObject = heldItem.item
                         if (!(heldItemObject is IToolbeltBlacklisted && !heldItemObject.allowedInToolbelt(heldItem)) && heldItemObject !is ItemBaubleBox) {
                             if (!event.world.isRemote && player is EntityPlayerMP) {
@@ -306,13 +307,13 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                                 player.inventory.markDirty()
                             }
                         }
-                    } else if (toolStack != null) {
-                        setItem(beltStack, null, segment)
+                    } else if (!toolStack.isEmpty) {
+                        setItem(beltStack, ItemStack.EMPTY, segment)
                         if (!event.world.isRemote) {
-                            if (player is EntityPlayerMP) PacketHandler.NETWORK.sendTo(SetToolbeltItemClient(null, segment), player)
+                            if (player is EntityPlayerMP) PacketHandler.NETWORK.sendTo(SetToolbeltItemClient(ItemStack.EMPTY, segment), player)
                         } else {
                             PacketHandler.NETWORK.sendToServer(PlayerItemMessage(toolStack))
-                            PacketHandler.NETWORK.sendToServer(SetToolbeltItemServer(null, segment))
+                            PacketHandler.NETWORK.sendToServer(SetToolbeltItemServer(ItemStack.EMPTY, segment))
                         }
                     }
                     if (event.isCancelable) event.isCanceled = true
@@ -351,7 +352,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
         var total = 0
         for (segment in 0..SEGMENTS - 1) {
             val slotStack = getItemForSlot(p2, segment)
-            if (slotStack != null) {
+            if (!slotStack.isEmpty) {
                 val slotItem = slotStack.item
                 if (slotItem is IBlockProvider) {
                     val count = slotItem.getBlockCount(p0, p1, slotStack, p3, p4)
@@ -369,7 +370,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
     override fun provideBlock(p0: EntityPlayer?, p1: ItemStack, p2: ItemStack, p3: Block, p4: Int, p5: Boolean): Boolean {
         for (segment in 0..SEGMENTS - 1) {
             val slotStack = getItemForSlot(p2, segment)
-            if (slotStack != null) {
+            if (!slotStack.isEmpty) {
                 val slotItem = slotStack.item
                 if (slotItem is IBlockProvider) {
                     val provided = slotItem.provideBlock(p0, p1, slotStack, p3, p4, p5)
@@ -378,7 +379,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
                 } else if (slotItem is ItemBlock && Block.getBlockFromItem(slotItem) == p3 && slotStack.itemDamage == p4) {
                     if (p5) slotStack.count--
 
-                    if (slotStack.count == 0) setItem(p2, null, segment)
+                    if (slotStack.count == 0) setItem(p2, ItemStack.EMPTY, segment)
                     else setItem(p2, slotStack, segment)
                     return true
                 }
@@ -391,7 +392,7 @@ class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockPro
         val map = HashMap<String, Int>()
         for (segment in 0..SEGMENTS - 1) {
             val slotStack = getItemForSlot(stack, segment)
-            if (slotStack != null) {
+            if (!slotStack.isEmpty) {
                 var base = 0
                 val name = slotStack.displayName
                 val node = map[name]

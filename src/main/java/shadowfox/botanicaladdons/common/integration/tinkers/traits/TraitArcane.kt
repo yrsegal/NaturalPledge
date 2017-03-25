@@ -18,7 +18,7 @@
 //            ToolHelper.healTool(tool, 1, entity)
 //    }
 //
-//    override fun onToolDamage(tool: ItemStack?, damage: Int, newDamage: Int, entity: EntityLivingBase?): Int {
+//    override fun onToolDamage(tool: ItemStack, damage: Int, newDamage: Int, entity: EntityLivingBase?): Int {
 //        if (entity is EntityPlayer && ManaItemHandler.requestManaExactForTool(tool, entity, newDamage * manaPer, true))
 //            return 0
 //        return super.onToolDamage(tool, damage, newDamage, entity)

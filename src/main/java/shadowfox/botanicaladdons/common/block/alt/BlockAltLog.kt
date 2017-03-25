@@ -56,15 +56,15 @@ abstract class BlockAltLog(name: String, set: Int) : BlockModLog(name + set, *Ar
         return (state ?: return 0).getValue(TYPE_PROPS[colorSet]).ordinal - colorSet * 4
     }
 
-    fun createStackedBlock(state: IBlockState): ItemStack? {
+    fun createStackedBlock(state: IBlockState): ItemStack {
         return ItemStack(this, 1, damageDropped(state))
     }
 
-    override fun getPickBlock(state: IBlockState?, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack? {
-        return createStackedBlock(state ?: return null)
+    override fun getPickBlock(state: IBlockState?, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack {
+        return createStackedBlock(state ?: return ItemStack.EMPTY)
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sapling
     }
 }

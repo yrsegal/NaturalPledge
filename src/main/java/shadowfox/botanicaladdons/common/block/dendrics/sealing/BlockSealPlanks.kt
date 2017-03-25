@@ -29,7 +29,7 @@ class BlockSealPlanks(name: String) : BlockModPlanks(name), ISealingBlock, ILexi
         return dist <= 8f
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sealTree
     }
 }

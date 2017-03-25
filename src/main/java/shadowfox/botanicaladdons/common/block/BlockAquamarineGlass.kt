@@ -29,7 +29,7 @@ class BlockAquamarineGlass(name: String) : BlockMod(name, Material.GLASS, MapCol
     }
 
     override fun getLightValue(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?) = 10
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?) = LexiconEntries.njordSpells
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack) = LexiconEntries.njordSpells
 
     override fun isOpaqueCube(state: IBlockState) = false
     override fun canSilkHarvest(world: World?, pos: BlockPos?, state: IBlockState?, player: EntityPlayer?) = true

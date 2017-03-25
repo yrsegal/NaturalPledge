@@ -39,7 +39,7 @@ class BlockSealLeaves(name: String) : BlockModLeaves(name), ISealingBlock, ILexi
         return Item.getItemFromBlock(ModBlocks.sealSapling)
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sealTree
     }
 }

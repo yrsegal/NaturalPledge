@@ -23,7 +23,7 @@ object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
         recipeLayout.itemStacks.init(WOOD_SLOT, false, 60, 18)
 
         recipeLayout.itemStacks.set(SAPLING_SLOT, recipeWrapper.sapling)
-        if (recipeWrapper.soil == null)
+        if (recipeWrapper.soil.isEmpty)
             recipeLayout.itemStacks.set(SOIL_SLOT, defaultSoil)
         else
             recipeLayout.itemStacks.set(SOIL_SLOT, recipeWrapper.soil)

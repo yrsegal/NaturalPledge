@@ -93,7 +93,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
     override fun canSpawnInBlock(): Boolean = true
     override fun isReplaceable(worldIn: IBlockAccess?, pos: BlockPos?) = false
 
-    override fun getPickBlock(state: IBlockState?, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack? {
+    override fun getPickBlock(state: IBlockState?, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack {
         val te = world.getTileEntity(pos)
         if (te is TileCracklingStar) {
             val stack = RainbowItemHelper.colorStack(te.color, this)
@@ -118,7 +118,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
         }
     }
 
-    override fun harvestBlock(worldIn: World, player: EntityPlayer?, pos: BlockPos, state: IBlockState?, te: TileEntity?, stack: ItemStack?) {
+    override fun harvestBlock(worldIn: World, player: EntityPlayer?, pos: BlockPos, state: IBlockState?, te: TileEntity?, stack: ItemStack) {
         super.harvestBlock(worldIn, player, pos, state, te, stack)
         worldIn.setBlockToAir(pos)
     }
@@ -153,7 +153,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
         return true
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.crackle
     }
 }

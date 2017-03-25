@@ -68,7 +68,7 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
 
     private val attackDamage = 5.5f
 
-    override fun getItemUseAction(stack: ItemStack?) = EnumAction.BLOCK
+    override fun getItemUseAction(stack: ItemStack) = EnumAction.BLOCK
 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, itemSlot: Int, isSelected: Boolean) {
         if (!world.isRemote && player is EntityPlayer && stack.itemDamage > 0 && ManaItemHandler.requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true))
@@ -81,7 +81,7 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
         return true
     }
 
-    override fun getMaxItemUseDuration(stack: ItemStack?): Int {
+    override fun getMaxItemUseDuration(stack: ItemStack): Int {
         return 72000
     }
 
@@ -90,7 +90,7 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
             player.stopActiveHand()
     }
 
-    override fun hitEntity(stack: ItemStack?, target: EntityLivingBase?, attacker: EntityLivingBase?): Boolean {
+    override fun hitEntity(stack: ItemStack, target: EntityLivingBase?, attacker: EntityLivingBase?): Boolean {
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
         return super.hitEntity(stack, target, attacker)
     }
@@ -120,7 +120,7 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
     }
 
     override fun getItemEnchantability(): Int = 14
-    override fun getIsRepairable(stack: ItemStack?, repair: ItemStack): Boolean {
+    override fun getIsRepairable(stack: ItemStack, repair: ItemStack): Boolean {
         return repair.item == ModItems.resource && ItemResource.variantFor(repair)?.first == THUNDER_STEEL
     }
 

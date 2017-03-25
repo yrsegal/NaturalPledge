@@ -2,7 +2,7 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 
 import baubles.api.BaubleType
 import com.mojang.authlib.GameProfile
-import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
+import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
@@ -92,7 +92,7 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
         }
     }
 
-    private fun isEdible(food: ItemStack?, player: EntityPlayer): Boolean {
+    private fun isEdible(food: ItemStack, player: EntityPlayer): Boolean {
         food ?: return false
         if (!player.canEat(false)) return false
 

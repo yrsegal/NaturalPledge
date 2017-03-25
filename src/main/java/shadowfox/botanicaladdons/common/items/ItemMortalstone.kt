@@ -74,15 +74,15 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
     }
 
     override fun addMana(stack: ItemStack, mana: Int) = ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, Math.min(mana + getMana(stack), getMaxMana(stack))))
-    override fun canExportManaToItem(stack: ItemStack?, p1: ItemStack?): Boolean = false
-    override fun canExportManaToPool(stack: ItemStack?, p1: TileEntity?): Boolean = false
-    override fun canReceiveManaFromItem(stack: ItemStack?, p1: ItemStack?) = true
-    override fun canReceiveManaFromPool(stack: ItemStack?, p1: TileEntity?) = false
+    override fun canExportManaToItem(stack: ItemStack, p1: ItemStack): Boolean = false
+    override fun canExportManaToPool(stack: ItemStack, p1: TileEntity?): Boolean = false
+    override fun canReceiveManaFromItem(stack: ItemStack, p1: ItemStack) = true
+    override fun canReceiveManaFromPool(stack: ItemStack, p1: TileEntity?) = false
     override fun getMana(stack: ItemStack) = ItemNBTHelper.getInt(stack, TAG_MANA, getMaxMana(stack))
-    override fun getMaxMana(stack: ItemStack?) = MAX_MANA
-    override fun isNoExport(stack: ItemStack?) = true
+    override fun getMaxMana(stack: ItemStack) = MAX_MANA
+    override fun isNoExport(stack: ItemStack) = true
 
-    override fun getEntityLifespan(itemStack: ItemStack?, world: World?) = Int.MAX_VALUE
+    override fun getEntityLifespan(itemStack: ItemStack, world: World?) = Int.MAX_VALUE
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         var flag = 0
         if (getMana(entityItem.entityItem) > 0 && !entityItem.world.isRemote) {

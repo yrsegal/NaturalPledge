@@ -14,7 +14,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
  * Created at 10:36 PM on 5/27/16.
  */
 class BlockThunderPlanks(name: String) : BlockModPlanks(name), IThunderAbsorber, ILexiconable {
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.thunderTree
     }
 }

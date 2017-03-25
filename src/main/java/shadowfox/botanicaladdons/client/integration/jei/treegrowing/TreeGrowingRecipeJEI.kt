@@ -5,7 +5,7 @@ import mezz.jei.api.recipe.BlankRecipeWrapper
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
 
-class TreeGrowingRecipeJEI(val sapling: ItemStack, val soil: ItemStack?, val wood: ItemStack, val leaves: ItemStack) : BlankRecipeWrapper() {
+class TreeGrowingRecipeJEI(val sapling: ItemStack, val soil: ItemStack, val wood: ItemStack, val leaves: ItemStack) : BlankRecipeWrapper() {
 
     override fun getIngredients(ingredients: IIngredients) {
         val stackHelper = JEIPluginBotanicalAddons.helpers.stackHelper

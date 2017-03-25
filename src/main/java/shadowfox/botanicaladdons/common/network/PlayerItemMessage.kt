@@ -1,21 +1,25 @@
 package shadowfox.botanicaladdons.common.network
 
 import com.teamwizardry.librarianlib.common.network.PacketBase
+import com.teamwizardry.librarianlib.common.util.autoregister.PacketRegister
 import com.teamwizardry.librarianlib.common.util.saving.Save
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
+import net.minecraftforge.fml.relauncher.Side
 
-
-class PlayerItemMessage(@Save var item: ItemStack? = null) : PacketBase() {
+@PacketRegister(Side.SERVER)
+class PlayerItemMessage(@Save var item: ItemStack = ItemStack.EMPTY) : PacketBase() {
 
     override fun handle(ctx: MessageContext) {
-        val player = ctx.serverHandler.playerEntity
+        val player = ctx.serverHandler.player
 
-        if (player.heldItemMainhand == null) {
-            player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, item?.copy())
-        } else if (!player.inventory.addItemStackToInventory(item?.copy())) {
-            player.dropItem(item?.copy(), false)
+        val copy = item.copy()
+
+        if (player.heldItemMainhand.isEmpty) {
+            player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, copy)
+        } else if (!player.inventory.addItemStackToInventory(copy)) {
+            player.dropItem(item.copy(), false)
         }
     }
 }

@@ -1,16 +1,16 @@
 {
 	"variants": {
 		"color=silver": {
-			"model": "botanicaladdons:iris_leaves2"
+			"model": "botanicaladdons:iris_leaves"
 		},
 		"color=cyan": {
-			"model": "botanicaladdons:iris_leaves2"
+			"model": "botanicaladdons:iris_leaves"
 		},
 		"color=purple": {
-			"model": "botanicaladdons:iris_leaves2"
+			"model": "botanicaladdons:iris_leaves"
 		},
 		"color=blue": {
-			"model": "botanicaladdons:iris_leaves2"
+			"model": "botanicaladdons:iris_leaves"
 		}
 	}
 }

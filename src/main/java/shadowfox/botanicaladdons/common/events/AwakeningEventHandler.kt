@@ -82,7 +82,7 @@ class AwakeningEventHandler {
                         if (emblem != null) {
                             val variant = (emblem.item as IPriestlyEmblem).getVariant(emblem)
                             if (variant != null)
-                                player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}Watches").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
+                                player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}_watches").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
                         }
                     }
             }
@@ -144,7 +144,7 @@ class AwakeningEventHandler {
                             if (variant != null) {
                                 player.addStat(ModAchievements.awakening)
                                 if (entity.world.isRemote)
-                                    player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}Smiles").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
+                                    player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}_smiles").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
                                 (emblem.item as IPriestlyEmblem).setAwakened(emblem, true)
                             }
                         }

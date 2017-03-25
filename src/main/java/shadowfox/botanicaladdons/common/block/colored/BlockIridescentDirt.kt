@@ -76,7 +76,7 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
         return state.getValue(COLOR).metadata
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.irisDirt
     }
 

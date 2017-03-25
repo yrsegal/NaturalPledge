@@ -32,7 +32,7 @@ class BlockRainbowDirt(name: String) : BlockMod(name, Material.GROUND), ILexicon
         addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.irisDirt
     }
 

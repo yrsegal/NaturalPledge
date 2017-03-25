@@ -66,7 +66,7 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
         return ItemStack(this, 1, state.getValue(TYPE_PROPS[colorSet]).ordinal - colorSet * 4)
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sapling
     }
 }

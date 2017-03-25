@@ -20,7 +20,7 @@ import java.awt.Color
 class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
 
     override fun matches(inv: InventoryCrafting, worldIn: World?): Boolean {
-        var ink: ItemStack? = null
+        var ink: ItemStack = ItemStack.EMPTY
         var foundDye = false
         var foundRainbow = false
 
@@ -47,57 +47,55 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
                     }
                 }
 
-        return ink != null && foundDye
+        return !ink.isEmpty && foundDye
     }
 
     /**
      * Returns an Item that is the result of this recipe
      */
-    override fun getCraftingResult(inv: InventoryCrafting): ItemStack? {
-        var ink: ItemStack? = null
+    override fun getCraftingResult(inv: InventoryCrafting): ItemStack {
+        var ink: ItemStack = ItemStack.EMPTY
         var colors = 0
         var r = 0
         var g = 0
         var b = 0
         var rainbow = false
 
-        for (k in 0..inv.sizeInventory - 1) {
-            val stack = inv.getStackInSlot(k)
+        (0..inv.sizeInventory - 1)
+                .mapNotNull { inv.getStackInSlot(it) }
+                .forEach {
+                    if (it.item == dyable) {
+                        ink = it
 
-            if (stack != null) {
-                if (stack.item == dyable) {
-                    ink = stack
+                        val newstack = it.copy()
+                        newstack.count = 1
 
-                    val newstack = stack.copy()
-                    newstack.count = 1
+                        if (RainbowItemHelper.getColor(it) != -1) {
+                            val color = Color(RainbowItemHelper.getColor(it))
+                            r += color.red
+                            g += color.green
+                            b += color.blue
+                            colors++
+                        }
+                    } else {
+                        if (!checkStack(it, if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)) {
+                            return ItemStack.EMPTY
+                        }
 
-                    if (RainbowItemHelper.getColor(stack) != -1) {
-                        val color = Color(RainbowItemHelper.getColor(stack))
-                        r += color.red
-                        g += color.green
-                        b += color.blue
-                        colors++
-                    }
-                } else {
-                    if (!checkStack(stack, if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)) {
-                        return null
-                    }
-
-                    val colorInt = getColorFromDye(stack, if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)
-                    if (colorInt == -1) rainbow = true
-                    else {
-                        val color = Color(colorInt)
-                        r += color.red
-                        g += color.green
-                        b += color.blue
-                        colors++
+                        val colorInt = getColorFromDye(it, if (iris) LibOreDict.IRIS_DYES else LibOreDict.DYES)
+                        if (colorInt == -1) rainbow = true
+                        else {
+                            val color = Color(colorInt)
+                            r += color.red
+                            g += color.green
+                            b += color.blue
+                            colors++
+                        }
                     }
                 }
-            }
-        }
 
-        if (ink == null || colors == 0) {
-            return null
+        if (ink.isEmpty || colors == 0) {
+            return ItemStack.EMPTY
         }
 
         r /= colors
@@ -141,8 +139,8 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
         return 10
     }
 
-    override fun getRecipeOutput(): ItemStack? {
-        return null
+    override fun getRecipeOutput(): ItemStack {
+        return ItemStack.EMPTY
     }
 
     override fun getRemainingItems(inv: InventoryCrafting?): NonNullList<ItemStack> {

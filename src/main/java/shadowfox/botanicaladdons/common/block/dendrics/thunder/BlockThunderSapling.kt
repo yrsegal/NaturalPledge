@@ -24,7 +24,7 @@ class BlockThunderSapling(name: String) : BlockModSapling(name), IThunderAbsorbe
         defaultSaplingBehavior(worldIn, pos, state, rand, ModBlocks.thunderLog, ModBlocks.thunderLeaves)
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.thunderTree
     }
 }

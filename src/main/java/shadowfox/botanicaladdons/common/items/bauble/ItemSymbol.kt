@@ -5,7 +5,7 @@ import com.teamwizardry.librarianlib.client.core.ModelHandler
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.IExtraVariantHolder
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
+import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
@@ -68,7 +68,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, ItemFaithBauble.TAG_PENDANT)) {
-            stack, world, entity ->
+            stack, _, _ ->
             if (ItemNBTHelper.getBoolean(stack, ItemFaithBauble.TAG_PENDANT, false)) 1f else 0f
         }
     }
@@ -81,18 +81,18 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
                 tris -> "heart"
                 l0ne -> "tail"
                 jansey -> "headdress"
-                wiiv -> "teruHead"
-                troll -> "emblemMystery"
+                wiiv -> "teru_head"
+                troll -> "emblem_mystery"
                 willie -> "fabulosity"
-                else -> "holySymbol"
+                else -> "holy_symbol"
             }] as ModelResourceLocation
         }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, i -> if (getPlayer(itemStack) == willie) BotanicalAddons.PROXY.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
+        get() = { itemStack, _ -> if (getPlayer(itemStack) == willie) BotanicalAddons.PROXY.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
 
     override val extraVariants: Array<out String>
-        get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teruHead", "emblemMystery", "fabulosity", "holySymbol")
+        get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teru_head", "emblem_mystery", "fabulosity", "holy_symbol")
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase) {
         super.onEquipped(stack, player)

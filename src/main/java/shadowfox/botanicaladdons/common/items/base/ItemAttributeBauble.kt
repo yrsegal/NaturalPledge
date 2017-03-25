@@ -2,7 +2,7 @@ package shadowfox.botanicaladdons.common.items.base
 
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
-import com.teamwizardry.librarianlib.common.base.item.ItemModBauble
+import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.item.ItemStack

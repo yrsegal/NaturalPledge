@@ -11,11 +11,9 @@ import javax.annotation.Nullable;
  */
 public class SaplingGrowthRecipe {
     @Nonnull
-    private final ItemStack sapling, wood, leaves;
-    @Nullable
-    private final ItemStack soil;
+    private final ItemStack sapling, wood, leaves, soil;
 
-    public SaplingGrowthRecipe(@Nonnull ItemStack sapling, @Nullable ItemStack soil, @Nonnull ItemStack wood, @Nonnull ItemStack leaves) {
+    public SaplingGrowthRecipe(@Nonnull ItemStack sapling, @Nonnull ItemStack soil, @Nonnull ItemStack wood, @Nonnull ItemStack leaves) {
         this.sapling = sapling;
         this.soil = soil;
         this.wood = wood;
@@ -32,7 +30,7 @@ public class SaplingGrowthRecipe {
         return sapling;
     }
 
-    @Nullable
+    @Nonnull
     public ItemStack getSoil() {
         return soil;
     }

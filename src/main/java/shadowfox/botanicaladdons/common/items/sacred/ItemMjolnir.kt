@@ -86,11 +86,11 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
         return 26
     }
 
-    override fun getIsRepairable(toRepair: ItemStack?, repair: ItemStack): Boolean {
+    override fun getIsRepairable(toRepair: ItemStack, repair: ItemStack): Boolean {
         return repair.item == ModItems.resource && ItemResource.variantFor(repair)?.first == ItemResource.Variants.THUNDER_STEEL
     }
 
-    override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack?): Multimap<String, AttributeModifier>? {
+    override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack): Multimap<String, AttributeModifier>? {
         val multimap = super.getAttributeModifiers(slot, stack)
 
         if (slot == EntityEquipmentSlot.MAINHAND) {
@@ -186,7 +186,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
         return true
     }
 
-    override fun getAchievementOnCraft(p0: ItemStack?, p1: EntityPlayer?, p2: IInventory?): Achievement? {
+    override fun getAchievementOnCraft(p0: ItemStack, p1: EntityPlayer?, p2: IInventory?): Achievement? {
         return ModAchievements.sacredThunder
     }
 }

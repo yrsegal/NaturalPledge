@@ -80,7 +80,7 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
 
-    override fun addInformation(stack: ItemStack?, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + (stack?.itemDamage ?: 0)}")
     }
 
@@ -88,7 +88,7 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
         return state.getValue(COLOR_PROPS[colorSet]).mapColor
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.irisDirt
     }
 }

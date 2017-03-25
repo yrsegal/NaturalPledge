@@ -8,13 +8,13 @@
 //
 //class TraitIdealistic : AbstractTrait("idealistic", TinkersIntegration.DREAMWOOD_COLOR) {
 //
-//    override fun damage(tool: ItemStack?, player: EntityLivingBase?, target: EntityLivingBase?, damage: Float, newDamage: Float, isCritical: Boolean): Float {
+//    override fun damage(tool: ItemStack, player: EntityLivingBase?, target: EntityLivingBase?, damage: Float, newDamage: Float, isCritical: Boolean): Float {
 //        if (target!!.health <= 10) return newDamage
 //
 //        return newDamage + (target.health - 10) / 5
 //    }
 //
-//    override fun miningSpeed(tool: ItemStack?, event: PlayerEvent.BreakSpeed?) {
+//    override fun miningSpeed(tool: ItemStack, event: PlayerEvent.BreakSpeed?) {
 //        val hardness = event!!.state.getBlockHardness(event.entityPlayer.world, event.pos)
 //        if (hardness == 0.0f)
 //            event.newSpeed = 1.0f

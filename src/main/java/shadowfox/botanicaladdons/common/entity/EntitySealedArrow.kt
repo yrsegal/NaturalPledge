@@ -20,7 +20,7 @@ class EntitySealedArrow : EntityArrow {
 
     constructor(worldIn: World, x: Double, y: Double, z: Double) : super(worldIn, x, y, z)
 
-    override fun getArrowStack(): ItemStack? {
+    override fun getArrowStack(): ItemStack {
         return ItemStack(ModItems.sealArrow)
     }
 

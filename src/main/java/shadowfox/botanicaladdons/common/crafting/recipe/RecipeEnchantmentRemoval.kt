@@ -26,8 +26,8 @@ import java.util.*
  */
 object RecipeEnchantmentRemoval : IRecipe {
     override fun getRemainingItems(inv: InventoryCrafting): NonNullList<ItemStack> {
-        var tome: ItemStack? = null
-        var enchanted: ItemStack? = null
+        var tome: ItemStack = ItemStack.EMPTY
+        var enchanted: ItemStack = ItemStack.EMPTY
         (0 until inv.sizeInventory)
                 .asSequence()
                 .mapNotNull { inv.getStackInSlot(it) }
@@ -39,8 +39,8 @@ object RecipeEnchantmentRemoval : IRecipe {
                         enchanted = it
                 }
 
-        val finalTome = tome!!.copy()
-        val finalEnchanted = enchanted!!
+        val finalTome = tome.copy()
+        val finalEnchanted = enchanted
 
         val index = getEnchantmentIndex(finalTome, finalEnchanted)
         val list = (if (finalEnchanted.item === Items.ENCHANTED_BOOK)
@@ -68,17 +68,17 @@ object RecipeEnchantmentRemoval : IRecipe {
         }.toNonnullList()
     }
 
-    override fun getRecipeOutput(): ItemStack? {
-        return null
+    override fun getRecipeOutput(): ItemStack {
+        return ItemStack.EMPTY
     }
 
     override fun getRecipeSize(): Int {
         return 10
     }
 
-    override fun getCraftingResult(inv: InventoryCrafting): ItemStack? {
-        var tome: ItemStack? = null
-        var enchanted: ItemStack? = null
+    override fun getCraftingResult(inv: InventoryCrafting): ItemStack {
+        var tome: ItemStack = ItemStack.EMPTY
+        var enchanted: ItemStack = ItemStack.EMPTY
         (0 until inv.sizeInventory)
                 .asSequence()
                 .mapNotNull { inv.getStackInSlot(it) }
@@ -89,12 +89,12 @@ object RecipeEnchantmentRemoval : IRecipe {
                         enchanted = it
                 }
 
-        if (tome == null || enchanted == null) return null
-        val finalTome = tome!!
-        val finalEnchanted = enchanted!!.copy()
+        if (tome.isEmpty || enchanted.isEmpty) return ItemStack.EMPTY
+        val finalTome = tome
+        val finalEnchanted = enchanted.copy()
         val index = getEnchantmentIndex(finalTome, finalEnchanted)
         val list = (if (finalEnchanted.item === Items.ENCHANTED_BOOK)
-            Items.ENCHANTED_BOOK.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: return null
+            Items.ENCHANTED_BOOK.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: return ItemStack.EMPTY
         list.removeTag(index)
         if (list.tagCount() == 0)
             finalEnchanted.tagCompound?.removeTag("ench")

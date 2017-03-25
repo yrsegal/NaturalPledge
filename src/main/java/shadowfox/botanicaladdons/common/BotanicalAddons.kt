@@ -30,18 +30,13 @@ class BotanicalAddons {
             Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean
         }
 
-        val TINKERS_LOADED: Boolean by lazy {
-            Loader.isModLoaded("tconstruct")
-        }
+//        val TINKERS_LOADED: Boolean by lazy {
+//            Loader.isModLoaded("tconstruct")
+//        }
     }
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
-        PacketHandler.register(PlayerItemMessage::class.java, Side.SERVER)
-        PacketHandler.register(SetToolbeltItemClient::class.java, Side.CLIENT)
-        PacketHandler.register(SetToolbeltItemServer::class.java, Side.SERVER)
-        PacketHandler.register(SetPositionMessage::class.java, Side.SERVER)
-        PacketHandler.register(TargetPositionPacket::class.java, Side.CLIENT)
         PROXY.pre(event)
     }
 

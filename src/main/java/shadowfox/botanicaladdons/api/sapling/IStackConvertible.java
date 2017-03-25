@@ -11,6 +11,6 @@ import javax.annotation.Nullable;
  *         Created at 3:45 PM on 5/28/16.
  */
 public interface IStackConvertible {
-    @Nullable
+    @Nonnull
     ItemStack itemStackFromState(@Nonnull IBlockState state);
 }

@@ -37,7 +37,7 @@ class BlockSealSapling(name: String) : BlockModSapling(name), ISealingBlock, ILe
         defaultSaplingBehavior(worldIn, pos, state, rand, ModBlocks.sealLog, ModBlocks.sealLeaves)
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sealTree
     }
 }

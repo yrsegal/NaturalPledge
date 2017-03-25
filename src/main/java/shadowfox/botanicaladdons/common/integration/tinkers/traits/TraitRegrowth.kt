@@ -11,7 +11,7 @@
 //
 //class TraitRegrowth : AbstractTrait("regrowth", TinkersIntegration.LIVINGWOOD_COLOR) {
 //
-//    override fun onUpdate(tool: ItemStack?, world: World?, entity: Entity?, itemSlot: Int, isSelected: Boolean) {
+//    override fun onUpdate(tool: ItemStack, world: World?, entity: Entity?, itemSlot: Int, isSelected: Boolean) {
 //        val chance = 30
 //        if (!world!!.isRemote && entity is EntityLivingBase && Modifier.random.nextInt(20 * chance) == 0) {
 //            ToolHelper.healTool(tool, 1, entity as EntityLivingBase?)

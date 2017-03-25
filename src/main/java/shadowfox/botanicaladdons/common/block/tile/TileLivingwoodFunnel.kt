@@ -46,7 +46,7 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
         return if (this.hasCustomName()) TextComponentString(this.name) else TextComponentTranslation(this.name)
     }
 
-    override fun removeStackFromSlot(index: Int): ItemStack? {
+    override fun removeStackFromSlot(index: Int): ItemStack {
         return ItemStackHelper.getAndRemove(this.inventory, index)
     }
 
@@ -88,7 +88,7 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
                     if (transferCooldown <= 0 && BlockFunnel.getActiveStateFromMetadata(blockMetadata)) {
                         var flag = false
 
-                        if (!isEmpty()) {
+                        if (!isEmpty) {
                             flag = pushToAttachedInventory()
                         }
 
@@ -140,13 +140,13 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
             if (inventoryEmpty(iinventory, EnumFacing.DOWN)) return false
 
             if (iinventory is ISidedInventory) {
-                for (slot in iinventory.getSlotsForFace(EnumFacing.DOWN)) {
-                    if (pullItemIn(funnel, iinventory, slot, EnumFacing.DOWN)) return true
-                }
+                iinventory.getSlotsForFace(EnumFacing.DOWN)
+                        .filter { pullItemIn(funnel, iinventory, it, EnumFacing.DOWN) }
+                        .forEach { return true }
             } else {
-                for (slot in 0..iinventory.sizeInventory - 1) {
-                    if (pullItemIn(funnel, iinventory, slot, EnumFacing.DOWN)) return true
-                }
+                (0..iinventory.sizeInventory - 1)
+                        .filter { pullItemIn(funnel, iinventory, it, EnumFacing.DOWN) }
+                        .forEach { return true }
             }
         } else {
             val entityitem = entitiesOnFunnel(funnel.world, funnel.xPos, funnel.yPos + 1.0, funnel.zPos)
@@ -169,53 +169,35 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
         val aitemstack = inventory
         val i = aitemstack.size
 
-        for (j in 0..i - 1) {
-            val itemstack = aitemstack[j]
-
-            if (itemstack.isEmpty || itemstack.count != itemstack.maxStackSize) {
-                return false
-            }
-        }
-
-        return true
+        return (0..i - 1)
+                .map { aitemstack[it] }
+                .none { it.isEmpty || it.count != it.maxStackSize }
     }
 
     override fun isEmpty(): Boolean {
         val aitemstack = inventory
         val i = aitemstack.size
 
-        for (j in 0..i - 1) {
-            val itemstack = aitemstack[j]
-
-            if (!itemstack.isEmpty) {
-                return false
-            }
-        }
-
-        return true
+        return (0..i - 1)
+                .map { aitemstack[it] }
+                .any { it.isEmpty }
     }
 
     private fun isFull(inventory: IInventory, side: EnumFacing): Boolean {
         if (inventory is ISidedInventory) {
             val aint = inventory.getSlotsForFace(side)
 
-            for (l in aint.indices) {
-                val itemstack1 = inventory.getStackInSlot(aint[l])
-
-                if (itemstack1 == null || itemstack1.count != itemstack1.maxStackSize) {
-                    return false
-                }
-            }
+            aint.indices
+                    .map { inventory.getStackInSlot(aint[it]) }
+                    .filter { it == null || it.count != it.maxStackSize }
+                    .forEach { return false }
         } else {
             val j = inventory.sizeInventory
 
-            for (k in 0..j - 1) {
-                val itemstack = inventory.getStackInSlot(k)
-
-                if (itemstack == null || itemstack.count != itemstack.maxStackSize) {
-                    return false
-                }
-            }
+            (0..j - 1)
+                    .map { inventory.getStackInSlot(it) }
+                    .filter { it == null || it.count != it.maxStackSize }
+                    .forEach { return false }
         }
 
         return true
@@ -229,23 +211,15 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
     }
 
     private fun isFull(itemHandler: IItemHandler): Boolean {
-        for (slot in 0..itemHandler.slots - 1) {
-            val stackInSlot = itemHandler.getStackInSlot(slot)
-            if (stackInSlot.isEmpty || stackInSlot.count != stackInSlot.maxStackSize) {
-                return false
-            }
-        }
-        return true
+        return (0..itemHandler.slots - 1)
+                .map { itemHandler.getStackInSlot(it) }
+                .none { it.isEmpty || it.count != it.maxStackSize }
     }
 
     private fun isEmpty(itemHandler: IItemHandler): Boolean {
-        for (slot in 0..itemHandler.slots - 1) {
-            val stackInSlot = itemHandler.getStackInSlot(slot)
-            if (stackInSlot.count > 0) {
-                return false
-            }
-        }
-        return true
+        return (0..itemHandler.slots - 1)
+                .map { itemHandler.getStackInSlot(it) }
+                .none { it.count > 0 }
     }
 
     private fun insertStack(source: TileEntity, destination: Any, destInventory: IItemHandler, stack: ItemStack, slot: Int): ItemStack {
@@ -338,10 +312,10 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
                     return false
                 } else {
                     for (i in 0..this.sizeInventory - 1) {
-                        if (this.getStackInSlot(i) != null) {
+                        if (!this.getStackInSlot(i).isEmpty) {
                             val itemstack = this.getStackInSlot(i).copy()
                             val itemstack1 = iinventory.addItemToSide(this.decrStackSize(i, 1), enumfacing)
-                            if (itemstack1 == null || itemstack1.count == 0) {
+                            if (itemstack1.isEmpty || itemstack1.count == 0) {
                                 iinventory.markDirty()
                                 return true
                             }
@@ -358,10 +332,10 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
 
     private fun getFacingInventory(): IInventory? {
         val i = BlockFunnel.getFacing(blockMetadata)
-        return getInventoryAt(world, (xPos + i.frontOffsetX.toDouble()), (yPos + i.frontOffsetY).toDouble(), (zPos + i.frontOffsetZ).toDouble())
+        return getInventoryAt(world, (xPos + i.frontOffsetX), (yPos + i.frontOffsetY), (zPos + i.frontOffsetZ))
     }
 
-    fun IInventory.addItemToSide(item: ItemStack?, side: EnumFacing?): ItemStack? {
+    fun IInventory.addItemToSide(item: ItemStack, side: EnumFacing?): ItemStack {
         var stack = item
         if (inventory is ISidedInventory && side != null) {
             val aint = (this as ISidedInventory).getSlotsForFace(side)
@@ -381,10 +355,6 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
             }
         }
 
-        if (stack != null && stack.count == 0) {
-            stack = null
-        }
-
         return stack
     }
 
@@ -393,18 +363,18 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
     }
 
 
-    private fun pushToInventory(inventory: IInventory, item: ItemStack?, slot: Int, side: EnumFacing?): ItemStack? {
+    private fun pushToInventory(inventory: IInventory, item: ItemStack, slot: Int, side: EnumFacing?): ItemStack {
         var stack = item
         val itemstack1 = inventory.getStackInSlot(slot)
 
-        if (stack != null && canInsertItem(inventory, stack, slot, side)) {
+        if (!stack.isEmpty && canInsertItem(inventory, stack, slot, side)) {
             var flag = false
 
             if (itemstack1 == null) {
                 val max = Math.min(stack.maxStackSize, inventory.inventoryStackLimit)
                 if (max >= stack.count) {
                     inventory.setInventorySlotContents(slot, stack)
-                    stack = null
+                    stack = ItemStack.EMPTY
                 } else {
                     inventory.setInventorySlotContents(slot, stack.splitStack(max))
                 }
@@ -446,7 +416,7 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
             if (itemstack.itemInFrames()) {
                 val itemstack1 = inventory.addItemToSide(itemstack, null)
 
-                if (itemstack1 != null && itemstack1.count != 0) {
+                if (!itemstack1.isEmpty && itemstack1.count != 0) {
                     item.setEntityItemStack(itemstack1)
                 } else {
                     flag = true
@@ -472,7 +442,7 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
                 val itemstack1 = itemstack.copy()
                 val itemstack2 = hopper.addItemToSide(inventory.decrStackSize(slot, 1), null)
 
-                if (itemstack2 == null || itemstack2.count == 0) {
+                if (itemstack2.isEmpty || itemstack2.count == 0) {
                     inventory.markDirty()
                     return true
                 }
@@ -486,21 +456,18 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
 
     private fun ItemStack.itemInFrames(): Boolean {
         val frameItems: MutableList<ItemStack> = arrayListOf()
-        for (i in EnumFacing.HORIZONTALS) {
-            val var21 = AxisAlignedBB((xPos + i.frontOffsetX).toDouble(), (yPos + i.frontOffsetY).toDouble(), (zPos + i.frontOffsetZ).toDouble(), (xPos + i.frontOffsetX + 1).toDouble(), (yPos + i.frontOffsetY + 1).toDouble(), (zPos + i.frontOffsetZ + 1).toDouble())
-            val frames = world.getEntitiesWithinAABB(EntityItemFrame::class.java, var21)
-            for (frame in frames) {
-                if (frame is EntityItemFrame)
-                    if (frame.displayedItem != null)
-                        frameItems.add(frame.displayedItem!!)
-            }
-        }
+        EnumFacing.HORIZONTALS
+                .map { AxisAlignedBB((xPos + it.frontOffsetX), (yPos + it.frontOffsetY), (zPos + it.frontOffsetZ),
+                        (xPos + it.frontOffsetX + 1), (yPos + it.frontOffsetY + 1), (zPos + it.frontOffsetZ + 1)) }
+                .map { world.getEntitiesWithinAABB(EntityItemFrame::class.java, it) }
+                .forEach { frames ->
+                    frames
+                            .filter { it is EntityItemFrame && it.displayedItem != null }
+                            .mapTo(frameItems) { it.displayedItem!! }
+                }
         if (frameItems.isEmpty()) return true
-        for (i in frameItems) {
-            if (this.item === i.item && this.itemDamage == i.itemDamage) return true
-        }
 
-        return false
+        return frameItems.any { this.item === it.item && this.itemDamage == it.itemDamage }
     }
 
     private fun canPullItem(inventory: IInventory, stack: ItemStack, slot: Int, side: EnumFacing): Boolean {
@@ -522,33 +489,33 @@ class TileLivingwoodFunnel : TileModTickable(), IHopper {
     }
 
 
-    override fun decrStackSize(slot: Int, par2: Int): ItemStack? {
+    override fun decrStackSize(slot: Int, par2: Int): ItemStack {
         if (!inventory[slot].isEmpty) {
 
             val itemstack: ItemStack
 
-            if (inventory[slot]!!.count <= par2) {
-                itemstack = inventory[slot]!!
-                inventory[slot] = null
+            if (inventory[slot].count <= par2) {
+                itemstack = inventory[slot]
+                inventory[slot] = ItemStack.EMPTY
                 markDirty()
                 return itemstack
             } else {
-                itemstack = inventory[slot]!!.splitStack(par2)
-                if (inventory[slot]!!.count == 0) {
-                    inventory[slot] = null
+                itemstack = inventory[slot].splitStack(par2)
+                if (inventory[slot].count == 0) {
+                    inventory[slot] = ItemStack.EMPTY
                 }
 
                 this.markDirty()
                 return itemstack
             }
         } else {
-            return null
+            return ItemStack.EMPTY
         }
     }
 
     override fun setInventorySlotContents(par1: Int, par2ItemStack: ItemStack) {
         inventory[par1] = par2ItemStack
-        if (par2ItemStack != null && par2ItemStack.count > inventoryStackLimit) {
+        if (!par2ItemStack.isEmpty && par2ItemStack.count > inventoryStackLimit) {
             par2ItemStack.count = inventoryStackLimit
         }
 

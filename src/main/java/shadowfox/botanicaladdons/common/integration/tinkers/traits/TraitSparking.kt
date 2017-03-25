@@ -17,7 +17,7 @@
 // * Created at 5:05 PM on 6/25/16.
 // */
 //class TraitSparking : AbstractTrait("sparking", TinkersIntegration.THUNDERSTEEL_COLOR) {
-//    override fun onHit(tool: ItemStack?, player: EntityLivingBase, target: EntityLivingBase, damage: Float, isCritical: Boolean) {
+//    override fun onHit(tool: ItemStack, player: EntityLivingBase, target: EntityLivingBase, damage: Float, isCritical: Boolean) {
 //        var stricken: EntityLivingBase? = null
 //        if (Math.random() < 0.25f)
 //            stricken = target

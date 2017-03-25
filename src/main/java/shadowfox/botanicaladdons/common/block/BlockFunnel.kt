@@ -87,17 +87,6 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         return TileLivingwoodFunnel()
     }
 
-    override fun onBlockPlacedBy(worldIn: World?, pos: BlockPos?, state: IBlockState?, placer: EntityLivingBase?, stack: ItemStack?) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack)
-        if (stack!!.hasDisplayName()) {
-            val tileentity = worldIn!!.getTileEntity(pos)
-            if (tileentity is TileEntityHopper) {
-                tileentity.setCustomName(stack.displayName)
-            }
-        }
-
-    }
-
     override fun isFullyOpaque(state: IBlockState): Boolean {
         return true
     }
@@ -183,7 +172,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         return BlockStateContainer(this, FACING, ENABLED)
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.funnel
     }
 

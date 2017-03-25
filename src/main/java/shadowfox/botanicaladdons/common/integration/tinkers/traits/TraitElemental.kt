@@ -28,20 +28,20 @@
 //        return out
 //    }
 //
-//    override fun knockBack(tool: ItemStack?, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, knockback: Float, newKnockback: Float, isCritical: Boolean): Float {
+//    override fun knockBack(tool: ItemStack, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, knockback: Float, newKnockback: Float, isCritical: Boolean): Float {
 //        return if (getEnvironment(player).contains(EnumEnvironmentType.AIR)) newKnockback * 1.5f else newKnockback
 //    }
 //
-//    override fun miningSpeed(tool: ItemStack?, event: PlayerEvent.BreakSpeed?) {
+//    override fun miningSpeed(tool: ItemStack, event: PlayerEvent.BreakSpeed?) {
 //        if (getEnvironment(event!!.entityPlayer).contains(EnumEnvironmentType.EARTH))
 //            event.newSpeed = event.newSpeed * 2f
 //    }
 //
-//    override fun damage(tool: ItemStack?, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, newDamage: Float, isCritical: Boolean): Float {
+//    override fun damage(tool: ItemStack, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, newDamage: Float, isCritical: Boolean): Float {
 //        return if (getEnvironment(player).contains(EnumEnvironmentType.FIRE)) newDamage * 1.5f else newDamage
 //    }
 //
-//    override fun onHit(tool: ItemStack?, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, isCritical: Boolean) {
+//    override fun onHit(tool: ItemStack, player: EntityLivingBase, target: EntityLivingBase?, damage: Float, isCritical: Boolean) {
 //        if (getEnvironment(player).contains(EnumEnvironmentType.WATER)) {
 //            target!!.addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 40, 1))
 //        }

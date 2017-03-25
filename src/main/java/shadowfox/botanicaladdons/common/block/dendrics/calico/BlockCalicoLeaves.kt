@@ -30,7 +30,7 @@ class BlockCalicoLeaves(name: String) : BlockModLeaves(name), IExplosionDampener
         //NO-OP
     }
 
-    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry? {
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.calicoTree
     }
 }
