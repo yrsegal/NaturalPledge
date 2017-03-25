@@ -59,18 +59,14 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
         return SleepResult.OK
     }
 
-    companion object {
-        val MESSAGE_ID = 3189
-    }
-
     fun attemptSleep(player: EntityPlayer): Boolean {
         val sleepResult = player.trySleepCustom()
 
         if (!player.world.isRemote) {
             if (sleepResult == SleepResult.NOT_POSSIBLE_NOW)
-                player.sendSpamlessMessage(TextComponentTranslation("tile.bed.noSleep"), MESSAGE_ID)
+                player.sendStatusMessage(TextComponentTranslation("tile.bed.noSleep"), true)
             else if (sleepResult == SleepResult.NOT_SAFE)
-                player.sendSpamlessMessage(TextComponentTranslation("tile.bed.notSafe"), MESSAGE_ID)
+                player.sendStatusMessage(TextComponentTranslation("tile.bed.notSafe"), true)
         }
 
         return sleepResult == SleepResult.OK
