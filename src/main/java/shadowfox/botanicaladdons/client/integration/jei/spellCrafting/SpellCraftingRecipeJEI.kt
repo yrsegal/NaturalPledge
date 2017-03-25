@@ -27,9 +27,7 @@ class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
 
         val inputs = stackHelper.toItemStackList(recipe.input)
         ingredients.setInputLists(ItemStack::class.java, listOf(inputs))
-
-        val recipeOutput = recipe.output[0]
-        ingredients.setOutput(ItemStack::class.java, recipeOutput)
+        ingredients.setOutputs(ItemStack::class.java, recipe.output.toList())
     }
 
     fun getOutputsTyped(): List<ItemStack> {
