@@ -24,7 +24,7 @@ import java.util.*
  * @author WireSegal
  * Created at 7:24 AM on 4/14/16.
  */
-class PriestlyEmblemIdunn : IFaithVariant {
+object PriestlyEmblemIdunn : IFaithVariant {
 
     override fun getName(): String = "idunn"
 

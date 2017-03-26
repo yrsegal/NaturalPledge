@@ -1,7 +1,9 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
+import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.api.SpellRegistry
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
 import shadowfox.botanicaladdons.common.block.BlockStorage.Variants.THUNDERSTEEL
@@ -11,8 +13,10 @@ import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.*
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
+import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.lib.LibNames
-import vazkii.botania.common.lib.LibOreDict
+import shadowfox.botanicaladdons.common.lib.LibOreDict
+import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
 
 /**
  * @author WireSegal
@@ -21,12 +25,18 @@ import vazkii.botania.common.lib.LibOreDict
 object ModSpells {
     init {
 
-        SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, Spells.Heimdall.Iridescence)
+        val iridescence = Spells.ObjectInfusion(of(IRIDESCENCE), LibOreDict.DYES[0], ItemStack(ModItems.iridescentDye), ItemStack(ModItems.awakenedDye), 150, EnumDyeColor.byMetadata(0).mapColor.colorValue) {
+            player, _ -> player.addStat(ModAchievements.iridescence)
+        }
+        for (i in 1..16) iridescence.addEntry(LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), ItemStack(ModItems.awakenedDye, 1, i), 150, if (i == 16) BotanicalAddons.PROXY.rainbow().rgb else EnumDyeColor.byMetadata(i).mapColor.colorValue) {
+            player, _ -> player.addStat(ModAchievements.iridescence)
+        }
+        SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, iridescence)
         SpellRegistry.registerSpell(LibNames.SPELL_SPHERE, Spells.Heimdall.BifrostWave)
 
         SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot)
         SpellRegistry.registerSpell(LibNames.SPELL_IDUNN_INFUSION,
-                Spells.ObjectInfusion(of(LIFEMAKER), LibOreDict.LIVING_WOOD,
+                Spells.ObjectInfusion(of(LIFEMAKER), BotaniaOreDict.LIVING_WOOD,
                         of(LIFE_ROOT), of(LIFE_ROOT, true), 150, 0x0FF469, { player, _ -> player.addStat(ModAchievements.createLife) }))
 
         SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap)
@@ -65,5 +75,8 @@ object ModSpells {
         SpellRegistry.registerSpell(LibNames.SPELL_TRUESIGHT, Spells.Loki.Truesight)
         SpellRegistry.registerSpell(LibNames.SPELL_DISDAIN, Spells.Loki.Disdain)
         SpellRegistry.registerSpell(LibNames.SPELL_FLAME_JET, Spells.Loki.FlameJet)
+
+        SpellRegistry.registerSpell(LibNames.SPELL_SOUL_MANIFESTATION, Spells.ObjectInfusion.UltimateInfusion)
+        Spells.ObjectInfusion.allEntries.add(Spells.ObjectInfusion.ObjectInfusionEntry("netherStar", of(GOD_SOUL), of(GOD_SOUL, true), 1000, 0xD3DD85))
     }
 }

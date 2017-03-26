@@ -12,6 +12,7 @@ import shadowfox.botanicaladdons.common.items.bauble.ItemDivineCloak
 import shadowfox.botanicaladdons.common.items.bauble.ItemIronBelt
 import shadowfox.botanicaladdons.common.items.bauble.ItemSymbol
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.colored.ItemAwakenedDye
 import shadowfox.botanicaladdons.common.items.colored.ItemLightPlacer
 import shadowfox.botanicaladdons.common.items.colored.ItemManaDye
@@ -67,6 +68,8 @@ object ModItems {
     val portalStone: ItemPortalStone
     val polyStone: ItemPolyStone
 
+    val ragnarok: ItemRagnarokPendant
+
     lateinit var gaiaKiller: ItemMod
 
     init {
@@ -110,6 +113,8 @@ object ModItems {
         sleepStone = ItemSleepStone(LibNames.SLEEP_STONE)
         portalStone = ItemPortalStone(LibNames.PORTAL_STONE)
         polyStone = ItemPolyStone(LibNames.POLY_STONE)
+
+        ragnarok = ItemRagnarokPendant(LibNames.RAGNAROK_EMBLEM)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

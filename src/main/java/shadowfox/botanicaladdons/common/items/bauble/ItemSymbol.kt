@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import com.teamwizardry.librarianlib.client.core.ModelHandler
+import com.teamwizardry.librarianlib.client.structure.InWorldRender.pos
 import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.common.base.IExtraVariantHolder
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
@@ -32,7 +33,19 @@ import vazkii.botania.client.core.proxy.ClientProxy
 import vazkii.botania.client.lib.LibResources
 import vazkii.botania.client.model.ModelTinyPotato
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import net.minecraft.entity.effect.EntityLightningBolt
+import net.minecraft.entity.item.EntityItem
+import net.minecraft.init.Blocks
+import net.minecraft.item.EnumDyeColor
 import net.minecraft.util.NonNullList
+import net.minecraft.util.math.AxisAlignedBB
+import net.minecraft.util.math.BlockPos
+import shadowfox.botanicaladdons.common.block.ModBlocks
+import shadowfox.botanicaladdons.common.block.tile.TileCracklingStar
+import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
+import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
+import shadowfox.botanicaladdons.common.lib.LibOreDict
 
 /**
  * @author WireSegal
@@ -148,6 +161,94 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
             "trollking" -> setPlayer(stack, troll)
             "willie" -> setPlayer(stack, willie)
         }
+    }
+
+    fun walkPath(pos: BlockPos, world: World, max: Int, walked: Array<BlockPos> = arrayOf(pos),
+                 walkedConnections: Array<BlockPos> = arrayOf((world.getTileEntity(pos) as TileCracklingStar).blockPos!!),
+                 walkedColors: IntArray = intArrayOf((world.getTileEntity(pos) as TileCracklingStar).color))
+            : Triple<Array<BlockPos>, Array<BlockPos>, IntArray> {
+
+        if (walked.size > max) return Triple(walked, walkedConnections, walkedColors)
+        val tile = world.getTileEntity(pos)
+        if (tile is TileCracklingStar) {
+            val link = tile.blockPos ?: return Triple(walked, walkedConnections, walkedColors)
+            if (link in walked) return Triple(walked, walkedConnections, walkedColors)
+            val linked = world.getTileEntity(link)
+            if (linked is TileCracklingStar) {
+                val linkPos = linked.blockPos
+                if (linkPos != null)
+                    return walkPath(link, world, max, arrayOf(*walked, link), arrayOf(*walkedConnections, linkPos), intArrayOf(*walkedColors, linked.color))
+            }
+        }
+        return Triple(walked, walkedConnections, walkedColors)
+    }
+
+    val ORE_KEYS = arrayOf(LibOreDict.IRIS_DYE_AWAKENED, LibOreDict.AQUAMARINE_AWAKENED,
+            LibOreDict.THUNDERSTEEL_AWAKENED, LibOreDict.HEARTHSTONE_AWAKENED, LibOreDict.LIFE_ROOT_AWAKENED)
+    val AETHER = RainbowItemHelper.defaultColors[EnumDyeColor.YELLOW.metadata] * 1
+    val FIRE = RainbowItemHelper.defaultColors[EnumDyeColor.RED.metadata] * 1
+    val WATER = RainbowItemHelper.defaultColors[EnumDyeColor.BLUE.metadata] * 1
+    val EARTH = RainbowItemHelper.defaultColors[EnumDyeColor.BROWN.metadata] * 1
+    val AIR = RainbowItemHelper.defaultColors[EnumDyeColor.LIME.metadata] * 1
+    val VOID = RainbowItemHelper.defaultColors[EnumDyeColor.BLACK.metadata] * 1
+
+    fun checkItem(path: Array<BlockPos>, index: Int, world: World): EntityItem? {
+        val pos = path[index]
+        val items = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos))
+        return items.firstOrNull { Spells.Helper.checkStack(it.entityItem, ORE_KEYS[index]) }
+    }
+
+    override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
+        val world = entityItem.world
+        if (entityItem.isBurning && !world.isRemote) {
+
+            val poses = mutableListOf<BlockPos>()
+            for (pos in BlockPos.getAllInBoxMutable(entityItem.position.add(-5, -5, -5), entityItem.position.add(6, 6, 6))) {
+                val state = world.getBlockState(pos)
+                if (state.block == ModBlocks.cracklingStar) {
+                    val tile = world.getTileEntity(pos)
+                    if (tile is TileCracklingStar && tile.color == AETHER && tile.blockPos != null)
+                        poses.add(BlockPos(pos))
+                }
+            }
+            mainLoop@ for (pos in poses) {
+                val (path, connections, colors) = walkPath(pos, world, 5)
+                if (path.size != 5) continue
+                if (connections[4] != path[0]) continue
+                if (colors[0] == AETHER &&
+                        colors[1] == WATER &&
+                        colors[2] == AIR &&
+                        colors[3] == FIRE &&
+                        colors[4] == EARTH) {
+                    val items = mutableListOf<EntityItem>()
+                    for (i in path.indices)
+                        items.add(checkItem(path, i, world) ?: continue@mainLoop)
+                    for (i in items) {
+                        i.entityItem.count--
+                        if (i.entityItem.isEmpty) i.setDead()
+                    }
+
+                    entityItem.setDead()
+                    val entity = EntityItem(world, entityItem.posX, entityItem.posY + 1, entityItem.posZ, ItemStack(ModItems.ragnarok))
+                    entity.motionY = 1.0
+                    entity.setEntityInvulnerable(true)
+                    world.spawnEntity(entity)
+                    val fakeBolt = EntityLightningBolt(world, entityItem.posX, entityItem.posY, entityItem.posZ, true)
+                    world.addWeatherEffect(fakeBolt)
+
+                    if (world.getBlockState(entityItem.position) == Blocks.FIRE) world.setBlockToAir(entityItem.position)
+
+                    for (pathPoint in path) {
+                        val tile = (world.getTileEntity(pathPoint) as TileCracklingStar)
+                        tile.color = VOID
+                        tile.blockPos = null
+                        tile.markDirty()
+                    }
+                    break
+                }
+            }
+        }
+        return super.onEntityItemUpdate(entityItem)
     }
 
     override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {

@@ -1,36 +1,42 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import baubles.api.BaubleType
-import baubles.api.BaublesApi
+import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.MobEffects
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumRarity
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.util.DamageSource
+import net.minecraft.potion.PotionEffect
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
-import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
-import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.lib.capitalizeFirst
+import shadowfox.botanicaladdons.common.items.base.ItemModBauble
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_AWAKENED
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_PENDANT
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.isFaithless
+import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
@@ -41,66 +47,71 @@ import vazkii.botania.api.mana.IManaUsingItem
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })),
+class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         IManaUsingItem, IBaubleRender, IItemColorProvider, IPriestlyEmblem {
 
-    companion object {
+    companion object Ragnarok : IFaithVariant {
+        val RAGNAROK_AWAKENED = "${LibMisc.MOD_ID}:ragnarok"
 
-        val TAG_PENDANT = "pendant"
-        val TAG_AWAKENED = "awakened"
-
-        val priestVariants = arrayOf(
-                PriestlyEmblemNjord,
-                PriestlyEmblemIdunn,
-                PriestlyEmblemThor,
-                PriestlyEmblemHeimdall,
-                PriestlyEmblemLoki
-        )
-
-        init {
-            priestVariants
-                    .filter { it.hasSubscriptions() }
-                    .forEach { MinecraftForge.EVENT_BUS.register(it) }
+        fun hasAwakenedRagnarok(player: EntityPlayer): Boolean {
+            return player.entityData.getBoolean(RAGNAROK_AWAKENED)
         }
 
-        fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>? = null): ItemStack? {
-            if (isFaithless(player)) return null
+        override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
+            PriestlyEmblemHeimdall.onUpdate(stack, player)
+            PriestlyEmblemIdunn.onUpdate(stack, player)
+            PriestlyEmblemLoki.onUpdate(stack, player)
+            PriestlyEmblemNjord.onUpdate(stack, player)
+            PriestlyEmblemThor.onUpdate(stack, player)
+        }
 
-            val baubles = BaublesApi.getBaublesHandler(player)
-            val stack = baubles.getStackInSlot(0)
-            if (!stack.isEmpty && stack.item is IPriestlyEmblem) {
-                if (stack.item is ItemRagnarokPendant)
-                    return stack
-                val variantInstance = (stack.item as IPriestlyEmblem).getVariant(stack)
-                if (variant == null || (variantInstance != null && variant.isInstance(variantInstance)))
-                    return stack
+        override fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer) {
+            PriestlyEmblemHeimdall.onAwakenedUpdate(stack, player)
+            PriestlyEmblemIdunn.onAwakenedUpdate(stack, player)
+            PriestlyEmblemLoki.onAwakenedUpdate(stack, player)
+            PriestlyEmblemNjord.onAwakenedUpdate(stack, player)
+            PriestlyEmblemThor.onAwakenedUpdate(stack, player)
+        }
+
+        override fun hasSubscriptions() = true
+
+        @SubscribeEvent
+        fun onLivingAttack(e: LivingAttackEvent) {
+            val player = e.source.sourceOfDamage ?: return
+            if (player is EntityPlayer) {
+                val emblem = ItemFaithBauble.getEmblem(player, Ragnarok::class.java)
+                if (emblem != null) e.entityLiving.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 100))
             }
-            return null
         }
 
-        fun emblemOf(variant: Class<out IFaithVariant>): ItemStack {
-            return priestVariants.withIndex()
-                    .firstOrNull { variant.isInstance(it.value) }
-                    ?.let { ItemStack(ModItems.emblem, 1, it.index) } ?: ItemStack.EMPTY
+        override fun getName(): String {
+            return "ragnarok"
         }
 
-        fun isFaithless(player: EntityPlayer): Boolean {
-            return ModPotions.faithlessness.hasEffect(player)
+        override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
+            return mutableListOf(LibNames.SPELL_SOUL_MANIFESTATION, LibNames.SPELL_LEAP, LibNames.SPELL_STRENGTH, LibNames.SPELL_SPHERE, LibNames.SPELL_PROTECTION, LibNames.SPELL_TRUESIGHT)
+        }
+
+        override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
+            player.addPotionEffect(PotionEffect(MobEffects.WITHER, 200, 3))
+            player.setFire(10)
         }
     }
 
-    object FaithSource : DamageSource("${LibMisc.MOD_ID}.faith") {
-        init {
-            setDamageBypassesArmor()
-            setDamageIsAbsolute()
-            setMagicDamage()
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        val ragnarokRises = try {
+            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
+        } catch (e: IllegalStateException) {
+            false
         }
+        if (ragnarokRises)
+            super.getSubItems(itemIn, tab, subItems)
     }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { stack, tintindex ->
             val variant = getVariant(stack)
-            if (variant == null || variant.color == null)
+            if (variant.color == null)
                 0xFFFFFF
             else
                 variant.color!!.getColorFromItemstack(stack, tintindex)
@@ -131,17 +142,17 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
 
         val variant = getVariant(stack)
 
-        if (variant != null && player is EntityPlayer) {
+        if (player is EntityPlayer) {
             if (!isFaithless(player)) {
                 if (isAwakened(stack)) variant.onAwakenedUpdate(stack, player)
                 else variant.onUpdate(stack, player)
             } else if (isAwakened(stack) && player.health > 1f)
-                player.attackEntityFrom(FaithSource, Math.min(3.5f, player.health - 1f))
+                player.attackEntityFrom(ItemFaithBauble.FaithSource, Math.min(3.5f, player.health - 1f))
         }
     }
 
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
-        val variant = getVariant(stack) ?: return
+        val variant = getVariant(stack)
 
         if (render == IBaubleRender.RenderType.BODY) {
             val renderStack = stack.copy()
@@ -166,9 +177,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
         if (isAwakened(stack)) setAwakened(stack, false)
     }
 
-    override fun getVariant(stack: ItemStack): IFaithVariant? {
-        return if (priestVariants.isEmpty()) null else priestVariants[stack.itemDamage % priestVariants.size]
-    }
+    override fun getVariant(stack: ItemStack) = Ragnarok
 
     private fun checkDiscordant(stack: ItemStack): Boolean {
         return !stack.isEmpty && stack.item is IDiscordantItem && (stack.item as IDiscordantItem).isDiscordant(stack)
@@ -189,7 +198,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
-        val stack = entityItem.entityItem ?: return false
+        val stack = entityItem.entityItem
         if (isAwakened(stack)) setAwakened(stack, false)
         return false
     }
@@ -199,10 +208,10 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
-        if (variant != null && player is EntityPlayer && !player.world.isRemote) {
+        if (player is EntityPlayer && !player.world.isRemote) {
             player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
             if (isAwakened(stack))
-                player.attackEntityFrom(FaithSource, Float.MAX_VALUE)
+                player.attackEntityFrom(ItemFaithBauble.FaithSource, Float.MAX_VALUE)
             else {
                 variant.punishTheFaithless(stack, player)
                 player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
@@ -213,7 +222,7 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
 
     override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         super.addHiddenTooltip(stack, player, tooltip, advanced)
-        val variant = getVariant(stack) ?: return
+        val variant = getVariant(stack)
         variant.addToTooltip(stack, player, tooltip, advanced)
     }
 }

@@ -183,10 +183,46 @@ object Spells {
 
     class ObjectInfusion(val icon: ItemStack, oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int, transformer: ((EntityPlayer, ObjectInfusionEntry) -> Unit)? = null) : IFocusSpell {
 
+        object UltimateInfusion : IFocusSpell {
+            override fun getIconStack() = of(SOUL_MANIFESTATION)
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult? {
+                var flag = false
+                player.world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
+                allEntries.forEach { flag = processEntry(player, focus, it) || flag }
+                return if (flag) EnumActionResult.SUCCESS else EnumActionResult.FAIL
+            }
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 50
+            }
+        }
+
+        companion object {
+            val allEntries = mutableListOf<ObjectInfusionEntry>()
+
+            fun processEntry(player: EntityPlayer, focus: ItemStack, entry: ObjectInfusionEntry): Boolean {
+                if (!ManaItemHandler.requestManaExact(focus, player, entry.manaCost, false)) return false
+                val emblem = ItemFaithBauble.getEmblem(player) ?: return false
+                val flag =
+                        if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
+                            Helper.craft(player, entry.oreKey, entry.awakenedProduct, entry.color)
+                        else
+                            Helper.craft(player, entry.oreKey, entry.product, entry.color)
+                if (flag) {
+                    entry.transformer?.invoke(player, entry)
+                    ManaItemHandler.requestManaExact(focus, player, entry.manaCost, true)
+                }
+                return true
+            }
+        }
+
         val objectInfusionEntries = mutableListOf<ObjectInfusionEntry>()
 
         fun addEntry(oreKey: String, product: ItemStack, awakenedProduct: ItemStack, manaCost: Int, color: Int, transformer: ((EntityPlayer, ObjectInfusionEntry) -> Unit)? = null): ObjectInfusion {
-            objectInfusionEntries.add(ObjectInfusionEntry(oreKey, product, awakenedProduct, manaCost, color, transformer))
+            val entry = ObjectInfusionEntry(oreKey, product, awakenedProduct, manaCost, color, transformer)
+            objectInfusionEntries.add(entry)
+            allEntries.add(entry)
             return this
         }
 
@@ -197,24 +233,10 @@ object Spells {
         override fun getIconStack() = icon
 
         override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult? {
-            val flag = objectInfusionEntries.any { processEntry(player, focus, it) }
-            return if (flag) EnumActionResult.SUCCESS else EnumActionResult.FAIL
-        }
-
-        fun processEntry(player: EntityPlayer, focus: ItemStack, entry: ObjectInfusionEntry): Boolean {
-            if (!ManaItemHandler.requestManaExact(focus, player, entry.manaCost, false)) return false
+            var flag = false
             player.world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
-            val emblem = ItemFaithBauble.getEmblem(player) ?: return false
-            val flag =
-                    if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
-                        Helper.craft(player, entry.oreKey, entry.awakenedProduct, entry.color)
-                    else
-                        Helper.craft(player, entry.oreKey, entry.product, entry.color)
-            if (flag) {
-                entry.transformer?.invoke(player, entry)
-                ManaItemHandler.requestManaExact(focus, player, entry.manaCost, true)
-            }
-            return true
+            allEntries.forEach { flag = processEntry(player, focus, it) || flag }
+            return if (flag) EnumActionResult.SUCCESS else EnumActionResult.FAIL
         }
 
         override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -451,31 +473,6 @@ object Spells {
     }
 
     object Heimdall {
-        object Iridescence : IFocusSpell {
-            override fun getIconStack() = of(IRIDESCENCE)
-
-            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
-                var flag = false
-                if (!ManaItemHandler.requestManaExact(focus, player, 150, false)) return EnumActionResult.FAIL
-                player.world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 1f)
-                val emblem = ItemFaithBauble.getEmblem(player) ?: return EnumActionResult.PASS
-                val awakened = (emblem.item as IPriestlyEmblem).isAwakened(emblem)
-                for (i in LibOreDict.DYES.withIndex())
-                    flag = Helper.craft(player, i.value, ItemStack(if (awakened) ModItems.awakenedDye else ModItems.iridescentDye, 1, i.index), if (i.index == 16) BotanicalAddons.PROXY.rainbow().rgb else EnumDyeColor.byMetadata(i.index).mapColor.colorValue) || flag
-                if (flag) {
-                    player.addStat(ModAchievements.iridescence)
-                    ManaItemHandler.requestManaExact(focus, player, 150, true)
-                }
-                return EnumActionResult.SUCCESS
-            }
-
-            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
-                return 40
-            }
-        }
-
-        //////////
-
         object BifrostWave : IFocusSpell {
             override fun getIconStack() = of(BIFROST_SPHERE)
 

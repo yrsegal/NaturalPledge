@@ -28,7 +28,7 @@ import vazkii.botania.api.mana.ManaItemHandler
  * @author WireSegal
  * Created at 4:38 PM on 4/13/16.
  */
-class PriestlyEmblemNjord : IFaithVariant {
+object PriestlyEmblemNjord : IFaithVariant {
 
     override fun getName(): String = "njord"
 

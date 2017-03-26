@@ -27,7 +27,7 @@ import vazkii.botania.common.item.ModItems
  * @author WireSegal
  * Created at 9:49 AM on 4/18/16.
  */
-class PriestlyEmblemHeimdall : IFaithVariant {
+object PriestlyEmblemHeimdall : IFaithVariant {
 
     override fun getName(): String = "heimdall"
 

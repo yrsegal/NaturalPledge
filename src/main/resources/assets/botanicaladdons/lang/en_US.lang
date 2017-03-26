@@ -13,6 +13,8 @@ item.botanicaladdons:emblem_heimdall.name=Priestly Emblem: Heimdall
 item.botanicaladdons:emblem_heimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
 item.botanicaladdons:emblem_loki.name=Priestly Emblem: Loki
 item.botanicaladdons:emblem_loki.angry=You feel your heat magnify as Loki laughs...
+item.botanicaladdons:ragnarok_emblem.name=Twisted Pendant: Ragnarok
+item.botanicaladdons:ragnarok_emblem.angry=YOU DARE DEFY THE END? BURN.
 
 item.botanicaladdons:seal_arrow.name=Arrow of Ascension
 item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
@@ -59,6 +61,8 @@ item.botanicaladdons:icon_fire_infusion.name=Fire Cycle
 item.botanicaladdons:icon_truesight.name=Sigil of Truesight
 item.botanicaladdons:icon_disdain.name=Aura of Disdain
 item.botanicaladdons:icon_fire_jet.name=Inferno Jet
+
+item.botanicaladdons:icon_soul_manifestation.name=Soul Manifestation
 
 item.botanicaladdons:cloak_njord.name=Cloak of Njord
 item.botanicaladdons:cloak_idunn.name=Cloak of Idunn
@@ -259,11 +263,15 @@ misc.botanicaladdons.njord_watches=The wind seems to hold its breath as the ritu
 misc.botanicaladdons.idunn_watches=Your lifeforce seems to glow as the ritual begins...
 misc.botanicaladdons.thor_watches=The air feels charged as the ritual begins...
 misc.botanicaladdons.heimdall_watches=The world feels vibrant as the ritual begins...
+misc.botanicaladdons.loki_watches=Your blood heats up as the ritual begins...
+misc.botanicaladdons.ragnarok_watches=SHOW THE SON OF LANDS THAT GODS CAN BE SLAIN.
 
 misc.botanicaladdons.njord_smiles=All the winds of the world seem to flow out of your emblem as it awakens!
 misc.botanicaladdons.idunn_smiles=It seems like you can feel everything alive in the world as your emblem awakens!
 misc.botanicaladdons.thor_smiles=It feels like thunder is flowing through your veins as your emblem awakens!
 misc.botanicaladdons.heimdall_smiles=It feels like you can see hues within hues as your emblem awakens!
+misc.botanicaladdons.loki_smiles=It feels like your very soul is on fire as your emblem awakens!
+misc.botanicaladdons.ragnarok_smiles=WELL DONE. ONE STEP CLOSER...
 
 item.botanicaladdons:holy_symbol.name=Holy Symbol
 item.botanicaladdons:holy_symbol.potato.name=Tiny Headtato
@@ -369,6 +377,8 @@ botanicaladdons.potion.drab=Drab Vision
 botanicaladdons.potion.overcharged=Overcharged
 botanicaladdons.potion.featherweight=Featherweight
 botanicaladdons.potion.immortality=Immortality
+botanicaladdons.potion.everburn=Everburn
+botanicaladdons.potion.trap_seer=Truesight
 botanicaladdons.brew.drab=Monochromacy
 botanicaladdons.brew.immortality=Divinity's Grace
 
@@ -380,7 +390,7 @@ botanicaladdons.page.divinity_intro0=Traces of divine work are evident in this w
 botanicaladdons.page.divinity_intro1=The &1Holy Symbol&0 is the needed artifact for this connection, with what seems to be a wild storm of unrealized potential. Although crafted of simple materials, it has a ready acceptance of other magic. This is the gate to the &3Divine&0, and can be used to forge direct connections in the form of a &1Priestly Emblem&0. Wearing one will grant you more knowledge in this section.
 botanicaladdons.page.divinity_intro2=A key to the zodiac
 botanicaladdons.page.divinity_intro3=The connection the &1Priestly Emblems&0 give you are strong, but don't contain the full power you can harness. An interface to channel the power of a god on earth is required, to allow you to fully command the power you have gained. This interface is the &1Terrestrial Focus&0, a device which can cast &3Divine&0 spells.
-botanicaladdons.page.divinity_intro4=Taking a level in Wizard
+botanicaladdons.page.divinity_intro4=Taking a level in Cleric
 botanicaladdons.page.divinity_intro5=Even then, some may not wish to bind themselves to a god, but instead to fight them. By oversaturating the connection between a priest and their follower with &4Mana&0, you can fully cut it off. This can be accomplished by holding a &1Mortalstone&0, which forces &4Mana&0 into the soul of anyone around you.
 botanicaladdons.page.divinity_intro6=The Kaj's weapon
 

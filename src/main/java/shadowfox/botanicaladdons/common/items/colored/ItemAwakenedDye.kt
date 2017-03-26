@@ -1,9 +1,11 @@
 package shadowfox.botanicaladdons.common.items.colored
 
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
+import vazkii.botania.api.BotaniaAPI
 
 /**
  * @author WireSegal
@@ -13,6 +15,10 @@ class ItemAwakenedDye(name: String) : ItemRainbow(name, true) {
     @SideOnly(Side.CLIENT)
     override fun hasEffect(stack: ItemStack): Boolean {
         return true
+    }
+
+    override fun getRarity(stack: ItemStack?): EnumRarity {
+        return BotaniaAPI.rarityRelic
     }
 
     override fun mapOreDict(keys: Array<String>): ItemAwakenedDye {

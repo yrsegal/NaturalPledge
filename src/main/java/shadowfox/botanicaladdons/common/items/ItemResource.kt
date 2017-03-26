@@ -1,10 +1,15 @@
 package shadowfox.botanicaladdons.common.items
 
+import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import shadowfox.botanicaladdons.common.lib.lowercaseFirst
 import vazkii.botania.api.BotaniaAPI
@@ -15,7 +20,7 @@ import vazkii.botania.api.BotaniaAPI
  */
 class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
     enum class Variants(val awakenable: Boolean) {
-        THUNDER_STEEL, LIFE_ROOT, AQUAMARINE, THUNDERNUGGET(false), HEARTHSTONE;
+        THUNDER_STEEL, LIFE_ROOT, AQUAMARINE, THUNDERNUGGET(false), HEARTHSTONE, GOD_SOUL;
 
         constructor() : this(true)
 
@@ -57,6 +62,17 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
 
     override fun getRarity(stack: ItemStack): EnumRarity? {
         return if (variantFor(stack)?.second ?: false) BotaniaAPI.rarityRelic else EnumRarity.COMMON
+    }
+
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        val ragnarokRises = try {
+            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
+        } catch (e: IllegalStateException) {
+            false
+        }
+        variants.indices
+                .map { ItemStack(itemIn, 1, it) }
+                .filterTo(subItems) { ragnarokRises || variantFor(it)?.first != Variants.GOD_SOUL }
     }
 
     @SideOnly(Side.CLIENT)

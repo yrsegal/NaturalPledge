@@ -19,7 +19,7 @@ import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
  * @author WireSegal
  * Created at 4:38 PM on 4/13/16.
  */
-class PriestlyEmblemLoki : IFaithVariant {
+object PriestlyEmblemLoki : IFaithVariant {
 
     override fun getName(): String = "loki"
 

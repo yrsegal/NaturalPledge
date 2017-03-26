@@ -5,6 +5,7 @@ object LibNames {
     val DEV_ONLY_GAIA_SLAYER = "gaiaKiller"
 
     val PRIESTLY_EMBLEM = "priestEmblem"
+    val RAGNAROK_EMBLEM = "ragnarokEmblem"
     val HOLY_SYMBOL = "holySymbol"
     val SPELL_ICON = "spellIcon"
     val SPELL_FOCUS = "spellFocus"
@@ -51,6 +52,7 @@ object LibNames {
     val SPELL_TRUESIGHT = "truesight"
     val SPELL_DISDAIN = "auraOfDisdain"
     val SPELL_FLAME_JET = "fireJet"
+    val SPELL_SOUL_MANIFESTATION = "soulManifestation"
 
 
     val AWAKENER = "divineCore"

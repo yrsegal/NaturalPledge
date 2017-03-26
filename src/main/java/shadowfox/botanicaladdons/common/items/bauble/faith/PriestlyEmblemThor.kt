@@ -26,7 +26,7 @@ import vazkii.botania.common.core.helper.Vector3
  * @author WireSegal
  * Created at 8:09 PM on 4/14/16.
  */
-class PriestlyEmblemThor : IFaithVariant {
+object PriestlyEmblemThor : IFaithVariant {
 
     override fun getName(): String = "thor"
 

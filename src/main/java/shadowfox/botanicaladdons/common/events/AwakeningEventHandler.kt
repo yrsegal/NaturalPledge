@@ -72,7 +72,7 @@ class AwakeningEventHandler {
             val fits = fitsLocation(entity)
             if (fits) {
 
-                entity.entityData.setBoolean("divineBattle", true)
+                entity.entityData.setByte("divineBattle", 1)
 
                 val players = getPlayersAround(entity)
 
@@ -81,8 +81,11 @@ class AwakeningEventHandler {
                         val emblem = ItemFaithBauble.getEmblem(player)
                         if (emblem != null) {
                             val variant = (emblem.item as IPriestlyEmblem).getVariant(emblem)
-                            if (variant != null)
+                            if (variant != null) {
                                 player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}_watches").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
+                                if (variant.name == "ragnarok")
+                                    entity.entityData.setByte("divineBattle", 2)
+                            }
                         }
                     }
             }
@@ -95,7 +98,8 @@ class AwakeningEventHandler {
 
         if (entity is EntityDoppleganger && entity.isHardMode) {
             if (entity.entityData.hasKey("divineBattle") && entity.entityData.getBoolean("divineBattle")) {
-                e.entityLiving.heal(0.02f) // 1 heart every five seconds, making it far harder to fight the Guardian. Consider it GGIII.
+                val divineBattle = entity.entityData.getInteger("divineBattle")
+                e.entityLiving.heal(if (divineBattle == 1) 0.02f else 0.04f) // 1 heart every five seconds, making it far harder to fight the Guardian. Consider it GGIII.
                 if (entity.world.isRemote) {
                     val pos = Vector3.fromEntityCenter(entity).subtract(Vector3(0.0, 0.2, 0.0))
 
