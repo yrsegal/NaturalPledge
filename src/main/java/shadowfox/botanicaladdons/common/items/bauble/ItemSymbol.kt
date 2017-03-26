@@ -204,6 +204,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
 
             val poses = mutableListOf<BlockPos>()
             for (pos in BlockPos.getAllInBoxMutable(entityItem.position.add(-5, -5, -5), entityItem.position.add(6, 6, 6))) {
+                if (pos.distanceSq(entityItem.position) > 36) continue
                 val state = world.getBlockState(pos)
                 if (state.block == ModBlocks.cracklingStar) {
                     val tile = world.getTileEntity(pos)
