@@ -2,12 +2,16 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import baubles.api.BaubleType
 import com.teamwizardry.librarianlib.LibrarianLib
+import com.teamwizardry.librarianlib.client.util.lambdainterfs.ClientRunnable
+import com.teamwizardry.librarianlib.client.util.pulseColor
 import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
 import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -27,6 +31,8 @@ import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
@@ -42,6 +48,7 @@ import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
+import java.awt.Color
 
 /**
  * @author WireSegal
@@ -51,10 +58,28 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         IManaUsingItem, IBaubleRender, IItemColorProvider, IPriestlyEmblem {
 
     companion object Ragnarok : IFaithVariant {
-        val RAGNAROK_AWAKENED = "${LibMisc.MOD_ID}:ragnarok"
 
         fun hasAwakenedRagnarok(player: EntityPlayer): Boolean {
-            return player.entityData.getBoolean(RAGNAROK_AWAKENED)
+            var flag = false
+            var unlocked = false
+            ClientRunnable.run {
+                if (player is EntityPlayerSP) {
+                    val writer = player.statFileWriter
+                    flag = true
+                    unlocked = writer.hasAchievementUnlocked(ModAchievements.sacredFlame) &&
+                            writer.hasAchievementUnlocked(ModAchievements.sacredHorn) &&
+                            writer.hasAchievementUnlocked(ModAchievements.sacredThunder) &&
+                            writer.hasAchievementUnlocked(ModAchievements.sacredLife) &&
+                            writer.hasAchievementUnlocked(ModAchievements.sacredAqua)
+                }
+            }
+            if (flag) return unlocked
+
+            return player.hasAchievement(ModAchievements.sacredFlame) &&
+                    player.hasAchievement(ModAchievements.sacredHorn) &&
+                    player.hasAchievement(ModAchievements.sacredThunder) &&
+                    player.hasAchievement(ModAchievements.sacredLife) &&
+                    player.hasAchievement(ModAchievements.sacredAqua)
         }
 
         override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
@@ -95,6 +120,11 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
             player.addPotionEffect(PotionEffect(MobEffects.WITHER, 200, 3))
             player.setFire(10)
+        }
+
+        @SideOnly(Side.CLIENT)
+        override fun getColor(): IItemColor? {
+            return IItemColor { _, tintIndex -> if (tintIndex == 1) Color.RED.darker().pulseColor().rgb else -1 }
         }
     }
 

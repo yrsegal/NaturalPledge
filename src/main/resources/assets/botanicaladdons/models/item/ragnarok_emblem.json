@@ -1,6 +1,13 @@
 {
-	"parent": "item/generated",
+	"parent": "botanicaladdons:item/_standard_item",
 	"textures": {
-		"layer0": "botanicaladdons:items/ragnarok_emblem"
-	}
+		"layer0": "botanicaladdons:item/ragnarok_emblem",
+		"layer1": "botanicaladdons:item/ragnarok_emblem_overlay"
+	},
+	"overrides" : [{
+		"predicate": {
+			"botanicaladdons:pendant": 1
+		},
+		"model": "botanicaladdons:item/pendant_ragnarok"
+	}]
 }

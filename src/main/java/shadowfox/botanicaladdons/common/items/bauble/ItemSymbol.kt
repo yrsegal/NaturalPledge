@@ -224,20 +224,19 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
                     val items = mutableListOf<EntityItem>()
                     for (i in path.indices)
                         items.add(checkItem(path, i, world) ?: continue@mainLoop)
-                    for (i in items) {
-                        i.entityItem.count--
-                        if (i.entityItem.isEmpty) i.setDead()
-                    }
+                    for (i in items) i.setDead()
 
                     entityItem.setDead()
                     val entity = EntityItem(world, entityItem.posX, entityItem.posY + 1, entityItem.posZ, ItemStack(ModItems.ragnarok))
                     entity.motionY = 1.0
+                    entity.setDefaultPickupDelay()
                     entity.setEntityInvulnerable(true)
                     world.spawnEntity(entity)
                     val fakeBolt = EntityLightningBolt(world, entityItem.posX, entityItem.posY, entityItem.posZ, true)
                     world.addWeatherEffect(fakeBolt)
 
-                    if (world.getBlockState(entityItem.position) == Blocks.FIRE) world.setBlockToAir(entityItem.position)
+                    for (firePos in BlockPos.getAllInBoxMutable(entity.position.add(-1, -1, -1), entity.position.add(1, 1, 1)))
+                        if (world.getBlockState(firePos).block == Blocks.FIRE) world.setBlockToAir(firePos)
 
                     for (pathPoint in path) {
                         val tile = (world.getTileEntity(pathPoint) as TileCracklingStar)

@@ -41,7 +41,7 @@ object LibOreDict {
     val CIRCUIT_PLANKS = "plankCircuit"
     val CALICO_PLANKS = "plankCalico"
 
-    val HOLY_MATERIALS = arrayOf(IRIS_DYE, THUNDERSTEEL, LIFE_ROOT, AQUAMARINE)
+    val HOLY_MATERIALS = arrayOf(IRIS_DYE, THUNDERSTEEL, LIFE_ROOT, AQUAMARINE, HEARTHSTONE)
 
     val IRIS_DIRT = "irisDirt"
 }

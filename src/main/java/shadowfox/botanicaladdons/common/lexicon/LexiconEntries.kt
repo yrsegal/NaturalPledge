@@ -97,6 +97,8 @@ object LexiconEntries {
 
     val traps: LexiconEntry
 
+    val ragnarok: LexiconEntry
+
     init {
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
 
@@ -243,6 +245,9 @@ object LexiconEntries {
                 PageText("9"), PageCraftingRecipe("10", ModRecipes.recipeSandTrap),
                 PageText("11"), PageCraftingRecipe("12", ModRecipes.recipeSignalTrap),
                 PageText("13"), PageCraftingRecipe("14", ModRecipes.recipeWrathTrap))
+
+        ragnarok = EntryRagnarokKnowledge("ragnarok", divinity, ModItems.ragnarok).setKnowledgeType(topKnowledgeTier)
+        ragnarok.setLexiconPages(PageText("0"), PageText("1"))
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
 

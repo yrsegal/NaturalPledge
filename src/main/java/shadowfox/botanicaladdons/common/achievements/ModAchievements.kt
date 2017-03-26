@@ -48,7 +48,7 @@ object ModAchievements {
         sacredThunder = ModAchievement("sacredThunder", -2, 3, ModItems.mjolnir, awakening)
         sacredAqua = ModAchievement("sacredAqua", -1, 4, ModItems.sealArrow, awakening)
         sacredHorn = ModAchievement("sacredHorn", 1, 4, ModItems.fateHorn, awakening)
-        sacredFlame = ModAchievement("sacredFlame", -1, 0, Items.BLAZE_POWDER, awakening) // temp item
+        sacredFlame = ModAchievement("sacredFlame", -1, 0, ModItems.perditionFist, awakening)
 
         achievementPage = ModAchievement.producePage()
     }
