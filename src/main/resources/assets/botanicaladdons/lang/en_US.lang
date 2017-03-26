@@ -34,6 +34,8 @@ item.botanicaladdons:aquamarine_active.name=Awakened Aquamarine Shard
 item.botanicaladdons:thundernugget.name=Thundersteel Nugget
 item.botanicaladdons:hearthstone.name=Hearth Ember
 item.botanicaladdons:hearthstone_active.name=Awakened Hearth Ember
+item.botanicaladdons:god_soul.name=Divine Spirit
+item.botanicaladdons:god_soul_active.name=Awakened Divine Spirit
 
 tile.botanicaladdons:thundersteel_block.name=Block of Thundersteel
 tile.botanicaladdons:aquamarine_block.name=Aquamarine Bricks
@@ -619,7 +621,7 @@ botanicaladdons.page.ascension2=Making more (The arrow is not consumed)
 
 botanicaladdons.entry.perdition=Fist of Perdition
 botanicaladdons.tagline.perdition=A charging fireball
-botanicaladdons.page.perdition0=Now that you are fully connected to &3Loki&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Fist of Perdition&0. This fist grows more powerful the longer its use is charged, releasing a fireball at the end with all the force of the charge behind it.
+botanicaladdons.page.perdition0=Now that you are fully connected to &3Loki&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Fist of Perdition&0. This fist grows more powerful the longer its use is charged, releasing a &1Fire Charge&0 from your inventory at the end with all the force of the charge behind it.
 botanicaladdons.page.perdition1=Takes three episodes to fire
 
 

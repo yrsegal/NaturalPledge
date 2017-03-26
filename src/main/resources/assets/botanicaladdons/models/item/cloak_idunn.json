@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botanicaladdons:item/idunn_cloak"
+    "layer0": "botanicaladdons:items/idunn_cloak"
   }
 }

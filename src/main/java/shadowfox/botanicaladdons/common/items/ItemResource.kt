@@ -1,6 +1,8 @@
 package shadowfox.botanicaladdons.common.items
 
 import com.teamwizardry.librarianlib.LibrarianLib
+import com.teamwizardry.librarianlib.client.util.pulseColor
+import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
@@ -13,12 +15,13 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import shadowfox.botanicaladdons.common.lib.lowercaseFirst
 import vazkii.botania.api.BotaniaAPI
+import java.awt.Color
 
 /**
  * @author WireSegal
  * Created at 11:14 PM on 5/20/16.
  */
-class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
+class ItemResource(name: String) : ItemMod(name, *Variants.variants), IItemColorProvider {
     enum class Variants(val awakenable: Boolean) {
         THUNDER_STEEL, LIFE_ROOT, AQUAMARINE, THUNDERNUGGET(false), HEARTHSTONE, GOD_SOUL;
 
@@ -53,6 +56,13 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
 
         }
     }
+
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { stack, i ->
+            if (variantFor(stack)?.first == Variants.HEARTHSTONE && i == 1)
+                Color(0xE7E7E7).pulseColor().rgb
+            else -1
+        }
 
     companion object {
         fun of(v: Variants, active: Boolean = false, size: Int = 1): ItemStack = Variants.toStackMaker[v to (v.awakenable && active)]?.invoke(size) ?: ItemStack.EMPTY

@@ -1,8 +1,8 @@
 {
 	"parent": "botanicaladdons:item/_standard_item",
 	"textures": {
-		"layer0": "botanicaladdons:item/ragnarok_emblem",
-		"layer1": "botanicaladdons:item/ragnarok_emblem_overlay"
+		"layer0": "botanicaladdons:items/ragnarok_emblem",
+		"layer1": "botanicaladdons:items/ragnarok_emblem_overlay"
 	},
 	"overrides" : [{
 		"predicate": {

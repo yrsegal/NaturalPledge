@@ -1,7 +1,7 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/holy_symbol"
+    "layer0": "botanicaladdons:items/holy_symbol"
   },
   "overrides" : [{
     "predicate": {

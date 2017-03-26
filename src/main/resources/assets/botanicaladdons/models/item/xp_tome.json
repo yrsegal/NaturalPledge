@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "botanicaladdons:item/xp_tome"
+		"layer0": "botanicaladdons:items/xp_tome"
 	}
 }

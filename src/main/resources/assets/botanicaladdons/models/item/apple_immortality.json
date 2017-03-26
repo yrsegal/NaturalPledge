@@ -1,6 +1,6 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/apple_immortality"
+    "layer0": "botanicaladdons:items/apple_immortality"
   }
 }

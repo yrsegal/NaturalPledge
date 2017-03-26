@@ -1,7 +1,7 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/pendant_ragnarok",
-    "layer1": "botanicaladdons:item/pendant_ragnarok_overlay"
+    "layer0": "botanicaladdons:items/pendant_ragnarok",
+    "layer1": "botanicaladdons:items/pendant_ragnarok_overlay"
   }
 }

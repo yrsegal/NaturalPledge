@@ -1,6 +1,6 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/pendant_mystery"
+    "layer0": "botanicaladdons:items/pendant_mystery"
   }
 }

@@ -1,7 +1,7 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/emblem_njord"
+    "layer0": "botanicaladdons:items/emblem_njord"
   },
   "overrides" : [{
     "predicate": {

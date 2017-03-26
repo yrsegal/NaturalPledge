@@ -2,7 +2,7 @@
     "__comment": "Designed by WireSegal with BDcraft Cubik PRO 0.96 Beta - http://bdcraft.net",
     "textures": {
         "inner": "botanicaladdons:block/thundersteel_block",
-        "outer": "botanicaladdons:item/thunder_fist",
+        "outer": "botanicaladdons:items/thunder_fist",
         "manaDiamond": "botania:items/manadiamond"
     },
     "elements": [

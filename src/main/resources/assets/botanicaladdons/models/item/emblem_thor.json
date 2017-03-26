@@ -1,7 +1,7 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/emblem_thor"
+    "layer0": "botanicaladdons:items/emblem_thor"
   },
   "overrides" : [{
     "predicate": {

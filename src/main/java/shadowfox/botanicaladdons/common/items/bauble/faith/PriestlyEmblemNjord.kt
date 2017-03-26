@@ -107,18 +107,21 @@ object PriestlyEmblemNjord : IFaithVariant {
             val state = player.world.getBlockState(ray.blockPos)
             if (state.material.isLiquid) {
                 var helditem = player.heldItemMainhand
-                if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                 var result: EnumActionResult? = null
                 if (helditem != null) {
+                    if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                     result = helditem.item?.onItemUse(player, player.world,
                             ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
                             ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+                    if (player.isCreative) player.setHeldItem(EnumHand.MAIN_HAND, helditem)
                     if (result == EnumActionResult.PASS) {
                         helditem = player.heldItemOffhand
+                        if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                         if (helditem != null) {
                             result = helditem.item?.onItemUse(player, player.world,
-                                    ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
+                                    ray.blockPos, EnumHand.OFF_HAND, ray.sideHit,
                                     ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+                            if (player.isCreative) player.setHeldItem(EnumHand.OFF_HAND, helditem)
                         }
                     }
                     if (result != null && result != EnumActionResult.PASS) player.swingArm(EnumHand.MAIN_HAND)
@@ -127,8 +130,9 @@ object PriestlyEmblemNjord : IFaithVariant {
                     if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
                     if (helditem != null) {
                         result = helditem.item?.onItemUse(player, player.world,
-                                ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
+                                ray.blockPos, EnumHand.OFF_HAND, ray.sideHit,
                                 ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+                        if (player.isCreative) player.setHeldItem(EnumHand.OFF_HAND, helditem)
                     }
                     if (result != null && result != EnumActionResult.PASS) player.swingArm(EnumHand.OFF_HAND)
                 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botanicaladdons:item/njord_cloak"
+    "layer0": "botanicaladdons:items/njord_cloak"
   }
 }

@@ -1,8 +1,8 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/emblem_heimdall_string",
-    "layer1": "botanicaladdons:item/emblem_heimdall_symbol"
+    "layer0": "botanicaladdons:items/emblem_heimdall_string",
+    "layer1": "botanicaladdons:items/emblem_heimdall_symbol"
   },
   "overrides" : [{
     "predicate": {

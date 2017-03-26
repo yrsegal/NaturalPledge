@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botanicaladdons:item/gaia_killer"
+    "layer0": "botanicaladdons:items/gaia_killer"
   }
 }

@@ -1,7 +1,7 @@
 {
   "parent": "botanicaladdons:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:item/pendant_heimdall_string",
-    "layer1": "botanicaladdons:item/pendant_heimdall_symbol"
+    "layer0": "botanicaladdons:items/pendant_heimdall_string",
+    "layer1": "botanicaladdons:items/pendant_heimdall_symbol"
   }
 }

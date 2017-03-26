@@ -1,6 +1,12 @@
 {
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "botanicaladdons:items/emblem_loki"
-	}
+  "parent": "botanicaladdons:item/_standard_item",
+  "textures": {
+    "layer0": "botanicaladdons:items/emblem_loki"
+  },
+  "overrides" : [{
+    "predicate": {
+      "botanicaladdons:pendant": 1
+    },
+    "model": "botanicaladdons:item/pendant_loki"
+  }]
 }
