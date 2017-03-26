@@ -109,7 +109,7 @@ object PriestlyEmblemNjord : IFaithVariant {
                 var helditem = player.heldItemMainhand
                 var result: EnumActionResult? = null
                 if (helditem != null) {
-                    if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
+                    if (player.capabilities.isCreativeMode) helditem = helditem.copy()
                     result = helditem.item?.onItemUse(player, player.world,
                             ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
                             ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())

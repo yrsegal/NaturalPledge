@@ -94,16 +94,21 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             if (player is EntityPlayer) {
                 val baubles = BaublesApi.getBaublesHandler(player)
                 val body = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
-                if (!body.isEmpty && body.item is ItemDivineCloak && body.itemDamage == 1 && e.source.entity != null) {
-                    val look = player.lookVec.normalize()
-                    val origin = e.source.entity!!
-                    val dir = player.positionVector.subtract(origin.positionVector).normalize()
-                    val dot = look.dotProduct(dir)
-                    if (dot < inverseEpsilon) {
-                        e.isCanceled = true
-                        no = true
-                        player.attackEntityFrom(e.source, if (dot > epsilon) e.amount else 0.00005f)
-                        no = false
+                if (!body.isEmpty && body.item is ItemDivineCloak) {
+                    if (body.itemDamage == 1 && e.source.entity != null) {
+                        val look = player.lookVec.normalize()
+                        val origin = e.source.entity!!
+                        val dir = player.positionVector.subtract(origin.positionVector).normalize()
+                        val dot = look.dotProduct(dir)
+                        if (dot < inverseEpsilon) {
+                            e.isCanceled = true
+                            no = true
+                            player.attackEntityFrom(e.source, if (dot > epsilon) e.amount else 0.00005f)
+                            no = false
+                        }
+                    } else if (body.itemDamage == 4) {
+                        if (e.source.isExplosion || e.source.isFireDamage)
+                            e.isCanceled = true
                     }
                 }
             }
