@@ -94,7 +94,7 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             if (player is EntityPlayer) {
                 val baubles = BaublesApi.getBaublesHandler(player)
                 val body = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
-                if (!body.isEmpty && body.item is ItemDivineCloak) {
+                if (body.item is ItemDivineCloak) {
                     if (body.itemDamage == 1 && e.source.entity != null) {
                         val look = player.lookVec.normalize()
                         val origin = e.source.entity!!
