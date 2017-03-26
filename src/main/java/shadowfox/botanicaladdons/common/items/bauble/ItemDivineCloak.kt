@@ -87,7 +87,7 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
 
         private var no = false
 
-        @SubscribeEvent
+        @SubscribeEvent(priority = EventPriority.LOW)
         fun onDamage(e: LivingAttackEvent) {
             if (no) return
             val player = e.entityLiving
