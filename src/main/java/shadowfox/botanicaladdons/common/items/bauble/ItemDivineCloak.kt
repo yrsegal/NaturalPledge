@@ -139,18 +139,21 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
     private val cloakIdunn = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunn_cloak.png")
     private val cloakThor = ResourceLocation(LibMisc.MOD_ID, "textures/model/thor_cloak.png")
     private val cloakHeimdall = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdall_cloak.png")
+    private val cloakLoki = ResourceLocation(LibMisc.MOD_ID, "textures/model/loki_cloak.png")
 
     private val cloakNjordGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/njord_cloak_glow.png")
     private val cloakIdunnGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/idunn_cloak_glow.png")
     private val cloakThorGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/thor_cloak_glow.png")
     private val cloakHeimdallGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/heimdall_cloak_glow.png")
+    private val cloakLokiGlow = ResourceLocation(LibMisc.MOD_ID, "textures/model/loki_cloak_glow.png")
 
     fun getCloakTexture(stack: ItemStack): ResourceLocation {
         return when (stack.itemDamage) {
             0 -> cloakNjord
             1 -> cloakIdunn
             2 -> cloakThor
-            else -> cloakHeimdall
+            3 -> cloakHeimdall
+            else -> cloakLoki
         }
     }
 
@@ -159,7 +162,8 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
             0 -> cloakNjordGlow
             1 -> cloakIdunnGlow
             2 -> cloakThorGlow
-            else -> cloakHeimdallGlow
+            3 -> cloakHeimdallGlow
+            else -> cloakLokiGlow
         }
     }
 

@@ -1,5 +1,7 @@
 package shadowfox.botanicaladdons.common.block.trap
 
+import baubles.api.BaublesApi
+import baubles.api.BaubleType
 import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.client.core.JsonGenerationUtils
 import com.teamwizardry.librarianlib.client.core.ModelHandler
@@ -17,6 +19,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -25,6 +28,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.ModMaterials
+import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import vazkii.botania.common.Botania
 import java.util.*
@@ -66,6 +70,13 @@ abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPA
     override fun onEntityCollidedWithBlock(worldIn: World, pos: BlockPos, state: IBlockState, entityIn: Entity) {
         if (state.getValue(TRIPPED)) return
         if (entityIn is EntityLivingBase && !worldIn.isRemote) {
+            if (entityIn is EntityPlayer) {
+                val baubles = BaublesApi.getBaublesHandler(entityIn)
+                val stack = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
+                if (stack.item == ModItems.cloak && stack.itemDamage == 4)
+                    return
+            }
+
             worldIn.setBlockState(pos, state.withProperty(TRIPPED, true))
             worldIn.scheduleUpdate(pos, this, 20)
             trapActivation(state, worldIn, pos, entityIn)
