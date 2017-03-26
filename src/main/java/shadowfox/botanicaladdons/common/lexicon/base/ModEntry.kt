@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.lexicon.base
 
+import com.teamwizardry.librarianlib.common.util.VariantHelper
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -11,9 +12,10 @@ import vazkii.botania.api.lexicon.*
  * @author WireSegal
  * Created at 1:44 PM on 4/16/16.
  */
+@Suppress("LeakingThis")
 open class ModEntry : LexiconEntry, IAddonEntry {
-    constructor(unlocalizedName: String, category: LexiconCategory, stack: ItemStack) : super(unlocalizedName, category) {
-        if (stack != null) icon = stack
+    constructor(unlocalizedName: String, category: LexiconCategory, stack: ItemStack) : super(VariantHelper.toSnakeCase(unlocalizedName), category) {
+        if (!stack.isEmpty) icon = stack
         BotaniaAPI.addEntry(this, category)
     }
 
@@ -21,13 +23,13 @@ open class ModEntry : LexiconEntry, IAddonEntry {
 
     constructor(unlocalizedName: String, category: LexiconCategory, item: Item) : this(unlocalizedName, category, ItemStack(item))
 
-    constructor(unlocalizedName: String, category: LexiconCategory) : this(unlocalizedName, category, null as ItemStack)
+    constructor(unlocalizedName: String, category: LexiconCategory) : this(unlocalizedName, category, ItemStack.EMPTY)
 
     override fun setLexiconPages(vararg pages: LexiconPage): LexiconEntry {
         for (page in pages) {
-            page.unlocalizedName = "${LibMisc.MOD_ID}.page." + getLazyUnlocalizedName() + page.unlocalizedName
+            page.unlocalizedName = "${LibMisc.MOD_ID}.page." + getLazyUnlocalizedName() + VariantHelper.toSnakeCase(page.unlocalizedName)
             if (page is ITwoNamedPage) {
-                page.secondUnlocalizedName = "${LibMisc.MOD_ID}.page." + getLazyUnlocalizedName() + page.secondUnlocalizedName
+                page.secondUnlocalizedName = "${LibMisc.MOD_ID}.page." + getLazyUnlocalizedName() + VariantHelper.toSnakeCase(page.secondUnlocalizedName)
             }
         }
 

@@ -130,6 +130,10 @@ object ModItems {
         OreDictionary.registerOre(LibOreDict.AQUAMARINE, ItemResource.of(ItemResource.Variants.AQUAMARINE, true))
         OreDictionary.registerOre(LibOreDict.AQUAMARINE_AWAKENED, ItemResource.of(ItemResource.Variants.AQUAMARINE, true))
 
+        OreDictionary.registerOre(LibOreDict.HEARTHSTONE, ItemResource.of(ItemResource.Variants.HEARTHSTONE))
+        OreDictionary.registerOre(LibOreDict.HEARTHSTONE, ItemResource.of(ItemResource.Variants.HEARTHSTONE, true))
+        OreDictionary.registerOre(LibOreDict.HEARTHSTONE_AWAKENED, ItemResource.of(ItemResource.Variants.HEARTHSTONE, true))
+
         OreDictionary.registerOre("coal", Items.COAL)
         OreDictionary.registerOre("coal", ItemStack(Items.COAL, 1, 1))
     }

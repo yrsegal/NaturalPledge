@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
+import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.BlockAwakenerCore
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
@@ -35,11 +36,13 @@ object LexiconEntries {
     val idunn: LexiconEntry
     val thor: LexiconEntry
     val heimdall: LexiconEntry
+    val loki: LexiconEntry
 
     val njordSpells: LexiconEntry
     val idunnSpells: LexiconEntry
     val thorSpells: LexiconEntry
     val heimdallSpells: LexiconEntry
+    val lokiSpells: LexiconEntry
 
     val drabBrew: LexiconEntry
 
@@ -80,6 +83,7 @@ object LexiconEntries {
     val garbIdunn: LexiconEntry
     val garbThor: LexiconEntry
     val garbHeimdall: LexiconEntry
+    val garbLoki: LexiconEntry
 
     val xpTome: LexiconEntry
 
@@ -90,8 +94,22 @@ object LexiconEntries {
     val netherStone: LexiconEntry
     val polyStone: LexiconEntry
 
+    val traps: LexiconEntry
+
     init {
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
+
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = ModAchievements.createAqua
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = ModAchievements.createLife
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = ModAchievements.createThunder
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = ModAchievements.iridescence
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = ModAchievements.createFire
+
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = ModAchievements.sacredAqua
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = ModAchievements.sacredLife
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = ModAchievements.sacredThunder
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = ModAchievements.sacredHorn
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = ModAchievements.sacredFlame
 
         divinity = ModCategory("divinity", 1)
 
@@ -108,6 +126,8 @@ object LexiconEntries {
         thor.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThorEmblem))
         heimdall = ModEntry("heimdall", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemHeimdall::class.java)).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallEmblem))
+        loki = ModEntry("loki", divinity, ItemFaithBauble.emblemOf(PriestlyEmblemLoki::class.java))
+        loki.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeLokiEmblem))
 
         njordSpells = EntryPriestlyKnowledge("njordSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.INTERDICT), PriestlyEmblemNjord::class.java)
         njordSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"), PageText("3"), PageCraftingRecipe("4", ModRecipes.recipeAquaBricks), PageCraftingRecipe("5", ModRecipes.recipeAquaDeconversion), PageCraftingRecipe("6", ModRecipes.recipeAquaGlass), PageCraftingRecipe("7", ModRecipes.recipeAquaPane))
@@ -117,6 +137,8 @@ object LexiconEntries {
         thorSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"), PageText("3"), PageText("4"), PageCraftingRecipe("5", ModRecipes.recipeThunderBlock), PageCraftingRecipe("6", ModRecipes.recipeThunderDeconversion))
         heimdallSpells = EntryPriestlyKnowledge("heimdallSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.IRIDESCENCE), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         heimdallSpells.setLexiconPages(PageText("0"), PageText("1"))
+        lokiSpells = EntryPriestlyKnowledge("lokiSpells", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.FIRE_INFUSION), PriestlyEmblemLoki::class.java)
+        lokiSpells.setLexiconPages(PageText("0"), PageText("1"), PageText("2"), PageText("3"))
 
         garbNjord = EntryPriestlyKnowledge("garbNjord", divinity, ItemStack(ModItems.cloak, 1, 0), PriestlyEmblemNjord::class.java)
         garbNjord.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeNjordCloak))
@@ -126,6 +148,8 @@ object LexiconEntries {
         garbThor.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeThorCloak))
         garbHeimdall = EntryPriestlyKnowledge("garbHeimdall", divinity, ItemStack(ModItems.cloak, 1, 3), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         garbHeimdall.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeHeimdallCloak))
+        garbLoki = EntryPriestlyKnowledge("garbLoki", divinity, ItemStack(ModItems.cloak, 1, 4), PriestlyEmblemLoki::class.java)
+        garbLoki.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeLokiCloak))
 
         drabBrew = EntryPriestlyKnowledge("drabBrew", divinity, ItemStack(ModItems.iridescentDye, 1, EnumDyeColor.GRAY.metadata), PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         drabBrew.setLexiconPages(PageBrew(ModRecipes.drabBrew, "0a", "0b"))
@@ -206,6 +230,16 @@ object LexiconEntries {
 
         polyStone = EntryPriestlyKnowledge("polyStone", divinity, ModItems.polyStone, PriestlyEmblemHeimdall::class.java).setKnowledgeType(BotaniaAPI.elvenKnowledge)
         polyStone.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipePolyStone))
+
+        traps = EntryPriestlyKnowledge("traps", divinity, ModBlocks.disorientTrap, PriestlyEmblemLoki::class.java)
+        traps.setLexiconPages(PageText("0"),
+                PageText("1"), PageCraftingRecipe("2", ModRecipes.recipeDisorientationTrap),
+                PageText("3"), PageCraftingRecipe("4", ModRecipes.recipeInfernoTrap),
+                PageText("5"), PageCraftingRecipe("6", ModRecipes.recipeLaunchTrap),
+                PageText("7"), PageCraftingRecipe("8", ModRecipes.recipeRootTrap),
+                PageText("9"), PageCraftingRecipe("10", ModRecipes.recipeSandTrap),
+                PageText("11"), PageCraftingRecipe("12", ModRecipes.recipeSignalTrap),
+                PageText("13"), PageCraftingRecipe("14", ModRecipes.recipeWrathTrap))
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
 

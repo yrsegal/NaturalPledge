@@ -4,6 +4,7 @@ import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.stats.Achievement
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.lexicon.LexiconCategory
@@ -14,12 +15,20 @@ import vazkii.botania.api.lexicon.LexiconCategory
  */
 class EntryPriestlyKnowledge(unlocName: String, category: LexiconCategory, icon: ItemStack, val pendant: Class<out IFaithVariant>? = null) : ModEntry(unlocName, category, icon) {
 
+    companion object {
+        val ACHIEVEMENT_MAP = mutableMapOf<Class<out IFaithVariant>, Achievement>()
+    }
+
     constructor(unlocalizedName: String, category: LexiconCategory, block: Block, pendant: Class<out IFaithVariant>? = null) : this(unlocalizedName, category, ItemStack(block), pendant)
 
     constructor(unlocalizedName: String, category: LexiconCategory, item: Item, pendant: Class<out IFaithVariant>? = null) : this(unlocalizedName, category, ItemStack(item), pendant)
 
     override fun isVisible(): Boolean {
         val entityPlayer = Minecraft.getMinecraft().player
-        return entityPlayer.isCreative || ItemFaithBauble.getEmblem(entityPlayer, pendant) != null
+        val ach = if (pendant == null)
+            ACHIEVEMENT_MAP.any { entityPlayer.hasAchievement(it.value) }
+        else
+            ACHIEVEMENT_MAP[pendant]?.let { entityPlayer.hasAchievement(it) } ?: false
+        return ach || entityPlayer.isCreative || ItemFaithBauble.getEmblem(entityPlayer, pendant) != null
     }
 }

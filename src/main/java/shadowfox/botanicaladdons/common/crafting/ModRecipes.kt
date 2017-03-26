@@ -47,6 +47,7 @@ object ModRecipes {
     val recipeIdunnEmblem: IRecipe
     val recipeThorEmblem: IRecipe
     val recipeHeimdallEmblem: IRecipe
+    val recipeLokiEmblem: IRecipe
 
     val recipesDivineCore: Array<IRecipe>
 
@@ -119,6 +120,7 @@ object ModRecipes {
     val recipeIdunnCloak: IRecipe
     val recipeThorCloak: IRecipe
     val recipeHeimdallCloak: IRecipe
+    val recipeLokiCloak: IRecipe
 
     val recipeIronBelt: IRecipe
 
@@ -131,6 +133,14 @@ object ModRecipes {
     val recipeSleepStone: IRecipe
     val recipeNetherStone: IRecipe
     val recipePolyStone: IRecipe
+
+    val recipeDisorientationTrap: IRecipe
+    val recipeInfernoTrap: IRecipe
+    val recipeLaunchTrap: IRecipe
+    val recipeRootTrap: IRecipe
+    val recipeSandTrap: IRecipe
+    val recipeSignalTrap: IRecipe
+    val recipeWrathTrap: IRecipe
 
     init {
 
@@ -188,6 +198,16 @@ object ModRecipes {
                 'S', "holySymbol",
                 'F', BotaniaOreDict.RUNE[1], // Fire
                 'B', BotaniaItems.pixieRing)
+
+        recipeLokiEmblem = addOreDictRecipe(ItemFaithBauble.emblemOf(PriestlyEmblemLoki::class.java),
+                " G ",
+                "PSF",
+                " B ",
+                'G', "powderBlaze",
+                'P', BotaniaOreDict.RUNE[15], // Pride
+                'S', "holySymbol",
+                'F', BotaniaOreDict.RUNE[13], // Wrath
+                'B', BotaniaItems.lavaPendant)
 
         recipesDivineCore = Array(LibOreDict.HOLY_MATERIALS.size) {
             addOreDictRecipe(ModBlocks.awakenerCore,
@@ -489,6 +509,14 @@ object ModRecipes {
                 'M', Items.CHORUS_FRUIT,
                 'S', LibOreDict.IRIS_DYE)
 
+        recipeLokiCloak = addOreDictRecipe(ItemStack(ModItems.cloak, 1, 4),
+                "CCC",
+                "MCM",
+                "MSM",
+                'C', ItemStack(Blocks.WOOL, 1, EnumDyeColor.BLACK.metadata),
+                'M', Items.BLAZE_POWDER,
+                'S', LibOreDict.HEARTHSTONE)
+
         recipeIronBelt = addOreDictRecipe(ModItems.ironBelt,
                 "WI ",
                 "I I",
@@ -553,6 +581,57 @@ object ModRecipes {
                 'A', BotaniaItems.manasteelAxe,
                 'H', BotaniaItems.manasteelShears)
 
+        recipeDisorientationTrap = addOreDictRecipe(ModBlocks.disorientTrap,
+                "DHH",
+                "DPD",
+                "HHD",
+                'H', LibOreDict.HEARTHSTONE,
+                'D', "gunpowder",
+                'P', BotaniaItems.phantomInk)
+
+        recipeInfernoTrap = addOreDictRecipe(ItemStack(ModBlocks.infernoTrap, 16),
+                "BPB",
+                "HHH",
+                'H', LibOreDict.HEARTHSTONE,
+                'B', "powderBlaze",
+                'P', BotaniaItems.phantomInk)
+
+        recipeLaunchTrap = addOreDictRecipe(ItemStack(ModBlocks.launchTrap),
+                "SPS",
+                "HHH",
+                'H', LibOreDict.HEARTHSTONE,
+                'S', "slimeball",
+                'P', BotaniaItems.phantomInk)
+
+        recipeRootTrap = addOreDictRecipe(ItemStack(ModBlocks.rootTrap, 16),
+                "LPL",
+                "HHH",
+                'H', LibOreDict.HEARTHSTONE,
+                'L', BotaniaOreDict.LIVINGWOOD_TWIG,
+                'P', BotaniaItems.phantomInk)
+
+        recipeSandTrap = addOreDictRecipe(ItemStack(ModBlocks.sandTrap, 16),
+                "S S",
+                "SPS",
+                "HHH",
+                'H', LibOreDict.HEARTHSTONE,
+                'S', "sand",
+                'P', BotaniaItems.phantomInk)
+
+        recipeSignalTrap = addOreDictRecipe(ItemStack(ModBlocks.signalTrap),
+                "RPR",
+                "HHH",
+                'H', LibOreDict.HEARTHSTONE,
+                'R', "dustRedstone",
+                'P', BotaniaItems.phantomInk)
+
+        recipeWrathTrap = addOreDictRecipe(ItemStack(ModBlocks.wrathTrap, 16),
+                " M ",
+                "HPH",
+                " H ",
+                'H', LibOreDict.HEARTHSTONE,
+                'M', ModItems.mortalStone,
+                'P', BotaniaItems.phantomInk)
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {
@@ -573,6 +652,10 @@ object ModRecipes {
         spell = SpellRegistry.getSpell(LibNames.SPELL_RAINBOW)
         if (spell != null)
             for (i in LibOreDict.DYES.withIndex()) SpellRegistry.registerSpellRecipe(i.value, spell, ItemStack(ModItems.iridescentDye, 1, i.index), ItemStack(ModItems.awakenedDye, 1, i.index))
+
+        spell = SpellRegistry.getSpell(LibNames.SPELL_LOKI_INFUSION)
+        if (spell != null)
+            SpellRegistry.registerSpellRecipe("coal", spell, of(HEARTHSTONE), of(HEARTHSTONE, true))
 
 
         SaplingVariantRegistry.registerRecipe(ItemStack(ModBlocks.sealSapling), ItemStack.EMPTY, ItemStack(ModBlocks.sealLog), ItemStack(ModBlocks.sealLeaves))

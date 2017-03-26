@@ -20,6 +20,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -29,7 +30,10 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.block.ModMaterials
 import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
 import shadowfox.botanicaladdons.common.potions.ModPotions
+import vazkii.botania.api.lexicon.ILexiconable
+import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.common.Botania
 import java.util.*
 
@@ -37,7 +41,7 @@ import java.util.*
  * @author WireSegal
  * Created at 4:46 PM on 3/25/17.
  */
-abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT), IModelGenerator {
+abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT), IModelGenerator, ILexiconable {
     companion object {
         val TRIPPED: PropertyBool = PropertyBool.create("tripped")
 
@@ -81,6 +85,10 @@ abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPA
             worldIn.scheduleUpdate(pos, this, 20)
             trapActivation(state, worldIn, pos, entityIn)
         }
+    }
+
+    override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack?): LexiconEntry {
+        return LexiconEntries.traps
     }
 
     override fun createBlockState() = BlockStateContainer(this, TRIPPED)
