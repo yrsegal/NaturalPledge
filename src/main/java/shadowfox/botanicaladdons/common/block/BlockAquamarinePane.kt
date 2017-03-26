@@ -4,7 +4,9 @@ import com.teamwizardry.librarianlib.common.base.block.BlockModPane
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.passive.EntitySheep
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
@@ -26,6 +28,10 @@ class BlockAquamarinePane(name: String) : BlockModPane(name, true, ModBlocks.aqu
     init {
         blockHardness = 0.3F
         soundType = SoundType.GLASS
+    }
+
+    override fun getBeaconColorMultiplier(state: IBlockState?, world: World?, pos: BlockPos?, beaconPos: BlockPos?): FloatArray {
+        return floatArrayOf(0.3F, 0.45F, 0.775F)
     }
 
     override fun getLightValue(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?) = 10

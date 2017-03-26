@@ -235,8 +235,9 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
                     val fakeBolt = EntityLightningBolt(world, entityItem.posX, entityItem.posY, entityItem.posZ, true)
                     world.addWeatherEffect(fakeBolt)
 
-                    for (firePos in BlockPos.getAllInBoxMutable(entity.position.add(-1, -1, -1), entity.position.add(1, 1, 1)))
-                        if (world.getBlockState(firePos).block == Blocks.FIRE) world.setBlockToAir(firePos)
+                    BlockPos.getAllInBox(entity.position.add(-1, -1, -1), entity.position.add(1, 1, 1))
+                            .filter { world.getBlockState(it).block == Blocks.FIRE }
+                            .forEach { world.setBlockToAir(it) }
 
                     for (pathPoint in path) {
                         val tile = (world.getTileEntity(pathPoint) as TileCracklingStar)
