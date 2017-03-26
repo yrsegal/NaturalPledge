@@ -74,6 +74,7 @@ object LexiconEntries {
     val apple: LexiconEntry
     val ascension: LexiconEntry
     val fateHorn: LexiconEntry
+    val perdition: LexiconEntry
 
     val sapling: LexiconEntry
 
@@ -205,6 +206,8 @@ object LexiconEntries {
         ascension.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeAscensionArrow), PageCraftingRecipe("2", ModRecipes.recipeAscensionDupe))
         fateHorn = EntryAwakenedKnowledge("fateHorn", divinity, ModItems.fateHorn, PriestlyEmblemHeimdall::class.java).setKnowledgeType(topKnowledgeTier)
         fateHorn.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeFateHorn))
+        perdition = EntryAwakenedKnowledge("perdition", divinity, ModItems.perditionFist, PriestlyEmblemLoki::class.java).setKnowledgeType(topKnowledgeTier)
+        perdition.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipePerditionFist))
 
         sapling = ModEntry("sapling", BotaniaAPI.categoryMisc, ModBlocks.irisSapling)
         sapling.setLexiconPages(PageText("0"), PageCraftingRecipe("1", listOf(*ModRecipes.recipesAltPlanks)))

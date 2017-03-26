@@ -18,6 +18,7 @@ item.botanicaladdons:seal_arrow.name=Arrow of Ascension
 item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
 item.botanicaladdons:apple_immortality.name=Apple of Immortality
 item.botanicaladdons:fate_horn.name=Gjallarhorn, Horn of Fate
+item.botanicaladdons:perdition_fist.name=Fist of Perdition
 
 item.botanicaladdons:thunder_fist.name=Fist of Thunder
 item.botanicaladdons:thunder_fist.blood_jewel.name=Bloodjeweled Bracer
@@ -605,6 +606,12 @@ botanicaladdons.tagline.ascension=Arrows which remove weight
 botanicaladdons.page.ascension0=Now that you are fully connected to &3Njord&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Arrows of Ascension&0. These arrows remove the hit player's weight temporarily, causing the tiny fluctuations of the wind to push them up. While the arrow itself is not lethal, the resulting fall might be to the unprepared.
 botanicaladdons.page.ascension1=Justice rains from above
 botanicaladdons.page.ascension2=Making more (The arrow is not consumed)
+
+botanicaladdons.entry.perdition=Fist of Perdition
+botanicaladdons.tagline.perdition=A charging fireball
+botanicaladdons.page.perdition0=Now that you are fully connected to &3Loki&0, you can begin to receive his divine gifts. These gifts come in the form of the &1Fist of Perdition&0. This fist grows more powerful the longer its use is charged, releasing a fireball at the end with all the force of the charge behind it.
+botanicaladdons.page.perdition1=Takes three episodes to fire
+
 
 botanicaladdons.entry.sapling=Iridescent Sapling
 botanicaladdons.tagline.sapling=A really big carnation

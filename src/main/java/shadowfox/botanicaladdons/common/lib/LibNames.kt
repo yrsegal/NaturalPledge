@@ -31,6 +31,7 @@ object LibNames {
     val PORTAL_STONE = "portalStone"
     val SLEEP_STONE = "sleepStone"
     val POLY_STONE = "polyStone"
+    val PERDITION_FIST = "perditionFist"
 
 
     val SPELL_LEAP = "leap"

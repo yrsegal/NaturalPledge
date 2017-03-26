@@ -142,6 +142,8 @@ object ModRecipes {
     val recipeSignalTrap: IRecipe
     val recipeWrathTrap: IRecipe
 
+    val recipePerditionFist: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -632,6 +634,16 @@ object ModRecipes {
                 'H', LibOreDict.HEARTHSTONE,
                 'M', ModItems.mortalStone,
                 'P', BotaniaItems.phantomInk)
+
+        recipePerditionFist = addOreDictRecipe(ModItems.perditionFist,
+                "G F",
+                "WAC",
+                "CC ",
+                'G', Items.GHAST_TEAR,
+                'F', Items.FIRE_CHARGE,
+                'C', "blockCoal",
+                'W', BotaniaOreDict.RUNE[13], // Wrath
+                'A', LibOreDict.HEARTHSTONE_AWAKENED)
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {

@@ -15,10 +15,7 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.colored.ItemAwakenedDye
 import shadowfox.botanicaladdons.common.items.colored.ItemLightPlacer
 import shadowfox.botanicaladdons.common.items.colored.ItemManaDye
-import shadowfox.botanicaladdons.common.items.sacred.ItemFateHorn
-import shadowfox.botanicaladdons.common.items.sacred.ItemImmortalApple
-import shadowfox.botanicaladdons.common.items.sacred.ItemMjolnir
-import shadowfox.botanicaladdons.common.items.sacred.ItemSealerArrow
+import shadowfox.botanicaladdons.common.items.sacred.*
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemFoodBelt
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
 import shadowfox.botanicaladdons.common.items.travel.stones.*
@@ -51,6 +48,7 @@ object ModItems {
     val sealArrow: Item
     val apple: Item
     val fateHorn: ItemMod
+    val perditionFist: ItemMod
 
     val iridescentDye: ItemMod
     val awakenedDye: ItemMod
@@ -95,6 +93,7 @@ object ModItems {
         sealArrow = ItemSealerArrow(LibNames.SEAL_ARROW)
         apple = ItemImmortalApple(LibNames.APPLE)
         fateHorn = ItemFateHorn(LibNames.FATE_HORN)
+        perditionFist = ItemPerditionFist(LibNames.PERDITION_FIST)
 
         iridescentDye = ItemRainbow(LibNames.IRIDESCENT_DYE, true).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey("dye")
         awakenedDye = ItemAwakenedDye(LibNames.IRIDESCENT_DYE_AWAKENED).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey(LibOreDict.IRIS_DYE_AWAKENED).mapOreKey("dye")
