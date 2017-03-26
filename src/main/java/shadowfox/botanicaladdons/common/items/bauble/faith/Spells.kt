@@ -1,7 +1,9 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import com.google.common.base.Predicate
+import com.teamwizardry.librarianlib.common.network.PacketHandler
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.common.util.NBTTypes
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
@@ -9,35 +11,42 @@ import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.entity.projectile.EntityFireball
+import net.minecraft.entity.projectile.EntityLargeFireball
 import net.minecraft.init.MobEffects
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagDouble
 import net.minecraft.nbt.NBTTagInt
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.network.play.server.SPacketEntityVelocity
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.*
-import net.minecraft.util.math.AxisAlignedBB
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.RayTraceResult
+import net.minecraft.util.math.*
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fluids.IFluidBlock
+import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
+import shadowfox.botanicaladdons.common.achievements.ModAchievements.focus
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.lib.LibOreDict
+import shadowfox.botanicaladdons.common.network.FireJetMessage
+import shadowfox.botanicaladdons.common.network.FireSphereMessage
+import shadowfox.botanicaladdons.common.network.LightningJetMessage
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
+import sun.audio.AudioPlayer.player
 import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
@@ -323,6 +332,12 @@ object Spells {
 
     object Thor {
         object Lightning : IFocusSpell {
+            fun bolt(to: Vector3, player: EntityPlayer) {
+                val from = Vector3.fromEntityCenter(player)
+                PacketHandler.NETWORK.sendToAllAround(LightningJetMessage(from.toVec3D(), to.toVec3D()),
+                        NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
+            }
+
             override fun getIconStack() = of(LIGHTNING)
 
             override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
@@ -343,16 +358,16 @@ object Spells {
                         MinecraftForge.EVENT_BUS.post(event)
                         if (!event.isCanceled)
                             focused.onStruckByLightning(fakeBolt)
-                        Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(focused), 1f, 0x00948B, 0x00E4D7)
+                        bolt(Vector3.fromEntityCenter(focused), player)
                         player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                         return EnumActionResult.SUCCESS
                     }
                 } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3(cast.hitVec), 1f, 0x00948B, 0x00E4D7)
+                    bolt(Vector3(cast.hitVec), player)
                     player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
-                    Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), 1f, 0x00948B, 0x00E4D7)
+                    bolt(Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), player)
                     player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 }
@@ -546,6 +561,121 @@ object Spells {
                     player.addPotionEffect(ModPotionEffect(MobEffects.RESISTANCE, 5, 4, true, true))
                     player.addPotionEffect(ModPotionEffect(MobEffects.WEAKNESS, 5, 4, true, true))
                     player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 5, 0, true, true))
+                }
+            }
+        }
+    }
+
+    object Loki {
+        object Truesight : IFocusSpell {
+            override fun getIconStack() = of(TRUESIGHT)
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
+                return if (ManaItemHandler.requestManaExact(focus, player, 100, true)) EnumActionResult.SUCCESS else EnumActionResult.FAIL
+            }
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 400
+            }
+
+            override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
+                if (!player.world.isRemote) player.addPotionEffect(ModPotionEffect(ModPotions.trapSeer, 5, 0, true, true))
+            }
+        }
+
+        object Disdain : IFocusSpell {
+            override fun getIconStack(): ItemStack {
+                return of(DISDAIN)
+            }
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
+                return EnumActionResult.SUCCESS
+            }
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 400
+            }
+
+            override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
+                if (!player.world.isRemote && ManaItemHandler.requestManaExact(focus, player, 10, true)) {
+                    if (cooldownRemaining % 5 == 0)
+                        PacketHandler.NETWORK.sendToAllAround(FireSphereMessage(player.positionVector.addVector(0.0, 0.5, 0.0)),
+                                NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
+                    player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(5.0)) {
+                        player != it && player.positionVector.squareDistanceTo(it?.positionVector ?: Vec3d.ZERO) < 25.0
+                    }.forEach {
+                        it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 100))
+                    }
+                }
+            }
+        }
+
+        object FlameJet : IFocusSpell {
+
+            val TAG_SOURCE = "source"
+            val TAG_TARGET = "target"
+
+            fun jet(to: Vector3, player: EntityPlayer, stack: ItemStack? = null, from: Vector3 = Vector3.fromEntityCenter(player).add(0.0, 0.5, 0.0)) {
+                PacketHandler.NETWORK.sendToAllAround(FireJetMessage(from.toVec3D(), to.toVec3D()),
+                        NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
+                if (stack != null) {
+                    val pos = NBTTagList()
+                    pos.appendTag(NBTTagDouble(from.x))
+                    pos.appendTag(NBTTagDouble(from.y))
+                    pos.appendTag(NBTTagDouble(from.z))
+                    ItemNBTHelper.setList(stack, TAG_SOURCE, pos)
+
+                    val target = NBTTagList()
+                    target.appendTag(NBTTagDouble(to.x))
+                    target.appendTag(NBTTagDouble(to.y))
+                    target.appendTag(NBTTagDouble(to.z))
+                    ItemNBTHelper.setList(stack, TAG_TARGET, target)
+                }
+            }
+
+            override fun getIconStack() = of(FIRE_JET)
+
+            override fun getCooldown(player: EntityPlayer, focus: ItemStack, hand: EnumHand): Int {
+                return 60
+            }
+
+            override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
+                val cast = Helper.raycast(player, 16.0)
+                val focused = Helper.getEntityLookedAt(player, 16.0)
+
+                val emblem = ItemFaithBauble.getEmblem(player)
+
+                if (focused != null && focused is EntityLivingBase) {
+                    if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
+                        val fakeFireball = EntityLargeFireball(player.world)
+                        focused.setFire(if (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem)) 10 else 5)
+                        focused.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), if (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem)) 10f else 5f)
+                        jet(Vector3.fromEntityCenter(focused), player, focus)
+
+                        player.world.playSound(player, player.position, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1f, 1f)
+                        return EnumActionResult.SUCCESS
+                    }
+                } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
+                    jet(Vector3(cast.hitVec), player, focus)
+                    player.world.playSound(player, player.position, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1f, 1f)
+                    return EnumActionResult.SUCCESS
+                } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
+                    jet(Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), player, focus)
+                    player.world.playSound(player, player.position, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1f, 1f)
+                    return EnumActionResult.SUCCESS
+                }
+                return EnumActionResult.FAIL
+            }
+
+            override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
+                if (cooldownRemaining > 40) {
+                    val source = ItemNBTHelper.getList(focus, TAG_SOURCE, NBTTypes.DOUBLE)?.run {
+                        Vector3(getDoubleAt(0), getDoubleAt(1), getDoubleAt(2))
+                    } ?: Vector3.ZERO
+                    val target = ItemNBTHelper.getList(focus, TAG_TARGET, NBTTypes.DOUBLE)?.run {
+                        Vector3(getDoubleAt(0), getDoubleAt(1), getDoubleAt(2))
+                    } ?: Vector3.ZERO
+                    jet(target, player, from = source)
                 }
             }
         }

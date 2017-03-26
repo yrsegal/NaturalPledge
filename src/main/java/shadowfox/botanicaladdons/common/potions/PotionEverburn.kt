@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.potions
 
 import com.teamwizardry.librarianlib.common.base.PotionMod
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.DamageSource
 import shadowfox.botanicaladdons.common.lib.LibNames
 
@@ -13,7 +14,7 @@ class PotionEverburn : PotionMod(LibNames.EVERBURN, true, 0xDD581F) {
     override fun isReady(ticks: Int, amplifier: Int) = true
 
     override fun performEffect(entity: EntityLivingBase, amp: Int) {
-        if (entity.health <= 1f)
+        if (entity is EntityPlayer && entity.health <= 1f)
             entity.extinguish()
         else if (!entity.isBurning) {
             entity.attackEntityFrom(DamageSource.IN_FIRE, 1f)

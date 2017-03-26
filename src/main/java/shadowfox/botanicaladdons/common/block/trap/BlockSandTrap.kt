@@ -31,8 +31,8 @@ class BlockSandTrap : BlockBaseTrap(LibNames.SAND_TRAP) {
         for (i in 0 until 360 step 10) {
             val dist = rand.nextDouble() * 0.25 + 0.125
             val azimuth = rand.nextInt(181) - 90
-            val particleX = MathHelper.cos(i * Math.PI.toFloat() / 180) * dist + x
-            val particleZ = MathHelper.sin(i * Math.PI.toFloat() / 180) * dist + z
+            val particleX = MathHelper.cos(i * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + x
+            val particleZ = MathHelper.sin(i * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + z
             val particleY = MathHelper.sin(azimuth * Math.PI.toFloat() / 180) * dist + y
             Botania.proxy.wispFX(particleX, particleY, particleZ, R, G, B, 0.1f)
         }

@@ -1,7 +1,9 @@
 package shadowfox.botanicaladdons.common.items
 
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import net.minecraft.init.Items
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
@@ -127,5 +129,8 @@ object ModItems {
         OreDictionary.registerOre(LibOreDict.AQUAMARINE, ItemResource.of(ItemResource.Variants.AQUAMARINE))
         OreDictionary.registerOre(LibOreDict.AQUAMARINE, ItemResource.of(ItemResource.Variants.AQUAMARINE, true))
         OreDictionary.registerOre(LibOreDict.AQUAMARINE_AWAKENED, ItemResource.of(ItemResource.Variants.AQUAMARINE, true))
+
+        OreDictionary.registerOre("coal", Items.COAL)
+        OreDictionary.registerOre("coal", ItemStack(Items.COAL, 1, 1))
     }
 }

@@ -53,8 +53,8 @@ class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.
                 PriestlyEmblemNjord(),
                 PriestlyEmblemIdunn(),
                 PriestlyEmblemThor(),
-                PriestlyEmblemHeimdall()/*,
-                PriestlyEmblemLoki()*/
+                PriestlyEmblemHeimdall(),
+                PriestlyEmblemLoki()
         )
 
         init {

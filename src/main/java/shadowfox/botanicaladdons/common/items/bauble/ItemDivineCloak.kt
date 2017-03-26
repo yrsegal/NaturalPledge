@@ -41,7 +41,8 @@ class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRen
         val variants = arrayOf("cloakNjord",
                 "cloakIdunn",
                 "cloakThor",
-                "cloakHeimdall")
+                "cloakHeimdall",
+                "cloakLoki")
 
         init {
             MinecraftForge.EVENT_BUS.register(this)

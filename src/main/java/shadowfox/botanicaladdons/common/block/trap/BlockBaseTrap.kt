@@ -36,14 +36,15 @@ import java.util.*
 abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT), IModelGenerator {
     companion object {
         val TRIPPED: PropertyBool = PropertyBool.create("tripped")
+
+        val COLOR = 0xB5224B
+        val R = 0xB5 / 255f
+        val G = 0x22 / 255f
+        val B = 0x4B / 255f
     }
 
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
-    val COLOR = 0xB5224B
-    val R = 0xB5 / 255f
-    val G = 0x22 / 255f
-    val B = 0x4B / 255f
 
     init {
         soundType = SoundType.CLOTH

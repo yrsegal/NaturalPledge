@@ -19,7 +19,8 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), IItemColo
         LIGHTNING, STRENGTH, PULL,
         IRIDESCENCE(true), BIFROST_SPHERE(true),
         IRONROOT, LIFEMAKER,
-        WIND_INFUSION, LIGHTNING_INFUSION, HYPERCHARGE;
+        WIND_INFUSION, LIGHTNING_INFUSION, HYPERCHARGE,
+        FIRE_INFUSION, TRUESIGHT, DISDAIN, FIRE_JET;
 
         constructor() : this(false)
 

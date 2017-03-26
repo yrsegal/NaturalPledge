@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
-//import shadowfox.botanicaladdons.common.network.LeftClickMessage
+import com.teamwizardry.librarianlib.common.network.PacketHandler
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -10,6 +10,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
+import shadowfox.botanicaladdons.common.lib.LibNames
+import shadowfox.botanicaladdons.common.network.FireballMessage
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 
@@ -24,7 +26,7 @@ class PriestlyEmblemLoki : IFaithVariant {
     override fun hasSubscriptions(): Boolean = true
 
     override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-        return mutableListOf()
+        return mutableListOf(LibNames.SPELL_LOKI_INFUSION, LibNames.SPELL_TRUESIGHT, LibNames.SPELL_DISDAIN, LibNames.SPELL_FLAME_JET)
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
@@ -37,9 +39,8 @@ class PriestlyEmblemLoki : IFaithVariant {
 
     @SubscribeEvent
     fun leftClick(evt: PlayerInteractEvent.LeftClickEmpty) {
-        if (evt.itemStack != null && evt.itemStack?.item == Items.FIRE_CHARGE && !evt.entityPlayer.cooldownTracker.hasCooldown(Items.FIRE_CHARGE)) {
-//            BotanicalAddons.NETWORK.sendToServer(LeftClickMessage())
-        }
+        if (!evt.itemStack.isEmpty && evt.itemStack.item == Items.FIRE_CHARGE && !evt.entityPlayer.cooldownTracker.hasCooldown(Items.FIRE_CHARGE))
+            PacketHandler.NETWORK.sendToServer(FireballMessage())
     }
 
     @SubscribeEvent
@@ -49,7 +50,7 @@ class PriestlyEmblemLoki : IFaithVariant {
         val awakened = (bauble.item as IPriestlyEmblem).isAwakened(bauble)
         if (e.source.isFireDamage && (e.source != DamageSource.LAVA || awakened)) {
             e.isCanceled = true
-            e.entityLiving.heal(0.025f)
+            if (awakened) e.entityLiving.heal(0.05f)
         }
     }
 }

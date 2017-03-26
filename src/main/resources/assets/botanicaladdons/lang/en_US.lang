@@ -11,6 +11,8 @@ item.botanicaladdons:emblem_thor.name=Priestly Emblem: Thor
 item.botanicaladdons:emblem_thor.angry=You feel the skies rumbling with Thor's rage...
 item.botanicaladdons:emblem_heimdall.name=Priestly Emblem: Heimdall
 item.botanicaladdons:emblem_heimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
+item.botanicaladdons:emblem_loki.name=Priestly Emblem: Loki
+item.botanicaladdons:emblem_loki.angry=You feel your heat magnify as Loki laughs...
 
 item.botanicaladdons:seal_arrow.name=Arrow of Ascension
 item.botanicaladdons:mjolnir.name=Mjolnir the Crusher
@@ -27,6 +29,8 @@ item.botanicaladdons:life_root_active.name=Awakened Soulroot
 item.botanicaladdons:aquamarine.name=Aquamarine Shard
 item.botanicaladdons:aquamarine_active.name=Awakened Aquamarine Shard
 item.botanicaladdons:thundernugget.name=Thundersteel Nugget
+item.botanicaladdons:hearthstone.name=Hearth Ember
+item.botanicaladdons:hearthstone_active.name=Awakened Hearth Ember
 
 tile.botanicaladdons:thundersteel_block.name=Block of Thundersteel
 tile.botanicaladdons:aquamarine_block.name=Aquamarine Bricks
@@ -50,10 +54,16 @@ item.botanicaladdons:icon_bifrost_sphere.name=Wave of Bifrost
 item.botanicaladdons:icon_ironroot.name=Shield of Roots
 item.botanicaladdons:icon_lifemaker.name=Life Catalyst
 
+item.botanicaladdons:icon_fire_infusion.name=Fire Cycle
+item.botanicaladdons:icon_truesight.name=Sigil of Truesight
+item.botanicaladdons:icon_disdain.name=Aura of Disdain
+item.botanicaladdons:icon_fire_jet.name=Inferno Jet
+
 item.botanicaladdons:cloak_njord.name=Cloak of Njord
 item.botanicaladdons:cloak_idunn.name=Cloak of Idunn
 item.botanicaladdons:cloak_thor.name=Cloak of Thor
 item.botanicaladdons:cloak_heimdall.name=Cloak of Heimdall
+item.botanicaladdons:cloak_loki.name=Cloak of Loki
 
 item.botanicaladdons:iron_belt.name=Weighted Belt
 
@@ -142,6 +152,15 @@ tile.botanicaladdons:corporea_resonator.name=Corporea Resonator
 tile.botanicaladdons:actuator.name=Ender Actuator
 
 misc.botanicaladdons.actuator_bind=The Actuator screams with the song of your soul...
+
+tile.botanicaladdons:disorient_trap.name=Confusion Trap
+tile.botanicaladdons:inferno_trap.name=Inferno Trap
+tile.botanicaladdons:launch_trap.name=Acceleration Trap
+tile.botanicaladdons:root_trap.name=Immobility Trap
+tile.botanicaladdons:sand_trap.name=Visual Irritation Trap
+tile.botanicaladdons:signal_trap.name=Red Pulse Trap
+tile.botanicaladdons:wrath_trap.name=Divine Wrath Trap
+
 
 misc.botanicaladdons.color._1=&cERROR&r
 misc.botanicaladdons.color.0=White
@@ -314,30 +333,30 @@ death.attack.botanicaladdons.hammer.player=%s discovered %s had kinetic energy
 death.attack.botanicaladdons.earthquake=%s found out earthquakes hurt
 death.attack.botanicaladdons.earthquake.player=%s heard from %s that earthquakes hurt
 
-achievement.botanicaladdons:don_emblem=The New Millenium
-achievement.botanicaladdons:don_emblem.desc=Pledge your soul to a divinity
-achievement.botanicaladdons:focus=Glass of Time
-achievement.botanicaladdons:focus.desc=Channel your soul through a Terrestrial Focus
-achievement.botanicaladdons:awakening=Chaining Intention
-achievement.botanicaladdons:awakening.desc=Infuse the Divine into your Priestly Emblem
+achievement.botanicaladdons.don_emblem=The New Millenium
+achievement.botanicaladdons.don_emblem.desc=Pledge your soul to a divinity
+achievement.botanicaladdons.focus=Glass of Time
+achievement.botanicaladdons.focus.desc=Channel your soul through a Terrestrial Focus
+achievement.botanicaladdons.awakening=Chaining Intention
+achievement.botanicaladdons.awakening.desc=Infuse the Divine into your Priestly Emblem
 
-achievement.botanicaladdons:create_life=Pitch-Black Forest
-achievement.botanicaladdons:create_life.desc=Forge the essence of new life from the power of Idunn
-achievement.botanicaladdons:create_thunder=Electric Angel
-achievement.botanicaladdons:create_thunder.desc=Forge lightning into metal from the power of Thor
-achievement.botanicaladdons:create_aqua=Blue Sky Fish
-achievement.botanicaladdons:create_aqua.desc=Forge the storm into crystal from the power of Njord
-achievement.botanicaladdons:iridescence=Platinum Disco
-achievement.botanicaladdons:iridescence.desc=Forge Iridescence from the power of Heimdall
+achievement.botanicaladdons.create_life=Pitch-Black Forest
+achievement.botanicaladdons.create_life.desc=Forge the essence of new life from the power of Idunn
+achievement.botanicaladdons.create_thunder=Electric Angel
+achievement.botanicaladdons.create_thunder.desc=Forge lightning into metal from the power of Thor
+achievement.botanicaladdons.create_aqua=Blue Sky Fish
+achievement.botanicaladdons.create_aqua.desc=Forge the storm into crystal from the power of Njord
+achievement.botanicaladdons.iridescence=Platinum Disco
+achievement.botanicaladdons.iridescence.desc=Forge Iridescence from the power of Heimdall
 
-achievement.botanicaladdons:sacred_life=Eternal Song
-achievement.botanicaladdons:sacred_life.desc=Create the Apples of Immortality from the true power of Idunn
-achievement.botanicaladdons:sacred_thunder=God Slaying Machine
-achievement.botanicaladdons:sacred_thunder.desc=Create Mjolnir from the true power of Thor
-achievement.botanicaladdons:sacred_aqua=Rising Hero
-achievement.botanicaladdons:sacred_aqua.desc=Create the Arrows of Ascension from the true power of Njord
-achievement.botanicaladdons:sacred_horn=Lost One's Weeping
-achievement.botanicaladdons:sacred_horn.desc=Create Gjallerhorn from the true power of Heimdall
+achievement.botanicaladdons.sacred_life=Eternal Song
+achievement.botanicaladdons.sacred_life.desc=Create the Apples of Immortality from the true power of Idunn
+achievement.botanicaladdons.sacred_thunder=God Slaying Machine
+achievement.botanicaladdons.sacred_thunder.desc=Create Mjolnir from the true power of Thor
+achievement.botanicaladdons.sacred_aqua=Rising Hero
+achievement.botanicaladdons.sacred_aqua.desc=Create the Arrows of Ascension from the true power of Njord
+achievement.botanicaladdons.sacred_horn=Lost One's Weeping
+achievement.botanicaladdons.sacred_horn.desc=Create Gjallerhorn from the true power of Heimdall
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted

@@ -15,7 +15,7 @@ import vazkii.botania.api.BotaniaAPI
  */
 class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
     enum class Variants(val awakenable: Boolean) {
-        THUNDER_STEEL, LIFE_ROOT, AQUAMARINE, THUNDERNUGGET(false);
+        THUNDER_STEEL, LIFE_ROOT, AQUAMARINE, THUNDERNUGGET(false), HEARTHSTONE;
 
         constructor() : this(true)
 
@@ -42,15 +42,17 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants) {
                 out.toTypedArray()
             }
 
+            val toStackMaker: Map<Pair<Variants, Boolean>, (Int) -> ItemStack> by lazy {
+                variantPairs.withIndex().associate { (index, pair) -> pair to { it: Int -> ItemStack(ModItems.resource, it, index) } }
+            }
+
         }
     }
 
     companion object {
-        fun of(v: Variants, active: Boolean = false, size: Int = 1) = ItemStack(ModItems.resource, size, v.ordinal * 2 + if (active && v.awakenable) 1 else 0)
+        fun of(v: Variants, active: Boolean = false, size: Int = 1): ItemStack = Variants.toStackMaker[v to (v.awakenable && active)]?.invoke(size) ?: ItemStack.EMPTY
 
         fun variantFor(stack: ItemStack) = Variants.variantPairs.elementAtOrNull(stack.itemDamage)
-
-
     }
 
     override fun getRarity(stack: ItemStack): EnumRarity? {

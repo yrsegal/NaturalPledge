@@ -6,6 +6,7 @@ import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
 import shadowfox.botanicaladdons.common.block.BlockStorage.Variants.THUNDERSTEEL
 import shadowfox.botanicaladdons.common.block.ModBlocks
+import shadowfox.botanicaladdons.common.block.trap.BlockBaseTrap
 import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.*
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
@@ -26,7 +27,7 @@ object ModSpells {
         SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot)
         SpellRegistry.registerSpell(LibNames.SPELL_IDUNN_INFUSION,
                 Spells.ObjectInfusion(of(LIFEMAKER), LibOreDict.LIVING_WOOD,
-                        of(LIFE_ROOT), of(LIFE_ROOT, true), 150, 0x0FF469, { player, entry -> player.addStat(ModAchievements.createLife) }))
+                        of(LIFE_ROOT), of(LIFE_ROOT, true), 150, 0x0FF469, { player, _ -> player.addStat(ModAchievements.createLife) }))
 
         SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap)
         SpellRegistry.registerSpell(LibNames.SPELL_INTERDICT, Spells.Njord.Interdict)
@@ -35,10 +36,10 @@ object ModSpells {
                 Spells.ObjectInfusion(of(WIND_INFUSION),
                         "gemPrismarine",
                         of(AQUAMARINE), of(AQUAMARINE, true),
-                        150, 0x00E5E5, { player, entry -> player.addStat(ModAchievements.createAqua) }).addEntry(
+                        150, 0x00E5E5, { player, _ -> player.addStat(ModAchievements.createAqua) }).addEntry(
                         "blockPrismarineBrick",
                         ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal), ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal),
-                        1350, 0x00E5E5, { player, entry -> player.addStat(ModAchievements.createAqua) }))
+                        1350, 0x00E5E5, { player, _ -> player.addStat(ModAchievements.createAqua) }))
 
         SpellRegistry.registerSpell(LibNames.SPELL_LIGHTNING, Spells.Thor.Lightning)
         SpellRegistry.registerSpell(LibNames.SPELL_STRENGTH, Spells.Thor.Strength)
@@ -48,12 +49,21 @@ object ModSpells {
                 Spells.ObjectInfusion(of(LIGHTNING_INFUSION),
                         "ingotIron",
                         of(THUNDER_STEEL), of(THUNDER_STEEL, true),
-                        150, 0xE5DD00, { player, entry -> player.addStat(ModAchievements.createThunder) }).addEntry(
+                        150, 0xE5DD00, { player, _ -> player.addStat(ModAchievements.createThunder) }).addEntry(
                         "blockIron",
                         ItemStack(ModBlocks.storage, 1, THUNDERSTEEL.ordinal), ItemStack(ModBlocks.storage, 1, THUNDERSTEEL.ordinal),
-                        1350, 0xE5DD00, { player, entry -> player.addStat(ModAchievements.createThunder) }).addEntry(
+                        1350, 0xE5DD00, { player, _ -> player.addStat(ModAchievements.createThunder) }).addEntry(
                         "nuggetIron",
                         of(THUNDERNUGGET), of(THUNDERNUGGET),
-                        16, 0xE5DD00, { player, entry -> player.addStat(ModAchievements.createThunder) }))
+                        16, 0xE5DD00, { player, _ -> player.addStat(ModAchievements.createThunder) }))
+
+        SpellRegistry.registerSpell(LibNames.SPELL_LOKI_INFUSION,
+                Spells.ObjectInfusion(of(FIRE_INFUSION),
+                        "coal",
+                        of(HEARTHSTONE), of(HEARTHSTONE, true),
+                        150, BlockBaseTrap.COLOR, { player, _ -> player.addStat(ModAchievements.createFire) }))
+        SpellRegistry.registerSpell(LibNames.SPELL_TRUESIGHT, Spells.Loki.Truesight)
+        SpellRegistry.registerSpell(LibNames.SPELL_DISDAIN, Spells.Loki.Disdain)
+        SpellRegistry.registerSpell(LibNames.SPELL_FLAME_JET, Spells.Loki.FlameJet)
     }
 }

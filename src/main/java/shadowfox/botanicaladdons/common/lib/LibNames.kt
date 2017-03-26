@@ -46,6 +46,10 @@ object LibNames {
     val SPELL_THOR_INFUSION = "lightningInfusion"
     val SPELL_NJORD_INFUSION = "njordInfusion"
     val SPELL_THUNDER_TRAP = "hypercharge"
+    val SPELL_LOKI_INFUSION = "flameInfusion"
+    val SPELL_TRUESIGHT = "truesight"
+    val SPELL_DISDAIN = "auraOfDisdain"
+    val SPELL_FLAME_JET = "fireJet"
 
 
     val AWAKENER = "divineCore"
