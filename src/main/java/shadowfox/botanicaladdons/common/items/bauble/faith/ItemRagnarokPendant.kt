@@ -163,7 +163,7 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
     override fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
     override fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
 
-    override fun getRarity(stack: ItemStack): EnumRarity = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
+    override fun getRarity(stack: ItemStack): EnumRarity = if (isAwakened(stack)) BotaniaAPI.rarityRelic else EnumRarity.EPIC
 
     override fun getBaubleType(stack: ItemStack) = BaubleType.AMULET
 
