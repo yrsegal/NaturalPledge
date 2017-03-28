@@ -16,8 +16,9 @@ class PotionEverburn : PotionMod(LibNames.EVERBURN, true, 0xDD581F) {
     override fun performEffect(entity: EntityLivingBase, amp: Int) {
         if (entity is EntityPlayer && entity.health <= 1f)
             entity.extinguish()
-        else if (!entity.isBurning) {
-            entity.attackEntityFrom(DamageSource.IN_FIRE, 1f)
+        else {
+            if (!entity.isBurning && !entity.isImmuneToFire)
+                entity.attackEntityFrom(DamageSource.IN_FIRE, 1f)
             entity.setFire(5)
         }
     }

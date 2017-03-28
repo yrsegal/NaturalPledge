@@ -2,8 +2,7 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import com.google.common.base.Predicate
 import com.teamwizardry.librarianlib.common.network.PacketHandler
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
-import com.teamwizardry.librarianlib.common.util.NBTTypes
+import com.teamwizardry.librarianlib.common.util.*
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
@@ -11,11 +10,9 @@ import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.entity.projectile.EntityFireball
 import net.minecraft.entity.projectile.EntityLargeFireball
 import net.minecraft.init.MobEffects
 import net.minecraft.init.SoundEvents
-import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagDouble
 import net.minecraft.nbt.NBTTagInt
@@ -33,20 +30,15 @@ import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
-import shadowfox.botanicaladdons.common.achievements.ModAchievements.focus
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon.Variants.*
-import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.lib.LibOreDict
 import shadowfox.botanicaladdons.common.network.FireJetMessage
 import shadowfox.botanicaladdons.common.network.FireSphereMessage
 import shadowfox.botanicaladdons.common.network.LightningJetMessage
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
-import sun.audio.AudioPlayer.player
 import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
@@ -65,7 +57,7 @@ object Spells {
     object Helper {
         // Copied from Psi's PieceOperatorVectorRaycast with minor changes
         fun raycast(e: Entity, len: Double, stopOnLiquid: Boolean = false): RayTraceResult? {
-            val vec = Vector3.fromEntity(e).add(0.0, if (e is EntityPlayer) e.getEyeHeight().toDouble() else 0.0, 0.0)
+            val vec = Vector3.fromEntity(e).add(0.0, (e as? EntityPlayer)?.getEyeHeight()?.toDouble() ?: 0.0, 0.0)
 
             val look = e.lookVec
             if (look == null) {
@@ -612,9 +604,25 @@ object Spells {
             val TAG_SOURCE = "source"
             val TAG_TARGET = "target"
 
-            fun jet(to: Vector3, player: EntityPlayer, stack: ItemStack? = null, from: Vector3 = Vector3.fromEntityCenter(player).add(0.0, 0.5, 0.0)) {
-                PacketHandler.NETWORK.sendToAllAround(FireJetMessage(from.toVec3D(), to.toVec3D()),
-                        NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
+            fun inRange(range: Double, p: Vec3d, a: Vec3d, n: Vec3d) = ((a - p) - n * ((a - p) dot n)).lengthVector() <= range
+
+            fun jet(to: Vector3, player: EntityPlayer, stack: ItemStack? = null, from: Vector3 = Vector3.fromEntityCenter(player)) {
+                val fakeFireball = EntityLargeFireball(player.world, player, 0.0, 0.0, 0.0)
+
+                val n = to.toVec3D().subtract(from.toVec3D()).normalize()
+                val a = from.toVec3D()
+
+                val vx = n.xCoord * 3.0f
+                val vy = n.yCoord * 3.0f
+                val vz = n.zCoord * 3.0f
+
+                for (i in 0 until 9) {
+                    val entities = player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(from.x + vx * i - 1.5, from.y + vy * i - 1.5, from.z + vz * i - 1.5, from.x + vx * i + 1.5, from.y + vy * i + 1.5, from.z + vz * i + 1.5))
+                    for (it in entities) if (it != player && inRange(1.0, Vector3.fromEntityCenter(it).toVec3D(), a, n)) {
+                        it.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), 2f)
+                        it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 300))
+                    }
+                }
                 if (stack != null) {
                     val pos = NBTTagList()
                     pos.appendTag(NBTTagDouble(from.x))
@@ -627,6 +635,9 @@ object Spells {
                     target.appendTag(NBTTagDouble(to.y))
                     target.appendTag(NBTTagDouble(to.z))
                     ItemNBTHelper.setList(stack, TAG_TARGET, target)
+
+                    PacketHandler.NETWORK.sendToAllAround(FireJetMessage(from.toVec3D(), to.toVec3D()),
+                            NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
                 }
             }
 
@@ -637,35 +648,22 @@ object Spells {
             }
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
+                if (!ManaItemHandler.requestManaExact(focus, player, 1000, true)) return EnumActionResult.FAIL
                 val cast = Helper.raycast(player, 16.0)
-                val focused = Helper.getEntityLookedAt(player, 16.0)
 
-                val emblem = ItemFaithBauble.getEmblem(player)
+                val vec = Vector3.fromEntityCenter(player).toVec3D()
+                val dist = if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) 16.0 else cast.hitVec.distanceTo(vec)
 
-                if (focused != null && focused is EntityLivingBase) {
-                    if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
-                        val fakeFireball = EntityLargeFireball(player.world)
-                        focused.setFire(if (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem)) 10 else 5)
-                        focused.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), if (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem)) 10f else 5f)
-                        jet(Vector3.fromEntityCenter(focused), player, focus)
-
-                        player.world.playSound(player, player.position, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1f, 1f)
-                        return EnumActionResult.SUCCESS
-                    }
-                } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    jet(Vector3(cast.hitVec), player, focus)
-                    player.world.playSound(player, player.position, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1f, 1f)
-                    return EnumActionResult.SUCCESS
-                } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
-                    jet(Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), player, focus)
-                    player.world.playSound(player, player.position, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1f, 1f)
-                    return EnumActionResult.SUCCESS
-                }
-                return EnumActionResult.FAIL
+                val to = Vector3(player.lookVec.scale(dist).add(vec))
+                PacketHandler.NETWORK.sendToAllAround(FireJetMessage(Vector3.fromEntityCenter(player).toVec3D(), to.toVec3D()),
+                        NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
+                player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1f, 1f)
+                jet(to, player, focus)
+                return EnumActionResult.SUCCESS
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                if (cooldownRemaining > 40) {
+                if (cooldownRemaining > 30) {
                     val source = ItemNBTHelper.getList(focus, TAG_SOURCE, NBTTypes.DOUBLE)?.run {
                         Vector3(getDoubleAt(0), getDoubleAt(1), getDoubleAt(2))
                     } ?: Vector3.ZERO
