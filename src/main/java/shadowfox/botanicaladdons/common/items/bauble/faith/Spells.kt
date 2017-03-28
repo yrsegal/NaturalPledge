@@ -604,25 +604,67 @@ object Spells {
             val TAG_SOURCE = "source"
             val TAG_TARGET = "target"
 
-            fun inRange(range: Double, p: Vec3d, a: Vec3d, n: Vec3d) = ((a - p) - n * ((a - p) dot n)).lengthVector() <= range
+            var hit: Vec3d = Vec3d.ZERO
+
+            fun getIntersection(fDst1: Double, fDst2: Double, l1: Vec3d, l2: Vec3d): Boolean {
+                if ((fDst1 * fDst2) >= 0.0f) return false
+                if (fDst1 == fDst2) return false
+                hit = l1 + (l2 - l1) * (-fDst1 / (fDst2 - fDst1))
+                return true
+            }
+
+            fun inBox(b1: Vec3d, b2: Vec3d, axis: EnumFacing.Axis): Boolean {
+                return when (axis) {
+                    EnumFacing.Axis.X -> hit.zCoord > b1.zCoord &&
+                            hit.zCoord < b2.zCoord &&
+                            hit.yCoord > b1.yCoord &&
+                            hit.yCoord < b2.yCoord
+                    EnumFacing.Axis.Y -> hit.zCoord > b1.zCoord &&
+                            hit.zCoord < b2.zCoord &&
+                            hit.xCoord > b1.xCoord &&
+                            hit.xCoord < b2.xCoord
+                    EnumFacing.Axis.Z -> hit.xCoord > b1.xCoord &&
+                            hit.xCoord < b2.xCoord &&
+                            hit.yCoord > b1.yCoord &&
+                            hit.yCoord < b2.yCoord
+                    else -> false
+                }
+            }
+
+            fun intersectsBox(l1: Vec3d, l2: Vec3d, aabb: AxisAlignedBB): Boolean {
+                val b1 = Vec3d(aabb.minX, aabb.minY, aabb.minZ)
+                val b2 = Vec3d(aabb.maxX, aabb.maxY, aabb.maxZ)
+                if (l2.xCoord < b1.xCoord && l1.xCoord < b1.xCoord) return false
+                if (l2.xCoord > b2.xCoord && l1.xCoord > b2.xCoord) return false
+                if (l2.yCoord < b1.yCoord && l1.yCoord < b1.yCoord) return false
+                if (l2.yCoord > b2.yCoord && l1.yCoord > b2.yCoord) return false
+                if (l2.zCoord < b1.zCoord && l1.zCoord < b1.zCoord) return false
+                if (l2.zCoord > b2.zCoord && l1.zCoord > b2.zCoord) return false
+                if (l1.xCoord > b1.xCoord && l1.xCoord < b2.xCoord &&
+                        l1.yCoord > b1.yCoord && l1.yCoord < b2.yCoord &&
+                        l1.zCoord > b1.zCoord && l1.zCoord < b2.zCoord) return true
+                return getIntersection(l1.xCoord - b1.xCoord, l2.xCoord - b1.xCoord, l1, l2) && inBox(b1, b2, EnumFacing.Axis.X)
+                        || getIntersection(l1.yCoord - b1.yCoord, l2.yCoord - b1.yCoord, l1, l2) && inBox(b1, b2, EnumFacing.Axis.Y)
+                        || getIntersection(l1.zCoord - b1.zCoord, l2.zCoord - b1.zCoord, l1, l2) && inBox(b1, b2, EnumFacing.Axis.Z)
+                        || getIntersection(l1.xCoord - b2.xCoord, l2.xCoord - b2.xCoord, l1, l2) && inBox(b1, b2, EnumFacing.Axis.X)
+                        || getIntersection(l1.yCoord - b2.yCoord, l2.yCoord - b2.yCoord, l1, l2) && inBox(b1, b2, EnumFacing.Axis.Y)
+                        || getIntersection(l1.zCoord - b2.zCoord, l2.zCoord - b2.zCoord, l1, l2) && inBox(b1, b2, EnumFacing.Axis.Z)
+            }
 
             fun jet(to: Vector3, player: EntityPlayer, stack: ItemStack? = null, from: Vector3 = Vector3.fromEntityCenter(player)) {
                 val fakeFireball = EntityLargeFireball(player.world, player, 0.0, 0.0, 0.0)
 
-                val n = to.toVec3D().subtract(from.toVec3D()).normalize()
-                val a = from.toVec3D()
+                val f = from.toVec3D()
+                val t = to.toVec3D()
 
-                val vx = n.xCoord * 3.0f
-                val vy = n.yCoord * 3.0f
-                val vz = n.zCoord * 3.0f
-
-                for (i in 0 until 9) {
-                    val entities = player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(from.x + vx * i - 1.5, from.y + vy * i - 1.5, from.z + vz * i - 1.5, from.x + vx * i + 1.5, from.y + vy * i + 1.5, from.z + vz * i + 1.5))
-                    for (it in entities) if (it != player && inRange(1.0, Vector3.fromEntityCenter(it).toVec3D(), a, n)) {
-                        it.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), 2f)
-                        it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 300))
-                    }
+                player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(t, f).expandXyz(1.0)) {
+                    val bb = it?.entityBoundingBox
+                    bb != null && it != player && intersectsBox(f, t, bb.expandXyz(1.0))
+                }.forEach {
+                    it.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), 2f)
+                    it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 300))
                 }
+
                 if (stack != null) {
                     val pos = NBTTagList()
                     pos.appendTag(NBTTagDouble(from.x))
