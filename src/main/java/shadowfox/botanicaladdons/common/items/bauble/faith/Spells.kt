@@ -651,7 +651,7 @@ object Spells {
                         || getIntersection(l1.zCoord - b2.zCoord, l2.zCoord - b2.zCoord, l1, l2) && inBox(b1, b2, EnumFacing.Axis.Z)
             }
 
-            fun jet(to: Vector3, player: EntityPlayer, stack: ItemStack? = null, from: Vector3 = Vector3.fromEntityCenter(player)) {
+            fun jet(to: Vector3, player: EntityPlayer, from: Vector3) {
                 val fakeFireball = EntityLargeFireball(player.world, player, 0.0, 0.0, 0.0)
 
                 val f = from.toVec3D()
@@ -663,23 +663,6 @@ object Spells {
                 }.forEach {
                     it.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), 2f)
                     it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 300))
-                }
-
-                if (stack != null) {
-                    val pos = NBTTagList()
-                    pos.appendTag(NBTTagDouble(from.x))
-                    pos.appendTag(NBTTagDouble(from.y))
-                    pos.appendTag(NBTTagDouble(from.z))
-                    ItemNBTHelper.setList(stack, TAG_SOURCE, pos)
-
-                    val target = NBTTagList()
-                    target.appendTag(NBTTagDouble(to.x))
-                    target.appendTag(NBTTagDouble(to.y))
-                    target.appendTag(NBTTagDouble(to.z))
-                    ItemNBTHelper.setList(stack, TAG_TARGET, target)
-
-                    PacketHandler.NETWORK.sendToAllAround(FireJetMessage(from.toVec3D(), to.toVec3D()),
-                            NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
                 }
             }
 
@@ -700,19 +683,32 @@ object Spells {
                 PacketHandler.NETWORK.sendToAllAround(FireJetMessage(Vector3.fromEntityCenter(player).toVec3D(), to.toVec3D()),
                         NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
                 player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1f, 1f)
-                jet(to, player, focus)
+
+                val from = Vector3.fromEntityCenter(player)
+
+                val pos = NBTTagList()
+                pos.appendTag(NBTTagDouble(from.x))
+                pos.appendTag(NBTTagDouble(from.y))
+                pos.appendTag(NBTTagDouble(from.z))
+                ItemNBTHelper.setList(focus, TAG_SOURCE, pos)
+
+                val target = NBTTagList()
+                target.appendTag(NBTTagDouble(to.x))
+                target.appendTag(NBTTagDouble(to.y))
+                target.appendTag(NBTTagDouble(to.z))
+                ItemNBTHelper.setList(focus, TAG_TARGET, target)
                 return EnumActionResult.SUCCESS
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                if (cooldownRemaining > 30) {
+                if (cooldownRemaining in 31 until 58) {
                     val source = ItemNBTHelper.getList(focus, TAG_SOURCE, NBTTypes.DOUBLE)?.run {
                         Vector3(getDoubleAt(0), getDoubleAt(1), getDoubleAt(2))
                     } ?: Vector3.ZERO
                     val target = ItemNBTHelper.getList(focus, TAG_TARGET, NBTTypes.DOUBLE)?.run {
                         Vector3(getDoubleAt(0), getDoubleAt(1), getDoubleAt(2))
                     } ?: Vector3.ZERO
-                    jet(target, player, from = source)
+                    jet(target, player, source)
                 }
             }
         }
