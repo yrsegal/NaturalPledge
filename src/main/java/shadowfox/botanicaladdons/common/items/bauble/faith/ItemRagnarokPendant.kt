@@ -55,7 +55,7 @@ import java.awt.Color
  * Created at 1:50 PM on 4/13/16.
  */
 class ItemRagnarokPendant(name: String) : ItemModBauble(name),
-        IManaUsingItem, IBaubleRender, IItemColorProvider, IPriestlyEmblem {
+        IManaUsingItem, IBaubleRender, IItemColorProvider, IPriestlyEmblem, IDiscordantItem {
 
     companion object Ragnarok : IFaithVariant {
 
@@ -181,6 +181,10 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         }
     }
 
+    override fun isDiscordant(stack: ItemStack): Boolean {
+        return true
+    }
+
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, render: IBaubleRender.RenderType, renderTick: Float) {
         val variant = getVariant(stack)
 
@@ -205,6 +209,9 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
 
     override fun onUpdate(stack: ItemStack, worldIn: World?, entityIn: Entity?, itemSlot: Int, isSelected: Boolean) {
         if (isAwakened(stack)) setAwakened(stack, false)
+
+        if (entityIn is EntityPlayer && isSelected && !entityIn.world.isRemote)
+            entityIn.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
     }
 
     override fun getVariant(stack: ItemStack) = Ragnarok
