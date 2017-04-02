@@ -57,6 +57,7 @@ class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAch
     }
 
     override fun onPlayerStoppedUsing(stack: ItemStack, worldIn: World, player: EntityLivingBase, timeLeft: Int) {
+        if (worldIn.isRemote) return
         val time = (getMaxItemUseDuration(stack) - timeLeft) / 20.0
         val power = if (time < 1)
             -1.0

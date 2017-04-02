@@ -93,6 +93,8 @@ object ModBlocks {
     val signalTrap: BlockMod
     val wrathTrap: BlockMod
 
+//    val gayBeacon: BlockMod
+
     init {
         star = BlockFrozenStar(LibNames.STAR)
         flame = BlockPrismFlame(LibNames.PRISM_FLAME)
@@ -174,6 +176,8 @@ object ModBlocks {
         sandTrap = BlockSandTrap()
         signalTrap = BlockSignalTrap()
         wrathTrap = BlockWrathTrap()
+
+//        gayBeacon = BlockGayBeacon()
 
         GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
         GameRegistry.registerTileEntity(TileCracklingStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.CRACKLING).toString())

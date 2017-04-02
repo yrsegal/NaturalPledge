@@ -103,6 +103,7 @@ object LibNames {
     val SAND_TRAP = "sandTrap"
     val SIGNAL_TRAP = "signalTrap"
     val WRATH_TRAP = "wrathTrap"
+    val GAY_BEACON = "gayBeacon"
 
     val FAITHLESSNESS = "faithlessness"
     val DRAB_VISION = "drab"
