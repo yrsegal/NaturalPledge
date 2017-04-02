@@ -39,7 +39,7 @@ object PriestlyEmblemHeimdall : IFaithVariant {
 
     @SideOnly(Side.CLIENT)
     override fun getColor(): IItemColor? =
-            IItemColor { itemStack, i ->
+            IItemColor { _, i ->
                 if (i == 1)
                     BotanicalAddons.PROXY.rainbow().rgb
                 else

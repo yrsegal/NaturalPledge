@@ -150,11 +150,11 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PENDANT)) {
-            stack, world, entity ->
+            stack, _, _ ->
             if (ItemNBTHelper.getBoolean(stack, TAG_PENDANT, false)) 1f else 0f
         }
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_AWAKENED)) {
-            stack, world, entity ->
+            stack, _, _ ->
             if (ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)) 1f else 0f
         }
     }

@@ -89,7 +89,7 @@ object PriestlyEmblemIdunn : IFaithVariant {
 
         val cooldown = ItemNBTHelper.getInt(emblem, TAG_COOLDOWN, 0)
 
-        if (cooldown == 0 && e.entityPlayer.isSneaking && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, false) && e.itemStack == null) {
+        if (cooldown == 0 && e.entityPlayer.isSneaking && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, false) && e.itemStack.isEmpty) {
             val world = e.world
             val pos = e.pos
             val state = e.world.getBlockState(pos)

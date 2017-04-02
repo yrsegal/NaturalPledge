@@ -30,7 +30,7 @@ import vazkii.botania.common.item.ModItems as BotaniaItems
  */
 class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMaterial, setOf()), IItemColorProvider, ISortableTool {
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, i ->
+        get() = { _, i ->
             if (i == 1)
                 BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF

@@ -75,13 +75,13 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
     }
 
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
-        get() = { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR_PROPS[colorSet]).mapColor.colorValue }
+        get() = { iBlockState, _, _, _ -> iBlockState.getValue(COLOR_PROPS[colorSet]).mapColor.colorValue }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, i -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
+        get() = { itemStack, _ -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + (stack?.itemDamage ?: 0)}")
+        TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + stack.itemDamage}")
     }
 
     override fun getMapColor(state: IBlockState): MapColor {

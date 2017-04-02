@@ -21,7 +21,7 @@ object TooltipBarHandler {
 
     @SubscribeEvent
     fun onToolTipRender(evt: RenderTooltipEvent.PostText) {
-        val stack = evt.stack ?: return
+        val stack = evt.stack
         val width = evt.width
         val height = 3
         val tooltipX = evt.x

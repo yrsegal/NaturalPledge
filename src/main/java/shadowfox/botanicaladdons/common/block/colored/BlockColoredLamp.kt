@@ -50,10 +50,10 @@ class BlockColoredLamp(name: String) : BlockMod(name, Material.REDSTONE_LIGHT), 
     }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, i -> powerColor(0) }
+        get() = { _, _ -> powerColor(0) }
 
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
-        get() = { iBlockState, iBlockAccess, blockPos, i -> powerColor(iBlockState.getValue(POWER)) }
+        get() = { iBlockState, _, _, _ -> powerColor(iBlockState.getValue(POWER)) }
 
     init {
         soundType = SoundType.GLASS

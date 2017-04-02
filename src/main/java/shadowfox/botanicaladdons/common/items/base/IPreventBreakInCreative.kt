@@ -18,29 +18,29 @@ interface IPreventBreakInCreative {
         }
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
-        fun onTryToGetAbilityToCheckIfCanGetAbilityToBreakBlock(e: PlayerEvent.HarvestCheck) { // I was tired when I wrote this name
-            if (e.entityPlayer.isCreative && e.entityPlayer.heldItemMainhand?.item is IPreventBreakInCreative) {
+        fun harvest(e: PlayerEvent.HarvestCheck) {
+            if (e.entityPlayer.isCreative && e.entityPlayer.heldItemMainhand.item is IPreventBreakInCreative) {
                 e.isCanceled = true
             }
         }
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
-        fun onTryToGetAbilityToBreakBlock(e: PlayerEvent.BreakSpeed) {
-            if (e.entityPlayer.isCreative && e.entityPlayer.heldItemMainhand?.item is IPreventBreakInCreative) {
+        fun speed(e: PlayerEvent.BreakSpeed) {
+            if (e.entityPlayer.isCreative && e.entityPlayer.heldItemMainhand.item is IPreventBreakInCreative) {
                 e.isCanceled = true
             }
         }
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
-        fun onTryToBreakBlock(e: PlayerInteractEvent.LeftClickBlock) {
-            if (e.entityPlayer.isCreative && e.itemStack?.item is IPreventBreakInCreative) {
+        fun click(e: PlayerInteractEvent.LeftClickBlock) {
+            if (e.entityPlayer.isCreative && e.itemStack.item is IPreventBreakInCreative) {
                 e.isCanceled = true
             }
         }
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
-        fun onBlockActuallyBreak(e: BlockEvent.BreakEvent) {
-            if (e.player.isCreative && e.player.heldItemMainhand?.item is IPreventBreakInCreative) {
+        fun blockBreak(e: BlockEvent.BreakEvent) {
+            if (e.player.isCreative && e.player.heldItemMainhand.item is IPreventBreakInCreative) {
                 e.isCanceled = true
             }
         }

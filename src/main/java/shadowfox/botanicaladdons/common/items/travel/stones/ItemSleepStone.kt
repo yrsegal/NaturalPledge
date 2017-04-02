@@ -27,7 +27,7 @@ import vazkii.botania.common.Botania
  */
 class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, i ->
+        get() = { _, i ->
             if (i == 1)
                 BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF

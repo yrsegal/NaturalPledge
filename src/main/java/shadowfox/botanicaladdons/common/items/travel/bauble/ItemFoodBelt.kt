@@ -93,7 +93,7 @@ class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
     }
 
     private fun isEdible(food: ItemStack, player: EntityPlayer): Boolean {
-        food ?: return false
+        if (food.isEmpty) return false
         if (!player.canEat(false)) return false
 
         var flag = false

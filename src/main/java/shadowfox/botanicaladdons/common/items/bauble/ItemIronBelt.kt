@@ -25,7 +25,7 @@ class ItemIronBelt(name: String) : ItemModBauble(name), IBaubleRender {
             player.motionY -= 0.025
     }
 
-    override fun getBaubleType(p0: ItemStack) = BaubleType.BELT
+    override fun getBaubleType(stack: ItemStack) = BaubleType.BELT
 
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partticks: Float) {
         if (type == IBaubleRender.RenderType.BODY) {

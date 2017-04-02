@@ -19,7 +19,7 @@ import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
 @PacketRegister(Side.CLIENT)
 class SetToolbeltItemClient(@Save var stack: ItemStack = ItemStack.EMPTY, @Save var slot: Int = 0) : PacketBase() {
     override fun handle(ctx: MessageContext) {
-        val toolbelt = BaublesApi.getBaublesHandler(LibrarianLib.PROXY.getClientPlayer()).getStackInSlot(BaubleType.BELT.validSlots[0]) ?: return
+        val toolbelt = BaublesApi.getBaublesHandler(LibrarianLib.PROXY.getClientPlayer()).getStackInSlot(BaubleType.BELT.validSlots[0])
         ItemToolbelt.setItem(toolbelt, stack, slot)
     }
 }

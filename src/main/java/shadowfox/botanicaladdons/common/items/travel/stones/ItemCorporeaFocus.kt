@@ -167,7 +167,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
     }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, i ->
+        get() = { _, i ->
             if (i == 1)
                 BotanicalAddons.PROXY.rainbow(0.25f).rgb
             else 0xFFFFFF

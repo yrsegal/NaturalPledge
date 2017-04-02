@@ -48,11 +48,11 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
         setMaxStackSize(1)
         maxDamage = 1561
         addPropertyOverride(ResourceLocation("blocking")) {
-            stack, worldIn, entityIn ->
+            stack, _, entityIn ->
             if (entityIn != null && entityIn.isHandActive && (entityIn.heldItemMainhand == stack || entityIn.heldItemOffhand == stack)) 1f else 0f
         }
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "wire")) {
-            stack, worldIn, entityIn ->
+            stack, _, _ ->
             if (isWire(stack)) 1f else 0f
         }
     }

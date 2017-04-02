@@ -69,7 +69,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = {
-            itemStack, i ->
+            itemStack, _ ->
             RainbowItemHelper.colorFromInt(RainbowItemHelper.getColor(itemStack))
         }
 

@@ -51,10 +51,10 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
     }
 
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
-        get() = { iBlockState, iBlockAccess, blockPos, i -> iBlockState.getValue(COLOR).mapColor.colorValue }
+        get() = { iBlockState, _, _, _ -> iBlockState.getValue(COLOR).mapColor.colorValue }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, i -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
+        get() = { itemStack, _ -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
 
     override fun createBlockState(): BlockStateContainer {
         return BlockStateContainer(this, COLOR)

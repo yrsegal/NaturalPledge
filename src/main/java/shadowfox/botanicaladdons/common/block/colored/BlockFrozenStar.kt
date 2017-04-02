@@ -60,7 +60,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED
     }
 
-    override fun createTileEntity(worldIn: World, state: IBlockState): TileEntity {
+    override fun createTileEntity(world: World, state: IBlockState): TileEntity {
         return TileStar()
     }
 
@@ -77,7 +77,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = {
-            itemStack, i ->
+            itemStack, _ ->
             RainbowItemHelper.colorFromInt(RainbowItemHelper.getColor(itemStack))
         }
 
