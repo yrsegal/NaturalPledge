@@ -190,6 +190,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
     val WATER = RainbowItemHelper.defaultColors[EnumDyeColor.BLUE.metadata] * 1
     val EARTH = RainbowItemHelper.defaultColors[EnumDyeColor.BROWN.metadata] * 1
     val AIR = RainbowItemHelper.defaultColors[EnumDyeColor.LIME.metadata] * 1
+    val ALSO_AIR = RainbowItemHelper.defaultColors[EnumDyeColor.GREEN.metadata] * 1
     val VOID = RainbowItemHelper.defaultColors[EnumDyeColor.BLACK.metadata] * 1
 
     fun checkItem(path: Array<BlockPos>, index: Int, world: World): EntityItem? {
@@ -218,7 +219,7 @@ class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVar
                 if (connections[4] != path[0]) continue
                 if (colors[0] == AETHER &&
                         colors[1] == WATER &&
-                        colors[2] == AIR &&
+                        (colors[2] == AIR || colors[2] == ALSO_AIR) &&
                         colors[3] == FIRE &&
                         colors[4] == EARTH) {
                     val items = mutableListOf<EntityItem>()
