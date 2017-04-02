@@ -119,6 +119,7 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
 
         override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
             player.addPotionEffect(PotionEffect(MobEffects.WITHER, 200, 3))
+            player.removePotionEffect(MobEffects.NIGHT_VISION)
             player.setFire(10)
         }
 
@@ -246,13 +247,11 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
         if (player is EntityPlayer && !player.world.isRemote) {
+            variant.punishTheFaithless(stack, player)
+            player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
             player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
             if (isAwakened(stack))
                 player.attackEntityFrom(ItemFaithBauble.FaithSource, Float.MAX_VALUE)
-            else {
-                variant.punishTheFaithless(stack, player)
-                player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
-            }
         }
         setAwakened(stack, false)
     }

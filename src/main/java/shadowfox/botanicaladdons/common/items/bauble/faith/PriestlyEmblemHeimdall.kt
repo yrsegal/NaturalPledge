@@ -53,6 +53,7 @@ object PriestlyEmblemHeimdall : IFaithVariant {
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
         player.addPotionEffect(ModPotionEffect(ModPotions.drab, 600, 2))
+        player.removePotionEffect(MobEffects.NIGHT_VISION)
     }
 
     fun getMotionVec(e: Entity): Vector3 {
