@@ -60,7 +60,7 @@ class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAch
         if (worldIn.isRemote) return
         val time = (getMaxItemUseDuration(stack) - timeLeft) / 20.0
         val power = if (time < 1)
-            -1.0
+            0.5
         else if (time <= 21)
             -time * time * 0.0180952381 + time * 0.7933333333 - 0.5142857143
         else
@@ -69,8 +69,9 @@ class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAch
             if (player is EntityPlayer && !player.isCreative) {
                 if (!ManaItemHandler.requestManaExact(stack, player, 200, true)) return
                 val fireCharge = findAmmo(player)
-                if (fireCharge.isEmpty) return
-                fireCharge.count--
+                if (fireCharge.isEmpty) {
+                    if (!ManaItemHandler.requestManaExact(stack, player, 1000, true)) return
+                } else fireCharge.count--
             }
 
             val look = player.lookVec
