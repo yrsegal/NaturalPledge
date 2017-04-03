@@ -26,6 +26,10 @@ import vazkii.botania.common.achievement.ICraftAchievement
  * Created at 1:47 AM on 3/26/17.
  */
 class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievement {
+    init {
+        setMaxStackSize(1)
+    }
+
     override fun getRarity(stack: ItemStack?) = BotaniaAPI.rarityRelic
 
     override fun getMaxItemUseDuration(stack: ItemStack) = 72000

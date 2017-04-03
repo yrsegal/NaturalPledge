@@ -256,6 +256,30 @@ item.botanicaladdons:iris_dye_awakened_rainbow.name=Bifrost Awakened Crystal
 
 item.botanicaladdons:gaia_killer.name=Slayer of Guardians
 
+item.botanicaladdons:eclipse_helm.name=Helm of Eclipse
+item.botanicaladdons:eclipse_chest.name=Chestplate of Eclipse
+item.botanicaladdons:eclipse_legs.name=Platelegs of Eclipse
+item.botanicaladdons:eclipse_boots.name=Greaves of Eclipse
+botanicaladdons.armorset.eclipse.name=Mana Masquerade
+botanicaladdons.armorset.eclipse.desc=20%% less Mana cost on Mana Tools and Rods
+botanicaladdons.armorset.eclipse.desc1=Repairs from the Mana of others around you
+
+item.botanicaladdons:sunmaker_helm.name=Helm of the Sunmaker
+item.botanicaladdons:sunmaker_chest.name=Chestplate of the Sunmaker
+item.botanicaladdons:sunmaker_legs.name=Platelegs of the Sunmaker
+item.botanicaladdons:sunmaker_boots.name=Greaves of the Sunmaker
+botanicaladdons.armorset.sunmaker.name=Commander's Aura
+botanicaladdons.armorset.sunmaker.desc=20%% less Mana cost on Mana Tools and Rods
+botanicaladdons.armorset.sunmaker.desc1=Repairs your held items with Mana
+
+item.botanicaladdons:fenris_helm.name=Helm of Fenris
+item.botanicaladdons:fenris_chest.name=Chestplate of Fenris
+item.botanicaladdons:fenris_legs.name=Platelegs of Fenris
+item.botanicaladdons:fenris_boots.name=Greaves of Fenris
+botanicaladdons.armorset.fenris.name=Prince of Monsters
+botanicaladdons.armorset.fenris.desc=20%% less Mana cost on Mana Tools and Rods
+botanicaladdons.armorset.fenris.desc1=Gain the strength of Fenris
+
 item_group.botanicaladdons.divine=Natural Pledge
 
 misc.botanicaladdons.contains=Contains:

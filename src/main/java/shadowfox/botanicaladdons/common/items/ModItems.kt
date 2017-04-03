@@ -2,10 +2,14 @@ package shadowfox.botanicaladdons.common.items
 
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.init.Items
+import net.minecraft.init.SoundEvents
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.BotanicalAddons
+import shadowfox.botanicaladdons.common.items.armor.ItemEclipseArmor
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemDivineCloak
@@ -29,6 +33,9 @@ import vazkii.botania.common.item.ModItems as BotaniaItems
  * Created at 5:39 PM on 4/13/16.
  */
 object ModItems {
+    val ECLIPSE = EnumHelper.addArmorMaterial("RAGNAROK.ECLIPSE", "eclipse", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f)!!
+
+
     val emblem: ItemMod
     val symbol: ItemMod
     val spellIcon: ItemMod
@@ -69,6 +76,11 @@ object ModItems {
     val polyStone: ItemPolyStone
 
     val ragnarok: ItemRagnarokPendant
+
+    val eclipseHelm: ItemEclipseArmor
+    val eclipseChest: ItemEclipseArmor
+    val eclipseLegs: ItemEclipseArmor
+    val eclipseBoots: ItemEclipseArmor
 
     lateinit var gaiaKiller: ItemMod
 
@@ -115,6 +127,11 @@ object ModItems {
         polyStone = ItemPolyStone(LibNames.POLY_STONE)
 
         ragnarok = ItemRagnarokPendant(LibNames.RAGNAROK_EMBLEM)
+
+        eclipseHelm = ItemEclipseArmor(LibNames.ECLIPSE_HELM, EntityEquipmentSlot.HEAD)
+        eclipseChest = ItemEclipseArmor(LibNames.ECLIPSE_CHEST, EntityEquipmentSlot.CHEST)
+        eclipseLegs = ItemEclipseArmor(LibNames.ECLIPSE_LEGS, EntityEquipmentSlot.LEGS)
+        eclipseBoots = ItemEclipseArmor(LibNames.ECLIPSE_BOOTS, EntityEquipmentSlot.FEET)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

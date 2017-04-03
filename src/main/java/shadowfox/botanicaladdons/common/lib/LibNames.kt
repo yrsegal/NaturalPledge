@@ -33,6 +33,10 @@ object LibNames {
     val SLEEP_STONE = "sleepStone"
     val POLY_STONE = "polyStone"
     val PERDITION_FIST = "perditionFist"
+    val ECLIPSE_HELM = "eclipseHelm"
+    val ECLIPSE_CHEST = "eclipseChest"
+    val ECLIPSE_LEGS = "eclipseLegs"
+    val ECLIPSE_BOOTS = "eclipseBoots"
 
 
     val SPELL_LEAP = "leap"

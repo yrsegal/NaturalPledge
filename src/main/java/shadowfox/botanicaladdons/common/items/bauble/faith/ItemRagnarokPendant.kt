@@ -88,6 +88,8 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
             PriestlyEmblemLoki.onUpdate(stack, player)
             PriestlyEmblemNjord.onUpdate(stack, player)
             PriestlyEmblemThor.onUpdate(stack, player)
+            if (!player.world.isRemote)
+                player.addPotionEffect(PotionEffect(ModPotions.trapSeer, 5, 0, true, false))
         }
 
         override fun onAwakenedUpdate(stack: ItemStack, player: EntityPlayer) {
@@ -114,7 +116,7 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         }
 
         override fun getSpells(stack: ItemStack, player: EntityPlayer): MutableList<String> {
-            return mutableListOf(LibNames.SPELL_SOUL_MANIFESTATION, LibNames.SPELL_LEAP, LibNames.SPELL_STRENGTH, LibNames.SPELL_SPHERE, LibNames.SPELL_PROTECTION, LibNames.SPELL_TRUESIGHT)
+            return mutableListOf(LibNames.SPELL_SOUL_MANIFESTATION, LibNames.SPELL_LEAP, LibNames.SPELL_STRENGTH, LibNames.SPELL_SPHERE, LibNames.SPELL_PROTECTION, LibNames.SPELL_FLAME_JET)
         }
 
         override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {

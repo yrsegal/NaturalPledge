@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.armor
 
+import com.teamwizardry.librarianlib.client.util.TooltipHelper
 import com.teamwizardry.librarianlib.common.network.PacketHandler
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -9,9 +10,12 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.NetworkRegistry
+import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.items.ModItems.ECLIPSE
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
 import shadowfox.botanicaladdons.common.network.ManastormLightningMessage
 import vazkii.botania.api.mana.ManaItemHandler
+import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 import java.util.*
 
@@ -19,15 +23,16 @@ import java.util.*
  * @author WireSegal
  * Created at 5:09 PM on 4/2/17.
  */
-class ItemEclipseArmor(name: String, type: EntityEquipmentSlot, mat: ArmorMaterial) : ItemBaseArmor(name, type, mat) {
+class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, ECLIPSE) {
     override val armorTexture: String
-        get() = "missingno"
+        get() = armorMaterial.getName()
+
     override val armorSetStacks: ArmorSet by lazy {
-        ArmorSet(null, null, null, null)
+        ArmorSet(ModItems.eclipseHelm, ModItems.eclipseChest, ModItems.eclipseLegs, ModItems.eclipseBoots)
     }
 
     override val manaDiscount: Float
-        get() = 0.3f
+        get() = 0.2f
 
     fun manaMasquerade(stack: ItemStack, player: EntityPlayer, amount: Int): Boolean {
         val playerPosition = player.positionVector
@@ -40,13 +45,13 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot, mat: ArmorMateri
         val playersToAmounts = mutableListOf<Pair<EntityPlayer, Int>>()
         for (pl in players) {
             if (amountLeft == 0) continue
-            val amountTakable = if (pl == player)
+            val amountTakeaway = if (pl == player)
                 ManaItemHandler.requestManaForTool(stack, pl, amountLeft, false)
             else
                 ManaItemHandler.requestMana(stack, pl, amountLeft, false)
-            if (amountTakable != 0) {
-                playersToAmounts.add(pl to amountTakable)
-                amountLeft -= amountTakable
+            if (amountTakeaway != 0) {
+                playersToAmounts.add(pl to amountTakeaway)
+                amountLeft -= amountTakeaway
             }
         }
         if (amountLeft != 0) return false
@@ -57,11 +62,11 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot, mat: ArmorMateri
             ManaItemHandler.requestManaExact(stack, pl, amountToTake, true)
             if (pl != player)
                 for (i in 0..(amountToTake - 10) / 10)
-                    positions.add(pl.positionVector)
+                    positions.add(Vector3.fromEntityCenter(pl).toVec3D())
         }
 
         if (!player.world.isRemote)
-            PacketHandler.NETWORK.sendToAllAround(ManastormLightningMessage(playerPosition, positions.toTypedArray()),
+            PacketHandler.NETWORK.sendToAllAround(ManastormLightningMessage(Vector3.fromEntityCenter(player).toVec3D(), positions.toTypedArray()),
                     NetworkRegistry.TargetPoint(player.world.provider.dimension,
                             playerPosition.xCoord,
                             playerPosition.yCoord,
@@ -69,6 +74,11 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot, mat: ArmorMateri
                             64.0))
 
         return true
+    }
+
+    override fun addArmorSetDescription(list: MutableList<String>) {
+        TooltipHelper.addToTooltip(list, "$modId.armorset.$matName.desc")
+        TooltipHelper.addToTooltip(list, "$modId.armorset.$matName.desc1")
     }
 
     override fun onArmorTick(world: World, player: EntityPlayer, stack: ItemStack) {

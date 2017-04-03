@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.text.TextFormatting
@@ -110,17 +111,17 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
         val stacks = armorSetStacks
         EntityEquipmentSlot.values()
                 .filter { it.slotType == EntityEquipmentSlot.Type.ARMOR }
-                .forEach { TooltipHelper.addToTooltip(list, if (hasArmorSetItem(player, it)) TextFormatting.GREEN.toString() else "" + " - " + stacks[it].displayName) }
+                .forEach { TooltipHelper.addToTooltip(list, (if (hasArmorSetItem(player, it)) TextFormatting.GREEN.toString() else "") + " - " + ItemStack(stacks[it]).displayName) }
         if (hasPhantomInk(stack))
             TooltipHelper.addToTooltip(list, "botaniamisc.hasPhantomInk")
     }
 
-    protected class ArmorSet(val head: ItemStack?, val chest: ItemStack?, val legs: ItemStack?, val boots: ItemStack?)
-            : List<ItemStack> by makeList(head, chest, legs, boots) {
+    protected data class ArmorSet(val helm: Item?, val chest: Item?, val legs: Item?, val boots: Item?)
+            : List<Item> by makeList(helm, chest, legs, boots) {
 
         companion object {
-            private fun makeList(head: ItemStack?, chest: ItemStack?, legs: ItemStack?, boots: ItemStack?): List<ItemStack> {
-                val list = mutableListOf<ItemStack>()
+            private fun makeList(head: Item?, chest: Item?, legs: Item?, boots: Item?): List<Item> {
+                val list = mutableListOf<Item>()
                 if (head != null) list.add(head)
                 if (chest != null) list.add(chest)
                 if (legs != null) list.add(legs)
@@ -129,12 +130,12 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
             }
         }
 
-        operator fun get(slot: EntityEquipmentSlot): ItemStack = when (slot) {
-            EntityEquipmentSlot.HEAD -> head ?: ItemStack.EMPTY
-            EntityEquipmentSlot.CHEST -> chest ?: ItemStack.EMPTY
-            EntityEquipmentSlot.LEGS -> legs ?: ItemStack.EMPTY
-            EntityEquipmentSlot.FEET -> boots ?: ItemStack.EMPTY
-            else -> ItemStack.EMPTY
+        operator fun get(slot: EntityEquipmentSlot): Item? = when (slot) {
+            EntityEquipmentSlot.HEAD -> helm
+            EntityEquipmentSlot.CHEST -> chest
+            EntityEquipmentSlot.LEGS -> legs
+            EntityEquipmentSlot.FEET -> boots
+            else -> null
         }
     }
 
@@ -143,10 +144,10 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
     fun hasFullSet(player: EntityLivingBase) = getSetPiecesEquipped(player) == 4
 
     fun hasArmorSetItem(player: EntityLivingBase, slot: EntityEquipmentSlot): Boolean {
-        if (armorSetStacks[slot].isEmpty) return true
+        if (armorSetStacks[slot] == null) return true
         val stack = player.getItemStackFromSlot(slot)
         if (stack.isEmpty) return false
-        return ItemStack.areItemsEqualIgnoreDurability(stack, armorSetStacks[slot])
+        return stack.item == armorSetStacks[slot]
     }
 
     private fun getSetPiecesEquipped(player: EntityLivingBase)
@@ -157,11 +158,10 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
     val armorSetName: String
         get() = TooltipHelper.local("$modId.armorset.$matName.name")
 
-
     private fun getArmorSetTitle(player: EntityPlayer)
             = TooltipHelper.local("botaniamisc.armorset") + " " + armorSetName + " (" + getSetPiecesEquipped(player) + "/" + armorSetStacks.size + ")"
 
-    fun addArmorSetDescription(list: MutableList<String>)
+    open fun addArmorSetDescription(list: MutableList<String>)
             = TooltipHelper.addToTooltip(list, "$modId.armorset.$matName.desc")
 
     override fun hasPhantomInk(stack: ItemStack)
