@@ -71,7 +71,11 @@ open class CommonProxy {
         //NO-OP
     }
 
-    open fun particleRing(x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float) {
+    fun particleRing(x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float) {
+        particleRing(x, y, z, range, r, g, b, 0.15F, 0.35F, 0.2F)
+    }
+
+    open fun particleRing(x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float, motion: Float, verticalMotion: Float, size: Float) {
         //NO-OP
     }
 

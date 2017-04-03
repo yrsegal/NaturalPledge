@@ -49,7 +49,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
     init {
         setMaxStackSize(1)
         maxDamage = 1561
-        attackDamage = 11.0f
+        attackDamage = 15.0f
     }
 
     companion object {

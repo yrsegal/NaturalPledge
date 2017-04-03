@@ -34,6 +34,8 @@ import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.FENRIS
 import shadowfox.botanicaladdons.common.items.armor.ItemFenrisArmor.Companion.TAG_ACTIVE
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
+import shadowfox.botanicaladdons.common.items.weapons.ItemNightscourge
+import shadowfox.botanicaladdons.common.items.weapons.ItemShadowbreaker
 import java.util.*
 
 /**
@@ -51,7 +53,9 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
         @SubscribeEvent
         fun onLivingAttack(e: LivingAttackEvent) {
             val attacker = e.source.entity
-            if (e.source.damageType == "player" && attacker is EntityPlayer && ModItems.fenrisHelm.hasFullSet(attacker) && attacker.heldItemMainhand.isEmpty) {
+            if (e.source.damageType == "player" && attacker is EntityPlayer && (
+                    (ModItems.fenrisHelm.hasFullSet(attacker) && attacker.heldItemMainhand.isEmpty) ||
+                            (attacker.heldItemMainhand.item is ItemNightscourge))) {
                 e.source.setDamageBypassesArmor()
             }
         }
@@ -82,9 +86,9 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
         }
     }
 
-    override fun onUpdate(stack: ItemStack, world: World, player: Entity, par4: Int, par5: Boolean) {
-        super.onUpdate(stack, world, player, par4, par5)
-        if (!world.isRemote && par4 < 100)
+    override fun onUpdate(stack: ItemStack, world: World, player: Entity, slot: Int, selected: Boolean) {
+        super.onUpdate(stack, world, player, slot, selected)
+        if (!world.isRemote && slot < 100)
             ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, false)
     }
 

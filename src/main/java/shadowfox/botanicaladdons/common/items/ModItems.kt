@@ -26,6 +26,9 @@ import shadowfox.botanicaladdons.common.items.sacred.*
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemFoodBelt
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
 import shadowfox.botanicaladdons.common.items.travel.stones.*
+import shadowfox.botanicaladdons.common.items.weapons.ItemFlarebringer
+import shadowfox.botanicaladdons.common.items.weapons.ItemNightscourge
+import shadowfox.botanicaladdons.common.items.weapons.ItemShadowbreaker
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.common.item.ModItems as BotaniaItems
@@ -36,10 +39,10 @@ import vazkii.botania.common.item.ModItems as BotaniaItems
  */
 object ModItems {
     val ECLIPSE = EnumHelper.addArmorMaterial("RAGNAROK.ECLIPSE", "eclipse", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f)!!
+    val FLAREBRINGER = EnumHelper.addToolMaterial("RAGNAROK.FLAREBRINGER", 4, 2300, 9F, 4F, 26)!!
     val SUNMAKER = EnumHelper.addArmorMaterial("RAGNAROK.SUNMAKER", "sunmaker", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f)!!
+    val SHADOWBREAKER = EnumHelper.addToolMaterial("RAGNAROK.SHADOWBREAKER", 4, 2300, 9F, 3F, 26)!!
     val FENRIS = EnumHelper.addArmorMaterial("RAGNAROK.FENRIS", "fenris", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 4.0f)!!
-
-
 
     val emblem: ItemMod
     val symbol: ItemMod
@@ -87,15 +90,21 @@ object ModItems {
     val eclipseLegs: ItemEclipseArmor
     val eclipseBoots: ItemEclipseArmor
 
+    val flarebringer: ItemFlarebringer
+
     val sunmakerHelm: ItemSunmakerArmor
     val sunmakerChest: ItemSunmakerArmor
     val sunmakerLegs: ItemSunmakerArmor
     val sunmakerBoots: ItemSunmakerArmor
 
+    val shadowbreaker: ItemShadowbreaker
+
     val fenrisHelm: ItemFenrisArmor
     val fenrisChest: ItemFenrisArmor
     val fenrisLegs: ItemFenrisArmor
     val fenrisBoots: ItemFenrisArmor
+
+    val nightscourge: ItemNightscourge
 
     lateinit var gaiaKiller: ItemMod
 
@@ -148,15 +157,21 @@ object ModItems {
         eclipseLegs = ItemEclipseArmor(LibNames.ECLIPSE_LEGS, EntityEquipmentSlot.LEGS)
         eclipseBoots = ItemEclipseArmor(LibNames.ECLIPSE_BOOTS, EntityEquipmentSlot.FEET)
 
+        flarebringer = ItemFlarebringer(LibNames.FLAREBRINGER, FLAREBRINGER)
+
         sunmakerHelm = ItemSunmakerArmor(LibNames.SUNMAKER_HELM, EntityEquipmentSlot.HEAD)
         sunmakerChest = ItemSunmakerArmor(LibNames.SUNMAKER_CHEST, EntityEquipmentSlot.CHEST)
         sunmakerLegs = ItemSunmakerArmor(LibNames.SUNMAKER_LEGS, EntityEquipmentSlot.LEGS)
         sunmakerBoots = ItemSunmakerArmor(LibNames.SUNMAKER_BOOTS, EntityEquipmentSlot.FEET)
 
+        shadowbreaker = ItemShadowbreaker(LibNames.SHADOWBREAKER, SHADOWBREAKER)
+
         fenrisHelm = ItemFenrisArmor(LibNames.FENRIS_HELM, EntityEquipmentSlot.HEAD)
         fenrisChest = ItemFenrisArmor(LibNames.FENRIS_CHEST, EntityEquipmentSlot.CHEST)
         fenrisLegs = ItemFenrisArmor(LibNames.FENRIS_LEGS, EntityEquipmentSlot.LEGS)
         fenrisBoots = ItemFenrisArmor(LibNames.FENRIS_BOOTS, EntityEquipmentSlot.FEET)
+
+        nightscourge = ItemNightscourge(LibNames.NIGHTSCOURGE)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

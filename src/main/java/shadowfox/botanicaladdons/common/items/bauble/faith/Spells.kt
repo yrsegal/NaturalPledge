@@ -290,7 +290,8 @@ object Spells {
                         entity.fallDistance = 0f
                         if (entity is EntityPlayerMP)
                             entity.connection.sendPacket(SPacketEntityVelocity(entity))
-                        flag = true
+                        if (entity.motionVec.lengthSquared() != 0.0)
+                            flag = true
                     }
                 }
                 return flag

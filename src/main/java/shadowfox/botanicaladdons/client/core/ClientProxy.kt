@@ -99,16 +99,14 @@ class ClientProxy : CommonProxy() {
         }
     }
 
-    override fun particleRing(x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float) {
-        val m = 0.15F
-        val mv = 0.35F
+    override fun particleRing(x: Double, y: Double, z: Double, range: Double, r: Float, g: Float, b: Float, motion: Float, verticalMotion: Float, size: Float) {
         for (i in 0..359 step 8) {
             val rad = i.toDouble() * Math.PI / 180.0
             val dispx = x + 0.5 - Math.cos(rad) * range.toFloat()
             val dispy = y + 0.5
             val dispz = z + 0.5 - Math.sin(rad) * range.toFloat()
 
-            Botania.proxy.wispFX(dispx, dispy, dispz, r, g, b, 0.2F, (Math.random() - 0.5).toFloat() * m, (Math.random() - 0.5).toFloat() * mv, (Math.random() - 0.5F).toFloat() * m)
+            Botania.proxy.wispFX(dispx, dispy, dispz, r, g, b, size, (Math.random() - 0.5).toFloat() * motion, (Math.random() - 0.5).toFloat() * verticalMotion, (Math.random() - 0.5F).toFloat() * motion)
         }
     }
 

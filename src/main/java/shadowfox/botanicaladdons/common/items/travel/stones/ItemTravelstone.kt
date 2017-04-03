@@ -61,7 +61,7 @@ class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider {
         fun onPlayerJump(e: LivingEvent.LivingJumpEvent) {
             if (e.entityLiving is EntityPlayer) {
                 val player = e.entityLiving as EntityPlayer
-                if (shouldPlayerHaveStepup(player)) {
+                if (shouldPlayerHaveStepup(player) && player.isSneaking) {
 
                     player.motionY += 0.2f
                     player.fallDistance -= 2f
@@ -91,6 +91,7 @@ class ItemTravelstone(name: String) : ItemMod(name), IItemColorProvider {
         }
 
         fun shouldPlayerHaveStepup(player: EntityPlayer): Boolean {
+            if (ModItems.fenrisHelm.hasFullSet(player)) return true
             return !getTravelStack(player).isEmpty
         }
     }
