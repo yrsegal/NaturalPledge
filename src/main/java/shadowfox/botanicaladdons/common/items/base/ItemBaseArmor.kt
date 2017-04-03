@@ -52,8 +52,8 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
     override fun getArmorDisplay(player: EntityPlayer, armor: ItemStack, slot: Int) = damageReduceAmount
 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, par4: Int, par5: Boolean) {
-        if (player is EntityPlayer)
-            onArmorTick(world, player, stack)
+        if (player is EntityPlayer && !world.isRemote && stack.itemDamage > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
+            stack.itemDamage = stack.itemDamage - 1
     }
 
     override fun onArmorTick(world: World, player: EntityPlayer, stack: ItemStack) {

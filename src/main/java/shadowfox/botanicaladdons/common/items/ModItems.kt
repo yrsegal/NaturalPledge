@@ -10,6 +10,8 @@ import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.armor.ItemEclipseArmor
+import shadowfox.botanicaladdons.common.items.armor.ItemFenrisArmor
+import shadowfox.botanicaladdons.common.items.armor.ItemSunmakerArmor
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import shadowfox.botanicaladdons.common.items.base.ItemRainbow
 import shadowfox.botanicaladdons.common.items.bauble.ItemDivineCloak
@@ -34,6 +36,9 @@ import vazkii.botania.common.item.ModItems as BotaniaItems
  */
 object ModItems {
     val ECLIPSE = EnumHelper.addArmorMaterial("RAGNAROK.ECLIPSE", "eclipse", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f)!!
+    val SUNMAKER = EnumHelper.addArmorMaterial("RAGNAROK.SUNMAKER", "sunmaker", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f)!!
+    val FENRIS = EnumHelper.addArmorMaterial("RAGNAROK.FENRIS", "fenris", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 4.0f)!!
+
 
 
     val emblem: ItemMod
@@ -81,6 +86,16 @@ object ModItems {
     val eclipseChest: ItemEclipseArmor
     val eclipseLegs: ItemEclipseArmor
     val eclipseBoots: ItemEclipseArmor
+
+    val sunmakerHelm: ItemSunmakerArmor
+    val sunmakerChest: ItemSunmakerArmor
+    val sunmakerLegs: ItemSunmakerArmor
+    val sunmakerBoots: ItemSunmakerArmor
+
+    val fenrisHelm: ItemFenrisArmor
+    val fenrisChest: ItemFenrisArmor
+    val fenrisLegs: ItemFenrisArmor
+    val fenrisBoots: ItemFenrisArmor
 
     lateinit var gaiaKiller: ItemMod
 
@@ -132,6 +147,16 @@ object ModItems {
         eclipseChest = ItemEclipseArmor(LibNames.ECLIPSE_CHEST, EntityEquipmentSlot.CHEST)
         eclipseLegs = ItemEclipseArmor(LibNames.ECLIPSE_LEGS, EntityEquipmentSlot.LEGS)
         eclipseBoots = ItemEclipseArmor(LibNames.ECLIPSE_BOOTS, EntityEquipmentSlot.FEET)
+
+        sunmakerHelm = ItemSunmakerArmor(LibNames.SUNMAKER_HELM, EntityEquipmentSlot.HEAD)
+        sunmakerChest = ItemSunmakerArmor(LibNames.SUNMAKER_CHEST, EntityEquipmentSlot.CHEST)
+        sunmakerLegs = ItemSunmakerArmor(LibNames.SUNMAKER_LEGS, EntityEquipmentSlot.LEGS)
+        sunmakerBoots = ItemSunmakerArmor(LibNames.SUNMAKER_BOOTS, EntityEquipmentSlot.FEET)
+
+        fenrisHelm = ItemFenrisArmor(LibNames.FENRIS_HELM, EntityEquipmentSlot.HEAD)
+        fenrisChest = ItemFenrisArmor(LibNames.FENRIS_CHEST, EntityEquipmentSlot.CHEST)
+        fenrisLegs = ItemFenrisArmor(LibNames.FENRIS_LEGS, EntityEquipmentSlot.LEGS)
+        fenrisBoots = ItemFenrisArmor(LibNames.FENRIS_BOOTS, EntityEquipmentSlot.FEET)
 
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)

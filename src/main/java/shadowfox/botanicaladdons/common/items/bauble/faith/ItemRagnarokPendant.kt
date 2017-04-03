@@ -30,6 +30,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -103,12 +104,10 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         override fun hasSubscriptions() = true
 
         @SubscribeEvent
-        fun onLivingAttack(e: LivingAttackEvent) {
-            val player = e.source.sourceOfDamage ?: return
-            if (player is EntityPlayer) {
-                val emblem = ItemFaithBauble.getEmblem(player, Ragnarok::class.java)
-                if (emblem != null) e.entityLiving.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 100))
-            }
+        fun onLivingAttack(e: AttackEntityEvent) {
+            val target = e.target
+            val emblem = ItemFaithBauble.getEmblem(e.entityPlayer, Ragnarok::class.java)
+            if (emblem != null && target is EntityLivingBase) target.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 100))
         }
 
         override fun getName(): String {

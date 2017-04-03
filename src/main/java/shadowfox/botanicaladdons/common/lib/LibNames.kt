@@ -37,6 +37,14 @@ object LibNames {
     val ECLIPSE_CHEST = "eclipseChest"
     val ECLIPSE_LEGS = "eclipseLegs"
     val ECLIPSE_BOOTS = "eclipseBoots"
+    val SUNMAKER_HELM = "sunmakerHelm"
+    val SUNMAKER_CHEST = "sunmakerChest"
+    val SUNMAKER_LEGS = "sunmakerLegs"
+    val SUNMAKER_BOOTS = "sunmakerBoots"
+    val FENRIS_HELM = "fenrisHelm"
+    val FENRIS_CHEST = "fenrisChest"
+    val FENRIS_LEGS = "fenrisLegs"
+    val FENRIS_BOOTS = "fenrisBoots"
 
 
     val SPELL_LEAP = "leap"
