@@ -364,6 +364,7 @@ modifier.aerodynamic.desc=§oIt's a bit high up here§r\nThis tool is completely
 modifier.soulbonded.name=Soulbonded
 modifier.soulbonded.desc=§oPhotosynthesize!§r\nBe like a tree, and your bonded tool will grow back like one.
 
+botania.knowledge.forbidden=&4Forbidden&7 Knowledge
 
 death.attack.botanicaladdons.faith=%s had a crisis of faith
 death.attack.botanicaladdons.hammer=%s discovered kinetic energy
@@ -399,6 +400,9 @@ achievement.botanicaladdons.sacred_horn=Lost One's Weeping
 achievement.botanicaladdons.sacred_horn.desc=Create Gjallerhorn from the true power of Heimdall
 achievement.botanicaladdons.sacred_flame=Dawn of the Red Sea
 achievement.botanicaladdons.sacred_flame.desc=Create the Fist of Perdition from the true power of Loki
+
+achievement.botanicaladdons.ragnarok=The 13th Apocalypse
+achievement.botanicaladdons.ragnarok.desc=Prove that gods can be slain
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted
@@ -712,3 +716,35 @@ botanicaladdons.entry.ragnarok=Contract Breaker
 botanicaladdons.tagline.ragnarok=Spin the black circle
 botanicaladdons.page.ragnarok0=Spin the crackling circle from the waking &1æther&0 of &3Heimdall&0, yellow as the blood of gods. Spin it through the waking &1seas&0 of &3Njord&0, blue as the deepest oceans. Spin it under the waking &1skies&0 of &3Thor&0, green as the grass of plains. Spin it with the waking &1flames&0 of &3Loki&0, red as the blood from which they're born. Spin it to the waking &1land&0 of &3Idunn&0, brown as the deepest dirt, and back to your beginning.
 botanicaladdons.page.ragnarok1=Offer their souls, and burn forth a token, and may ye see the &3end&0.
+
+botanicaladdons.entry.faith_in_ragnarok=Faith in Ragnarok
+botanicaladdons.tagline.faith_in_ragnarok=The power of the end
+botanicaladdons.page.faith_in_ragnarok0=The &1twisted pendant&0 seems like a dangerous option for faith. The &3apocalypse&0 is not to be tested lightly. Something about it resonates with the other gods, as if it is tied to their fates. The gifts of every god are conferred through the twisted pendant. As for spells, not all of the spells carried through, leaving you with only one from each god.
+botanicaladdons.page.faith_in_ragnarok1=There is a single spell unique to faith in &3Ragnarok&0, &4Soul Manifestation&0. While it acts like any other infusion spell, creating &4Iridescence&0, &1Aquamarine&0, &1Thundersteel&0, &1Soulroot&0, and &1Hearth Ember&0, it can also twist the essence of the divine contained within a &1Nether Star&0 into a far purer form: Divine Spirit.
+
+botanicaladdons.entry.eclipse=Gear of Eclipse
+botanicaladdons.tagline.eclipse=Keep your enemies far and your friends farther
+botanicaladdons.page.eclipse0=The gear created with the essence of &4Eclipse&0 encourages solitude. The &4Mana Masquerade&0, the special ability of the armor set, will recharge your mana from people around you. The blade of &4Eclipse&0, &1Flarebringer&0, will cut things far farther than you can reach.
+botanicaladdons.page.eclipse1=For the doom of Gunmar
+botanicaladdons.page.eclipse2=The &1Helm of Eclipse&0
+botanicaladdons.page.eclipse3=The &1Chestplate of Eclipse&0
+botanicaladdons.page.eclipse4=The &1Platelegs of Eclipse&0
+botanicaladdons.page.eclipse5=The &1Greaves of Eclipse&0
+
+botanicaladdons.entry.sunmaker=Gear of the Sunmaker
+botanicaladdons.tagline.sunmaker=Push back the tide of darkness
+botanicaladdons.page.sunmaker0=The gear created with the essence of the &4Sunmaker&0 encourages you to be a bastion against a storm. The &4Light of Creation&0, the special ability of the armor set, will infuse mana into anything damaged you hold, repairing it. The blade of the &4Sunmaker&0, &1Shadowbreaker&0, will repulse enemies who dare try to attack from behind, and any projectiles.
+botanicaladdons.page.sunmaker1=For the glory of Merlin
+botanicaladdons.page.sunmaker2=The &1Helm of the Sunmaker&0
+botanicaladdons.page.sunmaker3=The &1Chestplate of the Sunmaker&0
+botanicaladdons.page.sunmaker4=The &1Platelegs of the Sunmaker&0
+botanicaladdons.page.sunmaker5=The &1Greaves of the Sunmaker&0
+
+botanicaladdons.entry.fenris=Gear of Fenris
+botanicaladdons.tagline.fenris=Break thy bonds
+botanicaladdons.page.fenris0=The gear created with the essence of &4Fenris Wolf&0 is designed to cut straight through armor and defense, even able to cut &1Gleipnir&0. The &4Soul Unbound&0, the special ability of the armor set, will infuse mana into your very blood, strengthening your body. The claws of &4Fenris&0, &1Nightscourge&0, will also strike through armor, and can block as a pair.
+botanicaladdons.page.fenris1=Odinsbane
+botanicaladdons.page.fenris2=The &1Helm of Fenris&0
+botanicaladdons.page.fenris3=The &1Chestplate of Fenris&0
+botanicaladdons.page.fenris4=The &1Platelegs of Fenris&0
+botanicaladdons.page.fenris5=The &1Greaves of Fenris&0

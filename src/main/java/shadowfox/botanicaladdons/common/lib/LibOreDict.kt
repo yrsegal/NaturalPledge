@@ -29,6 +29,9 @@ object LibOreDict {
     val HEARTHSTONE = "hearthstone"
     val HEARTHSTONE_AWAKENED = "hearthstoneAwakened"
 
+    val DIVINE_SPIRIT = "divineSpirit"
+    val DIVINE_SPIRIT_AWAKENED = "divineSpiritAwakened"
+
     val BLOCK_AQUAMARINE = "blockAquamarine"
     val BLOCK_THUNDERSTEEL = "blockThundersteel"
 

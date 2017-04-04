@@ -1,8 +1,10 @@
 package shadowfox.botanicaladdons.common.items.armor
 
 import com.google.common.collect.Multimap
+import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.client.util.TooltipHelper
 import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -15,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.MobEffects
 import net.minecraft.init.SoundEvents
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemSword
 import net.minecraft.network.play.server.SPacketEntityVelocity
@@ -23,6 +26,7 @@ import net.minecraft.stats.StatList
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.util.EnumParticleTypes
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import net.minecraft.world.WorldServer
@@ -34,6 +38,7 @@ import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.FENRIS
 import shadowfox.botanicaladdons.common.items.armor.ItemFenrisArmor.Companion.TAG_ACTIVE
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.weapons.ItemNightscourge
 import shadowfox.botanicaladdons.common.items.weapons.ItemShadowbreaker
 import java.util.*
@@ -59,6 +64,16 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
                 e.source.setDamageBypassesArmor()
             }
         }
+    }
+
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        val ragnarokRises = try {
+            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
+        } catch (e: IllegalStateException) {
+            false
+        }
+        if (ragnarokRises)
+            super.getSubItems(itemIn, tab, subItems)
     }
 
     override val armorTexture: String

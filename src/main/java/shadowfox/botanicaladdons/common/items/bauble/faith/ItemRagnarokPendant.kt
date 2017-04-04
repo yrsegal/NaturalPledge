@@ -119,6 +119,7 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         }
 
         override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
+            player.health = 0.01f
             player.addPotionEffect(PotionEffect(MobEffects.WITHER, 200, 3))
             player.removePotionEffect(MobEffects.NIGHT_VISION)
             player.setFire(10)

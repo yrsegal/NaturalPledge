@@ -1,8 +1,10 @@
 package shadowfox.botanicaladdons.common.items.weapons
 
 import com.google.common.collect.Multimap
+import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.common.base.item.ItemMod
 import net.minecraft.block.state.IBlockState
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -11,15 +13,18 @@ import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumAction
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 
@@ -83,6 +88,16 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.name, AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.0 + offset * -.3, 0))
         }
         return multimap
+    }
+
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        val ragnarokRises = try {
+            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
+        } catch (e: IllegalStateException) {
+            false
+        }
+        if (ragnarokRises)
+            super.getSubItems(itemIn, tab, subItems)
     }
 
     override fun getItemEnchantability(): Int = 14

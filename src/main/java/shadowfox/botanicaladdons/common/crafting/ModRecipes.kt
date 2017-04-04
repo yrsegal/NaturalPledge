@@ -32,6 +32,7 @@ import shadowfox.botanicaladdons.common.potions.brew.ModBrews
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.recipe.RecipeBrew
 import vazkii.botania.api.recipe.RecipePureDaisy
+import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 import vazkii.botania.common.item.ModItems as BotaniaItems
 import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
@@ -144,12 +145,31 @@ object ModRecipes {
 
     val recipePerditionFist: IRecipe
 
+    val recipeEclipseHelm: IRecipe
+    val recipeEclipseChest: IRecipe
+    val recipeEclipseLegs: IRecipe
+    val recipeEclipseBoots: IRecipe
+    val recipeEclipseWeapon: IRecipe
+
+    val recipeSunmakerHelm: IRecipe
+    val recipeSunmakerChest: IRecipe
+    val recipeSunmakerLegs: IRecipe
+    val recipeSunmakerBoots: IRecipe
+    val recipeSunmakerWeapon: IRecipe
+
+    val recipeFenrisHelm: IRecipe
+    val recipeFenrisChest: IRecipe
+    val recipeFenrisLegs: IRecipe
+    val recipeFenrisBoots: IRecipe
+    val recipeFenrisWeapon: IRecipe
+
     init {
 
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:itemDuplicate", RecipeItemDuplication::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:enchantRemover", RecipeEnchantmentRemoval::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:nojei", RecipeNoJEI::class.java, RecipeSorter.Category.SHAPED, "")
         GameRegistry.addRecipe(RecipeDynamicDye(ModItems.lightPlacer, true))
         GameRegistry.addRecipe(RecipeRainbowLensDye())
         GameRegistry.addRecipe(RecipeEnchantmentRemoval)
@@ -645,6 +665,116 @@ object ModRecipes {
                 'W', BotaniaOreDict.RUNE[13], // Wrath
                 'A', LibOreDict.HEARTHSTONE_AWAKENED)
 
+        recipeEclipseHelm = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseHelm),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.HEARTHSTONE,
+                'A', ItemStack(BotaniaItems.terrasteelHelm)))
+        recipeEclipseChest = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseChest),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.HEARTHSTONE,
+                'A', ItemStack(BotaniaItems.terrasteelChest)))
+        recipeEclipseLegs = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseLegs),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.HEARTHSTONE,
+                'A', ItemStack(BotaniaItems.terrasteelLegs)))
+        recipeEclipseBoots = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseBoots),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.HEARTHSTONE,
+                'A', ItemStack(BotaniaItems.terrasteelBoots)))
+        recipeEclipseWeapon = addHiddenOreDictRecipe(ModItems.flarebringer,
+                "DMS",
+                "MT ",
+                " T ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.HEARTHSTONE,
+                'T', BotaniaOreDict.LIVINGWOOD_TWIG,
+                'D', BotaniaOreDict.PIXIE_DUST)
+
+        recipeSunmakerHelm = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerHelm),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.THUNDERSTEEL,
+                'A', ItemStack(BotaniaItems.terrasteelHelm)))
+        recipeSunmakerChest = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerChest),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.THUNDERSTEEL,
+                'A', ItemStack(BotaniaItems.terrasteelChest)))
+        recipeSunmakerLegs = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerLegs),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.THUNDERSTEEL,
+                'A', ItemStack(BotaniaItems.terrasteelLegs)))
+        recipeSunmakerBoots = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerBoots),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.THUNDERSTEEL,
+                'A', ItemStack(BotaniaItems.terrasteelBoots)))
+        recipeSunmakerWeapon = addHiddenOreDictRecipe(ModItems.shadowbreaker,
+                "AMS",
+                "MT ",
+                " T ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.THUNDERSTEEL,
+                'T', BotaniaOreDict.DREAMWOOD_TWIG,
+                'A', LibOreDict.AQUAMARINE)
+
+        recipeFenrisHelm = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisHelm),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
+                'M', LibOreDict.LIFE_ROOT,
+                'A', ItemStack(BotaniaItems.terrasteelHelm)))
+        recipeFenrisChest = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisChest),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
+                'M', LibOreDict.LIFE_ROOT,
+                'A', ItemStack(BotaniaItems.terrasteelChest)))
+        recipeFenrisLegs = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisLegs),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
+                'M', LibOreDict.LIFE_ROOT,
+                'A', ItemStack(BotaniaItems.terrasteelLegs)))
+        recipeFenrisBoots = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisBoots),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
+                'M', LibOreDict.LIFE_ROOT,
+                'A', ItemStack(BotaniaItems.terrasteelBoots)))
+        recipeFenrisWeapon = addHiddenOreDictRecipe(ModItems.nightscourge,
+                "MSC",
+                "MM ",
+                'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
+                'M', LibOreDict.LIFE_ROOT,
+                'C', "bone")
+
+
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {
             SpellRegistry.registerSpellRecipe("gemPrismarine", spell, of(AQUAMARINE), of(AQUAMARINE, true))
@@ -696,6 +826,19 @@ object ModRecipes {
         val obj = ShapedOreRecipe(output, *recipe)
         CraftingManager.getInstance().recipeList.add(obj)
         return obj
+    }
+
+    fun addHiddenOreDictRecipe(output: Item, vararg recipe: Any) = addHiddenOreDictRecipe(ItemStack(output), *recipe)
+    fun addHiddenOreDictRecipe(output: Block, vararg recipe: Any) = addHiddenOreDictRecipe(ItemStack(output), *recipe)
+    fun addHiddenOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {
+        val obj = ShapedOreRecipe(output, *recipe)
+        CraftingManager.getInstance().recipeList.add(RecipeNoJEI(obj))
+        return obj
+    }
+
+    fun addHiddenRecipe(recipe: IRecipe): IRecipe {
+        CraftingManager.getInstance().recipeList.add(RecipeNoJEI(recipe))
+        return recipe
     }
 
     fun addShapelessOreDictRecipe(output: Item, vararg recipe: Any) = addShapelessOreDictRecipe(ItemStack(output), *recipe)

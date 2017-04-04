@@ -1,6 +1,8 @@
 package shadowfox.botanicaladdons.common.items.weapons
 
+import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.common.util.handles.MethodHandleHelper
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
@@ -8,11 +10,13 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.base.ItemBaseSword
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.entity.EntityManaBurst
@@ -43,5 +47,15 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
                 }
             }
         }
+    }
+
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        val ragnarokRises = try {
+            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
+        } catch (e: IllegalStateException) {
+            false
+        }
+        if (ragnarokRises)
+            super.getSubItems(itemIn, tab, subItems)
     }
 }

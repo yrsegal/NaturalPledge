@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.lexicon.base
 
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.stats.Achievement
@@ -17,7 +18,7 @@ import vazkii.botania.api.lexicon.LexiconCategory
 class EntryAwakenedKnowledge(unlocName: String, category: LexiconCategory, icon: ItemStack, val pendant: Class<out IFaithVariant>? = null) : ModEntry(unlocName, category, icon) {
 
     companion object {
-        val ACHIEVEMENT_MAP = mutableMapOf<Class<out IFaithVariant>, Achievement>()
+        val ACHIEVEMENT_MAP = mutableMapOf<Class<out IFaithVariant>, (EntityPlayer) -> Boolean>()
     }
 
     constructor(unlocalizedName: String, category: LexiconCategory, block: Block, pendant: Class<out IFaithVariant>? = null) : this(unlocalizedName, category, ItemStack(block), pendant)
@@ -28,9 +29,9 @@ class EntryAwakenedKnowledge(unlocName: String, category: LexiconCategory, icon:
         val entityPlayer = Minecraft.getMinecraft().player
         val emblem = ItemFaithBauble.getEmblem(entityPlayer, pendant)
         val ach = if (pendant == null)
-            EntryPriestlyKnowledge.ACHIEVEMENT_MAP.any { entityPlayer.hasAchievement(it.value) }
+            EntryPriestlyKnowledge.ACHIEVEMENT_MAP.any { it.value(entityPlayer) }
         else
-            ACHIEVEMENT_MAP[pendant]?.let { entityPlayer.hasAchievement(it) } ?: false
+            ACHIEVEMENT_MAP[pendant]?.let { it(entityPlayer) } ?: false
         return ach || entityPlayer.isCreative || (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem))
     }
 }

@@ -195,6 +195,10 @@ object ModItems {
         OreDictionary.registerOre(LibOreDict.HEARTHSTONE, ItemResource.of(ItemResource.Variants.HEARTHSTONE, true))
         OreDictionary.registerOre(LibOreDict.HEARTHSTONE_AWAKENED, ItemResource.of(ItemResource.Variants.HEARTHSTONE, true))
 
+        OreDictionary.registerOre(LibOreDict.DIVINE_SPIRIT, ItemResource.of(ItemResource.Variants.GOD_SOUL))
+        OreDictionary.registerOre(LibOreDict.DIVINE_SPIRIT, ItemResource.of(ItemResource.Variants.GOD_SOUL, true))
+        OreDictionary.registerOre(LibOreDict.DIVINE_SPIRIT_AWAKENED, ItemResource.of(ItemResource.Variants.GOD_SOUL, true))
+
         OreDictionary.registerOre("coal", Items.COAL)
         OreDictionary.registerOre("coal", ItemStack(Items.COAL, 1, 1))
     }

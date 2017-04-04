@@ -1,9 +1,17 @@
 package shadowfox.botanicaladdons.common.lexicon
 
+import com.teamwizardry.librarianlib.client.util.lambdainterfs.ClientRunnable
 import net.minecraft.block.BlockDirt
+import net.minecraft.client.entity.EntityPlayerSP
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
+import net.minecraft.stats.Achievement
+import net.minecraft.util.text.TextFormatting
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.oredict.OreDictionary
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.BlockAwakenerCore
@@ -14,7 +22,11 @@ import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
 import shadowfox.botanicaladdons.common.lexicon.base.*
+import sun.audio.AudioPlayer.player
 import vazkii.botania.api.BotaniaAPI
+import vazkii.botania.api.BotaniaAPI.registerKnowledgeType
+import vazkii.botania.api.lexicon.ILexicon
+import vazkii.botania.api.lexicon.KnowledgeType
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.lexicon.LexiconRecipeMappings
 import vazkii.botania.common.core.handler.ConfigHandler
@@ -28,6 +40,7 @@ import vazkii.botania.common.lexicon.page.PageText
  * Created at 1:15 PM on 4/16/16.
  */
 object LexiconEntries {
+    val forbidden: KnowledgeType
     val divinity: ModCategory
 
     val divineBasics: LexiconEntry
@@ -98,21 +111,46 @@ object LexiconEntries {
     val traps: LexiconEntry
 
     val ragnarok: LexiconEntry
+    val faithInRagnarok: LexiconEntry
+    val eclipse: LexiconEntry
+    val sunmaker: LexiconEntry
+    val fenris: LexiconEntry
+
+    fun EntityPlayer.definitelyHasAchievement(ach: Achievement): Boolean {
+        var flag = false
+        var unlocked = false
+        ClientRunnable.run {
+            if (this is EntityPlayerSP) {
+                val writer = statFileWriter
+                flag = true
+                unlocked = writer.hasAchievementUnlocked(ach)
+            }
+        }
+        if (flag) return unlocked
+
+        return hasAchievement(ach)
+    }
 
     init {
+        MinecraftForge.EVENT_BUS.register(this)
+
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
+        forbidden = registerKnowledgeType("forbidden", TextFormatting.DARK_RED, false)
 
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = ModAchievements.createAqua
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = ModAchievements.createLife
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = ModAchievements.createThunder
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = ModAchievements.iridescence
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = ModAchievements.createFire
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = { it.definitelyHasAchievement(ModAchievements.createAqua) }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = { it.definitelyHasAchievement(ModAchievements.createLife) }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = { it.definitelyHasAchievement(ModAchievements.createThunder) }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = { it.definitelyHasAchievement(ModAchievements.iridescence) }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = { it.definitelyHasAchievement(ModAchievements.createFire) }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[ItemRagnarokPendant.Ragnarok::class.java] = { ItemRagnarokPendant.hasAwakenedRagnarok(it) }
 
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = ModAchievements.sacredAqua
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = ModAchievements.sacredLife
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = ModAchievements.sacredThunder
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = ModAchievements.sacredHorn
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = ModAchievements.sacredFlame
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredAqua) }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredLife) }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredThunder) }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredHorn) }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredFlame) }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = { ItemRagnarokPendant.hasAwakenedRagnarok(it) &&
+                it.definitelyHasAchievement(ModAchievements.initiateRagnarok) }
 
         divinity = ModCategory("divinity", 1)
 
@@ -246,8 +284,33 @@ object LexiconEntries {
                 PageText("11"), PageCraftingRecipe("12", ModRecipes.recipeSignalTrap),
                 PageText("13"), PageCraftingRecipe("14", ModRecipes.recipeWrathTrap))
 
-        ragnarok = EntryRagnarokKnowledge("ragnarok", divinity, ModItems.ragnarok).setKnowledgeType(topKnowledgeTier)
+        ragnarok = EntryAwakenedKnowledge("ragnarok", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.SOUL_MANIFESTATION), ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(topKnowledgeTier).setPriority()
         ragnarok.setLexiconPages(PageText("0"), PageText("1"))
+
+        faithInRagnarok = EntryAwakenedKnowledge("faithInRagnarok", divinity, ModItems.ragnarok, ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(forbidden).setPriority()
+        faithInRagnarok.setLexiconPages(PageText("0"), PageText("1"))
+
+        eclipse = EntryPriestlyKnowledge("eclipse", divinity, ModItems.flarebringer, ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(forbidden)
+        eclipse.setLexiconPages(PageText("0"),
+                PageCraftingRecipe("1", ModRecipes.recipeEclipseWeapon),
+                PageCraftingRecipe("2", ModRecipes.recipeEclipseHelm),
+                PageCraftingRecipe("3", ModRecipes.recipeEclipseChest),
+                PageCraftingRecipe("4", ModRecipes.recipeEclipseLegs),
+                PageCraftingRecipe("5", ModRecipes.recipeEclipseBoots))
+        sunmaker = EntryPriestlyKnowledge("sunmaker", divinity, ModItems.shadowbreaker, ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(forbidden)
+        sunmaker.setLexiconPages(PageText("0"),
+                PageCraftingRecipe("1", ModRecipes.recipeSunmakerWeapon),
+                PageCraftingRecipe("2", ModRecipes.recipeSunmakerHelm),
+                PageCraftingRecipe("3", ModRecipes.recipeSunmakerChest),
+                PageCraftingRecipe("4", ModRecipes.recipeSunmakerLegs),
+                PageCraftingRecipe("5", ModRecipes.recipeSunmakerBoots))
+        fenris = EntryAwakenedKnowledge("fenris", divinity, ModItems.nightscourge, ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(forbidden)
+        fenris.setLexiconPages(PageText("0"),
+                PageCraftingRecipe("1", ModRecipes.recipeFenrisWeapon),
+                PageCraftingRecipe("2", ModRecipes.recipeFenrisHelm),
+                PageCraftingRecipe("3", ModRecipes.recipeFenrisChest),
+                PageCraftingRecipe("4", ModRecipes.recipeFenrisLegs),
+                PageCraftingRecipe("5", ModRecipes.recipeFenrisBoots))
 
         LexiconRecipeMappings.map(ItemStack(Blocks.DIRT), irisDirt, 0)
 
@@ -281,5 +344,20 @@ object LexiconEntries {
         LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.LIFE_ROOT), idunnSpells, 1)
         LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.LIFE_ROOT, true), idunnSpells, 1)
 
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.HEARTHSTONE), lokiSpells, 1)
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.HEARTHSTONE, true), lokiSpells, 1)
+
+        LexiconRecipeMappings.map(ItemStack(ModItems.ragnarok), ragnarok, 1)
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.GOD_SOUL), faithInRagnarok, 2)
+        LexiconRecipeMappings.map(ItemResource.of(ItemResource.Variants.GOD_SOUL, true), faithInRagnarok, 2)
+
+    }
+
+    @SubscribeEvent fun onItemClick(e: PlayerInteractEvent.RightClickItem) = unlockEntry(e.entityPlayer, e.itemStack)
+    @SubscribeEvent fun onItemClick(e: PlayerInteractEvent.RightClickBlock) = unlockEntry(e.entityPlayer, e.itemStack)
+
+    fun unlockEntry(player: EntityPlayer, stack: ItemStack) {
+        if (ItemFaithBauble.getEmblem(player, ItemRagnarokPendant.Ragnarok::class.java) != null && stack.item is ILexicon)
+            (stack.item as ILexicon).unlockKnowledge(stack, forbidden)
     }
 }

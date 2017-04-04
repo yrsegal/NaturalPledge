@@ -1,12 +1,16 @@
 package shadowfox.botanicaladdons.common.items.armor
 
+import com.teamwizardry.librarianlib.LibrarianLib
 import com.teamwizardry.librarianlib.client.util.TooltipHelper
 import com.teamwizardry.librarianlib.common.network.PacketHandler
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.NetworkRegistry
@@ -14,6 +18,7 @@ import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.ECLIPSE
 import shadowfox.botanicaladdons.common.items.ModItems.SUNMAKER
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.network.ManastormLightningMessage
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.Vector3
@@ -25,6 +30,16 @@ import java.util.*
  * Created at 5:09 PM on 4/2/17.
  */
 class ItemSunmakerArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, SUNMAKER) {
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        val ragnarokRises = try {
+            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
+        } catch (e: IllegalStateException) {
+            false
+        }
+        if (ragnarokRises)
+            super.getSubItems(itemIn, tab, subItems)
+    }
+
     override val armorTexture: String
         get() = armorMaterial.getName()
 

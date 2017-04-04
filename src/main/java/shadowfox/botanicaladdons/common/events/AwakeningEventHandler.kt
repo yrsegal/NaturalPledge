@@ -21,6 +21,7 @@ import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.entity.EntityDoppleganger
@@ -150,6 +151,8 @@ class AwakeningEventHandler {
                                 if (entity.world.isRemote)
                                     player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}_smiles").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
                                 (emblem.item as IPriestlyEmblem).setAwakened(emblem, true)
+                                if (variant == ItemRagnarokPendant.Ragnarok)
+                                    player.addStat(ModAchievements.initiateRagnarok)
                             }
                         }
                     }

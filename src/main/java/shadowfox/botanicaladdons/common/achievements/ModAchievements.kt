@@ -3,10 +3,12 @@ package shadowfox.botanicaladdons.common.achievements
 import com.teamwizardry.librarianlib.common.base.ModAchievement
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
+import net.minecraft.stats.Achievement
 import net.minecraftforge.common.AchievementPage
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.items.ItemResource
+import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ModItems
 
 /**
@@ -15,41 +17,25 @@ import shadowfox.botanicaladdons.common.items.ModItems
  */
 object ModAchievements {
 
-    val donEmblem: ModAchievement
-    val focus: ModAchievement
-    val awakening: ModAchievement
+    val donEmblem: ModAchievement = ModAchievement("donEmblem", 1, 1, ModItems.symbol, null)
+    val focus = ModAchievement("focus", 3, 1, ModItems.spellFocus, donEmblem)
+    val awakening = ModAchievement("awakening", 0, 2, ModBlocks.awakenerCore, focus)
 
-    val createLife: ModAchievement
-    val createThunder: ModAchievement
-    val createAqua: ModAchievement
-    val iridescence: ModAchievement
-    val createFire: ModAchievement
+    val createLife = ModAchievement("createLife", 5, 2, ItemResource.of(ItemResource.Variants.LIFE_ROOT), focus)
+    val createThunder = ModAchievement("createThunder", 2, -1, ItemResource.of(ItemResource.Variants.THUNDER_STEEL), focus)
+    val createAqua = ModAchievement("createAqua", 4, -1, ItemResource.of(ItemResource.Variants.AQUAMARINE), focus)
+    val iridescence = ModAchievement("iridescence", 5, 0, ItemStack(ModItems.iridescentDye, 1, 16), focus)
+    val createFire = ModAchievement("createFire", 4, 3, ItemResource.of(ItemResource.Variants.HEARTHSTONE), focus)
 
-    val sacredLife: ModAchievement
-    val sacredThunder: ModAchievement
-    val sacredAqua: ModAchievement
-    val sacredHorn: ModAchievement
-    val sacredFlame: ModAchievement
+    val sacredLife = ModAchievement("sacredLife", -2, 1, ModItems.apple, awakening)
+    val sacredThunder = ModAchievement("sacredThunder", -2, 3, ModItems.mjolnir, awakening)
+    val sacredAqua = ModAchievement("sacredAqua", -1, 4, ModItems.sealArrow, awakening)
+    val sacredHorn = ModAchievement("sacredHorn", 1, 4, ModItems.fateHorn, awakening)
+    val sacredFlame = ModAchievement("sacredFlame", -1, 0, ModItems.perditionFist, awakening)
 
-    val achievementPage: AchievementPage
+    val initiateRagnarok: Achievement = ModAchievement("ragnarok", 0, -4, ItemSpellIcon.of(ItemSpellIcon.Variants.SOUL_MANIFESTATION), null).setSpecial()
 
     init {
-        donEmblem = ModAchievement("donEmblem", 1, 1, ModItems.symbol, null)
-        focus = ModAchievement("focus", 3, 1, ModItems.spellFocus, donEmblem)
-        awakening = ModAchievement("awakening", 0, 2, ModBlocks.awakenerCore, focus)
-
-        createLife = ModAchievement("createLife", 5, 2, ItemResource.of(ItemResource.Variants.LIFE_ROOT), focus)
-        createThunder = ModAchievement("createThunder", 2, -1, ItemResource.of(ItemResource.Variants.THUNDER_STEEL), focus)
-        createAqua = ModAchievement("createAqua", 4, -1, ItemResource.of(ItemResource.Variants.AQUAMARINE), focus)
-        iridescence = ModAchievement("iridescence", 5, 0, ItemStack(ModItems.iridescentDye, 1, 16), focus)
-        createFire = ModAchievement("createFire", 4, 3, ItemResource.of(ItemResource.Variants.HEARTHSTONE), focus)
-
-        sacredLife = ModAchievement("sacredLife", -2, 1, ModItems.apple, awakening)
-        sacredThunder = ModAchievement("sacredThunder", -2, 3, ModItems.mjolnir, awakening)
-        sacredAqua = ModAchievement("sacredAqua", -1, 4, ModItems.sealArrow, awakening)
-        sacredHorn = ModAchievement("sacredHorn", 1, 4, ModItems.fateHorn, awakening)
-        sacredFlame = ModAchievement("sacredFlame", -1, 0, ModItems.perditionFist, awakening)
-
-        achievementPage = ModAchievement.producePage()
+        ModAchievement.producePage()
     }
 }
