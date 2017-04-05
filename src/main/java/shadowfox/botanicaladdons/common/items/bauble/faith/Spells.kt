@@ -610,10 +610,11 @@ object Spells {
 
                 val f = from.toVec3D()
                 val t = to.toVec3D()
+                val aabb = AxisAlignedBB(f.xCoord, f.yCoord, f.zCoord, t.xCoord, t.yCoord, t.zCoord)
 
-                player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(t, f).expandXyz(1.0)) {
+                player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, aabb.expandXyz(1.0)) {
                     val bb = it?.entityBoundingBox
-                    bb != null && it != player && bb.expandXyz(1.0).intersects(f, t)
+                    bb != null && it != player && bb.expandXyz(1.0).intersects(f.xCoord, f.yCoord, f.zCoord, t.xCoord, t.yCoord, t.zCoord)
                 }.forEach {
                     it.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), 2f)
                     it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 300))

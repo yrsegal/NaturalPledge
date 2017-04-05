@@ -67,7 +67,7 @@ class TileLivingwoodFunnel : TileModTickable() {
     override fun updateEntity() {
         if (!world.isRemote) {
 
-            val items = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(Vec3d(pos), Vec3d(pos).addVector(1.0, 1.5, 1.0)))
+            val items = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), pos.x + 1.0, pos.y + 1.5, pos.z + 1.0))
             for (item in items) {
                 val stack = item.entityItem
                 val result = inventory.insertItem(0, stack, false)
