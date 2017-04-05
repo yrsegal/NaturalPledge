@@ -31,12 +31,7 @@ import java.util.*
  */
 class ItemSunmakerArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, SUNMAKER) {
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-        val ragnarokRises = try {
-            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
-        } catch (e: IllegalStateException) {
-            false
-        }
-        if (ragnarokRises)
+        if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(itemIn, tab, subItems)
     }
 

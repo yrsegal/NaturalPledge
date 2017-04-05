@@ -29,7 +29,7 @@ class EntryAwakenedKnowledge(unlocName: String, category: LexiconCategory, icon:
         val entityPlayer = Minecraft.getMinecraft().player
         val emblem = ItemFaithBauble.getEmblem(entityPlayer, pendant)
         val ach = if (pendant == null)
-            EntryPriestlyKnowledge.ACHIEVEMENT_MAP.any { it.value(entityPlayer) }
+            ACHIEVEMENT_MAP.any { it.value(entityPlayer) }
         else
             ACHIEVEMENT_MAP[pendant]?.let { it(entityPlayer) } ?: false
         return ach || entityPlayer.isCreative || (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem))

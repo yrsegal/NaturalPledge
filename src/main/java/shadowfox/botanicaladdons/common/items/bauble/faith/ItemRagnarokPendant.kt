@@ -46,6 +46,7 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Compa
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
+import sun.audio.AudioPlayer.player
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
@@ -81,6 +82,12 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
                     player.hasAchievement(ModAchievements.sacredThunder) &&
                     player.hasAchievement(ModAchievements.sacredLife) &&
                     player.hasAchievement(ModAchievements.sacredAqua)
+        }
+
+        fun hasAwakenedRagnarok(): Boolean {
+            var player: EntityPlayer? = null
+            ClientRunnable.run { player = Minecraft.getMinecraft().player }
+            return hasAwakenedRagnarok(player ?: return true)
         }
 
         override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
@@ -132,12 +139,7 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-        val ragnarokRises = try {
-            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
-        } catch (e: IllegalStateException) {
-            false
-        }
-        if (ragnarokRises)
+        if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(itemIn, tab, subItems)
     }
 

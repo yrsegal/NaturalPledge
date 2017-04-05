@@ -145,23 +145,23 @@ object ModRecipes {
 
     val recipePerditionFist: IRecipe
 
-    val recipeEclipseHelm: IRecipe
-    val recipeEclipseChest: IRecipe
-    val recipeEclipseLegs: IRecipe
-    val recipeEclipseBoots: IRecipe
-    val recipeEclipseWeapon: IRecipe
+    val recipeEclipseHelm: ShapedOreRecipe
+    val recipeEclipseChest: ShapedOreRecipe
+    val recipeEclipseLegs: ShapedOreRecipe
+    val recipeEclipseBoots: ShapedOreRecipe
+    val recipeEclipseWeapon: ShapedOreRecipe
 
-    val recipeSunmakerHelm: IRecipe
-    val recipeSunmakerChest: IRecipe
-    val recipeSunmakerLegs: IRecipe
-    val recipeSunmakerBoots: IRecipe
-    val recipeSunmakerWeapon: IRecipe
+    val recipeSunmakerHelm: ShapedOreRecipe
+    val recipeSunmakerChest: ShapedOreRecipe
+    val recipeSunmakerLegs: ShapedOreRecipe
+    val recipeSunmakerBoots: ShapedOreRecipe
+    val recipeSunmakerWeapon: ShapedOreRecipe
 
-    val recipeFenrisHelm: IRecipe
-    val recipeFenrisChest: IRecipe
-    val recipeFenrisLegs: IRecipe
-    val recipeFenrisBoots: IRecipe
-    val recipeFenrisWeapon: IRecipe
+    val recipeFenrisHelm: ShapedOreRecipe
+    val recipeFenrisChest: ShapedOreRecipe
+    val recipeFenrisLegs: ShapedOreRecipe
+    val recipeFenrisBoots: ShapedOreRecipe
+    val recipeFenrisWeapon: ShapedOreRecipe
 
     init {
 
@@ -830,13 +830,13 @@ object ModRecipes {
 
     fun addHiddenOreDictRecipe(output: Item, vararg recipe: Any) = addHiddenOreDictRecipe(ItemStack(output), *recipe)
     fun addHiddenOreDictRecipe(output: Block, vararg recipe: Any) = addHiddenOreDictRecipe(ItemStack(output), *recipe)
-    fun addHiddenOreDictRecipe(output: ItemStack, vararg recipe: Any): IRecipe {
+    fun addHiddenOreDictRecipe(output: ItemStack, vararg recipe: Any): ShapedOreRecipe {
         val obj = ShapedOreRecipe(output, *recipe)
         CraftingManager.getInstance().recipeList.add(RecipeNoJEI(obj))
         return obj
     }
 
-    fun addHiddenRecipe(recipe: IRecipe): IRecipe {
+    fun <T: IRecipe> addHiddenRecipe(recipe: T): T {
         CraftingManager.getInstance().recipeList.add(RecipeNoJEI(recipe))
         return recipe
     }

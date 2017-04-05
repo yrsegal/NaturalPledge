@@ -91,12 +91,7 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-        val ragnarokRises = try {
-            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
-        } catch (e: IllegalStateException) {
-            false
-        }
-        if (ragnarokRises)
+                 if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(itemIn, tab, subItems)
     }
 

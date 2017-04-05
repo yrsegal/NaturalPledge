@@ -10,7 +10,7 @@ import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
 import shadowfox.botanicaladdons.common.items.ItemTerrestrialFocus
 import shadowfox.botanicaladdons.common.items.ModItems
 
-class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
+open class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
 
     val inputs by lazy {
         val outputs = getOutputsTyped()
