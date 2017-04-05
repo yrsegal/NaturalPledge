@@ -11,6 +11,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
+import net.minecraftforge.event.ForgeEventFactory
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
@@ -106,39 +107,18 @@ object PriestlyEmblemNjord : IFaithVariant {
         if (ray.typeOfHit == RayTraceResult.Type.BLOCK) {
             val state = player.world.getBlockState(ray.blockPos)
             if (state.material.isLiquid) {
-                var helditem = player.heldItemMainhand
-                var result: EnumActionResult? = null
-                if (helditem != null) {
-                    if (player.capabilities.isCreativeMode) helditem = helditem.copy()
-                    result = helditem.item?.onItemUse(player, player.world,
-                            ray.blockPos, EnumHand.MAIN_HAND, ray.sideHit,
-                            ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
-                    if (player.isCreative) player.setHeldItem(EnumHand.MAIN_HAND, helditem)
-                    if (result == EnumActionResult.PASS) {
-                        helditem = player.heldItemOffhand
-                        if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
-                        if (helditem != null) {
-                            result = helditem.item?.onItemUse(player, player.world,
-                                    ray.blockPos, EnumHand.OFF_HAND, ray.sideHit,
-                                    ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
-                            if (player.isCreative) player.setHeldItem(EnumHand.OFF_HAND, helditem)
-                        }
-                    }
-                    if (result != null && result != EnumActionResult.PASS) player.swingArm(EnumHand.MAIN_HAND)
-                } else {
-                    helditem = player.heldItemOffhand
-                    if (player.capabilities.isCreativeMode) helditem = helditem?.copy()
-                    if (helditem != null) {
-                        result = helditem.item?.onItemUse(player, player.world,
-                                ray.blockPos, EnumHand.OFF_HAND, ray.sideHit,
-                                ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
-                        if (player.isCreative) player.setHeldItem(EnumHand.OFF_HAND, helditem)
-                    }
-                    if (result != null && result != EnumActionResult.PASS) player.swingArm(EnumHand.OFF_HAND)
-                }
+                val originalStack = e.itemStack.copy()
+                val result = e.itemStack.onItemUse(player, player.world, ray.blockPos, e.hand, ray.sideHit,
+                        ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+
+                if (player.isCreative)
+                    player.setHeldItem(e.hand, originalStack)
+                else if (e.itemStack.isEmpty)
+                    ForgeEventFactory.onPlayerDestroyItem(player, originalStack, e.hand)
 
                 if (result != null && result != EnumActionResult.PASS) {
                     e.isCanceled = true
+                    player.swingArm(e.hand)
                 }
             }
         }
