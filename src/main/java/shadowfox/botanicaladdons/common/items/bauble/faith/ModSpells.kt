@@ -77,6 +77,8 @@ object ModSpells {
         SpellRegistry.registerSpell(LibNames.SPELL_FLAME_JET, Spells.Loki.FlameJet)
 
         SpellRegistry.registerSpell(LibNames.SPELL_SOUL_MANIFESTATION, Spells.ObjectInfusion.UltimateInfusion)
-        Spells.ObjectInfusion.allEntries.add(Spells.ObjectInfusion.ObjectInfusionEntry("netherStar", of(GOD_SOUL), of(GOD_SOUL, true), 1000, 0xD3DD85))
+        Spells.ObjectInfusion.allEntries.add(Spells.ObjectInfusion.ObjectInfusionEntry("netherStar", of(GOD_SOUL), of(GOD_SOUL, true), 1000, 0xD3DD85) {
+            player, _ -> player.addStat(ModAchievements.createSpirit)
+        })
     }
 }

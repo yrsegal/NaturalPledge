@@ -401,8 +401,11 @@ achievement.botanicaladdons.sacred_horn.desc=Create Gjallerhorn from the true po
 achievement.botanicaladdons.sacred_flame=Dawn of the Red Sea
 achievement.botanicaladdons.sacred_flame.desc=Create the Fist of Perdition from the true power of Loki
 
-achievement.botanicaladdons.ragnarok=The 13th Apocalypse
-achievement.botanicaladdons.ragnarok.desc=Prove that gods can be slain
+achievement.botanicaladdons.ragnarok=Celestial Symphony
+achievement.botanicaladdons.ragnarok.desc=Call forth the blood of gods
+
+achievement.botanicaladdons.begin_ragnarok=The 13th Apocalypse
+achievement.botanicaladdons.begin_ragnarok.desc=Prove that gods can be slain
 
 botanicaladdons.potion.faithlessness=Deity's Disfavor
 botanicaladdons.potion.rooted=Rooted
