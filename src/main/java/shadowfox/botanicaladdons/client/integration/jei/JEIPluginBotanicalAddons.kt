@@ -92,7 +92,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
         UpdateRagnarokJEIMessage.add = {
             RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.removeIngredientFromBlacklist(it) }
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.addRecipe(it) }
-            
+
             val overlay = runtime.itemListOverlay
             if (overlay is ItemListOverlay)
                 overlay.rebuildItemFilter()
@@ -128,6 +128,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
         helpers = registry.jeiHelpers
 
         UpdateRagnarokJEIMessage.lastState = false
+        RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.addIngredientToBlacklist(it) }
 
         registry.addRecipeCategories(SpellCraftingCategory, TreeGrowingCategory)
         registry.addRecipeHandlers(SpellCraftingRecipeHandler, TreeGrowingRecipeHandler)
@@ -137,6 +138,10 @@ class JEIPluginBotanicalAddons : IModPlugin {
 
         registry.addRecipeCategoryCraftingItem(ItemStack(ModItems.spellFocus), SpellCraftingCategory.uid)
         registry.addRecipeCategoryCraftingItem(ItemStack(ModBlocks.irisSapling), TreeGrowingCategory.uid)
+
+        // Botania
+
+        registry.jeiHelpers.ingredientBlacklist.addIngredientToBlacklist(ItemStack(BotaniaItems.manaResource, 1, 10)) // Prismarine
     }
 
     override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {
