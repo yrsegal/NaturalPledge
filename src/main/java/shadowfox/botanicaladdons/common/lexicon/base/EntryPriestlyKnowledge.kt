@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.stats.Achievement
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import vazkii.botania.api.lexicon.LexiconCategory
 
 /**
@@ -30,6 +31,6 @@ class EntryPriestlyKnowledge(unlocName: String, category: LexiconCategory, icon:
             ACHIEVEMENT_MAP.any { it.value(entityPlayer) }
         else
             ACHIEVEMENT_MAP[pendant]?.let { it(entityPlayer) } ?: false
-        return ach || entityPlayer.isCreative || ItemFaithBauble.getEmblem(entityPlayer, pendant) != null
+        return ach || (entityPlayer.isCreative && pendant != ItemRagnarokPendant.Ragnarok::class.java) || ItemFaithBauble.getEmblem(entityPlayer, pendant) != null
     }
 }

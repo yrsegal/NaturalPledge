@@ -30,7 +30,16 @@ class UpdateRagnarokJEIMessage : PacketBase() {
     companion object {
         var add: () -> Unit = {}
         var remove: () -> Unit = {}
+
+        var lastState = false
     }
 
-    override fun handle(ctx: MessageContext) = if (ItemRagnarokPendant.hasAwakenedRagnarok()) add() else remove()
+    override fun handle(ctx: MessageContext) {
+        val ragnarok = ItemRagnarokPendant.hasAwakenedRagnarok()
+        val state = ragnarok != lastState
+        if (state) {
+            if (ragnarok) add() else remove()
+            lastState = ragnarok
+        }
+    }
 }

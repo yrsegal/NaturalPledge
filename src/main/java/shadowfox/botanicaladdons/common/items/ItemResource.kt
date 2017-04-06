@@ -75,11 +75,7 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants), IItemColor
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-        val ragnarokRises = try {
-            ItemRagnarokPendant.hasAwakenedRagnarok(LibrarianLib.PROXY.getClientPlayer())
-        } catch (e: IllegalStateException) {
-            false
-        }
+        val ragnarokRises = ItemRagnarokPendant.hasAwakenedRagnarok()
         variants.indices
                 .map { ItemStack(itemIn, 1, it) }
                 .filterTo(subItems) { ragnarokRises || variantFor(it)?.first != Variants.GOD_SOUL }

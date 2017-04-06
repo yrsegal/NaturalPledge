@@ -26,7 +26,8 @@ class ItemGaiaSlayer(name: String) : ItemMod(name), IPreventBreakInCreative {
             if (target.health >= 0.5f) target.health = 0.5f
             BAMethodHandles.setMobSpawnTicks(target, 0)
             BAMethodHandles.setTpDelay(target, 10000)
-            target.attackEntityFrom(DamageSource.OUT_OF_WORLD, 9001f)
+            target.onDeath(DamageSource.OUT_OF_WORLD)
+            target.setDead()
         }
         return super.hitEntity(stack, target, attacker)
     }

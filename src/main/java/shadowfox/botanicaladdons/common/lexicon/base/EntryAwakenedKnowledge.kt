@@ -9,6 +9,7 @@ import net.minecraft.stats.Achievement
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
+import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import vazkii.botania.api.lexicon.LexiconCategory
 
 /**
@@ -32,6 +33,6 @@ class EntryAwakenedKnowledge(unlocName: String, category: LexiconCategory, icon:
             ACHIEVEMENT_MAP.any { it.value(entityPlayer) }
         else
             ACHIEVEMENT_MAP[pendant]?.let { it(entityPlayer) } ?: false
-        return ach || entityPlayer.isCreative || (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem))
+        return ach || (entityPlayer.isCreative  && pendant != ItemRagnarokPendant.Ragnarok::class.java) || (emblem != null && (emblem.item as IPriestlyEmblem).isAwakened(emblem))
     }
 }

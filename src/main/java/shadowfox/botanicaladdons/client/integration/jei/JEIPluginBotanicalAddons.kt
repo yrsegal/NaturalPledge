@@ -6,6 +6,7 @@ import mezz.jei.api.*
 import mezz.jei.api.ingredients.IIngredientRegistry
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.config.SessionData
+import mezz.jei.gui.ItemListOverlay
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
@@ -65,21 +66,21 @@ class JEIPluginBotanicalAddons : IModPlugin {
                     ItemStack(ModItems.nightscourge))
         }
         val RAGNAROK_RECIPES by lazy {
-            arrayOf(ShapedOreRecipeWrapper(helpers, ModRecipes.recipeEclipseHelm),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeEclipseChest),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeEclipseLegs),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeEclipseBoots),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeEclipseWeapon),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeSunmakerHelm),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeSunmakerChest),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeSunmakerLegs),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeSunmakerBoots),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeSunmakerWeapon),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeFenrisHelm),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeFenrisChest),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeFenrisLegs),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeFenrisBoots),
-                    ShapedOreRecipeWrapper(helpers, ModRecipes.recipeFenrisWeapon),
+            arrayOf(ModRecipes.recipeEclipseHelm,
+                    ModRecipes.recipeEclipseChest,
+                    ModRecipes.recipeEclipseLegs,
+                    ModRecipes.recipeEclipseBoots,
+                    ModRecipes.recipeEclipseWeapon,
+                    ModRecipes.recipeSunmakerHelm,
+                    ModRecipes.recipeSunmakerChest,
+                    ModRecipes.recipeSunmakerLegs,
+                    ModRecipes.recipeSunmakerBoots,
+                    ModRecipes.recipeSunmakerWeapon,
+                    ModRecipes.recipeFenrisHelm,
+                    ModRecipes.recipeFenrisChest,
+                    ModRecipes.recipeFenrisLegs,
+                    ModRecipes.recipeFenrisBoots,
+                    ModRecipes.recipeFenrisWeapon,
                     SpellCraftingRecipeJEI(SpellRecipe("netherStar", Spells.ObjectInfusion.UltimateInfusion,
                             ItemResource.of(ItemResource.Variants.GOD_SOUL), ItemResource.of(ItemResource.Variants.GOD_SOUL, true))))
         }
@@ -91,11 +92,19 @@ class JEIPluginBotanicalAddons : IModPlugin {
         UpdateRagnarokJEIMessage.add = {
             RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.removeIngredientFromBlacklist(it) }
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.addRecipe(it) }
+            
+            val overlay = runtime.itemListOverlay
+            if (overlay is ItemListOverlay)
+                overlay.rebuildItemFilter()
         }
 
         UpdateRagnarokJEIMessage.remove = {
             RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.addIngredientToBlacklist(it) }
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.removeRecipe(it) }
+
+            val overlay = runtime.itemListOverlay
+            if (overlay is ItemListOverlay)
+                overlay.rebuildItemFilter()
         }
     }
 
@@ -118,7 +127,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
     override fun register(registry: IModRegistry) {
         helpers = registry.jeiHelpers
 
-        RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.addIngredientToBlacklist(it) }
+        UpdateRagnarokJEIMessage.lastState = false
 
         registry.addRecipeCategories(SpellCraftingCategory, TreeGrowingCategory)
         registry.addRecipeHandlers(SpellCraftingRecipeHandler, TreeGrowingRecipeHandler)
