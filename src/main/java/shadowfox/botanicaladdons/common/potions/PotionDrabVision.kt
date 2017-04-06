@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.util.JsonException
 import net.minecraft.init.MobEffects
+import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.RenderGameOverlayEvent
@@ -73,4 +74,6 @@ class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
             // NO-OP
         }
     }
+
+    override fun getCurativeItems(): MutableList<ItemStack> = mutableListOf()
 }

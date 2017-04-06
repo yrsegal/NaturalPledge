@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.events
 
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.util.SoundCategory
@@ -20,6 +21,7 @@ import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
+import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import vazkii.botania.common.Botania
@@ -77,7 +79,7 @@ class AwakeningEventHandler {
 
                 val players = getPlayersAround(entity)
 
-                if (entity.world.isRemote)
+                if (!entity.world.isRemote)
                     for (player in players) {
                         val emblem = ItemFaithBauble.getEmblem(player)
                         if (emblem != null) {
@@ -154,6 +156,19 @@ class AwakeningEventHandler {
                                 if (variant == ItemRagnarokPendant.Ragnarok)
                                     player.addStat(ModAchievements.initiateRagnarok)
                             }
+                        }
+                    }
+                }
+
+                if (!entity.world.isRemote) {
+                    val divineBattle = entity.entityData.getInteger("divineBattle")
+                    if (divineBattle > 1) {
+                        var amount = playersWhoAttacked.size
+                        for (i in 0..amount / 64) {
+                            val stack = ItemResource.of(ItemResource.Variants.GOD_SOUL, true, if (amount > 64) 64 else amount)
+                            val item = EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, stack)
+                            entity.world.spawnEntity(item)
+                            amount -= 64
                         }
                     }
                 }

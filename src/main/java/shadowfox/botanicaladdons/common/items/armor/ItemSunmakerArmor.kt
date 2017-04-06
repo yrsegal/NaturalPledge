@@ -6,9 +6,12 @@ import com.teamwizardry.librarianlib.common.network.PacketHandler
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Items
+import net.minecraft.init.MobEffects
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.Potion
 import net.minecraft.util.DamageSource
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.Vec3d
@@ -20,6 +23,7 @@ import shadowfox.botanicaladdons.common.items.ModItems.SUNMAKER
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.network.ManastormLightningMessage
+import shadowfox.botanicaladdons.common.potions.ModPotions
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.equipment.tool.ToolCommons
@@ -60,6 +64,17 @@ class ItemSunmakerArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor
             val offHand = player.heldItemOffhand
             if (offHand.isItemDamaged && world.rand.nextDouble() < 0.25 && ManaItemHandler.requestManaExact(offHand, player, 300, true))
                 offHand.damageItem(-1, player)
+
+
+            player.removePotionEffect(MobEffects.SLOWNESS)
+            player.removePotionEffect(MobEffects.MINING_FATIGUE)
+            player.removePotionEffect(MobEffects.NAUSEA)
+            player.removePotionEffect(MobEffects.INVISIBILITY)
+            player.removePotionEffect(MobEffects.BLINDNESS)
+            player.removePotionEffect(MobEffects.WEAKNESS)
+            player.removePotionEffect(MobEffects.POISON)
+            player.removePotionEffect(MobEffects.WITHER)
+            player.removePotionEffect(ModPotions.rooted)
         }
     }
 }

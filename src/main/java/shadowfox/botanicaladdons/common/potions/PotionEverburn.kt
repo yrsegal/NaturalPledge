@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.potions
 import com.teamwizardry.librarianlib.common.base.PotionMod
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import shadowfox.botanicaladdons.common.lib.LibNames
 
@@ -22,4 +23,6 @@ class PotionEverburn : PotionMod(LibNames.EVERBURN, true, 0xDD581F) {
             entity.setFire(5)
         }
     }
+
+    override fun getCurativeItems(): MutableList<ItemStack> = mutableListOf()
 }

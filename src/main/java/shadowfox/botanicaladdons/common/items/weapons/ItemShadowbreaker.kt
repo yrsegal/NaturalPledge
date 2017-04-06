@@ -19,7 +19,9 @@ import shadowfox.botanicaladdons.common.items.base.ItemBaseSword
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
 import vazkii.botania.api.mana.ManaItemHandler
+import vazkii.botania.common.entity.EntityMagicMissile
 import vazkii.botania.common.entity.EntityManaBurst
+import vazkii.botania.common.entity.EntityPixie
 
 
 /**
@@ -33,7 +35,8 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
         if (selected) {
             val entitiesAround = world.getEntitiesWithinAABB(Entity::class.java, player.entityBoundingBox.expandXyz(5.0)) {
                 it != null && it != player && it.positionVector.squareDistanceTo(player.positionVector) < 25.0
-                        && ((it is IProjectile && it !is EntityManaBurst && !(it is EntityArrow && getInGround(it) as Boolean)) ||
+                        && ((it is EntityPixie) ||
+                        (it is IProjectile && it !is EntityManaBurst && (it !is EntityMagicMissile || !it.isEvil) && !(it is EntityArrow && getInGround(it) as Boolean)) ||
                         (it is EntityLivingBase && it.positionVector.subtract(player.positionVector).dotProduct(player.lookVec) < 0))
             }
 
@@ -50,7 +53,7 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-                 if (ItemRagnarokPendant.hasAwakenedRagnarok())
+        if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(itemIn, tab, subItems)
     }
 }

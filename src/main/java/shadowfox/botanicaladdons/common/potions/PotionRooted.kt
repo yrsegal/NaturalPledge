@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -63,4 +64,6 @@ class PotionRooted : PotionMod(LibNames.ROOTED, true, 0x634D05) {
             entity.setPosition(entity.prevPosX, entity.prevPosY, entity.prevPosZ)
         }
     }
+
+    override fun getCurativeItems(): MutableList<ItemStack> = mutableListOf()
 }

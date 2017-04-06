@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.potions
 import com.teamwizardry.librarianlib.common.base.PotionMod
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.effect.EntityLightningBolt
+import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.common.lib.LibNames
 
 /**
@@ -21,4 +22,6 @@ class PotionOvercharge : PotionMod(LibNames.OVERCHARGED, true, 0x00E4D7) {
         val z = (Math.random() - 0.5) * RANGE * 2 + entity.posZ
         entity.world.addWeatherEffect(EntityLightningBolt(entity.world, x, y, z, false))
     }
+
+    override fun getCurativeItems(): MutableList<ItemStack> = mutableListOf()
 }

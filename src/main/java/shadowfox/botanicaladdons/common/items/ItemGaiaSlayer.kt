@@ -7,6 +7,7 @@ import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
+import net.minecraft.util.DamageSource
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
 import vazkii.botania.common.entity.EntityDoppleganger
@@ -25,6 +26,7 @@ class ItemGaiaSlayer(name: String) : ItemMod(name), IPreventBreakInCreative {
             if (target.health >= 0.5f) target.health = 0.5f
             BAMethodHandles.setMobSpawnTicks(target, 0)
             BAMethodHandles.setTpDelay(target, 10000)
+            target.attackEntityFrom(DamageSource.OUT_OF_WORLD, 9001f)
         }
         return super.hitEntity(stack, target, attacker)
     }
