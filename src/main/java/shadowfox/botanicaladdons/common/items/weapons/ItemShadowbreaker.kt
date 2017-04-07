@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
+import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityArrow
 import net.minecraft.item.Item
@@ -37,7 +38,7 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
                 it != null && it != player && it.positionVector.squareDistanceTo(player.positionVector) < 25.0
                         && ((it is EntityPixie) ||
                         (it is IProjectile && it !is EntityManaBurst && (it !is EntityMagicMissile || !it.isEvil) && !(it is EntityArrow && getInGround(it) as Boolean)) ||
-                        (it is EntityLivingBase it !is EntityArmorStand && it.positionVector.subtract(player.positionVector).dotProduct(player.lookVec) < 0))
+                        (it is EntityLivingBase && it !is EntityArmorStand && it.positionVector.subtract(player.positionVector).dotProduct(player.lookVec) < 0))
             }
 
             if (entitiesAround.isNotEmpty()) {
