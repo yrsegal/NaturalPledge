@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
 import net.minecraft.entity.effect.EntityLightningBolt
+import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -272,7 +273,7 @@ object Spells {
             val VELOCITY = 0.4
 
             val SELECTOR = Predicate<Entity> {
-                (it is EntityLivingBase && it.isNonBoss) || (it is IProjectile && it !is IManaBurst)
+                (it is EntityLivingBase && it.isNonBoss && it !is EntityArmorStand) || (it is IProjectile && it !is IManaBurst)
             }
 
             fun pushEntities(x: Double, y: Double, z: Double, range: Double, velocity: Double, entities: List<Entity>): Boolean {
