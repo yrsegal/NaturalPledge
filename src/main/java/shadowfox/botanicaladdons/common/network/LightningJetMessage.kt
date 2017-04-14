@@ -1,9 +1,8 @@
 package shadowfox.botanicaladdons.common.network
 
-import com.teamwizardry.librarianlib.LibrarianLib
-import com.teamwizardry.librarianlib.common.network.PacketBase
-import com.teamwizardry.librarianlib.common.util.autoregister.PacketRegister
-import com.teamwizardry.librarianlib.common.util.saving.Save
+import com.teamwizardry.librarianlib.features.autoregister.PacketRegister
+import com.teamwizardry.librarianlib.features.network.PacketBase
+import com.teamwizardry.librarianlib.features.saving.Save
 import io.netty.buffer.ByteBuf
 import net.minecraft.entity.projectile.EntityLargeFireball
 import net.minecraft.init.Items

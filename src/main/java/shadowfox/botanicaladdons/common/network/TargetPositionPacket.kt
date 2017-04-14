@@ -1,9 +1,9 @@
 package shadowfox.botanicaladdons.common.network
 
-import com.teamwizardry.librarianlib.common.network.PacketBase
-import com.teamwizardry.librarianlib.common.util.autoregister.PacketRegister
-import com.teamwizardry.librarianlib.common.util.readString
-import com.teamwizardry.librarianlib.common.util.writeString
+import com.teamwizardry.librarianlib.features.autoregister.PacketRegister
+import com.teamwizardry.librarianlib.features.kotlin.readString
+import com.teamwizardry.librarianlib.features.kotlin.writeString
+import com.teamwizardry.librarianlib.features.network.PacketBase
 import io.netty.buffer.ByteBuf
 import net.minecraft.util.math.Vec3d
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext

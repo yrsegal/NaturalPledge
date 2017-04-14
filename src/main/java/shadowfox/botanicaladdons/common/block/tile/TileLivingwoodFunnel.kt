@@ -1,10 +1,9 @@
 package shadowfox.botanicaladdons.common.block.tile
 
-import com.teamwizardry.librarianlib.common.util.forCap
-import com.teamwizardry.librarianlib.common.util.nonnullListOf
-import com.teamwizardry.librarianlib.common.util.saving.Save
-import com.teamwizardry.librarianlib.common.util.saving.SaveMethodGetter
-import com.teamwizardry.librarianlib.common.util.saving.SaveMethodSetter
+import com.teamwizardry.librarianlib.features.kotlin.forCap
+import com.teamwizardry.librarianlib.features.saving.Save
+import com.teamwizardry.librarianlib.features.saving.SaveMethodGetter
+import com.teamwizardry.librarianlib.features.saving.SaveMethodSetter
 import net.minecraft.block.BlockChest
 import net.minecraft.block.BlockHopper
 import net.minecraft.entity.Entity

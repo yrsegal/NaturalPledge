@@ -1,6 +1,5 @@
 package shadowfox.botanicaladdons.common
 
-import com.teamwizardry.librarianlib.common.network.PacketHandler
 import net.minecraft.launchwrapper.Launch
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod

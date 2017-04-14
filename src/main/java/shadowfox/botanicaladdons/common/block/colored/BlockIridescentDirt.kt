@@ -1,9 +1,9 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
-import com.teamwizardry.librarianlib.common.base.block.BlockMod
-import com.teamwizardry.librarianlib.common.base.block.IBlockColorProvider
-import com.teamwizardry.librarianlib.common.base.block.ItemModBlock
+import com.teamwizardry.librarianlib.features.base.block.BlockMod
+import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
+import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material

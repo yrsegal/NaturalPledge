@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.achievements
 
-import com.teamwizardry.librarianlib.common.base.ModAchievement
+import com.teamwizardry.librarianlib.features.base.ModAchievement
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.stats.Achievement

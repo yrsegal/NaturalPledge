@@ -1,8 +1,9 @@
 package shadowfox.botanicaladdons.common.items
 
 import com.google.common.collect.Multimap
-import com.teamwizardry.librarianlib.common.base.item.ItemMod
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.base.item.IShieldItem
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
@@ -14,6 +15,7 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumAction
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
+import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
@@ -33,7 +35,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:20 PM on 5/18/16.
  */
-class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative {
+class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IShieldItem {
 
     val MANA_PER_DAMAGE = 40
 
@@ -42,6 +44,18 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
 
         fun isWire(stack: ItemStack) = ItemNBTHelper.getBoolean(stack.copy(), TAG_WIRE, false)
         fun setWire(stack: ItemStack, flag: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_WIRE, flag)
+    }
+
+    override fun damageItem(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource, damageAmount: Int): Boolean {
+        ToolCommons.damageItem(stack, damageAmount, player, MANA_PER_DAMAGE)
+        return true
+    }
+
+    override fun onAxeBlocked(stack: ItemStack, player: EntityPlayer, attacker: EntityLivingBase, amount: Float, source: DamageSource)
+            = false
+
+    override fun onDamageBlocked(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource) {
+        // NO-OP
     }
 
     init {

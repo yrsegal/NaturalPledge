@@ -2,8 +2,8 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
-import com.teamwizardry.librarianlib.common.network.PacketHandler
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
+import com.teamwizardry.librarianlib.features.network.PacketHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.OpenGlHelper
@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
+import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.network.SetPositionMessage
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.client.model.ModelCloak
@@ -36,7 +37,7 @@ import vazkii.botania.client.model.ModelCloak
  * @author WireSegal
  * Created at 9:50 PM on 10/21/16.
  */
-class ItemDivineCloak(name: String) : ItemModBauble(name, *variants), IBaubleRender {
+class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *variants), IBaubleRender {
     companion object {
         val variants = arrayOf("cloakNjord",
                 "cloakIdunn",

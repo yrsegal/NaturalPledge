@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.client.integration.jei
 
-import com.teamwizardry.librarianlib.common.network.PacketHandler
-import com.teamwizardry.librarianlib.common.util.nbt
+import com.teamwizardry.librarianlib.features.kotlin.nbt
+import com.teamwizardry.librarianlib.features.network.PacketHandler
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IIngredientRegistry
 import mezz.jei.api.ingredients.IModIngredientRegistration

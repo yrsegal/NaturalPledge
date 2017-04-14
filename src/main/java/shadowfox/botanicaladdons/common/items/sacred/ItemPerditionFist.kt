@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
-import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityLargeFireball
@@ -30,7 +30,7 @@ class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAch
         setMaxStackSize(1)
     }
 
-    override fun getRarity(stack: ItemStack?) = BotaniaAPI.rarityRelic
+    override fun getRarity(stack: ItemStack?): EnumRarity = BotaniaAPI.rarityRelic
 
     override fun getMaxItemUseDuration(stack: ItemStack) = 72000
 

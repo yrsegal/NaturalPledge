@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.items
 
-import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.init.Items
 import net.minecraft.init.SoundEvents
 import net.minecraft.inventory.EntityEquipmentSlot

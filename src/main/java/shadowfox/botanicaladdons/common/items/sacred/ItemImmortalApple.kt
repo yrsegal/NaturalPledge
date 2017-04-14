@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
-import com.teamwizardry.librarianlib.common.base.item.ItemModFood
+import com.teamwizardry.librarianlib.features.base.item.ItemModFood
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack

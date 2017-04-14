@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.core
 
-import com.teamwizardry.librarianlib.common.network.PacketHandler
-import com.teamwizardry.librarianlib.common.util.EasyConfigHandler
+import com.teamwizardry.librarianlib.features.config.EasyConfigHandler
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.math.BlockPos

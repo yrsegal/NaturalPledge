@@ -1,6 +1,8 @@
 package shadowfox.botanicaladdons.common.potions
 
-import com.teamwizardry.librarianlib.common.base.PotionMod
+import com.teamwizardry.librarianlib.features.base.PotionMod
+import com.teamwizardry.librarianlib.features.base.PotionMod.Companion.getEffect
+import com.teamwizardry.librarianlib.features.base.PotionMod.Companion.hasEffect
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.util.JsonException

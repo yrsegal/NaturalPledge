@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.thunder
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModPlanks
+import com.teamwizardry.librarianlib.features.base.block.BlockModPlanks
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos

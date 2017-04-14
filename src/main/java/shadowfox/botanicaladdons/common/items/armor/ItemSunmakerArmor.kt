@@ -1,8 +1,6 @@
 package shadowfox.botanicaladdons.common.items.armor
 
-import com.teamwizardry.librarianlib.LibrarianLib
-import com.teamwizardry.librarianlib.client.util.TooltipHelper
-import com.teamwizardry.librarianlib.common.network.PacketHandler
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer

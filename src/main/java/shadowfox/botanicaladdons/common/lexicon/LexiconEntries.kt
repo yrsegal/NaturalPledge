@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.lexicon
 
-import com.teamwizardry.librarianlib.client.util.lambdainterfs.ClientRunnable
+import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
 import net.minecraft.block.BlockDirt
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
@@ -117,16 +117,13 @@ object LexiconEntries {
     val fenris: LexiconEntry
 
     fun EntityPlayer.definitelyHasAchievement(ach: Achievement): Boolean {
-        var flag = false
-        var unlocked = false
-        ClientRunnable.run {
+        val unlocked = ClientRunnable.produce {
             if (this is EntityPlayerSP) {
                 val writer = statFileWriter
-                flag = true
-                unlocked = writer.hasAchievementUnlocked(ach)
-            }
+                writer.hasAchievementUnlocked(ach)
+            } else null
         }
-        if (flag) return unlocked
+        if (unlocked != null) return unlocked
 
         return hasAchievement(ach)
     }

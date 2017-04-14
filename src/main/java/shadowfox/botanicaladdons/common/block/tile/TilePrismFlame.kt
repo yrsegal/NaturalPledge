@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.tile
 
-import com.teamwizardry.librarianlib.common.util.saving.Save
+import com.teamwizardry.librarianlib.features.saving.Save
 import net.minecraft.nbt.NBTTagCompound
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper

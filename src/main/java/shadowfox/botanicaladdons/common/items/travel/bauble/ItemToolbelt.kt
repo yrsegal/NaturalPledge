@@ -2,10 +2,10 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
-import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
-import com.teamwizardry.librarianlib.common.network.PacketHandler
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.network.PacketHandler
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
@@ -37,6 +37,7 @@ import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
+import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 import shadowfox.botanicaladdons.common.network.SetToolbeltItemClient
 import shadowfox.botanicaladdons.common.network.SetToolbeltItemServer
@@ -50,7 +51,7 @@ import java.util.*
  * @author WireSegal
  * Created at 10:01 AM on 5/5/16.
  */
-class ItemToolbelt(name: String) : ItemModBauble(name), IBaubleRender, IBlockProvider, IToolbeltBlacklisted {
+class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockProvider, IToolbeltBlacklisted {
 
     companion object {
         val glowTexture = ResourceLocation(LibMisc.MOD_ID, "textures/misc/toolbelt.png")

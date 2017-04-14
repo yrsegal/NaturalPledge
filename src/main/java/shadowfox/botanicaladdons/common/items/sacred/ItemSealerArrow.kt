@@ -1,12 +1,6 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
-import com.teamwizardry.librarianlib.common.base.IVariantHolder
-import com.teamwizardry.librarianlib.common.base.ModCreativeTab
-import com.teamwizardry.librarianlib.common.base.item.IModItemProvider
-import com.teamwizardry.librarianlib.common.base.item.ItemMod
-import com.teamwizardry.librarianlib.common.base.item.ItemModArrow
-import com.teamwizardry.librarianlib.common.util.VariantHelper
-import com.teamwizardry.librarianlib.common.util.currentModId
+import com.teamwizardry.librarianlib.features.base.item.ItemModArrow
 import net.minecraft.block.BlockDispenser
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.dispenser.BehaviorProjectileDispense

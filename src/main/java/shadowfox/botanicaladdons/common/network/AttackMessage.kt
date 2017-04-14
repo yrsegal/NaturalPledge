@@ -1,21 +1,10 @@
 package shadowfox.botanicaladdons.common.network
 
-import com.teamwizardry.librarianlib.common.network.PacketBase
-import com.teamwizardry.librarianlib.common.util.autoregister.PacketRegister
-import com.teamwizardry.librarianlib.common.util.saving.Save
-import io.netty.buffer.ByteBuf
-import net.minecraft.entity.projectile.EntityLargeFireball
-import net.minecraft.init.Items
-import net.minecraft.init.SoundEvents
-import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
+import com.teamwizardry.librarianlib.features.autoregister.PacketRegister
+import com.teamwizardry.librarianlib.features.network.PacketBase
+import com.teamwizardry.librarianlib.features.saving.Save
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
 import net.minecraftforge.fml.relauncher.Side
-import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
-import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
-import shadowfox.botanicaladdons.common.items.bauble.faith.PriestlyEmblemLoki
 import shadowfox.botanicaladdons.common.items.weapons.ItemFlarebringer
 
 /**

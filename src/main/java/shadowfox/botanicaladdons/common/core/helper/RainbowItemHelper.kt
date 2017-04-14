@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.core.helper
 
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.block.Block
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item

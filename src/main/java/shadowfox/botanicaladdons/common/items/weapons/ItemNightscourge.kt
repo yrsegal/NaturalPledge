@@ -1,8 +1,8 @@
 package shadowfox.botanicaladdons.common.items.weapons
 
 import com.google.common.collect.Multimap
-import com.teamwizardry.librarianlib.LibrarianLib
-import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.base.item.IShieldItem
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.enchantment.Enchantment
@@ -15,10 +15,7 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumAction
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ActionResult
-import net.minecraft.util.EnumHand
-import net.minecraft.util.NonNullList
-import net.minecraft.util.ResourceLocation
+import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
@@ -32,7 +29,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:20 PM on 5/18/16.
  */
-class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative {
+class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IShieldItem {
 
     val MANA_PER_DAMAGE = 40
 
@@ -43,6 +40,18 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
             stack, _, entityIn ->
             if (entityIn != null && entityIn.isHandActive && (entityIn.heldItemMainhand == stack || entityIn.heldItemOffhand == stack)) 1f else 0f
         }
+    }
+
+    override fun damageItem(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource, damageAmount: Int): Boolean {
+        ToolCommons.damageItem(stack, damageAmount, player, MANA_PER_DAMAGE)
+        return true
+    }
+
+    override fun onAxeBlocked(stack: ItemStack, player: EntityPlayer, attacker: EntityLivingBase, amount: Float, source: DamageSource)
+            = false
+
+    override fun onDamageBlocked(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource) {
+        // NO-OP
     }
 
     private val attackDamage = 1.5f

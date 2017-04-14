@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.alt
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModLog
+import com.teamwizardry.librarianlib.features.base.block.BlockModLog
 import net.minecraft.block.SoundType
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer

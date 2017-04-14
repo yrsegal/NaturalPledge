@@ -1,9 +1,8 @@
 package shadowfox.botanicaladdons.common.items.armor
 
 import com.google.common.collect.Multimap
-import com.teamwizardry.librarianlib.LibrarianLib
-import com.teamwizardry.librarianlib.client.util.TooltipHelper
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity

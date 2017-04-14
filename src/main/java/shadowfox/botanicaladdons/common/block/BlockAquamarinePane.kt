@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModPane
+import com.teamwizardry.librarianlib.features.base.block.BlockModPane
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState

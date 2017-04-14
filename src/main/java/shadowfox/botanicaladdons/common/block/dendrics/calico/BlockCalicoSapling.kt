@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.calico
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModSapling
+import com.teamwizardry.librarianlib.features.base.block.BlockModSapling
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks

@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.lexicon.base
 
-import com.teamwizardry.librarianlib.common.util.VariantHelper
+import com.teamwizardry.librarianlib.features.helpers.VariantHelper
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack

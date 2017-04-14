@@ -1,19 +1,16 @@
 package shadowfox.botanicaladdons.common.items.base
 
-import com.teamwizardry.librarianlib.common.base.item.ItemModSword
-import net.minecraft.entity.player.EntityPlayer
-import vazkii.botania.api.mana.ManaItemHandler
-import sun.awt.datatransfer.DataTransferer.isRemote
-import net.minecraft.item.ItemStack
-import vazkii.botania.common.item.equipment.tool.ToolCommons
-import net.minecraft.entity.EntityLivingBase
-import javax.annotation.Nonnull
-import net.minecraft.util.math.BlockPos
+import com.teamwizardry.librarianlib.features.base.item.ItemModSword
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
-import net.minecraft.item.Item
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import vazkii.botania.api.mana.IManaUsingItem
+import vazkii.botania.api.mana.ManaItemHandler
+import vazkii.botania.common.item.equipment.tool.ToolCommons
 
 
 /**

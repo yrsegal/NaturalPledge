@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.core.tab
 
-import com.teamwizardry.librarianlib.common.base.ModCreativeTab
+import com.teamwizardry.librarianlib.features.base.ModCreativeTab
 import net.minecraft.enchantment.EnumEnchantmentType
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.api.lib.LibMisc

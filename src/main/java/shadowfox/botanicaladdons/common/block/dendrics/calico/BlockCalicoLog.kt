@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.calico
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModLog
+import com.teamwizardry.librarianlib.features.base.block.BlockModLog
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos

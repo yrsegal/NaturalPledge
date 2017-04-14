@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.block.BlockSapling
 import net.minecraft.block.IGrowable
 import net.minecraft.block.state.IBlockState

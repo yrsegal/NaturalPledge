@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.enchantment
 
-import com.teamwizardry.librarianlib.common.base.EnchantmentMod
+import com.teamwizardry.librarianlib.features.base.EnchantmentMod
 import net.minecraft.block.material.Material
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper

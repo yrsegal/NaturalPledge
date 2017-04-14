@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.alt
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModLeaves
+import com.teamwizardry.librarianlib.features.base.block.BlockModLeaves
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState

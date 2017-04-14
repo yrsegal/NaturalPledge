@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
-import com.teamwizardry.librarianlib.common.network.PacketHandler
+import com.teamwizardry.librarianlib.features.network.PacketHandler
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack

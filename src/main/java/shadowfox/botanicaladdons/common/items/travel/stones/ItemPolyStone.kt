@@ -4,8 +4,8 @@ import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
-import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.common.base.item.ItemModTool
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemModTool
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer

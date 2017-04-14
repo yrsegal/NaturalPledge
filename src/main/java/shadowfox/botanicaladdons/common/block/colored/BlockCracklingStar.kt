@@ -1,10 +1,10 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
-import com.teamwizardry.librarianlib.common.base.block.BlockModContainer
-import com.teamwizardry.librarianlib.common.base.block.ItemModBlock
-import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.common.util.DimWithPos
+import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
+import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.utilities.DimWithPos
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs

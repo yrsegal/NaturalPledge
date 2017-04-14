@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.crafting.recipe
 
-import com.teamwizardry.librarianlib.common.util.nonnullListOf
-import com.teamwizardry.librarianlib.common.util.toNonnullList
+import com.teamwizardry.librarianlib.features.kotlin.toNonnullList
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.init.Items

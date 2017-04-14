@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.potions
 
-import com.teamwizardry.librarianlib.common.base.PotionMod
+import com.teamwizardry.librarianlib.features.base.PotionMod
+
 
 /**
  * @author WireSegal

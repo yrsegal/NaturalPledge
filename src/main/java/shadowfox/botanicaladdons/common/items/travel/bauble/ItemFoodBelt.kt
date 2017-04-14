@@ -2,7 +2,7 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 
 import baubles.api.BaubleType
 import com.mojang.authlib.GameProfile
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
+import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.ModItems
@@ -26,7 +27,7 @@ import vazkii.botania.common.item.ModItems
  * @author WireSegal
  * Created at 6:47 PM on 5/21/16.
  */
-class ItemFoodBelt(name: String) : ItemModBauble(name), IBaubleRender {
+class ItemFoodBelt(name: String) : ItemBaseBauble(name), IBaubleRender {
 
     companion object {
         val beltTexture = ResourceLocation(LibMisc.MOD_ID, "textures/model/foodbelt.png")

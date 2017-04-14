@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
-import com.teamwizardry.librarianlib.common.base.block.BlockModLog
+import com.teamwizardry.librarianlib.features.base.block.BlockModLog
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos

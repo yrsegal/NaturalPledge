@@ -1,12 +1,12 @@
 package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
-import com.teamwizardry.librarianlib.client.core.ModelHandler
-import com.teamwizardry.librarianlib.client.structure.InWorldRender.pos
-import com.teamwizardry.librarianlib.client.util.TooltipHelper.addToTooltip
-import com.teamwizardry.librarianlib.common.base.IExtraVariantHolder
-import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
+import com.teamwizardry.librarianlib.core.client.ModelHandler
+import com.teamwizardry.librarianlib.features.base.IExtraVariantHolder
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
@@ -32,7 +32,6 @@ import vazkii.botania.client.core.helper.ShaderHelper
 import vazkii.botania.client.core.proxy.ClientProxy
 import vazkii.botania.client.lib.LibResources
 import vazkii.botania.client.model.ModelTinyPotato
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
 import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Blocks
@@ -44,6 +43,7 @@ import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.block.tile.TileCracklingStar
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 
@@ -51,7 +51,7 @@ import shadowfox.botanicaladdons.common.lib.LibOreDict
  * @author WireSegal
  * Created at 10:33 PM on 4/15/16.
  */
-class ItemSymbol(name: String) : ItemModBauble(name), ICosmeticBauble, IExtraVariantHolder, IItemColorProvider {
+class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVariantHolder, IItemColorProvider {
 
     companion object {
 

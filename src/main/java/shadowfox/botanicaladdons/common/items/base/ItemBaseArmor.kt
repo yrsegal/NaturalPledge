@@ -1,10 +1,10 @@
 package shadowfox.botanicaladdons.common.items.base
 
-import com.teamwizardry.librarianlib.client.util.TooltipHelper
-import com.teamwizardry.librarianlib.common.base.item.ItemModArmor
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
-import com.teamwizardry.librarianlib.common.util.VariantHelper
-import com.teamwizardry.librarianlib.common.util.currentModId
+import com.teamwizardry.librarianlib.features.base.item.ItemModArmor
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.VariantHelper
+import com.teamwizardry.librarianlib.features.helpers.currentModId
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.entity.Entity

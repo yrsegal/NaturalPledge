@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.tile
 
-import com.teamwizardry.librarianlib.common.base.block.TileMod
+import com.teamwizardry.librarianlib.features.base.block.TileMod
 import net.minecraft.util.ITickable
 
 /**

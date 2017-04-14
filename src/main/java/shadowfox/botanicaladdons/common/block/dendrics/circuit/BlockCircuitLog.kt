@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.dendrics.circuit
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModLog
+import com.teamwizardry.librarianlib.features.base.block.BlockModLog
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack

@@ -1,12 +1,13 @@
 package shadowfox.botanicaladdons.common.items.sacred
 
-import com.teamwizardry.librarianlib.common.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.EnumAction
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.stats.Achievement
 import net.minecraft.util.ActionResult
@@ -44,7 +45,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
         return super.onItemRightClick(worldIn, playerIn, hand)
     }
 
-    override fun getRarity(stack: ItemStack) = BotaniaAPI.rarityRelic
+    override fun getRarity(stack: ItemStack): EnumRarity = BotaniaAPI.rarityRelic
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
         val entities = player.world.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), { it?.isNonBoss ?: false })

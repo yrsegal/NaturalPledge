@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.items.weapons
 
-import com.teamwizardry.librarianlib.LibrarianLib
-import com.teamwizardry.librarianlib.common.util.handles.MethodHandleHelper
+import com.teamwizardry.librarianlib.features.methodhandles.MethodHandleHelper
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase

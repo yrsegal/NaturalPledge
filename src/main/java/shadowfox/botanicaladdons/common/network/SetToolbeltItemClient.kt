@@ -2,10 +2,10 @@ package shadowfox.botanicaladdons.common.network
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
-import com.teamwizardry.librarianlib.LibrarianLib
-import com.teamwizardry.librarianlib.common.network.PacketBase
-import com.teamwizardry.librarianlib.common.util.autoregister.PacketRegister
-import com.teamwizardry.librarianlib.common.util.saving.Save
+import com.teamwizardry.librarianlib.core.LibrarianLib
+import com.teamwizardry.librarianlib.features.autoregister.PacketRegister
+import com.teamwizardry.librarianlib.features.network.PacketBase
+import com.teamwizardry.librarianlib.features.saving.Save
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
 import net.minecraftforge.fml.relauncher.Side

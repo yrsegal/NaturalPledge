@@ -2,10 +2,10 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
-import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
-import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
@@ -30,6 +30,7 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
+import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
@@ -41,7 +42,7 @@ import vazkii.botania.api.mana.IManaUsingItem
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-class ItemFaithBauble(name: String) : ItemModBauble(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })),
+class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants.size, { "emblem${priestVariants[it].name.capitalizeFirst()}" })),
         IManaUsingItem, IBaubleRender, IItemColorProvider, IPriestlyEmblem {
 
     companion object {

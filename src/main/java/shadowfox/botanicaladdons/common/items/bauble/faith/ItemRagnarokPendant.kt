@@ -1,12 +1,12 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import baubles.api.BaubleType
-import com.teamwizardry.librarianlib.LibrarianLib
-import com.teamwizardry.librarianlib.client.util.lambdainterfs.ClientRunnable
-import com.teamwizardry.librarianlib.client.util.pulseColor
-import com.teamwizardry.librarianlib.common.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.common.util.ItemNBTHelper
-import com.teamwizardry.librarianlib.common.util.sendSpamlessMessage
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
+import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
+import com.teamwizardry.librarianlib.features.utilities.client.pulseColor
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.renderer.GlStateManager
@@ -39,7 +39,7 @@ import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
+import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_AWAKENED
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_PENDANT
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.isFaithless
@@ -56,26 +56,25 @@ import java.awt.Color
  * @author WireSegal
  * Created at 1:50 PM on 4/13/16.
  */
-class ItemRagnarokPendant(name: String) : ItemModBauble(name),
+class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         IManaUsingItem, IBaubleRender, IItemColorProvider, IPriestlyEmblem, IDiscordantItem {
 
     companion object Ragnarok : IFaithVariant {
 
         fun hasAwakenedRagnarok(player: EntityPlayer): Boolean {
-            var flag = false
-            var unlocked = false
-            ClientRunnable.run {
+            val unlocked = ClientRunnable.produce {
                 if (player is EntityPlayerSP) {
                     val writer = player.statFileWriter
-                    flag = true
-                    unlocked = writer.hasAchievementUnlocked(ModAchievements.sacredFlame) &&
+                    writer.hasAchievementUnlocked(ModAchievements.sacredFlame) &&
                             writer.hasAchievementUnlocked(ModAchievements.sacredHorn) &&
                             writer.hasAchievementUnlocked(ModAchievements.sacredThunder) &&
                             writer.hasAchievementUnlocked(ModAchievements.sacredLife) &&
                             writer.hasAchievementUnlocked(ModAchievements.sacredAqua)
-                }
+                } else null
             }
-            if (flag) return unlocked
+
+
+            if (unlocked != null) return unlocked
 
             return player.hasAchievement(ModAchievements.sacredFlame) &&
                     player.hasAchievement(ModAchievements.sacredHorn) &&
@@ -85,8 +84,7 @@ class ItemRagnarokPendant(name: String) : ItemModBauble(name),
         }
 
         fun hasAwakenedRagnarok(): Boolean {
-            var player: EntityPlayer? = null
-            ClientRunnable.run { player = Minecraft.getMinecraft().player }
+            val player = ClientRunnable.produce { Minecraft.getMinecraft().player }
             return hasAwakenedRagnarok(player ?: return true)
         }
 

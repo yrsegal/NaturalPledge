@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.items.travel.bauble.ItemToolbelt
 import vazkii.botania.api.item.IBaubleRender
 
@@ -17,7 +18,7 @@ import vazkii.botania.api.item.IBaubleRender
  * @author WireSegal
  * Created at 11:38 PM on 1/1/17.
  */
-class ItemIronBelt(name: String) : ItemModBauble(name), IBaubleRender {
+class ItemIronBelt(name: String) : ItemBaseBauble(name), IBaubleRender {
     val beltTexture = ResourceLocation(LibMisc.MOD_ID, "textures/model/iron_belt.png")
 
     override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {

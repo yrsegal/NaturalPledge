@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModContainer
+import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase

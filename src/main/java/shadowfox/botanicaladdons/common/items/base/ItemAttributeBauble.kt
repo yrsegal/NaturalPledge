@@ -2,7 +2,7 @@ package shadowfox.botanicaladdons.common.items.base
 
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
-import shadowfox.botanicaladdons.common.items.base.ItemModBauble
+import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.item.ItemStack
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack
  * @author WireSegal
  * Created at 4:10 PM on 4/13/16.
  */
-abstract class ItemAttributeBauble(name: String, vararg variants: String) : ItemModBauble(name, *variants) {
+abstract class ItemAttributeBauble(name: String, vararg variants: String) : ItemBaseBauble(name, *variants) {
     internal var attributes: Multimap<String, AttributeModifier> = HashMultimap.create<String, AttributeModifier>()
 
     override fun onEquippedOrLoadedIntoWorld(stack: ItemStack, player: EntityLivingBase) {

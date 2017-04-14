@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.potions
 
-import com.teamwizardry.librarianlib.common.base.PotionMod
+import com.teamwizardry.librarianlib.features.base.PotionMod
+import com.teamwizardry.librarianlib.features.base.PotionMod.Companion.hasEffect
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent

@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block.dendrics.thunder
 
-import com.teamwizardry.librarianlib.common.base.block.BlockModSapling
+import com.teamwizardry.librarianlib.features.base.block.BlockModSapling
+import com.teamwizardry.librarianlib.features.base.block.BlockModSapling.Companion.defaultSaplingBehavior
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
