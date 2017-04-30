@@ -1,7 +1,8 @@
 package shadowfox.botanicaladdons.common.items.weapons
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.network.PacketHandler
-import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
@@ -12,28 +13,31 @@ import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.block.trap.BlockBaseTrap.Companion.R
-import shadowfox.botanicaladdons.common.block.trap.BlockBaseTrap.Companion.G
 import shadowfox.botanicaladdons.common.block.trap.BlockBaseTrap.Companion.B
+import shadowfox.botanicaladdons.common.block.trap.BlockBaseTrap.Companion.G
+import shadowfox.botanicaladdons.common.block.trap.BlockBaseTrap.Companion.R
 import shadowfox.botanicaladdons.common.items.base.ItemBaseSword
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
 import shadowfox.botanicaladdons.common.network.AttackMessage
-import sun.audio.AudioPlayer.player
 
 
 /**
  * @author WireSegal
  * Created at 5:45 PM on 4/3/17.
  */
-class ItemFlarebringer(name: String, material: Item.ToolMaterial) : ItemBaseSword(name, material) {
+class ItemFlarebringer(name: String, material: Item.ToolMaterial) : ItemBaseSword(name, material), IGlowingItem {
     companion object {
         val RANGE = 16.0
     }
+
+    @SideOnly(Side.CLIENT)
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel) = IGlowingItem.Helper.wrapperBake(model, false, 1)
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
 
     init {
         MinecraftForge.EVENT_BUS.register(this)

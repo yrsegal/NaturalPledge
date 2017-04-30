@@ -1,6 +1,8 @@
 package shadowfox.botanicaladdons.common.items.weapons
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.methodhandles.MethodHandleHelper
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -13,6 +15,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.core.BASoundEvents
 import shadowfox.botanicaladdons.common.items.base.ItemBaseSword
@@ -28,7 +32,13 @@ import vazkii.botania.common.entity.EntityPixie
  * @author WireSegal
  * Created at 5:45 PM on 4/3/17.
  */
-class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSword(name, material) {
+class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSword(name, material), IGlowingItem {
+
+    @SideOnly(Side.CLIENT)
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel) = IGlowingItem.Helper.wrapperBake(model, false, 1)
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
+
     val getInGround = MethodHandleHelper.wrapperForGetter(EntityArrow::class.java, "a", "field_70254_i", "inGround")
 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, slot: Int, selected: Boolean) {

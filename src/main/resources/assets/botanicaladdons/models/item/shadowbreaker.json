@@ -1,6 +1,7 @@
 {
 	"parent": "item/handheld",
 	"textures": {
-		"layer0": "botanicaladdons:items/shadowbreaker"
+		"layer0": "botanicaladdons:items/shadowbreaker",
+		"layer1": "botanicaladdons:items/shadowbreaker_overlay"
 	}
 }
