@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
-import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
@@ -38,7 +37,6 @@ import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
 import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
-import shadowfox.botanicaladdons.common.network.PlayerItemMessage
 import shadowfox.botanicaladdons.common.network.SetToolbeltItemClient
 import shadowfox.botanicaladdons.common.network.SetToolbeltItemServer
 import vazkii.botania.api.item.IBaubleRender
@@ -311,11 +309,10 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
                     } else if (!toolStack.isEmpty) {
                         setItem(beltStack, ItemStack.EMPTY, segment)
                         if (!event.world.isRemote) {
-                            if (player is EntityPlayerMP) PacketHandler.NETWORK.sendTo(SetToolbeltItemClient(ItemStack.EMPTY, segment), player)
-                        } else {
-                            PacketHandler.NETWORK.sendToServer(PlayerItemMessage(toolStack))
-                            PacketHandler.NETWORK.sendToServer(SetToolbeltItemServer(ItemStack.EMPTY, segment))
-                        }
+                            if (player is EntityPlayerMP)
+                                PacketHandler.NETWORK.sendTo(SetToolbeltItemClient(ItemStack.EMPTY, segment), player)
+                        } else
+                            PacketHandler.NETWORK.sendToServer(SetToolbeltItemServer(segment))
                     }
                     if (event.isCancelable) event.isCanceled = true
                 }

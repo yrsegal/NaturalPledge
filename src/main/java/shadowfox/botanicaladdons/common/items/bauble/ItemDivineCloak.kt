@@ -29,7 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
-import shadowfox.botanicaladdons.common.network.SetPositionMessage
+import shadowfox.botanicaladdons.common.network.BlinkMessage
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.client.model.ModelCloak
 
@@ -132,8 +132,7 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
                 val blockAt = BlockPos(vec)
                 if (!player.world.getBlockState(blockAt).isFullCube && !player.world.getBlockState(blockAt.up()).isFullCube) {
                     BAMethodHandles.setIsJumping(player, false)
-                    PacketHandler.NETWORK.sendToServer(SetPositionMessage(vec))
-                    player.world.playSound(vec.xCoord, vec.yCoord, vec.zCoord, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f, false)
+                    PacketHandler.NETWORK.sendToServer(BlinkMessage())
                 }
             }
         }

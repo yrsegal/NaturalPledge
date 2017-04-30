@@ -57,7 +57,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         @SubscribeEvent
         fun onWorldTick(e: TickEvent.WorldTickEvent) {
             if (e.phase == TickEvent.Phase.START && e.side == Side.CLIENT) {
-                LAST_KNOWN_POSITIONS
+                LAST_KNOWN_POSITIONS.clear()
             } else if (e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
                 val names = linkedMapOf<String, Pair<Int, Vec3d>>()
 

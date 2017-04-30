@@ -42,7 +42,7 @@ import java.util.*
  * @author WireSegal
  * Created at 4:46 PM on 3/25/17.
  */
-abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT), IModelGenerator, ILexiconable {
+abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT), ILexiconable {
     companion object {
         val TRIPPED: PropertyBool = PropertyBool.create("tripped")
 
@@ -130,27 +130,4 @@ abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPA
     }
 
     override fun quantityDropped(state: IBlockState, fortune: Int, random: Random) = Math.min(fortune / 10, 1)
-
-    override fun generateMissingBlockstate(mapper: ((Block) -> Map<IBlockState, ModelResourceLocation>)?): Boolean {
-        ModelHandler.generateBlockJson(this, {
-            JsonGenerationUtils.generateBlockStates(this, mapper) {
-                json {
-                    obj(
-                            "model" to "botanicaladdons:empty"
-                    )
-                }
-            }
-        }, { mapOf() })
-        return true
-    }
-
-    override fun generateMissingItem(variant: String): Boolean {
-        val item = itemForm
-        if (item is IModItemProvider)
-            ModelHandler.generateItemJson(item) {
-                mapOf(JsonGenerationUtils.getPathForItemModel(item, variant)
-                        to JsonGenerationUtils.generateRegularItemModel(item, variant))
-            }
-        return true
-    }
 }
