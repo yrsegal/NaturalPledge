@@ -17,7 +17,6 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
@@ -37,7 +36,7 @@ object PriestlyEmblemThor : IFaithVariant {
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        player.addPotionEffect(ModPotionEffect(ModPotions.overcharged, 600))
+        player.addPotionEffect(PotionEffect(ModPotions.overcharged, 600))
     }
 
     @SubscribeEvent

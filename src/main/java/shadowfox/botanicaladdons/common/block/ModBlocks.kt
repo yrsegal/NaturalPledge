@@ -11,6 +11,7 @@ import shadowfox.botanicaladdons.common.block.alt.BlockAltLeaves
 import shadowfox.botanicaladdons.common.block.alt.BlockAltLog
 import shadowfox.botanicaladdons.common.block.alt.BlockAltPlanks
 import shadowfox.botanicaladdons.common.block.colored.*
+import shadowfox.botanicaladdons.common.block.colored.BlockIridescentPlanks.BlockAuroraPlanks
 import shadowfox.botanicaladdons.common.block.colored.BlockIridescentPlanks.BlockRainbowPlanks
 import shadowfox.botanicaladdons.common.block.dendrics.calico.*
 import shadowfox.botanicaladdons.common.block.dendrics.circuit.BlockCircuitLeaves
@@ -39,12 +40,16 @@ object ModBlocks {
     val flame: BlockMod
     val irisDirt: BlockMod
     val rainbowDirt: BlockMod
+    val auroraDirt: BlockMod
     val irisPlanks: BlockMod
     val irisLogs: Array<BlockIridescentLog>
     val rainbowPlanks: BlockMod
+    val auroraPlanks: BlockMod
     val rainbowLog: BlockMod
+    val auroraLog: BlockMod
     val irisLeaves: Array<BlockIridescentLeaves>
     val rainbowLeaves: BlockMod
+    val auroraLeaves: BlockMod
     val irisSapling: BlockMod
     val altLogs: Array<BlockAltLog>
     val altLeaves: Array<BlockAltLeaves>
@@ -116,6 +121,12 @@ object ModBlocks {
             }
         }
         rainbowLeaves = BlockRainbowLeaves(LibNames.RAINBOW_LEAVES)
+
+        auroraDirt = BlockAuroraDirt(LibNames.AURORA_DIRT)
+        auroraPlanks = BlockAuroraPlanks(LibNames.AURORA_PLANKS)
+        auroraLog = BlockAuroraLog(LibNames.AURORA_LOG)
+        auroraLeaves = BlockAuroraLog(LibNames.AURORA_LEAVES)
+
         irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
         altLogs = Array(2) {
             object : BlockAltLog(LibNames.ALT_LOG, it) {
@@ -194,8 +205,10 @@ object ModBlocks {
 
         OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre(LibOreDict.IRIS_DIRT, ItemStack(auroraDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("dirt", ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
-        OreDictionary.registerOre("dirt", ItemStack(rainbowDirt, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre("dirt", ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
+        OreDictionary.registerOre("dirt", ItemStack(auroraDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("blockGlass", ItemStack(aquaGlass, 1, OreDictionary.WILDCARD_VALUE))
 
         OreDictionary.registerOre(LibOreDict.BLOCK_MANASTEEL, ItemStack(BotaniaBlocks.storage, 1, StorageVariant.MANASTEEL.ordinal))

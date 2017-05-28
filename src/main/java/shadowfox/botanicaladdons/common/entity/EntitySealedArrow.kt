@@ -3,10 +3,10 @@ package shadowfox.botanicaladdons.common.entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.projectile.EntityArrow
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 
 /**
  * @author WireSegal
@@ -27,6 +27,6 @@ class EntitySealedArrow : EntityArrow {
     override fun arrowHit(living: EntityLivingBase) {
         super.arrowHit(living)
         if (!living.world.isRemote)
-            living.addPotionEffect(ModPotionEffect(ModPotions.featherweight, 900))
+            living.addPotionEffect(PotionEffect(ModPotions.featherweight, 900))
     }
 }

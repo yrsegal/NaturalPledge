@@ -26,9 +26,23 @@ import vazkii.botania.api.lexicon.LexiconEntry
  */
 class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { name + LibOreDict.COLORS[it] })), IBlockColorProvider, ILexiconable {
 
-    class BlockRainbowPlanks(name: String) : BlockModPlanks(name) {
+    class BlockRainbowPlanks(name: String) : BlockModPlanks(name), ILexiconable {
         override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
+        }
+
+        override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
+            return LexiconEntries.irisDirt
+        }
+    }
+
+    class BlockAuroraPlanks(name: String) : BlockModPlanks(name), ILexiconable {
+        override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+            addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.aurora")
+        }
+
+        override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
+            return LexiconEntries.aurora
         }
     }
 

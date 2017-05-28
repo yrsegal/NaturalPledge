@@ -4,12 +4,12 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.init.MobEffects
 import net.minecraft.init.SoundEvents
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.common.Botania
 import java.util.*
 
@@ -19,8 +19,8 @@ import java.util.*
  */
 class BlockWrathTrap : BlockBaseTrap(LibNames.WRATH_TRAP) {
     override fun trapActivation(stateIn: IBlockState, world: World, pos: BlockPos, entityIn: EntityLivingBase) {
-        entityIn.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 200))
-        entityIn.addPotionEffect(ModPotionEffect(MobEffects.GLOWING, 200))
+        entityIn.addPotionEffect(PotionEffect(ModPotions.faithlessness, 200))
+        entityIn.addPotionEffect(PotionEffect(MobEffects.GLOWING, 200))
         world.playSound(null, pos, SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1f, 1f)
 
         world.setBlockToAir(pos)

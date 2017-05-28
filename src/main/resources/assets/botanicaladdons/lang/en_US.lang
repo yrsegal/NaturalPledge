@@ -103,12 +103,16 @@ tile.botanicaladdons:star.name=Frozen Star
 tile.botanicaladdons:crackling_star.name=Crackling Star
 tile.botanicaladdons:iris_dirt.name=Iridescent Dirt
 tile.botanicaladdons:rainbow_dirt.name=Iridescent Dirt
+tile.botanicaladdons:aurora_dirt.name=Iridescent Dirt
 tile.botanicaladdons:iris_planks.name=Iridescent Planks
 tile.botanicaladdons:rainbow_planks.name=Iridescent Planks
+tile.botanicaladdons:aurora_planks.name=Iridescent Planks
 tile.botanicaladdons:iris_log.name=Iridescent Log
 tile.botanicaladdons:rainbow_log.name=Iridescent Log
+tile.botanicaladdons:aurora_log.name=Iridescent Log
 tile.botanicaladdons:iris_leaves.name=Iridescent Leaves
 tile.botanicaladdons:rainbow_leaves.name=Iridescent Leaves
+tile.botanicaladdons:aurora_leaves.name=Iridescent Leaves
 tile.botanicaladdons:iris_sapling.name=Iridescent Sapling
 tile.botanicaladdons:iris_lamp.name=Iridescent Lantern
 
@@ -187,6 +191,7 @@ misc.botanicaladdons.color.13=Green
 misc.botanicaladdons.color.14=Red
 misc.botanicaladdons.color.15=Black
 misc.botanicaladdons.color.16=Bifrost
+misc.botanicaladdons.color.aurora=Aurora
 misc.botanicaladdons.color.format=Color: #%s
 misc.botanicaladdons.color.mixed=Color Mixture
 
@@ -561,7 +566,7 @@ botanicaladdons.tagline.find_stone=GPS
 botanicaladdons.page.find_stone0=&3Heimdall&0, being a god of travellers, provides tools to his devotees to make travels easier. One of these useful tools is the &1Traveller's Waystone&0. It can be bound to a point or named &otrack:&0 and a player's name to track that player, and will give you an indication of what direction to go as long as you're holding it, allowing for easy travels home or to a friend.
 botanicaladdons.page.find_stone1=Remember those who have been forgotten
 botanicaladdons.page.find_stone2=By combining the stone with the essence of death, you can make a version which targets past lives instead of the present. When you die, you'll reincarnate holding any &1Stones of Return&0 you had on you. These will point your way to the place you died. If you shift-click the stone in the air, it will clear its destination.
-botanicaladdons.page.find_stone3=I will stand
+botanicaladdons.page.find_stone3=Listen to those who have been ignored
 
 botanicaladdons.entry.star=Frozen Stars
 botanicaladdons.tagline.star=An ender light source
@@ -584,6 +589,12 @@ botanicaladdons.page.iris_dirt0=Using the power of &4Iridescence&0, you can make
 botanicaladdons.page.iris_dirt1=Beauty from the dross
 botanicaladdons.page.iris_dirt2=Using the &1Iridescent Sapling&0, you can create a variety of tree that grows in all the colors of &1Iridescent Dirt&0. This can be achieved simply by planting the sapling on any colored dirt and letting it grow.
 botanicaladdons.page.iris_dirt3=2x4s
+
+botanicaladdons.entry.aurora=Aurora Dirt
+botanicaladdons.tagline.aurora=One dirt, lots of colors
+botanicaladdons.page.aurora0=By combining dirt with the shimmering essence of a &1Mana Pearl&0, you can make dirt that captures the threads of magic in the world, having a different color based on its location. This mystical dirt is also capable of growing trees and plants without water or a hoe. It can be converted back to regular dirt using a &1Pure Daisy&0.
+botanicaladdons.page.aurora1=Seek the hour of twilight in the forest of silence
+botanicaladdons.page.aurora2=Break it down
 
 botanicaladdons.entry.lamp=Iridescent Lantern
 botanicaladdons.tagline.lamp=A power-level indicating light

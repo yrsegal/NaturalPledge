@@ -9,6 +9,7 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.stats.Achievement
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
@@ -17,7 +18,6 @@ import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
@@ -54,7 +54,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
             doit = ManaItemHandler.requestManaExact(stack, player, 2, true)
         if (doit)
             for (entity in entities)
-                entity.addPotionEffect(ModPotionEffect(ModPotions.rooted, 200, 0, true, false))
+                entity.addPotionEffect(PotionEffect(ModPotions.rooted, 200, 0, true, false))
 
         // Gold color is 0xdfb412
         val r = 0xDF / 255f

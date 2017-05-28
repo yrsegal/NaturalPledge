@@ -45,6 +45,8 @@ object LexiconEntries {
 
     val divineBasics: LexiconEntry
 
+    val aurora: LexiconEntry
+
     val njord: LexiconEntry
     val idunn: LexiconEntry
     val thor: LexiconEntry
@@ -244,6 +246,10 @@ object LexiconEntries {
         fateHorn.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeFateHorn))
         perdition = EntryAwakenedKnowledge("perdition", divinity, ModItems.perditionFist, PriestlyEmblemLoki::class.java).setKnowledgeType(topKnowledgeTier)
         perdition.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipePerditionFist))
+
+
+        aurora = EntryPriestlyKnowledge("aurora", BotaniaAPI.categoryMisc, ModBlocks.auroraDirt)
+        aurora.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeAuroraDirt), PageCraftingRecipe("2", ModRecipes.recipeAuroraPlanks))
 
         sapling = ModEntry("sapling", BotaniaAPI.categoryMisc, ModBlocks.irisSapling)
         sapling.setLexiconPages(PageText("0"), PageCraftingRecipe("1", listOf(*ModRecipes.recipesAltPlanks)))

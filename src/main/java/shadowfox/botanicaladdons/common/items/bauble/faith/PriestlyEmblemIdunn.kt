@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -16,7 +17,6 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.api.sapling.ISaplingBlock
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
 import java.util.*
 
@@ -77,7 +77,7 @@ object PriestlyEmblemIdunn : IFaithVariant {
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 600))
+        player.addPotionEffect(PotionEffect(ModPotions.rooted, 600))
     }
 
     val TAG_COOLDOWN = "cooldown"

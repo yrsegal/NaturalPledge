@@ -44,7 +44,6 @@ import shadowfox.botanicaladdons.common.network.FireJetMessage
 import shadowfox.botanicaladdons.common.network.FireSphereMessage
 import shadowfox.botanicaladdons.common.network.LightningJetMessage
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
@@ -554,9 +553,9 @@ object Spells {
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
                 if (!player.world.isRemote && cooldownRemaining > 300) {
-                    player.addPotionEffect(ModPotionEffect(MobEffects.RESISTANCE, 5, 4, true, true))
-                    player.addPotionEffect(ModPotionEffect(MobEffects.WEAKNESS, 5, 4, true, true))
-                    player.addPotionEffect(ModPotionEffect(ModPotions.rooted, 5, 0, true, true))
+                    player.addPotionEffect(PotionEffect(MobEffects.RESISTANCE, 5, 4, true, true))
+                    player.addPotionEffect(PotionEffect(MobEffects.WEAKNESS, 5, 4, true, true))
+                    player.addPotionEffect(PotionEffect(ModPotions.rooted, 5, 0, true, true))
                 }
             }
         }
@@ -575,7 +574,7 @@ object Spells {
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
-                if (!player.world.isRemote) player.addPotionEffect(ModPotionEffect(ModPotions.trapSeer, 5, 0, true, true))
+                if (!player.world.isRemote) player.addPotionEffect(PotionEffect(ModPotions.trapSeer, 5, 0, true, true))
             }
         }
 
@@ -600,7 +599,7 @@ object Spells {
                     player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(5.0)) {
                         player != it && player.positionVector.squareDistanceTo(it?.positionVector ?: Vec3d.ZERO) < 25.0
                     }.forEach {
-                        it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 100))
+                        it.addPotionEffect(PotionEffect(ModPotions.everburn, 100))
                     }
                 }
             }
@@ -670,7 +669,7 @@ object Spells {
                     bb != null && it != player && intersectsBox(f, t, bb.expandXyz(1.0))
                 }.forEach {
                     it.attackEntityFrom(DamageSource.causeFireballDamage(fakeFireball, player), 2f)
-                    it.addPotionEffect(ModPotionEffect(ModPotions.everburn, 300))
+                    it.addPotionEffect(PotionEffect(ModPotions.everburn, 300))
                 }
             }
 

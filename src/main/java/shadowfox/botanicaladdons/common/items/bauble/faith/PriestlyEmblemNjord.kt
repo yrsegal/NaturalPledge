@@ -6,9 +6,9 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumActionResult
-import net.minecraft.util.EnumHand
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraftforge.event.ForgeEventFactory
@@ -22,7 +22,6 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.items.bauble.ItemIronBelt
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
 
 /**
@@ -40,7 +39,7 @@ object PriestlyEmblemNjord : IFaithVariant {
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        player.addPotionEffect(ModPotionEffect(ModPotions.featherweight, 600))
+        player.addPotionEffect(PotionEffect(ModPotions.featherweight, 600))
     }
 
     @SubscribeEvent

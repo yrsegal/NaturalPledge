@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
 import net.minecraft.client.Minecraft
@@ -16,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.Style
@@ -27,13 +27,11 @@ import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
@@ -201,7 +199,7 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
         if (variant != null && player is EntityPlayer && !player.world.isRemote) {
-            player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
+            player.addPotionEffect(PotionEffect(ModPotions.faithlessness, 600))
             variant.punishTheFaithless(stack, player)
             player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
             if (isAwakened(stack))

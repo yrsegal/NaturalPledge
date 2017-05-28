@@ -16,7 +16,6 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.block.tile.TileBifrost
@@ -52,7 +51,7 @@ object PriestlyEmblemHeimdall : IFaithVariant {
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        player.addPotionEffect(ModPotionEffect(ModPotions.drab, 600, 2))
+        player.addPotionEffect(PotionEffect(ModPotions.drab, 600, 2))
         player.removePotionEffect(MobEffects.NIGHT_VISION)
     }
 

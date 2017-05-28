@@ -4,10 +4,10 @@ import com.teamwizardry.librarianlib.features.base.item.ItemModFood
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.stats.Achievement
 import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.common.achievement.ICraftAchievement
 
@@ -17,7 +17,7 @@ import vazkii.botania.common.achievement.ICraftAchievement
  */
 class ItemImmortalApple(name: String) : ItemModFood(name, 4, 1.2f, false), ICraftAchievement {
     init {
-        setPotionEffect(ModPotionEffect(ModPotions.immortal, 6000, 0, true, true), 1f)
+        setPotionEffect(PotionEffect(ModPotions.immortal, 6000, 0, true, true), 1f)
         setAlwaysEdible()
     }
 

@@ -58,7 +58,7 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
             }
 
             override fun toString(): String {
-                return "${LibMisc.MOD_ID}:{ soil=irisDirt wood=irisWood[0-3] leaves=irisLeaves[0-3] }";
+                return "${LibMisc.MOD_ID}:{ soil=irisDirt wood=irisWood[0-3] leaves=irisLeaves[0-3] }"
             }
         }
 
@@ -88,7 +88,7 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
             }
 
             override fun toString(): String {
-                return "${LibMisc.MOD_ID}:{ soil=altGrass wood=altWood[0-1] leaves=altLeaves[0-1] }";
+                return "${LibMisc.MOD_ID}:{ soil=altGrass wood=altWood[0-1] leaves=altLeaves[0-1] }"
             }
         }
     }
@@ -101,6 +101,11 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
                         ModBlocks.rainbowDirt.defaultState,
                         ModBlocks.rainbowLog.defaultState,
                         ModBlocks.rainbowLeaves.defaultState))
+        SaplingVariantRegistry.registerVariant("auroraDirt",
+                IridescentSaplingBaseVariant(
+                        ModBlocks.auroraDirt.defaultState,
+                        ModBlocks.auroraLog.defaultState,
+                        ModBlocks.auroraLeaves.defaultState))
     }
 
     override fun canSustain(state: IBlockState): Boolean {

@@ -3,13 +3,13 @@ package shadowfox.botanicaladdons.common.block.trap
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.init.SoundEvents
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.common.Botania
 import vazkii.botania.common.entity.EntityFlameRing
 import java.util.*
@@ -23,7 +23,7 @@ class BlockInfernoTrap : BlockBaseTrap(LibNames.INFERNO_TRAP) {
         val ring = EntityFlameRing(world)
         ring.setPosition(pos.x + 0.5, pos.y + 1.0, pos.z + 0.5)
 
-        entityIn.addPotionEffect(ModPotionEffect(ModPotions.everburn, 200))
+        entityIn.addPotionEffect(PotionEffect(ModPotions.everburn, 200))
 
         world.spawnEntity(ring)
         world.playSound(null, pos, SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F)

@@ -32,6 +32,7 @@ import net.minecraft.world.WorldServer
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.FENRIS
@@ -54,13 +55,14 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
             MinecraftForge.EVENT_BUS.register(this)
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
         fun onLivingAttack(e: LivingAttackEvent) {
             val attacker = e.source.entity
             if (e.source.damageType == "player" && attacker is EntityPlayer && (
                     (ModItems.fenrisHelm.hasFullSet(attacker) && attacker.heldItemMainhand.isEmpty) ||
                             (attacker.heldItemMainhand.item is ItemNightscourge))) {
                 e.source.setDamageBypassesArmor()
+                e.isCanceled = false
             }
         }
     }

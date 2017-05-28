@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.items.bauble.faith
 
 import baubles.api.BaubleType
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
 import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
@@ -29,7 +28,6 @@ import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
-import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
@@ -45,8 +43,6 @@ import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Compa
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.isFaithless
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
-import sun.audio.AudioPlayer.player
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
@@ -112,7 +108,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         fun onLivingAttack(e: AttackEntityEvent) {
             val target = e.target
             val emblem = ItemFaithBauble.getEmblem(e.entityPlayer, Ragnarok::class.java)
-            if (emblem != null && target is EntityLivingBase) target.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 100))
+            if (emblem != null && target is EntityLivingBase) target.addPotionEffect(PotionEffect(ModPotions.faithlessness, 100))
         }
 
         override fun getName(): String {
@@ -214,7 +210,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         if (isAwakened(stack)) setAwakened(stack, false)
 
         if (entityIn is EntityPlayer && isSelected && !entityIn.world.isRemote)
-            entityIn.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
+            entityIn.addPotionEffect(PotionEffect(ModPotions.faithlessness, 5, 0, true, true))
     }
 
     override fun getVariant(stack: ItemStack) = Ragnarok
@@ -251,7 +247,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         if (player is EntityPlayer && !player.world.isRemote) {
             variant.punishTheFaithless(stack, player)
             player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
-            player.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 600))
+            player.addPotionEffect(PotionEffect(ModPotions.faithlessness, 600))
             if (isAwakened(stack))
                 player.attackEntityFrom(ItemFaithBauble.FaithSource, Float.MAX_VALUE)
         }

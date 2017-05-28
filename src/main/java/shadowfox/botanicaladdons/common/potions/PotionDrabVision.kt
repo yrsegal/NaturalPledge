@@ -2,10 +2,12 @@ package shadowfox.botanicaladdons.common.potions
 
 import com.teamwizardry.librarianlib.features.base.PotionMod
 import com.teamwizardry.librarianlib.features.base.PotionMod.Companion.getEffect
-import com.teamwizardry.librarianlib.features.base.PotionMod.Companion.hasEffect
+import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.util.JsonException
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.ai.attributes.AbstractAttributeMap
 import net.minecraft.init.MobEffects
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
@@ -20,7 +22,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.PriestlyEmblemHeimdall
 import shadowfox.botanicaladdons.common.lib.LibNames
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 
 /**
  * @author WireSegal
@@ -33,6 +34,7 @@ class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
     }
 
     val greyscale = ResourceLocation("shaders/post/desaturate.json")
+    var grayscaleState = false
 
     @SubscribeEvent
     fun onLivingUpdate(e: LivingEvent.LivingUpdateEvent) {
@@ -42,8 +44,8 @@ class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
             entity.removeActivePotionEffect(this)
             entity.removeActivePotionEffect(MobEffects.NIGHT_VISION)
             val newEffect = PotionEffect(this, effect.duration, Math.max(effect.amplifier - 1, 0), effect.isAmbient, effect.doesShowParticles())
-            if (effect is ModPotionEffect)
-                entity.addPotionEffect(ModPotionEffect(newEffect))
+            if (effect is PotionEffect)
+                entity.addPotionEffect(PotionEffect(newEffect))
             else
                 entity.addPotionEffect(newEffect)
         }
@@ -57,18 +59,29 @@ class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
         if (mc.player == null) return
         if (e.type == RenderGameOverlayEvent.ElementType.ALL) {
             if ((getEffect(mc.player)?.amplifier ?: 0) > 0 && ItemFaithBauble.getEmblem(mc.player, PriestlyEmblemHeimdall::class.java) == null) {
-                setShader(greyscale)
-            } else Minecraft.getMinecraft().entityRenderer.stopUseShader()
+                val render = Minecraft.getMinecraft().entityRenderer
+                val group = render.shaderGroup
+                if (!grayscaleState && (group == null || group.shaderGroupName != greyscale.toString())) {
+                    setShader(greyscale)
+                    grayscaleState = true
+                }
+            } else {
+                val render = Minecraft.getMinecraft().entityRenderer
+                val group = render.shaderGroup
+                if (grayscaleState && group != null && group.shaderGroupName == greyscale.toString()) {
+                    Minecraft.getMinecraft().entityRenderer.stopUseShader()
+                    grayscaleState = false
+                }
+            }
         }
     }
 
     @SideOnly(Side.CLIENT)
-    private fun setShader(target: ResourceLocation?) {
+    private fun setShader(target: ResourceLocation) {
         try {
             val mc = Minecraft.getMinecraft()
             if (OpenGlHelper.shadersSupported && !mc.entityRenderer.isShaderActive) try {
-                if (target == null) Minecraft.getMinecraft().entityRenderer.stopUseShader()
-                else mc.entityRenderer.loadShader(target)
+                mc.entityRenderer.loadShader(target)
             } catch (var5: Exception) {
                 //NO-OP
             }

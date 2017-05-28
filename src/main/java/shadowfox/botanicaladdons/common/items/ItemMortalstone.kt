@@ -14,7 +14,6 @@ import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.api.mana.IManaItem
 import vazkii.botania.api.mana.IManaTooltipDisplay
 import vazkii.botania.api.mana.IManaUsingItem
@@ -61,7 +60,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
             val entities = worldIn.getEntitiesWithinAABB(EntityPlayer::class.java, entityIn.entityBoundingBox.expandXyz(RANGE))
             for (entity in entities)
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
-                    entity.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
+                    entity.addPotionEffect(PotionEffect(ModPotions.faithlessness, 5, 0, true, true))
                     if (entity != entityIn && !ModPotions.faithlessness.hasEffect(entity)) flag = true
                     BotanicalAddons.PROXY.particleEmission(Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
                 }
@@ -69,7 +68,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         if (entityIn is EntityPlayer && isSelected && !entityIn.world.isRemote) {
             if (flag)
                 addMana(stack, -MANA_PER_TICK)
-            entityIn.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
+            entityIn.addPotionEffect(PotionEffect(ModPotions.faithlessness, 5, 0, true, true))
         }
     }
 
@@ -93,7 +92,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                     if ((ModPotions.faithlessness.getEffect(entity) ?: PotionEffect(ModPotions.faithlessness)).duration <= 5) {
                         flag = flag or 1
                     }
-                    entity.addPotionEffect(ModPotionEffect(ModPotions.faithlessness, 5, 0, true, true))
+                    entity.addPotionEffect(PotionEffect(ModPotions.faithlessness, 5, 0, true, true))
                     BotanicalAddons.PROXY.particleEmission(Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), 0x5e0a02, 0.7F)
                     flag = flag or 2
                 }

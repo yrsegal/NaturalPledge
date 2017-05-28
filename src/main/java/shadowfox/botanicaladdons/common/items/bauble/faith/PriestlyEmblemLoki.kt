@@ -4,6 +4,7 @@ import com.teamwizardry.librarianlib.features.network.PacketHandler
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
@@ -13,7 +14,6 @@ import shadowfox.botanicaladdons.api.priest.IFaithVariant
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.network.FireballMessage
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 
 /**
  * @author WireSegal
@@ -30,7 +30,7 @@ object PriestlyEmblemLoki : IFaithVariant {
     }
 
     override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-        player.addPotionEffect(ModPotionEffect(ModPotions.everburn, 600))
+        player.addPotionEffect(PotionEffect(ModPotions.everburn, 600))
     }
 
     override fun onUpdate(stack: ItemStack, player: EntityPlayer) {

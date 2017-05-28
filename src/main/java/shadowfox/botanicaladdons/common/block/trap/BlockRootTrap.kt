@@ -2,12 +2,12 @@ package shadowfox.botanicaladdons.common.block.trap
 
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.lib.LibNames
 import shadowfox.botanicaladdons.common.potions.ModPotions
-import shadowfox.botanicaladdons.common.potions.base.ModPotionEffect
 import vazkii.botania.common.Botania
 import java.util.*
 
@@ -17,7 +17,7 @@ import java.util.*
  */
 class BlockRootTrap : BlockBaseTrap(LibNames.ROOT_TRAP) {
     override fun trapActivation(stateIn: IBlockState, world: World, pos: BlockPos, entityIn: EntityLivingBase) {
-        entityIn.addPotionEffect(ModPotionEffect(ModPotions.rooted, 200))
+        entityIn.addPotionEffect(PotionEffect(ModPotions.rooted, 200))
 
         world.setBlockToAir(pos)
     }

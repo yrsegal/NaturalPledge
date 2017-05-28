@@ -67,6 +67,9 @@ object ModRecipes {
     val recipesIrisPlanks: Array<IRecipe>
     val recipesAltPlanks: Array<IRecipe>
 
+    val recipeAuroraDirt: IRecipe
+    val recipeAuroraPlanks: IRecipe
+
     val immortalBrew: RecipeBrew
     val drabBrew: RecipeBrew
 
@@ -297,9 +300,18 @@ object ModRecipes {
                     "DDD",
                     "DID",
                     "DDD",
-                    'D', Blocks.DIRT,
+                    'D', "dirt",
                     'I', LibOreDict.IRIS_DYES[it])
         })
+
+        recipeAuroraDirt = addOreDictRecipe(ItemStack(ModBlocks.auroraDirt, 9),
+                "DDD",
+                "DMD",
+                "DDD",
+                'D', "dirt",
+                'M', BotaniaOreDict.MANA_PEARL)
+
+        recipeAuroraPlanks = addOreDictRecipe(ItemStack(ModBlocks.auroraPlanks, 4), "W", 'W', ModBlocks.auroraLog)
 
         recipeDirtDeconversion = BotaniaAPI.registerPureDaisyRecipe(LibOreDict.IRIS_DIRT, Blocks.DIRT.defaultState)
 
