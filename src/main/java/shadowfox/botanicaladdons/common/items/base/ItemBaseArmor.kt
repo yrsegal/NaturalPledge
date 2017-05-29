@@ -37,7 +37,7 @@ import java.util.*
 @Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: ArmorMaterial) : ItemModArmor(name, mat, type), ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor, IManaDiscountArmor {
 
-    val matName = VariantHelper.toSnakeCase(mat.getName())
+    val matName = VariantHelper.toSnakeCase(mat.toString())
 
     protected val models: MutableMap<EntityEquipmentSlot, Any> by lazy {
         EnumMap<EntityEquipmentSlot, Any>(EntityEquipmentSlot::class.java)

@@ -80,7 +80,8 @@ object RecipeEnchantmentRemoval : IRecipe {
         var enchanted: ItemStack = ItemStack.EMPTY
         (0 until inv.sizeInventory)
                 .asSequence()
-                .mapNotNull { inv.getStackInSlot(it) }
+                .map { inv.getStackInSlot(it) }
+                .filterNot { it.isEmpty }
                 .forEach {
                     if (it.item == ModItems.xpTome)
                         tome = it
@@ -118,7 +119,8 @@ object RecipeEnchantmentRemoval : IRecipe {
         var foundEnchanted = false
         (0 until inv.sizeInventory)
                 .asSequence()
-                .mapNotNull { inv.getStackInSlot(it) }
+                .map { inv.getStackInSlot(it) }
+                .filterNot { it.isEmpty }
                 .forEach {
                     if (it.item == ModItems.xpTome) {
                         if (foundTome) return false
