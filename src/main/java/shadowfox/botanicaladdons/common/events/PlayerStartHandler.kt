@@ -62,17 +62,35 @@ object PlayerStartHandler {
                     if (!rebindStone)
                         ItemNBTHelper.setBoolean(stack, ItemWaystone.TAG_NO_RESET, true)
 
-                    player.inventory.setInventorySlotContents(spawnStone, stack)
+                    if (player.inventory.getStackInSlot(spawnStone).isEmpty) {
+                        if (!player.inventory.addItemStackToInventory(stack))
+                            player.dropItem(stack.copy(), false)
+                    } else player.inventory.setInventorySlotContents(spawnStone, stack)
                 }
 
-                if (spawnReturnStone != -1)
-                    player.inventory.setInventorySlotContents(spawnReturnStone, ItemStack(ModItems.deathFinder))
+                if (spawnReturnStone != -1) {
+                    val stack = ItemStack(ModItems.deathFinder)
+                    if (player.inventory.getStackInSlot(spawnReturnStone).isEmpty) {
+                        if (!player.inventory.addItemStackToInventory(stack))
+                            player.dropItem(stack.copy(), false)
+                    } else player.inventory.setInventorySlotContents(spawnReturnStone, stack)
+                }
 
-                if (spawnNetherStone != -1)
-                    player.inventory.setInventorySlotContents(spawnNetherStone, ItemStack(ModItems.portalStone))
+                if (spawnNetherStone != -1) {
+                    val stack = ItemStack(ModItems.portalStone)
+                    if (player.inventory.getStackInSlot(spawnNetherStone).isEmpty) {
+                        if (!player.inventory.addItemStackToInventory(stack))
+                            player.dropItem(stack.copy(), false)
+                    } else player.inventory.setInventorySlotContents(spawnNetherStone, stack)
+                }
 
-                if (spawnLexicaBotania != -1)
-                    player.inventory.setInventorySlotContents(spawnLexicaBotania, ItemStack(BotaniaItems.lexicon))
+                if (spawnLexicaBotania != -1) {
+                    val stack = ItemStack(BotaniaItems.lexicon)
+                    if (player.inventory.getStackInSlot(spawnLexicaBotania).isEmpty) {
+                        if (!player.inventory.addItemStackToInventory(stack))
+                            player.dropItem(stack.copy(), false)
+                    } else player.inventory.setInventorySlotContents(spawnLexicaBotania, stack)
+                }
 
                 persistentData.setBoolean(tag, true)
             }
