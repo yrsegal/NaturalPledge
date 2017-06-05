@@ -266,27 +266,27 @@ item.botanicaladdons:eclipse_chest.name=Chestplate of Eclipse
 item.botanicaladdons:eclipse_legs.name=Platelegs of Eclipse
 item.botanicaladdons:eclipse_boots.name=Greaves of Eclipse
 item.botanicaladdons:flarebringer.name=Flarebringer the Bane
-botanicaladdons.armorset.eclipse.name=Mana Masquerade
-botanicaladdons.armorset.eclipse.desc=20%% less Mana cost on Mana Tools and Rods
-botanicaladdons.armorset.eclipse.desc1=Repairs from the Mana of others around you
+botanicaladdons.armorset.ragnarok.eclipse.name=Mana Masquerade
+botanicaladdons.armorset.ragnarok.eclipse.desc=20%% less Mana cost on Mana Tools and Rods
+botanicaladdons.armorset.ragnarok.eclipse.desc1=Repairs from the Mana of others around you
 
 item.botanicaladdons:sunmaker_helm.name=Helm of the Sunmaker
 item.botanicaladdons:sunmaker_chest.name=Chestplate of the Sunmaker
 item.botanicaladdons:sunmaker_legs.name=Platelegs of the Sunmaker
 item.botanicaladdons:sunmaker_boots.name=Greaves of the Sunmaker
 item.botanicaladdons:shadowbreaker.name=Shadowbreaker the Aegis
-botanicaladdons.armorset.sunmaker.name=Light of Creation
-botanicaladdons.armorset.sunmaker.desc=20%% less Mana cost on Mana Tools and Rods
-botanicaladdons.armorset.sunmaker.desc1=Repairs your held items with Mana
+botanicaladdons.armorset.ragnarok.sunmaker.name=Light of Creation
+botanicaladdons.armorset.ragnarok.sunmaker.desc=20%% less Mana cost on Mana Tools and Rods
+botanicaladdons.armorset.ragnarok.sunmaker.desc1=Repairs your held items with Mana
 
 item.botanicaladdons:fenris_helm.name=Helm of Fenris
 item.botanicaladdons:fenris_chest.name=Chestplate of Fenris
 item.botanicaladdons:fenris_legs.name=Platelegs of Fenris
 item.botanicaladdons:fenris_boots.name=Greaves of Fenris
 item.botanicaladdons:nightscourge.name=Nightscourge the Ravager
-botanicaladdons.armorset.fenris.name=Soul Unbound
-botanicaladdons.armorset.fenris.desc=20%% less Mana cost on Mana Tools and Rods
-botanicaladdons.armorset.fenris.desc1=Gain the strength of the Prince of Monsters
+botanicaladdons.armorset.ragnarok.fenris.name=Soul Unbound
+botanicaladdons.armorset.ragnarok.fenris.desc=20%% less Mana cost on Mana Tools and Rods
+botanicaladdons.armorset.ragnarok.fenris.desc1=Gain the strength of the Prince of Monsters
 
 item_group.botanicaladdons.divine=Natural Pledge
 

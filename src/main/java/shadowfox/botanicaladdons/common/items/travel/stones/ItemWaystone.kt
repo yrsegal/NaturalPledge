@@ -51,6 +51,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         val TAG_Y = "y"
         val TAG_Z = "z"
         val TAG_TRACK = "player"
+        val TAG_NO_RESET = "immutable"
 
         val LAST_KNOWN_POSITIONS = mutableMapOf<String, Pair<Int, Vec3d>>()
 
@@ -97,6 +98,9 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
         val stack = player.getHeldItem(hand)
         if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
+            if (ItemNBTHelper.getBoolean(stack, TAG_NO_RESET, false))
+                return EnumActionResult.PASS
+
             if (world.isRemote) {
                 player.swingArm(hand)
                 for (i in 0..9) {
@@ -122,6 +126,9 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val stack = player.getHeldItem(hand)
         if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
+            if (ItemNBTHelper.getBoolean(stack, TAG_NO_RESET, false))
+                return ActionResult(EnumActionResult.PASS, stack)
+
             if (world.isRemote) {
                 player.swingArm(hand)
                 for (i in 0..9) {
@@ -145,7 +152,8 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
 
-        if (stack.hasDisplayName() && stack.displayName.toLowerCase(Locale.ROOT).trim().matches("^track[:\\s]\\s*.+$".toRegex())) {
+        val noReset = ItemNBTHelper.getBoolean(stack, TAG_NO_RESET, false)
+        if (!noReset && stack.hasDisplayName() && stack.displayName.toLowerCase(Locale.ROOT).trim().matches("^track[:\\s]\\s*.+$".toRegex())) {
             ItemNBTHelper.setString(stack, TAG_TRACK, stack.displayName.trim().replace("^track:?".toRegex(), "").trim())
             stack.clearCustomName()
         }

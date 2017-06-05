@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.block.tile
 
 import com.teamwizardry.librarianlib.features.saving.Save
-import com.teamwizardry.librarianlib.features.structure.InWorldRender.pos
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos

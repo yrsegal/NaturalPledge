@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.common.block
 import com.teamwizardry.librarianlib.features.autoregister.TileRegister
 import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
 import com.teamwizardry.librarianlib.features.base.block.TileMod
-import com.teamwizardry.librarianlib.features.structure.InWorldRender.pos
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
