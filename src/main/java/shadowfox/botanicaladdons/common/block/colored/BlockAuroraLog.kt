@@ -35,5 +35,8 @@ class BlockAuroraLog(name: String) : BlockModLog(name), ILexiconable, IBlockColo
         get() = { _, _, pos, _ -> BlockAuroraDirt.fromPos(pos) }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { _, _ -> BlockAuroraDirt.fromPos(LibrarianLib.PROXY.getClientPlayer().position) }
+        get() = { _, _ ->
+            val p = LibrarianLib.PROXY.getClientPlayer()
+            BlockAuroraDirt.fromPos(p.posX, p.posY, p.posZ)
+        }
 }
