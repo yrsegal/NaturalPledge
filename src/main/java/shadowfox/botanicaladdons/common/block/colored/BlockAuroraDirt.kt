@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
+import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.block.BlockMod
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
@@ -28,6 +29,34 @@ import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
  */
 class BlockAuroraDirt(name: String) : BlockMod(name, Material.GROUND), ILexiconable, IBlockColorProvider {
 
+    companion object {
+        fun fromPos(pos: BlockPos?): Int {
+            if (pos == null) return 0x97C683
+            val x = pos.x
+            val y = pos.y
+            val z = pos.z
+            var red = x * 32 + y * 16
+            if (red and 256 != 0) {
+                red = 255 - (red and 255)
+            }
+            red = red and 255
+
+            var blue = y * 32 + z * 16
+            if (blue and 256 != 0) {
+                blue = 255 - (blue and 255)
+            }
+            blue = blue xor 255
+
+            var green = x * 16 + z * 32
+            if (green and 256 != 0) {
+                green = 255 - (green and 255)
+            }
+            green = green and 255
+
+            return red shl 16 or (blue shl 8) or green
+        }
+    }
+
     init {
         soundType = SoundType.GROUND
         blockHardness = 0.5f
@@ -50,37 +79,10 @@ class BlockAuroraDirt(name: String) : BlockMod(name, Material.GROUND), ILexicona
     }
 
     override val blockColorFunction: ((state: IBlockState, world: IBlockAccess?, pos: BlockPos?, tintIndex: Int) -> Int)?
-        get() = { _, _, pos, _ ->
-            if (pos == null) 0x97C683
-            else {
-                val x = pos.x
-                val y = pos.y
-                val z = pos.z
-                var red = x * 32 + y * 16
-                if (red and 256 != 0) {
-                    red = 255 - (red and 255)
-                }
-                red = red and 255
-
-                var blue = y * 32 + z * 16
-                if (blue and 256 != 0) {
-                    blue = 255 - (blue and 255)
-                }
-                blue = blue xor 255
-
-                var green = x * 16 + z * 32
-                if (green and 256 != 0) {
-                    green = 255 - (green and 255)
-                }
-                green = green and 255
-
-                red shl 16 or (blue shl 8) or green
-            }
-        }
-
+        get() = { _, _, pos, _ -> fromPos(pos) }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { _, _ -> 0x97C683 }
+        get() = { _, _ -> fromPos(LibrarianLib.PROXY.getClientPlayer().position) }
 
     override fun canSustainPlant(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?, direction: EnumFacing?, plantable: IPlantable?): Boolean {
         return true

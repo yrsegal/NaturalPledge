@@ -1,7 +1,8 @@
 {
-	"variants": {
-		"normal": {
-			"model": "botanicaladdons:iris_log"
-		}
-	}
+    "variants": {
+        "axis=y": { "model": "botanicaladdons:iris_log" },
+        "axis=z": { "model": "botanicaladdons:iris_log", "x": 90 },
+        "axis=x": { "model": "botanicaladdons:iris_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "botanicaladdons:iris_bark" }
+    }
 }

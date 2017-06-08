@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
+import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.block.BlockModPlanks
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
@@ -36,7 +37,7 @@ class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { na
         }
     }
 
-    class BlockAuroraPlanks(name: String) : BlockModPlanks(name), ILexiconable {
+    class BlockAuroraPlanks(name: String) : BlockModPlanks(name), ILexiconable, IBlockColorProvider {
         override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.aurora")
         }
@@ -44,6 +45,12 @@ class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { na
         override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
             return LexiconEntries.aurora
         }
+
+        override val blockColorFunction: ((state: IBlockState, world: IBlockAccess?, pos: BlockPos?, tintIndex: Int) -> Int)?
+            get() = { _, _, pos, _ -> BlockAuroraDirt.fromPos(pos) }
+
+        override val itemColorFunction: ((ItemStack, Int) -> Int)?
+            get() = { _, _ -> BlockAuroraDirt.fromPos(LibrarianLib.PROXY.getClientPlayer().position) }
     }
 
     companion object {

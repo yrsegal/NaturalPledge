@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.block.colored
 
+import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.block.BlockMod
 import com.teamwizardry.librarianlib.features.base.block.BlockModLeaves
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
@@ -48,26 +49,8 @@ class BlockAuroraLeaves(name: String) : BlockModLeaves(name), ILexiconable, IBlo
     }
 
     override val blockColorFunction: ((state: IBlockState, world: IBlockAccess?, pos: BlockPos?, tintIndex: Int) -> Int)?
-        get() = { _, _, pos, _ ->
-            if (pos == null) 0x97C683
-            else {
-                var red = pos.x * 0x20 + pos.y * 0x10
-                var green = pos.y * 0x20 + pos.z * 0x10
-                var blue = pos.x * 0x20 + pos.z * 0x10
-
-                if (red and 0x100 != 0) red = 0xFF - (red and 0xFF)
-                red = red and 0xFF
-
-                if (blue and 0x100 != 0) blue = 0xFF - (blue and 0xFF)
-                blue = blue xor 0xFF
-
-                if (green and 0x100 != 0) green = 0xFF - (green and 0xFF)
-                green = green and 0xFF
-
-                (red shl 0x10) or (blue shl 0x8) or green
-            }
-        }
+        get() = { _, _, pos, _ -> BlockAuroraDirt.fromPos(pos) }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { _, _ -> 0x97C683 }
+        get() = { _, _ -> BlockAuroraDirt.fromPos(LibrarianLib.PROXY.getClientPlayer().position) }
 }

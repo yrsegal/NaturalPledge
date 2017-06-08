@@ -125,7 +125,7 @@ object ModBlocks {
         auroraDirt = BlockAuroraDirt(LibNames.AURORA_DIRT)
         auroraPlanks = BlockAuroraPlanks(LibNames.AURORA_PLANKS)
         auroraLog = BlockAuroraLog(LibNames.AURORA_LOG)
-        auroraLeaves = BlockAuroraLog(LibNames.AURORA_LEAVES)
+        auroraLeaves = BlockAuroraLeaves(LibNames.AURORA_LEAVES)
 
         irisSapling = BlockIrisSapling(LibNames.IRIS_SAPLING)
         altLogs = Array(2) {
