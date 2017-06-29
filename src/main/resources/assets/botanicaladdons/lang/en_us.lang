@@ -738,7 +738,7 @@ botanicaladdons.page.faith_in_ragnarok1=There is a single spell unique to faith 
 
 botanicaladdons.entry.eclipse=Gear of Eclipse
 botanicaladdons.tagline.eclipse=Keep your enemies far and your friends farther
-botanicaladdons.page.eclipse0=The gear created with the essence of &4Eclipse&0 encourages solitude. The &4Mana Masquerade&0, the special ability of the armor set, will recharge your mana from people around you. The blade of &4Eclipse&0, &1Flarebringer&0, will cut things far farther than you can reach.
+botanicaladdons.page.eclipse0=The gear created with the essence of &4Eclipse&0 encourages you to make your way alone. The &4Mana Masquerade&0, the special ability of the armor set, will recharge your mana from raw life energy, stealing the health of the soulless and the &4Mana&0 of players. The blade of &4Eclipse&0, &1Flarebringer&0, will swing farther than you can reach, cutting past your own limitations.
 botanicaladdons.page.eclipse1=For the doom of Gunmar
 botanicaladdons.page.eclipse2=The &1Cowl of Eclipse&0
 botanicaladdons.page.eclipse3=The &1Chestplate of Eclipse&0
@@ -747,7 +747,7 @@ botanicaladdons.page.eclipse5=The &1Greaves of Eclipse&0
 
 botanicaladdons.entry.sunmaker=Gear of the Sunmaker
 botanicaladdons.tagline.sunmaker=Push back the tide of darkness
-botanicaladdons.page.sunmaker0=The gear created with the essence of the &4Sunmaker&0 encourages you to be a bastion against a storm. The &4Light of Creation&0, the special ability of the armor set, will infuse mana into anything damaged you hold, repairing it. The blade of the &4Sunmaker&0, &1Shadowbreaker&0, will repulse enemies who dare try to attack from behind, and any projectiles.
+botanicaladdons.page.sunmaker0=The gear created with the essence of the &4Sunmaker&0 encourages you to be a bastion against a storm. The &4Light of Creation&0, the special ability of the armor set, will infuse mana into anything damaged you hold or in your body, repairing it and cleansing you. The blade of the &4Sunmaker&0, &1Shadowbreaker&0, will repulse enemies who dare try to attack from behind, and any attacks from far away.
 botanicaladdons.page.sunmaker1=For the glory of Merlin
 botanicaladdons.page.sunmaker2=The &1Helm of the Sunmaker&0
 botanicaladdons.page.sunmaker3=The &1Chestplate of the Sunmaker&0
@@ -756,7 +756,7 @@ botanicaladdons.page.sunmaker5=The &1Greaves of the Sunmaker&0
 
 botanicaladdons.entry.fenris=Gear of Fenris
 botanicaladdons.tagline.fenris=Break thy bonds
-botanicaladdons.page.fenris0=The gear created with the essence of &4Fenris Wolf&0 is designed to cut straight through armor and defense, even able to cut &1Gleipnir&0. The &4Soul Unbound&0, the special ability of the armor set, will infuse mana into your very blood, strengthening your body. The claws of &4Fenris&0, &1Nightscourge&0, will also strike through armor, and can block as a pair.
+botanicaladdons.page.fenris0=The gear created with the essence of &4Fenris Wolf&0 encourages you to fight where others falter, surpassing your own limitations to cut &1Gleipnir&0. The &4Soul Unbound&0, the special ability of the armor set, strengthens you and strikes past armor when bare-handed. The claws of &4Fenris&0, &1Nightscourge&0, will also strike through armor, and can block attacks like a shield.
 botanicaladdons.page.fenris1=Odinsbane
 botanicaladdons.page.fenris2=The &1Helm of Fenris&0
 botanicaladdons.page.fenris3=The &1Chestplate of Fenris&0
