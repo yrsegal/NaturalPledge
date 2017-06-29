@@ -1,16 +1,14 @@
 package shadowfox.botanicaladdons.client.render.entity
 
 import com.teamwizardry.librarianlib.features.kotlin.toRl
-import com.teamwizardry.librarianlib.features.utilities.client.GlUtils
+import com.teamwizardry.librarianlib.features.utilities.client.GlUtils.useLightmap
+import com.teamwizardry.librarianlib.features.utilities.client.GlUtils.withLighting
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.entity.RenderLivingBase
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
-import shadowfox.botanicaladdons.common.lib.LibNames.RESOURCE
 import vazkii.botania.client.lib.LibResources
 
 /**
@@ -42,7 +40,7 @@ class LayerGlowArmor(val renderer: RenderLivingBase<*>) : LayerBipedArmor(render
 
                 this.renderer.bindTexture(tex.toRl())
                 GlStateManager.color(1f, 1f, 1f, 1f)
-                GlUtils.withLighting(false) { GlUtils.useLightmap(0xf000f0) {
+                withLighting(false) { useLightmap(0xf000f0) {
                     t.render(entityLivingBaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale)
                 }}
             }
