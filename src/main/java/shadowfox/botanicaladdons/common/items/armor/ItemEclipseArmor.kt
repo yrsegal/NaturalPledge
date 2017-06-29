@@ -139,7 +139,7 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
         } else if (hasFullSet(player)) {
             val playerPos = player.positionVector
             player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(10.0)) {
-                it != null && it != player && it.health <= 5f && it.positionVector.squareDistanceTo(playerPos) <= 100.0
+                it != null && it != player && !it.isDead && it.health <= 5f && it.positionVector.squareDistanceTo(playerPos) <= 100.0
             }.forEach {
                 val pos = Vector3.fromEntityCenter(it).add(0.0, 1.0, 0.0)
                 BotanicalAddons.PROXY.particleEmission(pos, 0x808080)
