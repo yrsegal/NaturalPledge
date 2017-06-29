@@ -6,6 +6,7 @@ import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.Item
@@ -26,6 +27,7 @@ import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.ECLIPSE
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
+import shadowfox.botanicaladdons.common.items.weapons.ItemFlarebringer
 import shadowfox.botanicaladdons.common.network.ManastormLightningMessage
 import sun.audio.AudioPlayer.player
 import vazkii.botania.api.mana.ManaItemHandler
@@ -64,7 +66,7 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
     fun manaMasquerade(stack: ItemStack, player: EntityPlayer, amount: Int, exact: Boolean = true, take: Boolean = true): Int {
         val playerPosition = player.positionVector
         val players = if (hasFullSet(player)) player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(10.0)) {
-            it != null && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0
+            it != null && it !is EntityArmorStand && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0
         } else mutableListOf()
         Collections.shuffle(players)
         players.add(player)
@@ -136,14 +138,13 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
             amount = manaMasquerade(stack, player, amount, false, false)
 
             ManaItemHandler.dispatchMana(stack, player, manaMasquerade(stack, player, amount, false), true)
-        } else if (hasFullSet(player)) {
+        } else if (hasFullSet(player) && world.totalWorldTime % 3 == 0L) {
             val playerPos = player.positionVector
-            player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(10.0)) {
-                it != null && it != player && !it.isDead && it.health <= 5f && it.positionVector.squareDistanceTo(playerPos) <= 100.0
+            player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(ItemFlarebringer.RANGE)) {
+                it != null && it !is EntityArmorStand && it != player && !it.isDead && it.health <= 5f && it.positionVector.squareDistanceTo(playerPos) <= ItemFlarebringer.RANGE * ItemFlarebringer.RANGE
             }.forEach {
-                val pos = Vector3.fromEntityCenter(it).add(0.0, 1.0, 0.0)
-                BotanicalAddons.PROXY.particleEmission(pos, 0x808080)
-                BotanicalAddons.PROXY.particleEmission(pos, 0xFF0000)
+                val pos = Vector3.fromEntityCenter(it).add(-0.5, 0.2, -0.5)
+                BotanicalAddons.PROXY.particleRing(pos.x, pos.y, pos.z, 0.75, 1F, 0F, 0F, 0.025F, 0.05F, 0.1F)
             }
         }
     }
