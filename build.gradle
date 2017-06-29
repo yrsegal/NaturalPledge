@@ -24,6 +24,9 @@ allprojects {
     }
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.corePlugin = config.core_plugin
@@ -65,6 +68,13 @@ repositories {
     }
     maven {
         url "http://mvn.rx14.co.uk/shadowfacts/"
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        javaParameters = true
+        jvmTarget = 1.8
     }
 }
 

@@ -23,6 +23,6 @@ import vazkii.botania.common.core.helper.Vector3
 class ManastormLightningMessage(@Save var pos: Vec3d = Vec3d.ZERO, @Save var vecsTo: Array<Vec3d> = arrayOf()) : PacketBase() {
     override fun handle(ctx: MessageContext) {
         for (vecTo in vecsTo)
-            Botania.proxy.lightningFX(Vector3(pos), Vector3(vecTo), 1f, 0xFF0000, 0)
+            Botania.proxy.lightningFX(Vector3(vecTo), Vector3(pos), 1f, 0xFF0000, 0)
     }
 }

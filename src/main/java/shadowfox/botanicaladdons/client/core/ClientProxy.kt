@@ -9,6 +9,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import shadowfox.botanicaladdons.client.render.entity.LayerGlowArmor
 import shadowfox.botanicaladdons.client.render.entity.RenderSealedArrow
 import shadowfox.botanicaladdons.client.render.tile.RenderTileEnderActuator
 import shadowfox.botanicaladdons.client.render.tile.RenderTileFrozenStar
@@ -36,6 +37,12 @@ class ClientProxy : CommonProxy() {
         super.init(e)
         ClientRegistry.bindTileEntitySpecialRenderer(TileStar::class.java, RenderTileFrozenStar())
         ClientRegistry.bindTileEntitySpecialRenderer(TileEnderBind::class.java, RenderTileEnderActuator())
+
+        val skinMap = Minecraft.getMinecraft().renderManager.skinMap
+        var render = skinMap["default"]
+        render?.addLayer(LayerGlowArmor(render))
+        render = skinMap["slim"]
+        render?.addLayer(LayerGlowArmor(render))
     }
 
     override fun particleEmission(pos: Vector3, color: Int, probability: Float) {

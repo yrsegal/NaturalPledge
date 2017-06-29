@@ -44,6 +44,7 @@ import vazkii.botania.common.item.ModItems as BotaniaItems
 class JEIPluginBotanicalAddons : IModPlugin {
 
     companion object {
+        var initialized = false
         lateinit var helpers: IJeiHelpers
         lateinit var runtime: IJeiRuntime
         val RAGNAROK_ITEMS by lazy {
@@ -125,6 +126,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
     }
 
     override fun register(registry: IModRegistry) {
+        initialized = true
         helpers = registry.jeiHelpers
 
         UpdateRagnarokJEIMessage.lastState = false
@@ -146,6 +148,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
 
     override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {
         runtime = jeiRuntime
+        UpdateRagnarokJEIMessage.handle()
     }
 
     override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {

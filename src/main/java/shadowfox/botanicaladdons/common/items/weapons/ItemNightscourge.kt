@@ -1,9 +1,11 @@
 package shadowfox.botanicaladdons.common.items.weapons
 
 import com.google.common.collect.Multimap
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.base.item.IShieldItem
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
@@ -18,6 +20,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.items.base.IPreventBreakInCreative
@@ -29,7 +33,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:20 PM on 5/18/16.
  */
-class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IShieldItem {
+class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IShieldItem, IGlowingItem {
 
     val MANA_PER_DAMAGE = 40
 
@@ -41,6 +45,11 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
             if (entityIn != null && entityIn.isHandActive && (entityIn.heldItemMainhand == stack || entityIn.heldItemOffhand == stack)) 1f else 0f
         }
     }
+
+    @SideOnly(Side.CLIENT)
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel) = IGlowingItem.Helper.wrapperBake(model, false, 1)
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
 
     override fun damageItem(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource, damageAmount: Int): Boolean {
         ToolCommons.damageItem(stack, damageAmount, player, MANA_PER_DAMAGE)
@@ -73,19 +82,13 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
         return 72000
     }
 
-    override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
-        if (player.heldItemMainhand?.item != this)
-            player.stopActiveHand()
-    }
-
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase?, attacker: EntityLivingBase?): Boolean {
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
         return super.hitEntity(stack, target, attacker)
     }
 
     override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
-        if (hand == EnumHand.OFF_HAND && playerIn.heldItemMainhand?.item == this)
-            playerIn.activeHand = hand
+        playerIn.activeHand = hand
         return super.onItemRightClick(worldIn, playerIn, hand)
     }
 

@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.network
 
 import com.teamwizardry.librarianlib.features.autoregister.PacketRegister
 import com.teamwizardry.librarianlib.features.network.PacketBase
+import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
 import io.netty.buffer.ByteBuf
 import net.minecraft.entity.projectile.EntityLargeFireball
 import net.minecraft.init.Items
@@ -31,14 +32,16 @@ class UpdateRagnarokJEIMessage : PacketBase() {
         var remove: () -> Unit = {}
 
         var lastState = false
-    }
 
-    override fun handle(ctx: MessageContext) {
-        val ragnarok = ItemRagnarokPendant.hasAwakenedRagnarok()
-        val state = ragnarok != lastState
-        if (state) {
-            if (ragnarok) add() else remove()
-            lastState = ragnarok
+        fun handle() {
+            val ragnarok = ItemRagnarokPendant.hasAwakenedRagnarok()
+            val state = ragnarok != lastState
+            if (state) {
+                if (ragnarok) add() else remove()
+                lastState = ragnarok
+            }
         }
     }
+
+    override fun handle(ctx: MessageContext) = handle()
 }

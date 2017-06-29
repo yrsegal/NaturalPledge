@@ -1,6 +1,7 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "botanicaladdons:items/fenris_helm"
+		"layer0": "botanicaladdons:items/fenris_helmet_layer_0",
+		"layer1": "botanicaladdons:items/fenris_helmet_layer_1"
 	}
 }

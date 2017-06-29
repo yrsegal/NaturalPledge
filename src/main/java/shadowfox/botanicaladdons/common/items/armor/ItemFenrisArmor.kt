@@ -1,8 +1,10 @@
 package shadowfox.botanicaladdons.common.items.armor
 
 import com.google.common.collect.Multimap
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
@@ -34,6 +36,11 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.render.entity.ModelArmorFenris
+import shadowfox.botanicaladdons.client.render.entity.ModelArmorSunmaker
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.FENRIS
 import shadowfox.botanicaladdons.common.items.armor.ItemFenrisArmor.Companion.TAG_ACTIVE
@@ -47,7 +54,7 @@ import java.util.*
  * @author WireSegal
  * Created at 5:09 PM on 4/2/17.
  */
-class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, FENRIS) {
+class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, FENRIS), IGlowingItem {
     companion object {
         val TAG_ACTIVE = "active"
 
@@ -67,13 +74,20 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
         }
     }
 
+    override fun makeArmorModel(slot: EntityEquipmentSlot) = ModelArmorFenris(slot)
+
+
+    override fun getArmorTexture(type: String?) = "${LibMisc.MOD_ID}:textures/armor/fenris_layer_${if (type == "glow") 1 else 0}.png"
+
+    @SideOnly(Side.CLIENT)
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel) = IGlowingItem.Helper.wrapperBake(model, false, 1)
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
+
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(itemIn, tab, subItems)
     }
-
-    override val armorTexture: String
-        get() = armorMaterial.getName()
 
     override val armorSetStacks: ArmorSet by lazy {
         ArmorSet(ModItems.fenrisHelm, ModItems.fenrisChest, ModItems.fenrisLegs, ModItems.fenrisBoots)

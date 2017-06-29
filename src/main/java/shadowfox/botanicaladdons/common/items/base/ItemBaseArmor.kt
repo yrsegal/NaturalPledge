@@ -65,19 +65,15 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
             = ToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE)
 
     override fun getArmorTexture(stack: ItemStack, entity: Entity?, slot: EntityEquipmentSlot, type: String?)
-            = if (hasPhantomInk(stack)) LibResources.MODEL_INVISIBLE_ARMOR else armorTexture
+            = if (hasPhantomInk(stack)) LibResources.MODEL_INVISIBLE_ARMOR else getArmorTexture(type)
 
-    abstract val armorTexture: String
+    abstract fun getArmorTexture(type: String?): String?
 
     @SideOnly(Side.CLIENT)
     override fun getArmorModel(entityLiving: EntityLivingBase?, itemStack: ItemStack?, armorSlot: EntityEquipmentSlot, original: ModelBiped): ModelBiped? {
-        if (ConfigHandler.enableArmorModels) {
-            val model = provideArmorModelForSlot(armorSlot)
-            model?.setModelAttributes(original)
-            return model
-        }
-
-        return super.getArmorModel(entityLiving, itemStack, armorSlot, original)
+        val model = provideArmorModelForSlot(armorSlot)
+        model?.setModelAttributes(original)
+        return model
     }
 
     @SideOnly(Side.CLIENT)

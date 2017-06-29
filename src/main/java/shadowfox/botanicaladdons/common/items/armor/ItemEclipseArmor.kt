@@ -1,7 +1,9 @@
 package shadowfox.botanicaladdons.common.items.armor
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -12,12 +14,19 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.fml.common.network.NetworkRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.render.entity.ModelArmorEclipse
+import shadowfox.botanicaladdons.client.render.entity.ModelArmorSunmaker
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.ECLIPSE
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.network.ManastormLightningMessage
+import sun.audio.AudioPlayer.player
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.equipment.tool.ToolCommons
@@ -27,9 +36,17 @@ import java.util.*
  * @author WireSegal
  * Created at 5:09 PM on 4/2/17.
  */
-class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, ECLIPSE) {
-    override val armorTexture: String
-        get() = armorMaterial.getName()
+class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, ECLIPSE), IGlowingItem {
+
+    override fun getArmorTexture(type: String?) = "${LibMisc.MOD_ID}:textures/armor/eclipse_layer_${if (type == "glow") 1 else 0}.png"
+
+    override fun makeArmorModel(slot: EntityEquipmentSlot) = ModelArmorEclipse(slot)
+
+
+    @SideOnly(Side.CLIENT)
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel) = IGlowingItem.Helper.wrapperBake(model, false, 1)
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
 
     override val armorSetStacks: ArmorSet by lazy {
         ArmorSet(ModItems.eclipseHelm, ModItems.eclipseChest, ModItems.eclipseLegs, ModItems.eclipseBoots)
@@ -45,22 +62,32 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
 
     fun manaMasquerade(stack: ItemStack, player: EntityPlayer, amount: Int, exact: Boolean = true, take: Boolean = true): Int {
         val playerPosition = player.positionVector
-        val players = player.world.getEntitiesWithinAABB(EntityPlayer::class.java, player.entityBoundingBox.expandXyz(10.0)) {
+        val players = if (hasFullSet(player)) player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(10.0)) {
             it != null && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0
-        }
+        } else mutableListOf()
         Collections.shuffle(players)
         players.add(player)
         var amountLeft = amount
         val playersToAmounts = mutableListOf<Pair<EntityPlayer, Int>>()
+        val entitiesToDrain = mutableListOf<EntityLivingBase>()
         for (pl in players) {
-            if (amountLeft == 0) continue
-            val amountTakeaway = if (pl == player)
-                ManaItemHandler.requestManaForTool(stack, pl, amountLeft, false)
-            else
-                ManaItemHandler.requestMana(stack, pl, amountLeft, false)
-            if (amountTakeaway != 0) {
-                playersToAmounts.add(pl to amountTakeaway)
-                amountLeft -= amountTakeaway
+            if (amountLeft == 0) break
+            if (pl is EntityPlayer) {
+                if (pl.hurtResistantTime == 0) {
+                    val amountTakeaway = if (pl == player)
+                        ManaItemHandler.requestManaForTool(stack, pl, amountLeft, false)
+                    else
+                        ManaItemHandler.requestMana(stack, pl, amountLeft, false)
+
+
+                    if (amountTakeaway != 0) {
+                        playersToAmounts.add(pl to amountTakeaway)
+                        amountLeft -= amountTakeaway
+                    }
+                }
+            } else if (!pl.isDead && !pl.isEntityInvulnerable(DamageSource.MAGIC) && pl.hurtResistantTime == 0 && pl.health > 1f) {
+                entitiesToDrain.add(pl)
+                amountLeft -= Math.min(1000, amountLeft)
             }
         }
         if (amountLeft != 0 && exact) return 0
@@ -70,12 +97,19 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
 
             for ((pl, amountToTake) in playersToAmounts) {
                 ManaItemHandler.requestManaExact(stack, pl, amountToTake, true)
-                if (pl != player)
-                    for (i in 0..(amountToTake - 10) / 10)
+                if (pl != player) {
+                    pl.hurtResistantTime = pl.maxHurtResistantTime
+                    for (i in 0 until amountToTake / 10)
                         positions.add(Vector3.fromEntityCenter(pl).toVec3D())
+                }
+            }
+            for (entity in entitiesToDrain) {
+                entity.attackEntityFrom(DamageSource.MAGIC, 1f)
+                if (entity != player)
+                    positions.add(Vector3.fromEntityCenter(entity).toVec3D())
             }
 
-            if (!player.world.isRemote)
+            if (!player.world.isRemote && positions.isNotEmpty())
                 PacketHandler.NETWORK.sendToAllAround(ManastormLightningMessage(Vector3.fromEntityCenter(player).toVec3D(), positions.toTypedArray()),
                         NetworkRegistry.TargetPoint(player.world.provider.dimension,
                                 playerPosition.xCoord,
@@ -97,8 +131,8 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
             if (stack.itemDamage > 0 && manaMasquerade(stack, player, MANA_PER_DAMAGE * 2) != 0)
                 stack.itemDamage = stack.itemDamage - 1
             var amount = 1000
-            amount = manaMasquerade(stack, player, amount, false, false)
             amount = ManaItemHandler.dispatchMana(stack, player, amount, false)
+            amount = manaMasquerade(stack, player, amount, false, false)
 
             ManaItemHandler.dispatchMana(stack, player, manaMasquerade(stack, player, amount, false), true)
         }

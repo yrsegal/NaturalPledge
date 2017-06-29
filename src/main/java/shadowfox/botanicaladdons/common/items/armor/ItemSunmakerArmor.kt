@@ -1,6 +1,9 @@
 package shadowfox.botanicaladdons.common.items.armor
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import net.minecraft.client.model.ModelBiped
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -15,6 +18,10 @@ import net.minecraft.util.NonNullList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.NetworkRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.api.lib.LibMisc
+import shadowfox.botanicaladdons.client.render.entity.ModelArmorSunmaker
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.ECLIPSE
 import shadowfox.botanicaladdons.common.items.ModItems.SUNMAKER
@@ -31,14 +38,20 @@ import java.util.*
  * @author WireSegal
  * Created at 5:09 PM on 4/2/17.
  */
-class ItemSunmakerArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, SUNMAKER) {
+class ItemSunmakerArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, SUNMAKER), IGlowingItem {
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(itemIn, tab, subItems)
     }
 
-    override val armorTexture: String
-        get() = armorMaterial.getName()
+    @SideOnly(Side.CLIENT)
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel) = IGlowingItem.Helper.wrapperBake(model, false, 1)
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
+
+    override fun getArmorTexture(type: String?) = "${LibMisc.MOD_ID}:textures/armor/sunmaker_layer_${if (type == "glow") 1 else 0}.png"
+
+    override fun makeArmorModel(slot: EntityEquipmentSlot) = ModelArmorSunmaker(slot)
 
     override val armorSetStacks: ArmorSet by lazy {
         ArmorSet(ModItems.sunmakerHelm, ModItems.sunmakerChest, ModItems.sunmakerLegs, ModItems.sunmakerBoots)

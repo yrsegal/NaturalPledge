@@ -261,7 +261,7 @@ item.botanicaladdons:iris_dye_awakened_rainbow.name=Bifrost Awakened Crystal
 
 item.botanicaladdons:gaia_killer.name=Slayer of Guardians
 
-item.botanicaladdons:eclipse_helm.name=Helm of Eclipse
+item.botanicaladdons:eclipse_helm.name=Cowl of Eclipse
 item.botanicaladdons:eclipse_chest.name=Chestplate of Eclipse
 item.botanicaladdons:eclipse_legs.name=Platelegs of Eclipse
 item.botanicaladdons:eclipse_boots.name=Greaves of Eclipse
@@ -740,7 +740,7 @@ botanicaladdons.entry.eclipse=Gear of Eclipse
 botanicaladdons.tagline.eclipse=Keep your enemies far and your friends farther
 botanicaladdons.page.eclipse0=The gear created with the essence of &4Eclipse&0 encourages solitude. The &4Mana Masquerade&0, the special ability of the armor set, will recharge your mana from people around you. The blade of &4Eclipse&0, &1Flarebringer&0, will cut things far farther than you can reach.
 botanicaladdons.page.eclipse1=For the doom of Gunmar
-botanicaladdons.page.eclipse2=The &1Helm of Eclipse&0
+botanicaladdons.page.eclipse2=The &1Cowl of Eclipse&0
 botanicaladdons.page.eclipse3=The &1Chestplate of Eclipse&0
 botanicaladdons.page.eclipse4=The &1Platelegs of Eclipse&0
 botanicaladdons.page.eclipse5=The &1Greaves of Eclipse&0
