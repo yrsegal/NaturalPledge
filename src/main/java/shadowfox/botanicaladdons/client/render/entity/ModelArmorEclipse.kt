@@ -1,21 +1,13 @@
-/**
- * This class was created by <wiiv>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
-
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
-
- * File Created @ [? (GMT)]
-</wiiv> */
 package shadowfox.botanicaladdons.client.render.entity
 
-import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.model.ModelRenderer
 import net.minecraft.entity.Entity
 import net.minecraft.inventory.EntityEquipmentSlot
 
-class ModelArmorEclipse(private val slot: EntityEquipmentSlot) : ModelBiped() {
+/**
+ * Created by wiiv.
+ */
+class ModelArmorEclipse(slot: EntityEquipmentSlot) : ModelArmor(slot) {
 
     private val helmAnchor: ModelRenderer
     private val helm: ModelRenderer
@@ -85,12 +77,12 @@ class ModelArmorEclipse(private val slot: EntityEquipmentSlot) : ModelBiped() {
         armLpauldron1.mirror = true
         armLpauldron1.setRotationPoint(-1.5f, 1.0f, 0.0f)
         armLpauldron1.addBox(0.0f, -4.0f, -3.0f, 7, 4, 6, s)
-        armLpauldron1.setRotationPoint(0.0f, 0.0f, -0.08726646259971647f)
+        setRotateAngle(armLpauldron1, 0.0f, 0.0f, -0.08726646259971647f)
         armLpauldron2 = ModelRenderer(this, 20, 65)
         armLpauldron2.mirror = true
         armLpauldron2.setRotationPoint(-1.5f, 1.0f, 0.0f)
         armLpauldron2.addBox(0.0f, 0.0f, -3.0f, 6, 2, 6, s)
-        armLpauldron2.setRotationPoint(0.0f, 0.0f, 0.08726646259971647f)
+        setRotateAngle(armLpauldron2, 0.0f, 0.0f, 0.08726646259971647f)
         armLpauldron3 = ModelRenderer(this, 20, 73)
         armLpauldron3.mirror = true
         armLpauldron3.setRotationPoint(0.0f, 0.0f, 0.0f)
@@ -107,11 +99,11 @@ class ModelArmorEclipse(private val slot: EntityEquipmentSlot) : ModelBiped() {
         armRpauldron1 = ModelRenderer(this, 20, 35)
         armRpauldron1.setRotationPoint(1.5f, 1.0f, 0.0f)
         armRpauldron1.addBox(-7.0f, -4.0f, -3.0f, 7, 4, 6, s)
-        armRpauldron1.setRotationPoint(0.0f, 0.0f, 0.08726646259971647f)
+        setRotateAngle(armRpauldron1, 0.0f, 0.0f, 0.08726646259971647f)
         armRpauldron2 = ModelRenderer(this, 20, 65)
         armRpauldron2.setRotationPoint(1.5f, 1.0f, 0.0f)
         armRpauldron2.addBox(-6.0f, 0.0f, -3.0f, 6, 2, 6, s)
-        armRpauldron2.setRotationPoint(0.0f, 0.0f, -0.08726646259971647f)
+        setRotateAngle(armRpauldron2, 0.0f, 0.0f, -0.08726646259971647f)
         armRpauldron3 = ModelRenderer(this, 20, 73)
         armRpauldron3.setRotationPoint(0.0f, 0.0f, 0.0f)
         armRpauldron3.addBox(-4.5f, 5.5f, -3.0f, 4, 2, 6, s)
@@ -131,23 +123,23 @@ class ModelArmorEclipse(private val slot: EntityEquipmentSlot) : ModelBiped() {
         legLpauldron1.mirror = true
         legLpauldron1.setRotationPoint(0.0f, 4.0f, -0.0f)
         legLpauldron1.addBox(0.0f, -2.0f, -3.0f, 5, 2, 6, s)
-        legLpauldron1.setRotationPoint(0.0f, 0.0f, -0.08726646259971647f)
+        setRotateAngle(legLpauldron1, 0.0f, 0.0f, -0.08726646259971647f)
         legLpauldron2 = ModelRenderer(this, 20, 89)
         legLpauldron2.mirror = true
         legLpauldron2.setRotationPoint(0.0f, 4.0f, -0.0f)
         legLpauldron2.addBox(0.0f, 0.0f, -3.0f, 5, 2, 6, s)
-        legLpauldron2.setRotationPoint(0.0f, 0.0f, 0.08726646259971647f)
+        setRotateAngle(legLpauldron2, 0.0f, 0.0f, 0.08726646259971647f)
         legR = ModelRenderer(this, 0, 65)
         legR.setRotationPoint(-1.9f, 12.0f, 0.0f)
         legR.addBox(-2.61f, -0.01f, -2.5f, 5, 8, 5, s)
         legRpauldron1 = ModelRenderer(this, 20, 81)
         legRpauldron1.setRotationPoint(0.5f, 4.0f, 0.0f)
         legRpauldron1.addBox(-5.0f, -2.0f, -3.0f, 5, 2, 6, s)
-        legRpauldron1.setRotationPoint(0.0f, 0.0f, 0.08726646259971647f)
+        setRotateAngle(legRpauldron1, 0.0f, 0.0f, 0.08726646259971647f)
         legRpauldron2 = ModelRenderer(this, 20, 89)
         legRpauldron2.setRotationPoint(0.5f, 4.0f, 0.0f)
         legRpauldron2.addBox(-5.0f, 0.0f, -3.0f, 5, 2, 6, s)
-        legRpauldron2.setRotationPoint(0.0f, 0.0f, -0.08726646259971647f)
+        setRotateAngle(legRpauldron2, 0.0f, 0.0f, -0.08726646259971647f)
 
         //boots
         bootL = ModelRenderer(this, 0, 78)

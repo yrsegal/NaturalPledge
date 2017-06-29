@@ -1,21 +1,13 @@
-/**
- * This class was created by <wiiv>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
-
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
-
- * File Created @ [? (GMT)]
-</wiiv> */
 package shadowfox.botanicaladdons.client.render.entity
 
-import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.model.ModelRenderer
 import net.minecraft.entity.Entity
 import net.minecraft.inventory.EntityEquipmentSlot
 
-class ModelArmorSunmaker(private val slot: EntityEquipmentSlot) : ModelBiped() {
+/**
+ * Created by wiiv.
+ */
+class ModelArmorSunmaker(slot: EntityEquipmentSlot) : ModelArmor(slot) {
 
     private val helmAnchor: ModelRenderer
     private val helm: ModelRenderer
@@ -100,7 +92,7 @@ class ModelArmorSunmaker(private val slot: EntityEquipmentSlot) : ModelBiped() {
         this.armLpauldron.mirror = true
         this.armLpauldron.setRotationPoint(0.0f, 0.0f, 0.0f)
         this.armLpauldron.addBox(0.0f, -3.5f, -3.5f, 7, 6, 7, s)
-        this.armLpauldron.setRotationPoint(0.0f, 0.0f, 0.17453292519943295f)
+        this.setRotateAngle(armLpauldron, 0.0f, 0.0f, 0.17453292519943295f)
         this.armLpauldronRay1 = ModelRenderer(this, 30, 56)
         this.armLpauldronRay1.mirror = true
         this.armLpauldronRay1.setRotationPoint(7.5f, 2.5f, 0.0f)
@@ -122,7 +114,7 @@ class ModelArmorSunmaker(private val slot: EntityEquipmentSlot) : ModelBiped() {
         this.armLcluster = ModelRenderer(this, 20, 88)
         this.armLcluster.setRotationPoint(0.0f, 0.0f, 0.0f)
         this.armLcluster.addBox(2.5f, -5.5f, -1.0f, 2, 2, 2, s)
-        this.armLcluster.setRotationPoint(0.0f, 0.0f, -0.08726646259971647f)
+        this.setRotateAngle(armLcluster, 0.0f, 0.0f, -0.08726646259971647f)
 
         //armR
         this.armRAnchor = ModelRenderer(this, 0, 0)
@@ -135,7 +127,7 @@ class ModelArmorSunmaker(private val slot: EntityEquipmentSlot) : ModelBiped() {
         this.armRpauldron = ModelRenderer(this, 20, 72)
         this.armRpauldron.setRotationPoint(0.0f, 0.0f, 0.0f)
         this.armRpauldron.addBox(-7.0f, -3.5f, -3.5f, 7, 6, 7, s)
-        this.armRpauldron.setRotationPoint(0.0f, 0.0f, -0.17453292519943295f)
+        this.setRotateAngle(armRpauldron, 0.0f, 0.0f, -0.17453292519943295f)
         this.armRpauldronRay1 = ModelRenderer(this, 30, 56)
         this.armRpauldronRay1.setRotationPoint(-7.5f, 2.5f, 0.0f)
         this.armRpauldronRay1.addBox(0.0f, -6.5f, -2.5f, 5, 6, 1, s)
@@ -156,7 +148,7 @@ class ModelArmorSunmaker(private val slot: EntityEquipmentSlot) : ModelBiped() {
         this.armRcluster = ModelRenderer(this, 20, 88)
         this.armRcluster.setRotationPoint(0.0f, 0.0f, 0.0f)
         this.armRcluster.addBox(-4.5f, -5.5f, -1.0f, 2, 2, 2, s)
-        this.armRcluster.setRotationPoint(0.0f, 0.0f, 0.08726646259971647f)
+        this.setRotateAngle(armRcluster, 0.0f, 0.0f, 0.08726646259971647f)
 
         //pants
         this.pantsAnchor = ModelRenderer(this, 0, 0)

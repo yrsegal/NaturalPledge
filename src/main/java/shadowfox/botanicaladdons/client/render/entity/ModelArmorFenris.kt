@@ -1,21 +1,13 @@
-/**
- * This class was created by <wiiv>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
-
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
-
- * File Created @ [? (GMT)]
-</wiiv> */
 package shadowfox.botanicaladdons.client.render.entity
 
-import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.model.ModelRenderer
 import net.minecraft.entity.Entity
 import net.minecraft.inventory.EntityEquipmentSlot
 
-class ModelArmorFenris(private val slot: EntityEquipmentSlot) : ModelBiped() {
+/**
+ * Created by wiiv.
+ */
+class ModelArmorFenris(slot: EntityEquipmentSlot) : ModelArmor(slot) {
 
     private val helmAnchor: ModelRenderer
     private val helm: ModelRenderer
@@ -62,20 +54,20 @@ class ModelArmorFenris(private val slot: EntityEquipmentSlot) : ModelBiped() {
         this.helmFur = ModelRenderer(this, 0, 18)
         this.helmFur.setRotationPoint(0.0f, -2.0f, -4.5f)
         this.helmFur.addBox(-5.5f, 0.0f, -1.0f, 11, 5, 11, s)
-        this.helmFur.setRotationPoint(0.2617993877991494f, 0.0f, 0.0f)
+        this.setRotateAngle(helmFur, 0.2617993877991494f, 0.0f, 0.0f)
         this.helmSnout = ModelRenderer(this, 36, 0)
         this.helmSnout.setRotationPoint(0.0f, -3.0f, -4.5f)
         this.helmSnout.addBox(-2.5f, 0.0f, -5.0f, 5, 4, 6, s)
-        this.helmSnout.setRotationPoint(0.2617993877991494f, 0.0f, 0.0f)
+        this.setRotateAngle(helmSnout, 0.2617993877991494f, 0.0f, 0.0f)
         this.helmEarL = ModelRenderer(this, 36, 10)
         this.helmEarL.mirror = true
         this.helmEarL.setRotationPoint(3.5f, -9.0f, -0.5f)
         this.helmEarL.addBox(-3.0f, -3.0f, 0.0f, 4, 5, 2, s)
-        this.helmEarL.setRotationPoint(0.0f, 0.0f, 0.2617993877991494f)
+        this.setRotateAngle(helmEarL, 0.0f, 0.0f, 0.2617993877991494f)
         this.helmEarR = ModelRenderer(this, 36, 10)
         this.helmEarR.setRotationPoint(-3.5f, -9.0f, -0.5f)
         this.helmEarR.addBox(-1.0f, -3.0f, 0.0f, 4, 5, 2, s)
-        this.helmEarR.setRotationPoint(0.0f, 0.0f, -0.2617993877991494f)
+        this.setRotateAngle(helmEarR, 0.0f, 0.0f, -0.2617993877991494f)
 
         //body
         this.bodyAnchor = ModelRenderer(this, 0, 0)
@@ -104,7 +96,7 @@ class ModelArmorFenris(private val slot: EntityEquipmentSlot) : ModelBiped() {
         this.armLpaw.mirror = true
         this.armLpaw.setRotationPoint(2.5f, 5.5f, 0.0f)
         this.armLpaw.addBox(-1.0f, 0.0f, -2.5f, 3, 6, 5, s)
-        this.armLpaw.setRotationPoint(0.0f, 0.0f, 0.2617993877991494f)
+        this.setRotateAngle(armLpaw, 0.0f, 0.0f, 0.2617993877991494f)
 
         //armR
         this.armRAnchor = ModelRenderer(this, 0, 0)
@@ -119,7 +111,7 @@ class ModelArmorFenris(private val slot: EntityEquipmentSlot) : ModelBiped() {
         this.armRpaw = ModelRenderer(this, 24, 66)
         this.armRpaw.setRotationPoint(-2.5f, 5.5f, 0.0f)
         this.armRpaw.addBox(-2.0f, 0.0f, -2.5f, 3, 6, 5, s)
-        this.armRpaw.setRotationPoint(0.0f, 0.0f, -0.2617993877991494f)
+        this.setRotateAngle(armRpaw, 0.0f, 0.0f, -0.2617993877991494f)
 
         //pants
         this.pantsAnchor = ModelRenderer(this, 0, 0)
