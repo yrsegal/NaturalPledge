@@ -21,6 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.render.entity.ModelArmorEclipse
 import shadowfox.botanicaladdons.client.render.entity.ModelArmorSunmaker
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.ECLIPSE
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
@@ -87,7 +88,7 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
                 }
             } else if (!pl.isDead && !pl.isEntityInvulnerable(DamageSource.MAGIC) && pl.hurtResistantTime == 0 && pl.health > 1f) {
                 entitiesToDrain.add(pl)
-                amountLeft -= Math.min(1000, amountLeft)
+                amountLeft -= Math.min(500, amountLeft)
             }
         }
         if (amountLeft != 0 && exact) return 0
@@ -135,6 +136,15 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
             amount = manaMasquerade(stack, player, amount, false, false)
 
             ManaItemHandler.dispatchMana(stack, player, manaMasquerade(stack, player, amount, false), true)
+        } else if (hasFullSet(player)) {
+            val playerPos = player.positionVector
+            player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(10.0)) {
+                it != null && it != player && it.positionVector.squareDistanceTo(playerPos) <= 100.0
+            }.forEach {
+                val pos = Vector3.fromEntityCenter(it).add(0.0, 1.0, 0.0)
+                BotanicalAddons.PROXY.particleEmission(pos, 0x808080)
+                BotanicalAddons.PROXY.particleEmission(pos, 0xFF0000)
+            }
         }
     }
 
