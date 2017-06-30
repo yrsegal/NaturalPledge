@@ -60,7 +60,12 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
             = false
 
     override fun onDamageBlocked(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource) {
-        // NO-OP
+        if (!source.isProjectile) {
+            val entity = source.immediateSource
+
+            if (entity is EntityLivingBase)
+                entity.knockBack(player, 0.5f, player.posX - entity.posX, player.posZ - entity.posZ)
+        }
     }
 
     private val attackDamage = 1.5f
