@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.client.core
 import baubles.api.BaublesApi
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.RenderLivingBase
-import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -43,8 +42,10 @@ class ClientProxy : CommonProxy() {
         render?.addLayer(LayerGlowArmor(render))
         render = skinMap["slim"]
         render?.addLayer(LayerGlowArmor(render))
-        render = Minecraft.getMinecraft().renderManager.entityRenderMap[EntityArmorStand::class.java] as? RenderLivingBase<*>
-        render?.addLayer(LayerGlowArmor(render))
+        for ((_, renderInstance) in Minecraft.getMinecraft().renderManager.entityRenderMap) {
+            if (renderInstance is RenderLivingBase<*>)
+                renderInstance.addLayer(LayerGlowArmor(renderInstance))
+        }
     }
 
     override fun particleEmission(pos: Vector3, color: Int, probability: Float) {
