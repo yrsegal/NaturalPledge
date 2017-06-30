@@ -51,6 +51,10 @@ minecraft {
     replaceIn 'LibMisc.kt'
 }
 
+jar {
+    archiveName "${archivesBaseName}-r${version}.jar"
+}
+
 repositories {
     jcenter()
     maven {
