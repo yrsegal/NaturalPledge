@@ -1,9 +1,7 @@
 package shadowfox.botanicaladdons.common.events
 
-import com.teamwizardry.librarianlib.features.config.ConfigPropertyBoolean
-import com.teamwizardry.librarianlib.features.config.ConfigPropertyInt
+import com.teamwizardry.librarianlib.features.config.ConfigProperty
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
-import com.teamwizardry.librarianlib.features.kotlin.get
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayer.PERSISTED_NBT_TAG
 import net.minecraft.item.ItemStack
@@ -25,18 +23,23 @@ object PlayerStartHandler {
         MinecraftForge.EVENT_BUS.register(this)
     }
 
-    @ConfigPropertyInt(LibMisc.MOD_ID, "spawn", "spawn_waystone", "What slot to spawn a Traveller's Waystone bound to spawn in when a player first joins. Use -1 to disable.", -1)
+    @ConfigProperty("spawn",
+            "What slot to spawn a Traveller's Waystone bound to spawn in when a player first joins. Use -1 to disable.")
     var spawnStone = -1
-    @ConfigPropertyBoolean(LibMisc.MOD_ID, "spawn", "spawned_waystone_bindable", "Whether the spawned Traveller's Waystone can be rebound.", false)
+    @ConfigProperty("spawn",
+            "Whether the spawned Traveller's Waystone can be rebound.")
     var rebindStone = false
 
-    @ConfigPropertyInt(LibMisc.MOD_ID, "spawn", "spawn_return_stone", "What slot to spawn a Stone of Return in when a player first joins. Use -1 to disable.", -1)
+    @ConfigProperty("spawn",
+            "What slot to spawn a Stone of Return in when a player first joins. Use -1 to disable.")
     var spawnReturnStone = -1
 
-    @ConfigPropertyInt(LibMisc.MOD_ID, "spawn", "spawn_nether_stone", "What slot to spawn a Stone of Nether Fracture in when a player first joins. Use -1 to disable.", -1)
+    @ConfigProperty("spawn"
+            , "What slot to spawn a Stone of Nether Fracture in when a player first joins. Use -1 to disable.")
     var spawnNetherStone = -1
 
-    @ConfigPropertyInt(LibMisc.MOD_ID, "spawn", "spawn_lexica_botania", "What slot to spawn a Lexica Botania in when a player first joins. Use -1 to disable.", -1)
+    @ConfigProperty("spawn",
+            "What slot to spawn a Lexica Botania in when a player first joins. Use -1 to disable.")
     var spawnLexicaBotania = -1
 
 

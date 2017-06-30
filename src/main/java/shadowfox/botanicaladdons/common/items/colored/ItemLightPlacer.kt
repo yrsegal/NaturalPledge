@@ -75,7 +75,7 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
             val iblockstate1 = ModBlocks.flame.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, i, playerIn)
 
             if (placeBlockAt(stack, playerIn, worldIn, pos, iblockstate1)) {
-                val soundtype = ModBlocks.flame.soundType
+                val soundtype = ModBlocks.flame.getSoundType(iblockstate1, worldIn, pos, playerIn)
                 worldIn.playSound(playerIn, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0f) / 2.0f, soundtype.getPitch() * 0.8f)
                 ManaItemHandler.requestManaExactForTool(stack, playerIn, MANA_PER_FLAME, true)
             }

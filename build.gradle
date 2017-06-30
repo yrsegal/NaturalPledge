@@ -52,24 +52,15 @@ minecraft {
 }
 
 repositories {
-    maven {
-        url "http://mvn.rx14.co.uk/shadowfacts/"
-    }
-}
-
-dependencies {
-    compile group: "net.shadowfacts", name: "Forgelin", version: "1.4.2"
-}
-
-repositories {
     jcenter()
     maven {
         url "http://dvs1.progwml6.com/files/maven"
     }
     maven {
-        url "http://mvn.rx14.co.uk/shadowfacts/"
+        url "http://maven.bluexin.be/repository/snapshots/"
     }
 }
+
 
 compileKotlin {
     kotlinOptions {
@@ -78,29 +69,10 @@ compileKotlin {
     }
 }
 
-configurations {
-
-    required
-    compile.extendsFrom(required)
-}
-
 dependencies {
     deobfCompile "mezz.jei:jei_${config.jei_version}"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    required "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-
-jar {
-    // We need to make sure we package kotlin runtimes.
-
-    archiveName "${archivesBaseName}-r${version}.jar"
-    dependsOn configurations.compile
-    from {
-        configurations.required.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
+    compile "com.teamwizardry.librarianlib:librarianlib:3.1.5-SNAPSHOT:deobf"
 }
 
 def parseConfig(File config) {

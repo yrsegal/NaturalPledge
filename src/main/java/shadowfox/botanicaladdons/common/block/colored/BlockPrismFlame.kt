@@ -49,17 +49,16 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, ModMaterials.TRANS
     override fun canSpawnInBlock(): Boolean = true
     override fun isReplaceable(worldIn: IBlockAccess?, pos: BlockPos?) = false
 
-    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, s: EnumFacing?, xs: Float, ys: Float, zs: Float): Boolean {
-        val stack = player.getHeldItem(hand)
-        if (WorldTypeSkyblock.isWorldSkyblock(world)) {
-            if (stack != null && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
-                if (!world.isRemote)
+    override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
+        val stack = playerIn.getHeldItem(hand)
+        if (WorldTypeSkyblock.isWorldSkyblock(worldIn)) {
+            if (stack != null && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !playerIn.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
+                if (!worldIn.isRemote)
                     stack.count--
-                if (!player.inventory.addItemStackToInventory(ItemStack(ModItems.lexicon)))
-                    player.dropItem(ItemStack(ModItems.lexicon), false)
+                if (!playerIn.inventory.addItemStackToInventory(ItemStack(ModItems.lexicon)))
+                    playerIn.dropItem(ItemStack(ModItems.lexicon), false)
                 return true
             }
-
         }
         return false
     }

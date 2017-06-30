@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.block
 
 import com.teamwizardry.librarianlib.features.base.block.BlockMod
 import com.teamwizardry.librarianlib.features.base.block.BlockModPane
+import com.teamwizardry.librarianlib.features.base.block.BlockModSapling
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -50,31 +51,31 @@ object ModBlocks {
     val irisLeaves: Array<BlockIridescentLeaves>
     val rainbowLeaves: BlockMod
     val auroraLeaves: BlockMod
-    val irisSapling: BlockMod
+    val irisSapling: BlockModSapling
     val altLogs: Array<BlockAltLog>
     val altLeaves: Array<BlockAltLeaves>
     val altPlanks: BlockMod
     val storage: BlockMod
     val irisLamp: BlockMod
 
-    val sealSapling: BlockMod
+    val sealSapling: BlockModSapling
     val sealPlanks: BlockMod
     val sealLeaves: BlockMod
     val sealLog: BlockMod
 
     val amp: BlockMod
 
-    val thunderSapling: BlockMod
+    val thunderSapling: BlockModSapling
     val thunderPlanks: BlockMod
     val thunderLeaves: BlockMod
     val thunderLog: BlockMod
 
-    val circuitSapling: BlockMod
+    val circuitSapling: BlockModSapling
     val circuitPlanks: BlockMod
     val circuitLeaves: BlockMod
     val circuitLog: BlockMod
 
-    val calicoSapling: BlockMod
+    val calicoSapling: BlockModSapling
     val calicoPlanks: BlockMod
     val calicoLeaves: BlockMod
     val calicoLog: BlockMod

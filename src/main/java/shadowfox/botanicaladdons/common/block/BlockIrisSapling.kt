@@ -108,8 +108,8 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
                         ModBlocks.auroraLeaves.defaultState))
     }
 
-    override fun canSustain(state: IBlockState): Boolean {
-        return SaplingVariantRegistry.getVariant(state) != null
+    override fun canSustainBush(state: IBlockState): Boolean {
+        return SaplingVariantRegistry.getVariant(state) != null || super.canSustainBush(state)
     }
 
     override fun generateTree(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
@@ -121,7 +121,7 @@ class BlockIrisSapling(name: String) : BlockModSapling(name), ILexiconable {
     }
 
     override fun canGrow(worldIn: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean {
-        return canSustain(worldIn.getBlockState(pos.down()))
+        return SaplingVariantRegistry.getVariant(worldIn.getBlockState(pos.down())) != null
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
