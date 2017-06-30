@@ -21,7 +21,7 @@ public class LibObfuscation {
     public static final String[] ENTITYLIGHTNINGBOLT_EFFECTONLY = new String[]{"d", "field_184529_d", "effectOnly"};
 
     // Explosion handling
-    public static final String[] EXPLOSION_EXPLOSIONSIZE = new String[]{"i", "field_77280_f", "explosionSize"};
+    public static final String[] EXPLOSION_EXPLOSIONSIZE = new String[]{"i", "field_77280_f", "size"};
 
     // Food handling
     public static final String[] ITEMFOOD_ALWAYSEDIBLE = new String[]{"e", "field_77852_bZ", "alwaysEdible"};
