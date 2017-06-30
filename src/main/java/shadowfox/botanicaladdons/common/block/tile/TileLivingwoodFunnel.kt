@@ -4,40 +4,14 @@ import com.teamwizardry.librarianlib.features.kotlin.forCap
 import com.teamwizardry.librarianlib.features.saving.Save
 import com.teamwizardry.librarianlib.features.saving.SaveMethodGetter
 import com.teamwizardry.librarianlib.features.saving.SaveMethodSetter
-import net.minecraft.block.BlockChest
-import net.minecraft.block.BlockHopper
-import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
-import net.minecraft.entity.item.EntityItemFrame
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.inventory.IInventory
-import net.minecraft.inventory.ISidedInventory
-import net.minecraft.inventory.ItemStackHelper
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.nbt.NBTTagList
-import net.minecraft.tileentity.IHopper
-import net.minecraft.tileentity.TileEntity
-import net.minecraft.tileentity.TileEntityChest
-import net.minecraft.tileentity.TileEntityHopper
-import net.minecraft.tileentity.TileEntityHopper.putStackInInventoryAllSlots
-import net.minecraft.util.EntitySelectors
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.Vec3d
-import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.text.TextComponentString
-import net.minecraft.util.text.TextComponentTranslation
-import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.items.*
-import net.minecraftforge.items.VanillaInventoryCodeHooks.getItemHandler
-import net.minecraftforge.items.wrapper.InvWrapper
-import org.apache.commons.lang3.tuple.Pair
-import shadowfox.botanicaladdons.api.lib.LibMisc
+import net.minecraftforge.items.CapabilityItemHandler
+import net.minecraftforge.items.ItemHandlerHelper
+import net.minecraftforge.items.ItemStackHandler
 import shadowfox.botanicaladdons.common.block.BlockFunnel
 
 /**
@@ -68,7 +42,7 @@ class TileLivingwoodFunnel : TileModTickable() {
 
             val items = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), pos.x + 1.0, pos.y + 1.5, pos.z + 1.0))
             for (item in items) {
-                val stack = item.entityItem
+                val stack = item.item
                 val result = inventory.insertItem(0, stack, false)
                 if (result.isEmpty) item.setDead()
             }

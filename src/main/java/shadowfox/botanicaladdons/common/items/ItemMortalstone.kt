@@ -57,7 +57,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
             addMana(stack, ManaItemHandler.requestMana(stack, entityIn, MANA_PER_TICK * 3, true))
 
         if (isSelected && !entityIn.world.isRemote && (entityIn !is EntityPlayer || ManaItemHandler.requestManaExact(stack, entityIn, MANA_PER_TICK, false))) {
-            val entities = worldIn.getEntitiesWithinAABB(EntityPlayer::class.java, entityIn.entityBoundingBox.expandXyz(RANGE))
+            val entities = worldIn.getEntitiesWithinAABB(EntityPlayer::class.java, entityIn.entityBoundingBox.grow(RANGE))
             for (entity in entities)
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     entity.addPotionEffect(PotionEffect(ModPotions.faithlessness, 5, 0, true, true))
@@ -84,9 +84,9 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
     override fun getEntityLifespan(itemStack: ItemStack, world: World?) = Int.MAX_VALUE
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         var flag = 0
-        if (getMana(entityItem.entityItem) > 0 && !entityItem.world.isRemote) {
+        if (getMana(entityItem.item) > 0 && !entityItem.world.isRemote) {
 
-            val entities = entityItem.world.getEntitiesWithinAABB(EntityPlayer::class.java, entityItem.entityBoundingBox.expandXyz(RANGE))
+            val entities = entityItem.world.getEntitiesWithinAABB(EntityPlayer::class.java, entityItem.entityBoundingBox.grow(RANGE))
             for (entity in entities)
                 if (entity is EntityPlayer && entity.positionVector.subtract(entityItem.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     if ((ModPotions.faithlessness.getEffect(entity) ?: PotionEffect(ModPotions.faithlessness)).duration <= 5) {
@@ -100,7 +100,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
             BotanicalAddons.PROXY.particleEmission(Vector3.fromEntity(entityItem).add(-0.5, 0.0, -0.5), 0x5e0a02, if (flag and 2 == 0) 0.1F else 0.9F)
         }
         if (flag and 1 != 0)
-            addMana(entityItem.entityItem, -MANA_PER_TICK)
+            addMana(entityItem.item, -MANA_PER_TICK)
 
         return false
     }

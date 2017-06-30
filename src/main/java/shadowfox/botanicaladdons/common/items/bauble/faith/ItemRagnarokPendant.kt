@@ -234,7 +234,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
     }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
-        val stack = entityItem.entityItem
+        val stack = entityItem.item
         if (isAwakened(stack)) setAwakened(stack, false)
         return false
     }

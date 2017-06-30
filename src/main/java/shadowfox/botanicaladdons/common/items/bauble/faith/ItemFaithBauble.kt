@@ -188,7 +188,7 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
     }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
-        val stack = entityItem.entityItem ?: return false
+        val stack = entityItem.item ?: return false
         if (isAwakened(stack)) setAwakened(stack, false)
         return false
     }

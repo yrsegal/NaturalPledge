@@ -108,7 +108,7 @@ object PriestlyEmblemNjord : IFaithVariant {
             if (state.material.isLiquid) {
                 val originalStack = e.itemStack.copy()
                 val result = e.itemStack.onItemUse(player, player.world, ray.blockPos, e.hand, ray.sideHit,
-                        ray.hitVec.xCoord.toFloat(), ray.hitVec.yCoord.toFloat(), ray.hitVec.zCoord.toFloat())
+                        ray.hitVec.x.toFloat(), ray.hitVec.y.toFloat(), ray.hitVec.z.toFloat())
 
                 if (player.isCreative)
                     player.setHeldItem(e.hand, originalStack)

@@ -48,7 +48,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
     override fun getRarity(stack: ItemStack): EnumRarity = BotaniaAPI.rarityRelic
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
-        val entities = player.world.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.expandXyz(RANGE), { it?.isNonBoss ?: false })
+        val entities = player.world.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.grow(RANGE), { it?.isNonBoss ?: false })
         var doit = true
         if (entities.size > 0 && player is EntityPlayer && !player.world.isRemote)
             doit = ManaItemHandler.requestManaExact(stack, player, 2, true)

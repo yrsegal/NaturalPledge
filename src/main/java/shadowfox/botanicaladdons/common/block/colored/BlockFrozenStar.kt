@@ -14,7 +14,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
-import net.minecraft.util.EnumFacing
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
@@ -95,7 +94,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
 
 
     override fun isFullBlock(state: IBlockState?) = false
-    override fun isBlockSolid(worldIn: IBlockAccess?, pos: BlockPos?, side: EnumFacing?) = false
+    override fun isTopSolid(state: IBlockState?) = false
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
     override fun isPassable(worldIn: IBlockAccess?, pos: BlockPos?) = true

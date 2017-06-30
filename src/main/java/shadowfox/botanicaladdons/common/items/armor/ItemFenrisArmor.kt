@@ -6,48 +6,28 @@ import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.EnumCreatureAttribute
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
-import net.minecraft.entity.boss.EntityDragonPart
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.init.MobEffects
-import net.minecraft.init.SoundEvents
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.item.ItemSword
-import net.minecraft.network.play.server.SPacketEntityVelocity
-import net.minecraft.stats.AchievementList
-import net.minecraft.stats.StatList
-import net.minecraft.util.DamageSource
-import net.minecraft.util.EnumHand
-import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.NonNullList
-import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
-import net.minecraft.world.WorldServer
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingAttackEvent
-import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.render.entity.ModelArmorFenris
-import shadowfox.botanicaladdons.client.render.entity.ModelArmorSunmaker
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.FENRIS
-import shadowfox.botanicaladdons.common.items.armor.ItemFenrisArmor.Companion.TAG_ACTIVE
 import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.weapons.ItemNightscourge
-import shadowfox.botanicaladdons.common.items.weapons.ItemShadowbreaker
 import java.util.*
 
 /**
@@ -64,7 +44,7 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
 
         @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
         fun onLivingAttack(e: LivingAttackEvent) {
-            val attacker = e.source.entity
+            val attacker = e.source.immediateSource
             if (e.source.damageType == "player" && attacker is EntityPlayer && (
                     (ModItems.fenrisHelm.hasFullSet(attacker) && attacker.heldItemMainhand.isEmpty) ||
                             (attacker.heldItemMainhand.item is ItemNightscourge))) {

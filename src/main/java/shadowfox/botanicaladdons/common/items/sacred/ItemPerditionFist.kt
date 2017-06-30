@@ -79,14 +79,14 @@ class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAch
             }
 
             val look = player.lookVec
-            val ghastBall = EntityLargeFireball(worldIn, player, look.xCoord, look.yCoord, look.zCoord)
+            val ghastBall = EntityLargeFireball(worldIn, player, look.x, look.y, look.z)
             ghastBall.explosionPower = (power + 0.5).toInt()
-            ghastBall.posX = player.posX + look.xCoord
+            ghastBall.posX = player.posX + look.x
             ghastBall.posY = player.posY + (player.height / 2.0f).toDouble() + 0.5
-            ghastBall.posZ = player.posZ + look.zCoord
-            ghastBall.motionX = look.xCoord * 2
-            ghastBall.motionY = look.yCoord * 2
-            ghastBall.motionZ = look.zCoord * 2
+            ghastBall.posZ = player.posZ + look.z
+            ghastBall.motionX = look.x * 2
+            ghastBall.motionY = look.y * 2
+            ghastBall.motionZ = look.z * 2
             ghastBall.accelerationX = ghastBall.motionX * 0.1
             ghastBall.accelerationY = ghastBall.motionY * 0.1
             ghastBall.accelerationZ = ghastBall.motionZ * 0.1

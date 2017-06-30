@@ -43,7 +43,7 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, slot: Int, selected: Boolean) {
         if (selected) {
-            val entitiesAround = world.getEntitiesWithinAABB(Entity::class.java, player.entityBoundingBox.expandXyz(5.0)) {
+            val entitiesAround = world.getEntitiesWithinAABB(Entity::class.java, player.entityBoundingBox.grow(5.0)) {
                 it != null && it != player && it.positionVector.squareDistanceTo(player.positionVector) < 25.0
                         && ((it is EntityPixie) ||
                         (it is IProjectile && it !is EntityManaBurst && (it !is EntityMagicMissile || !it.isEvil) && !(it is EntityArrow && getInGround(it) as Boolean)) ||

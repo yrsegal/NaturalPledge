@@ -25,12 +25,12 @@ class BlinkMessage : PacketBase() {
             val look = player.lookVec
             val dist = 6.0
 
-            val position = vec(player.posX + look.xCoord * dist, player.posY + look.yCoord * dist, player.posZ + look.zCoord * dist)
+            val position = vec(player.posX + look.x * dist, player.posY + look.y * dist, player.posZ + look.z * dist)
             val blockAt = BlockPos(position)
             if (player.world.getBlockState(blockAt).isFullCube || !player.world.getBlockState(blockAt.up()).isFullCube) {
-                ctx.serverHandler.setPlayerLocation(position.xCoord, position.yCoord, position.zCoord, player.rotationYaw, player.rotationPitch)
+                ctx.serverHandler.setPlayerLocation(position.x, position.y, position.z, player.rotationYaw, player.rotationPitch)
                 BAMethodHandles.captureCurrentPosition(ctx.serverHandler)
-                player.world.playSound(position.xCoord, position.yCoord, position.zCoord, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f, false)
+                player.world.playSound(position.x, position.y, position.z, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f, false)
             }
         }
     }

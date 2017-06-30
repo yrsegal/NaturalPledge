@@ -15,13 +15,11 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
-import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.render.entity.ModelArmorEclipse
-import shadowfox.botanicaladdons.client.render.entity.ModelArmorSunmaker
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.ModItems.ECLIPSE
@@ -29,10 +27,8 @@ import shadowfox.botanicaladdons.common.items.base.ItemBaseArmor
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.weapons.ItemFlarebringer
 import shadowfox.botanicaladdons.common.network.ManastormLightningMessage
-import sun.audio.AudioPlayer.player
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.Vector3
-import vazkii.botania.common.item.equipment.tool.ToolCommons
 import java.util.*
 
 /**
@@ -65,7 +61,7 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
 
     fun manaMasquerade(stack: ItemStack, player: EntityPlayer, amount: Int, exact: Boolean = true, take: Boolean = true): Int {
         val playerPosition = player.positionVector
-        val players = if (hasFullSet(player)) player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(10.0)) {
+        val players = if (hasFullSet(player)) player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.grow(10.0)) {
             it != null && it !is EntityArmorStand && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0
         } else mutableListOf()
         Collections.shuffle(players)
@@ -115,9 +111,9 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
             if (!player.world.isRemote && positions.isNotEmpty())
                 PacketHandler.NETWORK.sendToAllAround(ManastormLightningMessage(Vector3.fromEntityCenter(player).toVec3D(), positions.toTypedArray()),
                         NetworkRegistry.TargetPoint(player.world.provider.dimension,
-                                playerPosition.xCoord,
-                                playerPosition.yCoord,
-                                playerPosition.zCoord,
+                                playerPosition.x,
+                                playerPosition.y,
+                                playerPosition.z,
                                 64.0))
         }
 
@@ -140,7 +136,7 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
             ManaItemHandler.dispatchMana(stack, player, manaMasquerade(stack, player, amount, false), true)
         } else if (hasFullSet(player) && world.totalWorldTime % 3 == 0L) {
             val playerPos = player.positionVector
-            player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.expandXyz(ItemFlarebringer.RANGE)) {
+            player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.grow(ItemFlarebringer.RANGE)) {
                 it != null && it !is EntityArmorStand && it != player && !it.isDead && it.health <= 5f && it.positionVector.squareDistanceTo(playerPos) <= ItemFlarebringer.RANGE * ItemFlarebringer.RANGE
             }.forEach {
                 val pos = Vector3.fromEntityCenter(it).add(-0.5, 0.2, -0.5)

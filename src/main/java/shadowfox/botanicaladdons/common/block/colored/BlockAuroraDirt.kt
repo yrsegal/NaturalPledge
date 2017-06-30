@@ -99,7 +99,7 @@ class BlockAuroraDirt(name: String) : BlockMod(name, Material.GROUND), ILexicona
 
             val c = (c0 * zd) + (c1 * (zl - zd))
 
-            return Vec3i(c.xCoord, c.yCoord, c.zCoord)
+            return Vec3i(c.x, c.y, c.z)
         }
     }
 

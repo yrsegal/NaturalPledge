@@ -25,19 +25,19 @@ class FireJetMessage(@Save var pos: Vec3d = Vec3d.ZERO, @Save var vecTo: Vec3d =
         val maxDist = pos.distanceTo(vecTo)
         val to = vecTo.subtract(pos)
         val ray = to.normalize()
-        var disturbedRay = vec(ray.xCoord, ray.yCoord + 1, ray.zCoord).crossProduct(ray).scale(0.2)
-        if (disturbedRay.xCoord == 0.0 && disturbedRay.yCoord == 0.0 && disturbedRay.zCoord == 0.0)
+        var disturbedRay = vec(ray.x, ray.y + 1, ray.z).crossProduct(ray).scale(0.2)
+        if (disturbedRay.x == 0.0 && disturbedRay.y == 0.0 && disturbedRay.z == 0.0)
             disturbedRay = vec(0.2, 0, 0)
         for (distX5 in 0 until (maxDist * 5).toInt()) {
             val dist = distX5 / 5.0
             val position = pos.add(ray.scale(dist))
             val angle = Math.random() * 120
             var rotated = Vector3(disturbedRay).rotate(angle, Vector3(ray)).toVec3D()
-            Botania.proxy.wispFX(position.xCoord + rotated.xCoord, position.yCoord + rotated.yCoord, position.zCoord + rotated.zCoord, R, G, B, 0.5f)
+            Botania.proxy.wispFX(position.x + rotated.x, position.y + rotated.y, position.z + rotated.z, R, G, B, 0.5f)
             rotated = Vector3(rotated).rotate(120.0, Vector3(ray)).toVec3D()
-            Botania.proxy.wispFX(position.xCoord + rotated.xCoord, position.yCoord + rotated.yCoord, position.zCoord + rotated.zCoord, R, G, B, 0.5f)
+            Botania.proxy.wispFX(position.x + rotated.x, position.y + rotated.y, position.z + rotated.z, R, G, B, 0.5f)
             rotated = Vector3(rotated).rotate(120.0, Vector3(ray)).toVec3D()
-            Botania.proxy.wispFX(position.xCoord + rotated.xCoord, position.yCoord + rotated.yCoord, position.zCoord + rotated.zCoord, R, G, B, 0.5f)
+            Botania.proxy.wispFX(position.x + rotated.x, position.y + rotated.y, position.z + rotated.z, R, G, B, 0.5f)
         }
     }
 }

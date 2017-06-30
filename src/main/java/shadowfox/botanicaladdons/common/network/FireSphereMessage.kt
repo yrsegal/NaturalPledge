@@ -23,9 +23,9 @@ class FireSphereMessage(@Save var pos: Vec3d = Vec3d.ZERO) : PacketBase() {
         val shift = rand.nextInt(6)
         for (theta in shift until 360 step 10) for (azimuth in -90 + shift until 90 step 10) {
             val dist = rand.nextDouble() * 2 + 3
-            val x = MathHelper.cos(theta * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + pos.xCoord
-            val y = MathHelper.sin(azimuth * Math.PI.toFloat() / 180) * dist + pos.yCoord
-            val z = MathHelper.sin(theta * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + pos.zCoord
+            val x = MathHelper.cos(theta * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + pos.x
+            val y = MathHelper.sin(azimuth * Math.PI.toFloat() / 180) * dist + pos.y
+            val z = MathHelper.sin(theta * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + pos.z
             Botania.proxy.wispFX(x, y, z, BlockBaseTrap.R, BlockBaseTrap.G, BlockBaseTrap.B, 0.375f)
         }
     }

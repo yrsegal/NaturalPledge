@@ -118,7 +118,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
     fun onPlayerDrops(event: PlayerDropsEvent) {
         val keeps = ArrayList<EntityItem>()
         for (item in event.drops) {
-            val stack = item.entityItem
+            val stack = item.item
             if (stack != null && stack.item == this) {
                 keeps.add(item)
                 ItemNBTHelper.setInt(stack, TAG_X, (event.entityPlayer.posX - 0.5).toInt())
@@ -137,7 +137,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             cmp.setInteger(TAG_DROP_COUNT, keeps.size)
 
             for ((i, keep) in keeps.withIndex()) {
-                val stack = keep.entityItem
+                val stack = keep.item
                 val cmp1 = NBTTagCompound()
                 stack.writeToNBT(cmp1)
                 cmp.setTag(TAG_DROP_PREFIX + i, cmp1)

@@ -21,7 +21,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import org.jetbrains.annotations.NotNull
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.ModMaterials
 import shadowfox.botanicaladdons.common.block.tile.TileCracklingStar
@@ -84,7 +83,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
 
 
     override fun isFullBlock(state: IBlockState?) = false
-    override fun isBlockSolid(worldIn: IBlockAccess?, pos: BlockPos?, side: EnumFacing?) = false
+    override fun isTopSolid(state: IBlockState?) = false
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
     override fun isPassable(worldIn: IBlockAccess?, pos: BlockPos?) = true

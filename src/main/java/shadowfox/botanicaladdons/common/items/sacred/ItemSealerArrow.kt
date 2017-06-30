@@ -31,7 +31,7 @@ import vazkii.botania.common.achievement.ICraftAchievement
 class ItemSealerArrow(name: String) : ItemModArrow(name), ICraftAchievement {
 
     override fun generateArrowEntity(worldIn: World, stack: ItemStack, position: Vec3d, shooter: EntityLivingBase?): EntityArrow {
-        return if (shooter == null) EntitySealedArrow(worldIn, position.xCoord, position.yCoord, position.zCoord) else EntitySealedArrow(worldIn, shooter)
+        return if (shooter == null) EntitySealedArrow(worldIn, position.x, position.y, position.z) else EntitySealedArrow(worldIn, shooter)
     }
 
     override fun getRarity(stack: ItemStack): EnumRarity? {

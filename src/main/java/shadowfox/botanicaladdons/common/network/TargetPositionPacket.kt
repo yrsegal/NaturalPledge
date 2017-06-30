@@ -25,9 +25,9 @@ class TargetPositionPacket(var keys: Array<String> = arrayOf(), var dims: Array<
         for (dim in dims)
             buf.writeInt(dim)
         for (pos in poses) {
-            buf.writeDouble(pos.xCoord)
-            buf.writeDouble(pos.yCoord)
-            buf.writeDouble(pos.zCoord)
+            buf.writeDouble(pos.x)
+            buf.writeDouble(pos.y)
+            buf.writeDouble(pos.z)
         }
     }
 

@@ -196,7 +196,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
     fun checkItem(path: Array<BlockPos>, index: Int, world: World): EntityItem? {
         val pos = path[index]
         val items = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(pos))
-        return items.firstOrNull { Spells.Helper.checkStack(it.entityItem, ORE_KEYS[index]) }
+        return items.firstOrNull { Spells.Helper.checkStack(it.item, ORE_KEYS[index]) }
     }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {

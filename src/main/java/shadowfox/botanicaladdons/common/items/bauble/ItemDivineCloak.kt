@@ -2,7 +2,6 @@ package shadowfox.botanicaladdons.common.items.bauble
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
-import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
@@ -10,13 +9,11 @@ import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.MobEffects
-import net.minecraft.init.SoundEvents
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EntityDamageSource
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraftforge.common.MinecraftForge
@@ -96,9 +93,9 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
                 val baubles = BaublesApi.getBaublesHandler(player)
                 val body = baubles.getStackInSlot(BaubleType.BODY.validSlots[0])
                 if (body.item is ItemDivineCloak) {
-                    if (body.itemDamage == 1 && e.source.entity != null) {
+                    if (body.itemDamage == 1 && e.source.immediateSource != null) {
                         val look = player.lookVec.normalize()
-                        val origin = e.source.entity!!
+                        val origin = e.source.immediateSource!!
                         val dir = player.positionVector.subtract(origin.positionVector).normalize()
                         val dot = look.dotProduct(dir)
                         if (dot < inverseEpsilon) {
@@ -128,7 +125,7 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
             if (player.world.isRemote && player.isSprinting && BAMethodHandles.getJumpTicks(player) == 10) {
                 val look = player.lookVec
                 val dist = 6.0
-                val vec = Vec3d(player.posX + look.xCoord * dist, player.posY + look.yCoord * dist, player.posZ + look.zCoord * dist)
+                val vec = Vec3d(player.posX + look.x * dist, player.posY + look.y * dist, player.posZ + look.z * dist)
                 val blockAt = BlockPos(vec)
                 if (!player.world.getBlockState(blockAt).isFullCube && !player.world.getBlockState(blockAt.up()).isFullCube) {
                     BAMethodHandles.setIsJumping(player, false)
