@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.client.core
 
 import baubles.api.BaublesApi
 import net.minecraft.client.Minecraft
+import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.entity.RenderLivingBase
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.client.registry.ClientRegistry
@@ -43,7 +44,7 @@ class ClientProxy : CommonProxy() {
         render = skinMap["slim"]
         render?.addLayer(LayerGlowArmor(render))
         for ((_, renderInstance) in Minecraft.getMinecraft().renderManager.entityRenderMap) {
-            if (renderInstance is RenderLivingBase<*>)
+            if (renderInstance is RenderLivingBase<*> && renderInstance.mainModel is ModelBiped)
                 renderInstance.addLayer(LayerGlowArmor(renderInstance))
         }
     }
