@@ -2,9 +2,9 @@ package shadowfox.botanicaladdons.client.core
 
 import baubles.api.BaublesApi
 import net.minecraft.client.Minecraft
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.client.renderer.entity.RenderLivingBase
+import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -39,9 +39,11 @@ class ClientProxy : CommonProxy() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEnderBind::class.java, RenderTileEnderActuator())
 
         val skinMap = Minecraft.getMinecraft().renderManager.skinMap
-        var render = skinMap["default"]
+        var render: RenderLivingBase<*>? = skinMap["default"]
         render?.addLayer(LayerGlowArmor(render))
         render = skinMap["slim"]
+        render?.addLayer(LayerGlowArmor(render))
+        render = Minecraft.getMinecraft().renderManager.entityRenderMap[EntityArmorStand::class.java] as? RenderLivingBase<*>
         render?.addLayer(LayerGlowArmor(render))
     }
 
