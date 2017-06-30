@@ -65,7 +65,7 @@ class ItemFoodBelt(name: String) : ItemBaseBauble(name), IBaubleRender {
             if (food.value.item is ItemFood) {
                 var newFood = food.value.onItemUseFinish(player.world, player)
                 if (newFood != null && newFood.count <= 0)
-                    newFood = null
+                    newFood = ItemStack.EMPTY
                 player.inventory.setInventorySlotContents(food.key, newFood)
             } else if (food.value.item == ModItems.infiniteFruit) {
                 ManaItemHandler.requestManaExact(food.value, player, 500, false)
