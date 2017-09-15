@@ -5,7 +5,6 @@ import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.utilities.client.pulseColor
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
@@ -73,11 +72,12 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants), IItemColor
         return if (variantFor(stack)?.second ?: false) BotaniaAPI.rarityRelic else EnumRarity.COMMON
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         val ragnarokRises = ItemRagnarokPendant.hasAwakenedRagnarok()
-        variants.indices
-                .map { ItemStack(itemIn, 1, it) }
-                .filterTo(subItems) { ragnarokRises || variantFor(it)?.first != Variants.GOD_SOUL }
+        if (isInCreativeTab(tab))
+            variants.indices
+                    .map { ItemStack(this, 1, it) }
+                    .filterTo(subItems) { ragnarokRises || variantFor(it)?.first != Variants.GOD_SOUL }
     }
 
     @SideOnly(Side.CLIENT)

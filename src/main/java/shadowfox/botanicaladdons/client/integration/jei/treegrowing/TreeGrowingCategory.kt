@@ -31,6 +31,8 @@ object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
         recipeLayout.itemStacks.set(WOOD_SLOT, recipeWrapper.wood)
     }
 
+    override fun getModName() = LibMisc.MOD_ID
+
     override fun getTooltipStrings(mouseX: Int, mouseY: Int): List<String> {
         return emptyList()
     }

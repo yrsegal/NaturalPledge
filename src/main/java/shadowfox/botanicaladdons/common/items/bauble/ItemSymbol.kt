@@ -4,7 +4,6 @@ import baubles.api.BaubleType
 import com.teamwizardry.librarianlib.core.client.ModelHandler
 import com.teamwizardry.librarianlib.features.base.IExtraVariantHolder
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.client.Minecraft
@@ -12,12 +11,12 @@ import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
@@ -253,9 +252,9 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
         return super.onEntityItemUpdate(entityItem)
     }
 
-    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addHiddenTooltip(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         addToTooltip(tooltip, "botaniamisc.cosmeticBauble")
-        super.addHiddenTooltip(stack, player, tooltip, advanced)
+        super.addHiddenTooltip(stack, world, tooltip, flag)
     }
 
     override fun getBaubleType(stack: ItemStack) = BaubleType.TRINKET
@@ -335,13 +334,15 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
         GlStateManager.popMatrix()
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-        super.getSubItems(itemIn, tab, subItems)
-        if (tab == null) {
-            for (player in specialPlayers) {
-                val stack = ItemStack(itemIn)
-                setPlayer(stack, player)
-                subItems.add(stack)
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        if (isInCreativeTab(tab)) {
+            super.getSubItems( tab, subItems)
+            if (tab == null) {
+                for (player in specialPlayers) {
+                    val stack = ItemStack(this)
+                    setPlayer(stack, player)
+                    subItems.add(stack)
+                }
             }
         }
     }

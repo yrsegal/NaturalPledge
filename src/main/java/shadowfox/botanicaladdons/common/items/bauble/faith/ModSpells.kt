@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.bauble.faith
 
+import net.minecraft.block.material.MapColor
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import shadowfox.botanicaladdons.api.SpellRegistry
@@ -25,10 +26,10 @@ import vazkii.botania.common.lib.LibOreDict as BotaniaOreDict
 object ModSpells {
     init {
 
-        val iridescence = Spells.ObjectInfusion(of(IRIDESCENCE), LibOreDict.DYES[0], ItemStack(ModItems.iridescentDye), ItemStack(ModItems.awakenedDye), 150, EnumDyeColor.byMetadata(0).mapColor.colorValue) {
+        val iridescence = Spells.ObjectInfusion(of(IRIDESCENCE), LibOreDict.DYES[0], ItemStack(ModItems.iridescentDye), ItemStack(ModItems.awakenedDye), 150, MapColor.getBlockColor(EnumDyeColor.byMetadata(0)).colorValue) {
             player, _ -> player.addStat(ModAchievements.iridescence)
         }
-        for (i in 1..16) iridescence.addEntry(LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), ItemStack(ModItems.awakenedDye, 1, i), 150, if (i == 16) BotanicalAddons.PROXY.rainbow().rgb else EnumDyeColor.byMetadata(i).mapColor.colorValue) {
+        for (i in 1..16) iridescence.addEntry(LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), ItemStack(ModItems.awakenedDye, 1, i), 150, if (i == 16) BotanicalAddons.PROXY.rainbow().rgb else MapColor.getBlockColor(EnumDyeColor.byMetadata(i)).colorValue) {
             player, _ -> player.addStat(ModAchievements.iridescence)
         }
         SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, iridescence)

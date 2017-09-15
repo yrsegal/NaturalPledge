@@ -1,8 +1,10 @@
 package shadowfox.botanicaladdons.api.priest;
 
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
@@ -46,7 +48,7 @@ public interface IFaithVariant {
         // NO-OP
     }
 
-    default void addToTooltip(@Nonnull ItemStack stack, @Nullable EntityPlayer player, @Nonnull List<String> tooltip, boolean advanced) {
+    default void addToTooltip(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, ITooltipFlag advanced) {
         // NO-OP
     }
 

@@ -1,8 +1,7 @@
 package shadowfox.botanicaladdons.common.block.tile
 
-import com.teamwizardry.librarianlib.features.base.block.TileMod
+import com.teamwizardry.librarianlib.features.base.block.tile.TileMod
 import com.teamwizardry.librarianlib.features.saving.Save
-import net.minecraft.nbt.NBTTagCompound
 import shadowfox.botanicaladdons.common.block.colored.BlockFrozenStar
 
 /**

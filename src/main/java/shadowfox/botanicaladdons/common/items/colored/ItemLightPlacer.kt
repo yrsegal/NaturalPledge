@@ -5,6 +5,7 @@ import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemBlock
@@ -47,14 +48,14 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
             } else 0xFFFFFF
         }
 
-    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, playerIn: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         if (hasPhantomInk(stack))
             addToTooltip(tooltip, "botaniamisc.hasPhantomInk")
 
         val color = RainbowItemHelper.getColor(stack)
         if (color in RainbowItemHelper.defaultColors)
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${RainbowItemHelper.defaultColors.indexOf(color)}")
-        else if (advanced)
+        else if (advanced.isAdvanced)
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.format", Integer.toHexString(color).toUpperCase())
         else
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.mixed")

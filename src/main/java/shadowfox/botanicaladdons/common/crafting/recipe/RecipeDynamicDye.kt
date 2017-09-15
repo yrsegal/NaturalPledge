@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.crafting.recipe
 
+import net.minecraft.block.material.MapColor
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item
@@ -9,6 +10,7 @@ import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
+import net.minecraftforge.registries.IForgeRegistryEntry
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import java.awt.Color
@@ -17,7 +19,11 @@ import java.awt.Color
  * @author WireSegal
  * Created at 12:36 PM on 3/20/16.
  */
-class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
+class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
+
+    override fun canFit(width: Int, height: Int): Boolean {
+        return true
+    }
 
     override fun matches(inv: InventoryCrafting, worldIn: World?): Boolean {
         var ink: ItemStack = ItemStack.EMPTY
@@ -123,20 +129,13 @@ class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IRecipe {
     }
 
     fun getColorFromDye(stack: ItemStack, dyes: Array<String>): Int {
-        for (i in dyes.withIndex()) {
-            if (checkStack(stack, i.value)) {
-                if (i.index == 16) return -1
-                return EnumDyeColor.byMetadata(i.index).mapColor.colorValue
+        for ((index, value) in dyes.withIndex()) {
+            if (checkStack(stack, value)) {
+                if (index == 16) return -1
+                return MapColor.getBlockColor(EnumDyeColor.byMetadata(index)).colorValue
             }
         }
         return 0xFFFFFF
-    }
-
-    /**
-     * Returns the size of the recipe area
-     */
-    override fun getRecipeSize(): Int {
-        return 10
     }
 
     override fun getRecipeOutput(): ItemStack {

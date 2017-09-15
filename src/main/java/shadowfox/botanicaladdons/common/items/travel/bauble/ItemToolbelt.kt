@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -25,6 +26,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.text.TextFormatting
+import net.minecraft.world.World
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.common.MinecraftForge
@@ -386,7 +388,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
         return false
     }
 
-    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addHiddenTooltip(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         val map = HashMap<String, Int>()
         for (segment in 0..SEGMENTS - 1) {
             val slotStack = getItemForSlot(stack, segment)
@@ -402,7 +404,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
         else addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.contains_nothing")
 
         map.keys.sorted().mapTo(tooltip) { "${map[it]}x ${TextFormatting.WHITE}$it" }
-        super.addHiddenTooltip(stack, player, tooltip, advanced)
+        super.addHiddenTooltip(stack, world, tooltip, flag)
 
     }
 

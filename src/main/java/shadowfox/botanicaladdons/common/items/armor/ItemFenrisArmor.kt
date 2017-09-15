@@ -11,7 +11,6 @@ import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
@@ -64,9 +63,9 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
     @SideOnly(Side.CLIENT)
     override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(itemIn, tab, subItems)
+            super.getSubItems(tab, subItems)
     }
 
     override val armorSetStacks: ArmorSet by lazy {

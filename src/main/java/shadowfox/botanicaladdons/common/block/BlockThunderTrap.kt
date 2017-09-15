@@ -1,7 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
 import com.teamwizardry.librarianlib.features.base.block.BlockMod
-import net.minecraft.block.Block.NULL_AABB
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
@@ -10,7 +9,6 @@ import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Blocks
 import net.minecraft.init.MobEffects
-import net.minecraft.item.ItemBlock
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumBlockRenderType
@@ -23,8 +21,8 @@ import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
+import vazkii.botania.common.core.handler.ModSounds
 import vazkii.botania.common.core.helper.Vector3
 import java.util.*
 
@@ -96,7 +94,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
                     Botania.proxy.lightningFX(posVec, posVec.add(fireVec), 0.5f, 0x00948B, 0x00E4D7)
                 }
             }
-            worldIn.playSound(null, pos, BotaniaSoundEvents.missile, SoundCategory.BLOCKS, 1f, 1f)
+            worldIn.playSound(null, pos, ModSounds.missile, SoundCategory.BLOCKS, 1f, 1f)
         }
     }
 }

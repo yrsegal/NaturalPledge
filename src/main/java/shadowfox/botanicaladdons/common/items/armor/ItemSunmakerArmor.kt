@@ -39,9 +39,9 @@ import java.util.*
  * Created at 5:09 PM on 4/2/17.
  */
 class ItemSunmakerArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(name, type, SUNMAKER), IGlowingItem {
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(itemIn, tab, subItems)
+            super.getSubItems(tab, subItems)
     }
 
     @SideOnly(Side.CLIENT)

@@ -47,9 +47,9 @@ import shadowfox.botanicaladdons.common.network.LightningJetMessage
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
 import vazkii.botania.common.block.tile.TileBifrost
+import vazkii.botania.common.core.handler.ModSounds
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
@@ -187,7 +187,7 @@ object Spells {
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult? {
                 var flag = false
-                player.world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
+                player.world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
                 allEntries.forEach { flag = processEntry(player, focus, it) || flag }
                 return if (flag) EnumActionResult.SUCCESS else EnumActionResult.FAIL
             }
@@ -233,7 +233,7 @@ object Spells {
 
         override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult? {
             var flag = false
-            player.world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
+            player.world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
             allEntries.forEach { flag = processEntry(player, focus, it) || flag }
             return if (flag) EnumActionResult.SUCCESS else EnumActionResult.FAIL
         }
@@ -381,16 +381,16 @@ object Spells {
                         if (!event.isCanceled)
                             focused.onStruckByLightning(fakeBolt)
                         bolt(Vector3.fromEntityCenter(focused), player)
-                        player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                        player.world.playSound(player, player.position, ModSounds.missile, SoundCategory.PLAYERS, 1f, 1f)
                         return EnumActionResult.SUCCESS
                     }
                 } else if (cast != null && cast.typeOfHit == RayTraceResult.Type.BLOCK) {
                     bolt(Vector3(cast.hitVec), player)
-                    player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                    player.world.playSound(player, player.position, ModSounds.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 } else if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) {
                     bolt(Vector3.fromEntityCenter(player).add(Vector3(player.lookVec).multiply(10.0)), player)
-                    player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                    player.world.playSound(player, player.position, ModSounds.missile, SoundCategory.PLAYERS, 1f, 1f)
                     return EnumActionResult.SUCCESS
                 }
                 return EnumActionResult.FAIL
@@ -463,7 +463,7 @@ object Spells {
                         ManaItemHandler.requestManaExact(focus, player, 1500, true)
                         player.world.setBlockState(pos, ModBlocks.thunderTrap.defaultState)
                         Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromBlockPos(pos).add(0.5, 0.5, 0.5), 1f, 0x00948B, 0x00E4D7)
-                        player.world.playSound(player, player.position, BotaniaSoundEvents.missile, SoundCategory.PLAYERS, 1f, 1f)
+                        player.world.playSound(player, player.position, ModSounds.missile, SoundCategory.PLAYERS, 1f, 1f)
                         return EnumActionResult.SUCCESS
                     }
                 }

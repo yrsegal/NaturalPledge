@@ -5,6 +5,7 @@ import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.add
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
@@ -28,7 +29,7 @@ class BlockRainbowDirt(name: String) : BlockMod(name, Material.GROUND), ILexicon
         blockHardness = 0.5f
     }
 
-    override fun addInformation(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
     }
 

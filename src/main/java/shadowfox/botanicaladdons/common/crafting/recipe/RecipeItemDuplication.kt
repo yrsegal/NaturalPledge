@@ -12,7 +12,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe
  * @author WireSegal
  * Created at 1:45 PM on 5/23/16.
  */
-class RecipeItemDuplication(resource: Any, val product: ItemStack) : ShapelessOreRecipe(product, resource, product) {
+class RecipeItemDuplication(resource: Any, val product: ItemStack) : ShapelessOreRecipe(null, product, resource, product) {
 
     constructor(resource: Any, product: Item) : this(resource, ItemStack(product))
 

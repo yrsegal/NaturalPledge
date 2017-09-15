@@ -5,9 +5,11 @@ import com.teamwizardry.librarianlib.features.base.block.BlockModPlanks
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemBlock
@@ -28,7 +30,7 @@ import vazkii.botania.api.lexicon.LexiconEntry
 class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { name + LibOreDict.COLORS[it] })), IBlockColorProvider, ILexiconable {
 
     class BlockRainbowPlanks(name: String) : BlockModPlanks(name), ILexiconable {
-        override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+        override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
         }
 
@@ -38,7 +40,7 @@ class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { na
     }
 
     class BlockAuroraPlanks(name: String) : BlockModPlanks(name), ILexiconable, IBlockColorProvider {
-        override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+        override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
             addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.aurora")
         }
 
@@ -84,15 +86,15 @@ class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { na
         }
     }
 
-    override fun addInformation(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${stack.itemDamage}")
     }
 
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
-        get() = { iBlockState, _, _, _ -> iBlockState.getValue(BlockIridescentDirt.COLOR).mapColor.colorValue }
+        get() = { iBlockState, _, _, _ -> MapColor.getBlockColor(iBlockState.getValue(BlockIridescentDirt.COLOR)).colorValue }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, _ -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
+        get() = { itemStack, _ -> MapColor.getBlockColor(EnumDyeColor.byMetadata(itemStack.itemDamage)).colorValue }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.irisDirt

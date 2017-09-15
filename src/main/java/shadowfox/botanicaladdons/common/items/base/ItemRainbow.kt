@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.items.base
 
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
+import net.minecraft.block.material.MapColor
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
@@ -32,7 +33,7 @@ open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Arra
         get() = { itemStack, i ->
             if (i == 0) when (itemStack.metadata) {
                 16 -> BotanicalAddons.PROXY.rainbow().rgb
-                else -> EnumDyeColor.byMetadata(itemStack.metadata).mapColor.colorValue
+                else -> MapColor.getBlockColor(EnumDyeColor.byMetadata(itemStack.metadata)).colorValue
             } else 0xFFFFFF
         }
 }

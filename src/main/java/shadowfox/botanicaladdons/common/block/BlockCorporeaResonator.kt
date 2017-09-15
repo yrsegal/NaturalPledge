@@ -1,16 +1,14 @@
 package shadowfox.botanicaladdons.common.block
 
 import com.teamwizardry.librarianlib.features.autoregister.TileRegister
-import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
-import com.teamwizardry.librarianlib.features.base.block.TileMod
+import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
+import com.teamwizardry.librarianlib.features.base.block.tile.TileMod
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
-import net.minecraft.stats.Achievement
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
@@ -24,8 +22,6 @@ import vazkii.botania.api.corporea.CorporeaHelper
 import vazkii.botania.api.corporea.ICorporeaRequestor
 import vazkii.botania.api.corporea.ICorporeaSpark
 import vazkii.botania.api.lexicon.ILexiconable
-import vazkii.botania.common.achievement.ICraftAchievement
-import vazkii.botania.common.achievement.ModAchievements
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel
 import vazkii.botania.common.core.helper.InventoryHelper
 
@@ -33,8 +29,7 @@ import vazkii.botania.common.core.helper.InventoryHelper
  * @author WireSegal
  * Created at 7:32 PM on 1/16/17.
  */
-class BlockCorporeaResonator(name: String) : BlockModContainer(name, Material.IRON), ICraftAchievement, ILexiconable {
-    override fun getAchievementOnCraft(p0: ItemStack, p1: EntityPlayer, p2: IInventory): Achievement = ModAchievements.corporeaCraft
+class BlockCorporeaResonator(name: String) : BlockModContainer(name, Material.IRON), ILexiconable {
 
     override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
         return TileCorporeaResonator()

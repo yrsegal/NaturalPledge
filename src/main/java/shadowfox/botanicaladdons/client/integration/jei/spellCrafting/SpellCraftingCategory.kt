@@ -26,6 +26,9 @@ object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
         recipeLayout.itemStacks.set(OUTPUT_SLOT, recipeWrapper.getOutputsTyped())
     }
 
+
+    override fun getModName() = LibMisc.MOD_ID
+
     override fun getIcon() = null
 
     override fun getUid(): String {

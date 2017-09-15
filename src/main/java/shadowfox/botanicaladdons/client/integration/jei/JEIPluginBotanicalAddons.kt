@@ -6,7 +6,7 @@ import mezz.jei.api.*
 import mezz.jei.api.ingredients.IIngredientRegistry
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.config.SessionData
-import mezz.jei.gui.ItemListOverlay
+import mezz.jei.gui.overlay.IngredientListOverlay
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
@@ -14,7 +14,6 @@ import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityJoinWorldEvent
-import net.minecraftforge.event.entity.player.AchievementEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -94,8 +93,8 @@ class JEIPluginBotanicalAddons : IModPlugin {
             RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.removeIngredientFromBlacklist(it) }
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.addRecipe(it) }
 
-            val overlay = runtime.itemListOverlay
-            if (overlay is ItemListOverlay)
+            val overlay = runtime.ingredientListOverlay
+            if (overlay is IngredientListOverlay)
                 overlay.rebuildItemFilter()
         }
 
@@ -103,8 +102,8 @@ class JEIPluginBotanicalAddons : IModPlugin {
             RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.addIngredientToBlacklist(it) }
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.removeRecipe(it) }
 
-            val overlay = runtime.itemListOverlay
-            if (overlay is ItemListOverlay)
+            val overlay = runtime.ingredientListOverlay
+            if (overlay is IngredientListOverlay)
                 overlay.rebuildItemFilter()
         }
     }
@@ -118,12 +117,12 @@ class JEIPluginBotanicalAddons : IModPlugin {
 
     }
 
-    @SubscribeEvent
-    fun onAchievement(e: AchievementEvent) {
-        val entity = e.entity
-        if (!entity.world.isRemote && entity is EntityPlayerMP)
-            PacketHandler.NETWORK.sendTo(UpdateRagnarokJEIMessage(), entity)
-    }
+//    @SubscribeEvent
+//    fun onAchievement(e: AdvancementEvent) {
+//        val entity = e.entity
+//        if (!entity.world.isRemote && entity is EntityPlayerMP)
+//            PacketHandler.NETWORK.sendTo(UpdateRagnarokJEIMessage(), entity)
+//    }
 
     override fun register(registry: IModRegistry) {
         initialized = true

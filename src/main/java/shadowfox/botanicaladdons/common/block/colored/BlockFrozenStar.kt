@@ -1,16 +1,16 @@
 package shadowfox.botanicaladdons.common.block.colored
 
-import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
 import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
+import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
@@ -45,10 +45,11 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
     }
 
     override fun createItemForm() = object : ItemModBlock(this) {
-            override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
+            if (isInCreativeTab(tab))
                 RainbowItemHelper.defaultColors.mapTo(subItems) { RainbowItemHelper.colorStack(it, this) }
-            }
         }
+    }
 
     init {
         setLightLevel(1f)
@@ -80,7 +81,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
             RainbowItemHelper.colorFromInt(RainbowItemHelper.getColor(itemStack))
         }
 
-    override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         super.addInformation(stack, player, tooltip, advanced)
         val color = RainbowItemHelper.getColor(stack)
         if (color in RainbowItemHelper.defaultColors)
@@ -136,7 +137,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
         worldIn.setBlockToAir(pos)
     }
 
-    override fun getSubBlocks(itemIn: Item?, tab: CreativeTabs?, list: NonNullList<ItemStack>) {
+    override fun getSubBlocks(tab: CreativeTabs, list: NonNullList<ItemStack>) {
         // NO-OP
     }
 

@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.block.colored
 
 import com.teamwizardry.librarianlib.features.base.block.BlockModLog
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
@@ -21,7 +22,7 @@ class BlockRainbowLog(name: String) : BlockModLog(name), ILexiconable {
         return LexiconEntries.irisDirt
     }
 
-    override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
     }
 }

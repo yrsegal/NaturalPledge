@@ -1,10 +1,12 @@
 package shadowfox.botanicaladdons.common.items.travel.stones
 
+import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -19,9 +21,9 @@ import net.minecraftforge.fml.relauncher.Side
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.network.TargetPositionPacket
-import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
+import vazkii.botania.common.core.handler.ModSounds
 import vazkii.botania.common.core.helper.Vector3
 import java.util.*
 
@@ -76,9 +78,9 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
 
     }
 
-    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
         val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
-        val dirVec = getDirVec(stack, playerIn)
+        val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())
         val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (track != null) {
             if (dirVec == null)
@@ -115,7 +117,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
                 ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
                 ItemNBTHelper.setInt(stack, TAG_Z, pos.z)
                 ItemNBTHelper.removeEntry(stack, TAG_TRACK)
-                world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
+                world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
                 return EnumActionResult.SUCCESS
             }
         }
@@ -143,7 +145,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
                 ItemNBTHelper.removeEntry(stack, TAG_Y)
                 ItemNBTHelper.removeEntry(stack, TAG_Z)
                 ItemNBTHelper.removeEntry(stack, TAG_TRACK)
-                world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
+                world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
                 return ActionResult(EnumActionResult.SUCCESS, stack)
             }
         }

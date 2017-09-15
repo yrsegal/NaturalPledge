@@ -2,6 +2,7 @@ package shadowfox.botanicaladdons.common.core.helper
 
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.block.Block
+import net.minecraft.block.material.MapColor
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -34,7 +35,7 @@ object RainbowItemHelper {
     val TAG_COLOR = "color"
 
     init {
-        EnumDyeColor.values().mapTo(defaultColors) { it.mapColor.colorValue }
+        EnumDyeColor.values().mapTo(defaultColors) { MapColor.getBlockColor(it).colorValue }
         defaultColors.add(-1)
     }
 

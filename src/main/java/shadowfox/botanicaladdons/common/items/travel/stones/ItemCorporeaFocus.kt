@@ -34,6 +34,7 @@ import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
 import vazkii.botania.common.achievement.ModAchievements
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex
+import vazkii.botania.common.core.handler.ModSounds
 import vazkii.botania.common.entity.EntityCorporeaSpark
 import java.util.regex.Pattern
 
@@ -59,7 +60,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
             patternsGetter() as Map<Pattern, TileCorporeaIndex.IRegexStacker>
         }
 
-        private val restartNetwork = MethodHandleHelper.wrapperForMethod(EntityCorporeaSpark::class.java, arrayOf("restartNetwork"))
+        private val restartNetwork = MethodHandleHelper.wrapperForMethod(EntityCorporeaSpark::class.java, "restartNetwork", null)
 
         private val setMaster = MethodHandleHelper.wrapperForSetter(EntityCorporeaSpark::class.java, "master")
 
@@ -158,7 +159,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
                 ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
                 ItemNBTHelper.setInt(stack, TAG_Z, pos.z)
                 ItemNBTHelper.setInt(stack, TAG_DIM, world.provider.dimension)
-                world.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
+                world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
                 return EnumActionResult.SUCCESS
             }
         }

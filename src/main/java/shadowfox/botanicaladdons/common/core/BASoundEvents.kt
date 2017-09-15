@@ -1,9 +1,6 @@
 package shadowfox.botanicaladdons.common.core
 
-import net.minecraft.util.ResourceLocation
-import net.minecraft.util.SoundEvent
-import net.minecraftforge.fml.common.registry.GameRegistry
-import shadowfox.botanicaladdons.api.lib.LibMisc
+import com.teamwizardry.librarianlib.features.base.ModSoundEvent
 
 /**
  * @author WireSegal
@@ -11,11 +8,5 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
  */
 object BASoundEvents {
 
-    val woosh: SoundEvent
-
-    init {
-        val loc = ResourceLocation(LibMisc.MOD_ID, "woosh")
-        woosh = SoundEvent(loc)
-        GameRegistry.register(woosh, loc)
-    }
+    val woosh = ModSoundEvent("woosh")
 }

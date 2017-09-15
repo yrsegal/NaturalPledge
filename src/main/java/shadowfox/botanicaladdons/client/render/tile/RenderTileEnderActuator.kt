@@ -23,7 +23,7 @@ class RenderTileEnderActuator : TileEntitySpecialRenderer<TileEnderBind>() {
     val ticksToActivate = 85
     val warmupTicks = 15
 
-    override fun renderTileEntityAt(te: TileEnderBind, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int) {
+    override fun render(te: TileEnderBind, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
         if (te.playerName == null) return
         val v = maxV * Math.min(Math.max(te.world.totalWorldTime - te.tickSet - warmupTicks, 0).toInt(), ticksToActivate) / ticksToActivate.toFloat()
         if (v == 0f) return

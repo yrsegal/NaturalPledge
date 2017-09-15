@@ -9,7 +9,6 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.NonNullList
@@ -54,9 +53,9 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
     override val manaDiscount: Float
         get() = 0.2f
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(itemIn, tab, subItems)
+            super.getSubItems(tab, subItems)
     }
 
     fun manaMasquerade(stack: ItemStack, player: EntityPlayer, amount: Int, exact: Boolean = true, take: Boolean = true): Int {

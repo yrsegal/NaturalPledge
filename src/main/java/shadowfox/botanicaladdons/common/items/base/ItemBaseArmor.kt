@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.items.base
 
+import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.ItemModArmor
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.helpers.VariantHelper
@@ -7,6 +8,7 @@ import com.teamwizardry.librarianlib.features.helpers.currentModId
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.model.ModelBiped
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -26,7 +28,6 @@ import vazkii.botania.api.mana.IManaDiscountArmor
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.client.lib.LibResources
-import vazkii.botania.common.core.handler.ConfigHandler
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 import java.util.*
 
@@ -93,21 +94,21 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
     override fun usesMana(stack: ItemStack) = true
 
     @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, player: EntityPlayer, list: MutableList<String>, adv: Boolean) {
+    override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
         if (GuiScreen.isShiftKeyDown())
-            addInformationAfterShift(stack, player, list)
+            addInformationAfterShift(stack, tooltip)
         else
-            TooltipHelper.addToTooltip(list, "botaniamisc.shiftinfo")
+            TooltipHelper.addToTooltip(tooltip, "botaniamisc.shiftinfo")
     }
 
     @SideOnly(Side.CLIENT)
-    fun addInformationAfterShift(stack: ItemStack, player: EntityPlayer, list: MutableList<String>) {
-        TooltipHelper.addToTooltip(list, getArmorSetTitle(player))
+    fun addInformationAfterShift(stack: ItemStack, list: MutableList<String>) {
+        TooltipHelper.addToTooltip(list, getArmorSetTitle(LibrarianLib.PROXY.getClientPlayer()))
         addArmorSetDescription(list)
         val stacks = armorSetStacks
         EntityEquipmentSlot.values()
                 .filter { it.slotType == EntityEquipmentSlot.Type.ARMOR }
-                .forEach { TooltipHelper.addToTooltip(list, (if (hasArmorSetItem(player, it)) TextFormatting.GREEN.toString() else "") + " - " + ItemStack(stacks[it]).displayName) }
+                .forEach { TooltipHelper.addToTooltip(list, (if (hasArmorSetItem(LibrarianLib.PROXY.getClientPlayer(), it)) TextFormatting.GREEN.toString() else "") + " - " + ItemStack(stacks[it]).displayName) }
         if (hasPhantomInk(stack))
             TooltipHelper.addToTooltip(list, "botaniamisc.hasPhantomInk")
     }

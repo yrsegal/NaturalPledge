@@ -1,9 +1,11 @@
 package shadowfox.botanicaladdons.common.items.travel.stones
 
+import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
@@ -22,9 +24,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
+import vazkii.botania.common.core.handler.ModSounds
 import vazkii.botania.common.core.helper.Vector3
 import java.util.*
 
@@ -46,8 +48,8 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             else 0xFFFFFF
         }
 
-    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
-        val dirVec = getDirVec(stack, playerIn)
+    override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
+        val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())
         val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (getBinding(stack) != null) {
             if (distance < 5)
@@ -75,7 +77,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             ItemNBTHelper.removeEntry(stack, TAG_X)
             ItemNBTHelper.removeEntry(stack, TAG_Y)
             ItemNBTHelper.removeEntry(stack, TAG_Z)
-            worldIn.playSound(player, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1f, 5f)
+            worldIn.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
         }
 
         return super.onItemRightClick(worldIn, player, hand)

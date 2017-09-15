@@ -11,6 +11,7 @@ import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -132,9 +133,9 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         }
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(itemIn, tab, subItems)
+            super.getSubItems(tab, subItems)
     }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
@@ -254,9 +255,9 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         setAwakened(stack, false)
     }
 
-    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
-        super.addHiddenTooltip(stack, player, tooltip, advanced)
+    override fun addHiddenTooltip(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        super.addHiddenTooltip(stack, world, tooltip, flag)
         val variant = getVariant(stack)
-        variant.addToTooltip(stack, player, tooltip, advanced)
+        variant.addToTooltip(stack, world, tooltip, flag)
     }
 }

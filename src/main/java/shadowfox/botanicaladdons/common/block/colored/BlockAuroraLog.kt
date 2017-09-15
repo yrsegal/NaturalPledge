@@ -5,6 +5,7 @@ import com.teamwizardry.librarianlib.features.base.block.BlockModLog
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
@@ -26,7 +27,7 @@ class BlockAuroraLog(name: String) : BlockModLog(name), ILexiconable, IBlockColo
         return LexiconEntries.aurora
     }
 
-    override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.aurora")
     }
 

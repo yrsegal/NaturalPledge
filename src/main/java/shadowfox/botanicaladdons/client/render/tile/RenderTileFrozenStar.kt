@@ -13,7 +13,7 @@ import java.util.*
  * Created at 1:44 PM on 5/4/16.
  */
 class RenderTileFrozenStar : TileEntitySpecialRenderer<TileStar>() {
-    override fun renderTileEntityAt(te: TileStar, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int) {
+    override fun render(te: TileStar, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
         GlStateManager.pushMatrix()
         GlStateManager.enableBlend()
         GlStateManager.enableRescaleNormal()

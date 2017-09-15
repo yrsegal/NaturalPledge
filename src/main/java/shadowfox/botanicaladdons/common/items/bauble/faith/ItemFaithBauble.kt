@@ -8,6 +8,7 @@ import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
@@ -208,9 +209,9 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
         setAwakened(stack, false)
     }
 
-    override fun addHiddenTooltip(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
-        super.addHiddenTooltip(stack, player, tooltip, advanced)
+    override fun addHiddenTooltip(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        super.addHiddenTooltip(stack, world, tooltip, flag)
         val variant = getVariant(stack) ?: return
-        variant.addToTooltip(stack, player, tooltip, advanced)
+        variant.addToTooltip(stack, world, tooltip, flag)
     }
 }

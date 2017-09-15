@@ -1,6 +1,6 @@
 package shadowfox.botanicaladdons.common.block
 
-import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
+import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
 import net.minecraft.block.Block
 import net.minecraft.block.Block.FULL_BLOCK_AABB
 import net.minecraft.block.material.Material

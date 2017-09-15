@@ -58,8 +58,8 @@ class ItemFlarebringer(name: String, material: Item.ToolMaterial) : ItemBaseSwor
         }
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(itemIn, tab, subItems)
+            super.getSubItems(tab, subItems)
     }
 }

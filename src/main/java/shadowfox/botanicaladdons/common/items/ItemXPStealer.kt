@@ -51,7 +51,7 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
         fun resetSeed(e: PlayerEvent.ItemCraftedEvent) {
             val matrix = e.craftMatrix
             if (RecipeEnchantmentRemoval.matches(matrix)) {
-                e.player.removeExperienceLevel(0)
+                e.player.onEnchant(null, 0)
                 (0 until matrix.sizeInventory)
                         .mapNotNull { matrix.getStackInSlot(it) }
                         .filter { it.item == ModItems.xpTome }

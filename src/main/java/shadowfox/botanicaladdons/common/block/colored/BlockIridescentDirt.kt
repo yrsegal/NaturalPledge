@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
@@ -46,27 +47,28 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
             }
         }
 
-    override fun addInformation(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${stack.itemDamage}")
     }
 
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
-        get() = { iBlockState, _, _, _ -> iBlockState.getValue(COLOR).mapColor.colorValue }
+        get() = { iBlockState, _, _, _ -> MapColor.getBlockColor(iBlockState.getValue(COLOR)).colorValue }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, _ -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
+        get() = { itemStack, _ -> MapColor.getBlockColor(EnumDyeColor.byMetadata(itemStack.itemDamage)).colorValue }
 
     override fun createBlockState(): BlockStateContainer {
         return BlockStateContainer(this, COLOR)
     }
 
     override fun damageDropped(state: IBlockState): Int {
-        return state.getValue<EnumDyeColor>(COLOR).metadata
+        return state.getValue(COLOR).metadata
     }
 
-    override fun getMapColor(state: IBlockState): MapColor {
-        return state.getValue(COLOR).mapColor
+    override fun getMapColor(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?): MapColor {
+        return MapColor.getBlockColor(state.getValue(COLOR))
     }
+
 
     override fun getStateFromMeta(meta: Int): IBlockState {
         return this.defaultState.withProperty(COLOR, EnumDyeColor.byMetadata(meta))

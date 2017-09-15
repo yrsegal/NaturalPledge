@@ -93,7 +93,7 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
         return state.getValue(TYPE).lightLevel
     }
 
-    override fun getMapColor(state: IBlockState): MapColor? {
+    override fun getMapColor(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?): MapColor {
         return state.getValue(TYPE).mapColor
     }
 

@@ -47,7 +47,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), IItemColo
                 0xFFFFFF
         }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         // NO-OP
     }
 }

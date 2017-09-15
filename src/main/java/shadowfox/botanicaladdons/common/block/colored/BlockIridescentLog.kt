@@ -8,6 +8,7 @@ import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemBlock
@@ -75,17 +76,17 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
     }
 
     override val blockColorFunction: ((IBlockState, IBlockAccess?, BlockPos?, Int) -> Int)?
-        get() = { iBlockState, _, _, _ -> iBlockState.getValue(COLOR_PROPS[colorSet]).mapColor.colorValue }
+        get() = { iBlockState, _, _, _ -> MapColor.getBlockColor(iBlockState.getValue(COLOR_PROPS[colorSet])).colorValue }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, _ -> EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage).mapColor.colorValue }
+        get() = { itemStack, _ -> MapColor.getBlockColor(EnumDyeColor.byMetadata(colorSet * 4 + itemStack.itemDamage)).colorValue }
 
-    override fun addInformation(stack: ItemStack, player: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
         TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.${colorSet * 4 + stack.itemDamage}")
     }
 
-    override fun getMapColor(state: IBlockState): MapColor {
-        return state.getValue(COLOR_PROPS[colorSet]).mapColor
+    override fun getMapColor(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?): MapColor {
+        return MapColor.getBlockColor(state.getValue(COLOR_PROPS[colorSet]))
     }
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {

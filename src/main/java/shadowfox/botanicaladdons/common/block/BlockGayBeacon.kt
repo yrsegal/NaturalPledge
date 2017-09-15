@@ -1,7 +1,7 @@
 package shadowfox.botanicaladdons.common.block
 
 import com.teamwizardry.librarianlib.features.autoregister.TileRegister
-import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
+import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer

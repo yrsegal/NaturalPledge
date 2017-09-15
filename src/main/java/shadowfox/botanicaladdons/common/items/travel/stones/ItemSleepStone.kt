@@ -17,8 +17,8 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.event.ForgeEventFactory
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.Botania
+import vazkii.botania.common.core.handler.ModSounds
 
 /**
  * @author WireSegal
@@ -89,7 +89,7 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
             val i = worldIn.worldInfo.worldTime + 24000L
             worldIn.worldInfo.worldTime = i - i % 24000L
         }
-        entityLiving.world.playSound(null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, BotaniaSoundEvents.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
+        entityLiving.world.playSound(null, entityLiving.posX, entityLiving.posY, entityLiving.posZ, ModSounds.potionCreate, SoundCategory.PLAYERS, 1f, 0.5f)
 
         for (i in 0..50) {
             val x1 = (entityLiving.posX - 0.5 + Math.random()).toFloat()

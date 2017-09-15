@@ -6,6 +6,7 @@ import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.init.Items
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.InventoryCrafting
+import net.minecraft.item.ItemEnchantedBook
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.nbt.NBTTagCompound
@@ -13,6 +14,7 @@ import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
+import net.minecraftforge.registries.IForgeRegistryEntry
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.xp
 import shadowfox.botanicaladdons.common.items.xpSeed
@@ -23,7 +25,11 @@ import java.util.*
  * @author WireSegal
  * Created at 9:35 AM on 1/3/17.
  */
-object RecipeEnchantmentRemoval : IRecipe {
+object RecipeEnchantmentRemoval : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
+    override fun canFit(width: Int, height: Int): Boolean {
+        return true
+    }
+
     override fun getRemainingItems(inv: InventoryCrafting): NonNullList<ItemStack> {
         var tome: ItemStack = ItemStack.EMPTY
         var enchanted: ItemStack = ItemStack.EMPTY
@@ -43,7 +49,7 @@ object RecipeEnchantmentRemoval : IRecipe {
 
         val index = getEnchantmentIndex(finalTome, finalEnchanted)
         val list = (if (finalEnchanted.item === Items.ENCHANTED_BOOK)
-            Items.ENCHANTED_BOOK.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: NBTTagList()
+            ItemEnchantedBook.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: NBTTagList()
         val enchantmentTag = list.getCompoundTagAt(index)
         val enchantment = Enchantment.getEnchantmentByID(enchantmentTag.getShort("id").toInt())
                 ?: return ForgeHooks.defaultRecipeGetRemainingItems(inv)
@@ -71,10 +77,6 @@ object RecipeEnchantmentRemoval : IRecipe {
         return ItemStack.EMPTY
     }
 
-    override fun getRecipeSize(): Int {
-        return 10
-    }
-
     override fun getCraftingResult(inv: InventoryCrafting): ItemStack {
         var tome: ItemStack = ItemStack.EMPTY
         var enchanted: ItemStack = ItemStack.EMPTY
@@ -94,7 +96,7 @@ object RecipeEnchantmentRemoval : IRecipe {
         val finalEnchanted = enchanted.copy()
         val index = getEnchantmentIndex(finalTome, finalEnchanted)
         val list = (if (finalEnchanted.item === Items.ENCHANTED_BOOK)
-            Items.ENCHANTED_BOOK.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: return ItemStack.EMPTY
+            ItemEnchantedBook.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: return ItemStack.EMPTY
         list.removeTag(index)
         if (list.tagCount() == 0)
             finalEnchanted.tagCompound?.removeTag("ench")

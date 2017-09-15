@@ -15,7 +15,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumAction
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
@@ -107,9 +106,9 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
         return multimap
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-                 if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(itemIn, tab, subItems)
+    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+        if (ItemRagnarokPendant.hasAwakenedRagnarok())
+            super.getSubItems(tab, subItems)
     }
 
     override fun getItemEnchantability(): Int = 14

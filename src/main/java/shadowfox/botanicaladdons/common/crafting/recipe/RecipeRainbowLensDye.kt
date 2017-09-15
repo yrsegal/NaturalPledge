@@ -7,16 +7,20 @@ import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
+import net.minecraftforge.registries.IForgeRegistryEntry
 import shadowfox.botanicaladdons.common.lib.LibOreDict
 import vazkii.botania.api.mana.ILens
-import vazkii.botania.common.item.ModItems.lens
 import vazkii.botania.common.item.lens.ItemLens
 
 /**
  * @author WireSegal
  * Created at 8:26 PM on 2/21/16.
  */
-class RecipeRainbowLensDye : IRecipe {
+class RecipeRainbowLensDye : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
+
+    override fun canFit(width: Int, height: Int): Boolean {
+        return true
+    }
 
     val ores: MutableList<ItemStack> by lazy {
         OreDictionary.getOres(LibOreDict.DYES[16])
@@ -68,10 +72,6 @@ class RecipeRainbowLensDye : IRecipe {
         } else {
             return ItemStack.EMPTY
         }
-    }
-
-    override fun getRecipeSize(): Int {
-        return 10
     }
 
     override fun getRecipeOutput(): ItemStack {
