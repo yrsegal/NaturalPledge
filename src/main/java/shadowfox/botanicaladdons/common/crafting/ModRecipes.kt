@@ -680,13 +680,6 @@ object ModRecipes {
                 'C', "blockCoal",
                 'W', BotaniaOreDict.RUNE[13], // Wrath
                 'A', LibOreDict.HEARTHSTONE_AWAKENED)
-                System.out.println(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseHelm),
-                        " S ",
-                        "MAM",
-                        " M ",
-                        'S', LibOreDict.DIVINE_SPIRIT,
-                        'M', LibOreDict.HEARTHSTONE,
-                        'A', ItemStack(BotaniaItems.terrasteelHelm)).toString());
         recipeEclipseHelm = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseHelm),
                 " S ",
                 "MAM",
