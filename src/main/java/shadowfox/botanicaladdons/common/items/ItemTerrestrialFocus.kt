@@ -6,6 +6,7 @@ import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
@@ -22,15 +23,17 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFocusSpell
 import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.core.helper.CooldownHelper
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
+import vazkii.botania.common.core.helper.PlayerHelper
+
 
 /**
  * @author WireSegal
@@ -158,7 +161,9 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
         }
         val result = castSpell(stack, playerIn, hand)
         if (result == EnumActionResult.SUCCESS)
-            playerIn.addStat(ModAchievements.focus)
+            if (worldIn != null)
+                if (result == EnumActionResult.SUCCESS && !worldIn.isRemote)
+                    PlayerHelper.grantCriterion(playerIn as EntityPlayerMP?, ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/focus"), "code_triggered")
         return result
     }
 
@@ -169,8 +174,9 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
             return ActionResult(EnumActionResult.SUCCESS, stack)
         }
         val result = castSpell(stack, playerIn, hand)
-        if (result == EnumActionResult.SUCCESS)
-            playerIn.addStat(ModAchievements.focus)
+        if (worldIn != null)
+            if (result == EnumActionResult.SUCCESS && !worldIn.isRemote)
+                PlayerHelper.grantCriterion(playerIn as EntityPlayerMP?, ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/focus"), "code_triggered")
         return ActionResult(result, stack)
     }
 

@@ -84,7 +84,7 @@ public class BAMethodHandles {
             f = ReflectionHelper.findField(EntityLivingBase.class, LibObfuscation.ENTITYLIVINGBASE_JUMPTICKS);
             jumpTicksGetter = publicLookup().unreflectGetter(f);
 
-            Method m = ReflectionHelper.findMethod(NetHandlerPlayServer.class, null, LibObfuscation.NETHANDLERPLAYSERVER_CAPTURECURRENTPOSITION);
+            Method m = ReflectionHelper.findMethod(NetHandlerPlayServer.class, LibObfuscation.NETHANDLERPLAYSERVER_CAPTURECURRENTPOSITION[2],LibObfuscation.NETHANDLERPLAYSERVER_CAPTURECURRENTPOSITION[0]);
             capturePositionInvoker = publicLookup().unreflect(m);
 
         } catch (Throwable t) {

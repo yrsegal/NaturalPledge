@@ -29,10 +29,8 @@ import shadowfox.botanicaladdons.common.block.BlockCorporeaResonator.TileCorpore
 import vazkii.botania.api.corporea.CorporeaHelper
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController
 import vazkii.botania.api.corporea.ICorporeaSpark
-import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
-import vazkii.botania.common.achievement.ModAchievements
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex
 import vazkii.botania.common.core.handler.ModSounds
 import vazkii.botania.common.entity.EntityCorporeaSpark
@@ -117,7 +115,8 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
                         CorporeaHelper.lastRequestExtractions)
                         .setStyle(Style().setColor(TextFormatting.LIGHT_PURPLE)))
                 event.isCanceled = true
-                if (CorporeaHelper.lastRequestExtractions >= 50000) event.player.addStat(ModAchievements.superCorporeaRequest, 1)
+                //if (CorporeaHelper.lastRequestExtractions >= 50000) event.player.addStat(ModAchievements.superCorporeaRequest, 1)
+
             }
         }
 

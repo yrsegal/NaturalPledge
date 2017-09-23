@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:spell_icon",
+      "data": 17
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.begin_ragnarok"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.begin_ragnarok.desc"
+    },
+    "hidden": true,
+    "frame":"challenge"
+  },
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

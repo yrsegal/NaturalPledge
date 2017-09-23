@@ -17,10 +17,10 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.MobEffects
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumRarity
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.NonNullList
@@ -37,7 +37,7 @@ import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
+import shadowfox.botanicaladdons.common.core.hasAdvancement
 import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_AWAKENED
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_PENDANT
@@ -61,23 +61,23 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         fun hasAwakenedRagnarok(player: EntityPlayer): Boolean {
             val unlocked = ClientRunnable.produce {
                 if (player is EntityPlayerSP) {
-                    val writer = player.statFileWriter
-                    writer.hasAchievementUnlocked(ModAchievements.sacredFlame) &&
-                            writer.hasAchievementUnlocked(ModAchievements.sacredHorn) &&
-                            writer.hasAchievementUnlocked(ModAchievements.sacredThunder) &&
-                            writer.hasAchievementUnlocked(ModAchievements.sacredLife) &&
-                            writer.hasAchievementUnlocked(ModAchievements.sacredAqua)
+                    hasAdvancement(player, "sacred_flame") &&
+                            hasAdvancement(player, "sacred_horn") &&
+                            hasAdvancement(player, "sacred_thunder") &&
+                            hasAdvancement(player, "sacred_life") &&
+                            hasAdvancement(player, "sacred_aqua")
                 } else null
             }
 
 
             if (unlocked != null) return unlocked
-
-            return player.hasAchievement(ModAchievements.sacredFlame) &&
-                    player.hasAchievement(ModAchievements.sacredHorn) &&
-                    player.hasAchievement(ModAchievements.sacredThunder) &&
-                    player.hasAchievement(ModAchievements.sacredLife) &&
-                    player.hasAchievement(ModAchievements.sacredAqua)
+            if (player is EntityPlayerMP)
+                return hasAdvancement(player, "sacred_flame") &&
+                        hasAdvancement(player, "sacred_horn") &&
+                        hasAdvancement(player, "sacred_thunder") &&
+                        hasAdvancement(player, "sacred_life") &&
+                        hasAdvancement(player, "sacred_aqua")
+            return false
         }
 
         fun hasAwakenedRagnarok(): Boolean {
@@ -226,9 +226,6 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase) {
         super.onEquipped(stack, player)
-
-        if (player is EntityPlayer)
-            player.addStat(ModAchievements.donEmblem)
 
         if (!player.world.isRemote)
             setAwakened(stack, false)

@@ -3,12 +3,13 @@ package shadowfox.botanicaladdons.common.core
 import com.teamwizardry.librarianlib.features.config.EasyConfigHandler
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
+import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.tab.ModTab
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
@@ -35,7 +36,6 @@ open class CommonProxy {
         ModTab
         ModItems
         ModBlocks
-        ModAchievements
         ModPotions
         ModBrews
         ModEnchantments
@@ -93,4 +93,17 @@ open class CommonProxy {
     open fun playerHasMonocle(): Boolean {
         return false
     }
+    fun getAdvancement(s: String): ResourceLocation {
+        return ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/" + s)
+    }
+
+    open fun hasAdvancement(player : EntityPlayer, s : String): Boolean {
+        if(player is EntityPlayerMP) {
+            val advancement = player.serverWorld.advancementManager.getAdvancement(getAdvancement(s))
+            if (advancement != null)
+                return player.getAdvancements().getProgress(advancement).isDone()
+        }
+        return false
+    }
 }
+

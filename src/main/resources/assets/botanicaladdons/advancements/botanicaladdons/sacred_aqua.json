@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:seal_arrow"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.sacred_aqua"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.sacred_aqua.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botanicaladdons:seal_arrow"
+          }
+        ]
+      }
+    }
+  }
+}

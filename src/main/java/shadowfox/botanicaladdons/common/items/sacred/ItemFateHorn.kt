@@ -10,24 +10,21 @@ import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
-import net.minecraft.stats.Achievement
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.potions.ModPotions
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.achievement.ICraftAchievement
 
 /**
  * @author WireSegal
  * Created at 5:26 PM on 4/27/16.
  */
-class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievement {
+class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem {
 
     init {
         setMaxStackSize(1)
@@ -66,9 +63,5 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievem
         if (!player.world.isRemote)
             player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1f, 0.001f)
 
-    }
-
-    override fun getAchievementOnCraft(p0: ItemStack, p1: EntityPlayer?, p2: IInventory?): Achievement? {
-        return ModAchievements.sacredHorn
     }
 }
