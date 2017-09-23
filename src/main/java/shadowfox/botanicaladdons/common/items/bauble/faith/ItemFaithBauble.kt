@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
@@ -28,7 +29,6 @@ import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.lib.capitalizeFirst
@@ -36,6 +36,7 @@ import shadowfox.botanicaladdons.common.potions.ModPotions
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
+import vazkii.botania.common.core.helper.PlayerHelper
 
 /**
  * @author WireSegal
@@ -180,12 +181,10 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
 
     override fun onEquipped(stack: ItemStack, player: EntityLivingBase) {
         super.onEquipped(stack, player)
-
-        if (player is EntityPlayer)
-            player.addStat(ModAchievements.donEmblem)
-
-        if (!player.world.isRemote)
+        if (!player.world.isRemote) {
             setAwakened(stack, false)
+            PlayerHelper.grantCriterion(player as EntityPlayerMP?, ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/root"), "code_triggered")
+        }
     }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
