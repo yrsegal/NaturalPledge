@@ -37,7 +37,7 @@ import shadowfox.botanicaladdons.api.item.IDiscordantItem
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.api.priest.IFaithVariant
-import shadowfox.botanicaladdons.common.core.hasAdvancement
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_AWAKENED
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble.Companion.TAG_PENDANT
@@ -61,22 +61,22 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         fun hasAwakenedRagnarok(player: EntityPlayer): Boolean {
             val unlocked = ClientRunnable.produce {
                 if (player is EntityPlayerSP) {
-                    hasAdvancement(player, "sacred_flame") &&
-                            hasAdvancement(player, "sacred_horn") &&
-                            hasAdvancement(player, "sacred_thunder") &&
-                            hasAdvancement(player, "sacred_life") &&
-                            hasAdvancement(player, "sacred_aqua")
+                    BotanicalAddons.PROXY.hasAdvancement(player, "sacred_flame") &&
+                            BotanicalAddons.PROXY.hasAdvancement(player, "sacred_horn") &&
+                            BotanicalAddons.PROXY.hasAdvancement(player, "sacred_thunder") &&
+                            BotanicalAddons.PROXY.hasAdvancement(player, "sacred_life") &&
+                            BotanicalAddons.PROXY.hasAdvancement(player, "sacred_aqua")
                 } else null
             }
 
 
             if (unlocked != null) return unlocked
             if (player is EntityPlayerMP)
-                return hasAdvancement(player, "sacred_flame") &&
-                        hasAdvancement(player, "sacred_horn") &&
-                        hasAdvancement(player, "sacred_thunder") &&
-                        hasAdvancement(player, "sacred_life") &&
-                        hasAdvancement(player, "sacred_aqua")
+                return BotanicalAddons.PROXY.hasAdvancement(player, "sacred_flame") &&
+                        BotanicalAddons.PROXY.hasAdvancement(player, "sacred_horn") &&
+                        BotanicalAddons.PROXY.hasAdvancement(player, "sacred_thunder") &&
+                        BotanicalAddons.PROXY.hasAdvancement(player, "sacred_life") &&
+                        BotanicalAddons.PROXY.hasAdvancement(player, "sacred_aqua")
             return false
         }
 
