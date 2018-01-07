@@ -132,7 +132,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
 
     override fun hasComparatorInputOverride(state: IBlockState?): Boolean = true
 
-    override fun getComparatorInputOverride(blockState: IBlockState?, worldIn: World, pos: BlockPos?): Int {
+    override fun getComparatorInputOverride(blockState: IBlockState, worldIn: World, pos: BlockPos): Int {
         val tile = worldIn.getTileEntity(pos) ?: return 0
         return if (tile is TileLivingwoodFunnel) {
             if (tile.inventory.getStackInSlot(0).isEmpty) 0 else 15
