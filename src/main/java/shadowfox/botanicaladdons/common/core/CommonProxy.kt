@@ -46,6 +46,8 @@ open class CommonProxy {
         ModSpells
         ModRecipes
         LexiconEntries
+        ModItems.OreDict()
+        ModBlocks.OreDict()
 //        TinkersProxy.loadTinkers()
     }
 
