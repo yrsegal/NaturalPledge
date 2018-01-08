@@ -21,7 +21,7 @@ import java.util.*
  */
 class BlockCircuitLeaves(name: String) : BlockModLeaves(name), ICircuitBlock, ILexiconable {
 
-    override fun updateTick(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random?) {
+    override fun updateTick(worldIn: World, pos: BlockPos, state: IBlockState, rand: Random) {
         super.updateTick(worldIn, pos, state, rand)
         worldIn.notifyNeighborsOfStateChange(pos, this, true)
     }

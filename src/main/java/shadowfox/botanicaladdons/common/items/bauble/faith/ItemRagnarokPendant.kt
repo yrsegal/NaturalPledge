@@ -133,7 +133,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         }
     }
 
-    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(tab, subItems)
     }

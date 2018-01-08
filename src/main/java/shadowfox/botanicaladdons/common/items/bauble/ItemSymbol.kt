@@ -334,7 +334,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
         GlStateManager.popMatrix()
     }
 
-    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             super.getSubItems( tab, subItems)
             if (tab == null) {

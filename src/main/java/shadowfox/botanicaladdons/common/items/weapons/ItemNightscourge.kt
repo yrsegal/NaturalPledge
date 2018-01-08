@@ -106,7 +106,7 @@ class ItemNightscourge(val name: String) : ItemMod(name), IWeightEnchantable, IP
         return multimap
     }
 
-    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(tab, subItems)
     }

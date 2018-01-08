@@ -73,12 +73,12 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
         return super.getStateFromMeta(meta).withProperty(COLOR_PROPS[colorSet], COLORS[colorSet][i])
     }
 
-    override fun getMetaFromState(state: IBlockState?): Int {
+    override fun getMetaFromState(state: IBlockState): Int {
         state ?: return 0
         return super.getMetaFromState(state) or (state.getValue(COLOR_PROPS[colorSet]).metadata - (colorSet * 4))
     }
 
-    override fun createBlockState(): BlockStateContainer? {
+    override fun createBlockState(): BlockStateContainer {
         return BlockStateContainer(this, COLOR_PROPS[colorSet], DECAYABLE, CHECK_DECAY)
     }
 
@@ -86,7 +86,7 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
         return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR_PROPS[colorSet])))
     }
 
-    override fun getPickBlock(state: IBlockState, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack {
+    override fun getPickBlock(state: IBlockState, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer): ItemStack {
         return createStackedBlock(state)
     }
 
