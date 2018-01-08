@@ -15,10 +15,8 @@
     "hidden": false
   },
   "criteria": {
-    "criteria": {
       "code_triggered": {
         "trigger": "minecraft:impossible"
-      }
     }
   }
 }

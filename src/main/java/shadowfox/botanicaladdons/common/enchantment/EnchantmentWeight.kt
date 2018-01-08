@@ -32,7 +32,7 @@ class EnchantmentWeight(name: String, val heavy: Boolean) : EnchantmentMod(name,
             if (player is EntityPlayer) {
                 val lightWeight = getWeight(player)
                 if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER))
-                    player.moveRelative(0.0f, 1.0f, -0.01f * lightWeight, 1f)
+                    player.moveRelative(0.0f, 0.0f, -0.01f * lightWeight, 1f)
             }
         }
 

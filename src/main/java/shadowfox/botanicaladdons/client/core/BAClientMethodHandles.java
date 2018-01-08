@@ -21,7 +21,6 @@ import java.lang.reflect.Field;
  */
 @SideOnly(Side.CLIENT)
 public class BAClientMethodHandles {
-    //TODO wire fix this thanks
     @Nonnull
     private static final MethodHandle remainingHighlightSetter;
 
@@ -45,33 +44,6 @@ public class BAClientMethodHandles {
         } catch (Throwable t) {
             throw propagate(t);
         }
-    }
-
-    public static double getRenderPosX(@Nonnull RenderManager renderManager) {
-        try {
-            //return (double) ClientMethodHandles.renderPosX_getter.invokeExact(renderManager);
-        } catch (Throwable t) {
-            throw propagate(t);
-        }
-        return 0;
-    }
-
-    public static double getRenderPosY(@Nonnull RenderManager renderManager) {
-        try {
-            //return (double) ClientMethodHandles.renderPosY_getter.invokeExact(renderManager);
-        } catch (Throwable t) {
-            throw propagate(t);
-        }
-        return 0;
-    }
-
-    public static double getRenderPosZ(@Nonnull RenderManager renderManager) {
-        try {
-            //return (double) ClientMethodHandles.renderPosZ_getter.invokeExact(renderManager);
-        } catch (Throwable t) {
-            throw propagate(t);
-        }
-        return 0;
     }
 
     private static RuntimeException propagate(Throwable t) {
