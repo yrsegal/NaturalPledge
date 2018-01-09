@@ -2,7 +2,9 @@ package shadowfox.botanicaladdons.common.events
 
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.SoundEvents
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
@@ -18,13 +20,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import vazkii.botania.common.Botania
+import vazkii.botania.common.core.helper.PlayerHelper
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.entity.EntityDoppleganger
 
@@ -149,12 +151,14 @@ class AwakeningEventHandler {
                         if (emblem != null) {
                             val variant = (emblem.item as IPriestlyEmblem).getVariant(emblem)
                             if (variant != null) {
-                                player.addStat(ModAchievements.awakening)
+                                if (!entity.world.isRemote)
+                                PlayerHelper.grantCriterion(player as EntityPlayerMP?, ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/awakening"), "code_triggered")
                                 if (entity.world.isRemote)
                                     player.sendMessage(TextComponentTranslation("misc.${LibMisc.MOD_ID}.${variant.name}_smiles").setStyle(Style().setColor(TextFormatting.DARK_AQUA)))
                                 (emblem.item as IPriestlyEmblem).setAwakened(emblem, true)
                                 if (variant == ItemRagnarokPendant.Ragnarok)
-                                    player.addStat(ModAchievements.initiateRagnarok)
+                                    if (!entity.world.isRemote)
+                                        PlayerHelper.grantCriterion(player as EntityPlayerMP?, ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/begin_ragnarok"), "code_triggered")
                             }
                         }
                     }

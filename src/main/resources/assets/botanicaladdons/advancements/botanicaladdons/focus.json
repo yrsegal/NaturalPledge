@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:spell_focus"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.focus"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.focus.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/root",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -130,9 +130,9 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
     @SideOnly(Side.CLIENT)
     override fun shouldSideBeRendered(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Boolean = true
 
-    override fun hasComparatorInputOverride(state: IBlockState?): Boolean = true
+    override fun hasComparatorInputOverride(state: IBlockState): Boolean = true
 
-    override fun getComparatorInputOverride(blockState: IBlockState?, worldIn: World, pos: BlockPos?): Int {
+    override fun getComparatorInputOverride(blockState: IBlockState, worldIn: World, pos: BlockPos): Int {
         val tile = worldIn.getTileEntity(pos) ?: return 0
         return if (tile is TileLivingwoodFunnel) {
             if (tile.inventory.getStackInSlot(0).isEmpty) 0 else 15

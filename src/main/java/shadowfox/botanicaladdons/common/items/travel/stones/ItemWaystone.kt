@@ -6,6 +6,7 @@ import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
@@ -80,20 +81,22 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
         val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
-        val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())
-        val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
-        if (track != null) {
-            if (dirVec == null)
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_not_here", track)
-            else if (distance < 5)
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_close", track)
-            else
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking", track, distance)
-        } else if (getBinding(stack) != null) {
-            if (distance < 5)
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block_close")
-            else
-                addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block", distance)
+        if (Minecraft.getMinecraft().player != null) {
+            val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())
+            val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
+            if (track != null) {
+                if (dirVec == null)
+                    addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_not_here", track)
+                else if (distance < 5)
+                    addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_close", track)
+                else
+                    addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking", track, distance)
+            } else if (getBinding(stack) != null) {
+                if (distance < 5)
+                    addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block_close")
+                else
+                    addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block", distance)
+            }
         }
     }
 

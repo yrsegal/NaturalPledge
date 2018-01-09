@@ -5,7 +5,6 @@ import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fml.common.Optional
-import thaumcraft.api.items.IRunicArmor
 import vazkii.botania.api.item.ICosmeticAttachable
 import vazkii.botania.api.item.IPhantomInkable
 
@@ -15,7 +14,7 @@ import vazkii.botania.api.item.IPhantomInkable
  * Created at 12:03 PM on 4/14/17.
  */
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
-abstract class ItemBaseBauble(name: String, vararg variants: String) : ItemModBauble(name, *variants), ICosmeticAttachable, IPhantomInkable, IRunicArmor {
+abstract class ItemBaseBauble(name: String, vararg variants: String) : ItemModBauble(name, *variants), ICosmeticAttachable, IPhantomInkable {
 
     private val TAG_COSMETIC_ITEM = "cosmeticItem"
     private val TAG_PHANTOM_INK = "phantomInk"
@@ -46,10 +45,5 @@ abstract class ItemBaseBauble(name: String, vararg variants: String) : ItemModBa
 
     override fun setPhantomInk(stack: ItemStack, ink: Boolean) {
         ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink)
-    }
-
-    @Optional.Method(modid = "Thaumcraft")
-    override fun getRunicCharge(itemstack: ItemStack): Int {
-        return 0
     }
 }

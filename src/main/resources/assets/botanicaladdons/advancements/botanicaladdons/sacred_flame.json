@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:perdition_fist"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.sacred_flame"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.sacred_flame.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botanicaladdons:perdition_fist"
+          }
+        ]
+      }
+    }
+  }
+}

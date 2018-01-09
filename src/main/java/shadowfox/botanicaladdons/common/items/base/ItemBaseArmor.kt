@@ -22,7 +22,6 @@ import net.minecraftforge.common.ISpecialArmor
 import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import thaumcraft.api.items.IRunicArmor
 import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.mana.IManaDiscountArmor
 import vazkii.botania.api.mana.IManaUsingItem
@@ -35,8 +34,7 @@ import java.util.*
  * @author WireSegal
  * Created at 3:52 PM on 4/2/17.
  */
-@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
-abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: ArmorMaterial) : ItemModArmor(name, mat, type), ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor, IManaDiscountArmor {
+abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: ArmorMaterial) : ItemModArmor(name, mat, type), ISpecialArmor, IManaUsingItem, IPhantomInkable, IManaDiscountArmor {
 
     val matName = VariantHelper.toSnakeCase(mat.toString())
 
@@ -172,9 +170,6 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
     override fun getDiscount(stack: ItemStack, slot: Int, player: EntityPlayer, tool: ItemStack?): Float {
         return if (slot == 0 && hasFullSet(player)) manaDiscount else 0f
     }
-
-    @Optional.Method(modid = "thaumcraft")
-    override fun getRunicCharge(itemstack: ItemStack) = 0
 
     companion object {
         val MANA_PER_DAMAGE = 70

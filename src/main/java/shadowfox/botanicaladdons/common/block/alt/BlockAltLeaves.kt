@@ -55,16 +55,16 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
         return super.getStateFromMeta(meta).withProperty(TYPE_PROPS[colorSet], AltGrassVariant.values()[colorSet * 4 + i])
     }
 
-    override fun getMetaFromState(state: IBlockState?): Int {
+    override fun getMetaFromState(state: IBlockState): Int {
         state ?: return 0
         return super.getMetaFromState(state) or (state.getValue(TYPE_PROPS[colorSet]).ordinal - (colorSet * 4))
     }
 
-    override fun createBlockState(): BlockStateContainer? {
+    override fun createBlockState(): BlockStateContainer {
         return BlockStateContainer(this, TYPE_PROPS[colorSet], DECAYABLE, CHECK_DECAY)
     }
 
-    override fun getPickBlock(state: IBlockState, target: RayTraceResult?, world: World?, pos: BlockPos?, player: EntityPlayer?): ItemStack {
+    override fun getPickBlock(state: IBlockState, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer): ItemStack {
         return ItemStack(this, 1, state.getValue(TYPE_PROPS[colorSet]).ordinal - colorSet * 4)
     }
 

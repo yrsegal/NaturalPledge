@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:iris_dye",
+      "data":16
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.iridescence"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.iridescence.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botanicaladdons:iris_dye",
+            "data":16
+          }
+        ]
+      }
+    }
+  }
+}

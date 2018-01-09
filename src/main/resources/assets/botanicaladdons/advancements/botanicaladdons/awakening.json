@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:divine_core"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.awakening"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.awakening.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/focus",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

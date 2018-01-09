@@ -10,22 +10,19 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
-import net.minecraft.stats.Achievement
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
-import vazkii.botania.common.achievement.ICraftAchievement
 
 /**
  * @author WireSegal
  * Created at 1:47 AM on 3/26/17.
  */
-class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAchievement {
+class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem{
     init {
         setMaxStackSize(1)
     }
@@ -39,9 +36,6 @@ class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem, ICraftAch
         return super.onItemRightClick(worldIn, playerIn, handIn)
     }
 
-    override fun getAchievementOnCraft(p0: ItemStack?, p1: EntityPlayer?, p2: IInventory?): Achievement {
-        return ModAchievements.sacredFlame
-    }
 
     override fun usesMana(p0: ItemStack?) = true
 

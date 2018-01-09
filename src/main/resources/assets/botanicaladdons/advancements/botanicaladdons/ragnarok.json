@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:divine_core"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.ragnarok"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.ragnarok.desc"
+    },
+    "hidden": true,
+    "frame":"challenge"
+  },
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

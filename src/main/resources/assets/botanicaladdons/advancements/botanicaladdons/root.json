@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:holy_symbol"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.don_emblem"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.don_emblem.desc"
+    },
+    "background":   "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "criteria": {
+      "code_triggered": {
+        "trigger": "minecraft:impossible"
+      }
+    }
+  }
+}

@@ -63,7 +63,7 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
     @SideOnly(Side.CLIENT)
     override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
 
-    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok())
             super.getSubItems(tab, subItems)
     }

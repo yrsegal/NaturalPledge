@@ -72,7 +72,7 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants), IItemColor
         return if (variantFor(stack)?.second ?: false) BotaniaAPI.rarityRelic else EnumRarity.COMMON
     }
 
-    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         val ragnarokRises = ItemRagnarokPendant.hasAwakenedRagnarok()
         if (isInCreativeTab(tab))
             variants.indices
