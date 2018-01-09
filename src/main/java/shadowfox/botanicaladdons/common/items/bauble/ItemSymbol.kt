@@ -202,7 +202,6 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         val world = entityItem.world
         if (entityItem.isBurning && !world.isRemote) {
-
             val poses = mutableListOf<BlockPos>()
             for (pos in BlockPos.getAllInBoxMutable(entityItem.position.add(-5, -5, -5), entityItem.position.add(6, 6, 6))) {
                 if (pos.distanceSq(entityItem.position) > 36) continue

@@ -176,14 +176,8 @@ object ModRecipes {
     val recipeFenrisWeapon: ResourceLocation
 
     init {
-        //todo
         recipeAscensionDupe = "${LibMisc.MOD_ID}:ascensiondupe".toRl()
         RecipeItemDuplicationFactory().make(recipeAscensionDupe,null, ModItems.sealArrow,ItemResource.of(ItemResource.Variants.AQUAMARINE))
-        RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
-        //RecipeSorter.register("${LibMisc.MOD_ID}:itemDuplicate", RecipeItemDuplication::class.java, RecipeSorter.Category.SHAPELESS, "")
-        RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
-        RecipeSorter.register("${LibMisc.MOD_ID}:enchantRemover", RecipeEnchantmentRemoval::class.java, RecipeSorter.Category.SHAPELESS, "")
-        RecipeSorter.register("${LibMisc.MOD_ID}:nojei", RecipeNoJEI::class.java, RecipeSorter.Category.SHAPED, "")
         RegistrationHandler.register(RecipeDynamicDye(ModItems.lightPlacer, true).setRegistryName("${LibMisc.MOD_ID}:dynamicprism"))
         RegistrationHandler.register(RecipeRainbowLensDye().setRegistryName("${LibMisc.MOD_ID}:rainbowlens"))
         RegistrationHandler.register(RecipeEnchantmentRemoval.setRegistryName("${LibMisc.MOD_ID}:enchantmentremove"))

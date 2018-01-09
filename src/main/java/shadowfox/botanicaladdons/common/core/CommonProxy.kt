@@ -12,10 +12,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.tab.ModTab
-import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.entity.ModEntities
-import shadowfox.botanicaladdons.common.events.Registry
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -32,7 +30,6 @@ import java.awt.Color
 open class CommonProxy {
 
     open fun pre(e: FMLPreInitializationEvent) {
-        Registry
         ModTab
         ModItems
         ModBlocks

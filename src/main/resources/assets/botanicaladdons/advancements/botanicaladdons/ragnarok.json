@@ -12,6 +12,7 @@
     "hidden": true,
     "frame":"challenge"
   },
+  "parent": "botanicaladdons:botanicaladdons/begin_ragnarok",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"
