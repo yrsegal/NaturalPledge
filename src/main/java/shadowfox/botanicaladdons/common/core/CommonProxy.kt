@@ -15,6 +15,7 @@ import shadowfox.botanicaladdons.common.core.tab.ModTab
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
 import shadowfox.botanicaladdons.common.entity.ModEntities
+import shadowfox.botanicaladdons.common.events.Registry
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.ModSpells
 import shadowfox.botanicaladdons.common.lexicon.LexiconEntries
@@ -24,7 +25,6 @@ import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 
 
-
 /**
  * @author WireSegal
  * Created at 5:07 PM on 4/12/16.
@@ -32,6 +32,7 @@ import java.awt.Color
 open class CommonProxy {
 
     open fun pre(e: FMLPreInitializationEvent) {
+        Registry
         ModTab
         ModItems
         ModBlocks
@@ -44,7 +45,6 @@ open class CommonProxy {
 
     open fun init(e: FMLInitializationEvent) {
         ModSpells
-        ModRecipes
         LexiconEntries
         ModItems.OreDict()
         ModBlocks.OreDict()
@@ -94,11 +94,12 @@ open class CommonProxy {
     open fun playerHasMonocle(): Boolean {
         return false
     }
+
     fun getAdvancement(s: String): ResourceLocation {
         return ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/" + s)
     }
 
-    open fun hasAdvancement(player : EntityPlayer, s : String): Boolean {
+    open fun hasAdvancement(player: EntityPlayer, s: String): Boolean {
         if (player is EntityPlayerMP) {
             val advancement = player.serverWorld.advancementManager.getAdvancement(getAdvancement(s))
             if (advancement != null)

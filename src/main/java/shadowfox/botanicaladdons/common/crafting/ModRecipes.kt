@@ -14,10 +14,14 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.IRecipe
+import net.minecraft.item.crafting.Ingredient
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
+import net.minecraftforge.oredict.ShapelessOreRecipe
 import shadowfox.botanicaladdons.api.SaplingVariantRegistry
 import shadowfox.botanicaladdons.api.SpellRegistry
 import shadowfox.botanicaladdons.api.lib.LibMisc
@@ -25,6 +29,8 @@ import shadowfox.botanicaladdons.common.block.BlockStorage.Variants
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.crafting.recipe.*
+import shadowfox.botanicaladdons.common.crafting.recipe.factory.RecipeItemDuplicationFactory
+import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ItemResource.Companion.of
 import shadowfox.botanicaladdons.common.items.ItemResource.Variants.*
 import shadowfox.botanicaladdons.common.items.ModItems
@@ -170,10 +176,11 @@ object ModRecipes {
     val recipeFenrisWeapon: ResourceLocation
 
     init {
-
-        // todo
+        //todo
+        recipeAscensionDupe = "${LibMisc.MOD_ID}:ascensiondupe".toRl()
+        RecipeItemDuplicationFactory().make(recipeAscensionDupe,null, ModItems.sealArrow,ItemResource.of(ItemResource.Variants.AQUAMARINE))
         RecipeSorter.register("${LibMisc.MOD_ID}:rainbowLens", RecipeRainbowLensDye::class.java, RecipeSorter.Category.SHAPELESS, "")
-        RecipeSorter.register("${LibMisc.MOD_ID}:itemDuplicate", RecipeItemDuplication::class.java, RecipeSorter.Category.SHAPELESS, "")
+        //RecipeSorter.register("${LibMisc.MOD_ID}:itemDuplicate", RecipeItemDuplication::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:dynamicDye", RecipeDynamicDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:enchantRemover", RecipeEnchantmentRemoval::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:nojei", RecipeNoJEI::class.java, RecipeSorter.Category.SHAPED, "")
@@ -395,9 +402,6 @@ object ModRecipes {
                 'A', LibOreDict.AQUAMARINE_AWAKENED,
                 'S', BotaniaOreDict.DREAMWOOD_TWIG,
                 'R', BotaniaOreDict.RUNE[3]) // Air
-        recipeAscensionDupe = "${LibMisc.MOD_ID}:ascensiondupe".toRl()
-        RegistrationHandler.register(RecipeItemDuplication(LibOreDict.AQUAMARINE, ModItems.sealArrow), recipeAscensionDupe)
-
         recipeAquaBricks = addOreDictRecipe("aquabrick", ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal),
                 "AAA", "AAA", "AAA", 'A', //my recipe seems to want to scream a bit
                 LibOreDict.AQUAMARINE)
