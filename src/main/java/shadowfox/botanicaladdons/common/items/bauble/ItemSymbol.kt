@@ -68,8 +68,9 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
         val wiiv = "0d054077-a977-4b19-9df9-8a4d5bf20ec3"
         val troll = "6e008af9-2d0c-4e4f-9312-fb0349416e75"
         val willie = "7a66d29d-6d01-4d73-a277-5b5c966dbd59"
+        val machine = "b8ad70cc-5178-4369-af46-abfa329ce305"
 
-        val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv, troll, willie)
+        val specialPlayers = arrayOf(vaz, wire, tris, l0ne, jansey, wiiv, troll, willie,machine)
 
         val headPlayers = arrayOf(vaz, wire, jansey, willie)
 
@@ -201,7 +202,6 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         val world = entityItem.world
         if (entityItem.isBurning && !world.isRemote) {
-
             val poses = mutableListOf<BlockPos>()
             for (pos in BlockPos.getAllInBoxMutable(entityItem.position.add(-5, -5, -5), entityItem.position.add(6, 6, 6))) {
                 if (pos.distanceSq(entityItem.position) > 36) continue
@@ -334,7 +334,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
         GlStateManager.popMatrix()
     }
 
-    override fun getSubItems(tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
+    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             super.getSubItems( tab, subItems)
             if (tab == null) {

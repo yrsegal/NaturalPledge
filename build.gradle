@@ -49,6 +49,7 @@ minecraft {
 
     replaceIn 'LibMisc.java'
     replaceIn 'LibMisc.kt'
+    useDepAts = true
 }
 
 jar {
@@ -75,7 +76,8 @@ compileKotlin {
 
 dependencies {
     deobfCompile "mezz.jei:jei_${config.jei_version}"
-    compile "com.teamwizardry.librarianlib:librarianlib-1.12:4.0-SNAPSHOT:deobf"
+    compile "com.teamwizardry.librarianlib:librarianlib-1.12:4.3-SNAPSHOT:deobf"
+    compile files("libs/Botania r1.10-352-deobf.jar")
 }
 
 def parseConfig(File config) {

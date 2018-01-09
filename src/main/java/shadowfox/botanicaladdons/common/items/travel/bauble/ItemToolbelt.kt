@@ -162,9 +162,9 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
                 val mc = Minecraft.getMinecraft()
                 val tess = Tessellator.getInstance()
 
-                val renderPosX = BAClientMethodHandles.getRenderPosX(mc.renderManager)
-                val renderPosY = BAClientMethodHandles.getRenderPosY(mc.renderManager)
-                val renderPosZ = BAClientMethodHandles.getRenderPosZ(mc.renderManager)
+                val renderPosX = mc.renderManager.renderPosX
+                val renderPosY = mc.renderManager.renderPosY
+                val renderPosZ = mc.renderManager.renderPosZ
 
                 GlStateManager.pushMatrix()
                 GlStateManager.enableBlend()

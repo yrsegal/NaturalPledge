@@ -196,6 +196,9 @@ object ModBlocks {
         GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
         GameRegistry.registerTileEntity(TileLivingwoodFunnel::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.FUNNEL).toString())
 
+    }
+
+    fun OreDict() {
         OreDictionary.registerOre(LibOreDict.BLOCK_AQUAMARINE, ItemStack(storage, 1, BlockStorage.Variants.AQUAMARINE.ordinal))
         OreDictionary.registerOre(LibOreDict.BLOCK_THUNDERSTEEL, ItemStack(storage, 1, BlockStorage.Variants.THUNDERSTEEL.ordinal))
 

@@ -134,9 +134,9 @@ object ModItems {
         fateHorn = ItemFateHorn(LibNames.FATE_HORN)
         perditionFist = ItemPerditionFist(LibNames.PERDITION_FIST)
 
-        iridescentDye = ItemRainbow(LibNames.IRIDESCENT_DYE, true).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey("dye")
-        awakenedDye = ItemAwakenedDye(LibNames.IRIDESCENT_DYE_AWAKENED).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey(LibOreDict.IRIS_DYE_AWAKENED).mapOreKey("dye")
-        manaDye = ItemManaDye(LibNames.INFINITE_DYE).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey("dye")
+        iridescentDye = ItemRainbow(LibNames.IRIDESCENT_DYE, true)
+        awakenedDye = ItemAwakenedDye(LibNames.IRIDESCENT_DYE_AWAKENED)
+        manaDye = ItemManaDye(LibNames.INFINITE_DYE)
 
         resource = ItemResource(LibNames.RESOURCE)
 
@@ -176,6 +176,9 @@ object ModItems {
         if (BotanicalAddons.DEV_ENVIRONMENT)
             gaiaKiller = ItemGaiaSlayer(LibNames.DEV_ONLY_GAIA_SLAYER)
 
+    }
+
+    fun OreDict() {
         OreDictionary.registerOre(LibOreDict.HOLY_SYMBOL, symbol)
 
         OreDictionary.registerOre(LibOreDict.THUNDERSTEEL_NUGGET, ItemResource.of(ItemResource.Variants.THUNDERNUGGET))
@@ -201,5 +204,8 @@ object ModItems {
 
         OreDictionary.registerOre("coal", Items.COAL)
         OreDictionary.registerOre("coal", ItemStack(Items.COAL, 1, 1))
+        (iridescentDye as ItemRainbow).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey("dye")
+        (awakenedDye as ItemAwakenedDye).mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey(LibOreDict.IRIS_DYE).mapOreKey(LibOreDict.IRIS_DYE_AWAKENED).mapOreKey("dye")
+        manaDye.mapOreDict(LibOreDict.DYES).mapOreDict(LibOreDict.IRIS_DYES).mapOreKey("dye")
     }
 }

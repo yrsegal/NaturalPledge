@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:resource",
+      "data":2
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.create_life"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.create_life.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botanicaladdons:resource",
+            "data":2
+          }
+        ]
+      }
+    }
+  }
+}

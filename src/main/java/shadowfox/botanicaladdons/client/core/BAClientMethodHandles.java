@@ -8,7 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadowfox.botanicaladdons.common.core.helper.BALogger;
 import shadowfox.botanicaladdons.common.lib.LibObfuscation;
-import vazkii.botania.client.core.handler.ClientMethodHandles;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 
 import javax.annotation.Nonnull;
 import java.lang.invoke.MethodHandle;
@@ -41,30 +41,6 @@ public class BAClientMethodHandles {
     public static void setRemainingHighlight(@Nonnull GuiIngame gui, int ticks) {
         try {
             remainingHighlightSetter.invokeExact(gui, ticks);
-        } catch (Throwable t) {
-            throw propagate(t);
-        }
-    }
-
-    public static double getRenderPosX(@Nonnull RenderManager renderManager) {
-        try {
-            return (double) ClientMethodHandles.renderPosX_getter.invokeExact(renderManager);
-        } catch (Throwable t) {
-            throw propagate(t);
-        }
-    }
-
-    public static double getRenderPosY(@Nonnull RenderManager renderManager) {
-        try {
-            return (double) ClientMethodHandles.renderPosY_getter.invokeExact(renderManager);
-        } catch (Throwable t) {
-            throw propagate(t);
-        }
-    }
-
-    public static double getRenderPosZ(@Nonnull RenderManager renderManager) {
-        try {
-            return (double) ClientMethodHandles.renderPosZ_getter.invokeExact(renderManager);
         } catch (Throwable t) {
             throw propagate(t);
         }

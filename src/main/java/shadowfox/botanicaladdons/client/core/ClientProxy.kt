@@ -1,9 +1,14 @@
 package shadowfox.botanicaladdons.client.core
 
 import baubles.api.BaublesApi
+import com.teamwizardry.librarianlib.features.methodhandles.MethodHandleHelper
+import net.minecraft.advancements.AdvancementProgress
 import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.model.ModelBiped
+import net.minecraft.client.multiplayer.ClientAdvancementManager
 import net.minecraft.client.renderer.entity.RenderLivingBase
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -147,5 +152,16 @@ class ClientProxy : CommonProxy() {
     override fun playerHasMonocle(): Boolean {
         BaublesApi.getBaublesHandler(Minecraft.getMinecraft().player) ?: return false
         return Botania.proxy.isClientPlayerWearingMonocle
+    }
+
+    val advancementToProgress = MethodHandleHelper.wrapperForGetter(ClientAdvancementManager::class.java, "advancementToProgress", "field_192803_d")
+
+    override fun hasAdvancement(player: EntityPlayer, s: String): Boolean {
+        if (player is EntityPlayerSP) {
+            val adv = player.connection.advancementManager.advancementList.getAdvancement(getAdvancement(s))
+            val progress = (advancementToProgress(player.connection.advancementManager) as Map<*, *>)[adv] as? AdvancementProgress
+            return progress != null && progress.isDone
+        }
+        return super.hasAdvancement(player, s)
     }
 }

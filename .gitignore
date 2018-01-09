@@ -36,6 +36,7 @@ hs_err_pid*
 # .idea/workspace.xml
 # .idea/tasks.xml
 # .idea/dictionaries
+src/main/resources/assets/botanicaladdons/recipes
 
 # Sensitive or high-churn files:
 # .idea/dataSources.ids
@@ -116,3 +117,4 @@ build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
+classes

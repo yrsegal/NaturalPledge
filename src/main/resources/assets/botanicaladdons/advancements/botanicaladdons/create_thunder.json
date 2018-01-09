@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:resource",
+      "data":0
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.create_thunder"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.create_thunder.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botanicaladdons:resource",
+            "data":0
+          }
+        ]
+      }
+    }
+  }
+}

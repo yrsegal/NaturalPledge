@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:mjolnir"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.sacred_thunder"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.sacred_thunder.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botanicaladdons:mjolnir"
+          }
+        ]
+      }
+    }
+  }
+}

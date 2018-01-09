@@ -5,6 +5,7 @@ import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -49,6 +50,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
         }
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
+        if(Minecraft.getMinecraft().player!=null){
         val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())
         val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
         if (getBinding(stack) != null) {
@@ -57,6 +59,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             else
                 addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.tracking_block", distance)
         }
+    }
     }
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {

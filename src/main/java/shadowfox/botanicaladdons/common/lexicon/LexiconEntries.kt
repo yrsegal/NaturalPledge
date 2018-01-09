@@ -1,19 +1,16 @@
 package shadowfox.botanicaladdons.common.lexicon
 
-import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
 import net.minecraft.block.BlockDirt
-import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
-import net.minecraft.stats.Achievement
 import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.oredict.OreDictionary
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
+import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.BlockAwakenerCore
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
@@ -21,8 +18,10 @@ import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ItemSpellIcon
 import shadowfox.botanicaladdons.common.items.ModItems
 import shadowfox.botanicaladdons.common.items.bauble.faith.*
-import shadowfox.botanicaladdons.common.lexicon.base.*
-import sun.audio.AudioPlayer.player
+import shadowfox.botanicaladdons.common.lexicon.base.EntryAwakenedKnowledge
+import shadowfox.botanicaladdons.common.lexicon.base.EntryPriestlyKnowledge
+import shadowfox.botanicaladdons.common.lexicon.base.ModCategory
+import shadowfox.botanicaladdons.common.lexicon.base.ModEntry
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.BotaniaAPI.registerKnowledgeType
 import vazkii.botania.api.lexicon.ILexicon
@@ -118,37 +117,25 @@ object LexiconEntries {
     val sunmaker: LexiconEntry
     val fenris: LexiconEntry
 
-    fun EntityPlayer.definitelyHasAchievement(ach: Achievement): Boolean {
-        val unlocked = ClientRunnable.produce {
-            if (this is EntityPlayerSP) {
-                val writer = statFileWriter
-                writer.hasAchievementUnlocked(ach)
-            } else null
-        }
-        if (unlocked != null) return unlocked
-
-        return hasAchievement(ach)
-    }
-
     init {
         MinecraftForge.EVENT_BUS.register(this)
 
         val topKnowledgeTier = if (ConfigHandler.relicsEnabled) BotaniaAPI.relicKnowledge else BotaniaAPI.elvenKnowledge
         forbidden = registerKnowledgeType("forbidden", TextFormatting.DARK_RED, false)
 
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = { it.definitelyHasAchievement(ModAchievements.createAqua) }
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = { it.definitelyHasAchievement(ModAchievements.createLife) }
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = { it.definitelyHasAchievement(ModAchievements.createThunder) }
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = { it.definitelyHasAchievement(ModAchievements.iridescence) }
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = { it.definitelyHasAchievement(ModAchievements.createFire) }
-        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[ItemRagnarokPendant.Ragnarok::class.java] = { it.definitelyHasAchievement(ModAchievements.createSpirit) }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = { it.definitelyHasAchievement("create_aqua") }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = { it.definitelyHasAchievement("create_life") }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = { it.definitelyHasAchievement("create_thunder") }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = { it.definitelyHasAchievement("iridescence") }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = { it.definitelyHasAchievement("create_fire") }
+        EntryPriestlyKnowledge.ACHIEVEMENT_MAP[ItemRagnarokPendant.Ragnarok::class.java] = { it.definitelyHasAchievement("ragnarok") }
 
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredAqua) }
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredLife) }
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredThunder) }
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredHorn) }
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = { it.definitelyHasAchievement(ModAchievements.sacredFlame) }
-        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[ItemRagnarokPendant.Ragnarok::class.java] = { it.definitelyHasAchievement(ModAchievements.initiateRagnarok) }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemNjord::class.java] = { it.definitelyHasAchievement("sacred_aqua") }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemIdunn::class.java] = { it.definitelyHasAchievement("sacred_life") }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemThor::class.java] = { it.definitelyHasAchievement("sacred_thunder") }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemHeimdall::class.java] = { it.definitelyHasAchievement("sacred_horn") }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[PriestlyEmblemLoki::class.java] = { it.definitelyHasAchievement("create_fire") }
+        EntryAwakenedKnowledge.ACHIEVEMENT_MAP[ItemRagnarokPendant.Ragnarok::class.java] = { it.definitelyHasAchievement("begin_ragnarok") }
 
         divinity = ModCategory("divinity", 1)
 
@@ -362,4 +349,8 @@ object LexiconEntries {
         if (ItemRagnarokPendant.hasAwakenedRagnarok(player) && stack.item is ILexicon)
             (stack.item as ILexicon).unlockKnowledge(stack, forbidden)
     }
+}
+
+private fun EntityPlayer.definitelyHasAchievement(string: String): Boolean {
+        return BotanicalAddons.PROXY.hasAdvancement(this, string)
 }

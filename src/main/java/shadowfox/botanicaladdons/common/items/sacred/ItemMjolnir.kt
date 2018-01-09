@@ -15,7 +15,6 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
-import net.minecraft.stats.Achievement
 import net.minecraft.util.EntityDamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.AxisAlignedBB
@@ -25,7 +24,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks.canHarvestBlock
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.common.achievements.ModAchievements
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
 import shadowfox.botanicaladdons.common.enchantment.EnchantmentWeight
 import shadowfox.botanicaladdons.common.enchantment.ModEnchantments
@@ -36,7 +34,6 @@ import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
-import vazkii.botania.common.achievement.ICraftAchievement
 import vazkii.botania.common.core.helper.Vector3
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 
@@ -44,7 +41,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:43 PM on 4/20/16.
  */
-class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IManaUsingItem, ICraftAchievement {
+class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IManaUsingItem {
     private val attackDamage: Float
 
     init {
@@ -187,7 +184,4 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
         return true
     }
 
-    override fun getAchievementOnCraft(p0: ItemStack, p1: EntityPlayer?, p2: IInventory?): Achievement? {
-        return ModAchievements.sacredThunder
-    }
 }

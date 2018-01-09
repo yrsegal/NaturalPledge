@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botanicaladdons:fate_horn"
+    },
+    "title": {
+      "translate": "achievement.botanicaladdons.sacred_horn"
+    },
+    "description": {
+      "translate": "achievement.botanicaladdons.sacred_horn.desc"
+    },
+    "hidden": false
+  },
+  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botanicaladdons:fate_horn"
+          }
+        ]
+      }
+    }
+  }
+}
