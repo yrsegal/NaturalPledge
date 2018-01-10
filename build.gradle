@@ -54,9 +54,6 @@ minecraft {
 
 jar {
     archiveName "${archivesBaseName}-r${version}.jar"
-    manifest {
-        attributes 'FMLAT': 'botania_at.cfg'
-    }
 }
 
 repositories {
@@ -68,7 +65,10 @@ repositories {
         url "http://maven.bluexin.be/repository/snapshots/"
     }
     maven {
-        url = "http://maven.thiakil.com"
+        url "http://maven.thiakil.com"
+    }
+    maven {
+        url "http://maven.blamejared.com"
     }
 }
 
@@ -84,7 +84,7 @@ dependencies {
     deobfCompile "mezz.jei:jei_${config.jei_version}"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     compile "com.teamwizardry.librarianlib:librarianlib-1.12:4.3-SNAPSHOT:deobf"
-    compile files("libs/Botania r1.10-352-deobf.jar")
+    deobfCompile "vazkii.botania:Botania:r1.10-353"
 }
 
 def parseConfig(File config) {
