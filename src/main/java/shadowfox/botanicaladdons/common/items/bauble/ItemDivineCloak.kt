@@ -174,7 +174,7 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
         if (model == null) model = ModelCloak()
         if (type == vazkii.botania.api.item.IBaubleRender.RenderType.BODY) {
             IBaubleRender.Helper.rotateIfSneaking(player)
-            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty
             GlStateManager.translate(0.0f, if (armor) -0.07f else -0.01f, 0.0f)
             val s = 0.0625f
             GlStateManager.scale(s, s, s)

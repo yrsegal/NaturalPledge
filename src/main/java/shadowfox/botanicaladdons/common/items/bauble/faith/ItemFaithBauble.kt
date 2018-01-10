@@ -147,7 +147,7 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
         if (render == IBaubleRender.RenderType.BODY) {
             val renderStack = stack.copy()
             ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
-            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty
 
             GlStateManager.pushMatrix()
             IBaubleRender.Helper.rotateIfSneaking(player)

@@ -2,13 +2,11 @@ package shadowfox.botanicaladdons.client.core;
 
 import com.google.common.base.Throwables;
 import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadowfox.botanicaladdons.common.core.helper.BALogger;
 import shadowfox.botanicaladdons.common.lib.LibObfuscation;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 
 import javax.annotation.Nonnull;
 import java.lang.invoke.MethodHandle;

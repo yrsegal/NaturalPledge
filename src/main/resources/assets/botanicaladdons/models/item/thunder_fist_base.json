@@ -3,7 +3,7 @@
     "textures": {
         "inner": "botanicaladdons:block/thundersteel_block",
         "outer": "botanicaladdons:items/thunder_fist",
-        "manaDiamond": "botania:items/manadiamond"
+        "manaDiamond": "botania:items/mana_diamond"
     },
     "elements": [
         {

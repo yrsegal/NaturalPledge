@@ -35,7 +35,7 @@ object RecipeEnchantmentRemoval : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
         var enchanted: ItemStack = ItemStack.EMPTY
         (0 until inv.sizeInventory)
                 .asSequence()
-                .mapNotNull { inv.getStackInSlot(it) }
+                .map { inv.getStackInSlot(it) }
                 .filterNot { it.isEmpty }
                 .forEach {
                     if (it.item == ModItems.xpTome)

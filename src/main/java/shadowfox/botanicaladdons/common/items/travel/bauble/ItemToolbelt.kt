@@ -37,7 +37,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import shadowfox.botanicaladdons.api.item.IToolbeltBlacklisted
 import shadowfox.botanicaladdons.api.lib.LibMisc
-import shadowfox.botanicaladdons.client.core.BAClientMethodHandles
 import shadowfox.botanicaladdons.common.items.base.ItemBaseBauble
 import shadowfox.botanicaladdons.common.network.SetToolbeltItemClient
 import shadowfox.botanicaladdons.common.network.SetToolbeltItemServer
@@ -235,7 +234,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
                     GlStateManager.disableCull()
                     mc.renderEngine.bindTexture(glowTexture)
                     tess.buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX)
-                    for (i in 0..segAngles - 1) {
+                    for (i in 0 until segAngles) {
                         val ang = i.toFloat() + (seg * segAngles).toFloat() + shift
                         var xp = Math.cos(ang * Math.PI / 180f) * s
                         var zp = Math.sin(ang * Math.PI / 180f) * s
@@ -368,7 +367,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
     }
 
     override fun provideBlock(p0: EntityPlayer?, p1: ItemStack, p2: ItemStack, p3: Block, p4: Int, p5: Boolean): Boolean {
-        for (segment in 0..SEGMENTS - 1) {
+        for (segment in 0 until SEGMENTS) {
             val slotStack = getItemForSlot(p2, segment)
             if (!slotStack.isEmpty) {
                 val slotItem = slotStack.item
@@ -390,7 +389,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
 
     override fun addHiddenTooltip(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         val map = HashMap<String, Int>()
-        for (segment in 0..SEGMENTS - 1) {
+        for (segment in 0 until SEGMENTS) {
             val slotStack = getItemForSlot(stack, segment)
             if (!slotStack.isEmpty) {
                 var base = 0

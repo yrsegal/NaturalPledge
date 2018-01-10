@@ -315,7 +315,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
                 GlStateManager.rotate(180F, 0F, 1F, 0F)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             } else if (playerAs == tris) {
-                val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+                val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty
                 GlStateManager.translate(0F, -0.25F, if (armor) 0.325F else 0.2F)
                 GlStateManager.rotate(180F, 0F, 1F, 0F)
                 GlStateManager.enableBlend()
@@ -326,7 +326,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
                 GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f)
                 ShaderHelper.releaseShader()
             } else {
-                val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+                val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty
                 GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
                 Minecraft.getMinecraft().renderItem.renderItem(renderStack, NONE)
             }
@@ -337,7 +337,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             super.getSubItems( tab, subItems)
-            if (tab == null) {
+            if (tab == CreativeTabs.SEARCH) {
                 for (player in specialPlayers) {
                     val stack = ItemStack(this)
                     setPlayer(stack, player)
