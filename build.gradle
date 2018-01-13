@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.2.0'
     repositories {
         jcenter()
         maven {
@@ -83,7 +83,7 @@ compileKotlin {
 dependencies {
     deobfCompile "mezz.jei:jei_${config.jei_version}"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    compile "com.teamwizardry.librarianlib:librarianlib-1.12:4.3-SNAPSHOT:deobf"
+    compile "com.teamwizardry.librarianlib:librarianlib-1.12.2:4.5-SNAPSHOT:deobf"
     deobfCompile "vazkii.botania:Botania:r1.10-353"
 }
 
