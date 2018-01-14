@@ -5,7 +5,6 @@ import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.IRecipeCategory
-import net.minecraft.client.Minecraft
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
@@ -31,13 +30,7 @@ object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
         recipeLayout.itemStacks.set(WOOD_SLOT, recipeWrapper.wood)
     }
 
-    override fun getModName() = LibMisc.MOD_ID
-
-    override fun getTooltipStrings(mouseX: Int, mouseY: Int): List<String> {
-        return emptyList()
-    }
-
-    override fun getIcon() = null
+    override fun getModName() = LibMisc.MOD_NAME
 
     override fun getUid(): String {
         return "${LibMisc.MOD_ID}:tree_growing"
@@ -49,10 +42,6 @@ object TreeGrowingCategory : IRecipeCategory<TreeGrowingRecipeJEI> {
 
     override fun getBackground(): IDrawable {
         return background
-    }
-
-    override fun drawExtras(minecraft: Minecraft) {
-        // NO-OP
     }
 
     val defaultSoil = listOf(ItemStack(Blocks.DIRT), ItemStack(Blocks.GRASS))

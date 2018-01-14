@@ -3,13 +3,9 @@ package shadowfox.botanicaladdons.client.integration.jei
 import com.teamwizardry.librarianlib.features.kotlin.nbt
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import mezz.jei.api.*
-import mezz.jei.api.ingredients.IIngredientRegistry
 import mezz.jei.api.ingredients.IModIngredientRegistration
-import mezz.jei.config.SessionData
+import mezz.jei.api.recipe.IRecipeCategoryRegistration
 import mezz.jei.gui.overlay.IngredientListOverlay
-import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper
-import net.minecraft.client.Minecraft
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
@@ -19,18 +15,15 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.api.priest.SpellRecipe
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingCategory
-import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingRecipeHandler
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingRecipeJEI
 import shadowfox.botanicaladdons.client.integration.jei.spellcrafting.SpellCraftingRecipeMaker
 import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingCategory
-import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeHandler
 import shadowfox.botanicaladdons.client.integration.jei.treegrowing.TreeGrowingRecipeMaker
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.RainbowItemHelper
 import shadowfox.botanicaladdons.common.crafting.ModRecipes
 import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.ModItems
-import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
 import shadowfox.botanicaladdons.common.items.bauble.faith.Spells
 import shadowfox.botanicaladdons.common.network.UpdateRagnarokJEIMessage
 import vazkii.botania.common.item.ModItems as BotaniaItems
@@ -94,8 +87,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.addRecipe(it) }
 
             val overlay = runtime.ingredientListOverlay
-            if (overlay is IngredientListOverlay)
-                overlay.rebuildItemFilter()
+            (overlay as? IngredientListOverlay)?.rebuildItemFilter()
         }
 
         UpdateRagnarokJEIMessage.remove = {
@@ -103,8 +95,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.removeRecipe(it) }
 
             val overlay = runtime.ingredientListOverlay
-            if (overlay is IngredientListOverlay)
-                overlay.rebuildItemFilter()
+            (overlay as? IngredientListOverlay)?.rebuildItemFilter()
         }
     }
 
@@ -117,28 +108,23 @@ class JEIPluginBotanicalAddons : IModPlugin {
 
     }
 
-//    @SubscribeEvent
-//    fun onAchievement(e: AdvancementEvent) {
-//        val entity = e.entity
-//        if (!entity.world.isRemote && entity is EntityPlayerMP)
-//            PacketHandler.NETWORK.sendTo(UpdateRagnarokJEIMessage(), entity)
-//    }
-
-    override fun register(registry: IModRegistry) {
+    override fun registerCategories(registry: IRecipeCategoryRegistration) {
         initialized = true
         helpers = registry.jeiHelpers
 
+
+        registry.addRecipeCategories(SpellCraftingCategory, TreeGrowingCategory)
+    }
+
+    override fun register(registry: IModRegistry) {
         UpdateRagnarokJEIMessage.lastState = false
         RAGNAROK_ITEMS.forEach { helpers.ingredientBlacklist.addIngredientToBlacklist(it) }
 
-        registry.addRecipeCategories(SpellCraftingCategory, TreeGrowingCategory)
-        registry.addRecipeHandlers(SpellCraftingRecipeHandler, TreeGrowingRecipeHandler)
+        registry.addRecipes(SpellCraftingRecipeMaker.recipes, SpellCraftingCategory.uid)
+        registry.addRecipes(TreeGrowingRecipeMaker.recipes, TreeGrowingCategory.uid)
 
-        registry.addRecipes(SpellCraftingRecipeMaker.recipes)
-        registry.addRecipes(TreeGrowingRecipeMaker.recipes)
-
-        registry.addRecipeCategoryCraftingItem(ItemStack(ModItems.spellFocus), SpellCraftingCategory.uid)
-        registry.addRecipeCategoryCraftingItem(ItemStack(ModBlocks.irisSapling), TreeGrowingCategory.uid)
+        registry.addRecipeCatalyst(ItemStack(ModItems.spellFocus), SpellCraftingCategory.uid)
+        registry.addRecipeCatalyst(ItemStack(ModBlocks.irisSapling), TreeGrowingCategory.uid)
 
         // Botania
 
@@ -151,12 +137,16 @@ class JEIPluginBotanicalAddons : IModPlugin {
     }
 
     override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {
-        subtypeRegistry.registerSubtypeInterpreter(ModBlocks.star.itemForm) {
-            RainbowItemHelper.getColor(it).toString()
+        ModBlocks.star.itemForm?.let {
+            subtypeRegistry.registerSubtypeInterpreter(it) {
+                RainbowItemHelper.getColor(it).toString()
+            }
         }
 
-        subtypeRegistry.registerSubtypeInterpreter(ModBlocks.cracklingStar.itemForm) {
-            RainbowItemHelper.getColor(it).toString()
+        ModBlocks.cracklingStar.itemForm?.let {
+            subtypeRegistry.registerSubtypeInterpreter(it) {
+                RainbowItemHelper.getColor(it).toString()
+            }
         }
 
         // Botania

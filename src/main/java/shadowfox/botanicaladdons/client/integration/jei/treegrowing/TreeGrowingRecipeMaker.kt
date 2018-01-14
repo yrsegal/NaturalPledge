@@ -24,10 +24,6 @@ object TreeGrowingRecipeMaker {
                     BotanicalAddons.LOGGER.warn("Sapling variant {$variant} has a null stack, skipping. Report this to the modmaker of that mod")
                     continue
                 }
-                if (soilStack.item == null || leavesStack.item == null || woodStack.item == null) {
-                    BotanicalAddons.LOGGER.warn("Sapling variant {$variant} has a block without an item, skipping. Report this to the modmaker of that mod")
-                    continue
-                }
 
                 out.add(TreeGrowingRecipeJEI(ItemStack(ModBlocks.irisSapling), soilStack, woodStack, leavesStack))
             }

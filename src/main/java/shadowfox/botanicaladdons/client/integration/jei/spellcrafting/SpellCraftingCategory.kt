@@ -5,7 +5,6 @@ import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.IRecipeCategory
-import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.client.integration.jei.JEIPluginBotanicalAddons
@@ -27,9 +26,7 @@ object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
     }
 
 
-    override fun getModName() = LibMisc.MOD_ID
-
-    override fun getIcon() = null
+    override fun getModName() = LibMisc.MOD_NAME
 
     override fun getUid(): String {
         return "${LibMisc.MOD_ID}:spell_crafting"
@@ -41,14 +38,6 @@ object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
 
     override fun getBackground(): IDrawable {
         return background
-    }
-
-    override fun drawExtras(minecraft: Minecraft) {
-        // NO-OP
-    }
-
-    override fun getTooltipStrings(mouseX: Int, mouseY: Int): List<String> {
-        return emptyList()
     }
 
     private val INPUT_SLOT = 0
