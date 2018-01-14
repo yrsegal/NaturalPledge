@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.items.sacred
 import com.google.common.collect.Multimap
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
@@ -12,7 +13,6 @@ import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.inventory.IInventory
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EntityDamageSource
@@ -21,7 +21,6 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
-import net.minecraftforge.common.ForgeHooks.canHarvestBlock
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
@@ -61,12 +60,12 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
 
     override fun usesMana(p0: ItemStack) = true
 
-    override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float = if (canHarvestBlock(state)) 5f else 1f
+    override fun getDestroySpeed(stack: ItemStack, state: IBlockState): Float = if (canHarvestBlock(state)) 5f else 1f
 
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
-        if (target.isActiveItemStackBlocking && target.activeItemStack != null)
-            target.activeItemStack!!.damageItem(500, target)
+        if (target.isActiveItemStackBlocking && target.activeItemStack.isNotEmpty)
+            target.activeItemStack.damageItem(500, target)
         return true
     }
 

@@ -144,7 +144,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
             if (variant.color == null)
                 0xFFFFFF
             else
-                variant.color!!.getColorFromItemstack(stack, tintindex)
+                variant.color!!.colorMultiplier(stack, tintindex)
         }
 
     init {
