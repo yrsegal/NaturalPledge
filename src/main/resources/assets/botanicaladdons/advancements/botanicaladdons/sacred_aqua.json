@@ -9,9 +9,10 @@
     "description": {
       "translate": "achievement.botanicaladdons.sacred_aqua.desc"
     },
-    "hidden": false
+    "hidden": true,
+    "frame": "goal"
   },
-  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "parent": "botanicaladdons:botanicaladdons/create_aqua",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",

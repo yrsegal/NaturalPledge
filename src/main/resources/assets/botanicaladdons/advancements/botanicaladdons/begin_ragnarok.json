@@ -2,7 +2,7 @@
   "display": {
     "icon": {
       "item": "botanicaladdons:spell_icon",
-      "data": 17
+      "data": 18
     },
     "title": {
       "translate": "achievement.botanicaladdons.begin_ragnarok"

@@ -9,9 +9,10 @@
     "description": {
       "translate": "achievement.botanicaladdons.sacred_horn.desc"
     },
-    "hidden": false
+    "hidden": true,
+    "frame": "goal"
   },
-  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "parent": "botanicaladdons:botanicaladdons/iridescence",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",

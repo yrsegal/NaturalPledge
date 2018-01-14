@@ -9,9 +9,10 @@
     "description": {
       "translate": "achievement.botanicaladdons.sacred_thunder.desc"
     },
-    "hidden": false
+    "hidden": true,
+    "frame": "goal"
   },
-  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "parent": "botanicaladdons:botanicaladdons/create_thunder",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",

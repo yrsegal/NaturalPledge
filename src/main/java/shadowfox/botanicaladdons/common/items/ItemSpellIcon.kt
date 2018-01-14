@@ -3,7 +3,6 @@ package shadowfox.botanicaladdons.common.items
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import shadowfox.botanicaladdons.common.BotanicalAddons

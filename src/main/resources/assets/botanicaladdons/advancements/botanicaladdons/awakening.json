@@ -9,9 +9,9 @@
     "description": {
       "translate": "achievement.botanicaladdons.awakening.desc"
     },
-    "hidden": false
+    "hidden": true
   },
-  "parent": "botanicaladdons:botanicaladdons/focus",
+  "parent": "botanicaladdons:botanicaladdons/root",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

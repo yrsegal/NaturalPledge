@@ -1,7 +1,8 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:divine_core"
+      "item": "botanicaladdons:spell_icon",
+      "data": 17
     },
     "title": {
       "translate": "achievement.botanicaladdons.ragnarok"
@@ -10,9 +11,9 @@
       "translate": "achievement.botanicaladdons.ragnarok.desc"
     },
     "hidden": true,
-    "frame":"challenge"
+    "frame":"goal"
   },
-  "parent": "botanicaladdons:botanicaladdons/begin_ragnarok",
+  "parent": "botanicaladdons:botanicaladdons/root",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"
