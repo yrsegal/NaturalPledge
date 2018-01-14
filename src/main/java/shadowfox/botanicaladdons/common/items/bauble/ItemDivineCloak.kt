@@ -17,8 +17,8 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingFallEvent
+import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
@@ -83,11 +83,9 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
         val epsilon = Math.cos(Math.PI / 6)
         val inverseEpsilon = Math.sin(Math.PI / 6)
 
-        private var no = false
 
         @SubscribeEvent(priority = EventPriority.LOW)
-        fun onDamage(e: LivingAttackEvent) {
-            if (no) return
+        fun onDamage(e: LivingHurtEvent) {
             val player = e.entityLiving
             if (player is EntityPlayer) {
                 val baubles = BaublesApi.getBaublesHandler(player)
@@ -98,12 +96,8 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
                         val origin = e.source.immediateSource!!
                         val dir = player.positionVector.subtract(origin.positionVector).normalize()
                         val dot = look.dotProduct(dir)
-                        if (dot < inverseEpsilon) {
-                            e.isCanceled = true
-                            no = true
-                            player.attackEntityFrom(e.source, if (dot > epsilon) e.amount else 0.00005f)
-                            no = false
-                        }
+                        if (dot < inverseEpsilon)
+                            e.amount = if (dot > epsilon) e.amount else 0.00005f
                     } else if (body.itemDamage == 4) {
                         if (e.source.isExplosion || e.source.isFireDamage)
                             e.isCanceled = true

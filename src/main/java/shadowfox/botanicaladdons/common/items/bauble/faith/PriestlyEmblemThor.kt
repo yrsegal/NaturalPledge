@@ -7,8 +7,8 @@ import net.minecraft.init.MobEffects
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
-import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingEvent
+import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
@@ -50,24 +50,17 @@ object PriestlyEmblemThor : IFaithVariant {
         }
     }
 
-    private var no = false
-
     @SubscribeEvent
-    fun onHitBySomething(e: LivingAttackEvent) {
-        if (no) return
+    fun onHitBySomething(e: LivingHurtEvent) {
         val player = e.entityLiving
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemThor::class.java) ?: return
             if (e.source == DamageSource.LIGHTNING_BOLT) {
-                no = true
                 if (e.amount != 0f && (emblem.item as IPriestlyEmblem).isAwakened(emblem)) {
-                    e.isCanceled = true
-                    player.attackEntityFrom(e.source, 0f)
+                    e.amount = 0.00005f
                 } else if (e.amount > 4f && ManaItemHandler.requestManaExact(emblem, player, 10, true)) {
-                    e.isCanceled = true
-                    player.attackEntityFrom(e.source, 4f)
+                    e.amount = 4f
                 }
-                no = false
             }
         }
     }
@@ -81,7 +74,7 @@ object PriestlyEmblemThor : IFaithVariant {
         val emblem = ItemFaithBauble.getEmblem(e.entityPlayer, PriestlyEmblemThor::class.java) ?: return
         val stackInHand = e.entityPlayer.heldItemMainhand
 
-        if (stackInHand != null && isHeavyWeapon(stackInHand) && e.target is EntityLivingBase) {
+        if (isHeavyWeapon(stackInHand) && e.target is EntityLivingBase) {
             if (ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 10, true)) {
                 Botania.proxy.lightningFX(Vector3.fromEntityCenter(e.entityPlayer), Vector3.fromEntityCenter(e.target), 1f, 0x00948B, 0x00E4D7)
                 if (!e.entityPlayer.world.isRemote)

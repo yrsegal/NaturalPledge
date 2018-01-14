@@ -12,7 +12,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraftforge.event.ForgeEventFactory
-import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.event.entity.player.AttackEntityEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -115,7 +115,7 @@ object PriestlyEmblemNjord : IFaithVariant {
                 else if (e.itemStack.isEmpty)
                     ForgeEventFactory.onPlayerDestroyItem(player, originalStack, e.hand)
 
-                if (result != null && result != EnumActionResult.PASS) {
+                if (result != EnumActionResult.PASS) {
                     e.isCanceled = true
                     player.swingArm(e.hand)
                 }
@@ -135,11 +135,8 @@ object PriestlyEmblemNjord : IFaithVariant {
                         -MathHelper.cos(e.entityPlayer.rotationYaw * Math.PI.toFloat() / 180).toDouble())
     }
 
-    private var no = false
-
     @SubscribeEvent
-    fun onPlayerFall(e: LivingAttackEvent) {
-        if (no) return
+    fun onPlayerFall(e: LivingHurtEvent) {
         val player = e.entityLiving
         if (player is EntityPlayer) {
             val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemNjord::class.java) ?: return
@@ -147,10 +144,7 @@ object PriestlyEmblemNjord : IFaithVariant {
                 if ((emblem.item as IPriestlyEmblem).isAwakened(emblem))
                     e.isCanceled = true
                 else if (e.amount > 4f && ManaItemHandler.requestManaExact(emblem, player, 10, true)) {
-                    e.isCanceled = true
-                    no = true
-                    player.attackEntityFrom(e.source, 4f)
-                    no = false
+                    e.amount = 4f
                 }
             }
         }

@@ -6,7 +6,7 @@ import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.DamageSource
-import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import shadowfox.botanicaladdons.api.item.IPriestlyEmblem
@@ -44,7 +44,7 @@ object PriestlyEmblemLoki : IFaithVariant {
     }
 
     @SubscribeEvent
-    fun onPlayerHurt(e: LivingAttackEvent) {
+    fun onPlayerHurt(e: LivingHurtEvent) {
         if (e.entityLiving !is EntityPlayer) return
         val bauble = ItemFaithBauble.getEmblem(e.entityLiving as EntityPlayer, PriestlyEmblemLoki::class.java) ?: return
         val awakened = (bauble.item as IPriestlyEmblem).isAwakened(bauble)
