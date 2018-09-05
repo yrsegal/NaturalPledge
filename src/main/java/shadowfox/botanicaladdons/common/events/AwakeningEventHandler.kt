@@ -22,6 +22,7 @@ import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.BotanicalAddons
 import shadowfox.botanicaladdons.common.block.ModBlocks
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
+import shadowfox.botanicaladdons.common.ext.isHardMode
 import shadowfox.botanicaladdons.common.items.ItemResource
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemFaithBauble
 import shadowfox.botanicaladdons.common.items.bauble.faith.ItemRagnarokPendant
@@ -74,6 +75,9 @@ class AwakeningEventHandler {
         val entity = e.entity
 
         if (entity is EntityDoppleganger && entity.isHardMode) {
+
+            println("Wax: Is hard mode!")
+
             val fits = fitsLocation(entity)
             if (fits) {
 

@@ -162,9 +162,16 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
                 val mc = Minecraft.getMinecraft()
                 val tess = Tessellator.getInstance()
 
+                /*
                 val renderPosX = mc.renderManager.renderPosX
                 val renderPosY = mc.renderManager.renderPosY
                 val renderPosZ = mc.renderManager.renderPosZ
+                */
+
+                // Lets try this for now...
+                val renderPosX = mc.renderManager.viewerPosX
+                val renderPosY = mc.renderManager.viewerPosY
+                val renderPosZ = mc.renderManager.viewerPosZ
 
                 GlStateManager.pushMatrix()
                 GlStateManager.enableBlend()
@@ -193,7 +200,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
 
                 val segmentLookedAt = getSegmentLookedAt(stack, player)
 
-                for (seg in 0..SEGMENTS - 1) {
+                for (seg in 0 until SEGMENTS) {
                     var inside = false
                     val rotationAngle = (seg + 0.5f) * segAngles + shift
                     GlStateManager.pushMatrix()

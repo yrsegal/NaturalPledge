@@ -43,12 +43,12 @@ abstract class BlockAltLog(name: String, set: Int) : BlockModLog(name + set, *Ar
         return super.getStateFromMeta(meta).withProperty(TYPE_PROPS[colorSet], AltGrassVariant.values()[colorSet * 4 + j])
     }
 
-    override fun getMetaFromState(state: IBlockState?): Int {
+    override fun getMetaFromState(state: IBlockState): Int {
         state ?: return 0
         return (state.getValue(TYPE_PROPS[colorSet]).ordinal - (colorSet * 4)) or super.getMetaFromState(state)
     }
 
-    override fun createBlockState(): BlockStateContainer? {
+    override fun createBlockState(): BlockStateContainer {
         return BlockStateContainer(this, TYPE_PROPS[colorSet], AXIS)
     }
 

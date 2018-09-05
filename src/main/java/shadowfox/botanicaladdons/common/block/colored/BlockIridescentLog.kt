@@ -62,12 +62,12 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
         return super.getStateFromMeta(meta).withProperty(COLOR_PROPS[colorSet], COLORS[colorSet][j])
     }
 
-    override fun getMetaFromState(state: IBlockState?): Int {
+    override fun getMetaFromState(state: IBlockState): Int {
         state ?: return 0
         return (state.getValue(COLOR_PROPS[colorSet]).ordinal - (colorSet * 4)) or super.getMetaFromState(state)
     }
 
-    override fun createBlockState(): BlockStateContainer? {
+    override fun createBlockState(): BlockStateContainer {
         return BlockStateContainer(this, COLOR_PROPS[colorSet], AXIS)
     }
 

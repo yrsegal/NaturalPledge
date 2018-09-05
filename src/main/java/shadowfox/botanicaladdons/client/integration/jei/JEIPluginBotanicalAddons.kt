@@ -5,7 +5,6 @@ import com.teamwizardry.librarianlib.features.network.PacketHandler
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IIngredientRegistry
 import mezz.jei.api.ingredients.IModIngredientRegistration
-import mezz.jei.config.SessionData
 import mezz.jei.gui.overlay.IngredientListOverlay
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper
 import net.minecraft.client.Minecraft

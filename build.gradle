@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.2.61'
     repositories {
         jcenter()
         maven {
@@ -75,9 +75,9 @@ compileKotlin {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${config.jei_version}"
-    compile "com.teamwizardry.librarianlib:librarianlib-1.12:4.3-SNAPSHOT:deobf"
-    compile files("libs/Botania r1.10-352-deobf.jar")
+    compile "mezz.jei:jei_${config.jei_version}"
+    compile "com.teamwizardry.librarianlib:librarianlib-1.12.2:4.12-SNAPSHOT:deobf"
+    compile files("libs/vazkii")
 }
 
 def parseConfig(File config) {
