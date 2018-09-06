@@ -6,6 +6,7 @@ import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemModTool
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
@@ -61,7 +62,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
                         .none { it.item == BotaniaItems.swapRing }) return
 
                 val currentStack = entity.heldItemMainhand
-                if (currentStack != null && currentStack.item is ISortableTool) {
+                if (currentStack.isNotEmpty && currentStack.item is ISortableTool) {
                     val tool = currentStack.item as ISortableTool
                     val pos = ToolCommons.raytraceFromEntity(entity.world, entity, true, 4.5)
                     var typeToFind: ISortableTool.ToolType? = null
@@ -86,7 +87,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
 
                         for (i in 0 until entity.inventory.sizeInventory) {
                             val stackInSlot = entity.inventory.getStackInSlot(i)
-                            if (stackInSlot != null && stackInSlot.item is ISortableTool && stackInSlot != currentStack) {
+                            if (stackInSlot.isNotEmpty && stackInSlot.item is ISortableTool && stackInSlot != currentStack) {
                                 val toolInSlot = stackInSlot.item as ISortableTool
                                 if (toolInSlot.getSortingType(stackInSlot) == typeToFind) {
                                     val priority = toolInSlot.getSortingPriority(stackInSlot)

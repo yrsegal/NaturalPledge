@@ -1,6 +1,7 @@
 package shadowfox.botanicaladdons.common.block.colored
 
 import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import net.minecraft.block.SoundType
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
@@ -52,7 +53,7 @@ class BlockPrismFlame(name: String) : BlockModContainer(name, ModMaterials.TRANS
     override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         val stack = playerIn.getHeldItem(hand)
         if (WorldTypeSkyblock.isWorldSkyblock(worldIn)) {
-            if (stack != null && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !playerIn.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
+            if (stack.isNotEmpty && stack.item === Item.getItemFromBlock(Blocks.SAPLING) && !playerIn.inventory.hasItemStack(ItemStack(ModItems.lexicon))) {
                 if (!worldIn.isRemote)
                     stack.count--
                 if (!playerIn.inventory.addItemStackToInventory(ItemStack(ModItems.lexicon)))

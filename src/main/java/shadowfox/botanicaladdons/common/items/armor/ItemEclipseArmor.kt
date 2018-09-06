@@ -63,7 +63,7 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
         val players = if (hasFullSet(player)) player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.grow(10.0)) {
             it != null && it !is EntityArmorStand && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0
         } else mutableListOf()
-        Collections.shuffle(players)
+        players.shuffle()
         players.add(player)
         var amountLeft = amount
         val playersToAmounts = mutableListOf<Pair<EntityPlayer, Int>>()
@@ -72,12 +72,11 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
             if (amountLeft == 0) break
             if (pl is EntityPlayer) {
                 if (pl.hurtResistantTime == 0) {
-                    val amountTakeaway = if (pl == player)
+                    val amountTakeaway = if (pl == player) {
                         ManaItemHandler.requestManaForTool(stack, pl, amountLeft, false)
-                    else
+                    } else {
                         ManaItemHandler.requestMana(stack, pl, amountLeft, false)
-
-
+                    }
                     if (amountTakeaway != 0) {
                         playersToAmounts.add(pl to amountTakeaway)
                         amountLeft -= amountTakeaway

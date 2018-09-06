@@ -24,7 +24,7 @@ class BlockCircuitLog(name: String) : BlockModLog(name), ILexiconable, ICircuitB
     }
 
     override fun updateTick(worldIn: World, pos: BlockPos?, state: IBlockState?, rand: Random?) {
-        worldIn.notifyNeighborsOfStateChange(pos, this, true)
+        worldIn.notifyNeighborsOfStateChange(pos!!, this, true)
     }
 
     override fun getLightValue(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?): Int {

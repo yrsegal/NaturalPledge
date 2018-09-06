@@ -18,7 +18,7 @@ open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Arra
 
     open fun mapOreDict(keys: Array<String>): ItemRainbow {
         if (keys.size < types) return this
-        for (i in 0..types - 1)
+        for (i in 0 until types)
             OreDictionary.registerOre(keys[i], ItemStack(this, 1, i))
         return this
     }

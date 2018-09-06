@@ -90,7 +90,7 @@ public class BAMethodHandles {
         } catch (Throwable t) {
             BALogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
             t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw new RuntimeException(t);
         }
     }
 
@@ -232,6 +232,6 @@ public class BAMethodHandles {
     private static RuntimeException propagate(Throwable t) {
         BALogger.INSTANCE.severe("Methodhandle failed!");
         t.printStackTrace();
-        return Throwables.propagate(t);
+        return new RuntimeException(t);
     }
 }

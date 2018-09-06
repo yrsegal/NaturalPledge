@@ -161,7 +161,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
         }
 
         override fun shouldAutoComplete(): Boolean {
-            return LibrarianLib.PROXY.getClientPlayer().heldItemMainhand?.item is ItemCorporeaFocus
+            return LibrarianLib.PROXY.getClientPlayer().heldItemMainhand.item is ItemCorporeaFocus
         }
 
         private fun getBinding(stack: ItemStack, world: World): BlockPos? {

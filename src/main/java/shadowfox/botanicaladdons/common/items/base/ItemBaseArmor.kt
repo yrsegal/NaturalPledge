@@ -83,7 +83,7 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
         val model = models[slot]
         if (model == null) {
             val newModel = makeArmorModel(slot) ?: return null
-            models.put(slot, newModel)
+            models[slot] = newModel
             return newModel
         }
         return models[slot] as ModelBiped
@@ -134,11 +134,11 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
         }
     }
 
-    abstract protected val armorSetStacks: ArmorSet
+    protected abstract val armorSetStacks: ArmorSet
 
     fun hasFullSet(player: EntityLivingBase) = getSetPiecesEquipped(player) == 4
 
-    fun hasArmorSetItem(player: EntityLivingBase, slot: EntityEquipmentSlot): Boolean {
+    private fun hasArmorSetItem(player: EntityLivingBase, slot: EntityEquipmentSlot): Boolean {
         if (armorSetStacks[slot] == null) return true
         val stack = player.getItemStackFromSlot(slot)
         if (stack.isEmpty) return false
@@ -172,7 +172,7 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
     }
 
     companion object {
-        val MANA_PER_DAMAGE = 70
-        private val TAG_PHANTOM_INK = "phantomInk"
+        const val MANA_PER_DAMAGE = 70
+        private const val TAG_PHANTOM_INK = "phantomInk"
     }
 }

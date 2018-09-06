@@ -125,7 +125,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
         val keeps = ArrayList<EntityItem>()
         for (item in event.drops) {
             val stack = item.item
-            if (stack != null && stack.item == this) {
+            if (stack.isNotEmpty && stack.item == this) {
                 keeps.add(item)
                 ItemNBTHelper.setInt(stack, TAG_X, (event.entityPlayer.posX - 0.5).toInt())
                 ItemNBTHelper.setInt(stack, TAG_Y, (event.entityPlayer.posY - 0.5).toInt())
@@ -166,7 +166,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
             val cmp1 = cmp.getCompoundTag(TAG_PLAYER_KEPT_DROPS)
 
             val count = cmp1.getInteger(TAG_DROP_COUNT)
-            (0..count - 1)
+            (0 until count)
                     .map { cmp1.getCompoundTag(TAG_DROP_PREFIX + it) }
                     .mapNotNull(::ItemStack)
                     .forEach { event.player.inventory.addItemStackToInventory(it) }
@@ -176,12 +176,12 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
     }
 
     companion object {
-        val TAG_PLAYER_KEPT_DROPS = "${LibMisc.MOD_ID}_playerKeptDrops"
-        val TAG_DROP_COUNT = "dropCount"
-        val TAG_DROP_PREFIX = "dropPrefix"
+        private const val TAG_PLAYER_KEPT_DROPS = "${LibMisc.MOD_ID}_playerKeptDrops"
+        private const val TAG_DROP_COUNT = "dropCount"
+        private const val TAG_DROP_PREFIX = "dropPrefix"
 
-        val TAG_X = "x"
-        val TAG_Y = "y"
-        val TAG_Z = "z"
+        private const val TAG_X = "x"
+        private const val TAG_Y = "y"
+        private const val TAG_Z = "z"
     }
 }

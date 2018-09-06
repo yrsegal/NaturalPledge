@@ -81,8 +81,9 @@ class ItemFoodBelt(name: String) : ItemBaseBauble(name), IBaubleRender {
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partTicks: Float) {
         if (type == IBaubleRender.RenderType.BODY) {
 
-            if (ItemToolbelt.model == null)
+            if (ItemToolbelt.model == null) {
                 ItemToolbelt.model = ModelBiped()
+            }
 
             Minecraft.getMinecraft().renderEngine.bindTexture(beltTexture)
             IBaubleRender.Helper.rotateIfSneaking(player)

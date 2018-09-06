@@ -51,7 +51,7 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
         setLightLevel(0.5F)
     }
 
-    override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
+    override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         val te = worldIn.getTileEntity(pos) as? TileEnderBind ?: return false
         if (te.playerName == null) {
             if (worldIn.isRemote) {

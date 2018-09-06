@@ -72,7 +72,7 @@ object PriestlyEmblemHeimdall : IFaithVariant {
         val world = player.world
         if (world.isRemote) return
         if (player is EntityPlayer) {
-            if ((player.heldItemMainhand?.item == ModItems.rainbowRod ?: false) || (player.heldItemOffhand?.item == ModItems.rainbowRod ?: false)) {
+            if ((player.heldItemMainhand.item == ModItems.rainbowRod ?: false) || (player.heldItemOffhand.item == ModItems.rainbowRod ?: false)) {
                 val emblem = ItemFaithBauble.getEmblem(player, PriestlyEmblemHeimdall::class.java) ?: return
                 if (ManaItemHandler.requestManaExact(emblem, player, 10, false)) {
                     val motVec = getMotionVec(player)

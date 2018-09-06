@@ -161,9 +161,12 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
         }
         val result = castSpell(stack, playerIn, hand)
         if (result == EnumActionResult.SUCCESS)
-            if (worldIn != null)
-                if (result == EnumActionResult.SUCCESS && !worldIn.isRemote)
+            if (worldIn != null) {
+                if (result == EnumActionResult.SUCCESS && !worldIn.isRemote) {
                     PlayerHelper.grantCriterion(playerIn as EntityPlayerMP?, ResourceLocation(LibMisc.MOD_ID, "botanicaladdons/focus"), "code_triggered")
+                }
+            }
+
         return result
     }
 

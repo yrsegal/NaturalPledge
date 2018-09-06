@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.items.sacred
 import com.google.common.collect.Multimap
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
@@ -63,8 +64,8 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
 
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)
-        if (target.isActiveItemStackBlocking && target.activeItemStack != null)
-            target.activeItemStack!!.damageItem(500, target)
+        if (target.isActiveItemStackBlocking && target.activeItemStack.isNotEmpty)
+            target.activeItemStack.damageItem(500, target)
         return true
     }
 

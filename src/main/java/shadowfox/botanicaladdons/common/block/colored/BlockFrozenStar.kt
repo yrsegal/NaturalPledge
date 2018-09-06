@@ -112,7 +112,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
                 setSize(stack, te.size)
             return stack
         }
-        return super.getPickBlock(state, target, world, pos, player)
+        return super.getPickBlock(state!!, target, world, pos, player!!)
     }
 
     override fun onBlockPlacedBy(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
@@ -133,7 +133,7 @@ class BlockFrozenStar(name: String) : BlockModContainer(name, ModMaterials.TRANS
     }
 
     override fun harvestBlock(worldIn: World, player: EntityPlayer?, pos: BlockPos, state: IBlockState?, te: TileEntity?, stack: ItemStack) {
-        super.harvestBlock(worldIn, player, pos, state, te, stack)
+        super.harvestBlock(worldIn, player!!, pos, state!!, te, stack)
         worldIn.setBlockToAir(pos)
     }
 

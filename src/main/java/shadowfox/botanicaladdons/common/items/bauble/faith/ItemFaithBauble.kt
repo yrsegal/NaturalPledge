@@ -4,6 +4,7 @@ import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
@@ -147,7 +148,7 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
         if (render == IBaubleRender.RenderType.BODY) {
             val renderStack = stack.copy()
             ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
-            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isNotEmpty
 
             GlStateManager.pushMatrix()
             IBaubleRender.Helper.rotateIfSneaking(player)

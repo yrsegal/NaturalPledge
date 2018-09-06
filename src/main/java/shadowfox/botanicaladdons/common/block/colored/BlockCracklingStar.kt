@@ -99,7 +99,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
             val stack = RainbowItemHelper.colorStack(te.color, this)
             return stack
         }
-        return super.getPickBlock(state, target, world, pos, player)
+        return super.getPickBlock(state!!, target, world, pos, player!!)
     }
 
     override fun onBlockPlacedBy(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
@@ -119,7 +119,7 @@ class BlockCracklingStar(name: String) : BlockModContainer(name, ModMaterials.TR
     }
 
     override fun harvestBlock(worldIn: World, player: EntityPlayer?, pos: BlockPos, state: IBlockState?, te: TileEntity?, stack: ItemStack) {
-        super.harvestBlock(worldIn, player, pos, state, te, stack)
+        super.harvestBlock(worldIn, player!!, pos, state!!, te, stack)
         worldIn.setBlockToAir(pos)
     }
 

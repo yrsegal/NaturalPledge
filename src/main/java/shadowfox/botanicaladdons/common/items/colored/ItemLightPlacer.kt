@@ -35,8 +35,8 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
         setMaxStackSize(1)
     }
 
-    val MANA_PER_FLAME = 100
-    val TAG_INK = "phantomInk"
+    private val MANA_PER_FLAME = 100
+    private val TAG_INK = "phantomInk"
 
     override fun usesMana(p0: ItemStack) = true
 
@@ -71,7 +71,7 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
             pos = pos.offset(facing)
         }
 
-        if (ManaItemHandler.requestManaExactForTool(stack, playerIn, MANA_PER_FLAME, false) && playerIn.canPlayerEdit(pos, facing, stack) && worldIn.mayPlace(ModBlocks.flame, pos, false, facing, null)) {
+        return if (ManaItemHandler.requestManaExactForTool(stack, playerIn, MANA_PER_FLAME, false) && playerIn.canPlayerEdit(pos, facing, stack) && worldIn.mayPlace(ModBlocks.flame, pos, false, facing, null)) {
             val i = this.getMetadata(stack.metadata)
             val iblockstate1 = ModBlocks.flame.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, i, playerIn)
 
@@ -80,14 +80,13 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
                 worldIn.playSound(playerIn, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0f) / 2.0f, soundtype.getPitch() * 0.8f)
                 ManaItemHandler.requestManaExactForTool(stack, playerIn, MANA_PER_FLAME, true)
             }
-
-            return EnumActionResult.SUCCESS
+            EnumActionResult.SUCCESS
         } else {
-            return EnumActionResult.FAIL
+            EnumActionResult.FAIL
         }
     }
 
-    fun placeBlockAt(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, newState: IBlockState): Boolean {
+    private fun placeBlockAt(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, newState: IBlockState): Boolean {
         if (!world.setBlockState(pos, newState, 3)) return false
 
         val state = world.getBlockState(pos)

@@ -1,14 +1,11 @@
 package shadowfox.botanicaladdons.client.core;
 
-import com.google.common.base.Throwables;
 import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadowfox.botanicaladdons.common.core.helper.BALogger;
 import shadowfox.botanicaladdons.common.lib.LibObfuscation;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 
 import javax.annotation.Nonnull;
 import java.lang.invoke.MethodHandle;
@@ -34,7 +31,7 @@ public class BAClientMethodHandles {
         } catch (Throwable t) {
             BALogger.INSTANCE.severe("Couldn't initialize client methodhandles! Things will be broken!");
             t.printStackTrace();
-            throw Throwables.propagate(t);
+            throw new RuntimeException(t);
         }
     }
 
@@ -49,6 +46,6 @@ public class BAClientMethodHandles {
     private static RuntimeException propagate(Throwable t) {
         BALogger.INSTANCE.severe("Client methodhandle failed!");
         t.printStackTrace();
-        return Throwables.propagate(t);
+        throw new RuntimeException(t);
     }
 }

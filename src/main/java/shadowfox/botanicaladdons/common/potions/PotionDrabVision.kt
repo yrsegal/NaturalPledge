@@ -44,10 +44,7 @@ class PotionDrabVision : PotionMod(LibNames.DRAB_VISION, true, 0x808080) {
             entity.removeActivePotionEffect(this)
             entity.removeActivePotionEffect(MobEffects.NIGHT_VISION)
             val newEffect = PotionEffect(this, effect.duration, Math.max(effect.amplifier - 1, 0), effect.isAmbient, effect.doesShowParticles())
-            if (effect is PotionEffect)
-                entity.addPotionEffect(PotionEffect(newEffect))
-            else
-                entity.addPotionEffect(newEffect)
+            entity.addPotionEffect(PotionEffect(newEffect))
         }
     }
 

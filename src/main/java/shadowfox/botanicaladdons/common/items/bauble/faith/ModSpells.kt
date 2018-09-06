@@ -27,10 +27,10 @@ object ModSpells {
     init {
 
         val iridescence = Spells.ObjectInfusion(of(IRIDESCENCE), LibOreDict.DYES[0], ItemStack(ModItems.iridescentDye), ItemStack(ModItems.awakenedDye), 150, MapColor.getBlockColor(EnumDyeColor.byMetadata(0)).colorValue) {
-            player, _ -> null
+            _, _ -> null
         }
         for (i in 1..16) iridescence.addEntry(LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), ItemStack(ModItems.awakenedDye, 1, i), 150, if (i == 16) BotanicalAddons.PROXY.rainbow().rgb else MapColor.getBlockColor(EnumDyeColor.byMetadata(i)).colorValue) {
-            player, _ -> null
+            _, _ -> null
         }
         SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, iridescence)
         SpellRegistry.registerSpell(LibNames.SPELL_SPHERE, Spells.Heimdall.BifrostWave)
@@ -47,10 +47,10 @@ object ModSpells {
                 Spells.ObjectInfusion(of(WIND_INFUSION),
                         "gemPrismarine",
                         of(AQUAMARINE), of(AQUAMARINE, true),
-                        150, 0x00E5E5, { player, _ -> null }).addEntry(
+                        150, 0x00E5E5) { player, _ -> null }.addEntry(
                         "blockPrismarineBrick",
                         ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal), ItemStack(ModBlocks.storage, 1, Variants.AQUAMARINE.ordinal),
-                        1350, 0x00E5E5, { player, _ -> null }))
+                        1350, 0x00E5E5) { player, _ -> null })
 
         SpellRegistry.registerSpell(LibNames.SPELL_LIGHTNING, Spells.Thor.Lightning)
         SpellRegistry.registerSpell(LibNames.SPELL_STRENGTH, Spells.Thor.Strength)
@@ -60,20 +60,20 @@ object ModSpells {
                 Spells.ObjectInfusion(of(LIGHTNING_INFUSION),
                         "ingotIron",
                         of(THUNDER_STEEL), of(THUNDER_STEEL, true),
-                        150, 0xE5DD00, { player, _ -> null }).addEntry(
+                        150, 0xE5DD00) { player, _ -> null }.addEntry(
                         "blockIron",
                         ItemStack(ModBlocks.storage, 1, THUNDERSTEEL.ordinal), ItemStack(ModBlocks.storage, 1, THUNDERSTEEL.ordinal),
-                        1350, 0xE5DD00, { player, _ -> null }).addEntry(
+                        1350, 0xE5DD00) { player, _ -> null }.addEntry(
                         "nuggetIron",
                         of(THUNDERNUGGET), of(THUNDERNUGGET),
-                        16, 0xE5DD00, { player, _ -> null }))
+                        16, 0xE5DD00) { player, _ -> null })
 
         SpellRegistry.registerSpell(LibNames.SPELL_LOKI_INFUSION,
                 Spells.ObjectInfusion(of(FIRE_INFUSION),
                         "coal",
                         of(HEARTHSTONE), of(HEARTHSTONE, true),
-                        150, BlockBaseTrap.COLOR, { player, _ -> null
-                     }))
+                        150, BlockBaseTrap.COLOR) { player, _ -> null
+                })
         SpellRegistry.registerSpell(LibNames.SPELL_TRUESIGHT, Spells.Loki.Truesight)
         SpellRegistry.registerSpell(LibNames.SPELL_DISDAIN, Spells.Loki.Disdain)
         SpellRegistry.registerSpell(LibNames.SPELL_FLAME_JET, Spells.Loki.FlameJet)

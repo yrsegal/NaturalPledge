@@ -22,7 +22,7 @@ object CalicoEventHandler {
         val explosiondampeners = mutableListOf<BlockPos>()
 
         val atState = e.world.getBlockState(BlockPos(e.explosion.position))
-        if (atState?.block is IExplosionDampener) return
+        if (atState.block is IExplosionDampener) return
 
         for (pos in BlockPos.getAllInBox(BlockPos(e.explosion.position).add(-MAXRANGE, -MAXRANGE, -MAXRANGE),
                 BlockPos(e.explosion.position).add(MAXRANGE, MAXRANGE, MAXRANGE))) if (pos.distanceSq(BlockPos(e.explosion.position)) <= 64) {
@@ -41,7 +41,7 @@ object CalicoEventHandler {
     @SubscribeEvent
     fun catchExplosionAfter(e: ExplosionEvent.Detonate) {
         val atState = e.world.getBlockState(BlockPos(e.explosion.position))
-        if (atState?.block is IExplosionDampener) {
+        if (atState.block is IExplosionDampener) {
             e.affectedEntities.clear()
             e.affectedBlocks.clear()
         }

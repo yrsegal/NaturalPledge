@@ -1,5 +1,6 @@
 package shadowfox.botanicaladdons.common.crafting.recipe
 
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
@@ -59,18 +60,18 @@ class RecipeRainbowLensDye : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
     override fun getCraftingResult(var1: InventoryCrafting): ItemStack {
         var lens: ItemStack = ItemStack.EMPTY
 
-        (0..var1.sizeInventory - 1)
+        (0 until var1.sizeInventory)
                 .map { var1.getStackInSlot(it) }
-                .filter { it != null && it.item is ILens && lens.isEmpty }
+                .filter { it.isNotEmpty && it.item is ILens && lens.isEmpty }
                 .forEach { lens = it }
 
-        if (lens.item is ILens) {
+        return if (lens.item is ILens) {
             lens.item
             val var6 = lens.copy()
             ItemLens.setLensColor(var6, 16)
-            return var6
+            var6
         } else {
-            return ItemStack.EMPTY
+            ItemStack.EMPTY
         }
     }
 

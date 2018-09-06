@@ -93,8 +93,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.addRecipe(it) }
 
             val overlay = runtime.ingredientListOverlay
-            if (overlay is IngredientListOverlay)
-                overlay.rebuildItemFilter()
+            (overlay as? IngredientListOverlay)?.rebuildItemFilter()
         }
 
         UpdateRagnarokJEIMessage.remove = {
@@ -102,8 +101,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
             RAGNAROK_RECIPES.forEach { runtime.recipeRegistry.removeRecipe(it) }
 
             val overlay = runtime.ingredientListOverlay
-            if (overlay is IngredientListOverlay)
-                overlay.rebuildItemFilter()
+            (overlay as? IngredientListOverlay)?.rebuildItemFilter()
         }
     }
 
@@ -149,6 +147,7 @@ class JEIPluginBotanicalAddons : IModPlugin {
         UpdateRagnarokJEIMessage.handle()
     }
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {
         subtypeRegistry.registerSubtypeInterpreter(ModBlocks.star.itemForm) {
             RainbowItemHelper.getColor(it).toString()
