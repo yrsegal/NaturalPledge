@@ -51,7 +51,7 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
         }
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
-        if(Minecraft.getMinecraft().player!=null) {
+        if (Minecraft.getMinecraft().player!=null) {
             val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())
             val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
             if (getBinding(stack) != null) {

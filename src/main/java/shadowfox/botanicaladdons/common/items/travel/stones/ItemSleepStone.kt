@@ -39,7 +39,7 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
     override fun getItemUseAction(stack: ItemStack) = EnumAction.BOW
     override fun getMaxItemUseDuration(stack: ItemStack) = 100
 
-    fun EntityPlayer.trySleepCustom(): SleepResult {
+    private fun EntityPlayer.trySleepCustom(): SleepResult {
         val bedLocation = position
         val ret = ForgeEventFactory.onPlayerSleepInBed(this, bedLocation)
         if (ret != null) return ret
@@ -58,7 +58,7 @@ class ItemSleepStone(name: String) : ItemMod(name), IItemColorProvider {
         return SleepResult.OK
     }
 
-    fun attemptSleep(player: EntityPlayer): Boolean {
+    private fun attemptSleep(player: EntityPlayer): Boolean {
         val sleepResult = player.trySleepCustom()
 
         if (!player.world.isRemote) {
