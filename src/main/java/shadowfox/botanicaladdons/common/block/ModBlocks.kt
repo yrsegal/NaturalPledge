@@ -198,6 +198,7 @@ object ModBlocks {
 
     }
 
+    // TODO make lowercase
     fun OreDict() {
         OreDictionary.registerOre(LibOreDict.BLOCK_AQUAMARINE, ItemStack(storage, 1, BlockStorage.Variants.AQUAMARINE.ordinal))
         OreDictionary.registerOre(LibOreDict.BLOCK_THUNDERSTEEL, ItemStack(storage, 1, BlockStorage.Variants.THUNDERSTEEL.ordinal))

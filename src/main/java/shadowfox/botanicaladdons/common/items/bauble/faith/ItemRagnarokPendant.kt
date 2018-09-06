@@ -58,6 +58,8 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
 
     companion object Ragnarok : IFaithVariant {
 
+        private val FAITH_HATES_YOU = 857974
+
         fun hasAwakenedRagnarok(player: EntityPlayer): Boolean {
             val unlocked = ClientRunnable.produce {
                 if (player is EntityPlayerSP) {
@@ -121,10 +123,13 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         }
 
         override fun punishTheFaithless(stack: ItemStack, player: EntityPlayer) {
-            player.health = 0.01f
-            player.addPotionEffect(PotionEffect(MobEffects.WITHER, 200, 3))
-            player.removePotionEffect(MobEffects.NIGHT_VISION)
-            player.setFire(10)
+            player.apply {
+                health = 0.01f
+                addPotionEffect(PotionEffect(MobEffects.WITHER, 200, 3))
+                removePotionEffect(MobEffects.NIGHT_VISION)
+                setFire(10)
+            }
+
         }
 
         @SideOnly(Side.CLIENT)
@@ -144,7 +149,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
             if (variant.color == null)
                 0xFFFFFF
             else
-                variant.color!!.getColorFromItemstack(stack, tintindex)
+                variant.color!!.colorMultiplier(stack, tintindex)
         }
 
     init {
@@ -191,13 +196,13 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         if (render == IBaubleRender.RenderType.BODY) {
             val renderStack = stack.copy()
             ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
-            val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+            val hasChestArmor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty
 
             GlStateManager.pushMatrix()
             IBaubleRender.Helper.rotateIfSneaking(player)
             IBaubleRender.Helper.translateToChest()
             IBaubleRender.Helper.defaultTransforms()
-            GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
+            GlStateManager.translate(0.0, 0.15, if (hasChestArmor) 0.125 else 0.05)
             Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.NONE)
             GlStateManager.popMatrix()
         }
@@ -237,7 +242,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         return false
     }
 
-    val FAITH_HATES_YOU = 857974
+
 
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)

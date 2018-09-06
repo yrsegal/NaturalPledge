@@ -12,6 +12,7 @@ import shadowfox.botanicaladdons.common.items.ModItems
  * Created at 1:05 PM on 5/17/16.
  */
 object ModTab : ModCreativeTab("divine") {
+
     init {
         registerDefaultTab()
         setNoTitle()

@@ -13,6 +13,7 @@ import net.minecraft.init.Items
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumHand
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.event.entity.living.LivingEvent
@@ -67,8 +68,14 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
                     if (entity.isSwingInProgress && pos != null && pos.blockPos != null) {
                         val bestTool = entity.world.getBlockState(pos.blockPos)
                         // Changed type check
+                        /*
                         if (!bestTool.material.isLiquid && ModItems.polyStone.getStrVsBlock(ItemStack.EMPTY, bestTool) != 1.0F)
                             typeToFind = NONE
+                        */
+                        if (!bestTool.material.isLiquid)
+                            typeToFind = NONE
+
+
                     }
 
                     // The changed null check
@@ -106,6 +113,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
     private val defaultToolClasses = arrayOf("pickaxe", "shovel", "axe")
     private val toolsToCheck = arrayOf(Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_AXE).map(::ItemStack)
 
+    /*
     override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float {
         defaultToolClasses.forEach {
             if (state.block.isToolEffective(it, state)) return super.getStrVsBlock(stack, state)
@@ -115,6 +123,7 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
         }
         return 6.0F
     }
+    */
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier>
             = HashMultimap.create()

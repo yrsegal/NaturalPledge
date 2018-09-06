@@ -61,7 +61,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
 
     override fun usesMana(p0: ItemStack) = true
 
-    override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float = if (canHarvestBlock(state)) 5f else 1f
+    //override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float = if (canHarvestBlock(state)) 5f else 1f
 
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
         ToolCommons.damageItem(stack, 1, attacker, MANA_PER_DAMAGE)

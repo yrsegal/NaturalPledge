@@ -104,7 +104,7 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
             if (variant == null || variant.color == null)
                 0xFFFFFF
             else
-                variant.color!!.getColorFromItemstack(stack, tintindex)
+                variant.color!!.colorMultiplier(stack, tintindex)
         }
 
     init {
