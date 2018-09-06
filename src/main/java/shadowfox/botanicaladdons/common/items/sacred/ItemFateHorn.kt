@@ -30,7 +30,7 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem {
         setMaxStackSize(1)
     }
 
-    val RANGE = 7.0
+
 
     override fun usesMana(p0: ItemStack) = true
 
@@ -38,14 +38,14 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem {
     override fun getMaxItemUseDuration(stack: ItemStack) = 72000
 
     override fun onItemRightClick(worldIn: World?, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
-        playerIn.activeHand = hand
-        return super.onItemRightClick(worldIn, playerIn, hand)
+        playerIn.activeHand = hand!!
+        return super.onItemRightClick(worldIn!!, playerIn, hand)
     }
 
     override fun getRarity(stack: ItemStack): EnumRarity = BotaniaAPI.rarityRelic
 
     override fun onUsingTick(stack: ItemStack, player: EntityLivingBase, count: Int) {
-        val entities = player.world.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.grow(RANGE), { it?.isNonBoss ?: false })
+        val entities = player.world.getEntitiesWithinAABB(EntityLiving::class.java, player.entityBoundingBox.grow(RANGE)) { it?.isNonBoss ?: false }
         var doit = true
         if (entities.size > 0 && player is EntityPlayer && !player.world.isRemote)
             doit = ManaItemHandler.requestManaExact(stack, player, 2, true)
@@ -60,8 +60,14 @@ class ItemFateHorn(name: String) : ItemMod(name), IManaUsingItem {
 
         BotanicalAddons.PROXY.particleRing(player.posX, player.posY, player.posZ, RANGE, r, g, b)
 
-        if (!player.world.isRemote)
+        if (!player.world.isRemote) {
             player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1f, 0.001f)
+        }
 
     }
+
+    companion object {
+        private const val RANGE = 7.0
+    }
+
 }

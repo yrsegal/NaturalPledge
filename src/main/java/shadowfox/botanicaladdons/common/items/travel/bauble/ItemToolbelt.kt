@@ -53,17 +53,120 @@ import java.util.*
  */
 class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockProvider, IToolbeltBlacklisted {
 
+    init {
+        MinecraftForge.EVENT_BUS.register(EventHandler)
+    }
+
+    override fun getBaubleType(stack: ItemStack) = BaubleType.BELT
+
+    override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partTicks: Float) {
+        if (type == IBaubleRender.RenderType.BODY) {
+
+            if (model == null)
+                model = ModelBiped()
+
+            Minecraft.getMinecraft().renderEngine.bindTexture(beltTexture)
+            IBaubleRender.Helper.rotateIfSneaking(player)
+
+            if (!player.isSneaking)
+                GlStateManager.translate(0F, 0.2F, 0F)
+
+            val s = 1.05F / 16F
+            GlStateManager.scale(s, s, s)
+
+            (model as ModelBiped).bipedBody.render(1F)
+        }
+    }
+
+    override fun getBlockCount(p0: EntityPlayer?, p1: ItemStack, p2: ItemStack, p3: Block, p4: Int): Int {
+        var total = 0
+        for (segment in 0 until SEGMENTS) {
+            val slotStack = getItemForSlot(p2, segment)
+            if (!slotStack.isEmpty) {
+                val slotItem = slotStack.item
+                if (slotItem is IBlockProvider) {
+                    val count = slotItem.getBlockCount(p0, p1, slotStack, p3, p4)
+                    setItem(p2, slotStack, segment)
+                    if (count == -1) return -1
+                    total += count
+                } else if (slotItem is ItemBlock && Block.getBlockFromItem(slotItem) == p3 && slotStack.itemDamage == p4) {
+                    total += slotStack.count
+                }
+            }
+        }
+        return total
+    }
+
+    override fun provideBlock(p0: EntityPlayer?, p1: ItemStack, p2: ItemStack, p3: Block, p4: Int, p5: Boolean): Boolean {
+        for (segment in 0 until SEGMENTS) {
+            val slotStack = getItemForSlot(p2, segment)
+            if (!slotStack.isEmpty) {
+                val slotItem = slotStack.item
+                if (slotItem is IBlockProvider) {
+                    val provided = slotItem.provideBlock(p0, p1, slotStack, p3, p4, p5)
+                    setItem(p2, slotStack, segment)
+                    if (provided) return true
+                } else if (slotItem is ItemBlock && Block.getBlockFromItem(slotItem) == p3 && slotStack.itemDamage == p4) {
+                    if (p5) slotStack.count--
+
+                    if (slotStack.count == 0) setItem(p2, ItemStack.EMPTY, segment)
+                    else setItem(p2, slotStack, segment)
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    override fun addHiddenTooltip(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        val map = HashMap<String, Int>()
+        for (segment in 0 until SEGMENTS) {
+            val slotStack = getItemForSlot(stack, segment)
+            if (!slotStack.isEmpty) {
+                var base = 0
+                val name = slotStack.displayName
+                val node = map[name]
+                if (node != null) base = node
+                map[name] = base + slotStack.count
+            }
+        }
+        if (map.size > 0) addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.contains")
+        else addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.contains_nothing")
+
+        map.keys.sorted().mapTo(tooltip) { "${map[it]}x ${TextFormatting.WHITE}$it" }
+        super.addHiddenTooltip(stack, world, tooltip, flag)
+
+    }
+
+    override fun allowedInToolbelt(stack: ItemStack): Boolean = false
+
+    override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
+        if (player is EntityPlayer) {
+            val eqLastTick = isEquipped(stack)
+            val eq = player.isSneaking && isLookingAtSegment(player)
+            if (eqLastTick != eq)
+                setEquipped(stack, eq)
+
+            if (!player.isSneaking) {
+                val angles = 360
+                val segAngles = angles / SEGMENTS
+                val shift = segAngles / 2
+                setRotationBase(stack, getCheckingAngle(player) - shift)
+            }
+        }
+    }
+
     companion object {
         val glowTexture = ResourceLocation(LibMisc.MOD_ID, "textures/misc/toolbelt.png")
         val beltTexture = ResourceLocation(LibMisc.MOD_ID, "textures/model/toolbelt.png")
 
         var model: Any? = null
 
-        val SEGMENTS = 12
+        private const val SEGMENTS = 12
 
-        val TAG_ITEM_PREFIX = "item"
-        val TAG_EQUIPPED = "equipped"
-        val TAG_ROTATION_BASE = "rotationBase"
+        private const val TAG_ITEM_PREFIX = "item"
+        private const val TAG_EQUIPPED = "equipped"
+        private const val TAG_ROTATION_BASE = "rotationBase"
 
         fun isEquipped(stack: ItemStack): Boolean = ItemNBTHelper.getBoolean(stack, TAG_EQUIPPED, false)
         fun setEquipped(stack: ItemStack, equipped: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_EQUIPPED, equipped)
@@ -75,7 +178,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
 
             val angles = 360
             val segAngles = angles / SEGMENTS
-            for (seg in 0..SEGMENTS - 1) {
+            for (seg in 0 until SEGMENTS) {
                 val calcAngle = seg.toFloat() * segAngles
                 if (yaw >= calcAngle && yaw < calcAngle + segAngles)
                     return seg
@@ -86,7 +189,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
         fun getCheckingAngle(player: EntityLivingBase): Float = getCheckingAngle(player, 0F)
 
         // Agreed, V, minecraft's rotation is shit. And no roll? Seriously?
-        fun getCheckingAngle(player: EntityLivingBase, base: Float): Float {
+        private fun getCheckingAngle(player: EntityLivingBase, base: Float): Float {
             var yaw = MathHelper.wrapDegrees(player.rotationYaw) + 90F
             val angles = 360
             val segAngles = angles / SEGMENTS
@@ -117,7 +220,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
             }
         }
 
-        fun getStoredCompound(stack: ItemStack, slot: Int): NBTTagCompound? = ItemNBTHelper.getCompound(stack, TAG_ITEM_PREFIX + slot)
+        private fun getStoredCompound(stack: ItemStack, slot: Int): NBTTagCompound? = ItemNBTHelper.getCompound(stack, TAG_ITEM_PREFIX + slot)
         fun setItem(beltStack: ItemStack, stack: ItemStack, pos: Int) {
             if (stack.isEmpty) ItemNBTHelper.setCompound(beltStack, TAG_ITEM_PREFIX + pos, NBTTagCompound())
             else {
@@ -242,7 +345,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
                     GlStateManager.disableCull()
                     mc.renderEngine.bindTexture(glowTexture)
                     tess.buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX)
-                    for (i in 0..segAngles - 1) {
+                    for (i in 0 until segAngles) {
                         val ang = i.toFloat() + (seg * segAngles).toFloat() + shift
                         var xp = Math.cos(ang * Math.PI / 180f) * s
                         var zp = Math.sin(ang * Math.PI / 180f) * s
@@ -294,7 +397,7 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
                     firePlayerInteraction(event)
             }
 
-            fun firePlayerInteraction(event: PlayerInteractEvent) {
+            private fun firePlayerInteraction(event: PlayerInteractEvent) {
                 val player = event.entityPlayer
                 val beltStack = getEquippedBelt(player)
 
@@ -330,107 +433,5 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
         }
     }
 
-    init {
-        MinecraftForge.EVENT_BUS.register(EventHandler)
-    }
 
-    override fun getBaubleType(stack: ItemStack) = BaubleType.BELT
-
-    override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partTicks: Float) {
-        if (type == IBaubleRender.RenderType.BODY) {
-
-            if (model == null)
-                model = ModelBiped()
-
-            Minecraft.getMinecraft().renderEngine.bindTexture(beltTexture)
-            IBaubleRender.Helper.rotateIfSneaking(player)
-
-            if (!player.isSneaking)
-                GlStateManager.translate(0F, 0.2F, 0F)
-
-            val s = 1.05F / 16F
-            GlStateManager.scale(s, s, s)
-
-            (model as ModelBiped).bipedBody.render(1F)
-        }
-    }
-
-    override fun getBlockCount(p0: EntityPlayer?, p1: ItemStack, p2: ItemStack, p3: Block, p4: Int): Int {
-        var total = 0
-        for (segment in 0..SEGMENTS - 1) {
-            val slotStack = getItemForSlot(p2, segment)
-            if (!slotStack.isEmpty) {
-                val slotItem = slotStack.item
-                if (slotItem is IBlockProvider) {
-                    val count = slotItem.getBlockCount(p0, p1, slotStack, p3, p4)
-                    setItem(p2, slotStack, segment)
-                    if (count == -1) return -1
-                    total += count
-                } else if (slotItem is ItemBlock && Block.getBlockFromItem(slotItem) == p3 && slotStack.itemDamage == p4) {
-                    total += slotStack.count
-                }
-            }
-        }
-        return total
-    }
-
-    override fun provideBlock(p0: EntityPlayer?, p1: ItemStack, p2: ItemStack, p3: Block, p4: Int, p5: Boolean): Boolean {
-        for (segment in 0..SEGMENTS - 1) {
-            val slotStack = getItemForSlot(p2, segment)
-            if (!slotStack.isEmpty) {
-                val slotItem = slotStack.item
-                if (slotItem is IBlockProvider) {
-                    val provided = slotItem.provideBlock(p0, p1, slotStack, p3, p4, p5)
-                    setItem(p2, slotStack, segment)
-                    if (provided) return true
-                } else if (slotItem is ItemBlock && Block.getBlockFromItem(slotItem) == p3 && slotStack.itemDamage == p4) {
-                    if (p5) slotStack.count--
-
-                    if (slotStack.count == 0) setItem(p2, ItemStack.EMPTY, segment)
-                    else setItem(p2, slotStack, segment)
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    override fun addHiddenTooltip(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val map = HashMap<String, Int>()
-        for (segment in 0..SEGMENTS - 1) {
-            val slotStack = getItemForSlot(stack, segment)
-            if (!slotStack.isEmpty) {
-                var base = 0
-                val name = slotStack.displayName
-                val node = map[name]
-                if (node != null) base = node
-                map.put(name, base + slotStack.count)
-            }
-        }
-        if (map.size > 0) addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.contains")
-        else addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.contains_nothing")
-
-        map.keys.sorted().mapTo(tooltip) { "${map[it]}x ${TextFormatting.WHITE}$it" }
-        super.addHiddenTooltip(stack, world, tooltip, flag)
-
-    }
-
-
-    override fun allowedInToolbelt(stack: ItemStack): Boolean = false
-
-    override fun onWornTick(stack: ItemStack, player: EntityLivingBase) {
-        if (player is EntityPlayer) {
-            val eqLastTick = isEquipped(stack)
-            val eq = player.isSneaking && isLookingAtSegment(player)
-            if (eqLastTick != eq)
-                setEquipped(stack, eq)
-
-            if (!player.isSneaking) {
-                val angles = 360
-                val segAngles = angles / SEGMENTS
-                val shift = segAngles / 2
-                setRotationBase(stack, getCheckingAngle(player) - shift)
-            }
-        }
-    }
 }

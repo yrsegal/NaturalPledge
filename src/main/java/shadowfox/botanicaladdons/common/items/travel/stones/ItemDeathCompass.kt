@@ -4,6 +4,7 @@ import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
@@ -86,14 +87,14 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
         return super.onItemRightClick(worldIn, player, hand)
     }
 
-    fun getDirVec(stack: ItemStack, player: Entity): Vector3? {
+    private fun getDirVec(stack: ItemStack, player: Entity): Vector3? {
         val pos = getEndVec(stack) ?: return null
 
         val entityPos = Vector3.fromEntityCenter(player).subtract(Vector3(0.5, 0.5, 0.5))
         return pos.subtract(entityPos)
     }
 
-    fun getEndVec(stack: ItemStack): Vector3? {
+    private fun getEndVec(stack: ItemStack): Vector3? {
         return Vector3.fromBlockPos(getBinding(stack) ?: return null)
     }
 
@@ -108,9 +109,9 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
     fun onPlayerDeath(event: LivingDeathEvent) {
         val entity = event.entityLiving
         if (entity is EntityPlayer && entity.world.gameRules.getBoolean("keepInventory")) {
-            for (i in 0..entity.inventory.sizeInventory - 1) {
+            for (i in 0 until entity.inventory.sizeInventory) {
                 val stack = entity.inventory.getStackInSlot(i)
-                if (stack != null && stack.item == this) {
+                if (stack.isNotEmpty && stack.item == this) {
                     ItemNBTHelper.setInt(stack, TAG_X, (entity.posX - 0.5).toInt())
                     ItemNBTHelper.setInt(stack, TAG_Y, (entity.posY - 0.5).toInt())
                     ItemNBTHelper.setInt(stack, TAG_Z, (entity.posZ - 0.5).toInt())

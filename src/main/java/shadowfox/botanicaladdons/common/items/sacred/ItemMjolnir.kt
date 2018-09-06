@@ -12,7 +12,6 @@ import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.inventory.IInventory
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EntityDamageSource
@@ -21,7 +20,6 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
-import net.minecraftforge.common.ForgeHooks.canHarvestBlock
 import shadowfox.botanicaladdons.api.item.IWeightEnchantable
 import shadowfox.botanicaladdons.api.lib.LibMisc
 import shadowfox.botanicaladdons.common.core.helper.BAMethodHandles
@@ -111,14 +109,13 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
 
         if (player is EntityLivingBase && player.heldItemMainhand == stack) {
             if (player.health > 0.0f && !(player is EntityPlayer && player.isSpectator) && ItemNBTHelper.getBoolean(stack, TAG_DIDLAUNCH, false)) {
-                val axisalignedbb: AxisAlignedBB
+                val aabb: AxisAlignedBB = if (player.isRiding() && !player.getRidingEntity()!!.isDead) {
+                    player.getEntityBoundingBox().union(player.getRidingEntity()!!.entityBoundingBox).expand(1.0, 0.0, 1.0)
+                } else {
+                    player.getEntityBoundingBox().expand(1.0, 0.5, 1.0)
+                }
 
-                if (player.isRiding() && !player.getRidingEntity()!!.isDead)
-                    axisalignedbb = player.getEntityBoundingBox().union(player.getRidingEntity()!!.entityBoundingBox).expand(1.0, 0.0, 1.0)
-                else
-                    axisalignedbb = player.getEntityBoundingBox().expand(1.0, 0.5, 1.0)
-
-                val list = world.getEntitiesWithinAABBExcludingEntity(player, axisalignedbb)
+                val list = world.getEntitiesWithinAABBExcludingEntity(player, aabb)
 
                 var flag = false
 
@@ -169,10 +166,12 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
         ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE)
         ItemNBTHelper.setBoolean(stack, TAG_DIDLAUNCH, true)
 
-        entityLiving.motionX = speedVec.x
-        entityLiving.motionY = speedVec.y
-        entityLiving.motionZ = speedVec.z
-        entityLiving.fallDistance = 0f
+        entityLiving.apply {
+            motionX = speedVec.x
+            motionY = speedVec.y
+            motionZ = speedVec.z
+            fallDistance = 0f
+        }
 
         val targetVec = speedVec.multiply(2.0).add(Vector3(entityLiving.positionVector))
 

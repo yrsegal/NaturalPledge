@@ -36,59 +36,59 @@ class ItemPerditionFist(name: String) : ItemMod(name), IManaUsingItem{
         return super.onItemRightClick(worldIn, playerIn, handIn)
     }
 
-
     override fun usesMana(p0: ItemStack?) = true
 
-    override fun getItemUseAction(stack: ItemStack?): EnumAction {
-        return EnumAction.BOW
-    }
+    override fun getItemUseAction(stack: ItemStack?) = EnumAction.BOW
 
     private fun findAmmo(player: EntityPlayer): ItemStack {
-        if (player.getHeldItem(EnumHand.OFF_HAND).item == Items.FIRE_CHARGE)
-            return player.getHeldItem(EnumHand.OFF_HAND)
-        else if (player.getHeldItem(EnumHand.MAIN_HAND).item == Items.FIRE_CHARGE)
-            return player.getHeldItem(EnumHand.MAIN_HAND)
-        else return (0..player.inventory.sizeInventory - 1)
-                .map { player.inventory.getStackInSlot(it) }
-                .filter { it.item == Items.FIRE_CHARGE }
-                .firstOrNull() ?: ItemStack.EMPTY
+        return when {
+            player.getHeldItem(EnumHand.OFF_HAND).item == Items.FIRE_CHARGE -> player.getHeldItem(EnumHand.OFF_HAND)
+            player.getHeldItem(EnumHand.MAIN_HAND).item == Items.FIRE_CHARGE -> player.getHeldItem(EnumHand.MAIN_HAND)
+            else -> (0 until player.inventory.sizeInventory)
+                    .map { player.inventory.getStackInSlot(it) }
+                    .firstOrNull { it.item == Items.FIRE_CHARGE } ?: ItemStack.EMPTY
+        }
     }
 
     override fun onPlayerStoppedUsing(stack: ItemStack, worldIn: World, player: EntityLivingBase, timeLeft: Int) {
         if (worldIn.isRemote) return
         val time = (getMaxItemUseDuration(stack) - timeLeft) / 20.0
-        val power = if (time < 1)
-            0.5
-        else if (time <= 21)
-            -time * time * 0.0180952381 + time * 0.7933333333 - 0.5142857143
-        else
-            7.45264 + time * 0.0332076
+
+        val power = when {
+            time < 1 -> 0.5
+            time <= 21 -> -time * time * 0.0180952381 + time * 0.7933333333 - 0.5142857143
+            else ->7.45264 + time * 0.0332076
+        }
+
         if (power > 0) {
             if (player is EntityPlayer && !player.isCreative) {
                 if (!ManaItemHandler.requestManaExact(stack, player, 200, true)) return
                 val fireCharge = findAmmo(player)
                 if (fireCharge.isEmpty) {
                     if (!ManaItemHandler.requestManaExact(stack, player, 1000, true)) return
-                } else fireCharge.count--
+                } else {
+                    fireCharge.count--
+                }
             }
 
             val look = player.lookVec
-            val ghastBall = EntityLargeFireball(worldIn, player, look.x, look.y, look.z)
-            ghastBall.explosionPower = (power + 0.5).toInt()
-            ghastBall.posX = player.posX + look.x
-            ghastBall.posY = player.posY + (player.height / 2.0f).toDouble() + 0.5
-            ghastBall.posZ = player.posZ + look.z
-            ghastBall.motionX = look.x * 2
-            ghastBall.motionY = look.y * 2
-            ghastBall.motionZ = look.z * 2
-            ghastBall.accelerationX = ghastBall.motionX * 0.1
-            ghastBall.accelerationY = ghastBall.motionY * 0.1
-            ghastBall.accelerationZ = ghastBall.motionZ * 0.1
+            val ghastBall = EntityLargeFireball(worldIn, player, look.x, look.y, look.z).apply {
+                explosionPower = (power + 0.5).toInt()
+                posX = player.posX + look.x
+                posY = player.posY + (player.height / 2.0f).toDouble() + 0.5
+                posZ = player.posZ + look.z
+                motionX = look.x * 2
+                motionY = look.y * 2
+                motionZ = look.z * 2
+                accelerationX = motionX * 0.1
+                accelerationY = motionY * 0.1
+                accelerationZ = motionZ * 0.1
+            }
+
             player.world.spawnEntity(ghastBall)
             player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1f, 1f)
 
-            if (player is EntityPlayer)
-                player.cooldownTracker.setCooldown(this, 20)
+            (player as? EntityPlayer)?.cooldownTracker?.setCooldown(this, 20)
         }
 
     }

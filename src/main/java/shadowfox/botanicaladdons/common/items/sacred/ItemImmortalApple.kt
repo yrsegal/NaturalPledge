@@ -18,6 +18,6 @@ class ItemImmortalApple(name: String) : ItemModFood(name, 4, 1.2f, false){
         setAlwaysEdible()
     }
 
-    override fun getRarity(stack: ItemStack) = BotaniaAPI.rarityRelic
+    override fun getRarity(stack: ItemStack) = BotaniaAPI.rarityRelic!!
 
 }

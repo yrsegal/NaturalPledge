@@ -41,11 +41,51 @@ import java.util.regex.Pattern
  * Created at 7:45 PM on 1/16/17.
  */
 class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemColorProvider {
+
+    override fun getBinding(stack: ItemStack): BlockPos? {
+        val x = ItemNBTHelper.getInt(stack, TAG_X, 0)
+        val y = ItemNBTHelper.getInt(stack, TAG_Y, Int.MIN_VALUE)
+        val z = ItemNBTHelper.getInt(stack, TAG_Z, 0)
+        return if (y == Int.MIN_VALUE) null else BlockPos(x, y, z)
+    }
+
+    override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+        val stack = player.getHeldItem(hand)
+        if (player.isSneaking && world.getBlockState(pos).block is BlockCorporeaResonator) {
+            if (world.isRemote) {
+                player.swingArm(hand)
+                for (i in 0..9) {
+                    val x1 = (pos.x + Math.random()).toFloat()
+                    val y1 = (pos.y + 1).toFloat()
+                    val z1 = (pos.z + Math.random()).toFloat()
+                    Botania.proxy.wispFX(x1.toDouble(), y1.toDouble(), z1.toDouble(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat() * 0.5f, -0.05f + Math.random().toFloat() * 0.05f)
+                }
+                return EnumActionResult.SUCCESS
+            } else {
+                ItemNBTHelper.setInt(stack, TAG_X, pos.x)
+                ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
+                ItemNBTHelper.setInt(stack, TAG_Z, pos.z)
+                ItemNBTHelper.setInt(stack, TAG_DIM, world.provider.dimension)
+                world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
+                return EnumActionResult.SUCCESS
+            }
+        }
+
+        return EnumActionResult.PASS
+    }
+
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { _, i ->
+            if (i == 1)
+                BotanicalAddons.PROXY.rainbow(0.25f).rgb
+            else 0xFFFFFF
+        }
+
     companion object : ICorporeaAutoCompleteController {
-        val TAG_X = "x"
-        val TAG_Y = "y"
-        val TAG_Z = "z"
-        val TAG_DIM = "dim"
+        private const val TAG_X = "x"
+        private const val TAG_Y = "y"
+        private const val TAG_Z = "z"
+        private const val TAG_DIM = "dim"
 
         init {
             MinecraftForge.EVENT_BUS.register(this)
@@ -124,7 +164,7 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
             return LibrarianLib.PROXY.getClientPlayer().heldItemMainhand?.item is ItemCorporeaFocus
         }
 
-        fun getBinding(stack: ItemStack, world: World): BlockPos? {
+        private fun getBinding(stack: ItemStack, world: World): BlockPos? {
             val dim = ItemNBTHelper.getInt(stack, TAG_DIM, 0)
             if (dim != world.provider.dimension) return null
             val x = ItemNBTHelper.getInt(stack, TAG_X, 0)
@@ -134,42 +174,5 @@ class ItemCorporeaFocus(name: String) : ItemMod(name), ICoordBoundItem, IItemCol
         }
     }
 
-    override fun getBinding(stack: ItemStack): BlockPos? {
-        val x = ItemNBTHelper.getInt(stack, TAG_X, 0)
-        val y = ItemNBTHelper.getInt(stack, TAG_Y, Int.MIN_VALUE)
-        val z = ItemNBTHelper.getInt(stack, TAG_Z, 0)
-        return if (y == Int.MIN_VALUE) null else BlockPos(x, y, z)
-    }
 
-    override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
-        val stack = player.getHeldItem(hand)
-        if (player.isSneaking && world.getBlockState(pos).block is BlockCorporeaResonator) {
-            if (world.isRemote) {
-                player.swingArm(hand)
-                for (i in 0..9) {
-                    val x1 = (pos.x + Math.random()).toFloat()
-                    val y1 = (pos.y + 1).toFloat()
-                    val z1 = (pos.z + Math.random()).toFloat()
-                    Botania.proxy.wispFX(x1.toDouble(), y1.toDouble(), z1.toDouble(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat() * 0.5f, -0.05f + Math.random().toFloat() * 0.05f)
-                }
-                return EnumActionResult.SUCCESS
-            } else {
-                ItemNBTHelper.setInt(stack, TAG_X, pos.x)
-                ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
-                ItemNBTHelper.setInt(stack, TAG_Z, pos.z)
-                ItemNBTHelper.setInt(stack, TAG_DIM, world.provider.dimension)
-                world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
-                return EnumActionResult.SUCCESS
-            }
-        }
-
-        return EnumActionResult.PASS
-    }
-
-    override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { _, i ->
-            if (i == 1)
-                BotanicalAddons.PROXY.rainbow(0.25f).rgb
-            else 0xFFFFFF
-        }
 }

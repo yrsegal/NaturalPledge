@@ -3,6 +3,7 @@ package shadowfox.botanicaladdons.common.items.travel.bauble
 import baubles.api.BaubleType
 import com.mojang.authlib.GameProfile
 import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
+import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
@@ -53,18 +54,21 @@ class ItemFoodBelt(name: String) : ItemBaseBauble(name), IBaubleRender {
                 val food = player.inventory.getStackInSlot(i) ?: continue
                 if (isEdible(food, player)
                         || (food.item == ModItems.infiniteFruit && ManaItemHandler.requestManaExact(food, player, 500, false)))
-                    foods.put(i, food)
+                    foods[i] = food
             }
 
             val food = foods.entries.sortedByDescending {
-                if (it.value.item is ItemFood) (it.value.item as ItemFood).getSaturationModifier(it.value) * (it.value.item as ItemFood).getHealAmount(it.value)
-                else if (it.value.item == ModItems.infiniteFruit) Float.MAX_VALUE
-                else 0f
+                when {
+                    it.value.item is ItemFood -> (it.value.item as ItemFood).getSaturationModifier(it.value) * (it.value.item as ItemFood).getHealAmount(it.value)
+                    it.value.item == ModItems.infiniteFruit -> Float.MAX_VALUE
+                    else -> 0f
+                }
             }.firstOrNull() ?: return
 
             if (food.value.item is ItemFood) {
                 var newFood = food.value.onItemUseFinish(player.world, player)
-                if (newFood != null && newFood.count <= 0)
+                // Not sure if this is needed anymore
+                if (newFood.isNotEmpty && newFood.count <= 0)
                     newFood = ItemStack.EMPTY
                 player.inventory.setInventorySlotContents(food.key, newFood)
             } else if (food.value.item == ModItems.infiniteFruit) {

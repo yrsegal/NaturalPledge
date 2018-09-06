@@ -31,9 +31,7 @@ class ItemSealerArrow(name: String) : ItemModArrow(name){
         return if (shooter == null) EntitySealedArrow(worldIn, position.x, position.y, position.z) else EntitySealedArrow(worldIn, shooter)
     }
 
-    override fun getRarity(stack: ItemStack): EnumRarity? {
-        return BotaniaAPI.rarityRelic
-    }
+    override fun getRarity(stack: ItemStack) = BotaniaAPI.rarityRelic!!
 
     override fun isInfinite(stack: ItemStack, bow: ItemStack, player: EntityPlayer) = false
 
