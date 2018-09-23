@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "botanicaladdons:spell/soul_manifestation"
+		"layer0": "naturalpledge:spell/soul_manifestation"
 	}
 }

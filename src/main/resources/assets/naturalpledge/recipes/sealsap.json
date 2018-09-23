@@ -11,7 +11,7 @@
 			"data": 0
 		},
 		"S": {
-			"item": "botanicaladdons:iris_sapling"
+			"item": "naturalpledge:iris_sapling"
 		},
 		"R": {
 			"type": "forge:ore_dict",
@@ -19,7 +19,7 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:seal_sapling"
+		"item": "naturalpledge:seal_sapling"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

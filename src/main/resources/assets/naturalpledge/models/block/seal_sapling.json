@@ -1,6 +1,6 @@
 {
   "parent": "block/cross",
   "textures": {
-    "cross": "botanicaladdons:block/sealing_sapling"
+    "cross": "naturalpledge:block/sealing_sapling"
   }
 }

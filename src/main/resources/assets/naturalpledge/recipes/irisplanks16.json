@@ -2,12 +2,12 @@
 	"type": "forge:ore_shapeless",
 	"ingredients": [
 		{
-			"item": "botanicaladdons:rainbow_log"
+			"item": "naturalpledge:rainbow_log"
 		}
 	],
 	"result": {
-		"item": "botanicaladdons:rainbow_planks",
+		"item": "naturalpledge:rainbow_planks",
 		"count": 4
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

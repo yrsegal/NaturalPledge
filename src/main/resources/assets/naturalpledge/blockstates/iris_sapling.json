@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"normal": {
-			"model": "botanicaladdons:iris_sapling"
+			"model": "naturalpledge:iris_sapling"
 		}
 	}
 }

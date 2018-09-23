@@ -1,8 +1,8 @@
 {
     "variants": {
-        "axis=y": { "model": "botanicaladdons:seal_log" },
-        "axis=z": { "model": "botanicaladdons:seal_log", "x": 90 },
-        "axis=x": { "model": "botanicaladdons:seal_log", "x": 90, "y": 90 },
-        "axis=none": { "model": "botanicaladdons:seal_bark" }
+        "axis=y": { "model": "naturalpledge:seal_log" },
+        "axis=z": { "model": "naturalpledge:seal_log", "x": 90 },
+        "axis=x": { "model": "naturalpledge:seal_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "naturalpledge:seal_bark" }
     }
 }

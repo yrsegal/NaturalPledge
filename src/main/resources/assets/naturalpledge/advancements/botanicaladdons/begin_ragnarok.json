@@ -1,19 +1,19 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:spell_icon",
+      "item": "naturalpledge:spell_icon",
       "data": 17
     },
     "title": {
-      "translate": "achievement.botanicaladdons.begin_ragnarok"
+      "translate": "achievement.naturalpledge.begin_ragnarok"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.begin_ragnarok.desc"
+      "translate": "achievement.naturalpledge.begin_ragnarok.desc"
     },
     "hidden": true,
     "frame":"challenge"
   },
-  "parent": "botanicaladdons:botanicaladdons/ragnarok",
+  "parent": "naturalpledge:naturalpledge/ragnarok",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

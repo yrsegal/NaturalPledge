@@ -1,25 +1,25 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:iris_dye",
+      "item": "naturalpledge:iris_dye",
       "data":16
     },
     "title": {
-      "translate": "achievement.botanicaladdons.iridescence"
+      "translate": "achievement.naturalpledge.iridescence"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.iridescence.desc"
+      "translate": "achievement.naturalpledge.iridescence.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/focus",
+  "parent": "naturalpledge:naturalpledge/focus",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botanicaladdons:iris_dye",
+            "item": "naturalpledge:iris_dye",
             "data":16
           }
         ]

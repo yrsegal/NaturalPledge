@@ -1,6 +1,6 @@
 {
-  "parent": "botanicaladdons:item/_standard_item",
+  "parent": "naturalpledge:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:items/star"
+    "layer0": "naturalpledge:items/star"
   }
 }

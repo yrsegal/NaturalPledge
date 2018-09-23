@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "botanicaladdons:block/lightning_wood_side"
+    "all": "naturalpledge:block/lightning_wood_side"
   }
 }

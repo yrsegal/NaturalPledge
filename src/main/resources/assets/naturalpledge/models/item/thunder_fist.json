@@ -1,5 +1,5 @@
 {
-    "parent": "botanicaladdons:item/thunder_fist_base",
+    "parent": "naturalpledge:item/thunder_fist_base",
     "display": {
         "thirdperson_righthand": {
             "rotation": [ 0, 0, -90 ],
@@ -39,19 +39,19 @@
     },
     "overrides": [{
         "predicate": {
-            "botanicaladdons:wire": 1,
+            "naturalpledge:wire": 1,
             "blocking": 1
         },
-        "model": "botanicaladdons:item/thunder_fist_wire_blocking"
+        "model": "naturalpledge:item/thunder_fist_wire_blocking"
     }, {
         "predicate": {
-            "botanicaladdons:wire": 1
+            "naturalpledge:wire": 1
         },
-        "model": "botanicaladdons:item/thunder_fist_wire"
+        "model": "naturalpledge:item/thunder_fist_wire"
     }, {
         "predicate": {
             "blocking": 1
         },
-        "model": "botanicaladdons:item/thunder_fist_blocking"
+        "model": "naturalpledge:item/thunder_fist_blocking"
     }]
 }

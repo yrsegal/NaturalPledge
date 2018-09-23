@@ -1,8 +1,8 @@
 {
     "variants": {
-        "axis=y": { "model": "botanicaladdons:circuit_log" },
-        "axis=z": { "model": "botanicaladdons:circuit_log", "x": 90 },
-        "axis=x": { "model": "botanicaladdons:circuit_log", "x": 90, "y": 90 },
-        "axis=none": { "model": "botanicaladdons:circuit_bark" }
+        "axis=y": { "model": "naturalpledge:circuit_log" },
+        "axis=z": { "model": "naturalpledge:circuit_log", "x": 90 },
+        "axis=x": { "model": "naturalpledge:circuit_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "naturalpledge:circuit_bark" }
     }
 }

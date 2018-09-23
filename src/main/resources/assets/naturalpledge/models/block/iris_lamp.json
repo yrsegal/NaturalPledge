@@ -1,8 +1,8 @@
 {
   "parent": "block/block",
   "textures": {
-    "all": "botanicaladdons:block/iris_lamp",
-    "particle": "botanicaladdons:block/iris_lamp"
+    "all": "naturalpledge:block/iris_lamp",
+    "particle": "naturalpledge:block/iris_lamp"
   },
   "elements": [
     {   

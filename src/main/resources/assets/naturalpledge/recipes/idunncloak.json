@@ -20,8 +20,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:divine_cloak",
+		"item": "naturalpledge:divine_cloak",
 		"data": 1
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

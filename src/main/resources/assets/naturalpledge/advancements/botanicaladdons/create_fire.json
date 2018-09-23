@@ -1,25 +1,25 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:resource",
+      "item": "naturalpledge:resource",
       "data":7
     },
     "title": {
-      "translate": "achievement.botanicaladdons.create_fire"
+      "translate": "achievement.naturalpledge.create_fire"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.create_fire.desc"
+      "translate": "achievement.naturalpledge.create_fire.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/focus",
+  "parent": "naturalpledge:naturalpledge/focus",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botanicaladdons:resource",
+            "item": "naturalpledge:resource",
             "data":7
           }
         ]

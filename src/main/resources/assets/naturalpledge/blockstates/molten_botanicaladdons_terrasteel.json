@@ -3,7 +3,7 @@
   "defaults": {
     "model": "forge:fluid",
     "custom": {
-      "fluid": "botanicaladdons_terrasteel"
+      "fluid": "naturalpledge_terrasteel"
     }
   },
   "variants": {

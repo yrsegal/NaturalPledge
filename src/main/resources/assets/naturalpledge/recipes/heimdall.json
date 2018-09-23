@@ -27,8 +27,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:priest_emblem",
+		"item": "naturalpledge:priest_emblem",
 		"data": 3
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

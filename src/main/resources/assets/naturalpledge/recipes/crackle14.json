@@ -20,9 +20,9 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:crackling_star",
+		"item": "naturalpledge:crackling_star",
 		"count": 10,
 		"nbt": "{color:10040115}"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

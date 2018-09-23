@@ -1,5 +1,5 @@
 {
-  "parent": "botanicaladdons:item/thunder_fist_wire",
+  "parent": "naturalpledge:item/thunder_fist_wire",
   "display": {
     "firstperson_righthand": {
       "rotation": [ 35, 45, -50 ],

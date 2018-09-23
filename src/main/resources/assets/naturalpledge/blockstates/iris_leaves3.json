@@ -1,16 +1,16 @@
 {
 	"variants": {
 		"color=brown": {
-			"model": "botanicaladdons:iris_leaves"
+			"model": "naturalpledge:iris_leaves"
 		},
 		"color=green": {
-			"model": "botanicaladdons:iris_leaves"
+			"model": "naturalpledge:iris_leaves"
 		},
 		"color=red": {
-			"model": "botanicaladdons:iris_leaves"
+			"model": "naturalpledge:iris_leaves"
 		},
 		"color=black": {
-			"model": "botanicaladdons:iris_leaves"
+			"model": "naturalpledge:iris_leaves"
 		}
 	}
 }

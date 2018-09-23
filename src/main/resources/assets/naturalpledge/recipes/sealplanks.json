@@ -2,12 +2,12 @@
 	"type": "forge:ore_shapeless",
 	"ingredients": [
 		{
-			"item": "botanicaladdons:seal_log"
+			"item": "naturalpledge:seal_log"
 		}
 	],
 	"result": {
-		"item": "botanicaladdons:seal_planks",
+		"item": "naturalpledge:seal_planks",
 		"count": 4
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

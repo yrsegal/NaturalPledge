@@ -24,8 +24,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:dye_shard",
+		"item": "naturalpledge:dye_shard",
 		"data": 4
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

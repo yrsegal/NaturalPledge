@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "botanicaladdons:block/circuit_wood"
+    "all": "naturalpledge:block/circuit_wood"
   }
 }

@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-		"all": "botanicaladdons:block/corporea_resonator"
+		"all": "naturalpledge:block/corporea_resonator"
 	}
 }

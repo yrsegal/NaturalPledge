@@ -11,11 +11,11 @@
 			"ore": "obsidian"
 		},
 		"S": {
-			"item": "botanicaladdons:find_stone"
+			"item": "naturalpledge:find_stone"
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:portal_stone"
+		"item": "naturalpledge:portal_stone"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

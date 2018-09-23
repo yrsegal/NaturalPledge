@@ -1,13 +1,13 @@
 {
-  "parent": "botanicaladdons:item/_standard_item",
+  "parent": "naturalpledge:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:items/emblem_heimdall_string",
-    "layer1": "botanicaladdons:items/emblem_heimdall_symbol"
+    "layer0": "naturalpledge:items/emblem_heimdall_string",
+    "layer1": "naturalpledge:items/emblem_heimdall_symbol"
   },
   "overrides" : [{
     "predicate": {
-      "botanicaladdons:pendant": 1
+      "naturalpledge:pendant": 1
     },
-    "model": "botanicaladdons:item/pendant_heimdall"
+    "model": "naturalpledge:item/pendant_heimdall"
   }]
 }

@@ -2,14 +2,14 @@
 	"type": "forge:ore_shapeless",
 	"ingredients": [
 		{
-			"item": "botanicaladdons:iris_log2",
+			"item": "naturalpledge:iris_log2",
 			"data": 0
 		}
 	],
 	"result": {
-		"item": "botanicaladdons:iris_planks",
+		"item": "naturalpledge:iris_planks",
 		"data": 8,
 		"count": 4
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

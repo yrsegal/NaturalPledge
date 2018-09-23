@@ -1,6 +1,6 @@
 {
   "parent": "block/leaves",
   "textures": {
-    "all": "botanicaladdons:block/alt_leaves_scorched"
+    "all": "naturalpledge:block/alt_leaves_scorched"
   }
 }

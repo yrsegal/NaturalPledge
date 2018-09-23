@@ -1,17 +1,17 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:spell_focus"
+      "item": "naturalpledge:spell_focus"
     },
     "title": {
-      "translate": "achievement.botanicaladdons.focus"
+      "translate": "achievement.naturalpledge.focus"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.focus.desc"
+      "translate": "achievement.naturalpledge.focus.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/root",
+  "parent": "naturalpledge:naturalpledge/root",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

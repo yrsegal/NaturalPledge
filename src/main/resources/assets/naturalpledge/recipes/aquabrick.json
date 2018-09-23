@@ -12,8 +12,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:storage",
+		"item": "naturalpledge:storage",
 		"data": 1
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

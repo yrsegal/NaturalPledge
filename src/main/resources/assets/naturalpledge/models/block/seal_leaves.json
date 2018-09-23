@@ -1,6 +1,6 @@
 {
     "parent": "block/leaves",
     "textures": {
-        "all": "botanicaladdons:block/sealing_leaves"
+        "all": "naturalpledge:block/sealing_leaves"
     }
 }

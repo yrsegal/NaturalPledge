@@ -5,12 +5,12 @@
 	],
 	"key": {
 		"W": {
-			"item": "botanicaladdons:aurora_log"
+			"item": "naturalpledge:aurora_log"
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:aurora_planks",
+		"item": "naturalpledge:aurora_planks",
 		"count": 4
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

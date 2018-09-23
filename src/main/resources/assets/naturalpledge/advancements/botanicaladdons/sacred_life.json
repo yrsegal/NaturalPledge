@@ -1,24 +1,24 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:apple_immortality"
+      "item": "naturalpledge:apple_immortality"
     },
     "title": {
-      "translate": "achievement.botanicaladdons.sacred_life"
+      "translate": "achievement.naturalpledge.sacred_life"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.sacred_life.desc"
+      "translate": "achievement.naturalpledge.sacred_life.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "parent": "naturalpledge:naturalpledge/awakening",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botanicaladdons:apple_immortality"
+            "item": "naturalpledge:apple_immortality"
           }
         ]
       }

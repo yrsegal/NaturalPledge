@@ -1,16 +1,16 @@
 {
 	"variants": {
 		"type=dry": {
-			"model": "botanicaladdons:alt_leaves_dry"
+			"model": "naturalpledge:alt_leaves_dry"
 		},
 		"type=golden": {
-			"model": "botanicaladdons:alt_leaves_golden"
+			"model": "naturalpledge:alt_leaves_golden"
 		},
 		"type=vivid": {
-			"model": "botanicaladdons:alt_leaves_vivid"
+			"model": "naturalpledge:alt_leaves_vivid"
 		},
 		"type=scorched": {
-			"model": "botanicaladdons:alt_leaves_scorched"
+			"model": "naturalpledge:alt_leaves_scorched"
 		}
 	}
 }

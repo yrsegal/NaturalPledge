@@ -1,12 +1,12 @@
 {
-  "parent": "botanicaladdons:item/_standard_item",
+  "parent": "naturalpledge:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:items/emblem_thor"
+    "layer0": "naturalpledge:items/emblem_thor"
   },
   "overrides" : [{
     "predicate": {
-      "botanicaladdons:pendant": 1
+      "naturalpledge:pendant": 1
     },
-    "model": "botanicaladdons:item/pendant_thor"
+    "model": "naturalpledge:item/pendant_thor"
   }]
 }

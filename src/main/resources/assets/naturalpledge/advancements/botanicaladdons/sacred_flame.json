@@ -1,24 +1,24 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:perdition_fist"
+      "item": "naturalpledge:perdition_fist"
     },
     "title": {
-      "translate": "achievement.botanicaladdons.sacred_flame"
+      "translate": "achievement.naturalpledge.sacred_flame"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.sacred_flame.desc"
+      "translate": "achievement.naturalpledge.sacred_flame.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "parent": "naturalpledge:naturalpledge/awakening",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botanicaladdons:perdition_fist"
+            "item": "naturalpledge:perdition_fist"
           }
         ]
       }

@@ -2,7 +2,7 @@
 	"type": "forge:ore_shapeless",
 	"ingredients": [
 		{
-			"item": "botanicaladdons:find_stone"
+			"item": "naturalpledge:find_stone"
 		},
 		{
 			"item": "botania:corporeaspark",
@@ -10,7 +10,7 @@
 		}
 	],
 	"result": {
-		"item": "botanicaladdons:corporea_focus"
+		"item": "naturalpledge:corporea_focus"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

@@ -11,15 +11,15 @@
 			"ore": "hearthstone"
 		},
 		"M": {
-			"item": "botanicaladdons:mortal_stone"
+			"item": "naturalpledge:mortal_stone"
 		},
 		"P": {
 			"item": "botania:phantomink"
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:wrath_trap",
+		"item": "naturalpledge:wrath_trap",
 		"count": 16
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

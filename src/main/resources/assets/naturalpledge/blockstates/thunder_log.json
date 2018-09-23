@@ -1,8 +1,8 @@
 {
     "variants": {
-        "axis=y": { "model": "botanicaladdons:thunder_log" },
-        "axis=z": { "model": "botanicaladdons:thunder_log", "x": 90 },
-        "axis=x": { "model": "botanicaladdons:thunder_log", "x": 90, "y": 90 },
-        "axis=none": { "model": "botanicaladdons:thunder_bark" }
+        "axis=y": { "model": "naturalpledge:thunder_log" },
+        "axis=z": { "model": "naturalpledge:thunder_log", "x": 90 },
+        "axis=x": { "model": "naturalpledge:thunder_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "naturalpledge:thunder_bark" }
     }
 }

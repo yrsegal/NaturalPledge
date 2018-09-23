@@ -1,7 +1,7 @@
 {
-	"parent": "botanicaladdons:item/_standard_item",
+	"parent": "naturalpledge:item/_standard_item",
 	"textures": {
-		"layer0": "botanicaladdons:items/base_stone",
-		"layer1": "botanicaladdons:items/nauthiz"
+		"layer0": "naturalpledge:items/base_stone",
+		"layer1": "naturalpledge:items/nauthiz"
 	}
 }

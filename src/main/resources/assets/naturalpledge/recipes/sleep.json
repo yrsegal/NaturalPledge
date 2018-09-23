@@ -10,7 +10,7 @@
 			"data": 32767
 		},
 		"S": {
-			"item": "botanicaladdons:travel_stone"
+			"item": "naturalpledge:travel_stone"
 		},
 		"W": {
 			"item": "minecraft:wool",
@@ -18,7 +18,7 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:sleep_stone"
+		"item": "naturalpledge:sleep_stone"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

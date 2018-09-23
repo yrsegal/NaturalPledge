@@ -1,7 +1,7 @@
 {
 "__comment": "Designed by Tristaric with BDcraft Cubik PRO 0.96 Beta - http://bdcraft.net",
 "textures": {
-    "texture": "botanicaladdons:items/headdress"
+    "texture": "naturalpledge:items/headdress"
 },
 "elements": [
 {

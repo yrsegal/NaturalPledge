@@ -2,7 +2,7 @@
 	"type": "forge:ore_shapeless",
 	"ingredients": [
 		{
-			"item": "botanicaladdons:find_stone"
+			"item": "naturalpledge:find_stone"
 		},
 		{
 			"type": "forge:ore_dict",
@@ -10,7 +10,7 @@
 		}
 	],
 	"result": {
-		"item": "botanicaladdons:death_stone"
+		"item": "naturalpledge:death_stone"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

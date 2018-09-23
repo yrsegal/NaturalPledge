@@ -1,9 +1,9 @@
 {
 	"variants": {
-		"facing=down": { "model": "botanicaladdons:funnel_down" },
-		"facing=north": { "model": "botanicaladdons:funnel_side" },
-		"facing=south": { "model": "botanicaladdons:funnel_side", "y": 180 },
-		"facing=west": { "model": "botanicaladdons:funnel_side", "y": 270 },
-		"facing=east": { "model": "botanicaladdons:funnel_side", "y": 90 }
+		"facing=down": { "model": "naturalpledge:funnel_down" },
+		"facing=north": { "model": "naturalpledge:funnel_side" },
+		"facing=south": { "model": "naturalpledge:funnel_side", "y": 180 },
+		"facing=west": { "model": "naturalpledge:funnel_side", "y": 270 },
+		"facing=east": { "model": "naturalpledge:funnel_side", "y": 90 }
 	}
 }

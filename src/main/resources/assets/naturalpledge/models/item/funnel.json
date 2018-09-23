@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botanicaladdons:items/funnel"
+    "layer0": "naturalpledge:items/funnel"
   }
 }

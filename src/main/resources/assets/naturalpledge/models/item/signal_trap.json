@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "botanicaladdons:items/signal_trap"
+		"layer0": "naturalpledge:items/signal_trap"
 	}
 }

@@ -7,9 +7,9 @@
 		}
 	],
 	"result": {
-		"item": "botanicaladdons:resource",
+		"item": "naturalpledge:resource",
 		"data": 6,
 		"count": 9
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

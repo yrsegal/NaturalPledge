@@ -1,13 +1,13 @@
 {
-	"parent": "botanicaladdons:item/_standard_item",
+	"parent": "naturalpledge:item/_standard_item",
 	"textures": {
-		"layer0": "botanicaladdons:items/ragnarok_emblem",
-		"layer1": "botanicaladdons:items/ragnarok_emblem_overlay"
+		"layer0": "naturalpledge:items/ragnarok_emblem",
+		"layer1": "naturalpledge:items/ragnarok_emblem_overlay"
 	},
 	"overrides" : [{
 		"predicate": {
-			"botanicaladdons:pendant": 1
+			"naturalpledge:pendant": 1
 		},
-		"model": "botanicaladdons:item/pendant_ragnarok"
+		"model": "naturalpledge:item/pendant_ragnarok"
 	}]
 }

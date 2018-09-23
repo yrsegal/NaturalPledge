@@ -14,7 +14,7 @@
 			"item": "minecraft:comparator"
 		},
 		"S": {
-			"item": "botanicaladdons:iris_sapling"
+			"item": "naturalpledge:iris_sapling"
 		},
 		"R": {
 			"type": "forge:ore_dict",
@@ -22,7 +22,7 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:circuit_sapling"
+		"item": "naturalpledge:circuit_sapling"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"normal": {
-			"model": "botanicaladdons:calico_leaves"
+			"model": "naturalpledge:calico_leaves"
 		}
 	}
 }

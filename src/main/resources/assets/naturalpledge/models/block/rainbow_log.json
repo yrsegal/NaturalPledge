@@ -1,9 +1,9 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "botanicaladdons:block/rainbow_log_side",
-        "side": "botanicaladdons:block/rainbow_log_side",
-        "top": "botanicaladdons:block/rainbow_log_top"
+        "particle": "naturalpledge:block/rainbow_log_side",
+        "side": "naturalpledge:block/rainbow_log_side",
+        "top": "naturalpledge:block/rainbow_log_top"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

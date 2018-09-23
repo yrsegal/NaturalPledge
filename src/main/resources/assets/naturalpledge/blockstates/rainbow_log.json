@@ -1,8 +1,8 @@
 {
     "variants": {
-        "axis=y": { "model": "botanicaladdons:rainbow_log" },
-        "axis=z": { "model": "botanicaladdons:rainbow_log", "x": 90 },
-        "axis=x": { "model": "botanicaladdons:rainbow_log", "x": 90, "y": 90 },
-        "axis=none": { "model": "botanicaladdons:rainbow_bark" }
+        "axis=y": { "model": "naturalpledge:rainbow_log" },
+        "axis=z": { "model": "naturalpledge:rainbow_log", "x": 90 },
+        "axis=x": { "model": "naturalpledge:rainbow_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "naturalpledge:rainbow_bark" }
     }
 }

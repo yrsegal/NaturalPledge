@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:holy_symbol"
+      "item": "naturalpledge:holy_symbol"
     },
     "title": {
-      "translate": "achievement.botanicaladdons.don_emblem"
+      "translate": "achievement.naturalpledge.don_emblem"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.don_emblem.desc"
+      "translate": "achievement.naturalpledge.don_emblem.desc"
     },
     "background":   "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "show_toast": true,

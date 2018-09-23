@@ -20,9 +20,9 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:star",
+		"item": "naturalpledge:star",
 		"count": 5,
 		"nbt": "{color:15066419}"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

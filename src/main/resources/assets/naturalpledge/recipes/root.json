@@ -18,8 +18,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:root_trap",
+		"item": "naturalpledge:root_trap",
 		"count": 16
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

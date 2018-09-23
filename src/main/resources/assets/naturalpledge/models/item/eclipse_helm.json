@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "botanicaladdons:items/eclipse_helmet"
+		"layer0": "naturalpledge:items/eclipse_helmet"
 	}
 }

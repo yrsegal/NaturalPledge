@@ -18,8 +18,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:inferno_trap",
+		"item": "naturalpledge:inferno_trap",
 		"count": 16
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

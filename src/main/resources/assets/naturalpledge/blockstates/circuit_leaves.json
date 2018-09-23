@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"normal": {
-			"model": "botanicaladdons:circuit_leaves"
+			"model": "naturalpledge:circuit_leaves"
 		}
 	}
 }

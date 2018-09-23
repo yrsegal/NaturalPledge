@@ -2,12 +2,12 @@
 	"type": "forge:ore_shapeless",
 	"ingredients": [
 		{
-			"item": "botanicaladdons:circuit_log"
+			"item": "naturalpledge:circuit_log"
 		}
 	],
 	"result": {
-		"item": "botanicaladdons:circuit_planks",
+		"item": "naturalpledge:circuit_planks",
 		"count": 4
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

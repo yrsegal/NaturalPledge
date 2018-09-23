@@ -16,7 +16,7 @@
 			"item": "botania:manasteelshovel"
 		},
 		"F": {
-			"item": "botanicaladdons:travel_stone"
+			"item": "naturalpledge:travel_stone"
 		},
 		"A": {
 			"item": "botania:manasteelaxe"
@@ -26,7 +26,7 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:poly_stone"
+		"item": "naturalpledge:poly_stone"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

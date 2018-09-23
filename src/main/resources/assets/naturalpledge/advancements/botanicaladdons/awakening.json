@@ -1,17 +1,17 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:divine_core"
+      "item": "naturalpledge:divine_core"
     },
     "title": {
-      "translate": "achievement.botanicaladdons.awakening"
+      "translate": "achievement.naturalpledge.awakening"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.awakening.desc"
+      "translate": "achievement.naturalpledge.awakening.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/focus",
+  "parent": "naturalpledge:naturalpledge/focus",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

@@ -1,8 +1,8 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "botanicaladdons:block/iris_dirt",
-        "all": "botanicaladdons:block/iris_dirt"
+        "particle": "naturalpledge:block/iris_dirt",
+        "all": "naturalpledge:block/iris_dirt"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

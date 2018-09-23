@@ -1,8 +1,8 @@
 {
 	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
 	"textures": {
-		"texture": "botanicaladdons:items/fenris_claws_layer_0",
-		"glow": "botanicaladdons:items/fenris_claws_layer_1"
+		"texture": "naturalpledge:items/fenris_claws_layer_0",
+		"glow": "naturalpledge:items/fenris_claws_layer_1"
 	},
 	"elements": [
 		{
@@ -83,6 +83,6 @@
 		"predicate": {
 			"blocking": 1
 		},
-		"model": "botanicaladdons:item/nightscourge_blocking"
+		"model": "naturalpledge:item/nightscourge_blocking"
 	}]
 }

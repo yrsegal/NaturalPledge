@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"normal": {
-			"model": "botanicaladdons:seal_planks"
+			"model": "naturalpledge:seal_planks"
 		}
 	}
 }

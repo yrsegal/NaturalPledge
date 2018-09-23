@@ -1,5 +1,5 @@
 {
-    "parent": "botanicaladdons:item/thunder_fist",
+    "parent": "naturalpledge:item/thunder_fist",
     "textures": {
         "inner": "blocks/coal_block",
         "outer": "blocks/coal_block",

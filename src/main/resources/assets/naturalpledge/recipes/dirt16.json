@@ -16,8 +16,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:rainbow_dirt",
+		"item": "naturalpledge:rainbow_dirt",
 		"count": 9
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

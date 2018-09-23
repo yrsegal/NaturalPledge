@@ -1,24 +1,24 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:mjolnir"
+      "item": "naturalpledge:mjolnir"
     },
     "title": {
-      "translate": "achievement.botanicaladdons.sacred_thunder"
+      "translate": "achievement.naturalpledge.sacred_thunder"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.sacred_thunder.desc"
+      "translate": "achievement.naturalpledge.sacred_thunder.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "parent": "naturalpledge:naturalpledge/awakening",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botanicaladdons:mjolnir"
+            "item": "naturalpledge:mjolnir"
           }
         ]
       }

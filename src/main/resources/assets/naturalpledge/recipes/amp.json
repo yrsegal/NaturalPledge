@@ -10,11 +10,11 @@
 			"item": "minecraft:noteblock"
 		},
 		"R": {
-			"item": "botanicaladdons:seal_planks"
+			"item": "naturalpledge:seal_planks"
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:amp"
+		"item": "naturalpledge:amp"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

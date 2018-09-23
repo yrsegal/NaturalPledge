@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "botanicaladdons:items/cloak_loki"
+		"layer0": "naturalpledge:items/cloak_loki"
 	}
 }

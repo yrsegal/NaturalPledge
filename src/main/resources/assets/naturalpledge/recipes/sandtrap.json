@@ -19,8 +19,8 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:sand_trap",
+		"item": "naturalpledge:sand_trap",
 		"count": 16
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

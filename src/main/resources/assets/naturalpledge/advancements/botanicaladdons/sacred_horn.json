@@ -1,24 +1,24 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:fate_horn"
+      "item": "naturalpledge:fate_horn"
     },
     "title": {
-      "translate": "achievement.botanicaladdons.sacred_horn"
+      "translate": "achievement.naturalpledge.sacred_horn"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.sacred_horn.desc"
+      "translate": "achievement.naturalpledge.sacred_horn.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/awakening",
+  "parent": "naturalpledge:naturalpledge/awakening",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botanicaladdons:fate_horn"
+            "item": "naturalpledge:fate_horn"
           }
         ]
       }

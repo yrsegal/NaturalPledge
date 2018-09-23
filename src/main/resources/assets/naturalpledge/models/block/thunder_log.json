@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "botanicaladdons:block/lightning_wood_top",
-    "side": "botanicaladdons:block/lightning_wood_side"
+    "end": "naturalpledge:block/lightning_wood_top",
+    "side": "naturalpledge:block/lightning_wood_side"
   }
 }

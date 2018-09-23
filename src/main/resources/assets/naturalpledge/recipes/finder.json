@@ -19,7 +19,7 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:find_stone"
+		"item": "naturalpledge:find_stone"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

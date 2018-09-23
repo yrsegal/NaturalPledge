@@ -1,25 +1,25 @@
 {
   "display": {
     "icon": {
-      "item": "botanicaladdons:resource",
+      "item": "naturalpledge:resource",
       "data":0
     },
     "title": {
-      "translate": "achievement.botanicaladdons.create_thunder"
+      "translate": "achievement.naturalpledge.create_thunder"
     },
     "description": {
-      "translate": "achievement.botanicaladdons.create_thunder.desc"
+      "translate": "achievement.naturalpledge.create_thunder.desc"
     },
     "hidden": false
   },
-  "parent": "botanicaladdons:botanicaladdons/focus",
+  "parent": "naturalpledge:naturalpledge/focus",
   "criteria": {
     "getSymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botanicaladdons:resource",
+            "item": "naturalpledge:resource",
             "data":0
           }
         ]

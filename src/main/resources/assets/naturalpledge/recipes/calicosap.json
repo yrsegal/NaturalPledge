@@ -15,7 +15,7 @@
 			"ore": "dyeBlack"
 		},
 		"S": {
-			"item": "botanicaladdons:iris_sapling"
+			"item": "naturalpledge:iris_sapling"
 		},
 		"R": {
 			"type": "forge:ore_dict",
@@ -23,7 +23,7 @@
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:calico_sapling"
+		"item": "naturalpledge:calico_sapling"
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

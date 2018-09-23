@@ -1,12 +1,12 @@
 {
-  "parent": "botanicaladdons:item/_standard_item",
+  "parent": "naturalpledge:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:items/holy_symbol"
+    "layer0": "naturalpledge:items/holy_symbol"
   },
   "overrides" : [{
     "predicate": {
-      "botanicaladdons:pendant": 1
+      "naturalpledge:pendant": 1
     },
-    "model": "botanicaladdons:item/pendant_holy"
+    "model": "naturalpledge:item/pendant_holy"
   }]
 }

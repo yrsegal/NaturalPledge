@@ -6,12 +6,12 @@
 	],
 	"key": {
 		"G": {
-			"item": "botanicaladdons:aqua_glass"
+			"item": "naturalpledge:aqua_glass"
 		}
 	},
 	"result": {
-		"item": "botanicaladdons:aqua_pane",
+		"item": "naturalpledge:aqua_pane",
 		"count": 16
 	},
-	"group": "botanicaladdons"
+	"group": "naturalpledge"
 }

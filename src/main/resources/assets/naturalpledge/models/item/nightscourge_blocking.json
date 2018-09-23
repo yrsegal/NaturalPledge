@@ -1,5 +1,5 @@
 {
-	"parent": "botanicaladdons:item/nightscourge",
+	"parent": "naturalpledge:item/nightscourge",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation":  [ 90, 0, -23 ],

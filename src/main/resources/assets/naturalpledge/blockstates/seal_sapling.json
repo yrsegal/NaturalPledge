@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"normal": {
-			"model": "botanicaladdons:seal_sapling"
+			"model": "naturalpledge:seal_sapling"
 		}
 	}
 }

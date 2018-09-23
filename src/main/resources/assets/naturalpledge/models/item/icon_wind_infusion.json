@@ -1,6 +1,6 @@
 {
-  "parent": "botanicaladdons:item/_standard_item",
+  "parent": "naturalpledge:item/_standard_item",
   "textures": {
-    "layer0": "botanicaladdons:spell/wind_infusion"
+    "layer0": "naturalpledge:spell/wind_infusion"
   }
 }
