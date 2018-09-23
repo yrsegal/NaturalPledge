@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"OOO",
+		"OSO",
+		"OOO"
+	],
+	"key": {
+		"O": {
+			"type": "forge:ore_dict",
+			"ore": "obsidian"
+		},
+		"S": {
+			"item": "botanicaladdons:find_stone"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:portal_stone"
+	},
+	"group": "botanicaladdons"
+}

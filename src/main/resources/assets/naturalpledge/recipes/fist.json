@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"TDT",
+		"TT "
+	],
+	"key": {
+		"T": {
+			"type": "forge:ore_dict",
+			"ore": "ingotThundersteel"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "manaDiamond"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:thunder_fist"
+	},
+	"group": "botanicaladdons"
+}

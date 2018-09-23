@@ -1,0 +1,24 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"SPS",
+		"HHH"
+	],
+	"key": {
+		"H": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "slimeball"
+		},
+		"P": {
+			"item": "botania:phantomink"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:launch_trap"
+	},
+	"group": "botanicaladdons"
+}

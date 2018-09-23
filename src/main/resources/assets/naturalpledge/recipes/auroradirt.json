@@ -1,0 +1,23 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"DDD",
+		"DMD",
+		"DDD"
+	],
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dirt"
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "manaPearl"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:aurora_dirt",
+		"count": 9
+	},
+	"group": "botanicaladdons"
+}

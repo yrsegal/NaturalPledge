@@ -1,0 +1,19 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"TTT",
+		"TTT",
+		"TTT"
+	],
+	"key": {
+		"T": {
+			"type": "forge:ore_dict",
+			"ore": "ingotThundersteel"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:storage",
+		"data": 0
+	},
+	"group": "botanicaladdons"
+}

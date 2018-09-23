@@ -1,0 +1,15 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "botanicaladdons:iris_log2",
+			"data": 1
+		}
+	],
+	"result": {
+		"item": "botanicaladdons:iris_planks",
+		"data": 9,
+		"count": 4
+	},
+	"group": "botanicaladdons"
+}

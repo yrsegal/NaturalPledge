@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "botanicaladdons:calico_log"
+		}
+	],
+	"result": {
+		"item": "botanicaladdons:calico_planks",
+		"count": 4
+	},
+	"group": "botanicaladdons"
+}

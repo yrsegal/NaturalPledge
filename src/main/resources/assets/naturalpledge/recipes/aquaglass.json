@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"AAA",
+		"AGA",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "gemAquamarine"
+		},
+		"G": {
+			"item": "botania:managlass"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:aqua_glass"
+	},
+	"group": "botanicaladdons"
+}

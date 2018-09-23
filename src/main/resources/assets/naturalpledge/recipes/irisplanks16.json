@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "botanicaladdons:rainbow_log"
+		}
+	],
+	"result": {
+		"item": "botanicaladdons:rainbow_planks",
+		"count": 4
+	},
+	"group": "botanicaladdons"
+}

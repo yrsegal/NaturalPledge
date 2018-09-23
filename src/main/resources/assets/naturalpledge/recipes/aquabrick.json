@@ -1,0 +1,19 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"AAA",
+		"AAA",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "gemAquamarine"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:storage",
+		"data": 1
+	},
+	"group": "botanicaladdons"
+}

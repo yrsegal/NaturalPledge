@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "botanicaladdons:find_stone"
+		},
+		{
+			"item": "botania:corporeaspark",
+			"data": 0
+		}
+	],
+	"result": {
+		"item": "botanicaladdons:corporea_focus"
+	},
+	"group": "botanicaladdons"
+}

@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"L L",
+		"LPL",
+		" L "
+	],
+	"key": {
+		"L": {
+			"item": "botania:livingwood",
+			"data": 1
+		},
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "plankCircuit"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:funnel"
+	},
+	"group": "botanicaladdons"
+}

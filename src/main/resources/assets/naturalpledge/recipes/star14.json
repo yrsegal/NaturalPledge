@@ -1,0 +1,28 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" E ",
+		"GDG",
+		" G "
+	],
+	"key": {
+		"E": {
+			"type": "forge:ore_dict",
+			"ore": "bEnderAirBottle"
+		},
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "dustGlowstone"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeRed"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:star",
+		"count": 5,
+		"nbt": "{color:10040115}"
+	},
+	"group": "botanicaladdons"
+}

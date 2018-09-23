@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" G ",
+		"GIG",
+		"GG "
+	],
+	"key": {
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "ingotGold"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeAwakened"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:fate_horn"
+	},
+	"group": "botanicaladdons"
+}

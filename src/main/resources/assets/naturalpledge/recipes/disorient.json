@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"DHH",
+		"DPD",
+		"HHD"
+	],
+	"key": {
+		"H": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "gunpowder"
+		},
+		"P": {
+			"item": "botania:phantomink"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:disorient_trap"
+	},
+	"group": "botanicaladdons"
+}

@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" D ",
+		"DPD",
+		"ODO"
+	],
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "manaDiamond"
+		},
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "manaPearl"
+		},
+		"O": {
+			"type": "forge:ore_dict",
+			"ore": "obsidian"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:spell_focus"
+	},
+	"group": "botanicaladdons"
+}

@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" N ",
+		"NRN",
+		" N "
+	],
+	"key": {
+		"N": {
+			"item": "minecraft:noteblock"
+		},
+		"R": {
+			"item": "botanicaladdons:seal_planks"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:amp"
+	},
+	"group": "botanicaladdons"
+}

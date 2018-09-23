@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"DSD",
+		"SCS",
+		"DSD"
+	],
+	"key": {
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "stone"
+		},
+		"C": {
+			"item": "minecraft:compass"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDye"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:find_stone"
+	},
+	"group": "botanicaladdons"
+}

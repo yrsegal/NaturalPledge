@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"LPL",
+		"HHH"
+	],
+	"key": {
+		"H": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		},
+		"L": {
+			"type": "forge:ore_dict",
+			"ore": "livingwoodTwig"
+		},
+		"P": {
+			"item": "botania:phantomink"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:root_trap",
+		"count": 16
+	},
+	"group": "botanicaladdons"
+}

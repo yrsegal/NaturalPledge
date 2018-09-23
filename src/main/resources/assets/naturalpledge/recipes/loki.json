@@ -1,0 +1,34 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" G ",
+		"PSF",
+		" B "
+	],
+	"key": {
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "powderBlaze"
+		},
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "runePrideB"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "holySymbol"
+		},
+		"F": {
+			"type": "forge:ore_dict",
+			"ore": "runeWrathB"
+		},
+		"B": {
+			"item": "botania:lavapendant"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:priest_emblem",
+		"data": 4
+	},
+	"group": "botanicaladdons"
+}

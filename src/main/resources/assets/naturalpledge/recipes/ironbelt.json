@@ -1,0 +1,30 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"WI ",
+		"I I",
+		"AIE"
+	],
+	"key": {
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "runeWaterB"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotIron"
+		},
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "gemAquamarine"
+		},
+		"E": {
+			"type": "forge:ore_dict",
+			"ore": "runeEarthB"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:iron_belt"
+	},
+	"group": "botanicaladdons"
+}

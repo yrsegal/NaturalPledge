@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "botanicaladdons:seal_log"
+		}
+	],
+	"result": {
+		"item": "botanicaladdons:seal_planks",
+		"count": 4
+	},
+	"group": "botanicaladdons"
+}

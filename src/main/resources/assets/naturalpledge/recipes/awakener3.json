@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" I ",
+		"DGD",
+		" D "
+	],
+	"key": {
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "gemAquamarine"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "manaDiamond"
+		},
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "gaiaIngot"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:divine_core"
+	},
+	"group": "botanicaladdons"
+}

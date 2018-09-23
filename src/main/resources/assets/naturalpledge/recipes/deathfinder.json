@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "botanicaladdons:find_stone"
+		},
+		{
+			"type": "forge:ore_dict",
+			"ore": "bone"
+		}
+	],
+	"result": {
+		"item": "botanicaladdons:death_stone"
+	},
+	"group": "botanicaladdons"
+}

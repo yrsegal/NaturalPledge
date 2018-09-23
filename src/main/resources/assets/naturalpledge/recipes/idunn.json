@@ -1,0 +1,30 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" T ",
+		"ESE",
+		" B "
+	],
+	"key": {
+		"T": {
+			"type": "forge:ore_dict",
+			"ore": "livingwood"
+		},
+		"E": {
+			"type": "forge:ore_dict",
+			"ore": "runeEarthB"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "holySymbol"
+		},
+		"B": {
+			"item": "botania:knockbackbelt"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:priest_emblem",
+		"data": 1
+	},
+	"group": "botanicaladdons"
+}

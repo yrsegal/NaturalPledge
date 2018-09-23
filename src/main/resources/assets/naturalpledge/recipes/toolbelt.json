@@ -1,0 +1,30 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CL ",
+		"L L",
+		"PLD"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "runeSlothB"
+		},
+		"L": {
+			"type": "forge:ore_dict",
+			"ore": "leather"
+		},
+		"C": {
+			"type": "forge:ore_dict",
+			"ore": "chest"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDye"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:toolbelt"
+	},
+	"group": "botanicaladdons"
+}

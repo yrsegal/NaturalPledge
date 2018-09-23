@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"S S",
+		"Q Q",
+		" G "
+	],
+	"key": {
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "manaString"
+		},
+		"Q": {
+			"type": "forge:ore_dict",
+			"ore": "gemQuartz"
+		},
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "ingotGold"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:holy_symbol"
+	},
+	"group": "botanicaladdons"
+}

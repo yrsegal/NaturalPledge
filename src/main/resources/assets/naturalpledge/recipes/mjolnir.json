@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"TTT",
+		"TLT",
+		" L "
+	],
+	"key": {
+		"T": {
+			"type": "forge:ore_dict",
+			"ore": "ingotThundersteelAwakened"
+		},
+		"L": {
+			"type": "forge:ore_dict",
+			"ore": "livingwoodTwig"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:mjolnir"
+	},
+	"group": "botanicaladdons"
+}

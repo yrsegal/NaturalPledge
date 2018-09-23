@@ -1,0 +1,23 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"DDD",
+		"DID",
+		"DDD"
+	],
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dirt"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeRainbow"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:rainbow_dirt",
+		"count": 9
+	},
+	"group": "botanicaladdons"
+}

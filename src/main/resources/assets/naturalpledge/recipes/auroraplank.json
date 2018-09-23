@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"W"
+	],
+	"key": {
+		"W": {
+			"item": "botanicaladdons:aurora_log"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:aurora_planks",
+		"count": 4
+	},
+	"group": "botanicaladdons"
+}

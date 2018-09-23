@@ -1,0 +1,29 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CL ",
+		"L L",
+		"PLD"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "elvenPixieDust"
+		},
+		"L": {
+			"type": "forge:ore_dict",
+			"ore": "leather"
+		},
+		"C": {
+			"item": "minecraft:cake"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDye"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:foodbelt"
+	},
+	"group": "botanicaladdons"
+}

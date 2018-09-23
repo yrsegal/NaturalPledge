@@ -1,0 +1,31 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" I ",
+		"EPE",
+		" M "
+	],
+	"key": {
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyePurple"
+		},
+		"E": {
+			"type": "forge:ore_dict",
+			"ore": "ingotElvenElementium"
+		},
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "gemPrismarine"
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "powderMana"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:dye_shard",
+		"data": 10
+	},
+	"group": "botanicaladdons"
+}

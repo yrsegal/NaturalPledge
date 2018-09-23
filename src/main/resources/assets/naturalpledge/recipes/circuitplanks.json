@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "botanicaladdons:circuit_log"
+		}
+	],
+	"result": {
+		"item": "botanicaladdons:circuit_planks",
+		"count": 4
+	},
+	"group": "botanicaladdons"
+}

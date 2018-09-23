@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"PSP",
+		"SMS",
+		"PSP"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "powderMana"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "stone"
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "runeManaB"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:mortal_stone"
+	},
+	"group": "botanicaladdons"
+}

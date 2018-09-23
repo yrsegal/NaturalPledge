@@ -1,0 +1,29 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"W I",
+		" S ",
+		"R R"
+	],
+	"key": {
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "runeWrathB"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotIron"
+		},
+		"S": {
+			"item": "botanicaladdons:iris_sapling"
+		},
+		"R": {
+			"type": "forge:ore_dict",
+			"ore": "lifeRoot"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:thunder_sapling"
+	},
+	"group": "botanicaladdons"
+}

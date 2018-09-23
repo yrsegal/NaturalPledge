@@ -1,0 +1,34 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" P ",
+		"WSA",
+		" C "
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "manaDiamond"
+		},
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "runeWaterB"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "holySymbol"
+		},
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "runeAirB"
+		},
+		"C": {
+			"item": "botania:waterring"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:priest_emblem",
+		"data": 0
+	},
+	"group": "botanicaladdons"
+}

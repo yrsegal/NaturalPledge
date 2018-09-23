@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"GGG",
+		"GGG"
+	],
+	"key": {
+		"G": {
+			"item": "botanicaladdons:aqua_glass"
+		}
+	},
+	"result": {
+		"item": "botanicaladdons:aqua_pane",
+		"count": 16
+	},
+	"group": "botanicaladdons"
+}
