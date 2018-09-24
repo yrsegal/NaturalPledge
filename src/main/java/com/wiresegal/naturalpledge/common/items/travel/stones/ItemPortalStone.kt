@@ -20,6 +20,8 @@ import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.common.NaturalPledge
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.handler.ModSounds
@@ -50,6 +52,7 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
             else 0xFFFFFF
         }
 
+    @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
         if (Minecraft.getMinecraft().player!=null) {
             val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())

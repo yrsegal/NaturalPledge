@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent
 import com.wiresegal.naturalpledge.client.core.ITooltipBarItem
 import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.crafting.recipe.RecipeEnchantmentRemoval
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import java.awt.Color
 
 /**
@@ -37,6 +39,7 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
             MinecraftForge.EVENT_BUS.register(this)
         }
 
+        @SideOnly(Side.CLIENT)
         @SubscribeEvent
         fun interceptTooltip(e: ItemTooltipEvent) {
             if (e.itemStack.item is ItemXPStealer) {
@@ -149,9 +152,8 @@ val ItemStack.xpRemainder: Int
     }
 
 fun getLevelCap(level: Int)
-        = if (level >= 30)
-            112 + (level - 30) * 9
-        else if (level >= 15)
-            37 + (level - 15) * 5
-        else
-            7 + level * 2
+        = when {
+            level >= 30 -> 112 + (level - 30) * 9
+            level >= 15 -> 37 + (level - 15) * 5
+            else -> 7 + level * 2
+        }

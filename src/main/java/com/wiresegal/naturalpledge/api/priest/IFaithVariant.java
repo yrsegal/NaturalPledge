@@ -48,6 +48,7 @@ public interface IFaithVariant {
         // NO-OP
     }
 
+    @SideOnly(Side.CLIENT)
     default void addToTooltip(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, ITooltipFlag advanced) {
         // NO-OP
     }

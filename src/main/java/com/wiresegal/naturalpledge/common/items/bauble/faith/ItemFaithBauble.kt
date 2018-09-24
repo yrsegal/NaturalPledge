@@ -62,7 +62,10 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
         init {
             priestVariants
                     .filter { it.hasSubscriptions() }
-                    .forEach { MinecraftForge.EVENT_BUS.register(it) }
+                    .forEach {
+                        println("Registering Priest Variant: ${it.name}")
+                        MinecraftForge.EVENT_BUS.register(it)
+                    }
         }
 
         fun getEmblem(player: EntityPlayer, variant: Class<out IFaithVariant>? = null): ItemStack? {
