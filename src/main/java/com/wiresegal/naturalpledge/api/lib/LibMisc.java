@@ -8,7 +8,7 @@ public final class LibMisc {
     public static final String MOD_NAME = "Natural Pledge";
     public static final String MOD_ID = "naturalpledge";
 
-    public static final String BUILD = "0";
+    public static final String BUILD = "0.1";
     public static final String VERSIONID = "3";
     public static final String VERSION = VERSIONID + "." + BUILD;
     public static final String DEPENDENCIES = "required-after:forge@[14.23.4.2705,);required-after:botania;required-after:librarianlib;";
