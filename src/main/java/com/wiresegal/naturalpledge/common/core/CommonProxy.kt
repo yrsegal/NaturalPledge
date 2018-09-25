@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.achievements.AchievementHandler
+import com.wiresegal.naturalpledge.common.achievements.NPFaithAdvancement
 import com.wiresegal.naturalpledge.common.block.ModBlocks
 import com.wiresegal.naturalpledge.common.core.tab.ModTab
 import com.wiresegal.naturalpledge.common.enchantment.ModEnchantments
@@ -37,6 +39,9 @@ open class CommonProxy {
         ModBrews
         ModEnchantments
         ModEntities
+
+        AchievementHandler.registerTrigger(NPFaithAdvancement)
+
         EasyConfigHandler.init()
     }
 
@@ -93,7 +98,7 @@ open class CommonProxy {
     }
 
     fun getAdvancement(s: String): ResourceLocation {
-        return ResourceLocation(LibMisc.MOD_ID, "naturalpledge/" + s)
+        return ResourceLocation(LibMisc.MOD_ID, "naturalpledge/$s")
     }
 
     open fun hasAdvancement(player: EntityPlayer, s: String): Boolean {

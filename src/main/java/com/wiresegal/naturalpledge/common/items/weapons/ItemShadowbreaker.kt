@@ -18,7 +18,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.core.BASoundEvents
+import com.wiresegal.naturalpledge.common.core.NPSoundEvents
 import com.wiresegal.naturalpledge.common.items.base.ItemBaseSword
 import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
 import com.wiresegal.naturalpledge.common.items.bauble.faith.Spells
@@ -55,7 +55,7 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
                     if (!world.isRemote) {
                         if (player is EntityPlayer) ManaItemHandler.requestManaExact(stack, player, 5, true)
                         if (world.totalWorldTime % 3 == 0L)
-                            world.playSound(null, player.posX, player.posY, player.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
+                            world.playSound(null, player.posX, player.posY, player.posZ, NPSoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                     } else NaturalPledge.PROXY.particleRing(player.posX, player.posY, player.posZ, 5.0, 0F, 0F, 1F)
                 }
             }

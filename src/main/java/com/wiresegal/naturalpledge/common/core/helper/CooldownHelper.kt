@@ -9,17 +9,17 @@ import net.minecraft.util.CooldownTracker
  */
 object CooldownHelper {
     fun setCooldown(cooldownTracker: CooldownTracker, item: Item, startTime: Int, expireTime: Int) {
-        val ticks = BAMethodHandles.getCooldownTicks(cooldownTracker)
+        val ticks = NPMethodHandles.getCooldownTicks(cooldownTracker)
         if (expireTime <= ticks || startTime > ticks)
             return
-        BAMethodHandles.addNewCooldown(cooldownTracker, item, startTime, expireTime)
+        NPMethodHandles.addNewCooldown(cooldownTracker, item, startTime, expireTime)
     }
 
     data class CooldownWrapper(val createTicks: Int, val expireTicks: Int)
 
     fun getCooldown(cooldownTracker: CooldownTracker, item: Item): CooldownWrapper? {
-        val cooldowns = BAMethodHandles.getCooldowns(cooldownTracker)
+        val cooldowns = NPMethodHandles.getCooldowns(cooldownTracker)
         val cooldown = cooldowns[item] ?: return null
-        return CooldownWrapper(BAMethodHandles.getCreateTicks(cooldown), BAMethodHandles.getExpireTicks(cooldown))
+        return CooldownWrapper(NPMethodHandles.getCreateTicks(cooldown), NPMethodHandles.getExpireTicks(cooldown))
     }
 }

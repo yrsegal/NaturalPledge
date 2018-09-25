@@ -345,7 +345,7 @@ object LexiconEntries {
     @SubscribeEvent fun onItemClick(e: PlayerInteractEvent.RightClickItem) = unlockEntry(e.entityPlayer, e.itemStack)
     @SubscribeEvent fun onItemClick(e: PlayerInteractEvent.RightClickBlock) = unlockEntry(e.entityPlayer, e.itemStack)
 
-    fun unlockEntry(player: EntityPlayer, stack: ItemStack) {
+    private fun unlockEntry(player: EntityPlayer, stack: ItemStack) {
         if (ItemRagnarokPendant.hasAwakenedRagnarok(player) && stack.item is ILexicon)
             (stack.item as ILexicon).unlockKnowledge(stack, forbidden)
     }

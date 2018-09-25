@@ -4,7 +4,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.world.ExplosionEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 
 /**
  * @author WireSegal
@@ -34,7 +34,7 @@ object CalicoEventHandler {
 
         val dampener = explosiondampeners[e.world.rand.nextInt(explosiondampeners.size)]
 
-        e.world.newExplosion(null, dampener.x.toDouble(), dampener.y.toDouble(), dampener.z.toDouble(), BAMethodHandles.getExplosionSize(e.explosion), false, false)
+        e.world.newExplosion(null, dampener.x.toDouble(), dampener.y.toDouble(), dampener.z.toDouble(), NPMethodHandles.getExplosionSize(e.explosion), false, false)
         e.isCanceled = true
     }
 

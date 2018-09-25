@@ -11,9 +11,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
 import com.wiresegal.naturalpledge.api.priest.IFaithVariant
+import com.wiresegal.naturalpledge.common.achievements.NPFaithAdvancement
 import com.wiresegal.naturalpledge.common.lib.LibNames
 import com.wiresegal.naturalpledge.common.network.FireballMessage
 import com.wiresegal.naturalpledge.common.potions.ModPotions
+import net.minecraft.entity.player.EntityPlayerMP
 
 /**
  * @author WireSegal
@@ -35,6 +37,15 @@ object PriestlyEmblemLoki : IFaithVariant {
 
     override fun onUpdate(stack: ItemStack, player: EntityPlayer) {
         if (player.isBurning) player.extinguish()
+        //CorporeaRequestTrigger.INSTANCE.trigger(event.getPlayer(), event.getPlayer().getServerWorld(), index.getPos(), CorporeaHelper.lastRequestExtractions);
+        /*
+        if (player is EntityPlayerMP) {
+            println("Triggering")
+            NPFaithAdvancement.trigger(player, player.world, stack)
+        } else {
+            println("Cannot trigger")
+        }
+        */
     }
 
     @SubscribeEvent

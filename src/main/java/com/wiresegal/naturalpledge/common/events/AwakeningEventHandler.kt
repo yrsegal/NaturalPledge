@@ -21,7 +21,7 @@ import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
 import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import com.wiresegal.naturalpledge.common.ext.isHardMode
 import com.wiresegal.naturalpledge.common.items.ItemResource
 import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
@@ -145,7 +145,7 @@ class AwakeningEventHandler {
             if (fits && entity.entityData.hasKey("divineBattle") && entity.entityData.getBoolean("divineBattle")) {
                 val players = getPlayersAround(entity)
 
-                val playersWhoAttacked = BAMethodHandles.getPlayersWhoAttacked(entity)
+                val playersWhoAttacked = NPMethodHandles.getPlayersWhoAttacked(entity)
 
                 entity.world.playSound(entity.source.x.toDouble(), entity.source.y.toDouble(), entity.source.z.toDouble(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 1.0f, 1.0f, false)
 

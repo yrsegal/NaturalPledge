@@ -38,7 +38,7 @@ object ModSpells {
         SpellRegistry.registerSpell(LibNames.SPELL_PROTECTION, Spells.Idunn.Ironroot)
         SpellRegistry.registerSpell(LibNames.SPELL_IDUNN_INFUSION,
                 Spells.ObjectInfusion(of(LIFEMAKER), BotaniaOreDict.LIVING_WOOD,
-                        of(LIFE_ROOT), of(LIFE_ROOT, true), 150, 0x0FF469, { player, _ -> null }))
+                        of(LIFE_ROOT), of(LIFE_ROOT, true), 150, 0x0FF469) { player, _ -> null })
 
         SpellRegistry.registerSpell(LibNames.SPELL_LEAP, Spells.Njord.Leap)
         SpellRegistry.registerSpell(LibNames.SPELL_INTERDICT, Spells.Njord.Interdict)

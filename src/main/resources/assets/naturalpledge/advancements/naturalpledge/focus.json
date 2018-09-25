@@ -13,8 +13,13 @@
   },
   "parent": "naturalpledge:naturalpledge/root",
   "criteria": {
-    "code_triggered": {
-      "trigger": "minecraft:impossible"
+    "create_focus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "item": {
+          "item": "naturalpledge:spell_focus"
+        }
+      }
     }
   }
 }

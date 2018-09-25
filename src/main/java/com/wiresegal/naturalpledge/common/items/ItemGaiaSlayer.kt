@@ -8,7 +8,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import com.wiresegal.naturalpledge.common.items.base.IPreventBreakInCreative
 import vazkii.botania.common.entity.EntityDoppleganger
 
@@ -24,8 +24,8 @@ class ItemGaiaSlayer(name: String) : ItemMod(name), IPreventBreakInCreative {
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
         if (target is EntityDoppleganger) {
             if (target.health >= 0.5f) target.health = 0.5f
-            BAMethodHandles.setMobSpawnTicks(target, 0)
-            BAMethodHandles.setTpDelay(target, 10000)
+            NPMethodHandles.setMobSpawnTicks(target, 0)
+            NPMethodHandles.setTpDelay(target, 10000)
             target.onDeath(DamageSource.OUT_OF_WORLD)
             target.setDead()
         }

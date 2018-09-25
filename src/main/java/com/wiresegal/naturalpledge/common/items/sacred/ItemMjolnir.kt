@@ -23,7 +23,7 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import com.wiresegal.naturalpledge.api.item.IWeightEnchantable
 import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import com.wiresegal.naturalpledge.common.enchantment.EnchantmentWeight
 import com.wiresegal.naturalpledge.common.enchantment.ModEnchantments
 import com.wiresegal.naturalpledge.common.items.ItemResource
@@ -105,7 +105,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
         }
         val launchedTicks = ItemNBTHelper.getInt(stack, TAG_LAUNCHED, 0)
         if (launchedTicks > 0 && player is EntityLivingBase)
-            BAMethodHandles.setSwingTicks(player, launchedTicks)
+            NPMethodHandles.setSwingTicks(player, launchedTicks)
         ItemNBTHelper.removeEntry(stack, TAG_LAUNCHED)
 
         if (player is EntityLivingBase && player.heldItemMainhand == stack) {
@@ -162,7 +162,7 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
             entityLiving.cooldownTracker.setCooldown(this, entityLiving.cooldownPeriod.toInt())
         }
 
-        ItemNBTHelper.setInt(stack, TAG_LAUNCHED, BAMethodHandles.getSwingTicks(entityLiving))
+        ItemNBTHelper.setInt(stack, TAG_LAUNCHED, NPMethodHandles.getSwingTicks(entityLiving))
 
         ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE)
         ItemNBTHelper.setBoolean(stack, TAG_DIDLAUNCH, true)

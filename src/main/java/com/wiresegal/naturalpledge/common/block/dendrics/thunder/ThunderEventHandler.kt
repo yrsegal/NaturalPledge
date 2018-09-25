@@ -8,7 +8,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 
 /**
  * @author WireSegal
@@ -26,7 +26,7 @@ object ThunderEventHandler {
     fun catchWorldTick(e: TickEvent.WorldTickEvent) {
         val toRemove = mutableListOf<Entity>()
         val toAdd = mutableListOf<BlockPos>()
-        for (effect in e.world.weatherEffects) if (effect is EntityLightningBolt && !BAMethodHandles.getEffectOnly(effect)) {
+        for (effect in e.world.weatherEffects) if (effect is EntityLightningBolt && !NPMethodHandles.getEffectOnly(effect)) {
 
             if (effect.ticksExisted > 5) continue
 

@@ -38,7 +38,7 @@ import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
 import com.wiresegal.naturalpledge.api.priest.IFocusSpell
 import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.core.BASoundEvents
+import com.wiresegal.naturalpledge.common.core.NPSoundEvents
 import com.wiresegal.naturalpledge.common.items.ItemSpellIcon.Companion.of
 import com.wiresegal.naturalpledge.common.items.ItemSpellIcon.Variants.*
 import com.wiresegal.naturalpledge.common.network.FireJetMessage
@@ -262,7 +262,7 @@ object Spells {
 
                     player.fallDistance = 0f
                     if (player.world.totalWorldTime % 5 == 0L)
-                        player.world.playSound(player, player.posX + player.motionX, player.posY + player.motionY, player.posZ + player.motionZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
+                        player.world.playSound(player, player.posX + player.motionX, player.posY + player.motionY, player.posZ + player.motionZ, NPSoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
 
                     return EnumActionResult.SUCCESS
                 }
@@ -315,7 +315,7 @@ object Spells {
 
                     if (pushEntities(player.posX, player.posY, player.posZ, RANGE, VELOCITY, entities)) {
                         if (player.world.totalWorldTime % 3 == 0L)
-                            player.world.playSound(player, player.posX, player.posY, player.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
+                            player.world.playSound(player, player.posX, player.posY, player.posZ, NPSoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                         ManaItemHandler.requestManaExact(focus, player, 5, true)
                     }
                     return EnumActionResult.SUCCESS
@@ -338,7 +338,7 @@ object Spells {
                         focused.knockBack(player, 1.5f,
                                 MathHelper.sin(player.rotationYaw * Math.PI.toFloat() / 180).toDouble(),
                                 -MathHelper.cos(player.rotationYaw * Math.PI.toFloat() / 180).toDouble())
-                        player.world.playSound(player, focused.posX, focused.posY, focused.posZ, BASoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
+                        player.world.playSound(player, focused.posX, focused.posY, focused.posZ, NPSoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                         return EnumActionResult.SUCCESS
                     }
                     return EnumActionResult.FAIL

@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import com.wiresegal.naturalpledge.common.items.base.ItemBaseBauble
 import com.wiresegal.naturalpledge.common.network.BlinkMessage
 import vazkii.botania.api.item.IBaubleRender
@@ -123,13 +123,13 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
                 player.motionY += 0.05
             player.fallDistance = 0f
         } else if (stack.itemDamage == 3) {
-            if (player.world.isRemote && player.isSprinting && BAMethodHandles.getJumpTicks(player) == 10) {
+            if (player.world.isRemote && player.isSprinting && NPMethodHandles.getJumpTicks(player) == 10) {
                 val look = player.lookVec
                 val dist = 6.0
                 val vec = Vec3d(player.posX + look.x * dist, player.posY + look.y * dist, player.posZ + look.z * dist)
                 val blockAt = BlockPos(vec)
                 if (!player.world.getBlockState(blockAt).isFullCube && !player.world.getBlockState(blockAt.up()).isFullCube) {
-                    BAMethodHandles.setIsJumping(player, false)
+                    NPMethodHandles.setIsJumping(player, false)
                     PacketHandler.NETWORK.sendToServer(BlinkMessage())
                 }
             }

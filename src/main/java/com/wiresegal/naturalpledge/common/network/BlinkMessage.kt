@@ -10,7 +10,7 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
 import net.minecraftforge.fml.relauncher.Side
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import com.wiresegal.naturalpledge.common.items.bauble.ItemDivineCloak
 
 @PacketRegister(Side.SERVER)
@@ -29,7 +29,7 @@ class BlinkMessage : PacketBase() {
             val blockAt = BlockPos(position)
             if (player.world.getBlockState(blockAt).isFullCube || !player.world.getBlockState(blockAt.up()).isFullCube) {
                 ctx.serverHandler.setPlayerLocation(position.x, position.y, position.z, player.rotationYaw, player.rotationPitch)
-                BAMethodHandles.captureCurrentPosition(ctx.serverHandler)
+                NPMethodHandles.captureCurrentPosition(ctx.serverHandler)
                 player.world.playSound(position.x, position.y, position.z, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f, false)
             }
         }

@@ -13,8 +13,14 @@
   },
   "parent": "naturalpledge:naturalpledge/focus",
   "criteria": {
-    "code_triggered": {
-      "trigger": "minecraft:impossible"
+    "create_holysymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "item": {
+          "item": "naturalpledge:priest_emblem",
+          "data": 4
+        }
+      }
     }
   }
 }

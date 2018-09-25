@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiIngame;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import com.wiresegal.naturalpledge.common.core.helper.BALogger;
+import com.wiresegal.naturalpledge.common.core.helper.NPLogger;
 import com.wiresegal.naturalpledge.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
@@ -29,7 +29,7 @@ public class BAClientMethodHandles {
             remainingHighlightSetter = MethodHandles.publicLookup().unreflectSetter(f);
 
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Couldn't initialize client methodhandles! Things will be broken!");
+            NPLogger.INSTANCE.severe("Couldn't initialize client methodhandles! Things will be broken!");
             t.printStackTrace();
             throw new RuntimeException(t);
         }
@@ -44,7 +44,7 @@ public class BAClientMethodHandles {
     }
 
     private static RuntimeException propagate(Throwable t) {
-        BALogger.INSTANCE.severe("Client methodhandle failed!");
+        NPLogger.INSTANCE.severe("Client methodhandle failed!");
         t.printStackTrace();
         throw new RuntimeException(t);
     }

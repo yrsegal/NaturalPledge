@@ -17,7 +17,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import com.wiresegal.naturalpledge.common.items.base.ItemBaseBauble
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.ManaItemHandler
@@ -105,7 +105,7 @@ class ItemFoodBelt(name: String) : ItemBaseBauble(name), IBaubleRender {
 
         if (food.item is ItemFood) {
 
-            if (BAMethodHandles.isAlwaysEdible(food.item as ItemFood)) return false
+            if (NPMethodHandles.isAlwaysEdible(food.item as ItemFood)) return false
 
             flag = true
             for (i in 0..15) {

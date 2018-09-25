@@ -27,7 +27,7 @@ import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.api.priest.IFocusSpell
 import com.wiresegal.naturalpledge.client.core.BAClientMethodHandles
 import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.core.helper.BAMethodHandles
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import com.wiresegal.naturalpledge.common.core.helper.CooldownHelper
 import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
 import vazkii.botania.api.mana.IManaUsingItem
@@ -144,7 +144,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
             player.cooldownTracker.setCooldown(this, cooldown)
             ItemNBTHelper.setBoolean(stack, TAG_CAST, true)
 
-            val ticks = BAMethodHandles.getCooldownTicks(player.cooldownTracker)
+            val ticks = NPMethodHandles.getCooldownTicks(player.cooldownTracker)
 
             ItemNBTHelper.setInt(stack, TAG_COOLDOWN_EXPIRE, cooldown + ticks)
             ItemNBTHelper.setInt(stack, TAG_USED_TIME, ticks)
@@ -193,7 +193,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
         if (entityIn is EntityPlayer) {
 
-            val ticks = BAMethodHandles.getCooldownTicks(entityIn.cooldownTracker)
+            val ticks = NPMethodHandles.getCooldownTicks(entityIn.cooldownTracker)
 
             val usedTime = ItemNBTHelper.getInt(stack, TAG_USED_TIME, ticks)
             val expireTime = ItemNBTHelper.getInt(stack, TAG_COOLDOWN_EXPIRE, ticks)
