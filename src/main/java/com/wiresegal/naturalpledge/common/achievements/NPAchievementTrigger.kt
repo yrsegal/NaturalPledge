@@ -6,7 +6,6 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.entity.player.EntityPlayerMP
 import java.util.ArrayList
 import net.minecraft.advancements.PlayerAdvancements
-import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 

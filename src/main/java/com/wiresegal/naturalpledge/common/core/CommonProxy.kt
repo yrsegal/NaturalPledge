@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.common.achievements.AchievementHandler
-import com.wiresegal.naturalpledge.common.achievements.NPFaithAdvancement
+import com.wiresegal.naturalpledge.common.achievements.AdvancementBeginRagnarok
 import com.wiresegal.naturalpledge.common.block.ModBlocks
 import com.wiresegal.naturalpledge.common.core.tab.ModTab
 import com.wiresegal.naturalpledge.common.enchantment.ModEnchantments
@@ -40,7 +40,7 @@ open class CommonProxy {
         ModEnchantments
         ModEntities
 
-        AchievementHandler.registerTrigger(NPFaithAdvancement)
+        AchievementHandler.registerTrigger(AdvancementBeginRagnarok)
 
         EasyConfigHandler.init()
     }

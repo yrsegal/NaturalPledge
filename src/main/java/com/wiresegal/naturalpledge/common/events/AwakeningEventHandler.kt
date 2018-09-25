@@ -1,5 +1,6 @@
 package com.wiresegal.naturalpledge.common.events
 
+import com.teamwizardry.librarianlib.features.kotlin.get
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -74,8 +75,7 @@ class AwakeningEventHandler {
     fun itBegins(e: EntityJoinWorldEvent) {
         val entity = e.entity
 
-        if (entity is EntityDoppleganger && entity.isHardMode) {
-
+        if (entity is EntityDoppleganger && entity.entityData.getBoolean("isHardMode")) {
             println("Wax: Is hard mode!")
 
             val fits = fitsLocation(entity)

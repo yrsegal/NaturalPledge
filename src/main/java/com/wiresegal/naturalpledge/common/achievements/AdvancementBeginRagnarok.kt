@@ -2,16 +2,14 @@ package com.wiresegal.naturalpledge.common.achievements
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonObject
-import com.wiresegal.naturalpledge.api.lib.LibMisc
 import net.minecraft.advancements.PlayerAdvancements
 import net.minecraft.advancements.critereon.ItemPredicate
-import net.minecraft.util.ResourceLocation
 
-object NPFaithAdvancement : NPAchievementTrigger<NPFaithAdvancement.FaithItemCriteria>("focus") {
+object AdvancementBeginRagnarok : NPAchievementTrigger<AdvancementBeginRagnarok.FaithItemCriteria>("focus") {
 
-    override val newTrackerFunc: (player: PlayerAdvancements) -> IPlayerTracker<FaithItemCriteria> = { player -> NPFaithItemTracker(player) }
+    override val newTrackerFunc: (player: PlayerAdvancements) -> IPlayerTracker<FaithItemCriteria> = { player -> BeginRagnarokTracker(player) }
 
-    class NPFaithItemTracker(advancements: PlayerAdvancements) : IPlayerTracker<NPFaithAdvancement.FaithItemCriteria>(advancements) {
+    class BeginRagnarokTracker(advancements: PlayerAdvancements) : IPlayerTracker<AdvancementBeginRagnarok.FaithItemCriteria>(advancements) {
 
     }
 
@@ -21,7 +19,7 @@ object NPFaithAdvancement : NPAchievementTrigger<NPFaithAdvancement.FaithItemCri
     }
 
     class FaithItemCriteria(override val predicate: ItemPredicate) : NPCriterion {
-        override val trigger = NPFaithAdvancement
+        override val trigger = AdvancementBeginRagnarok
     }
 
 }
