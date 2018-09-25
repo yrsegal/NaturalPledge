@@ -27,7 +27,7 @@ import static java.lang.invoke.MethodHandles.publicLookup;
  *         Created at 10:50 PM on 5/28/16.
  */
 @SuppressWarnings("unchecked")
-public class BAMethodHandles {
+public class NPMethodHandles {
 
     @Nonnull
     public static final Class cooldownClass;
@@ -87,7 +87,7 @@ public class BAMethodHandles {
             capturePositionInvoker = publicLookup().unreflect(m);
 
         } catch (Throwable t) {
-            BALogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
+            NPLogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
             t.printStackTrace();
             throw new RuntimeException(t);
         }
@@ -229,7 +229,7 @@ public class BAMethodHandles {
     }
 
     private static RuntimeException propagate(Throwable t) {
-        BALogger.INSTANCE.severe("Methodhandle failed!");
+        NPLogger.INSTANCE.severe("Methodhandle failed!");
         t.printStackTrace();
         return new RuntimeException(t);
     }

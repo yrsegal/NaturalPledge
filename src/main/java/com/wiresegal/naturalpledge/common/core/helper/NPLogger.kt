@@ -7,7 +7,7 @@ import com.wiresegal.naturalpledge.common.NaturalPledge
  * @author WireSegal
  * Created at 7:35 PM on 6/13/16.
  */
-object BALogger {
+object NPLogger {
 
     val coreLog = NaturalPledge.LOGGER
 
