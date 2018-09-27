@@ -81,8 +81,8 @@ class BlockStorage(name: String) : BlockMod(name, Material.IRON, *Variants.varia
         return state.getValue(TYPE).level
     }
 
-    override fun isBeaconBase(world: IBlockAccess, pos: BlockPos, beacon: BlockPos?): Boolean {
-        return world.getBlockState(pos).getValue(TYPE).material == Material.IRON
+    override fun isBeaconBase(world: IBlockAccess?, pos: BlockPos, beacon: BlockPos?): Boolean {
+        return world?.getBlockState(pos)?.getValue(TYPE)?.material == Material.IRON
     }
 
     override fun getExplosionResistance(world: World, pos: BlockPos, exploder: Entity?, explosion: Explosion?): Float {
