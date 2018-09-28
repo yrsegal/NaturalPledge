@@ -80,7 +80,7 @@ class BlockIridescentPlanks(name: String) : BlockModPlanks(name, *Array(16, { na
 
     override fun createItemForm(): ItemBlock? {
         return object : ItemModBlock(this) {
-            override fun getUnlocalizedName(stack: ItemStack): String {
+            override fun getUnlocalizedNameInefficiently(stack: ItemStack): String {
                 return "tile.${LibMisc.MOD_ID}:" + bareName
             }
         }

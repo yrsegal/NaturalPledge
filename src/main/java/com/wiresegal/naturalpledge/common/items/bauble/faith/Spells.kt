@@ -87,7 +87,7 @@ object Spells {
             val pos = raycast(e, maxDistance)
             var positionVector = e.positionVector
             if (e is EntityPlayer) {
-                positionVector = positionVector.addVector(0.0, e.getEyeHeight().toDouble(), 0.0)
+                positionVector = positionVector.add(0.0, e.getEyeHeight().toDouble(), 0.0)
             }
 
             if (pos != null) {
@@ -95,7 +95,7 @@ object Spells {
             }
 
             val lookVector = e.lookVec
-            val reachVector = positionVector.addVector(lookVector.x * maxDistance, lookVector.y * maxDistance, lookVector.z * maxDistance)
+            val reachVector = positionVector.add(lookVector.x * maxDistance, lookVector.y * maxDistance, lookVector.z * maxDistance)
             var lookedEntity: Entity? = null
             val vec = vec(lookVector.x * maxDistance, lookVector.y * maxDistance, lookVector.z * maxDistance)
             val entitiesInBoundingBox = e.world.getEntitiesWithinAABBExcludingEntity(e, e.entityBoundingBox.union(AxisAlignedBB(vec, vec)).grow(1.0))
@@ -596,7 +596,7 @@ object Spells {
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
                 if (!player.world.isRemote && ManaItemHandler.requestManaExact(focus, player, 10, true)) {
                     if (cooldownRemaining % 5 == 0)
-                        PacketHandler.NETWORK.sendToAllAround(FireSphereMessage(player.positionVector.addVector(0.0, 0.5, 0.0)),
+                        PacketHandler.NETWORK.sendToAllAround(FireSphereMessage(player.positionVector.add(0.0, 0.5, 0.0)),
                                 NetworkRegistry.TargetPoint(player.world.provider.dimension, player.posX, player.posY, player.posZ, 30.0))
                     player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.grow(5.0)) {
                         player != it && player.positionVector.squareDistanceTo(it?.positionVector ?: Vec3d.ZERO) < 25.0

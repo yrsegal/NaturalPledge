@@ -133,8 +133,8 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
             stack.clearCustomName()
     }
 
-    override fun getUnlocalizedName(stack: ItemStack): String {
-        val above = super.getUnlocalizedName(stack)
+    override fun getUnlocalizedNameInefficiently(stack: ItemStack): String {
+        val above = super.getUnlocalizedNameInefficiently(stack)
         val player = getPlayer(stack)
         return when (player) {
             vaz -> "$above.potato"

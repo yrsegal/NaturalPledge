@@ -63,7 +63,7 @@ abstract class BlockBaseTrap(name: String) : BlockMod(name, ModMaterials.TRANSPA
     override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: IBlockAccess?, pos: BlockPos?) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
 
-    override fun onEntityCollidedWithBlock(worldIn: World, pos: BlockPos, state: IBlockState, entityIn: Entity) {
+    override fun onEntityCollision(worldIn: World, pos: BlockPos, state: IBlockState, entityIn: Entity) {
         if (state.getValue(TRIPPED)) return
         if (entityIn is EntityLivingBase && !worldIn.isRemote) {
             if (entityIn is EntityPlayer) {

@@ -76,8 +76,8 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
         }
     }
 
-    override fun getUnlocalizedName(stack: ItemStack): String {
-        return super.getUnlocalizedName(stack) + if (isWire(stack)) ".bloodJewel" else ""
+    override fun getUnlocalizedNameInefficiently(stack: ItemStack): String {
+        return super.getUnlocalizedNameInefficiently(stack) + if (isWire(stack)) ".bloodJewel" else ""
     }
 
     @SideOnly(Side.CLIENT)

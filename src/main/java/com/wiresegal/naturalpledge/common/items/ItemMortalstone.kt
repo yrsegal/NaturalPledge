@@ -59,7 +59,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         if (isSelected && !entityIn.world.isRemote && (entityIn !is EntityPlayer || ManaItemHandler.requestManaExact(stack, entityIn, MANA_PER_TICK, false))) {
             val entities = worldIn.getEntitiesWithinAABB(EntityPlayer::class.java, entityIn.entityBoundingBox.grow(RANGE))
             for (entity in entities)
-                if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
+                if (entity is EntityPlayer && entity.positionVector.subtract(entityIn.positionVector).length() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     entity.addPotionEffect(PotionEffect(ModPotions.faithlessness, 5, 0, true, true))
                     if (entity != entityIn && !ModPotions.faithlessness.hasEffect(entity)) flag = true
                     NaturalPledge.PROXY.particleEmission(Vector3.fromEntityCenter(entity).add(-0.5, 0.0, -0.5), PARTICLE_COLOR, 0.7F)
@@ -88,7 +88,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
 
             val entities = entityItem.world.getEntitiesWithinAABB(EntityPlayer::class.java, entityItem.entityBoundingBox.grow(RANGE))
             for (entity in entities)
-                if (entity is EntityPlayer && entity.positionVector.subtract(entityItem.positionVector).lengthVector() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
+                if (entity is EntityPlayer && entity.positionVector.subtract(entityItem.positionVector).length() <= RANGE && ItemFaithBauble.getEmblem(entity) != null) {
                     if ((ModPotions.faithlessness.getEffect(entity) ?: PotionEffect(ModPotions.faithlessness)).duration <= 5) {
                         flag = flag or 1
                     }

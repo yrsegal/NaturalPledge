@@ -100,7 +100,7 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
         val map = super.getAttributeModifiers(slot, stack)
 
         if (slot == armorType && ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
-            val uuid = UUID((unlocalizedName + slot.toString()).hashCode().toLong(), 0L)
+            val uuid = UUID((getUnlocalizedNameInefficiently(stack) + slot.toString()).hashCode().toLong(), 0L)
             map.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(uuid, "Fenris modifier " + slot?.name, 0.5, 0))
         }
 

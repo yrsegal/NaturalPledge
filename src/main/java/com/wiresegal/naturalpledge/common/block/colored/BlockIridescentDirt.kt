@@ -42,7 +42,7 @@ class BlockIridescentDirt(val name: String) : BlockMod(name, Material.GROUND, *A
 
 
     override fun createItemForm() = object : ItemModBlock(this) {
-            override fun getUnlocalizedName(stack: ItemStack): String {
+            override fun getUnlocalizedNameInefficiently(stack: ItemStack): String {
                 return "tile.${LibMisc.MOD_ID}:" + bareName
             }
         }

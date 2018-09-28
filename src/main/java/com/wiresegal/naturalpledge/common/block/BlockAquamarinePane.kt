@@ -34,7 +34,7 @@ class BlockAquamarinePane(name: String) : BlockModPane(name, true, ModBlocks.aqu
     override fun getLightValue(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?) = 10
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer {
+    override fun getRenderLayer(): BlockRenderLayer {
         return BlockRenderLayer.TRANSLUCENT
     }
 

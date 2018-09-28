@@ -76,7 +76,7 @@ compileKotlin {
 
 dependencies {
     compile "mezz.jei:jei_${config.jei_version}"
-    compile "com.teamwizardry.librarianlib:librarianlib-1.12.2:4.12-SNAPSHOT:deobf"
+    compile "com.teamwizardry.librarianlib:librarianlib-1.12.2:4.16-SNAPSHOT:deobf"
     compile files("libs/vazkii")
 }
 

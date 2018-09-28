@@ -40,7 +40,8 @@ class BlockAquamarineGlass(name: String) : BlockMod(name, Material.GLASS, MapCol
     override fun isFullCube(state: IBlockState) = false
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer() = BlockRenderLayer.TRANSLUCENT
+    override fun getRenderLayer() = BlockRenderLayer.TRANSLUCENT
+
 
     @SideOnly(Side.CLIENT)
     override fun shouldSideBeRendered(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Boolean {

@@ -33,7 +33,7 @@ class TileLivingwoodFunnel : TileModTickable() {
     @Save
     var transferCooldown = 0
 
-    private var inventoryCompound: NBTTagCompound
+    internal var inventoryCompound: NBTTagCompound
         @SaveMethodGetter("inventory") get() = inventory.serializeNBT()
         @SaveMethodSetter("inventory") set(value) = inventory.deserializeNBT(value)
 

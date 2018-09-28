@@ -205,7 +205,7 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
         if (variant != null && player is EntityPlayer && !player.world.isRemote) {
             player.addPotionEffect(PotionEffect(ModPotions.faithlessness, 600))
             variant.punishTheFaithless(stack, player)
-            player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
+            player.sendSpamlessMessage(TextComponentTranslation((getUnlocalizedNameInefficiently(stack) + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
             if (isAwakened(stack))
                 player.attackEntityFrom(FaithSource, Float.MAX_VALUE)
         }

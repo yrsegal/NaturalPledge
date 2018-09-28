@@ -29,7 +29,7 @@ class BlockLaunchTrap : BlockBaseTrap(LibNames.LAUNCH_TRAP) {
     override fun createBlockState() = BlockStateContainer(this, TRIPPED, FACING)
 
     override fun getStateFromMeta(meta: Int): IBlockState {
-        return super.getStateFromMeta(meta).withProperty(FACING, EnumFacing.getHorizontal((meta and 6) shr 1))
+        return super.getStateFromMeta(meta).withProperty(FACING, EnumFacing.byHorizontalIndex((meta and 6) shr 1))
     }
 
     override fun getMetaFromState(state: IBlockState): Int {
@@ -43,18 +43,18 @@ class BlockLaunchTrap : BlockBaseTrap(LibNames.LAUNCH_TRAP) {
     override fun trapActivation(stateIn: IBlockState, world: World, pos: BlockPos, entityIn: EntityLivingBase) {
         val facing = stateIn.getValue(FACING)
         entityIn.motionY += 0.5
-        entityIn.motionX -= facing.frontOffsetX * 2
-        entityIn.motionZ -= facing.frontOffsetZ * 2
+        entityIn.motionX -= facing.xOffset * 2
+        entityIn.motionZ -= facing.zOffset * 2
         entityIn.velocityChanged = true
     }
 
     override fun particlesForSeer(stateIn: IBlockState, world: World, pos: BlockPos, rand: Random) {
         val facing = stateIn.getValue(FACING)
         val y = pos.y + 0.5
-        val xFrom = facing.frontOffsetX * 0.25 + pos.x + 0.5
-        val xTo = -facing.frontOffsetX * 0.25 + pos.x + 0.5
-        val zFrom = facing.frontOffsetZ * 0.25 + pos.z + 0.5
-        val zTo = -facing.frontOffsetZ * 0.25 + pos.z + 0.5
+        val xFrom = facing.xOffset * 0.25 + pos.x + 0.5
+        val xTo = -facing.xOffset * 0.25 + pos.x + 0.5
+        val zFrom = facing.zOffset * 0.25 + pos.z + 0.5
+        val zTo = -facing.zOffset * 0.25 + pos.z + 0.5
         NaturalPledge.PROXY.particleStream(Vector3(xFrom, y, zFrom), Vector3(xTo, y, zTo), COLOR)
         Botania.proxy.wispFX(xFrom, y, zFrom, R, G, B, 0.25f)
     }

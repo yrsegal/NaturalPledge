@@ -64,7 +64,7 @@ class BlockThunderTrap(name: String) : BlockMod(name, ModMaterials.TRANSPARENT) 
         }
     }
 
-    override fun onEntityCollidedWithBlock(worldIn: World, pos: BlockPos, state: IBlockState, entityIn: Entity) {
+    override fun onEntityCollision(worldIn: World, pos: BlockPos, state: IBlockState, entityIn: Entity) {
         if (entityIn is EntityLivingBase || entityIn is EntityItem) {
             if (!worldIn.isRemote) {
                 worldIn.setBlockState(pos, Blocks.AIR.defaultState)

@@ -249,7 +249,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         val variant = getVariant(stack)
         if (player is EntityPlayer && !player.world.isRemote) {
             variant.punishTheFaithless(stack, player)
-            player.sendSpamlessMessage(TextComponentTranslation((stack.unlocalizedName + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
+            player.sendSpamlessMessage(TextComponentTranslation((getUnlocalizedNameInefficiently(stack) + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
             player.addPotionEffect(PotionEffect(ModPotions.faithlessness, 600))
             if (isAwakened(stack))
                 player.attackEntityFrom(ItemFaithBauble.FaithSource, Float.MAX_VALUE)

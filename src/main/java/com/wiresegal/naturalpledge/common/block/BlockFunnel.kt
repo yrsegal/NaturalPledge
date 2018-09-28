@@ -135,10 +135,10 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT_MIPPED
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT_MIPPED
 
     override fun getStateFromMeta(meta: Int): IBlockState {
-        return this.defaultState.withProperty(FACING, EnumFacing.getFront(meta and 7)).withProperty(ENABLED, (meta and 8) != 0)
+        return this.defaultState.withProperty(FACING, EnumFacing.byIndex(meta and 7)).withProperty(ENABLED, (meta and 8) != 0)
     }
 
     override fun getMetaFromState(state: IBlockState): Int {

@@ -44,7 +44,7 @@ public final class SpellRegistry {
         String modId = Loader.instance().activeModContainer().getModId();
         String transformedName = name;
         if (!modId.equals(LibMisc.MOD_ID))
-            transformedName = modId + ":" + new ResourceLocation(name).getResourcePath();
+            transformedName = modId + ":" + new ResourceLocation(name).getPath();
 
         if (spellRegistry.containsKey(transformedName) && !force)
             return null;
