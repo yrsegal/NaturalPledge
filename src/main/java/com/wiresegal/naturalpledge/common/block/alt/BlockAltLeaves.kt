@@ -64,7 +64,7 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
         return BlockStateContainer(this, TYPE_PROPS[colorSet], DECAYABLE, CHECK_DECAY)
     }
 
-    override fun getPickBlock(state: IBlockState, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer): ItemStack {
+    override fun getPickBlock(state: IBlockState, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack {
         return ItemStack(this, 1, state.getValue(TYPE_PROPS[colorSet]).ordinal - colorSet * 4)
     }
 

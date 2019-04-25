@@ -86,7 +86,7 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
         return ItemStack(this, 1, COLORS[colorSet].indexOf(state.getValue(COLOR_PROPS[colorSet])))
     }
 
-    override fun getPickBlock(state: IBlockState, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer): ItemStack {
+    override fun getPickBlock(state: IBlockState, target: RayTraceResult, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack {
         return createStackedBlock(state)
     }
 
