@@ -1,6 +1,7 @@
 package com.wiresegal.naturalpledge.common.events
 
 import com.teamwizardry.librarianlib.features.kotlin.get
+import com.teamwizardry.librarianlib.features.methodhandles.MethodHandleHelper
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -23,7 +24,6 @@ import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.block.ModBlocks
 import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
-import com.wiresegal.naturalpledge.common.ext.isHardMode
 import com.wiresegal.naturalpledge.common.items.ItemResource
 import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
 import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
@@ -71,11 +71,13 @@ class AwakeningEventHandler {
                 .none { it != ModBlocks.awakenerCore }
     }
 
+    val EntityDoppleganger.hardMode by MethodHandleHelper.delegateForReadOnly<EntityDoppleganger, Boolean>(EntityDoppleganger::class.java, "hardMode")
+
     @SubscribeEvent
     fun itBegins(e: EntityJoinWorldEvent) {
         val entity = e.entity
 
-        if (entity is EntityDoppleganger && entity.entityData.getBoolean("isHardMode")) {
+        if (entity is EntityDoppleganger && entity.hardMode) {
             println("Wax: Is hard mode!")
 
             val fits = fitsLocation(entity)
@@ -105,7 +107,7 @@ class AwakeningEventHandler {
     fun itContinues(e: LivingEvent.LivingUpdateEvent) {
         val entity = e.entityLiving
 
-        if (entity is EntityDoppleganger && entity.isHardMode) {
+        if (entity is EntityDoppleganger && entity.hardMode) {
             if (entity.entityData.hasKey("divineBattle") && entity.entityData.getBoolean("divineBattle")) {
                 val divineBattle = entity.entityData.getInteger("divineBattle")
                 e.entityLiving.heal(if (divineBattle == 1) 0.02f else 0.04f) // 1 heart every five seconds, making it far harder to fight the Guardian. Consider it GGIII.
@@ -140,7 +142,7 @@ class AwakeningEventHandler {
     fun itEnds(e: LivingDeathEvent) {
         val entity = e.entityLiving
 
-        if (entity is EntityDoppleganger && entity.isHardMode) {
+        if (entity is EntityDoppleganger && entity.hardMode) {
             val fits = fitsLocation(entity)
             if (fits && entity.entityData.hasKey("divineBattle") && entity.entityData.getBoolean("divineBattle")) {
                 val players = getPlayersAround(entity)
