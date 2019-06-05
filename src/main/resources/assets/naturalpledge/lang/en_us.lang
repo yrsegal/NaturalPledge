@@ -274,8 +274,8 @@ item.naturalpledge:sunmaker_helm.name=Helm of the Sunmaker
 item.naturalpledge:sunmaker_chest.name=Chestplate of the Sunmaker
 item.naturalpledge:sunmaker_legs.name=Platelegs of the Sunmaker
 item.naturalpledge:sunmaker_boots.name=Greaves of the Sunmaker
-item.naturalpledge:shadowbreaker.name=Shadowbreaker the Aegis
-naturalpledge.armorset.ragnarok.sunmaker.name=Light of Creation
+item.naturalpledge:shadowbreaker.name=Oathbringer, Pain and Sorrow
+naturalpledge.armorset.ragnarok.sunmaker.name=The Unseen Light
 naturalpledge.armorset.ragnarok.sunmaker.desc=20%% less Mana cost on Mana Tools and Rods
 naturalpledge.armorset.ragnarok.sunmaker.desc1=Repairs your held items with Mana
 
@@ -724,7 +724,7 @@ naturalpledge.page.nether_stone1=Keralian resonance
 naturalpledge.entry.poly_stone=Stone of Assimilation
 naturalpledge.tagline.poly_stone=Break things your tools won't normally
 naturalpledge.page.poly_stone0=If a regular &4Manasteel Tool&0 won't do the job, the &1Stone of Assimilation&0 just might. Anything a regular tool can't break quickly, like &1Glass&0 or &1Leaves&0, the Stone of Assimilation can. It works with the &1Ring of Correction&0. It can also be enchanted just like a regular manasteel tool.
-naturalpledge.page.poly_stone1=We are all stones on this blessed day
+naturalpledge.page.poly_stone1=I am all stones on this blessed day
 
 naturalpledge.entry.ragnarok=Contract Breaker
 naturalpledge.tagline.ragnarok=Spin the black circle
@@ -746,9 +746,9 @@ naturalpledge.page.eclipse4=The &1Platelegs of Eclipse&0
 naturalpledge.page.eclipse5=The &1Greaves of Eclipse&0
 
 naturalpledge.entry.sunmaker=Gear of the Sunmaker
-naturalpledge.tagline.sunmaker=Push back the tide of darkness
-naturalpledge.page.sunmaker0=The gear created with the essence of the &4Sunmaker&0 encourages you to be a bastion against a storm. The &4Light of Creation&0, the special ability of the armor set, will infuse mana into anything damaged you hold or in your body, repairing it and cleansing you. The blade of the &4Sunmaker&0, &1Shadowbreaker&0, will repulse enemies who dare try to attack from behind, and any attacks from far away.
-naturalpledge.page.sunmaker1=For the glory of Merlin
+naturalpledge.tagline.sunmaker=Unite them
+naturalpledge.page.sunmaker0=The gear created with the essence of the &4Sunmaker&0 encourages you to be a bastion against a storm. The &4Unseen Light&0, the special ability of the armor set, will infuse mana into anything damaged you hold or in your body, repairing it and cleansing you. The blade of the &4Sunmaker&0, &1Oathbringer&0, will repulse enemies who dare try to attack from behind, and any attacks from far away, keeping your duels with Honor.
+naturalpledge.page.sunmaker1=I will take responsibility for what I've done
 naturalpledge.page.sunmaker2=The &1Helm of the Sunmaker&0
 naturalpledge.page.sunmaker3=The &1Chestplate of the Sunmaker&0
 naturalpledge.page.sunmaker4=The &1Platelegs of the Sunmaker&0
