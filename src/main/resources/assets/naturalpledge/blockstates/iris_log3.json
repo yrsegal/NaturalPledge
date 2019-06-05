@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "axis=y,color=brown": { "model": "naturalpledge:iris_log" },
+        "axis=z,color=brown": { "model": "naturalpledge:iris_log", "x": 90 },
+        "axis=x,color=brown": { "model": "naturalpledge:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=brown": { "model": "naturalpledge:iris_bark" },
+        "axis=y,color=green": { "model": "naturalpledge:iris_log" },
+        "axis=z,color=green": { "model": "naturalpledge:iris_log", "x": 90 },
+        "axis=x,color=green": { "model": "naturalpledge:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=green": { "model": "naturalpledge:iris_bark" },
+        "axis=y,color=red": { "model": "naturalpledge:iris_log" },
+        "axis=z,color=red": { "model": "naturalpledge:iris_log", "x": 90 },
+        "axis=x,color=red": { "model": "naturalpledge:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=red": { "model": "naturalpledge:iris_bark" },
+        "axis=y,color=black": { "model": "naturalpledge:iris_log" },
+        "axis=z,color=black": { "model": "naturalpledge:iris_log", "x": 90 },
+        "axis=x,color=black": { "model": "naturalpledge:iris_log", "x": 90, "y": 90 },
+        "axis=none,color=black": { "model": "naturalpledge:iris_bark" }
+    }
+}

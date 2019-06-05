@@ -1,0 +1,32 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"MPM",
+		"SFA",
+		"MHM"
+	],
+	"key": {
+		"M": {
+			"item": "botania:managlass"
+		},
+		"P": {
+			"item": "botania:manasteelpick"
+		},
+		"S": {
+			"item": "botania:manasteelshovel"
+		},
+		"F": {
+			"item": "naturalpledge:travel_stone"
+		},
+		"A": {
+			"item": "botania:manasteelaxe"
+		},
+		"H": {
+			"item": "botania:manasteelshears"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:poly_stone"
+	},
+	"group": "naturalpledge"
+}

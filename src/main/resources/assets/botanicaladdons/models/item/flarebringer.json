@@ -1,7 +1,0 @@
-{
-	"parent": "item/handheld",
-	"textures": {
-		"layer0": "botanicaladdons:items/flarebringer",
-		"layer1": "botanicaladdons:items/flarebringer_overlay"
-	}
-}

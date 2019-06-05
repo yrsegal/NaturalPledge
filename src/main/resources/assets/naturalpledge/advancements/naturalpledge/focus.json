@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:spell_focus"
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.focus"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.focus.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/root",
+  "criteria": {
+    "create_focus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "item": {
+          "item": "naturalpledge:spell_focus"
+        }
+      }
+    }
+  }
+}

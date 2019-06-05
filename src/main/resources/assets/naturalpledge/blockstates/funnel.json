@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"facing=down": { "model": "naturalpledge:funnel_down" },
+		"facing=north": { "model": "naturalpledge:funnel_side" },
+		"facing=south": { "model": "naturalpledge:funnel_side", "y": 180 },
+		"facing=west": { "model": "naturalpledge:funnel_side", "y": 270 },
+		"facing=east": { "model": "naturalpledge:funnel_side", "y": 90 }
+	}
+}

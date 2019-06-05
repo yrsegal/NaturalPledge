@@ -1,0 +1,15 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:alt_log1",
+			"data": 0
+		}
+	],
+	"result": {
+		"item": "naturalpledge:alt_planks",
+		"data": 4,
+		"count": 4
+	},
+	"group": "naturalpledge"
+}

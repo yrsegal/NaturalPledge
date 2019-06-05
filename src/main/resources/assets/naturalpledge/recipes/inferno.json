@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"BPB",
+		"HHH"
+	],
+	"key": {
+		"H": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		},
+		"B": {
+			"type": "forge:ore_dict",
+			"ore": "powderBlaze"
+		},
+		"P": {
+			"item": "botania:phantomink"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:inferno_trap",
+		"count": 16
+	},
+	"group": "naturalpledge"
+}

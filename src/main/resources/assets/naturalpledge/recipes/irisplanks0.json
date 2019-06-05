@@ -1,0 +1,15 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:iris_log0",
+			"data": 0
+		}
+	],
+	"result": {
+		"item": "naturalpledge:iris_planks",
+		"data": 0,
+		"count": 4
+	},
+	"group": "naturalpledge"
+}

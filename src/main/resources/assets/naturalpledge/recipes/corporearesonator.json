@@ -1,0 +1,30 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"ABA",
+		"OSO",
+		"BAB"
+	],
+	"key": {
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "bEnderAirBottle"
+		},
+		"B": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeLightBlue"
+		},
+		"O": {
+			"type": "forge:ore_dict",
+			"ore": "obsidian"
+		},
+		"S": {
+			"item": "botania:corporeaspark",
+			"data": 0
+		}
+	},
+	"result": {
+		"item": "naturalpledge:corporea_resonator"
+	},
+	"group": "naturalpledge"
+}

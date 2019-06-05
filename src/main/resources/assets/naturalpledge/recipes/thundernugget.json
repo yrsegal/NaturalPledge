@@ -1,0 +1,15 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"type": "forge:ore_dict",
+			"ore": "ingotThundersteel"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:resource",
+		"data": 6,
+		"count": 9
+	},
+	"group": "naturalpledge"
+}

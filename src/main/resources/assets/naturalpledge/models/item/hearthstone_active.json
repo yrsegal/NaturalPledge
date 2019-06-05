@@ -1,0 +1,7 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "naturalpledge:items/ember_rock",
+		"layer1": "naturalpledge:items/ember_fire"
+	}
+}

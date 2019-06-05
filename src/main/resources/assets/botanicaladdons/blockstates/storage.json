@@ -1,6 +1,0 @@
-{
-    "variants": {
-        "type=thundersteel": { "model": "botanicaladdons:thundersteel" },
-        "type=aquamarine": { "model": "botanicaladdons:aquamarine" }
-    }
-}

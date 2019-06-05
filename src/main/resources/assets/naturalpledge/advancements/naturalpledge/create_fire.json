@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:resource",
+      "data":7
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.create_fire"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.create_fire.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:resource",
+            "data":7
+          }
+        ]
+      }
+    }
+  }
+}

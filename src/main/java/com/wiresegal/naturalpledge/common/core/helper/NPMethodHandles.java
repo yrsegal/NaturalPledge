@@ -1,0 +1,236 @@
+package com.wiresegal.naturalpledge.common.core.helper;
+
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraft.util.CooldownTracker;
+import net.minecraft.world.Explosion;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import com.wiresegal.naturalpledge.common.lib.LibObfuscation;
+import vazkii.botania.common.entity.EntityDoppleganger;
+
+import javax.annotation.Nonnull;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodType;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+
+import static java.lang.invoke.MethodHandles.publicLookup;
+
+/**
+ * @author WireSegal
+ *         Created at 10:50 PM on 5/28/16.
+ */
+@SuppressWarnings("unchecked")
+public class NPMethodHandles {
+
+    @Nonnull
+    public static final Class cooldownClass;
+    @Nonnull
+    private static final MethodHandle cooldownsGetter, cooldownTicksGetter, cooldownMaker, expireTicksGetter, createTicksGetter,
+            swingTicksGetter, swingTicksSetter, lightningEffectGetter, explosionSizeGetter, alwaysEdibleGetter, playersWhoAttackedGetter,
+            mobSpawnTicksSetter, tpDelaySetter, isJumpingSetter, jumpTicksGetter, capturePositionInvoker;
+
+    static {
+        try {
+            Field f = ReflectionHelper.findField(CooldownTracker.class, LibObfuscation.COOLDOWNTRACKER_COOLDOWNS);
+            cooldownsGetter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(CooldownTracker.class, LibObfuscation.COOLDOWNTRACKER_TICKS);
+            cooldownTicksGetter = publicLookup().unreflectGetter(f);
+
+            cooldownClass = Class.forName("net.minecraft.util.CooldownTracker$Cooldown");
+            Constructor ctor = cooldownClass.getDeclaredConstructor(CooldownTracker.class, int.class, int.class);
+            ctor.setAccessible(true);
+            cooldownMaker = publicLookup().unreflectConstructor(ctor).asType(MethodType.methodType(Object.class, CooldownTracker.class, int.class, int.class));
+
+            f = ReflectionHelper.findField(cooldownClass, LibObfuscation.COOLDOWN_EXPIRETICKS);
+            expireTicksGetter = publicLookup().unreflectGetter(f).asType(MethodType.methodType(int.class, Object.class));
+
+            f = ReflectionHelper.findField(cooldownClass, LibObfuscation.COOLDOWN_CREATETICKS);
+            createTicksGetter = publicLookup().unreflectGetter(f).asType(MethodType.methodType(int.class, Object.class));
+
+            f = ReflectionHelper.findField(EntityLivingBase.class, LibObfuscation.ENTITYLIVINGBASE_TICKSSINCELASTSWING);
+            swingTicksGetter = publicLookup().unreflectGetter(f);
+            swingTicksSetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityLightningBolt.class, LibObfuscation.ENTITYLIGHTNINGBOLT_EFFECTONLY);
+            lightningEffectGetter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(Explosion.class, LibObfuscation.EXPLOSION_EXPLOSIONSIZE);
+            explosionSizeGetter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(ItemFood.class, LibObfuscation.ITEMFOOD_ALWAYSEDIBLE);
+            alwaysEdibleGetter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(EntityDoppleganger.class, "playersWhoAttacked");
+            playersWhoAttackedGetter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(EntityDoppleganger.class, "mobSpawnTicks");
+            mobSpawnTicksSetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityDoppleganger.class, "tpDelay");
+            tpDelaySetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityLivingBase.class, LibObfuscation.ENTITYLIVINGBASE_ISJUMPING);
+            isJumpingSetter = publicLookup().unreflectSetter(f);
+
+            f = ReflectionHelper.findField(EntityLivingBase.class, LibObfuscation.ENTITYLIVINGBASE_JUMPTICKS);
+            jumpTicksGetter = publicLookup().unreflectGetter(f);
+
+            Method m = ReflectionHelper.findMethod(NetHandlerPlayServer.class, LibObfuscation.NETHANDLERPLAYSERVER_CAPTURECURRENTPOSITION[2],LibObfuscation.NETHANDLERPLAYSERVER_CAPTURECURRENTPOSITION[1]);
+            capturePositionInvoker = publicLookup().unreflect(m);
+
+        } catch (Throwable t) {
+            NPLogger.INSTANCE.severe("Couldn't initialize methodhandles! Things will be broken!");
+            t.printStackTrace();
+            throw new RuntimeException(t);
+        }
+    }
+
+    @Nonnull
+    public static Map getCooldowns(@Nonnull CooldownTracker cooldownTracker) {
+        try {
+            return (Map) cooldownsGetter.invokeExact(cooldownTracker);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void addNewCooldown(@Nonnull CooldownTracker cooldownTracker, @Nonnull Item item, int createTicks, int expireTicks) {
+        Map cooldowns = getCooldowns(cooldownTracker);
+        cooldowns.put(item, newCooldown(cooldownTracker, createTicks, expireTicks));
+    }
+
+    public static int getCooldownTicks(@Nonnull CooldownTracker cooldownTracker) {
+        try {
+            return (int) cooldownTicksGetter.invokeExact(cooldownTracker);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    @Nonnull
+    public static Object newCooldown(@Nonnull CooldownTracker tracker, int createTicks, int expireTicks) {
+        try {
+            return (Object) cooldownMaker.invokeExact(tracker, createTicks, expireTicks);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static int getExpireTicks(@Nonnull Object cooldown) {
+        try {
+            return (int) expireTicksGetter.invokeExact(cooldown);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static int getCreateTicks(@Nonnull Object cooldown) {
+        try {
+            return (int) createTicksGetter.invokeExact(cooldown);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static int getSwingTicks(@Nonnull EntityLivingBase entity) {
+        try {
+            return (int) swingTicksGetter.invokeExact(entity);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void setSwingTicks(@Nonnull EntityLivingBase entity, int ticks) {
+        try {
+            swingTicksSetter.invokeExact(entity, ticks);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static boolean getEffectOnly(@Nonnull EntityLightningBolt entity) {
+        try {
+            return (boolean) lightningEffectGetter.invokeExact(entity);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static float getExplosionSize(@Nonnull Explosion entity) {
+        try {
+            return (float) explosionSizeGetter.invokeExact(entity);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static boolean isAlwaysEdible(@Nonnull ItemFood food) {
+        try {
+            return (boolean) alwaysEdibleGetter.invokeExact(food);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static List getPlayersWhoAttacked(@Nonnull EntityDoppleganger gaiaGuardian) {
+        try {
+            return (List) playersWhoAttackedGetter.invokeExact(gaiaGuardian);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void setMobSpawnTicks(@Nonnull EntityDoppleganger gaiaGuardian, int ticks) {
+        try {
+            mobSpawnTicksSetter.invokeExact(gaiaGuardian, ticks);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void setTpDelay(@Nonnull EntityDoppleganger gaiaGuardian, int ticks) {
+        try {
+            tpDelaySetter.invokeExact(gaiaGuardian, ticks);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void setIsJumping(@Nonnull EntityLivingBase entity, boolean isJumping) {
+        try {
+            isJumpingSetter.invokeExact(entity, isJumping);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static int getJumpTicks(@Nonnull EntityLivingBase entity) {
+        try {
+            return (int) jumpTicksGetter.invokeExact(entity);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void captureCurrentPosition(@Nonnull NetHandlerPlayServer net) {
+        try {
+            capturePositionInvoker.invokeExact(net);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    private static RuntimeException propagate(Throwable t) {
+        NPLogger.INSTANCE.severe("Methodhandle failed!");
+        t.printStackTrace();
+        return new RuntimeException(t);
+    }
+}

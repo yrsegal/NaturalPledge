@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:divine_core"
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.awakening"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.awakening.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/focus",
+  "criteria": {
+    "create_holysymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "item": {
+          "item": "naturalpledge:priest_emblem",
+          "data": 4
+        }
+      }
+    }
+  }
+}

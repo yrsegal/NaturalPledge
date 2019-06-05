@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "botanicaladdons:block/iris_sapling"
-  }
-}

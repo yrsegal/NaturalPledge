@@ -1,0 +1,29 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"W B",
+		" S ",
+		"R R"
+	],
+	"key": {
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "dyeWhite"
+		},
+		"B": {
+			"type": "forge:ore_dict",
+			"ore": "dyeBlack"
+		},
+		"S": {
+			"item": "naturalpledge:iris_sapling"
+		},
+		"R": {
+			"type": "forge:ore_dict",
+			"ore": "lifeRoot"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:calico_sapling"
+	},
+	"group": "naturalpledge"
+}

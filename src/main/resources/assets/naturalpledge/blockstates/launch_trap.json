@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "naturalpledge:empty"
+		},
+		"facing=south": {
+			"model": "naturalpledge:empty"
+		},
+		"facing=west": {
+			"model": "naturalpledge:empty"
+		},
+		"facing=east": {
+			"model": "naturalpledge:empty"
+		}
+	}
+}

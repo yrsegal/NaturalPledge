@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:resource",
+      "data":2
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.create_life"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.create_life.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:resource",
+            "data":2
+          }
+        ]
+      }
+    }
+  }
+}

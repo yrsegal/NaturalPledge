@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:calico_log"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:calico_planks",
+		"count": 4
+	},
+	"group": "naturalpledge"
+}

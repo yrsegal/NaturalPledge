@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:seal_log"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:seal_planks",
+		"count": 4
+	},
+	"group": "naturalpledge"
+}

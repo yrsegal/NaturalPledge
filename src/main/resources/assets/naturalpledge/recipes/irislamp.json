@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" D ",
+		"DLD",
+		" D "
+	],
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeRainbow"
+		},
+		"L": {
+			"item": "minecraft:redstone_lamp"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:iris_lamp"
+	},
+	"group": "naturalpledge"
+}

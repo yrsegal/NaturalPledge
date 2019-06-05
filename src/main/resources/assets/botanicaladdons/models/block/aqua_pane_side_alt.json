@@ -1,7 +1,0 @@
-{
-  "parent": "block/pane_side_alt",
-  "textures": {
-    "edge": "botanicaladdons:block/pane_aqua_top",
-    "pane": "botanicaladdons:block/glass_aqua"
-  }
-}

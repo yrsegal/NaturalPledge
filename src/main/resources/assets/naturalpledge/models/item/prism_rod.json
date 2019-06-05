@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "naturalpledge:items/prism_rod_crystal",
+    "layer1": "naturalpledge:items/prism_rod"
+  }
+}

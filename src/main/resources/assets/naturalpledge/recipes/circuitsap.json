@@ -1,0 +1,28 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"D C",
+		" S ",
+		"R R"
+	],
+	"key": {
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dustRedstone"
+		},
+		"C": {
+			"item": "minecraft:comparator"
+		},
+		"S": {
+			"item": "naturalpledge:iris_sapling"
+		},
+		"R": {
+			"type": "forge:ore_dict",
+			"ore": "lifeRoot"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:circuit_sapling"
+	},
+	"group": "naturalpledge"
+}

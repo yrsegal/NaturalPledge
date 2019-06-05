@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"type=infused": {
+			"model": "naturalpledge:alt_leaves_infused"
+		},
+		"type=mutated": {
+			"model": "naturalpledge:alt_leaves_mutated"
+		}
+	}
+}

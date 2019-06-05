@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.2.61'
     repositories {
         jcenter()
         maven {
@@ -49,6 +49,7 @@ minecraft {
 
     replaceIn 'LibMisc.java'
     replaceIn 'LibMisc.kt'
+    useDepAts = true
 }
 
 jar {
@@ -74,8 +75,9 @@ compileKotlin {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${config.jei_version}"
-    compile "com.teamwizardry.librarianlib:librarianlib-1.12:4.0-SNAPSHOT:deobf"
+    compile "mezz.jei:jei_${config.jei_version}"
+    compile "com.teamwizardry.librarianlib:librarianlib-1.12.2:4.16-SNAPSHOT:deobf"
+    compile files("libs/vazkii")
 }
 
 def parseConfig(File config) {

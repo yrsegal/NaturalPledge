@@ -1,7 +1,0 @@
-{
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "botanicaladdons:items/ember_rock",
-		"layer1": "botanicaladdons:items/ember_fire"
-	}
-}

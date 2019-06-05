@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"AAA",
+		"AGA",
+		"AAA"
+	],
+	"key": {
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "gemAquamarine"
+		},
+		"G": {
+			"item": "botania:managlass"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:aqua_glass"
+	},
+	"group": "naturalpledge"
+}

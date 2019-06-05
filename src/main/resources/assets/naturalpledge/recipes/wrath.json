@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" M ",
+		"HPH",
+		" H "
+	],
+	"key": {
+		"H": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		},
+		"M": {
+			"item": "naturalpledge:mortal_stone"
+		},
+		"P": {
+			"item": "botania:phantomink"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:wrath_trap",
+		"count": 16
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "naturalpledge:items/shadowbreaker",
+		"layer1": "naturalpledge:items/shadowbreaker_overlay"
+	}
+}

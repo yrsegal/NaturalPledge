@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:thunder_log"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:thunder_planks",
+		"count": 4
+	},
+	"group": "naturalpledge"
+}

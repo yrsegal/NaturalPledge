@@ -1,0 +1,13 @@
+{
+  "parent": "naturalpledge:item/_standard_item",
+  "textures": {
+    "layer0": "naturalpledge:items/emblem_heimdall_string",
+    "layer1": "naturalpledge:items/emblem_heimdall_symbol"
+  },
+  "overrides" : [{
+    "predicate": {
+      "naturalpledge:pendant": 1
+    },
+    "model": "naturalpledge:item/pendant_heimdall"
+  }]
+}

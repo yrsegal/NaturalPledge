@@ -1,0 +1,28 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" E ",
+		"GDG",
+		" G "
+	],
+	"key": {
+		"E": {
+			"type": "forge:ore_dict",
+			"ore": "bEnderAirBottle"
+		},
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "dustGlowstone"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeLime"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:star",
+		"count": 5,
+		"nbt": "{color:8375321}"
+	},
+	"group": "naturalpledge"
+}

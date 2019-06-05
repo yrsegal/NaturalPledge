@@ -1,0 +1,32 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"G F",
+		"WAC",
+		"CC "
+	],
+	"key": {
+		"G": {
+			"item": "minecraft:ghast_tear"
+		},
+		"F": {
+			"item": "minecraft:fire_charge"
+		},
+		"C": {
+			"type": "forge:ore_dict",
+			"ore": "blockCoal"
+		},
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "runeWrathB"
+		},
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstoneAwakened"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:perdition_fist"
+	},
+	"group": "naturalpledge"
+}

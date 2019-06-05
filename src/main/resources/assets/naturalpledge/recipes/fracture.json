@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"OOO",
+		"OSO",
+		"OOO"
+	],
+	"key": {
+		"O": {
+			"type": "forge:ore_dict",
+			"ore": "obsidian"
+		},
+		"S": {
+			"item": "naturalpledge:find_stone"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:portal_stone"
+	},
+	"group": "naturalpledge"
+}

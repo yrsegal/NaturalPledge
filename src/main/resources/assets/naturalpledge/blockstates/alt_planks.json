@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "type=dry": { "model": "naturalpledge:alt_planks_dry" },
+        "type=golden": { "model": "naturalpledge:alt_planks_golden" },
+        "type=vivid": { "model": "naturalpledge:alt_planks_vivid" },
+        "type=scorched": { "model": "naturalpledge:alt_planks_scorched" },
+        "type=infused": { "model": "naturalpledge:alt_planks_infused" },
+        "type=mutated": { "model": "naturalpledge:alt_planks_mutated" }
+    }
+}

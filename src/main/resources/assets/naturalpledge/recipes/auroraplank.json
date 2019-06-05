@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"W"
+	],
+	"key": {
+		"W": {
+			"item": "naturalpledge:aurora_log"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:aurora_planks",
+		"count": 4
+	},
+	"group": "naturalpledge"
+}

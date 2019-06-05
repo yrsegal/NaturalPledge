@@ -1,0 +1,27 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CCC",
+		"MCM",
+		"MSM"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:wool",
+			"data": 15
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "nuggetGold"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "ingotThundersteel"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:divine_cloak",
+		"data": 2
+	},
+	"group": "naturalpledge"
+}

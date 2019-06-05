@@ -1,0 +1,7 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "naturalpledge:items/flarebringer",
+		"layer1": "naturalpledge:items/flarebringer_overlay"
+	}
+}

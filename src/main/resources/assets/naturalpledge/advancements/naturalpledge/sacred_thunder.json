@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:mjolnir"
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.sacred_thunder"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.sacred_thunder.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:mjolnir"
+          }
+        ]
+      }
+    }
+  }
+}

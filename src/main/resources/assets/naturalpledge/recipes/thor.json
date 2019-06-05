@@ -1,0 +1,34 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" G ",
+		"WSA",
+		" B "
+	],
+	"key": {
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "manaPearl"
+		},
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "runeFireB"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "holySymbol"
+		},
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "runeAirB"
+		},
+		"B": {
+			"item": "botania:travelbelt"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:priest_emblem",
+		"data": 2
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"type=dry": {
+			"model": "naturalpledge:alt_leaves_dry"
+		},
+		"type=golden": {
+			"model": "naturalpledge:alt_leaves_golden"
+		},
+		"type=vivid": {
+			"model": "naturalpledge:alt_leaves_vivid"
+		},
+		"type=scorched": {
+			"model": "naturalpledge:alt_leaves_scorched"
+		}
+	}
+}

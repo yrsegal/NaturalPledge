@@ -1,0 +1,15 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"type": "forge:ore_dict",
+			"ore": "blockAquamarine"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:resource",
+		"data": 4,
+		"count": 9
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:resource",
+      "data":4
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.create_aqua"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.create_aqua.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:resource",
+            "data":4
+          }
+        ]
+      }
+    }
+  }
+}

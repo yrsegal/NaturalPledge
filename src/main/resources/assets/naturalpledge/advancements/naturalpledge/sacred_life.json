@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:apple_immortality"
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.sacred_life"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.sacred_life.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:apple_immortality"
+          }
+        ]
+      }
+    }
+  }
+}

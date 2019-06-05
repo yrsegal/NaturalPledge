@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:find_stone"
+		},
+		{
+			"item": "botania:corporeaspark",
+			"data": 0
+		}
+	],
+	"result": {
+		"item": "naturalpledge:corporea_focus"
+	},
+	"group": "naturalpledge"
+}

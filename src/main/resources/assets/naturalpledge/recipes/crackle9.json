@@ -1,0 +1,28 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" E ",
+		"GDG",
+		" G "
+	],
+	"key": {
+		"E": {
+			"type": "forge:ore_dict",
+			"ore": "bEnderAirBottle"
+		},
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "manaPearl"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeCyan"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:crackling_star",
+		"count": 10,
+		"nbt": "{color:5013401}"
+	},
+	"group": "naturalpledge"
+}

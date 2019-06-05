@@ -1,0 +1,27 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CCC",
+		"MCM",
+		"MSM"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:wool",
+			"data": 0
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "feather"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "gemAquamarine"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:divine_cloak",
+		"data": 0
+	},
+	"group": "naturalpledge"
+}

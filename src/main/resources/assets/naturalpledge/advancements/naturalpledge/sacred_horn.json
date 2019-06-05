@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:fate_horn"
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.sacred_horn"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.sacred_horn.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:fate_horn"
+          }
+        ]
+      }
+    }
+  }
+}

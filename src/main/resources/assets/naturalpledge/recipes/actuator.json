@@ -1,0 +1,29 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"PBE",
+		"BCB",
+		"EBP"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "manaPearl"
+		},
+		"B": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeBlack"
+		},
+		"E": {
+			"item": "minecraft:ender_eye"
+		},
+		"C": {
+			"type": "forge:ore_dict",
+			"ore": "chestEnder"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:actuator"
+	},
+	"group": "naturalpledge"
+}

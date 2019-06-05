@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "color=white": { "model": "naturalpledge:iris_planks" },
+        "color=orange": { "model": "naturalpledge:iris_planks" },
+        "color=magenta": { "model": "naturalpledge:iris_planks" },
+        "color=light_blue": { "model": "naturalpledge:iris_planks" },
+        "color=yellow": { "model": "naturalpledge:iris_planks" },
+        "color=lime": { "model": "naturalpledge:iris_planks" },
+        "color=pink": { "model": "naturalpledge:iris_planks" },
+        "color=gray": { "model": "naturalpledge:iris_planks" },
+        "color=silver": { "model": "naturalpledge:iris_planks" },
+        "color=cyan": { "model": "naturalpledge:iris_planks" },
+        "color=purple": { "model": "naturalpledge:iris_planks" },
+        "color=blue": { "model": "naturalpledge:iris_planks" },
+        "color=brown": { "model": "naturalpledge:iris_planks" },
+        "color=green": { "model": "naturalpledge:iris_planks" },
+        "color=red": { "model": "naturalpledge:iris_planks" },
+        "color=black": { "model": "naturalpledge:iris_planks" }
+    }
+}

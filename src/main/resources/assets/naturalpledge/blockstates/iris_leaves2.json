@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"color=silver": {
+			"model": "naturalpledge:iris_leaves"
+		},
+		"color=cyan": {
+			"model": "naturalpledge:iris_leaves"
+		},
+		"color=purple": {
+			"model": "naturalpledge:iris_leaves"
+		},
+		"color=blue": {
+			"model": "naturalpledge:iris_leaves"
+		}
+	}
+}

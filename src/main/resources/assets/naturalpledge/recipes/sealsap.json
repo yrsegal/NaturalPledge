@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"W W",
+		" S ",
+		"R R"
+	],
+	"key": {
+		"W": {
+			"item": "minecraft:wool",
+			"data": 0
+		},
+		"S": {
+			"item": "naturalpledge:iris_sapling"
+		},
+		"R": {
+			"type": "forge:ore_dict",
+			"ore": "lifeRoot"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:seal_sapling"
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:find_stone"
+		},
+		{
+			"type": "forge:ore_dict",
+			"ore": "bone"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:death_stone"
+	},
+	"group": "naturalpledge"
+}

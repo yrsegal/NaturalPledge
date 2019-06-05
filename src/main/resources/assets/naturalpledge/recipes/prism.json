@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" BG",
+		" DB",
+		"D  "
+	],
+	"key": {
+		"G": {
+			"type": "forge:ore_dict",
+			"ore": "glowstone"
+		},
+		"B": {
+			"type": "forge:ore_dict",
+			"ore": "irisDyeRainbow"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "dreamwoodTwig"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:prism_rod"
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,13 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "naturalpledge:circuit_log"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:circuit_planks",
+		"count": 4
+	},
+	"group": "naturalpledge"
+}

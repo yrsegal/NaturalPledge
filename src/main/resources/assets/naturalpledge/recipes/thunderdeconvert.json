@@ -1,0 +1,15 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"type": "forge:ore_dict",
+			"ore": "blockThundersteel"
+		}
+	],
+	"result": {
+		"item": "naturalpledge:resource",
+		"data": 0,
+		"count": 9
+	},
+	"group": "naturalpledge"
+}

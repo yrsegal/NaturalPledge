@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "axis=y,type=dry": { "model": "naturalpledge:alt_wood_dry" },
+        "axis=z,type=dry": { "model": "naturalpledge:alt_wood_dry", "x": 90 },
+        "axis=x,type=dry": { "model": "naturalpledge:alt_wood_dry", "x": 90, "y": 90 },
+        "axis=none,type=dry": { "model": "naturalpledge:alt_bark_dry" },
+        "axis=y,type=golden": { "model": "naturalpledge:alt_wood_golden" },
+        "axis=z,type=golden": { "model": "naturalpledge:alt_wood_golden", "x": 90 },
+        "axis=x,type=golden": { "model": "naturalpledge:alt_wood_golden", "x": 90, "y": 90 },
+        "axis=none,type=golden": { "model": "naturalpledge:alt_bark_golden" },
+        "axis=y,type=vivid": { "model": "naturalpledge:alt_wood_vivid" },
+        "axis=z,type=vivid": { "model": "naturalpledge:alt_wood_vivid", "x": 90 },
+        "axis=x,type=vivid": { "model": "naturalpledge:alt_wood_vivid", "x": 90, "y": 90 },
+        "axis=none,type=vivid": { "model": "naturalpledge:alt_bark_vivid" },
+        "axis=y,type=scorched": { "model": "naturalpledge:alt_wood_scorched" },
+        "axis=z,type=scorched": { "model": "naturalpledge:alt_wood_scorched", "x": 90 },
+        "axis=x,type=scorched": { "model": "naturalpledge:alt_wood_scorched", "x": 90, "y": 90 },
+        "axis=none,type=scorched": { "model": "naturalpledge:alt_bark_scorched" }
+    }
+}

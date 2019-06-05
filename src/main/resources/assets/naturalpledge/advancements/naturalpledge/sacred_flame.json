@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:perdition_fist"
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.sacred_flame"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.sacred_flame.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:perdition_fist"
+          }
+        ]
+      }
+    }
+  }
+}

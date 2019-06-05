@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "axis=y": { "model": "naturalpledge:circuit_log" },
+        "axis=z": { "model": "naturalpledge:circuit_log", "x": 90 },
+        "axis=x": { "model": "naturalpledge:circuit_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "naturalpledge:circuit_bark" }
+    }
+}

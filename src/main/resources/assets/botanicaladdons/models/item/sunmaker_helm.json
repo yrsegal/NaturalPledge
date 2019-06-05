@@ -1,7 +1,0 @@
-{
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "botanicaladdons:items/sunmaker_helmet_layer_0",
-		"layer1": "botanicaladdons:items/sunmaker_helmet_layer_1"
-	}
-}

@@ -1,0 +1,24 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CCS",
+		"WWW"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:carpet",
+			"data": 32767
+		},
+		"S": {
+			"item": "naturalpledge:travel_stone"
+		},
+		"W": {
+			"item": "minecraft:wool",
+			"data": 32767
+		}
+	},
+	"result": {
+		"item": "naturalpledge:sleep_stone"
+	},
+	"group": "naturalpledge"
+}

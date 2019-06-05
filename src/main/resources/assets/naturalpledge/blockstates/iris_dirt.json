@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "color=white": { "model": "naturalpledge:iris_dirt" },
+        "color=orange": { "model": "naturalpledge:iris_dirt" },
+        "color=magenta": { "model": "naturalpledge:iris_dirt" },
+        "color=light_blue": { "model": "naturalpledge:iris_dirt" },
+        "color=yellow": { "model": "naturalpledge:iris_dirt" },
+        "color=lime": { "model": "naturalpledge:iris_dirt" },
+        "color=pink": { "model": "naturalpledge:iris_dirt" },
+        "color=gray": { "model": "naturalpledge:iris_dirt" },
+        "color=silver": { "model": "naturalpledge:iris_dirt" },
+        "color=cyan": { "model": "naturalpledge:iris_dirt" },
+        "color=purple": { "model": "naturalpledge:iris_dirt" },
+        "color=blue": { "model": "naturalpledge:iris_dirt" },
+        "color=brown": { "model": "naturalpledge:iris_dirt" },
+        "color=green": { "model": "naturalpledge:iris_dirt" },
+        "color=red": { "model": "naturalpledge:iris_dirt" },
+        "color=black": { "model": "naturalpledge:iris_dirt" }
+    }
+}

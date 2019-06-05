@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CCC",
+		"MCM",
+		"MSM"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:wool",
+			"data": 15
+		},
+		"M": {
+			"item": "minecraft:blaze_powder"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:divine_cloak",
+		"data": 4
+	},
+	"group": "naturalpledge"
+}

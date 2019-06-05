@@ -1,0 +1,7 @@
+{
+  "parent": "naturalpledge:item/_standard_item",
+  "textures": {
+    "layer0": "naturalpledge:items/pendant_heimdall_string",
+    "layer1": "naturalpledge:items/pendant_heimdall_symbol"
+  }
+}

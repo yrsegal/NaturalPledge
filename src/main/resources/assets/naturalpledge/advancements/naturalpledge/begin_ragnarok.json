@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:spell_icon",
+      "data": 17
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.begin_ragnarok"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.begin_ragnarok.desc"
+    },
+    "hidden": true,
+    "frame":"challenge"
+  },
+  "parent": "naturalpledge:naturalpledge/ragnarok",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

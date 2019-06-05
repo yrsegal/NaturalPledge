@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"GGG",
+		"GGG"
+	],
+	"key": {
+		"G": {
+			"item": "naturalpledge:aqua_glass"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:aqua_pane",
+		"count": 16
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:resource",
+      "data":0
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.create_thunder"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.create_thunder.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:resource",
+            "data":0
+          }
+        ]
+      }
+    }
+  }
+}

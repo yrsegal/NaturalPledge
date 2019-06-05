@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:seal_arrow"
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.sacred_aqua"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.sacred_aqua.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/awakening",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:seal_arrow"
+          }
+        ]
+      }
+    }
+  }
+}

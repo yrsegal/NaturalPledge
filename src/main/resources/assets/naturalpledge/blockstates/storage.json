@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "type=thundersteel": { "model": "naturalpledge:thundersteel" },
+        "type=aquamarine": { "model": "naturalpledge:aquamarine" }
+    }
+}

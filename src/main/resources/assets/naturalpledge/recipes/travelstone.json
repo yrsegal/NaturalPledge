@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"DSD",
+		"SAS",
+		"DSD"
+	],
+	"key": {
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "stone"
+		},
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "runeAirB"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "irisDye"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:travel_stone"
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "naturalpledge:iris_dye",
+      "data":16
+    },
+    "title": {
+      "translate": "achievement.naturalpledge.iridescence"
+    },
+    "description": {
+      "translate": "achievement.naturalpledge.iridescence.desc"
+    },
+    "hidden": false
+  },
+  "parent": "naturalpledge:naturalpledge/focus",
+  "criteria": {
+    "getSymbol": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "naturalpledge:iris_dye",
+            "data":16
+          }
+        ]
+      }
+    }
+  }
+}

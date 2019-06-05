@@ -1,0 +1,26 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"S S",
+		"SPS",
+		"HHH"
+	],
+	"key": {
+		"H": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "sand"
+		},
+		"P": {
+			"item": "botania:phantomink"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:sand_trap",
+		"count": 16
+	},
+	"group": "naturalpledge"
+}

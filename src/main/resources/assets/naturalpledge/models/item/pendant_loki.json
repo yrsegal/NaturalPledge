@@ -1,0 +1,6 @@
+{
+  "parent": "naturalpledge:item/_standard_item",
+  "textures": {
+    "layer0": "naturalpledge:items/pendant_loki"
+  }
+}

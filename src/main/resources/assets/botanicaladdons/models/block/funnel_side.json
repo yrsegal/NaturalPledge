@@ -1,9 +1,0 @@
-{
-  "parent": "block/hopper_side",
-  "textures": {
-    "particle": "botanicaladdons:block/funnel_outside",
-    "top": "botanicaladdons:block/funnel_top",
-    "side": "botanicaladdons:block/funnel_outside",
-    "inside": "botanicaladdons:block/funnel_inside"
-  }
-}

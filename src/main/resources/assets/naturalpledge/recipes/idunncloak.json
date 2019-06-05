@@ -1,0 +1,27 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CCC",
+		"MCM",
+		"MSM"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:wool",
+			"data": 5
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "livingwood"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "lifeRoot"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:divine_cloak",
+		"data": 1
+	},
+	"group": "naturalpledge"
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "naturalpledge:item/_standard_item",
+  "textures": {
+    "layer0": "naturalpledge:items/emblem_loki"
+  },
+  "overrides" : [{
+    "predicate": {
+      "naturalpledge:pendant": 1
+    },
+    "model": "naturalpledge:item/pendant_loki"
+  }]
+}

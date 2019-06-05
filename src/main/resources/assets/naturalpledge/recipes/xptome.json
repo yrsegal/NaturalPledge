@@ -1,0 +1,29 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"CRP",
+		"RBR",
+		" RC"
+	],
+	"key": {
+		"C": {
+			"type": "forge:ore_dict",
+			"ore": "clothManaweave"
+		},
+		"R": {
+			"type": "forge:ore_dict",
+			"ore": "lifeRoot"
+		},
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "elvenPixieDust"
+		},
+		"B": {
+			"item": "minecraft:book"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:xp_tome"
+	},
+	"group": "naturalpledge"
+}
