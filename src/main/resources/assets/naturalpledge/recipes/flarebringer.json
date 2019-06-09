@@ -1,0 +1,30 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"DMS",
+		"MT ",
+		" T "
+	],
+	"key": {
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "divineSpirit"
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "hearthstone"
+		},
+		"T": {
+			"type": "forge:ore_dict",
+			"ore": "livingwoodTwig"
+		},
+		"D": {
+			"type": "forge:ore_dict",
+			"ore": "elvenPixieDust"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:flarebringer"
+	},
+	"group": "naturalpledge"
+}

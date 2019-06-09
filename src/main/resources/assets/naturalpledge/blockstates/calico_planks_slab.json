@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=top": {
+			"model": "naturalpledge:calico_planks_slab_top"
+		},
+		"half=bottom": {
+			"model": "naturalpledge:calico_planks_slab_bottom"
+		}
+	}
+}

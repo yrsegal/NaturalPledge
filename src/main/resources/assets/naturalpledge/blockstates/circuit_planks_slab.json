@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=top": {
+			"model": "naturalpledge:circuit_planks_slab_top"
+		},
+		"half=bottom": {
+			"model": "naturalpledge:circuit_planks_slab_bottom"
+		}
+	}
+}

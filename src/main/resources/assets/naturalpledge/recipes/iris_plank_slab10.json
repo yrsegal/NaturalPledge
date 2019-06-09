@@ -1,0 +1,18 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"WWW"
+	],
+	"key": {
+		"W": {
+			"item": "naturalpledge:iris_planks",
+			"data": 10
+		}
+	},
+	"result": {
+		"item": "naturalpledge:iris_planks_slab_purple",
+		"data": 0,
+		"count": 6
+	},
+	"group": "naturalpledge"
+}

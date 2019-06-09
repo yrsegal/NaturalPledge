@@ -4,6 +4,11 @@ import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import com.teamwizardry.librarianlib.features.network.PacketHandler
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.client.render.entity.ModelOldCloak
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
+import com.wiresegal.naturalpledge.common.items.base.ItemBaseBauble
+import com.wiresegal.naturalpledge.common.network.BlinkMessage
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.OpenGlHelper
@@ -24,12 +29,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
-import com.wiresegal.naturalpledge.common.items.base.ItemBaseBauble
-import com.wiresegal.naturalpledge.common.network.BlinkMessage
 import vazkii.botania.api.item.IBaubleRender
-import vazkii.botania.client.model.ModelCloak
 
 /**
  * @author WireSegal
@@ -172,7 +172,7 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
 
     @SideOnly(Side.CLIENT)
     override fun onPlayerBaubleRender(stack: ItemStack, player: EntityPlayer, type: IBaubleRender.RenderType, partialTicks: Float) {
-        if (model == null) model = ModelCloak()
+        if (model == null) model = ModelOldCloak()
         if (type == vazkii.botania.api.item.IBaubleRender.RenderType.BODY) {
             IBaubleRender.Helper.rotateIfSneaking(player)
             val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isNotEmpty
@@ -183,13 +183,13 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
             GlStateManager.enableLighting()
             GlStateManager.enableRescaleNormal()
             Minecraft.getMinecraft().renderEngine.bindTexture(this.getCloakTexture(stack))
-            (model as ModelCloak).render(1.0f)
+            (model as ModelOldCloak).render(1.0f)
             val light = 0xF000F0
             val lightmapX = light % 0x10000
             val lightmapY = light / 0x10000
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX.toFloat(), lightmapY.toFloat())
             Minecraft.getMinecraft().renderEngine.bindTexture(this.getCloakGlowTexture(stack))
-            (model as ModelCloak).render(1.0f)
+            (model as ModelOldCloak).render(1.0f)
         }
 
     }

@@ -1,0 +1,8 @@
+{
+	"parent": "block/half_slab",
+	"textures": {
+		"bottom": "naturalpledge:blocks/alt_planks_infused",
+		"top": "naturalpledge:blocks/alt_planks_infused",
+		"side": "naturalpledge:blocks/alt_planks_infused"
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"AMS",
+		"MT ",
+		" T "
+	],
+	"key": {
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "divineSpirit"
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "ingotThundersteel"
+		},
+		"T": {
+			"type": "forge:ore_dict",
+			"ore": "dreamwoodTwig"
+		},
+		"A": {
+			"type": "forge:ore_dict",
+			"ore": "gemAquamarine"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:shadowbreaker"
+	},
+	"group": "naturalpledge"
+}

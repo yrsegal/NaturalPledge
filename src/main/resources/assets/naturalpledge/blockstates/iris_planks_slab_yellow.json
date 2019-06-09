@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=top": {
+			"model": "naturalpledge:iris_slab_top"
+		},
+		"half=bottom": {
+			"model": "naturalpledge:iris_slab_bottom"
+		}
+	}
+}

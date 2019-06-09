@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=top": {
+			"model": "naturalpledge:alt_planks_slab4_top"
+		},
+		"half=bottom": {
+			"model": "naturalpledge:alt_planks_slab4_bottom"
+		}
+	}
+}

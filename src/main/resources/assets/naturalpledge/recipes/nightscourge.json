@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"MSC",
+		"MM "
+	],
+	"key": {
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "divineSpiritAwakened"
+		},
+		"M": {
+			"type": "forge:ore_dict",
+			"ore": "lifeRoot"
+		},
+		"C": {
+			"type": "forge:ore_dict",
+			"ore": "bone"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:nightscourge"
+	},
+	"group": "naturalpledge"
+}

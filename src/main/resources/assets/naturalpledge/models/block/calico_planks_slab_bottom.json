@@ -1,0 +1,8 @@
+{
+	"parent": "block/half_slab",
+	"textures": {
+		"bottom": "naturalpledge:blocks/calico_planks",
+		"top": "naturalpledge:blocks/calico_planks",
+		"side": "naturalpledge:blocks/calico_planks"
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"WWW"
+	],
+	"key": {
+		"W": {
+			"item": "naturalpledge:circuit_planks"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:circuit_planks_slab",
+		"data": 0,
+		"count": 6
+	},
+	"group": "naturalpledge"
+}

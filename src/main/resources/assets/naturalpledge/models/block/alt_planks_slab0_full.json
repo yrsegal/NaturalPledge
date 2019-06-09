@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "naturalpledge:blocks/alt_planks_dry"
+	}
+}

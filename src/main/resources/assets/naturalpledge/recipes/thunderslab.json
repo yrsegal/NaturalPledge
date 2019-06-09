@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"WWW"
+	],
+	"key": {
+		"W": {
+			"item": "naturalpledge:thunder_planks"
+		}
+	},
+	"result": {
+		"item": "naturalpledge:thunder_planks_slab",
+		"data": 0,
+		"count": 6
+	},
+	"group": "naturalpledge"
+}
