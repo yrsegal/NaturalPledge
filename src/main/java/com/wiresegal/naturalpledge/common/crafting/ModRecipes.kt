@@ -4,6 +4,25 @@ import com.teamwizardry.librarianlib.core.common.RecipeGeneratorHandler
 import com.teamwizardry.librarianlib.core.common.RegistrationHandler
 import com.teamwizardry.librarianlib.features.helpers.currentModId
 import com.teamwizardry.librarianlib.features.kotlin.toRl
+import com.wiresegal.naturalpledge.api.SaplingVariantRegistry
+import com.wiresegal.naturalpledge.api.SpellRegistry
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.block.BlockStorage.Variants
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.core.helper.RainbowItemHelper
+import com.wiresegal.naturalpledge.common.crafting.recipe.RecipeDynamicDye
+import com.wiresegal.naturalpledge.common.crafting.recipe.RecipeEnchantmentRemoval
+import com.wiresegal.naturalpledge.common.crafting.recipe.RecipePureDaisyExclusion
+import com.wiresegal.naturalpledge.common.crafting.recipe.RecipeRainbowLensDye
+import com.wiresegal.naturalpledge.common.crafting.recipe.factory.RecipeItemDuplicationFactory
+import com.wiresegal.naturalpledge.common.items.ItemResource
+import com.wiresegal.naturalpledge.common.items.ItemResource.Companion.of
+import com.wiresegal.naturalpledge.common.items.ItemResource.Variants.*
+import com.wiresegal.naturalpledge.common.items.ModItems
+import com.wiresegal.naturalpledge.common.items.bauble.faith.*
+import com.wiresegal.naturalpledge.common.lib.LibNames
+import com.wiresegal.naturalpledge.common.lib.LibOreDict
+import com.wiresegal.naturalpledge.common.potions.brew.ModBrews
 import net.minecraft.block.Block
 import net.minecraft.block.BlockPlanks
 import net.minecraft.init.Blocks
@@ -14,23 +33,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.oredict.OreDictionary
-import net.minecraftforge.oredict.ShapedOreRecipe
-import com.wiresegal.naturalpledge.api.SaplingVariantRegistry
-import com.wiresegal.naturalpledge.api.SpellRegistry
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.block.BlockStorage.Variants
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.core.helper.RainbowItemHelper
-import com.wiresegal.naturalpledge.common.crafting.recipe.*
-import com.wiresegal.naturalpledge.common.crafting.recipe.factory.RecipeItemDuplicationFactory
-import com.wiresegal.naturalpledge.common.items.ItemResource
-import com.wiresegal.naturalpledge.common.items.ItemResource.Companion.of
-import com.wiresegal.naturalpledge.common.items.ItemResource.Variants.*
-import com.wiresegal.naturalpledge.common.items.ModItems
-import com.wiresegal.naturalpledge.common.items.bauble.faith.*
-import com.wiresegal.naturalpledge.common.lib.LibNames
-import com.wiresegal.naturalpledge.common.lib.LibOreDict
-import com.wiresegal.naturalpledge.common.potions.brew.ModBrews
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.recipe.RecipeBrew
 import vazkii.botania.api.recipe.RecipePureDaisy
@@ -173,7 +175,7 @@ object ModRecipes {
         RecipeItemDuplicationFactory().make(recipeAscensionDupe,null, ModItems.sealArrow,ItemResource.of(ItemResource.Variants.AQUAMARINE))
         RegistrationHandler.register(RecipeDynamicDye(ModItems.lightPlacer, true).setRegistryName("${LibMisc.MOD_ID}:dynamicprism"))
         RegistrationHandler.register(RecipeRainbowLensDye().setRegistryName("${LibMisc.MOD_ID}:rainbowlens"))
-        RegistrationHandler.register(RecipeEnchantmentRemoval.setRegistryName("${LibMisc.MOD_ID}:enchantmentremove"))
+        RegistrationHandler.register(RecipeEnchantmentRemoval().setRegistryName("${LibMisc.MOD_ID}:enchantmentremove"))
 
         recipeSymbol = addOreDictRecipe("symbol", ModItems.symbol,
                 "S S",
@@ -258,7 +260,7 @@ object ModRecipes {
                 'S', "stone",
                 'M', BotaniaOreDict.RUNE[8]) // Mana
 
-        recipesStar = Array(LibOreDict.DYES.size, {
+        recipesStar = Array(LibOreDict.DYES.size) {
             addOreDictRecipe("star$it", RainbowItemHelper.forColor(it, ItemStack(ModBlocks.star, 5)),
                     " E ",
                     "GDG",
@@ -266,7 +268,7 @@ object ModRecipes {
                     'E', BotaniaOreDict.ENDER_AIR_BOTTLE,
                     'G', "dustGlowstone",
                     'D', LibOreDict.IRIS_DYES[it])
-        })
+        }
 
         recipeToolbelt = addOreDictRecipe("toolbelt", ModItems.toolbelt,
                 "CL ",
@@ -293,14 +295,14 @@ object ModRecipes {
                 'B', LibOreDict.IRIS_DYES[16],
                 'D', BotaniaOreDict.DREAMWOOD_TWIG)
 
-        recipesDirt = Array(LibOreDict.DYES.size, {
+        recipesDirt = Array(LibOreDict.DYES.size) {
             addOreDictRecipe("dirt$it", ItemStack(if (it == 16) ModBlocks.rainbowDirt else ModBlocks.irisDirt, 9, it % 16),
                     "DDD",
                     "DID",
                     "DDD",
                     'D', "dirt",
                     'I', LibOreDict.IRIS_DYES[it])
-        })
+        }
 
         recipeAuroraDirt = addOreDictRecipe("auroradirt", ItemStack(ModBlocks.auroraDirt, 9),
                 "DDD",
@@ -310,18 +312,25 @@ object ModRecipes {
                 'M', BotaniaOreDict.MANA_PEARL)
 
         recipeAuroraPlanks = addOreDictRecipe("auroraplank", ItemStack(ModBlocks.auroraPlanks, 4), "W", 'W', ModBlocks.auroraLog)
+        addOreDictRecipe("auroraslab", ItemStack(ModBlocks.auroraPlanksSlab, 6), "WWW", 'W', ModBlocks.auroraPlanks)
 
         recipeDirtDeconversion = BotaniaAPI.registerPureDaisyRecipe(LibOreDict.IRIS_DIRT, Blocks.DIRT.defaultState)
 
-        recipesIrisPlanks = Array(LibOreDict.DYES.size, {
+        recipesIrisPlanks = Array(LibOreDict.DYES.size) {
             addShapelessOreDictRecipe("irisplanks$it", ItemStack(if (it == 16) ModBlocks.rainbowPlanks else ModBlocks.irisPlanks, 4, it % 16),
                     ItemStack(if (it == 16) ModBlocks.rainbowLog else ModBlocks.irisLogs[it / 4], 1, it % 4))
-        })
+        }
+        for (i in 0 until 16)
+            addOreDictRecipe("irisPlankSlab$i", ItemStack(ModBlocks.irisPlanksSlabs[i], 6), "WWW", 'W', ItemStack(ModBlocks.irisPlanks, 1, i))
+        addOreDictRecipe("irisPlankSlab16", ItemStack(ModBlocks.rainbowPlanksSlab, 6), "WWW", 'W', ModBlocks.rainbowPlanks)
 
-        recipesAltPlanks = Array(6, {
+        recipesAltPlanks = Array(6) {
             addShapelessOreDictRecipe("altplanks$it", ItemStack(ModBlocks.altPlanks, 4, it),
                     ItemStack(ModBlocks.altLogs[it / 4], 1, it % 4))
-        })
+        }
+        for (i in 0 until 6)
+            addOreDictRecipe("altPlankSlab$i", ItemStack(ModBlocks.altPlanksSlabs[i], 6), "WWW", 'W', ItemStack(ModBlocks.altPlanks, 1, i))
+
 
         immortalBrew = BotaniaAPI.registerBrewRecipe(ModBrews.immortality, ItemStack(Items.NETHER_WART), BotaniaOreDict.PIXIE_DUST, ItemStack(ModItems.apple))
         drabBrew = BotaniaAPI.registerBrewRecipe(ModBrews.drained, ItemStack(Items.NETHER_WART), LibOreDict.IRIS_DYES[7], ItemStack(Items.CLAY_BALL)) // Gray
@@ -354,7 +363,7 @@ object ModRecipes {
                 'G', "ingotGold",
                 'A', Items.APPLE)
 
-        recipesIridescentShards = Array(LibOreDict.DYES.size, {
+        recipesIridescentShards = Array(LibOreDict.DYES.size) {
             addOreDictRecipe("irisshard$it", ItemStack(ModItems.manaDye, 1, it),
                     " I ",
                     "EPE",
@@ -363,7 +372,7 @@ object ModRecipes {
                     'E', BotaniaOreDict.ELEMENTIUM,
                     'P', "gemPrismarine",
                     'M', BotaniaOreDict.MANA_POWDER)
-        })
+        }
 
         recipeFindStone = addOreDictRecipe("finder", ModItems.finder,
                 "DSD",
@@ -421,6 +430,8 @@ object ModRecipes {
 
         recipeSealPlanks = addShapelessOreDictRecipe("sealplanks", ItemStack(ModBlocks.sealPlanks, 4),
                 ModBlocks.sealLog)
+        addOreDictRecipe("sealslab", ItemStack(ModBlocks.sealPlanksSlab, 6), "WWW", 'W', ModBlocks.sealPlanks)
+
 
         recipeAmp = addOreDictRecipe("amp", ModBlocks.amp,
                 " N ",
@@ -440,6 +451,7 @@ object ModRecipes {
 
         recipeThunderPlanks = addShapelessOreDictRecipe("thunderplanks", ItemStack(ModBlocks.thunderPlanks, 4),
                 ModBlocks.thunderLog)
+        addOreDictRecipe("thunderslab", ItemStack(ModBlocks.thunderPlanksSlab, 6), "WWW", 'W', ModBlocks.thunderPlanks)
 
         recipeCircuitSapling = addOreDictRecipe("circuitsap", ModBlocks.circuitSapling,
                 "D C",
@@ -452,6 +464,7 @@ object ModRecipes {
 
         recipeCircuitPlanks = addShapelessOreDictRecipe("circuitplanks", ItemStack(ModBlocks.circuitPlanks, 4),
                 ModBlocks.circuitLog)
+        addOreDictRecipe("circuitslab", ItemStack(ModBlocks.circuitPlanksSlab, 6), "WWW", 'W', ModBlocks.circuitPlanks)
 
         recipeCalicoSapling = addOreDictRecipe("calicosap", ModBlocks.calicoSapling,
                 "W B",
@@ -464,6 +477,7 @@ object ModRecipes {
 
         recipeCalicoPlanks = addShapelessOreDictRecipe("calicoplanks", ItemStack(ModBlocks.calicoPlanks, 4),
                 ModBlocks.calicoLog)
+        addOreDictRecipe("calicoslab", ItemStack(ModBlocks.calicoPlanksSlab, 6), "WWW", 'W', ModBlocks.calicoPlanks)
 
         recipeIrisSapling = RecipePureDaisyExclusion("treeSapling", ModBlocks.irisSapling.defaultState)
         BotaniaAPI.pureDaisyRecipes.add(recipeIrisSapling)
@@ -496,7 +510,7 @@ object ModRecipes {
         recipeDeathStone = addShapelessOreDictRecipe("deathfinder", ModItems.deathFinder,
                 ModItems.finder, "bone")
 
-        recipesCrackleStar = Array(LibOreDict.DYES.size, {
+        recipesCrackleStar = Array(LibOreDict.DYES.size) {
             addOreDictRecipe("crackle$it", RainbowItemHelper.forColor(it, ItemStack(ModBlocks.cracklingStar, 10)),
                     " E ",
                     "GDG",
@@ -504,7 +518,7 @@ object ModRecipes {
                     'E', BotaniaOreDict.ENDER_AIR_BOTTLE,
                     'G', BotaniaOreDict.MANA_PEARL,
                     'D', LibOreDict.IRIS_DYES[it])
-        })
+        }
 
         recipeNjordCloak = addOreDictRecipe("njordcloak", ItemStack(ModItems.cloak, 1, 0),
                 "CCC",
@@ -671,35 +685,35 @@ object ModRecipes {
                 'C', "blockCoal",
                 'W', BotaniaOreDict.RUNE[13], // Wrath
                 'A', LibOreDict.HEARTHSTONE_AWAKENED)
-        recipeEclipseHelm = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseHelm),
+        recipeEclipseHelm = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseHelm),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.HEARTHSTONE,
                 'A', ItemStack(BotaniaItems.terrasteelHelm)).setRegistryName("${LibMisc.MOD_ID}:eclipsehelm"))
-        recipeEclipseChest = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseChest),
+        recipeEclipseChest = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseChest),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.HEARTHSTONE,
                 'A', ItemStack(BotaniaItems.terrasteelChest)).setRegistryName("${LibMisc.MOD_ID}:eclipsechest"))
-        recipeEclipseLegs = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseLegs),
+        recipeEclipseLegs = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseLegs),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.HEARTHSTONE,
                 'A', ItemStack(BotaniaItems.terrasteelLegs)).setRegistryName("${LibMisc.MOD_ID}:eclipselegs"))
-        recipeEclipseBoots = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseBoots),
+        recipeEclipseBoots = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseBoots),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.HEARTHSTONE,
                 'A', ItemStack(BotaniaItems.terrasteelBoots)).setRegistryName("${LibMisc.MOD_ID}:eclipseboot"))
-        recipeEclipseWeapon = addHiddenOreDictRecipe("flarebringer", ModItems.flarebringer,
+        recipeEclipseWeapon = addOreDictRecipe("flarebringer", ModItems.flarebringer,
                 "DMS",
                 "MT ",
                 " T ",
@@ -708,35 +722,35 @@ object ModRecipes {
                 'T', BotaniaOreDict.LIVINGWOOD_TWIG,
                 'D', BotaniaOreDict.PIXIE_DUST)
 
-        recipeSunmakerHelm = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerHelm),
+        recipeSunmakerHelm = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerHelm),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.THUNDERSTEEL,
                 'A', ItemStack(BotaniaItems.terrasteelHelm)).setRegistryName("${LibMisc.MOD_ID}:sunmakerhelm"))
-        recipeSunmakerChest = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerChest),
+        recipeSunmakerChest = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerChest),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.THUNDERSTEEL,
                 'A', ItemStack(BotaniaItems.terrasteelChest)).setRegistryName("${LibMisc.MOD_ID}:sunmakerchest"))
-        recipeSunmakerLegs = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerLegs),
+        recipeSunmakerLegs = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerLegs),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.THUNDERSTEEL,
                 'A', ItemStack(BotaniaItems.terrasteelLegs)).setRegistryName("${LibMisc.MOD_ID}:sunmakerleg"))
-        recipeSunmakerBoots = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerBoots),
+        recipeSunmakerBoots = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerBoots),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.THUNDERSTEEL,
                 'A', ItemStack(BotaniaItems.terrasteelBoots)).setRegistryName("${LibMisc.MOD_ID}:sunmakerboot"))
-        recipeSunmakerWeapon = addHiddenOreDictRecipe("shadowbreaker", ModItems.shadowbreaker,
+        recipeSunmakerWeapon = addOreDictRecipe("shadowbreaker", ModItems.shadowbreaker,
                 "AMS",
                 "MT ",
                 " T ",
@@ -745,41 +759,44 @@ object ModRecipes {
                 'T', BotaniaOreDict.DREAMWOOD_TWIG,
                 'A', LibOreDict.AQUAMARINE)
 
-        recipeFenrisHelm = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisHelm),
+        recipeFenrisHelm = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisHelm),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
                 'M', LibOreDict.LIFE_ROOT,
                 'A', ItemStack(BotaniaItems.terrasteelHelm)).setRegistryName("${LibMisc.MOD_ID}:fenrishelm"))
-        recipeFenrisChest = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisChest),
+        recipeFenrisChest = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisChest),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
                 'M', LibOreDict.LIFE_ROOT,
                 'A', ItemStack(BotaniaItems.terrasteelChest)).setRegistryName("${LibMisc.MOD_ID}:fenrischest"))
-        recipeFenrisLegs = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisLegs),
+        recipeFenrisLegs = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisLegs),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
                 'M', LibOreDict.LIFE_ROOT,
                 'A', ItemStack(BotaniaItems.terrasteelLegs)).setRegistryName("${LibMisc.MOD_ID}:fenrislegs"))
-        recipeFenrisBoots = addHiddenRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisBoots),
+        recipeFenrisBoots = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisBoots),
                 " S ",
                 "MAM",
                 " M ",
                 'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
                 'M', LibOreDict.LIFE_ROOT,
                 'A', ItemStack(BotaniaItems.terrasteelBoots)).setRegistryName("${LibMisc.MOD_ID}:fenrisboots"))
-        recipeFenrisWeapon = addHiddenOreDictRecipe("nightscourge", ModItems.nightscourge,
+        recipeFenrisWeapon = addOreDictRecipe("nightscourge", ModItems.nightscourge,
                 "MSC",
                 "MM ",
                 'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
                 'M', LibOreDict.LIFE_ROOT,
                 'C', "bone")
 
+        BotaniaAPI.registerManaAlchemyRecipe(ItemStack(Items.PRISMARINE_SHARD), "gemLapis", 2000)
+        BotaniaAPI.registerManaAlchemyRecipe(ItemStack(Items.PRISMARINE_CRYSTALS), "gemPrismarine", 2000)
+        BotaniaAPI.registerManaAlchemyRecipe(ItemStack(Items.DYE, 1, EnumDyeColor.BLUE.dyeDamage), "dustPrismarine", 2000)
 
         var spell = SpellRegistry.getSpell(LibNames.SPELL_NJORD_INFUSION)
         if (spell != null) {
@@ -834,21 +851,15 @@ object ModRecipes {
         return ResourceLocation(currentModId, name)
     }
 
-    fun addHiddenOreDictRecipe(name: String, output: Item, vararg recipe: Any) = addHiddenOreDictRecipe(name, ItemStack(output), *recipe)
-    fun addHiddenOreDictRecipe(name: String, output: Block, vararg recipe: Any) = addHiddenOreDictRecipe(name, ItemStack(output), *recipe)
-    fun addHiddenOreDictRecipe(name: String, output: ItemStack, vararg recipe: Any): ResourceLocation {
-        return addHiddenRecipe(ShapedOreRecipe(null, output, *recipe).setRegistryName("${LibMisc.MOD_ID}:$name"))
-    }
-
-    fun addHiddenRecipe(recipe: IRecipe): ResourceLocation {
-        RegistrationHandler.register(RecipeNoJEI(recipe))
-        return recipe.registryName!!
-    }
-
     fun addShapelessOreDictRecipe(name: String, output: Item, vararg recipe: Any) = addShapelessOreDictRecipe(name, ItemStack(output), *recipe)
     fun addShapelessOreDictRecipe(name: String, output: Block, vararg recipe: Any) = addShapelessOreDictRecipe(name, ItemStack(output), *recipe)
     fun addShapelessOreDictRecipe(name: String, output: ItemStack, vararg recipe: Any): ResourceLocation {
         RecipeGeneratorHandler.addShapelessRecipe(name, currentModId, output, *recipe)
         return ResourceLocation(currentModId, name)
+    }
+
+    fun addRecipe(recipe: IRecipe): ResourceLocation {
+        RegistrationHandler.register(recipe)
+        return recipe.registryName!!
     }
 }

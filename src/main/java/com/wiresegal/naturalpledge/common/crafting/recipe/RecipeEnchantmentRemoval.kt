@@ -1,6 +1,9 @@
 package com.wiresegal.naturalpledge.common.crafting.recipe
 
 import com.teamwizardry.librarianlib.features.kotlin.toNonnullList
+import com.wiresegal.naturalpledge.common.items.ModItems
+import com.wiresegal.naturalpledge.common.items.xp
+import com.wiresegal.naturalpledge.common.items.xpSeed
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.init.Items
@@ -15,9 +18,6 @@ import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.registries.IForgeRegistryEntry
-import com.wiresegal.naturalpledge.common.items.ModItems
-import com.wiresegal.naturalpledge.common.items.xp
-import com.wiresegal.naturalpledge.common.items.xpSeed
 import java.util.*
 
 
@@ -25,8 +25,12 @@ import java.util.*
  * @author WireSegal
  * Created at 9:35 AM on 1/3/17.
  */
-object RecipeEnchantmentRemoval : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
+class RecipeEnchantmentRemoval : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
     override fun canFit(width: Int, height: Int): Boolean {
+        return true
+    }
+
+    override fun isDynamic(): Boolean {
         return true
     }
 
@@ -60,7 +64,7 @@ object RecipeEnchantmentRemoval : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
         val k = Math.max(1.0f,
                 ((enchantment.getMinEnchantability(level).toFloat() - 0.5f)
                         * 0.869f * rarityXpCalc)
-                - enchantabilityCalc).toInt()
+                        - enchantabilityCalc).toInt()
 
         return Array(inv.sizeInventory) {
             val stack = inv.getStackInSlot(it)
@@ -96,7 +100,8 @@ object RecipeEnchantmentRemoval : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
         val finalEnchanted = enchanted.copy()
         val index = getEnchantmentIndex(finalTome, finalEnchanted)
         val list = (if (finalEnchanted.item === Items.ENCHANTED_BOOK)
-            ItemEnchantedBook.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList) ?: return ItemStack.EMPTY
+            ItemEnchantedBook.getEnchantments(finalEnchanted) else finalEnchanted.enchantmentTagList)
+                ?: return ItemStack.EMPTY
         list.removeTag(index)
         if (list.tagCount() == 0)
             finalEnchanted.tagCompound?.removeTag("ench")
@@ -116,23 +121,26 @@ object RecipeEnchantmentRemoval : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 
     override fun matches(inv: InventoryCrafting, worldIn: World?) = matches(inv)
 
-    fun matches(inv: IInventory): Boolean {
-        var foundTome = false
-        var foundEnchanted = false
-        (0 until inv.sizeInventory)
-                .asSequence()
-                .map { inv.getStackInSlot(it) }
-                .filterNot { it.isEmpty }
-                .forEach {
-                    if (it.item == ModItems.xpTome) {
-                        if (foundTome) return false
-                        else foundTome = true
-                    } else if (EnchantmentHelper.getEnchantments(it).isNotEmpty()) {
-                        if (foundEnchanted) return false
-                        else foundEnchanted = true
-                    } else return false
-                }
-        return foundTome && foundEnchanted
+    companion object {
+        fun matches(inv: IInventory): Boolean {
+
+            var foundTome = false
+            var foundEnchanted = false
+            (0 until inv.sizeInventory)
+                    .asSequence()
+                    .map { inv.getStackInSlot(it) }
+                    .filterNot { it.isEmpty }
+                    .forEach {
+                        if (it.item == ModItems.xpTome) {
+                            if (foundTome) return false
+                            else foundTome = true
+                        } else if (EnchantmentHelper.getEnchantments(it).isNotEmpty()) {
+                            if (foundEnchanted) return false
+                            else foundEnchanted = true
+                        } else return false
+                    }
+            return foundTome && foundEnchanted
+        }
     }
 
     private val rand = Random()

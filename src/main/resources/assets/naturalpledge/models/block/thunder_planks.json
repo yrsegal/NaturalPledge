@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "naturalpledge:block/lightning_planks"
+    "all": "naturalpledge:blocks/lightning_planks"
   }
 }

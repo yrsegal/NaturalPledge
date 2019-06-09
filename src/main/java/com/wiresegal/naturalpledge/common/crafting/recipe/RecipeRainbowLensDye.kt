@@ -1,6 +1,7 @@
 package com.wiresegal.naturalpledge.common.crafting.recipe
 
 import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
+import com.wiresegal.naturalpledge.common.lib.LibOreDict
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
@@ -9,7 +10,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistryEntry
-import com.wiresegal.naturalpledge.common.lib.LibOreDict
 import vazkii.botania.api.mana.ILens
 import vazkii.botania.common.item.lens.ItemLens
 
@@ -20,6 +20,10 @@ import vazkii.botania.common.item.lens.ItemLens
 class RecipeRainbowLensDye : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 
     override fun canFit(width: Int, height: Int): Boolean {
+        return true
+    }
+
+    override fun isDynamic(): Boolean {
         return true
     }
 

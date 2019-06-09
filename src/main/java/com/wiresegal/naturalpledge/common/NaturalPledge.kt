@@ -1,15 +1,21 @@
 package com.wiresegal.naturalpledge.common
 
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.core.CommonProxy
+import com.wiresegal.naturalpledge.common.crafting.ModRecipes
+import net.minecraft.item.Item
 import net.minecraft.launchwrapper.Launch
+import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.LogManager
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.core.CommonProxy
 
+@Mod.EventBusSubscriber
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES)
 class NaturalPledge {
     companion object {
@@ -29,6 +35,12 @@ class NaturalPledge {
 //        val TINKERS_LOADED: Boolean by lazy {
 //            Loader.isModLoaded("tconstruct")
 //        }
+
+        @JvmStatic
+        @SubscribeEvent(priority = EventPriority.LOWEST)
+        fun onItemsLoad(e: RegistryEvent.Register<Item>) {
+            ModRecipes
+        }
     }
 
     @Mod.EventHandler

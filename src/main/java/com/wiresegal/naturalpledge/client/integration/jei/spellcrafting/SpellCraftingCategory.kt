@@ -1,16 +1,15 @@
 package com.wiresegal.naturalpledge.client.integration.jei.spellcrafting
 
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.client.integration.jei.JEIPluginBotanicalAddons
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.IRecipeCategory
-import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.client.integration.jei.JEIPluginBotanicalAddons
 
-object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
+class SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
 
     private val background = JEIPluginBotanicalAddons.helpers.guiHelper.createDrawable(ResourceLocation(LibMisc.MOD_ID, "textures/gui/jei/spell.png"), 0, 0, 108, 30)
 
@@ -29,8 +28,6 @@ object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
 
     override fun getModName() = LibMisc.MOD_ID
 
-    override fun getIcon() = null
-
     override fun getUid(): String {
         return "${LibMisc.MOD_ID}:spell_crafting"
     }
@@ -43,16 +40,12 @@ object SpellCraftingCategory : IRecipeCategory<SpellCraftingRecipeJEI> {
         return background
     }
 
-    override fun drawExtras(minecraft: Minecraft) {
-        // NO-OP
-    }
-
-    override fun getTooltipStrings(mouseX: Int, mouseY: Int): List<String> {
-        return emptyList()
-    }
-
     private val INPUT_SLOT = 0
     private val FOCUS_SLOT = 1
     private val SPELL_SLOT = 2
     private val OUTPUT_SLOT = 3
+
+    companion object {
+        const val uid = "${LibMisc.MOD_ID}:spell_crafting"
+    }
 }

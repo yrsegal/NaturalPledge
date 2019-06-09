@@ -1,9 +1,9 @@
 {
   "parent": "block/hopper_down",
   "textures": {
-    "particle": "naturalpledge:block/funnel_outside",
-    "top": "naturalpledge:block/funnel_top",
-    "side": "naturalpledge:block/funnel_outside",
-    "inside": "naturalpledge:block/funnel_inside"
+    "particle": "naturalpledge:blocks/funnel_outside",
+    "top": "naturalpledge:blocks/funnel_top",
+    "side": "naturalpledge:blocks/funnel_outside",
+    "inside": "naturalpledge:blocks/funnel_inside"
   }
 }

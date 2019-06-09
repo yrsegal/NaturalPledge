@@ -1,5 +1,7 @@
 package com.wiresegal.naturalpledge.common.block.dendrics.calico
 
+import com.teamwizardry.librarianlib.features.base.block.BlockModSlab
+import com.wiresegal.naturalpledge.common.block.dendrics.thunder.IThunderAbsorber
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.world.ExplosionEvent
@@ -28,6 +30,8 @@ object CalicoEventHandler {
                 BlockPos(e.explosion.position).add(MAXRANGE, MAXRANGE, MAXRANGE))) if (pos.distanceSq(BlockPos(e.explosion.position)) <= 64) {
             val state = e.world.getBlockState(pos)
             if (state.block is IExplosionDampener)
+                explosiondampeners.add(pos)
+            else if (state.block is BlockModSlab && (state.block as BlockModSlab).parent.block is IExplosionDampener)
                 explosiondampeners.add(pos)
         }
         if (explosiondampeners.size == 0) return

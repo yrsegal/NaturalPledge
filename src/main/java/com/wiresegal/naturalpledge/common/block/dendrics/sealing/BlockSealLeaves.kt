@@ -1,6 +1,9 @@
 package com.wiresegal.naturalpledge.common.block.dendrics.sealing
 
 import com.teamwizardry.librarianlib.features.base.block.BlockModLeaves
+import com.wiresegal.naturalpledge.api.sapling.ISealingBlock
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
@@ -10,9 +13,6 @@ import net.minecraft.world.World
 import net.minecraftforge.client.event.sound.PlaySoundEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import com.wiresegal.naturalpledge.api.sapling.ISealingBlock
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import java.util.*
@@ -41,5 +41,9 @@ class BlockSealLeaves(name: String) : BlockModLeaves(name), ISealingBlock, ILexi
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sealTree
+    }
+
+    override fun causesSuffocation(state: IBlockState): Boolean {
+        return false
     }
 }

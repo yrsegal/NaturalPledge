@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "naturalpledge:block/calico_wood_top",
-    "side": "naturalpledge:block/calico_wood"
+    "end": "naturalpledge:blocks/calico_wood_top",
+    "side": "naturalpledge:blocks/calico_wood"
   }
 }

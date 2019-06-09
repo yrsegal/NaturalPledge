@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "naturalpledge:block/iris_lamp_rainbow"
+    "all": "naturalpledge:blocks/iris_lamp_rainbow"
   }
 }

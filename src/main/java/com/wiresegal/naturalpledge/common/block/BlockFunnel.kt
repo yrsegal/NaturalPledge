@@ -1,6 +1,8 @@
 package com.wiresegal.naturalpledge.common.block
 
 import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
+import com.wiresegal.naturalpledge.common.block.tile.TileLivingwoodFunnel
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
@@ -14,7 +16,6 @@ import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.inventory.InventoryHelper.spawnItemStack
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.*
@@ -24,9 +25,6 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.items.CapabilityItemHandler
-import com.wiresegal.naturalpledge.common.block.tile.TileLivingwoodFunnel
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.wand.IWandHUD
@@ -98,20 +96,6 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
         if (flag != state.getValue(ENABLED)) worldIn.setBlockState(pos, state.withProperty(ENABLED, flag), 4)
     }
 
-    override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
-        val tileentity = worldIn.getTileEntity(pos)
-        if (tileentity != null && tileentity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-            val cap = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)!!
-            (0 until cap.slots)
-                    .map { cap.getStackInSlot(it) }
-                    .filterNot { it.isEmpty }
-                    .forEach { spawnItemStack(worldIn, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, it) }
-            worldIn.updateComparatorOutputLevel(pos, this)
-        }
-
-        super.breakBlock(worldIn, pos, state)
-    }
-
     override fun getRenderType(state: IBlockState?): EnumBlockRenderType {
         return EnumBlockRenderType.MODEL
     }
@@ -124,15 +108,6 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
 
     @SideOnly(Side.CLIENT)
     override fun shouldSideBeRendered(blockState: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Boolean = true
-
-    override fun hasComparatorInputOverride(state: IBlockState): Boolean = true
-
-    override fun getComparatorInputOverride(blockState: IBlockState, worldIn: World, pos: BlockPos): Int {
-        val tile = worldIn.getTileEntity(pos) ?: return 0
-        return if (tile is TileLivingwoodFunnel) {
-            if (tile.inventory.getStackInSlot(0).isEmpty) 0 else 15
-        } else 0
-    }
 
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT_MIPPED
@@ -165,7 +140,7 @@ class BlockFunnel(name: String) : BlockModContainer(name, Material.WOOD), ILexic
     override fun renderHUD(mc: Minecraft, res: ScaledResolution, world: World, pos: BlockPos) {
         val te = world.getTileEntity(pos) ?: return
         if (te is TileLivingwoodFunnel) {
-            val stack = te.inventory.getStackInSlot(0)
+            val stack = te.inventory.handler.getStackInSlot(0)
             if (!stack.isEmpty) {
                 RenderHelper.enableGUIStandardItemLighting()
                 mc.renderItem.renderItemIntoGUI(stack, res.scaledWidth / 2, res.scaledHeight / 2)

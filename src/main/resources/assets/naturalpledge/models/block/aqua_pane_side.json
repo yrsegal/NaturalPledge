@@ -1,7 +1,7 @@
 {
   "parent": "block/pane_side",
   "textures": {
-    "edge": "naturalpledge:block/pane_aqua_top",
-    "pane": "naturalpledge:block/glass_aqua"
+    "edge": "naturalpledge:blocks/pane_aqua_top",
+    "pane": "naturalpledge:blocks/glass_aqua"
   }
 }

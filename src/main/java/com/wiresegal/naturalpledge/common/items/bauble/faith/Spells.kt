@@ -2,13 +2,24 @@ package com.wiresegal.naturalpledge.common.items.bauble.faith
 
 import com.google.common.base.Predicate
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
-import com.teamwizardry.librarianlib.features.helpers.vec
 import com.teamwizardry.librarianlib.features.kotlin.minus
 import com.teamwizardry.librarianlib.features.kotlin.motionVec
 import com.teamwizardry.librarianlib.features.kotlin.plus
 import com.teamwizardry.librarianlib.features.kotlin.times
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.NBTTypes
+import com.teamwizardry.librarianlib.features.utilities.RaycastUtils
+import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
+import com.wiresegal.naturalpledge.api.priest.IFocusSpell
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.core.NPSoundEvents
+import com.wiresegal.naturalpledge.common.items.ItemSpellIcon.Companion.of
+import com.wiresegal.naturalpledge.common.items.ItemSpellIcon.Variants.*
+import com.wiresegal.naturalpledge.common.network.FireJetMessage
+import com.wiresegal.naturalpledge.common.network.FireSphereMessage
+import com.wiresegal.naturalpledge.common.network.LightningJetMessage
+import com.wiresegal.naturalpledge.common.potions.ModPotions
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.IProjectile
@@ -34,17 +45,6 @@ import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fluids.IFluidBlock
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.oredict.OreDictionary
-import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
-import com.wiresegal.naturalpledge.api.priest.IFocusSpell
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.core.NPSoundEvents
-import com.wiresegal.naturalpledge.common.items.ItemSpellIcon.Companion.of
-import com.wiresegal.naturalpledge.common.items.ItemSpellIcon.Variants.*
-import com.wiresegal.naturalpledge.common.network.FireJetMessage
-import com.wiresegal.naturalpledge.common.network.FireSphereMessage
-import com.wiresegal.naturalpledge.common.network.LightningJetMessage
-import com.wiresegal.naturalpledge.common.potions.ModPotions
 import vazkii.botania.api.internal.IManaBurst
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.Botania
@@ -61,77 +61,6 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 object Spells {
 
     object Helper {
-        // Copied from Psi's PieceOperatorVectorRaycast with minor changes
-        fun raycast(e: Entity, len: Double, stopOnLiquid: Boolean = false): RayTraceResult? {
-            val vec = Vector3.fromEntity(e).add(0.0, (e as? EntityPlayer)?.getEyeHeight()?.toDouble() ?: 0.0, 0.0)
-
-            val look = e.lookVec
-            if (look == null) {
-                return null
-            } else {
-                return raycast(e.world, vec, Vector3(look), len, stopOnLiquid)
-            }
-        }
-
-        fun raycast(world: World, origin: Vector3, ray: Vector3, len: Double, stopOnLiquid: Boolean = false): RayTraceResult? {
-            val end = origin.add(ray.normalize().multiply(len))
-            val pos = world.rayTraceBlocks(origin.toVec3D(), end.toVec3D(), stopOnLiquid)
-            return pos
-        }
-
-        // Copied from Psi's PieceOperatorFocusedEntity
-
-        fun getEntityLookedAt(e: Entity, maxDistance: Double = 32.0): Entity? {
-            var foundEntity: Entity? = null
-            var distance = maxDistance
-            val pos = raycast(e, maxDistance)
-            var positionVector = e.positionVector
-            if (e is EntityPlayer) {
-                positionVector = positionVector.add(0.0, e.getEyeHeight().toDouble(), 0.0)
-            }
-
-            if (pos != null) {
-                distance = pos.hitVec.distanceTo(positionVector)
-            }
-
-            val lookVector = e.lookVec
-            val reachVector = positionVector.add(lookVector.x * maxDistance, lookVector.y * maxDistance, lookVector.z * maxDistance)
-            var lookedEntity: Entity? = null
-            val vec = vec(lookVector.x * maxDistance, lookVector.y * maxDistance, lookVector.z * maxDistance)
-            val entitiesInBoundingBox = e.world.getEntitiesWithinAABBExcludingEntity(e, e.entityBoundingBox.union(AxisAlignedBB(vec, vec)).grow(1.0))
-            var minDistance = distance
-            val var14 = entitiesInBoundingBox.iterator()
-
-            while (true) {
-                do {
-                    do {
-                        if (!var14.hasNext()) {
-                            return foundEntity
-                        }
-                        val next = var14.next()
-                        if (next.canBeCollidedWith()) {
-                            val collisionBorderSize = next.collisionBorderSize
-                            val hitbox = next.entityBoundingBox.expand(collisionBorderSize.toDouble(), collisionBorderSize.toDouble(), collisionBorderSize.toDouble())
-                            val interceptPosition = hitbox.calculateIntercept(positionVector, reachVector)
-                            if (hitbox.contains(positionVector)) {
-                                if (0.0 < minDistance || minDistance == 0.0) {
-                                    lookedEntity = next
-                                    minDistance = 0.0
-                                }
-                            } else if (interceptPosition != null) {
-                                val distanceToEntity = positionVector.distanceTo(interceptPosition.hitVec)
-                                if (distanceToEntity < minDistance || minDistance == 0.0) {
-                                    lookedEntity = next
-                                    minDistance = distanceToEntity
-                                }
-                            }
-                        }
-                    } while (lookedEntity == null)
-                } while (minDistance >= distance && pos != null)
-
-                foundEntity = lookedEntity
-            }
-        }
 
         // Copied from Psi's ItemCAD, with minor modifications
         fun craft(player: EntityPlayer, `in`: String, out: ItemStack, colorVal: Int): Boolean {
@@ -331,7 +260,7 @@ object Spells {
             override fun getIconStack() = of(PUSH_AWAY)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
-                val focused = Helper.getEntityLookedAt(player)
+                val focused = RaycastUtils.getEntityLookedAt(player)
 
                 if (focused != null && focused is EntityLivingBase) {
                     if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
@@ -367,8 +296,8 @@ object Spells {
             }
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
-                val cast = Helper.raycast(player, 16.0)
-                val focused = Helper.getEntityLookedAt(player, 16.0)
+                val cast = RaycastUtils.raycast(player, 16.0)
+                val focused = RaycastUtils.getEntityLookedAt(player, 16.0)
 
                 val emblem = ItemFaithBauble.getEmblem(player)
 
@@ -422,7 +351,7 @@ object Spells {
             override fun getIconStack() = of(PULL)
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
-                val focused = Helper.getEntityLookedAt(player, 16.0)
+                val focused = RaycastUtils.getEntityLookedAt(player, 16.0)
 
                 if (focused != null && focused is EntityLivingBase)
                     if (ManaItemHandler.requestManaExact(focus, player, 20, true)) {
@@ -453,7 +382,7 @@ object Spells {
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 if (!ManaItemHandler.requestManaExact(focus, player, 1500, false)) return EnumActionResult.FAIL
 
-                val ray = Helper.raycast(player, 32.0)
+                val ray = RaycastUtils.raycast(player, 32.0)
 
                 if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK) {
                     var pos = ray.blockPos
@@ -683,7 +612,7 @@ object Spells {
 
             override fun onCast(player: EntityPlayer, focus: ItemStack, hand: EnumHand): EnumActionResult {
                 if (!ManaItemHandler.requestManaExact(focus, player, 1000, true)) return EnumActionResult.FAIL
-                val cast = Helper.raycast(player, 16.0)
+                val cast = RaycastUtils.raycast(player, 16.0)
 
                 val vec = Vector3.fromEntityCenter(player).toVec3D()
                 val dist = if (cast == null || cast.typeOfHit == RayTraceResult.Type.MISS) 16.0 else cast.hitVec.distanceTo(vec)

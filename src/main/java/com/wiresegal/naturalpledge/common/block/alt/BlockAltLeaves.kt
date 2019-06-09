@@ -1,6 +1,10 @@
 package com.wiresegal.naturalpledge.common.block.alt
 
 import com.teamwizardry.librarianlib.features.base.block.BlockModLeaves
+import com.wiresegal.naturalpledge.api.sapling.IStackConvertible
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
+import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
@@ -10,10 +14,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
-import com.wiresegal.naturalpledge.api.sapling.IStackConvertible
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
-import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -70,5 +70,9 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.sapling
+    }
+
+    override fun causesSuffocation(state: IBlockState): Boolean {
+        return false
     }
 }

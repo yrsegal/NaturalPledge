@@ -1,16 +1,17 @@
 package com.wiresegal.naturalpledge.client.integration.jei.spellcrafting
 
-import mezz.jei.api.ingredients.IIngredients
-import mezz.jei.api.recipe.BlankRecipeWrapper
-import net.minecraft.item.ItemStack
-import net.minecraftforge.oredict.OreDictionary
 import com.wiresegal.naturalpledge.api.priest.IFocusSpell
 import com.wiresegal.naturalpledge.api.priest.SpellRecipe
 import com.wiresegal.naturalpledge.client.integration.jei.JEIPluginBotanicalAddons
 import com.wiresegal.naturalpledge.common.items.ItemTerrestrialFocus
 import com.wiresegal.naturalpledge.common.items.ModItems
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
+import mezz.jei.api.recipe.IRecipeWrapper
+import net.minecraft.item.ItemStack
+import net.minecraftforge.oredict.OreDictionary
 
-open class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper() {
+open class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : IRecipeWrapper {
 
     val inputs by lazy {
         val outputs = getOutputsTyped()
@@ -31,8 +32,8 @@ open class SpellCraftingRecipeJEI(val recipe: SpellRecipe) : BlankRecipeWrapper(
         val stackHelper = JEIPluginBotanicalAddons.helpers.stackHelper
 
         val inputs = stackHelper.toItemStackList(recipe.input)
-        ingredients.setInputLists(ItemStack::class.java, listOf(inputs))
-        ingredients.setOutputs(ItemStack::class.java, recipe.output.toList())
+        ingredients.setInputLists(VanillaTypes.ITEM, listOf(inputs))
+        ingredients.setOutputs(VanillaTypes.ITEM, recipe.output.toList())
     }
 
     fun getOutputsTyped() = recipe.output.toList()

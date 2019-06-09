@@ -1,9 +1,9 @@
 {
     "__comment": "Designed by WireSegal with BDcraft Cubik PRO 0.96 Beta - http://bdcraft.net",
     "textures": {
-        "inner": "naturalpledge:block/thundersteel_block",
+        "inner": "naturalpledge:blocks/thundersteel_block",
         "outer": "naturalpledge:items/thunder_fist",
-        "manaDiamond": "botania:items/manadiamond"
+        "manaDiamond": "botania:items/mana_diamond"
     },
     "elements": [
         {

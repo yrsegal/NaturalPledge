@@ -1,5 +1,7 @@
 package com.wiresegal.naturalpledge.common.crafting.recipe
 
+import com.wiresegal.naturalpledge.common.core.helper.RainbowItemHelper
+import com.wiresegal.naturalpledge.common.lib.LibOreDict
 import net.minecraft.block.material.MapColor
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.EnumDyeColor
@@ -11,8 +13,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistryEntry
-import com.wiresegal.naturalpledge.common.core.helper.RainbowItemHelper
-import com.wiresegal.naturalpledge.common.lib.LibOreDict
 import java.awt.Color
 
 /**
@@ -22,6 +22,11 @@ import java.awt.Color
 class RecipeDynamicDye(val dyable: Item, val iris: Boolean = true) : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 
     override fun canFit(width: Int, height: Int): Boolean {
+        return true
+    }
+
+
+    override fun isDynamic(): Boolean {
         return true
     }
 

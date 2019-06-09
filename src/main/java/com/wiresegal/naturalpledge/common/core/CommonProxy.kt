@@ -2,18 +2,12 @@ package com.wiresegal.naturalpledge.common.core
 
 //import com.wiresegal.naturalpledge.common.integration.tinkers.TinkersProxy
 import com.teamwizardry.librarianlib.features.config.EasyConfigHandler
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.util.ResourceLocation
-import net.minecraft.util.math.BlockPos
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.common.achievements.AchievementHandler
 import com.wiresegal.naturalpledge.common.achievements.AdvancementBeginRagnarok
 import com.wiresegal.naturalpledge.common.block.ModBlocks
 import com.wiresegal.naturalpledge.common.core.tab.ModTab
+import com.wiresegal.naturalpledge.common.crafting.ModRecipes
 import com.wiresegal.naturalpledge.common.enchantment.ModEnchantments
 import com.wiresegal.naturalpledge.common.entity.ModEntities
 import com.wiresegal.naturalpledge.common.items.ModItems
@@ -21,6 +15,13 @@ import com.wiresegal.naturalpledge.common.items.bauble.faith.ModSpells
 import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import com.wiresegal.naturalpledge.common.potions.ModPotions
 import com.wiresegal.naturalpledge.common.potions.brew.ModBrews
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.BlockPos
+import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import vazkii.botania.common.core.helper.Vector3
 import java.awt.Color
 

@@ -3,6 +3,15 @@ package com.wiresegal.naturalpledge.common.items.armor
 import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.client.render.entity.ModelArmorEclipse
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.items.ModItems
+import com.wiresegal.naturalpledge.common.items.ModItems.ECLIPSE
+import com.wiresegal.naturalpledge.common.items.base.ItemBaseArmor
+import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
+import com.wiresegal.naturalpledge.common.items.weapons.ItemFlarebringer
+import com.wiresegal.naturalpledge.common.network.ManastormLightningMessage
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
@@ -17,17 +26,9 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.client.render.entity.ModelArmorEclipse
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.items.ModItems
-import com.wiresegal.naturalpledge.common.items.ModItems.ECLIPSE
-import com.wiresegal.naturalpledge.common.items.base.ItemBaseArmor
-import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
-import com.wiresegal.naturalpledge.common.items.weapons.ItemFlarebringer
-import com.wiresegal.naturalpledge.common.network.ManastormLightningMessage
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.Vector3
+import java.util.*
 
 /**
  * @author WireSegal
@@ -62,7 +63,7 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
         val players = if (hasFullSet(player)) player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.grow(10.0)) {
             it != null && it !is EntityArmorStand && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0
         } else mutableListOf()
-        players.shuffle()
+        Collections.shuffle(players)
         players.add(player)
         var amountLeft = amount
         val playersToAmounts = mutableListOf<Pair<EntityPlayer, Int>>()

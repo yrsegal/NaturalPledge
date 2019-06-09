@@ -2,6 +2,7 @@ package com.wiresegal.naturalpledge.common.items.bauble.faith
 
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
+import com.teamwizardry.librarianlib.features.utilities.RaycastUtils
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -101,7 +102,7 @@ object PriestlyEmblemNjord : IFaithVariant {
 
         if (player.isSneaking || player.isSpectator || player.isInWater) return
 
-        val ray = Spells.Helper.raycast(player, basePlayerRange, true) ?: return
+        val ray = RaycastUtils.raycast(player, basePlayerRange, true) ?: return
 
         if (ray.typeOfHit == RayTraceResult.Type.BLOCK) {
             val state = player.world.getBlockState(ray.blockPos)

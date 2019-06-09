@@ -1,6 +1,6 @@
 {
   "parent": "block/leaves",
   "textures": {
-    "all": "naturalpledge:block/circuit_leaves"
+    "all": "naturalpledge:blocks/circuit_leaves"
   }
 }

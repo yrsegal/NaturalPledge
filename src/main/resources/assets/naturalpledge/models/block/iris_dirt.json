@@ -1,8 +1,8 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "naturalpledge:block/iris_dirt",
-        "all": "naturalpledge:block/iris_dirt"
+        "particle": "naturalpledge:blocks/iris_dirt",
+        "all": "naturalpledge:blocks/iris_dirt"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

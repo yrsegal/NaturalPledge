@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "naturalpledge:block/sealing_wood_top",
-    "side": "naturalpledge:block/sealing_wood_side"
+    "end": "naturalpledge:blocks/sealing_wood_top",
+    "side": "naturalpledge:blocks/sealing_wood_side"
   }
 }

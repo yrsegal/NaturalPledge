@@ -4,6 +4,9 @@ import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.block.BlockModLeaves
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
@@ -12,9 +15,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import java.util.*
@@ -49,4 +49,8 @@ class BlockAuroraLeaves(name: String) : BlockModLeaves(name), ILexiconable, IBlo
             val p = LibrarianLib.PROXY.getClientPlayer()
             BlockAuroraDirt.fromPos(p.posX, p.posY, p.posZ)
         }
+
+    override fun causesSuffocation(state: IBlockState): Boolean {
+        return false
+    }
 }

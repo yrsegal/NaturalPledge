@@ -1,12 +1,7 @@
 package com.wiresegal.naturalpledge.common.block
 
-import com.teamwizardry.librarianlib.features.base.block.BlockMod
-import com.teamwizardry.librarianlib.features.base.block.BlockModPane
-import com.teamwizardry.librarianlib.features.base.block.BlockModSapling
-import net.minecraft.item.ItemStack
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.common.registry.GameRegistry
-import net.minecraftforge.oredict.OreDictionary
+import com.teamwizardry.librarianlib.features.base.block.*
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.common.block.alt.BlockAltLeaves
 import com.wiresegal.naturalpledge.common.block.alt.BlockAltLog
@@ -21,13 +16,17 @@ import com.wiresegal.naturalpledge.common.block.dendrics.circuit.BlockCircuitPla
 import com.wiresegal.naturalpledge.common.block.dendrics.circuit.BlockCircuitSapling
 import com.wiresegal.naturalpledge.common.block.dendrics.sealing.*
 import com.wiresegal.naturalpledge.common.block.dendrics.thunder.*
-import com.wiresegal.naturalpledge.common.block.tile.TileCracklingStar
-import com.wiresegal.naturalpledge.common.block.tile.TileLivingwoodFunnel
-import com.wiresegal.naturalpledge.common.block.tile.TilePrismFlame
-import com.wiresegal.naturalpledge.common.block.tile.TileStar
 import com.wiresegal.naturalpledge.common.block.trap.*
 import com.wiresegal.naturalpledge.common.lib.LibNames
 import com.wiresegal.naturalpledge.common.lib.LibOreDict
+import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
+import net.minecraft.client.util.ITooltipFlag
+import net.minecraft.item.EnumDyeColor
+import net.minecraft.item.ItemBlock
+import net.minecraft.item.ItemStack
+import net.minecraft.world.World
+import net.minecraftforge.oredict.OreDictionary
+import vazkii.botania.api.state.enums.AltGrassVariant
 import vazkii.botania.api.state.enums.StorageVariant
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
@@ -43,9 +42,12 @@ object ModBlocks {
     val rainbowDirt: BlockMod
     val auroraDirt: BlockMod
     val irisPlanks: BlockMod
+    val irisPlanksSlabs: Array<BlockModSlab>
     val irisLogs: Array<BlockIridescentLog>
     val rainbowPlanks: BlockMod
+    val rainbowPlanksSlab: BlockModSlab
     val auroraPlanks: BlockMod
+    val auroraPlanksSlab: BlockModSlab
     val rainbowLog: BlockMod
     val auroraLog: BlockMod
     val irisLeaves: Array<BlockIridescentLeaves>
@@ -55,11 +57,13 @@ object ModBlocks {
     val altLogs: Array<BlockAltLog>
     val altLeaves: Array<BlockAltLeaves>
     val altPlanks: BlockMod
+    val altPlanksSlabs: Array<BlockModSlab>
     val storage: BlockMod
     val irisLamp: BlockMod
 
     val sealSapling: BlockModSapling
     val sealPlanks: BlockMod
+    val sealPlanksSlab: BlockModSlab
     val sealLeaves: BlockMod
     val sealLog: BlockMod
 
@@ -67,16 +71,19 @@ object ModBlocks {
 
     val thunderSapling: BlockModSapling
     val thunderPlanks: BlockMod
+    val thunderPlanksSlab: BlockModSlab
     val thunderLeaves: BlockMod
     val thunderLog: BlockMod
 
     val circuitSapling: BlockModSapling
     val circuitPlanks: BlockMod
+    val circuitPlanksSlab: BlockModSlab
     val circuitLeaves: BlockMod
     val circuitLog: BlockMod
 
     val calicoSapling: BlockModSapling
     val calicoPlanks: BlockMod
+    val calicoPlanksSlab: BlockModSlab
     val calicoLeaves: BlockMod
     val calicoLog: BlockMod
 
@@ -107,6 +114,22 @@ object ModBlocks {
         irisDirt = BlockIridescentDirt(LibNames.IRIS_DIRT)
         rainbowDirt = BlockRainbowDirt(LibNames.RAINBOW_DIRT)
         irisPlanks = BlockIridescentPlanks(LibNames.IRIS_PLANKS)
+        irisPlanksSlabs = Array(16) {
+            object : BlockModSlab(LibNames.IRIS_PLANKS + "Slab" + EnumDyeColor.byMetadata(it).toString().capitalizeFirst(),
+                    irisPlanks.defaultState.withProperty(BlockIridescentPlanks.COLOR, EnumDyeColor.byMetadata(it))) {
+                override fun createItemForm(): ItemBlock? {
+                    return if (isDouble) null else object : ItemModSlab(this) {
+                        override fun getUnlocalizedNameInefficiently(stack: ItemStack): String {
+                            return "tile.${LibMisc.MOD_ID}:" + "iris_planks_slab"
+                        }
+                    }
+                }
+
+                override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
+                    TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.$it")
+                }
+            }
+        }
         irisLogs = Array(4) {
             object : BlockIridescentLog(LibNames.IRIS_LOG, it) {
                 override val colorSet: Int
@@ -114,6 +137,15 @@ object ModBlocks {
             }
         }
         rainbowPlanks = BlockRainbowPlanks(LibNames.RAINBOW_PLANKS)
+        rainbowPlanksSlab = object : BlockModSlab(LibNames.RAINBOW_PLANKS + "Slab", rainbowPlanks.defaultState) {
+            override fun createItemForm(): ItemBlock? {
+                return if (isDouble) null else object : ItemModSlab(this) {
+                    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
+                        TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.16")
+                    }
+                }
+            }
+        }
         rainbowLog = BlockRainbowLog(LibNames.RAINBOW_LOG)
         irisLeaves = Array(4) {
             object : BlockIridescentLeaves(LibNames.IRIS_LEAVES, it) {
@@ -125,6 +157,15 @@ object ModBlocks {
 
         auroraDirt = BlockAuroraDirt(LibNames.AURORA_DIRT)
         auroraPlanks = BlockAuroraPlanks(LibNames.AURORA_PLANKS)
+        auroraPlanksSlab = object : BlockModSlab(LibNames.AURORA_PLANKS + "Slab", auroraPlanks.defaultState) {
+            override fun createItemForm(): ItemBlock? {
+                return if (isDouble) null else object : ItemModSlab(this) {
+                    override fun addInformation(stack: ItemStack, player: World?, tooltip: MutableList<String>, advanced: ITooltipFlag) {
+                        TooltipHelper.addToTooltip(tooltip, "misc.${LibMisc.MOD_ID}.color.aurora")
+                    }
+                }
+            }
+        }
         auroraLog = BlockAuroraLog(LibNames.AURORA_LOG)
         auroraLeaves = BlockAuroraLeaves(LibNames.AURORA_LEAVES)
 
@@ -142,12 +183,17 @@ object ModBlocks {
             }
         }
         altPlanks = BlockAltPlanks(LibNames.ALT_PLANKS)
+        altPlanksSlabs = Array(6) {
+            BlockModSlab(LibNames.ALT_PLANKS + "Slab" + it,
+                    altPlanks.defaultState.withProperty(BlockAltPlanks.TYPE, AltGrassVariant.values()[it]))
+        }
         storage = BlockStorage(LibNames.STORAGE)
         irisLamp = BlockColoredLamp(LibNames.IRIS_LAMP)
 
         SoundSealEventHandler
         sealSapling = BlockSealSapling(LibNames.SEAL_SAPLING)
         sealPlanks = BlockSealPlanks(LibNames.SEAL_PLANKS)
+        sealPlanksSlab = BlockModSlab(LibNames.SEAL_PLANKS + "Slab", sealPlanks.defaultState)
         sealLeaves = BlockSealLeaves(LibNames.SEAL_LEAVES)
         sealLog = BlockSealingLog(LibNames.SEAL_LOG)
 
@@ -156,17 +202,20 @@ object ModBlocks {
         ThunderEventHandler
         thunderSapling = BlockThunderSapling(LibNames.THUNDER_SAPLING)
         thunderPlanks = BlockThunderPlanks(LibNames.THUNDER_PLANKS)
+        thunderPlanksSlab = BlockModSlab(LibNames.THUNDER_PLANKS + "Slab", thunderPlanks.defaultState)
         thunderLeaves = BlockThunderLeaves(LibNames.THUNDER_LEAVES)
         thunderLog = BlockThunderLog(LibNames.THUNDER_LOG)
 
         circuitSapling = BlockCircuitSapling(LibNames.CIRCUIT_SAPLING)
         circuitPlanks = BlockCircuitPlanks(LibNames.CIRCUIT_PLANKS)
+        circuitPlanksSlab = BlockModSlab(LibNames.CIRCUIT_PLANKS + "Slab", circuitPlanks.defaultState)
         circuitLeaves = BlockCircuitLeaves(LibNames.CIRCUIT_LEAVES)
         circuitLog = BlockCircuitLog(LibNames.CIRCUIT_LOG)
 
         CalicoEventHandler
         calicoSapling = BlockCalicoSapling(LibNames.CALICO_SAPLING)
         calicoPlanks = BlockCalicoPlanks(LibNames.CALICO_PLANKS)
+        calicoPlanksSlab = BlockModSlab(LibNames.CALICO_PLANKS + "Slab", calicoPlanks.defaultState)
         calicoLeaves = BlockCalicoLeaves(LibNames.CALICO_LEAVES)
         calicoLog = BlockCalicoLog(LibNames.CALICO_LOG)
 
@@ -188,14 +237,6 @@ object ModBlocks {
         sandTrap = BlockSandTrap()
         signalTrap = BlockSignalTrap()
         wrathTrap = BlockWrathTrap()
-
-//        gayBeacon = BlockGayBeacon()
-
-        GameRegistry.registerTileEntity(TileStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.STAR).toString())
-        GameRegistry.registerTileEntity(TileCracklingStar::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.CRACKLING).toString())
-        GameRegistry.registerTileEntity(TilePrismFlame::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.PRISM_FLAME).toString())
-        GameRegistry.registerTileEntity(TileLivingwoodFunnel::class.java, ResourceLocation(LibMisc.MOD_ID, LibNames.FUNNEL).toString())
-
     }
 
     // TODO make lowercase
@@ -215,6 +256,17 @@ object ModBlocks {
         OreDictionary.registerOre("dirt", ItemStack(irisDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("dirt", ItemStack(auroraDirt, 1, OreDictionary.WILDCARD_VALUE))
         OreDictionary.registerOre("blockGlass", ItemStack(aquaGlass, 1, OreDictionary.WILDCARD_VALUE))
+
+        OreDictionary.registerOre("slabWood", auroraPlanksSlab)
+        OreDictionary.registerOre("slabWood", calicoPlanksSlab)
+        OreDictionary.registerOre("slabWood", circuitPlanksSlab)
+        OreDictionary.registerOre("slabWood", rainbowPlanksSlab)
+        OreDictionary.registerOre("slabWood", sealPlanksSlab)
+        OreDictionary.registerOre("slabWood", thunderPlanksSlab)
+        for (slab in irisPlanksSlabs)
+            OreDictionary.registerOre("slabWood", slab)
+        for (slab in altPlanksSlabs)
+            OreDictionary.registerOre("slabWood", slab)
 
         OreDictionary.registerOre(LibOreDict.BLOCK_MANASTEEL, ItemStack(BotaniaBlocks.storage, 1, StorageVariant.MANASTEEL.ordinal))
         OreDictionary.registerOre(LibOreDict.BLOCK_TERRASTEEL, ItemStack(BotaniaBlocks.storage, 1, StorageVariant.TERRASTEEL.ordinal))

@@ -2,26 +2,31 @@ package com.wiresegal.naturalpledge.client.core
 
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.features.methodhandles.MethodHandleHelper
-import net.minecraft.advancements.AdvancementProgress
-import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityPlayerSP
-import net.minecraft.client.model.ModelBiped
-import net.minecraft.client.multiplayer.ClientAdvancementManager
-import net.minecraft.client.renderer.entity.RenderLivingBase
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.math.BlockPos
-import net.minecraftforge.fml.client.registry.ClientRegistry
-import net.minecraftforge.fml.client.registry.RenderingRegistry
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import com.wiresegal.naturalpledge.client.render.entity.LayerGlowArmor
 import com.wiresegal.naturalpledge.client.render.entity.RenderSealedArrow
 import com.wiresegal.naturalpledge.client.render.tile.RenderTileEnderActuator
 import com.wiresegal.naturalpledge.client.render.tile.RenderTileFrozenStar
 import com.wiresegal.naturalpledge.common.block.BlockEnderBind.TileEnderBind
+import com.wiresegal.naturalpledge.common.block.ModBlocks
 import com.wiresegal.naturalpledge.common.block.tile.TileStar
 import com.wiresegal.naturalpledge.common.core.CommonProxy
 import com.wiresegal.naturalpledge.common.entity.EntitySealedArrow
+import net.minecraft.advancements.AdvancementProgress
+import net.minecraft.block.material.MapColor
+import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
+import net.minecraft.client.model.ModelBiped
+import net.minecraft.client.multiplayer.ClientAdvancementManager
+import net.minecraft.client.renderer.color.IBlockColor
+import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.client.renderer.entity.RenderLivingBase
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.EnumDyeColor
+import net.minecraft.util.math.BlockPos
+import net.minecraftforge.fml.client.registry.ClientRegistry
+import net.minecraftforge.fml.client.registry.RenderingRegistry
+import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import vazkii.botania.client.core.handler.ClientTickHandler
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.Vector3
@@ -42,6 +47,13 @@ class ClientProxy : CommonProxy() {
         super.init(e)
         ClientRegistry.bindTileEntitySpecialRenderer(TileStar::class.java, RenderTileFrozenStar())
         ClientRegistry.bindTileEntitySpecialRenderer(TileEnderBind::class.java, RenderTileEnderActuator())
+
+        val itemColors = Minecraft.getMinecraft().itemColors
+        val blockColors = Minecraft.getMinecraft().blockColors
+        for ((i, slab) in ModBlocks.irisPlanksSlabs.withIndex()) {
+            blockColors.registerBlockColorHandler(IBlockColor { _, _, _, _ -> MapColor.getBlockColor(EnumDyeColor.byMetadata(i)).colorValue }, slab, slab.doubleBlock)
+            itemColors.registerItemColorHandler(IItemColor { _, _ -> MapColor.getBlockColor(EnumDyeColor.byMetadata(i)).colorValue }, slab)
+        }
 
         val skinMap = Minecraft.getMinecraft().renderManager.skinMap
         var render: RenderLivingBase<*>? = skinMap["default"]

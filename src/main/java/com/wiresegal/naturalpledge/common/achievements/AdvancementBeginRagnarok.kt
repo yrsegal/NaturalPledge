@@ -9,12 +9,9 @@ object AdvancementBeginRagnarok : NPAchievementTrigger<AdvancementBeginRagnarok.
 
     override val newTrackerFunc: (player: PlayerAdvancements) -> IPlayerTracker<FaithItemCriteria> = { player -> BeginRagnarokTracker(player) }
 
-    class BeginRagnarokTracker(advancements: PlayerAdvancements) : IPlayerTracker<AdvancementBeginRagnarok.FaithItemCriteria>(advancements) {
-
-    }
+    class BeginRagnarokTracker(advancements: PlayerAdvancements) : IPlayerTracker<AdvancementBeginRagnarok.FaithItemCriteria>(advancements)
 
     override fun deserializeInstance(json: JsonObject, context: JsonDeserializationContext): FaithItemCriteria {
-        println("Getting ach inst")
         return FaithItemCriteria(ItemPredicate.deserialize(json.get("relic")))
     }
 

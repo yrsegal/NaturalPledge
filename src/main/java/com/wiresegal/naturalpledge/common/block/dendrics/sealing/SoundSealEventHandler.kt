@@ -1,5 +1,7 @@
 package com.wiresegal.naturalpledge.common.block.dendrics.sealing
 
+import com.teamwizardry.librarianlib.features.base.block.BlockModSlab
+import com.wiresegal.naturalpledge.api.sapling.ISealingBlock
 import net.minecraft.client.Minecraft
 import net.minecraft.client.audio.ISound
 import net.minecraft.client.audio.ITickableSound
@@ -10,7 +12,6 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import com.wiresegal.naturalpledge.api.sapling.ISealingBlock
 
 /**
  * @author WireSegal
@@ -43,6 +44,12 @@ object SoundSealEventHandler {
                         val distance = dist(pos, BlockPos(x, y, z))
                         if (distance <= MAXRANGE && block.canSeal(state, world, pos, distance, e)) {
                             volumeMultiplier *= block.getVolumeMultiplier(state, world, pos, distance, e)
+                        }
+                    } else if (block is BlockModSlab && block.parent.block is ISealingBlock) {
+                        val sealing = block.parent.block as ISealingBlock
+                        val distance = dist(pos, BlockPos(x, y, z))
+                        if (distance <= MAXRANGE && sealing.canSeal(state, world, pos, distance, e)) {
+                            volumeMultiplier *= 1 - (1 - sealing.getVolumeMultiplier(state, world, pos, distance, e)) / 2
                         }
                     }
                 }

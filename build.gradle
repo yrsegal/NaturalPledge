@@ -58,12 +58,12 @@ jar {
 
 repositories {
     jcenter()
-    maven {
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        url "http://maven.bluexin.be/repository/snapshots/"
-    }
+
+    maven { url = "http://dvs1.progwml6.com/files/maven" }
+    maven { url = "http://maven.bluexin.be/repository/snapshots/" }
+    maven { url = "http://maven.covers1624.net" }
+    maven { url = "http://maven.thiakil.com" }
+    maven { url = "https://maven.blamejared.com/" }
 }
 
 
@@ -76,8 +76,10 @@ compileKotlin {
 
 dependencies {
     compile "mezz.jei:jei_${config.jei_version}"
-    compile "com.teamwizardry.librarianlib:librarianlib-1.12.2:4.16-SNAPSHOT:deobf"
-    compile files("libs/vazkii")
+    compile "com.teamwizardry.librarianlib:librarianlib-1.12.2:4.19.1"
+
+    compile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    compile "vazkii.botania:Botania:r1.10-362.88"
 }
 
 def parseConfig(File config) {

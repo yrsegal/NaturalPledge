@@ -9,7 +9,7 @@
     "description": {
       "translate": "achievement.naturalpledge.don_emblem.desc"
     },
-    "background":   "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
@@ -18,9 +18,9 @@
     "create_holysymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": {
-          "item": "naturalpledge:holysymbol"
-        }
+        "items": [{
+          "item": "naturalpledge:holy_symbol"
+        }]
       }
     }
   }

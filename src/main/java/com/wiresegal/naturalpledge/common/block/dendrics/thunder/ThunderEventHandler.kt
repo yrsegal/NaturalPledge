@@ -1,5 +1,7 @@
 package com.wiresegal.naturalpledge.common.block.dendrics.thunder
 
+import com.teamwizardry.librarianlib.features.base.block.BlockModSlab
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 import net.minecraft.entity.Entity
 import net.minecraft.entity.effect.EntityLightningBolt
 import net.minecraft.init.Blocks
@@ -8,7 +10,6 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
 
 /**
  * @author WireSegal
@@ -35,6 +36,8 @@ object ThunderEventHandler {
                     effect.position.add(MAXRANGE, MAXRANGE, MAXRANGE))) if (pos.distanceSq(effect.position) <= 64) {
                 val state = e.world.getBlockState(pos)
                 if (state.block is IThunderAbsorber)
+                    thunderabsorbers.add(pos)
+                else if (state.block is BlockModSlab && (state.block as BlockModSlab).parent.block is IThunderAbsorber)
                     thunderabsorbers.add(pos)
             }
             if (thunderabsorbers.size == 0) continue

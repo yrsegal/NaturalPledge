@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-		"all": "naturalpledge:blocks/corporea_resonator"
+		"all": "naturalpledge:blocks/calico_planks"
 	}
 }

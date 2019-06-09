@@ -6,6 +6,9 @@ import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.network.TargetPositionPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
@@ -14,14 +17,12 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.relauncher.Side
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.network.TargetPositionPacket
 import vazkii.botania.api.wand.ICoordBoundItem
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.handler.ModSounds
@@ -159,8 +160,13 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
 
         val noReset = ItemNBTHelper.getBoolean(stack, TAG_NO_RESET, false)
         if (!noReset && stack.hasDisplayName() && stack.displayName.toLowerCase(Locale.ROOT).trim().matches("^track[:\\s]\\s*.+$".toRegex())) {
-            ItemNBTHelper.setString(stack, TAG_TRACK, stack.displayName.trim().replace("^track:?".toRegex(), "").trim())
-            stack.clearCustomName()
+            val name = stack.displayName.trim().replace("^track:?".toRegex(), "").trim()
+            val player = worldIn.playerEntities.firstOrNull { name == it.name }
+            if (player != null) {
+                ItemNBTHelper.setString(stack, TAG_TRACK, name)
+                player.sendMessage(TextComponentTranslation("naturalpledge.you_are_tracked"))
+                stack.clearCustomName()
+            }
         }
 
         if (entityIn !is EntityPlayer || entityIn.heldItemMainhand != stack && entityIn.heldItemOffhand != stack) return
@@ -168,6 +174,17 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         val startVec = Vector3.fromEntityCenter(entityIn)
         val dirVec = getDirVec(stack, entityIn) ?: return
         val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
+
+        if (ItemNBTHelper.getString(stack, TAG_TRACK, null) != null) {
+
+            val target = getEndVec(entityIn, stack)
+            if (target != null) {
+                val targetEnd = target.add(startVec.normalize().multiply(Math.min(startVec.mag(), 10.0)))
+                Botania.proxy.setWispFXDepthTest(false)
+                NaturalPledge.PROXY.particleStream(target.add(startVec.normalize()).add(0.0, 0.5, 0.0), targetEnd, NaturalPledge.PROXY.wireFrameRainbow().rgb)
+                Botania.proxy.setWispFXDepthTest(true)
+            }
+        }
 
         Botania.proxy.setWispFXDepthTest(false)
         NaturalPledge.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, NaturalPledge.PROXY.wireFrameRainbow().rgb)

@@ -4,6 +4,11 @@ import com.teamwizardry.librarianlib.features.base.block.BlockModLeaves
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.api.sapling.IStackConvertible
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
+import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
@@ -18,11 +23,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.api.sapling.IStackConvertible
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
-import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import java.util.*
@@ -32,7 +32,7 @@ import java.util.*
  * Created at 10:45 PM on 5/13/16.
  */
 @Suppress("LeakingThis")
-abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(4, { name + COLORS[set][it].toString().capitalizeFirst() })), IBlockColorProvider, ILexiconable, IStackConvertible {
+abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(name + set, *Array(4) { name + COLORS[set][it].toString().capitalizeFirst() }), IBlockColorProvider, ILexiconable, IStackConvertible {
     companion object {
         val COLOR_PROPS = Array(4) { i ->
             PropertyEnum.create("color", EnumDyeColor::class.java) {
@@ -106,5 +106,9 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
 
     override fun getEntry(p0: World?, p1: BlockPos?, p2: EntityPlayer?, p3: ItemStack): LexiconEntry? {
         return LexiconEntries.irisDirt
+    }
+
+    override fun causesSuffocation(state: IBlockState): Boolean {
+        return false
     }
 }

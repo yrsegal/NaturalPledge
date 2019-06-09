@@ -1,6 +1,6 @@
 {
   "parent": "block/pane_noside",
   "textures": {
-    "pane": "naturalpledge:block/glass_aqua"
+    "pane": "naturalpledge:blocks/glass_aqua"
   }
 }

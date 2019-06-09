@@ -16,10 +16,10 @@
     "create_holysymbol": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": {
+        "items": [{
           "item": "naturalpledge:priest_emblem",
           "data": 4
-        }
+        }]
       }
     }
   }

@@ -1,6 +1,6 @@
 {
   "parent": "block/cross",
   "textures": {
-    "cross": "naturalpledge:block/lightning_sapling"
+    "cross": "naturalpledge:blocks/lightning_sapling"
   }
 }

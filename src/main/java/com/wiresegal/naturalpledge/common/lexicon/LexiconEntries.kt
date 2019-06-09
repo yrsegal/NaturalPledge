@@ -1,15 +1,5 @@
 package com.wiresegal.naturalpledge.common.lexicon
 
-import net.minecraft.block.BlockDirt
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
-import net.minecraft.item.EnumDyeColor
-import net.minecraft.item.ItemStack
-import net.minecraft.util.text.TextFormatting
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.event.entity.player.PlayerInteractEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.oredict.OreDictionary
 import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.block.BlockAwakenerCore
 import com.wiresegal.naturalpledge.common.block.ModBlocks
@@ -22,6 +12,16 @@ import com.wiresegal.naturalpledge.common.lexicon.base.EntryAwakenedKnowledge
 import com.wiresegal.naturalpledge.common.lexicon.base.EntryPriestlyKnowledge
 import com.wiresegal.naturalpledge.common.lexicon.base.ModCategory
 import com.wiresegal.naturalpledge.common.lexicon.base.ModEntry
+import net.minecraft.block.BlockDirt
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
+import net.minecraft.item.EnumDyeColor
+import net.minecraft.item.ItemStack
+import net.minecraft.util.text.TextFormatting
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.oredict.OreDictionary
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.BotaniaAPI.registerKnowledgeType
 import vazkii.botania.api.lexicon.ILexicon
@@ -276,7 +276,7 @@ object LexiconEntries {
         ragnarok = EntryPriestlyKnowledge("ragnarok", divinity, ItemSpellIcon.of(ItemSpellIcon.Variants.SOUL_MANIFESTATION), ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(forbidden).setPriority()
         ragnarok.setLexiconPages(PageText("0"), PageText("1"))
 
-        faithInRagnarok = EntryPriestlyKnowledge("faithInRagnarok", divinity, ModItems.ragnarok, ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(forbidden).setPriority()
+        faithInRagnarok = EntryPriestlyKnowledge("faithInRagnarok", divinity, ModItems.ragnarok, null).setKnowledgeType(forbidden).setPriority()
         faithInRagnarok.setLexiconPages(PageText("0"), PageText("1"))
 
         eclipse = EntryPriestlyKnowledge("eclipse", divinity, ModItems.flarebringer, ItemRagnarokPendant.Ragnarok::class.java).setKnowledgeType(forbidden)

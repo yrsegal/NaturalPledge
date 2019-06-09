@@ -1,6 +1,6 @@
 {
   "parent": "block/leaves",
   "textures": {
-    "all": "naturalpledge:block/alt_leaves_golden"
+    "all": "naturalpledge:blocks/alt_leaves_golden"
   }
 }

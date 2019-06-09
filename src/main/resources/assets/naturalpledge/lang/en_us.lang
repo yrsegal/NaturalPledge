@@ -107,6 +107,9 @@ tile.naturalpledge:aurora_dirt.name=Iridescent Dirt
 tile.naturalpledge:iris_planks.name=Iridescent Planks
 tile.naturalpledge:rainbow_planks.name=Iridescent Planks
 tile.naturalpledge:aurora_planks.name=Iridescent Planks
+tile.naturalpledge:iris_planks_slab.name=Iridescent Planks Slab
+tile.naturalpledge:rainbow_planks_slab.name=Iridescent Planks Slab
+tile.naturalpledge:aurora_planks_slab.name=Iridescent Planks Slab
 tile.naturalpledge:iris_log.name=Iridescent Log
 tile.naturalpledge:rainbow_log.name=Iridescent Log
 tile.naturalpledge:aurora_log.name=Iridescent Log
@@ -137,8 +140,16 @@ tile.naturalpledge:alt_planks_scorched.name=Scorched Iridescent Planks
 tile.naturalpledge:alt_planks_infused.name=Infused Iridescent Planks
 tile.naturalpledge:alt_planks_mutated.name=Mutated Iridescent Planks
 
+tile.naturalpledge:alt_planks_slab0.name=Dry Iridescent Planks Slab
+tile.naturalpledge:alt_planks_slab1.name=Golden Iridescent Planks Slab
+tile.naturalpledge:alt_planks_slab2.name=Vivid Iridescent Planks Slab
+tile.naturalpledge:alt_planks_slab3.name=Scorched Iridescent Planks Slab
+tile.naturalpledge:alt_planks_slab4.name=Infused Iridescent Planks Slab
+tile.naturalpledge:alt_planks_slab5.name=Mutated Iridescent Planks Slab
+
 tile.naturalpledge:seal_log.name=Sealing Oak Log
 tile.naturalpledge:seal_planks.name=Sealing Oak Planks
+tile.naturalpledge:seal_planks_slab.name=Sealing Oak Planks Slab
 tile.naturalpledge:seal_leaves.name=Sealing Oak Leaves
 tile.naturalpledge:seal_sapling.name=Sealing Oak Sapling
 
@@ -146,16 +157,19 @@ tile.naturalpledge:amp.name=Sonic Amplifier
 
 tile.naturalpledge:thunder_log.name=Thunderous Oak Log
 tile.naturalpledge:thunder_planks.name=Thunderous Oak Planks
+tile.naturalpledge:thunder_planks_slab.name=Thunderous Oak Planks Slab
 tile.naturalpledge:thunder_leaves.name=Thunderous Oak Leaves
 tile.naturalpledge:thunder_sapling.name=Thunderous Oak Sapling
 
 tile.naturalpledge:circuit_log.name=Circuitree Log
 tile.naturalpledge:circuit_planks.name=Circuitree Planks
+tile.naturalpledge:circuit_planks_slab.name=Circuitree Planks Slab
 tile.naturalpledge:circuit_leaves.name=Circuitree Leaves
 tile.naturalpledge:circuit_sapling.name=Circuitree Sapling
 
 tile.naturalpledge:calico_log.name=Calico Log
 tile.naturalpledge:calico_planks.name=Calico Planks
+tile.naturalpledge:calico_planks_slab.name=Calico Planks Slab
 tile.naturalpledge:calico_leaves.name=Calico Leaves
 tile.naturalpledge:calico_sapling.name=Calico Sapling
 
@@ -762,3 +776,5 @@ naturalpledge.page.fenris2=The &1Helm of Fenris&0
 naturalpledge.page.fenris3=The &1Chestplate of Fenris&0
 naturalpledge.page.fenris4=The &1Platelegs of Fenris&0
 naturalpledge.page.fenris5=The &1Greaves of Fenris&0
+
+naturalpledge.you_are_tracked=Someone has found you...

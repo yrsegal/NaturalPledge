@@ -16,9 +16,9 @@
     "create_focus": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": {
+        "items": [{
           "item": "naturalpledge:spell_focus"
-        }
+        }]
       }
     }
   }

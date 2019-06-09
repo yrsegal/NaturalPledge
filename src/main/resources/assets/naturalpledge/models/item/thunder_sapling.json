@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "naturalpledge:block/lightning_sapling"
+    "layer0": "naturalpledge:blocks/lightning_sapling"
   }
 }

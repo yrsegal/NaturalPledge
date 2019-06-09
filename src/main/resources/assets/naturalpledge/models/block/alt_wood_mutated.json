@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "naturalpledge:block/alt_wood_mutated_top",
-    "side": "naturalpledge:block/alt_wood_mutated_side"
+    "end": "naturalpledge:blocks/alt_wood_mutated_top",
+    "side": "naturalpledge:blocks/alt_wood_mutated_side"
   }
 }
