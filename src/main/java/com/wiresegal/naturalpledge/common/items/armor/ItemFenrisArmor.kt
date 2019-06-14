@@ -2,17 +2,22 @@ package com.wiresegal.naturalpledge.common.items.armor
 
 import com.google.common.collect.Multimap
 import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.client.render.entity.ModelArmorFenris
+import com.wiresegal.naturalpledge.common.items.ModItems
+import com.wiresegal.naturalpledge.common.items.ModItems.FENRIS
+import com.wiresegal.naturalpledge.common.items.base.ItemBaseArmor
+import com.wiresegal.naturalpledge.common.items.weapons.ItemNightscourge
 import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
-import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingAttackEvent
@@ -20,13 +25,6 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.client.render.entity.ModelArmorFenris
-import com.wiresegal.naturalpledge.common.items.ModItems
-import com.wiresegal.naturalpledge.common.items.ModItems.FENRIS
-import com.wiresegal.naturalpledge.common.items.base.ItemBaseArmor
-import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
-import com.wiresegal.naturalpledge.common.items.weapons.ItemNightscourge
 import java.util.*
 
 /**
@@ -48,6 +46,7 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
                     (ModItems.fenrisHelm.hasFullSet(attacker) && attacker.heldItemMainhand.isEmpty) ||
                             (attacker.heldItemMainhand.item is ItemNightscourge))) {
                 e.source.setDamageBypassesArmor()
+                e.source.setDamageIsAbsolute()
                 e.isCanceled = false
             }
         }
@@ -63,10 +62,6 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
     @SideOnly(Side.CLIENT)
     override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
 
-    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(tab, subItems)
-    }
 
     override val armorSetStacks: ArmorSet by lazy {
         ArmorSet(ModItems.fenrisHelm, ModItems.fenrisChest, ModItems.fenrisLegs, ModItems.fenrisBoots)
@@ -84,24 +79,28 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
         super.onArmorTick(world, player, stack)
         if (!world.isRemote) {
             if (hasFullSet(player))
-                ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, true)
+                stack.setNBTBoolean(TAG_ACTIVE, true)
             else
-                ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, false)
+                stack.setNBTBoolean(TAG_ACTIVE, false)
         }
     }
 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, slot: Int, selected: Boolean) {
         super.onUpdate(stack, world, player, slot, selected)
         if (!world.isRemote && slot < 100)
-            ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, false)
+            stack.setNBTBoolean(TAG_ACTIVE, false)
     }
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot?, stack: ItemStack): Multimap<String, AttributeModifier> {
         val map = super.getAttributeModifiers(slot, stack)
 
-        if (slot == armorType && ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
-            val uuid = UUID((getUnlocalizedNameInefficiently(stack) + slot.toString()).hashCode().toLong(), 0L)
-            map.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(uuid, "Fenris modifier " + slot?.name, 0.5, 0))
+        if (slot == armorType && stack.getNBTBoolean(TAG_ACTIVE, false)) {
+            val uuid1 = UUID((getUnlocalizedNameInefficiently(stack) + slot.toString()).hashCode().toLong(), 0L)
+            val uuid2 = UUID(uuid1.mostSignificantBits, 1L)
+            val uuid3 = UUID(uuid1.mostSignificantBits, 2L)
+            map.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(uuid1, "Fenris modifier " + slot?.name, 0.5, 0))
+            map.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.name, AttributeModifier(uuid2, "Fenris modifier " + slot?.name, 0.15, 0))
+            map.put(SharedMonsterAttributes.MOVEMENT_SPEED.name, AttributeModifier(uuid3, "Fenris modifier " + slot?.name, 0.05, 1))
         }
 
         return map

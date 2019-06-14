@@ -3,9 +3,18 @@ package com.wiresegal.naturalpledge.common.items.bauble.faith
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
+import com.wiresegal.naturalpledge.api.item.IDiscordantItem
+import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.api.priest.IFaithVariant
+import com.wiresegal.naturalpledge.common.items.ModItems
+import com.wiresegal.naturalpledge.common.items.base.ItemBaseBauble
+import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
+import com.wiresegal.naturalpledge.common.potions.ModPotions
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
@@ -26,14 +35,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
-import com.wiresegal.naturalpledge.api.item.IDiscordantItem
-import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.api.priest.IFaithVariant
-import com.wiresegal.naturalpledge.common.items.ModItems
-import com.wiresegal.naturalpledge.common.items.base.ItemBaseBauble
-import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
-import com.wiresegal.naturalpledge.common.potions.ModPotions
+import org.lwjgl.opengl.GL11
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
@@ -114,18 +116,18 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PENDANT)) {
             stack, _, _ ->
-            if (ItemNBTHelper.getBoolean(stack, TAG_PENDANT, false)) 1f else 0f
+            if (stack.getNBTBoolean(TAG_PENDANT, false)) 1f else 0f
         }
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_AWAKENED)) {
             stack, _, _ ->
-            if (ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)) 1f else 0f
+            if (stack.getNBTBoolean(TAG_AWAKENED, false)) 1f else 0f
         }
     }
 
     override fun usesMana(p0: ItemStack) = true
 
-    override fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
-    override fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
+    override fun isAwakened(stack: ItemStack) = stack.getNBTBoolean(TAG_AWAKENED, false)
+    override fun setAwakened(stack: ItemStack, state: Boolean) = stack.setNBTBoolean(TAG_AWAKENED, state)
 
     override fun getRarity(stack: ItemStack): EnumRarity = if (isAwakened(stack)) BotaniaAPI.rarityRelic else super.getRarity(stack)
 
@@ -150,7 +152,7 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
 
         if (render == IBaubleRender.RenderType.BODY) {
             val renderStack = stack.copy()
-            ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
+            renderStack.setNBTBoolean(TAG_PENDANT, true)
             val armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isNotEmpty
 
             GlStateManager.pushMatrix()
@@ -160,6 +162,8 @@ class ItemFaithBauble(name: String) : ItemBaseBauble(name, *Array(priestVariants
             GlStateManager.translate(0.0, 0.15, if (armor) 0.125 else 0.05)
             Minecraft.getMinecraft().renderItem.renderItem(renderStack, ItemCameraTransforms.TransformType.NONE)
             GlStateManager.popMatrix()
+
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
         }
 
         if (!isFaithless(player))

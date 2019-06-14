@@ -3,6 +3,8 @@ package com.wiresegal.naturalpledge.common.items.colored
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.util.ITooltipFlag
@@ -99,10 +101,10 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
     }
 
     override fun hasPhantomInk(stack: ItemStack): Boolean {
-        return ItemNBTHelper.getBoolean(stack, TAG_INK, false)
+        return stack.getNBTBoolean(TAG_INK, false)
     }
 
     override fun setPhantomInk(stack: ItemStack, ink: Boolean) {
-        ItemNBTHelper.setBoolean(stack, TAG_INK, ink)
+        stack.setNBTBoolean(TAG_INK, ink)
     }
 }

@@ -3,6 +3,8 @@ package com.wiresegal.naturalpledge.common.items.travel.bauble
 import baubles.api.BaubleType
 import baubles.api.BaublesApi
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.Block
@@ -167,8 +169,8 @@ class ItemToolbelt(name: String) : ItemBaseBauble(name), IBaubleRender, IBlockPr
         private const val TAG_EQUIPPED = "equipped"
         private const val TAG_ROTATION_BASE = "rotationBase"
 
-        fun isEquipped(stack: ItemStack): Boolean = ItemNBTHelper.getBoolean(stack, TAG_EQUIPPED, false)
-        fun setEquipped(stack: ItemStack, equipped: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_EQUIPPED, equipped)
+        fun isEquipped(stack: ItemStack): Boolean = stack.getNBTBoolean(TAG_EQUIPPED, false)
+        fun setEquipped(stack: ItemStack, equipped: Boolean) = stack.setNBTBoolean(TAG_EQUIPPED, equipped)
         fun getRotationBase(stack: ItemStack): Float = ItemNBTHelper.getFloat(stack, TAG_ROTATION_BASE, 0F)
         fun setRotationBase(stack: ItemStack, rotation: Float) = ItemNBTHelper.setFloat(stack, TAG_ROTATION_BASE, rotation)
 

@@ -88,12 +88,14 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.IRON), ILexicona
 
     @SideOnly(Side.CLIENT)
     override fun randomDisplayTick(state: IBlockState, world: World, pos: BlockPos, rand: Random) {
-        val color = NaturalPledge.PROXY.rainbow(pos, 0.4f)
-        val colorBright = color.brighter().rgb
-        val colorDark = color.darker().rgb
-        val origVector = Vector3(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
-        val endVector = origVector.add(rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0, rand.nextDouble() * 2.0 - 1.0)
-        Botania.proxy.lightningFX(origVector, endVector, 5.0f, colorDark, colorBright)
+        if (rand.nextFloat() > 0.5) {
+            val color = NaturalPledge.PROXY.rainbow(pos, 0.4f)
+            val colorBright = color.brighter().rgb
+            val colorDark = color.darker().rgb
+            val origVector = Vector3(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
+            val endVector = origVector.add(rand.nextDouble() * 1.0 - 0.5, rand.nextDouble() * 1.0 - 0.5, rand.nextDouble() * 1.0 - 0.5)
+            Botania.proxy.lightningFX(origVector, endVector, 5.0f, colorDark, colorBright)
+        }
     }
 
     override fun getEnchantPowerBonus(world: World?, pos: BlockPos?) = 15f

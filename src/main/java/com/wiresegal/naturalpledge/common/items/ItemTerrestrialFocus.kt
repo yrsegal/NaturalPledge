@@ -2,7 +2,7 @@ package com.wiresegal.naturalpledge.common.items
 
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.*
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
@@ -63,7 +63,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
 
 
         fun getSpellName(focus: ItemStack): String? {
-            return ItemNBTHelper.getString(focus, TAG_SPELL, null)
+            return focus.getNBTString(TAG_SPELL) ?: null
         }
 
         fun getSpell(focus: ItemStack): IFocusSpell? {
@@ -73,16 +73,16 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
 
         fun setSpellByName(focus: ItemStack, spell: String?) {
             if (spell == null)
-                ItemNBTHelper.removeEntry(focus, TAG_SPELL)
+                focus.removeNBTEntry(TAG_SPELL)
             else
-                ItemNBTHelper.setString(focus, TAG_SPELL, spell)
+                focus.setNBTString(TAG_SPELL, spell)
         }
 
         fun setSpell(focus: ItemStack, spell: IFocusSpell?) {
             if (spell == null)
-                ItemNBTHelper.removeEntry(focus, TAG_SPELL)
+                focus.removeNBTEntry(TAG_SPELL)
             else
-                ItemNBTHelper.setString(focus, TAG_SPELL, SpellRegistry.getSpellName(spell) ?: "")
+                focus.setNBTString(TAG_SPELL, SpellRegistry.getSpellName(spell) ?: "")
         }
 
         object EventHandler {
@@ -122,7 +122,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
     }
 
     override fun getRarity(stack: ItemStack): EnumRarity {
-        return if (ItemNBTHelper.getBoolean(stack, TAG_CAST, false)) EnumRarity.UNCOMMON else super.getRarity(stack)
+        return if (stack.getNBTBoolean(TAG_CAST, false)) EnumRarity.UNCOMMON else super.getRarity(stack)
     }
 
     @SideOnly(Side.CLIENT)
@@ -142,12 +142,12 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
         val cooldown = spell.getCooldown(player, stack, hand)
         if (ret == EnumActionResult.SUCCESS && cooldown > 0) {
             player.cooldownTracker.setCooldown(this, cooldown)
-            ItemNBTHelper.setBoolean(stack, TAG_CAST, true)
+            stack.setNBTBoolean(TAG_CAST, true)
 
             val ticks = NPMethodHandles.getCooldownTicks(player.cooldownTracker)
 
-            ItemNBTHelper.setInt(stack, TAG_COOLDOWN_EXPIRE, cooldown + ticks)
-            ItemNBTHelper.setInt(stack, TAG_USED_TIME, ticks)
+            stack.setNBTInt(TAG_COOLDOWN_EXPIRE, cooldown + ticks)
+            stack.setNBTInt(TAG_USED_TIME, ticks)
         }
 
         return ret
@@ -195,19 +195,19 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
 
             val ticks = NPMethodHandles.getCooldownTicks(entityIn.cooldownTracker)
 
-            val usedTime = ItemNBTHelper.getInt(stack, TAG_USED_TIME, ticks)
-            val expireTime = ItemNBTHelper.getInt(stack, TAG_COOLDOWN_EXPIRE, ticks)
+            val usedTime = stack.getNBTInt(TAG_USED_TIME, ticks)
+            val expireTime = stack.getNBTInt(TAG_COOLDOWN_EXPIRE, ticks)
             val cooldown = CooldownHelper.getCooldown(entityIn.cooldownTracker, this)
             if (cooldown == null && !worldIn.isRemote) {
                 CooldownHelper.setCooldown(entityIn.cooldownTracker, this, usedTime, expireTime)
             }
 
-            if (entityIn.cooldownTracker.hasCooldown(this) && ItemNBTHelper.getBoolean(stack, TAG_CAST, false) && !ItemFaithBauble.isFaithless(entityIn)) {
+            if (entityIn.cooldownTracker.hasCooldown(this) && stack.getNBTBoolean(TAG_CAST, false) && !ItemFaithBauble.isFaithless(entityIn)) {
                 val spell = getSpell(stack) ?: return
                 spell.onCooldownTick(entityIn, stack, itemSlot, isSelected,
                         (CooldownHelper.getCooldown(entityIn.cooldownTracker, this)?.expireTicks ?: ticks) - ticks)
             } else {
-                ItemNBTHelper.removeEntry(stack, TAG_CAST)
+                stack.removeNBTEntry(TAG_CAST)
             }
         }
     }

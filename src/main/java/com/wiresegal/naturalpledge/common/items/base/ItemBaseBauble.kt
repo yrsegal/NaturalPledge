@@ -2,6 +2,8 @@ package com.wiresegal.naturalpledge.common.items.base
 
 import com.teamwizardry.librarianlib.features.base.item.ItemModBauble
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fml.common.Optional
@@ -40,10 +42,10 @@ abstract class ItemBaseBauble(name: String, vararg variants: String) : ItemModBa
     }
 
     override fun hasPhantomInk(stack: ItemStack): Boolean {
-        return ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false)
+        return stack.getNBTBoolean(TAG_PHANTOM_INK, false)
     }
 
     override fun setPhantomInk(stack: ItemStack, ink: Boolean) {
-        ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink)
+        stack.setNBTBoolean(TAG_PHANTOM_INK, ink)
     }
 }

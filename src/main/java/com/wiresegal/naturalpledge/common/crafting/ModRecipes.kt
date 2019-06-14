@@ -692,6 +692,13 @@ object ModRecipes {
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.HEARTHSTONE,
                 'A', ItemStack(BotaniaItems.terrasteelHelm)).setRegistryName("${LibMisc.MOD_ID}:eclipsehelm"))
+        addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseHelm),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.HEARTHSTONE,
+                'A', ItemStack(BotaniaItems.terrasteelHelmRevealing)).setRegistryName("${LibMisc.MOD_ID}:eclipsehelmreveal"))
         recipeEclipseChest = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.eclipseChest),
                 " S ",
                 "MAM",
@@ -729,6 +736,13 @@ object ModRecipes {
                 'S', LibOreDict.DIVINE_SPIRIT,
                 'M', LibOreDict.THUNDERSTEEL,
                 'A', ItemStack(BotaniaItems.terrasteelHelm)).setRegistryName("${LibMisc.MOD_ID}:sunmakerhelm"))
+        addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerHelm),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT,
+                'M', LibOreDict.THUNDERSTEEL,
+                'A', ItemStack(BotaniaItems.terrasteelHelmRevealing)).setRegistryName("${LibMisc.MOD_ID}:sunmakerhelmreveal"))
         recipeSunmakerChest = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.sunmakerChest),
                 " S ",
                 "MAM",
@@ -766,6 +780,14 @@ object ModRecipes {
                 'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
                 'M', LibOreDict.LIFE_ROOT,
                 'A', ItemStack(BotaniaItems.terrasteelHelm)).setRegistryName("${LibMisc.MOD_ID}:fenrishelm"))
+
+        addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisHelm),
+                " S ",
+                "MAM",
+                " M ",
+                'S', LibOreDict.DIVINE_SPIRIT_AWAKENED,
+                'M', LibOreDict.LIFE_ROOT,
+                'A', ItemStack(BotaniaItems.terrasteelHelmRevealing)).setRegistryName("${LibMisc.MOD_ID}:fenrishelmreveal"))
         recipeFenrisChest = addRecipe(ArmorUpgradeRecipe(ItemStack(ModItems.fenrisChest),
                 " S ",
                 "MAM",

@@ -2,6 +2,9 @@ package com.wiresegal.naturalpledge.common.items.bauble.faith
 
 import com.google.common.base.Predicate
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTList
+import com.teamwizardry.librarianlib.features.helpers.removeNBTEntry
+import com.teamwizardry.librarianlib.features.helpers.setNBTList
 import com.teamwizardry.librarianlib.features.kotlin.minus
 import com.teamwizardry.librarianlib.features.kotlin.motionVec
 import com.teamwizardry.librarianlib.features.kotlin.plus
@@ -35,7 +38,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagDouble
 import net.minecraft.nbt.NBTTagInt
 import net.minecraft.nbt.NBTTagList
-import net.minecraft.network.play.server.SPacketEntityVelocity
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.*
 import net.minecraft.util.math.*
@@ -75,7 +77,7 @@ object Spells {
             var did = false
             for (item in items) {
                 val stack = item.item
-                if (stack != null && (stack.item != out.item || stack.itemDamage != out.itemDamage) && checkStack(stack, `in`)) {
+                if ((stack.item != out.item || stack.itemDamage != out.itemDamage) && checkStack(stack, `in`)) {
                     val outCopy = out.copy()
                     outCopy.count = stack.count
                     item.item = outCopy
@@ -211,9 +213,12 @@ object Spells {
                 (it is EntityLivingBase && it.isNonBoss && it !is EntityArmorStand) || (it is IProjectile && it !is IManaBurst)
             }
 
-            fun pushEntities(x: Double, y: Double, z: Double, range: Double, velocity: Double, entities: List<Entity>): Boolean {
+            fun pushEntities(owner: Entity, x: Double, y: Double, z: Double, range: Double, velocity: Double, entities: List<Entity>): Boolean {
                 var flag = false
                 for (entity in entities) {
+                    if (entity.isOnSameTeam(owner))
+                        continue
+
                     val xDif = entity.posX - x
                     val yDif = entity.posY - (y + 1)
                     val zDif = entity.posZ - z
@@ -224,8 +229,7 @@ object Spells {
                         entity.motionY = velocity * vec.y
                         entity.motionZ = velocity * vec.z
                         entity.fallDistance = 0f
-                        if (entity is EntityPlayerMP)
-                            entity.connection.sendPacket(SPacketEntityVelocity(entity))
+                        entity.velocityChanged = true
                         if (entity.motionVec.lengthSquared() != 0.0)
                             flag = true
                     }
@@ -242,7 +246,7 @@ object Spells {
                     val entities = player.world.getEntitiesInAABBexcluding(exclude,
                             player.entityBoundingBox.expand(RANGE, RANGE, RANGE), SELECTOR)
 
-                    if (pushEntities(player.posX, player.posY, player.posZ, RANGE, VELOCITY, entities)) {
+                    if (pushEntities(player, player.posX, player.posY, player.posZ, RANGE, VELOCITY, entities)) {
                         if (player.world.totalWorldTime % 3 == 0L)
                             player.world.playSound(player, player.posX, player.posY, player.posZ, NPSoundEvents.woosh, SoundCategory.PLAYERS, 0.4F, 1F)
                         ManaItemHandler.requestManaExact(focus, player, 5, true)
@@ -361,7 +365,7 @@ object Spells {
                         focused.motionZ += diff.z * 0.25
                         focused.addPotionEffect(PotionEffect(MobEffects.SLOWNESS, 100, 1))
                         if (focused is EntityPlayerMP)
-                            focused.connection.sendPacket(SPacketEntityVelocity(focused))
+                            focused.velocityChanged = true
                         return EnumActionResult.SUCCESS
                     }
                 return EnumActionResult.FAIL
@@ -388,7 +392,7 @@ object Spells {
                     var pos = ray.blockPos
                     if (!player.world.getBlockState(pos).block.isReplaceable(player.world, pos)) pos = pos.offset(ray.sideHit)
 
-                    if (player.canPlayerEdit(pos, ray.sideHit, null)) {
+                    if (player.canPlayerEdit(pos, ray.sideHit, focus)) {
                         ManaItemHandler.requestManaExact(focus, player, 1500, true)
                         player.world.setBlockState(pos, ModBlocks.thunderTrap.defaultState)
                         Botania.proxy.lightningFX(Vector3.fromEntityCenter(player), Vector3.fromBlockPos(pos).add(0.5, 0.5, 0.5), 1f, 0x00948B, 0x00E4D7)
@@ -413,7 +417,7 @@ object Spells {
                     pos.appendTag(NBTTagInt(player.position.x))
                     pos.appendTag(NBTTagInt(player.position.y))
                     pos.appendTag(NBTTagInt(player.position.z))
-                    ItemNBTHelper.setList(focus, TAG_SOURCE, pos)
+                    focus.setNBTList(TAG_SOURCE, pos)
 
                     player.fallDistance = 0f
                     player.motionX = 0.0
@@ -436,11 +440,11 @@ object Spells {
 
                 if (stage * 5 != timeElapsed) return
 
-                val positionTag = ItemNBTHelper.getList(focus, TAG_SOURCE, 3)
+                val positionTag = focus.getNBTList(TAG_SOURCE, 3)
 
                 if (stage >= 5 || positionTag == null) {
                     if (positionTag != null)
-                        ItemNBTHelper.removeEntry(focus, TAG_SOURCE)
+                        focus.removeNBTEntry(TAG_SOURCE)
                     return
                 }
 
@@ -628,22 +632,22 @@ object Spells {
                 pos.appendTag(NBTTagDouble(from.x))
                 pos.appendTag(NBTTagDouble(from.y))
                 pos.appendTag(NBTTagDouble(from.z))
-                ItemNBTHelper.setList(focus, TAG_SOURCE, pos)
+                focus.setNBTList(TAG_SOURCE, pos)
 
                 val target = NBTTagList()
                 target.appendTag(NBTTagDouble(to.x))
                 target.appendTag(NBTTagDouble(to.y))
                 target.appendTag(NBTTagDouble(to.z))
-                ItemNBTHelper.setList(focus, TAG_TARGET, target)
+                focus.setNBTList(TAG_TARGET, target)
                 return EnumActionResult.SUCCESS
             }
 
             override fun onCooldownTick(player: EntityPlayer, focus: ItemStack, slot: Int, selected: Boolean, cooldownRemaining: Int) {
                 if (cooldownRemaining in 31 until 58) {
-                    val source = ItemNBTHelper.getList(focus, TAG_SOURCE, NBTTypes.DOUBLE)?.run {
+                    val source = focus.getNBTList(TAG_SOURCE, NBTTypes.DOUBLE)?.run {
                         Vector3(getDoubleAt(0), getDoubleAt(1), getDoubleAt(2))
                     } ?: Vector3.ZERO
-                    val target = ItemNBTHelper.getList(focus, TAG_TARGET, NBTTypes.DOUBLE)?.run {
+                    val target = focus.getNBTList(TAG_TARGET, NBTTypes.DOUBLE)?.run {
                         Vector3(getDoubleAt(0), getDoubleAt(1), getDoubleAt(2))
                     } ?: Vector3.ZERO
                     jet(target, player, source)

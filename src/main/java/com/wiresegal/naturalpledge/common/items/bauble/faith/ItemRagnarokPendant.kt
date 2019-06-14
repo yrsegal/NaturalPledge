@@ -2,37 +2,11 @@ package com.wiresegal.naturalpledge.common.items.bauble.faith
 
 import baubles.api.BaubleType
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
 import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
 import com.teamwizardry.librarianlib.features.utilities.client.pulseColor
-import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityPlayerSP
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms
-import net.minecraft.client.renderer.color.IItemColor
-import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.item.EntityItem
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.init.MobEffects
-import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.item.EnumRarity
-import net.minecraft.item.ItemStack
-import net.minecraft.potion.PotionEffect
-import net.minecraft.util.NonNullList
-import net.minecraft.util.ResourceLocation
-import net.minecraft.util.text.Style
-import net.minecraft.util.text.TextComponentTranslation
-import net.minecraft.util.text.TextFormatting
-import net.minecraft.world.World
-import net.minecraftforge.event.entity.player.AttackEntityEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import com.wiresegal.naturalpledge.api.item.IDiscordantItem
 import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
 import com.wiresegal.naturalpledge.api.lib.LibMisc
@@ -44,6 +18,31 @@ import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble.Com
 import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble.Companion.isFaithless
 import com.wiresegal.naturalpledge.common.lib.LibNames
 import com.wiresegal.naturalpledge.common.potions.ModPotions
+import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.client.util.ITooltipFlag
+import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.item.EntityItem
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.init.MobEffects
+import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.EnumRarity
+import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
+import net.minecraft.util.ResourceLocation
+import net.minecraft.util.text.Style
+import net.minecraft.util.text.TextComponentTranslation
+import net.minecraft.util.text.TextFormatting
+import net.minecraft.world.World
+import net.minecraftforge.event.entity.player.AttackEntityEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
@@ -138,11 +137,6 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         }
     }
 
-    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(tab, subItems)
-    }
-
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { stack, tintindex ->
             val variant = getVariant(stack)
@@ -155,18 +149,18 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_PENDANT)) {
             stack, _, _ ->
-            if (ItemNBTHelper.getBoolean(stack, TAG_PENDANT, false)) 1f else 0f
+            if (stack.getNBTBoolean(TAG_PENDANT, false)) 1f else 0f
         }
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, TAG_AWAKENED)) {
             stack, _, _ ->
-            if (ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)) 1f else 0f
+            if (stack.getNBTBoolean(TAG_AWAKENED, false)) 1f else 0f
         }
     }
 
     override fun usesMana(p0: ItemStack) = true
 
-    override fun isAwakened(stack: ItemStack) = ItemNBTHelper.getBoolean(stack, TAG_AWAKENED, false)
-    override fun setAwakened(stack: ItemStack, state: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_AWAKENED, state)
+    override fun isAwakened(stack: ItemStack) = stack.getNBTBoolean(TAG_AWAKENED, false)
+    override fun setAwakened(stack: ItemStack, state: Boolean) = stack.setNBTBoolean(TAG_AWAKENED, state)
 
     override fun getRarity(stack: ItemStack): EnumRarity = if (isAwakened(stack)) BotaniaAPI.rarityRelic else EnumRarity.EPIC
 
@@ -195,7 +189,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
 
         if (render == IBaubleRender.RenderType.BODY) {
             val renderStack = stack.copy()
-            ItemNBTHelper.setBoolean(renderStack, TAG_PENDANT, true)
+            renderStack.setNBTBoolean(TAG_PENDANT, true)
             val hasChestArmor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty
 
             GlStateManager.pushMatrix()
@@ -242,8 +236,6 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
         return false
     }
 
-
-
     override fun onUnequipped(stack: ItemStack, player: EntityLivingBase) {
         super.onUnequipped(stack, player)
         val variant = getVariant(stack)
@@ -251,8 +243,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
             variant.punishTheFaithless(stack, player)
             player.sendSpamlessMessage(TextComponentTranslation((getUnlocalizedNameInefficiently(stack) + ".angry")).setStyle(Style().setColor(TextFormatting.RED)), FAITH_HATES_YOU)
             player.addPotionEffect(PotionEffect(ModPotions.faithlessness, 600))
-            if (isAwakened(stack))
-                player.attackEntityFrom(ItemFaithBauble.FaithSource, Float.MAX_VALUE)
+            player.attackEntityFrom(ItemFaithBauble.FaithSource, Float.MAX_VALUE)
         }
         setAwakened(stack, false)
     }

@@ -4,6 +4,9 @@ import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTInt
+import com.teamwizardry.librarianlib.features.helpers.removeNBTEntry
+import com.teamwizardry.librarianlib.features.helpers.setNBTInt
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.block.material.Material
 import net.minecraft.client.Minecraft
@@ -69,16 +72,16 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
         if (!worldIn.isRemote && entityIn.isInsideOfMaterial(Material.PORTAL)) {
             val pos = entityIn.position
-            ItemNBTHelper.setInt(stack, TAG_X, pos.x)
-            ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
-            ItemNBTHelper.setInt(stack, TAG_Z, pos.z)
-            ItemNBTHelper.setInt(stack, TAG_DIM, worldIn.provider.dimension)
+            stack.setNBTInt(TAG_X, pos.x)
+            stack.setNBTInt(TAG_Y, pos.y)
+            stack.setNBTInt(TAG_Z, pos.z)
+            stack.setNBTInt(TAG_DIM, worldIn.provider.dimension)
         }
 
         if (!worldIn.isRemote
                 || entityIn !is EntityLivingBase
                 || entityIn.heldItemMainhand != stack && entityIn.heldItemOffhand != stack
-                || worldIn.provider.dimension != ItemNBTHelper.getInt(stack, TAG_DIM, 0)) return
+                || worldIn.provider.dimension != stack.getNBTInt(TAG_DIM, 0)) return
 
         val startVec = Vector3.fromEntityCenter(entityIn)
         val dirVec = getDirVec(stack, entityIn) ?: return
@@ -92,9 +95,9 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
     override fun onItemRightClick(worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
         val stack = player.getHeldItem(hand)
         if (player.isSneaking && getBinding(stack) != null && hand == EnumHand.MAIN_HAND) {
-            ItemNBTHelper.removeEntry(stack, TAG_X)
-            ItemNBTHelper.removeEntry(stack, TAG_Y)
-            ItemNBTHelper.removeEntry(stack, TAG_Z)
+            stack.removeNBTEntry(TAG_X)
+            stack.removeNBTEntry(TAG_Y)
+            stack.removeNBTEntry(TAG_Z)
             worldIn.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
         }
 
@@ -113,9 +116,9 @@ class ItemPortalStone(name: String) : ItemMod(name), ICoordBoundItem, IItemColor
     }
 
     override fun getBinding(stack: ItemStack): BlockPos? {
-        val x = ItemNBTHelper.getInt(stack, TAG_X, 0)
-        val y = ItemNBTHelper.getInt(stack, TAG_Y, Int.MIN_VALUE)
-        val z = ItemNBTHelper.getInt(stack, TAG_Z, 0)
+        val x = stack.getNBTInt(TAG_X, 0)
+        val y = stack.getNBTInt(TAG_Y, Int.MIN_VALUE)
+        val z = stack.getNBTInt(TAG_Z, 0)
         return if (y == Int.MIN_VALUE) null else BlockPos(x, y, z)
     }
 }

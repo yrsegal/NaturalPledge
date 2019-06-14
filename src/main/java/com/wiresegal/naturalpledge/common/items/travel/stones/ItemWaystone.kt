@@ -3,11 +3,14 @@ package com.wiresegal.naturalpledge.common.items.travel.stones
 import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.*
 import com.teamwizardry.librarianlib.features.network.PacketHandler
+import com.teamwizardry.librarianlib.features.network.sendToAllAround
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import com.wiresegal.naturalpledge.api.lib.LibMisc
 import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
+import com.wiresegal.naturalpledge.common.network.ParticleStreamMessage
 import com.wiresegal.naturalpledge.common.network.TargetPositionPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
@@ -66,9 +69,12 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
             } else if (e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
                 val names = linkedMapOf<String, Pair<Int, Vec3d>>()
 
+                for (entity in e.world.playerEntities) {
+                    if (ItemFaithBauble.isFaithless(entity))
+                        continue
 
-                for (entity in e.world.playerEntities)
-                    names.put(entity.displayNameString.toLowerCase(Locale.ROOT), e.world.provider.dimension to Vector3.fromEntityCenter(entity).subtract(Vector3(0.5, 0.5, 0.5)).toVec3D())
+                    names[entity.displayNameString.toLowerCase(Locale.ROOT)] = e.world.provider.dimension to Vector3.fromEntityCenter(entity).subtract(Vector3(0.5, 0.5, 0.5)).toVec3D()
+                }
 
                 val keys = names.keys.toTypedArray()
                 val special = names.values.toList()
@@ -81,7 +87,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     }
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag?) {
-        val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
+        val track = stack.getNBTString(TAG_TRACK) ?: null
         if (Minecraft.getMinecraft().player != null) {
             val dirVec = getDirVec(stack, LibrarianLib.PROXY.getClientPlayer())
             val distance = Math.round((dirVec ?: Vector3.ZERO).mag()).toInt()
@@ -104,7 +110,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
         val stack = player.getHeldItem(hand)
         if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
-            if (ItemNBTHelper.getBoolean(stack, TAG_NO_RESET, false))
+            if (stack.getNBTBoolean(TAG_NO_RESET, false))
                 return EnumActionResult.PASS
 
             if (world.isRemote) {
@@ -117,10 +123,10 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
                 }
                 return EnumActionResult.SUCCESS
             } else {
-                ItemNBTHelper.setInt(stack, TAG_X, pos.x)
-                ItemNBTHelper.setInt(stack, TAG_Y, pos.y)
-                ItemNBTHelper.setInt(stack, TAG_Z, pos.z)
-                ItemNBTHelper.removeEntry(stack, TAG_TRACK)
+                stack.setNBTInt(TAG_X, pos.x)
+                stack.setNBTInt(TAG_Y, pos.y)
+                stack.setNBTInt(TAG_Z, pos.z)
+                stack.removeNBTEntry(TAG_TRACK)
                 world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
                 return EnumActionResult.SUCCESS
             }
@@ -132,7 +138,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val stack = player.getHeldItem(hand)
         if (player.isSneaking && hand == EnumHand.MAIN_HAND) {
-            if (ItemNBTHelper.getBoolean(stack, TAG_NO_RESET, false))
+            if (stack.getNBTBoolean(TAG_NO_RESET, false))
                 return ActionResult(EnumActionResult.PASS, stack)
 
             if (world.isRemote) {
@@ -145,10 +151,10 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
                     return ActionResult(EnumActionResult.SUCCESS, stack)
                 }
             } else {
-                ItemNBTHelper.removeEntry(stack, TAG_X)
-                ItemNBTHelper.removeEntry(stack, TAG_Y)
-                ItemNBTHelper.removeEntry(stack, TAG_Z)
-                ItemNBTHelper.removeEntry(stack, TAG_TRACK)
+                stack.removeNBTEntry(TAG_X)
+                stack.removeNBTEntry(TAG_Y)
+                stack.removeNBTEntry(TAG_Z)
+                stack.removeNBTEntry(TAG_TRACK)
                 world.playSound(player, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1f, 5f)
                 return ActionResult(EnumActionResult.SUCCESS, stack)
             }
@@ -158,12 +164,12 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
 
     override fun onUpdate(stack: ItemStack, worldIn: World, entityIn: Entity, itemSlot: Int, isSelected: Boolean) {
 
-        val noReset = ItemNBTHelper.getBoolean(stack, TAG_NO_RESET, false)
+        val noReset = stack.getNBTBoolean(TAG_NO_RESET, false)
         if (!noReset && stack.hasDisplayName() && stack.displayName.toLowerCase(Locale.ROOT).trim().matches("^track[:\\s]\\s*.+$".toRegex())) {
             val name = stack.displayName.trim().replace("^track:?".toRegex(), "").trim()
             val player = worldIn.playerEntities.firstOrNull { name == it.name }
             if (player != null) {
-                ItemNBTHelper.setString(stack, TAG_TRACK, name)
+                stack.setNBTString(TAG_TRACK, name)
                 player.sendMessage(TextComponentTranslation("naturalpledge.you_are_tracked"))
                 stack.clearCustomName()
             }
@@ -175,14 +181,13 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
         val dirVec = getDirVec(stack, entityIn) ?: return
         val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
-        if (ItemNBTHelper.getString(stack, TAG_TRACK, null) != null) {
+        if (stack.getNBTString(TAG_TRACK) != null) {
 
             val target = getEndVec(entityIn, stack)
             if (target != null) {
-                val targetEnd = target.add(startVec.normalize().multiply(Math.min(startVec.mag(), 10.0)))
-                Botania.proxy.setWispFXDepthTest(false)
-                NaturalPledge.PROXY.particleStream(target.add(startVec.normalize()).add(0.0, 0.5, 0.0), targetEnd, NaturalPledge.PROXY.wireFrameRainbow().rgb)
-                Botania.proxy.setWispFXDepthTest(true)
+                val targetEnd = target.add(startVec.normalize().multiply(Math.min(startVec.mag(), 10.0))).toVec3D()
+                PacketHandler.NETWORK.sendToAllAround(ParticleStreamMessage(target.add(startVec.normalize()).add(0.0, 0.5, 0.0).toVec3D(), targetEnd),
+                        entityIn.world, targetEnd, 64)
             }
         }
 
@@ -200,7 +205,7 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
 
     fun getEndVec(player: Entity, stack: ItemStack): Vector3? {
         var pos: Vector3? = null
-        val track = ItemNBTHelper.getString(stack, TAG_TRACK, null)
+        val track = stack.getNBTString(TAG_TRACK)
         if (track != null) {
             if (player.world.isRemote) {
                 val lastKnown = LAST_KNOWN_POSITIONS[track.toLowerCase(Locale.ROOT)] ?: return null
@@ -215,10 +220,10 @@ class ItemWaystone(name: String) : ItemMod(name), ICoordBoundItem, IItemColorPro
     }
 
     override fun getBinding(stack: ItemStack): BlockPos? {
-        if (ItemNBTHelper.getString(stack, TAG_TRACK, null) != null) return null
-        val x = ItemNBTHelper.getInt(stack, TAG_X, 0)
-        val y = ItemNBTHelper.getInt(stack, TAG_Y, -1)
-        val z = ItemNBTHelper.getInt(stack, TAG_Z, 0)
+        if (stack.getNBTString(TAG_TRACK) != null) return null
+        val x = stack.getNBTInt(TAG_X, 0)
+        val y = stack.getNBTInt(TAG_Y, -1)
+        val z = stack.getNBTInt(TAG_Z, 0)
         return if (y == -1) null else BlockPos(x, y, z)
     }
 }

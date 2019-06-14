@@ -68,8 +68,4 @@ class ItemFlarebringer(name: String, material: Item.ToolMaterial) : ItemBaseSwor
     override fun transformToGlow(itemStack: ItemStack, model: IBakedModel) = IGlowingItem.Helper.wrapperBake(model, false, 1)
     @SideOnly(Side.CLIENT)
     override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
-
-    init {
-        MinecraftForge.EVENT_BUS.register(this)
-    }
 }

@@ -219,8 +219,6 @@ class ModelArmorSunmaker(slot: EntityEquipmentSlot) : ModelArmor(slot) {
         this.armRpauldron.addChild(this.armRpauldronRay3)
 
         this.pantsAnchor.addChild(this.belt)
-        this.belt.addChild(this.legL)
-        this.belt.addChild(this.legR)
         this.legL.addChild(this.legLray1)
         this.legL.addChild(this.legLray2)
         this.legR.addChild(this.legRray1)

@@ -13,7 +13,7 @@
     "hidden": true,
     "frame":"challenge"
   },
-  "parent": "naturalpledge:naturalpledge/ragnarok",
+  "parent": "naturalpledge:naturalpledge/root",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

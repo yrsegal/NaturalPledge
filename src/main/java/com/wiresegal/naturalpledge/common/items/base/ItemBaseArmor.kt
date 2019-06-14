@@ -2,9 +2,10 @@ package com.wiresegal.naturalpledge.common.items.base
 
 import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.ItemModArmor
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.helpers.VariantHelper
 import com.teamwizardry.librarianlib.features.helpers.currentModId
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.model.ModelBiped
@@ -19,8 +20,11 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.ISpecialArmor
+import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import thaumcraft.api.items.IGoggles
+import thaumcraft.api.items.IRevealer
 import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.mana.IManaDiscountArmor
 import vazkii.botania.api.mana.IManaUsingItem
@@ -33,7 +37,10 @@ import java.util.*
  * @author WireSegal
  * Created at 3:52 PM on 4/2/17.
  */
-abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: ArmorMaterial) : ItemModArmor(name, mat, type), ISpecialArmor, IManaUsingItem, IPhantomInkable, IManaDiscountArmor {
+@Optional.InterfaceList(
+        Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),
+        Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true))
+abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: ArmorMaterial) : ItemModArmor(name, mat, type), ISpecialArmor, IManaUsingItem, IPhantomInkable, IManaDiscountArmor, IGoggles, IRevealer {
 
     val matName = VariantHelper.toSnakeCase(mat.toString())
 
@@ -48,6 +55,14 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
     }
 
     override fun getArmorDisplay(player: EntityPlayer, armor: ItemStack, slot: Int) = damageReduceAmount
+
+    override fun showNodes(itemstack: ItemStack, player: EntityLivingBase): Boolean {
+        return true
+    }
+
+    override fun showIngamePopups(itemstack: ItemStack, player: EntityLivingBase): Boolean {
+        return true
+    }
 
     override fun onUpdate(stack: ItemStack, world: World, player: Entity, slot: Int, selected: Boolean) {
         if (player is EntityPlayer && !world.isRemote && stack.itemDamage > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
@@ -110,7 +125,7 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
             TooltipHelper.addToTooltip(list, "botaniamisc.hasPhantomInk")
     }
 
-    protected data class ArmorSet(val helm: Item?, val chest: Item?, val legs: Item?, val boots: Item?)
+    protected data class ArmorSet(val helm: Item, val chest: Item, val legs: Item, val boots: Item)
             : List<Item> by makeList(helm, chest, legs, boots) {
 
         companion object {
@@ -159,10 +174,10 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
             = TooltipHelper.addToTooltip(list, "$modId.armorset.$matName.desc")
 
     override fun hasPhantomInk(stack: ItemStack)
-            = ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false)
+            = stack.getNBTBoolean(TAG_PHANTOM_INK, false)
 
     override fun setPhantomInk(stack: ItemStack, ink: Boolean)
-            = ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink)
+            = stack.setNBTBoolean(TAG_PHANTOM_INK, ink)
 
     abstract val manaDiscount: Float
 

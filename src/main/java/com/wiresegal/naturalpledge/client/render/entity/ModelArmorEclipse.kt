@@ -165,10 +165,8 @@ class ModelArmorEclipse(slot: EntityEquipmentSlot) : ModelArmor(slot) {
         armR.addChild(armRpauldron3)
 
         pantsAnchor.addChild(belt)
-        belt.addChild(legL)
         legL.addChild(legLpauldron1)
         legL.addChild(legLpauldron2)
-        belt.addChild(legR)
         legR.addChild(legRpauldron1)
         legR.addChild(legRpauldron2)
     }

@@ -1,6 +1,7 @@
 package com.wiresegal.naturalpledge.common.enchantment
 
 import com.teamwizardry.librarianlib.features.base.EnchantmentMod
+import com.wiresegal.naturalpledge.api.item.IWeightEnchantable
 import net.minecraft.block.material.Material
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
@@ -13,7 +14,6 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import com.wiresegal.naturalpledge.api.item.IWeightEnchantable
 
 /**
  * @author WireSegal

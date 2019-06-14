@@ -1,6 +1,8 @@
 package com.wiresegal.naturalpledge.common.items.bauble.faith
 
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTInt
+import com.teamwizardry.librarianlib.features.helpers.setNBTInt
 import net.minecraft.block.BlockSapling
 import net.minecraft.block.IGrowable
 import net.minecraft.block.state.IBlockState
@@ -40,8 +42,8 @@ object PriestlyEmblemIdunn : IFaithVariant {
         val world = player.world
 
         if (!world.isRemote) {
-            val cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0)
-            if (cooldown > 0) ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown - 1)
+            val cooldown = stack.getNBTInt(TAG_COOLDOWN, 0)
+            if (cooldown > 0) stack.setNBTInt(TAG_COOLDOWN, cooldown - 1)
         }
 
         if (!ManaItemHandler.requestManaExact(stack, player, 10, false)) return
@@ -87,7 +89,7 @@ object PriestlyEmblemIdunn : IFaithVariant {
     fun onClick(e: PlayerInteractEvent.RightClickBlock) {
         val emblem = ItemFaithBauble.getEmblem(e.entityPlayer, PriestlyEmblemIdunn::class.java) ?: return
 
-        val cooldown = ItemNBTHelper.getInt(emblem, TAG_COOLDOWN, 0)
+        val cooldown = emblem.getNBTInt(TAG_COOLDOWN, 0)
 
         if (cooldown == 0 && e.entityPlayer.isSneaking && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, false) && e.itemStack.isEmpty) {
             val world = e.world
@@ -99,7 +101,7 @@ object PriestlyEmblemIdunn : IFaithVariant {
                     world.playEvent(2005, pos, 0)
                 else if (block.canUseBonemeal(world, world.rand, pos, state) && ManaItemHandler.requestManaExact(emblem, e.entityPlayer, 50, true)) {
                     grow(e.entityPlayer, block, world, pos, state)
-                    ItemNBTHelper.setInt(emblem, TAG_COOLDOWN, COOLDOWN_LENGTH)
+                    emblem.setNBTInt(TAG_COOLDOWN, COOLDOWN_LENGTH)
                 }
             }
         }

@@ -1,13 +1,6 @@
 package com.wiresegal.naturalpledge.common.items
 
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import net.minecraft.init.Items
-import net.minecraft.init.SoundEvents
-import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraftforge.common.util.EnumHelper
-import net.minecraftforge.oredict.OreDictionary
 import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.items.armor.ItemEclipseArmor
 import com.wiresegal.naturalpledge.common.items.armor.ItemFenrisArmor
@@ -31,6 +24,13 @@ import com.wiresegal.naturalpledge.common.items.weapons.ItemNightscourge
 import com.wiresegal.naturalpledge.common.items.weapons.ItemShadowbreaker
 import com.wiresegal.naturalpledge.common.lib.LibNames
 import com.wiresegal.naturalpledge.common.lib.LibOreDict
+import net.minecraft.init.Items
+import net.minecraft.init.SoundEvents
+import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraftforge.common.util.EnumHelper
+import net.minecraftforge.oredict.OreDictionary
 import vazkii.botania.common.item.ModItems as BotaniaItems
 
 /**
@@ -38,11 +38,11 @@ import vazkii.botania.common.item.ModItems as BotaniaItems
  * Created at 5:39 PM on 4/13/16.
  */
 object ModItems {
-    val ECLIPSE = EnumHelper.addArmorMaterial("RAGNAROK.ECLIPSE", "eclipse", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f)!!
+    val ECLIPSE = EnumHelper.addArmorMaterial("RAGNAROK.ECLIPSE", "eclipse", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.5f)!!
     val FLAREBRINGER = EnumHelper.addToolMaterial("RAGNAROK.FLAREBRINGER", 4, 2300, 9F, 4F, 26)!!
-    val SUNMAKER = EnumHelper.addArmorMaterial("RAGNAROK.SUNMAKER", "sunmaker", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f)!!
+    val SUNMAKER = EnumHelper.addArmorMaterial("RAGNAROK.SUNMAKER", "sunmaker", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.5f)!!
     val SHADOWBREAKER = EnumHelper.addToolMaterial("RAGNAROK.SHADOWBREAKER", 4, 2300, 9F, 3F, 26)!!
-    val FENRIS = EnumHelper.addArmorMaterial("RAGNAROK.FENRIS", "fenris", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 4.0f)!!
+    val FENRIS = EnumHelper.addArmorMaterial("RAGNAROK.FENRIS", "fenris", 34, intArrayOf(3, 6, 8, 3), 26, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 3.0f)!!
 
     val emblem: ItemMod
     val symbol: ItemMod
@@ -190,6 +190,8 @@ object ModItems {
         OreDictionary.registerOre(LibOreDict.LIFE_ROOT, ItemResource.of(ItemResource.Variants.LIFE_ROOT, true))
         OreDictionary.registerOre(LibOreDict.LIFE_ROOT_AWAKENED, ItemResource.of(ItemResource.Variants.LIFE_ROOT, true))
 
+        OreDictionary.registerOre("gemAquamarine", ItemResource.of(ItemResource.Variants.AQUAMARINE))
+        OreDictionary.registerOre("gemAquamarine", ItemResource.of(ItemResource.Variants.AQUAMARINE, true))
         OreDictionary.registerOre(LibOreDict.AQUAMARINE, ItemResource.of(ItemResource.Variants.AQUAMARINE))
         OreDictionary.registerOre(LibOreDict.AQUAMARINE, ItemResource.of(ItemResource.Variants.AQUAMARINE, true))
         OreDictionary.registerOre(LibOreDict.AQUAMARINE_AWAKENED, ItemResource.of(ItemResource.Variants.AQUAMARINE, true))

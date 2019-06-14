@@ -23,8 +23,8 @@ object LibOreDict {
     val LIFE_ROOT = "lifeRoot"
     val LIFE_ROOT_AWAKENED = "lifeRootAwakened"
 
-    val AQUAMARINE = "gemAquamarine"
-    val AQUAMARINE_AWAKENED = "gemAquamarineAwakened"
+    val AQUAMARINE = "gemNjordAquamarine"
+    val AQUAMARINE_AWAKENED = "gemNjordAquamarineAwakened"
 
     val HEARTHSTONE = "hearthstone"
     val HEARTHSTONE_AWAKENED = "hearthstoneAwakened"

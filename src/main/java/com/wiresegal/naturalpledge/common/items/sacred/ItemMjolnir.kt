@@ -2,7 +2,7 @@ package com.wiresegal.naturalpledge.common.items.sacred
 
 import com.google.common.collect.Multimap
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.*
 import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
@@ -103,13 +103,13 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
         if (!world.isRemote && player is EntityPlayer && stack.itemDamage > 0 && ManaItemHandler.requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true)) {
             stack.itemDamage = stack.itemDamage - 1
         }
-        val launchedTicks = ItemNBTHelper.getInt(stack, TAG_LAUNCHED, 0)
+        val launchedTicks = stack.getNBTInt(TAG_LAUNCHED, 0)
         if (launchedTicks > 0 && player is EntityLivingBase)
             NPMethodHandles.setSwingTicks(player, launchedTicks)
-        ItemNBTHelper.removeEntry(stack, TAG_LAUNCHED)
+        stack.removeNBTEntry(TAG_LAUNCHED)
 
         if (player is EntityLivingBase && player.heldItemMainhand == stack) {
-            if (player.health > 0.0f && !(player is EntityPlayer && player.isSpectator) && ItemNBTHelper.getBoolean(stack, TAG_DIDLAUNCH, false)) {
+            if (player.health > 0.0f && !(player is EntityPlayer && player.isSpectator) && stack.getNBTBoolean(TAG_DIDLAUNCH, false)) {
                 val aabb: AxisAlignedBB = if (player.isRiding() && !player.getRidingEntity()!!.isDead) {
                     player.getEntityBoundingBox().union(player.getRidingEntity()!!.entityBoundingBox).expand(1.0, 0.0, 1.0)
                 } else {
@@ -142,13 +142,13 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
 
                 if (flag) {
                     player.swingArm(EnumHand.MAIN_HAND)
-                    ItemNBTHelper.removeEntry(stack, TAG_DIDLAUNCH)
+                    stack.removeNBTEntry(TAG_DIDLAUNCH)
                 }
             }
         }
 
         val motVec = Vector3(player.motionX, player.motionY, player.motionZ)
-        if (motVec.magSquared() < 0.01 || (player is EntityPlayer && player.moveForward > 0)) ItemNBTHelper.removeEntry(stack, TAG_DIDLAUNCH)
+        if (motVec.magSquared() < 0.01 || (player is EntityPlayer && player.moveForward > 0)) stack.removeNBTEntry(TAG_DIDLAUNCH)
     }
 
     override fun onEntitySwing(entityLiving: EntityLivingBase, stack: ItemStack): Boolean {
@@ -162,10 +162,10 @@ class ItemMjolnir(name: String) : ItemMod(name), IWeightEnchantable, IPreventBre
             entityLiving.cooldownTracker.setCooldown(this, entityLiving.cooldownPeriod.toInt())
         }
 
-        ItemNBTHelper.setInt(stack, TAG_LAUNCHED, NPMethodHandles.getSwingTicks(entityLiving))
+        stack.setNBTInt(TAG_LAUNCHED, NPMethodHandles.getSwingTicks(entityLiving))
 
         ToolCommons.damageItem(stack, 1, entityLiving, MANA_PER_DAMAGE)
-        ItemNBTHelper.setBoolean(stack, TAG_DIDLAUNCH, true)
+        stack.setNBTBoolean(TAG_DIDLAUNCH, true)
 
         entityLiving.apply {
             motionX = speedVec.x

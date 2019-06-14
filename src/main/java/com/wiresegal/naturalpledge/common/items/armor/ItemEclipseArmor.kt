@@ -9,18 +9,15 @@ import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.items.ModItems
 import com.wiresegal.naturalpledge.common.items.ModItems.ECLIPSE
 import com.wiresegal.naturalpledge.common.items.base.ItemBaseArmor
-import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
 import com.wiresegal.naturalpledge.common.items.weapons.ItemFlarebringer
 import com.wiresegal.naturalpledge.common.network.ManastormLightningMessage
 import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
-import net.minecraft.util.NonNullList
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.NetworkRegistry
@@ -28,7 +25,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.Vector3
-import java.util.*
 
 /**
  * @author WireSegal
@@ -53,17 +49,12 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
     override val manaDiscount: Float
         get() = 0.2f
 
-    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (ItemRagnarokPendant.hasAwakenedRagnarok())
-            super.getSubItems(tab, subItems)
-    }
-
-    fun manaMasquerade(stack: ItemStack, player: EntityPlayer, amount: Int, exact: Boolean = true, take: Boolean = true): Int {
+    fun manaMasquerade(stack: ItemStack, player: EntityPlayer, amount: Int, exact: Boolean = true, take: Boolean = true, particles: Boolean = false): Int {
         val playerPosition = player.positionVector
         val players = if (hasFullSet(player)) player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.grow(10.0)) {
-            it != null && it !is EntityArmorStand && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0
+            it != null && it !is EntityArmorStand && it != player && it.positionVector.squareDistanceTo(playerPosition) <= 100.0 && !it.isOnSameTeam(player)
         } else mutableListOf()
-        Collections.shuffle(players)
+        players.shuffle()
         players.add(player)
         var amountLeft = amount
         val playersToAmounts = mutableListOf<Pair<EntityPlayer, Int>>()
@@ -100,19 +91,21 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
                         positions.add(Vector3.fromEntityCenter(pl).toVec3D())
                 }
             }
+
             for (entity in entitiesToDrain) {
                 entity.attackEntityFrom(DamageSource.MAGIC, 1f)
                 if (entity != player)
                     positions.add(Vector3.fromEntityCenter(entity).toVec3D())
             }
 
-            if (!player.world.isRemote && positions.isNotEmpty())
+            if (particles && !player.world.isRemote && positions.isNotEmpty()) {
                 PacketHandler.NETWORK.sendToAllAround(ManastormLightningMessage(Vector3.fromEntityCenter(player).toVec3D(), positions.toTypedArray()),
                         NetworkRegistry.TargetPoint(player.world.provider.dimension,
                                 playerPosition.x,
                                 playerPosition.y,
                                 playerPosition.z,
                                 64.0))
+            }
         }
 
         return amount - amountLeft
@@ -124,20 +117,23 @@ class ItemEclipseArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(
     }
 
     override fun onArmorTick(world: World, player: EntityPlayer, stack: ItemStack) {
+        if (armorSetStacks.helm != this)
+            return
+
         if (!world.isRemote) {
-            if (stack.itemDamage > 0 && manaMasquerade(stack, player, MANA_PER_DAMAGE * 2) != 0)
+            if (stack.itemDamage > 0 && manaMasquerade(stack, player, MANA_PER_DAMAGE * 2, particles = true) != 0)
                 stack.itemDamage = stack.itemDamage - 1
             var amount = 1000
             amount = ManaItemHandler.dispatchMana(stack, player, amount, false)
             amount = manaMasquerade(stack, player, amount, false, false)
 
             ManaItemHandler.dispatchMana(stack, player, manaMasquerade(stack, player, amount, false), true)
-        } else if (hasFullSet(player) && world.totalWorldTime % 3 == 0L) {
+        } else if (hasFullSet(player) && world.totalWorldTime % 10 == 0L) {
             val playerPos = player.positionVector
             player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, player.entityBoundingBox.grow(ItemFlarebringer.RANGE)) {
-                it != null && it !is EntityArmorStand && it != player && !it.isDead && it.health <= 5f && it.positionVector.squareDistanceTo(playerPos) <= ItemFlarebringer.RANGE * ItemFlarebringer.RANGE
+                it != null && it !is EntityArmorStand && it != player && !it.isDead && it.health <= 5f && it.health > 0f && it.positionVector.squareDistanceTo(playerPos) <= ItemFlarebringer.RANGE * ItemFlarebringer.RANGE
             }.forEach {
-                val pos = Vector3.fromEntityCenter(it).add(-0.5, 0.2, -0.5)
+                val pos = Vector3.fromEntityCenter(it).add(-0.5, 0.0, -0.5)
                 NaturalPledge.PROXY.particleRing(pos.x, pos.y, pos.z, 0.75, 1F, 0F, 0F, 0.025F, 0.05F, 0.1F)
             }
         }

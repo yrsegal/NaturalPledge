@@ -154,8 +154,6 @@ class ModelArmorFenris(slot: EntityEquipmentSlot) : ModelArmor(slot) {
         this.armR.addChild(this.armRpaw)
 
         this.pantsAnchor.addChild(this.belt)
-        this.belt.addChild(this.legL)
-        this.belt.addChild(this.legR)
     }
 
     override fun render(entity: Entity, limbSwing: Float, limbSwingAmount: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float) {

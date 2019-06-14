@@ -3,6 +3,8 @@ package com.wiresegal.naturalpledge.common.items
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTInt
+import com.teamwizardry.librarianlib.features.helpers.setNBTInt
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
@@ -72,12 +74,12 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
         }
     }
 
-    override fun addMana(stack: ItemStack, mana: Int) = ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, Math.min(mana + getMana(stack), getMaxMana(stack))))
+    override fun addMana(stack: ItemStack, mana: Int) = stack.setNBTInt(TAG_MANA, Math.max(0, Math.min(mana + getMana(stack), getMaxMana(stack))))
     override fun canExportManaToItem(stack: ItemStack, p1: ItemStack): Boolean = false
     override fun canExportManaToPool(stack: ItemStack, p1: TileEntity?): Boolean = false
     override fun canReceiveManaFromItem(stack: ItemStack, p1: ItemStack) = true
     override fun canReceiveManaFromPool(stack: ItemStack, p1: TileEntity?) = false
-    override fun getMana(stack: ItemStack) = ItemNBTHelper.getInt(stack, TAG_MANA, getMaxMana(stack))
+    override fun getMana(stack: ItemStack) = stack.getNBTInt(TAG_MANA, getMaxMana(stack))
     override fun getMaxMana(stack: ItemStack) = MAX_MANA
     override fun isNoExport(stack: ItemStack) = true
 

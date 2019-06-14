@@ -1,7 +1,11 @@
 package com.wiresegal.naturalpledge.common.events
 
 import com.teamwizardry.librarianlib.features.config.ConfigProperty
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTInt
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.items.ModItems
+import com.wiresegal.naturalpledge.common.items.travel.stones.ItemWaystone
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayer.PERSISTED_NBT_TAG
 import net.minecraft.item.ItemStack
@@ -9,9 +13,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.items.ModItems
-import com.wiresegal.naturalpledge.common.items.travel.stones.ItemWaystone
 import vazkii.botania.common.item.ModItems as BotaniaItems
 
 /**
@@ -34,8 +35,8 @@ object PlayerStartHandler {
             "What slot to spawn a Stone of Return in when a player first joins. Use -1 to disable.")
     var spawnReturnStone = -1
 
-    @ConfigProperty("spawn"
-            , "What slot to spawn a Stone of Nether Fracture in when a player first joins. Use -1 to disable.")
+    @ConfigProperty("spawn",
+            "What slot to spawn a Stone of Nether Fracture in when a player first joins. Use -1 to disable.")
     var spawnNetherStone = -1
 
     @ConfigProperty("spawn",
@@ -59,11 +60,11 @@ object PlayerStartHandler {
                 if (spawnStone != -1) {
                     val stack = ItemStack(ModItems.finder)
                     val pos = player.world.getTopSolidOrLiquidBlock(player.world.spawnPoint)
-                    ItemNBTHelper.setInt(stack, ItemWaystone.TAG_X, pos.x)
-                    ItemNBTHelper.setInt(stack, ItemWaystone.TAG_Y, pos.y)
-                    ItemNBTHelper.setInt(stack, ItemWaystone.TAG_Z, pos.z)
+                    stack.setNBTInt(ItemWaystone.TAG_X, pos.x)
+                    stack.setNBTInt(ItemWaystone.TAG_Y, pos.y)
+                    stack.setNBTInt(ItemWaystone.TAG_Z, pos.z)
                     if (!rebindStone)
-                        ItemNBTHelper.setBoolean(stack, ItemWaystone.TAG_NO_RESET, true)
+                        stack.setNBTBoolean(ItemWaystone.TAG_NO_RESET, true)
 
                     if (player.inventory.getStackInSlot(spawnStone).isEmpty) {
                         if (!player.inventory.addItemStackToInventory(stack))

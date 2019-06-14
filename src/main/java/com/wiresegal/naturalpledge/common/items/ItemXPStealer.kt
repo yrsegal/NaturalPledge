@@ -2,6 +2,8 @@ package com.wiresegal.naturalpledge.common.items
 
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTInt
+import com.teamwizardry.librarianlib.features.helpers.setNBTInt
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -124,12 +126,12 @@ private val TAG_SEED = "seed"
 private val TAG_XP_AMOUNT = "xp"
 
 var ItemStack.xpSeed: Int
-    get() = ItemNBTHelper.getInt(this, TAG_SEED, 0)
-    set(value) = ItemNBTHelper.setInt(this, TAG_SEED, value)
+    get() = this.getNBTInt(TAG_SEED, 0)
+    set(value) = this.setNBTInt(TAG_SEED, value)
 
 var ItemStack.xp: Int
-    get() = ItemNBTHelper.getInt(this, TAG_XP_AMOUNT, 0)
-    set(value) = ItemNBTHelper.setInt(this, TAG_XP_AMOUNT, value)
+    get() = this.getNBTInt(TAG_XP_AMOUNT, 0)
+    set(value) = this.setNBTInt(TAG_XP_AMOUNT, value)
 
 val ItemStack.xpLevels: Int
     get() {

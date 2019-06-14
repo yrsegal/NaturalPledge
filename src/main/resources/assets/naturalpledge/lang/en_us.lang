@@ -10,9 +10,9 @@ item.naturalpledge:emblem_idunn.angry=You feel your soul freeze under Idunn's ba
 item.naturalpledge:emblem_thor.name=Priestly Emblem: Thor
 item.naturalpledge:emblem_thor.angry=You feel the skies rumbling with Thor's rage...
 item.naturalpledge:emblem_heimdall.name=Priestly Emblem: Heimdall
-item.naturalpledge:emblem_heimdall.angry=You feel colors bleed out of the world as Heimdall grows angry...
+item.naturalpledge:emblem_heimdall.angry=You feel colors bleed from sight as Heimdall grows angry...
 item.naturalpledge:emblem_loki.name=Priestly Emblem: Loki
-item.naturalpledge:emblem_loki.angry=You feel your heat magnify as Loki laughs...
+item.naturalpledge:emblem_loki.angry=You feel your body spark and flare as Loki laughs...
 item.naturalpledge:ragnarok_emblem.name=Twisted Pendant: Ragnarok
 item.naturalpledge:ragnarok_emblem.angry=YOU DARE DEFY THE END? BURN.
 
@@ -186,7 +186,6 @@ tile.naturalpledge:sand_trap.name=Visual Irritation Trap
 tile.naturalpledge:signal_trap.name=Red Pulse Trap
 tile.naturalpledge:wrath_trap.name=Divine Wrath Trap
 
-
 misc.naturalpledge.color._1=&cERROR&r
 misc.naturalpledge.color.0=White
 misc.naturalpledge.color.1=Orange
@@ -291,7 +290,7 @@ item.naturalpledge:sunmaker_boots.name=Greaves of the Sunmaker
 item.naturalpledge:shadowbreaker.name=Oathbringer, Pain and Sorrow
 naturalpledge.armorset.ragnarok.sunmaker.name=The Unseen Light
 naturalpledge.armorset.ragnarok.sunmaker.desc=20%% less Mana cost on Mana Tools and Rods
-naturalpledge.armorset.ragnarok.sunmaker.desc1=Repairs your held items with Mana
+naturalpledge.armorset.ragnarok.sunmaker.desc1=Repairs your body and held items with Mana
 
 item.naturalpledge:fenris_helm.name=Helm of Fenris
 item.naturalpledge:fenris_chest.name=Chestplate of Fenris
@@ -307,18 +306,18 @@ item_group.naturalpledge.divine=Natural Pledge
 misc.naturalpledge.contains=Contains:
 misc.naturalpledge.contains_nothing=Empty
 
-misc.naturalpledge.njord_watches=The wind seems to hold its breath as the ritual begins...
-misc.naturalpledge.idunn_watches=Your lifeforce seems to glow as the ritual begins...
+misc.naturalpledge.njord_watches=The world holds its breath as the ritual begins...
+misc.naturalpledge.idunn_watches=Your pulse thumps in your ears as the ritual begins...
 misc.naturalpledge.thor_watches=The air feels charged as the ritual begins...
-misc.naturalpledge.heimdall_watches=The world feels vibrant as the ritual begins...
+misc.naturalpledge.heimdall_watches=The world seems brighter as the ritual begins...
 misc.naturalpledge.loki_watches=Your blood heats up as the ritual begins...
 misc.naturalpledge.ragnarok_watches=SHOW THE SON OF LANDS THAT GODS CAN BE SLAIN.
 
-misc.naturalpledge.njord_smiles=All the winds of the world seem to flow out of your emblem as it awakens!
-misc.naturalpledge.idunn_smiles=It seems like you can feel everything alive in the world as your emblem awakens!
-misc.naturalpledge.thor_smiles=It feels like thunder is flowing through your veins as your emblem awakens!
-misc.naturalpledge.heimdall_smiles=It feels like you can see hues within hues as your emblem awakens!
-misc.naturalpledge.loki_smiles=It feels like your very soul is on fire as your emblem awakens!
+misc.naturalpledge.njord_smiles=You feel the winds of the world rushing through your soul!
+misc.naturalpledge.idunn_smiles=You feel the lifeblood of the world beneath your feet!
+misc.naturalpledge.thor_smiles=You feel like thunder is running through your veins!
+misc.naturalpledge.heimdall_smiles=You see hues within hues as your sight expands!
+misc.naturalpledge.loki_smiles=Your soul burns with a powerful strength!
 misc.naturalpledge.ragnarok_smiles=WELL DONE. ONE STEP CLOSER...
 
 item.naturalpledge:holy_symbol.name=Holy Symbol

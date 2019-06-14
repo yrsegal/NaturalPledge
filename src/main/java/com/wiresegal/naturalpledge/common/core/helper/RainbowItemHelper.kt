@@ -1,6 +1,8 @@
 package com.wiresegal.naturalpledge.common.core.helper
 
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTInt
+import com.teamwizardry.librarianlib.features.helpers.setNBTInt
 import net.minecraft.block.Block
 import net.minecraft.block.material.MapColor
 import net.minecraft.item.EnumDyeColor
@@ -39,8 +41,8 @@ object RainbowItemHelper {
         defaultColors.add(-1)
     }
 
-    fun setColor(stack: ItemStack, color: Int) = ItemNBTHelper.setInt(stack, TAG_COLOR, color)
-    fun getColor(stack: ItemStack) = ItemNBTHelper.getInt(stack, TAG_COLOR, -1)
+    fun setColor(stack: ItemStack, color: Int) = stack.setNBTInt(TAG_COLOR, color)
+    fun getColor(stack: ItemStack) = stack.getNBTInt(TAG_COLOR, -1)
 
     fun colorFromInt(color: Int): Int = if (color == -1) NaturalPledge.PROXY.rainbow().rgb else color
     fun colorFromIntAndPos(color: Int, pos: BlockPos) = if (color == -1) NaturalPledge.PROXY.rainbow(pos).rgb else color

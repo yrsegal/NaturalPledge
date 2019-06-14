@@ -4,7 +4,7 @@ import baubles.api.BaubleType
 import com.teamwizardry.librarianlib.core.client.ModelHandler
 import com.teamwizardry.librarianlib.features.base.IExtraVariantHolder
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.*
 import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.client.Minecraft
@@ -75,15 +75,15 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
 
         val headPlayers = arrayOf(vaz, wire, jansey, willie)
 
-        fun getPlayer(stack: ItemStack) = ItemNBTHelper.getString(stack, TAG_PLAYER, "")
+        fun getPlayer(stack: ItemStack) = stack.getNBTString(TAG_PLAYER) ?: ""
 
-        fun setPlayer(stack: ItemStack, pUUID: String) = ItemNBTHelper.setString(stack, TAG_PLAYER, pUUID)
+        fun setPlayer(stack: ItemStack, pUUID: String) = stack.setNBTString(TAG_PLAYER, pUUID)
     }
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, ItemFaithBauble.TAG_PENDANT)) {
             stack, _, _ ->
-            if (ItemNBTHelper.getBoolean(stack, ItemFaithBauble.TAG_PENDANT, false)) 1f else 0f
+            if (stack.getNBTBoolean(ItemFaithBauble.TAG_PENDANT, false)) 1f else 0f
         }
     }
 
@@ -265,7 +265,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
 
         if (getPlayer(renderStack) !in specialPlayers && player.uniqueID.toString() in specialPlayers && getPlayer(renderStack) != "none")
             setPlayer(renderStack, player.uniqueID.toString())
-        ItemNBTHelper.setBoolean(renderStack, ItemFaithBauble.TAG_PENDANT, true)
+        renderStack.setNBTBoolean(ItemFaithBauble.TAG_PENDANT, true)
 
         var playerAs = getPlayer(renderStack)
         if (playerAs !in specialPlayers) playerAs = ""
@@ -338,7 +338,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             super.getSubItems( tab, subItems)
-            if (tab == null) {
+            if (tab == CreativeTabs.SEARCH) {
                 for (player in specialPlayers) {
                     val stack = ItemStack(this)
                     setPlayer(stack, player)

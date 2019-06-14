@@ -1,7 +1,14 @@
 package com.wiresegal.naturalpledge.common.events
 
-import com.teamwizardry.librarianlib.features.kotlin.get
 import com.teamwizardry.librarianlib.features.methodhandles.MethodHandleHelper
+import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
+import com.wiresegal.naturalpledge.common.items.ItemResource
+import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
+import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -19,14 +26,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.core.helper.NPMethodHandles
-import com.wiresegal.naturalpledge.common.items.ItemResource
-import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
-import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemRagnarokPendant
 import vazkii.botania.common.Botania
 import vazkii.botania.common.core.helper.PlayerHelper
 import vazkii.botania.common.core.helper.Vector3
@@ -78,7 +77,6 @@ class AwakeningEventHandler {
         val entity = e.entity
 
         if (entity is EntityDoppleganger && entity.hardMode) {
-            println("Wax: Is hard mode!")
 
             val fits = fitsLocation(entity)
             if (fits) {
@@ -118,12 +116,17 @@ class AwakeningEventHandler {
 
                     val pylonPos = Vector3(entity.source.x + loc.x.toDouble(), entity.source.y + loc.y.toDouble(), entity.source.z + loc.z.toDouble())
                     val worldTime = entity.ticksExisted / 5.0
+                    val worldTime2 = worldTime + 0.2
+
 
                     val rad = 1.5f + Math.random().toFloat() * 0.1f
                     val xp = pylonPos.x + 0.5 + MathHelper.cos(worldTime.toFloat()) * rad
                     val zp = pylonPos.z + 0.5 + MathHelper.sin(worldTime.toFloat()) * rad
+                    val xp2 = pylonPos.x + 0.5 + MathHelper.cos(worldTime2.toFloat()) * rad
+                    val zp2 = pylonPos.z + 0.5 + MathHelper.sin(worldTime2.toFloat()) * rad
 
                     val partPos = Vector3(xp, pylonPos.y, zp)
+                    val partPos2 = Vector3(xp2, pylonPos.y, zp2)
                     val pyPos = Vector3(pylonPos.x + 0.5, pylonPos.y + 1, pylonPos.z + 0.5)
 
                     val color = NaturalPledge.PROXY.rainbow(entity.source)
@@ -133,6 +136,8 @@ class AwakeningEventHandler {
 
                     NaturalPledge.PROXY.particleStream(pyPos, pos, color.rgb)
                     Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.25f + Math.random().toFloat() * 0.1f, -0.075f - Math.random().toFloat() * 0.015f)
+                    Botania.proxy.wispFX(partPos2.x, partPos2.y, partPos2.z, r, g, b, 0.25f + Math.random().toFloat() * 0.1f, -0.075f - Math.random().toFloat() * 0.015f)
+
                 }
             }
         }

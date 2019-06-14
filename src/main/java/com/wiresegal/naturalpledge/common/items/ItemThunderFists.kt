@@ -1,9 +1,15 @@
 package com.wiresegal.naturalpledge.common.items
 
 import com.google.common.collect.Multimap
-import com.teamwizardry.librarianlib.features.base.item.IShieldItem
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
+import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
+import com.wiresegal.naturalpledge.api.item.IWeightEnchantable
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.enchantment.EnchantmentWeight
+import com.wiresegal.naturalpledge.common.items.ItemResource.Variants.THUNDER_STEEL
+import com.wiresegal.naturalpledge.common.items.base.IPreventBreakInCreative
+import com.wiresegal.naturalpledge.common.items.bauble.ItemSymbol
 import net.minecraft.block.state.IBlockState
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.Entity
@@ -15,19 +21,12 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.EnumAction
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
-import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import com.wiresegal.naturalpledge.api.item.IWeightEnchantable
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.enchantment.EnchantmentWeight
-import com.wiresegal.naturalpledge.common.items.ItemResource.Variants.THUNDER_STEEL
-import com.wiresegal.naturalpledge.common.items.base.IPreventBreakInCreative
-import com.wiresegal.naturalpledge.common.items.bauble.ItemSymbol
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.equipment.tool.ToolCommons
 
@@ -35,32 +34,19 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons
  * @author WireSegal
  * Created at 9:20 PM on 5/18/16.
  */
-class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative, IShieldItem {
+class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IPreventBreakInCreative {
 
     val MANA_PER_DAMAGE = 40
 
     companion object {
         val TAG_WIRE = "bloodjewelBracers"
 
-        fun isWire(stack: ItemStack) = ItemNBTHelper.getBoolean(stack.copy(), TAG_WIRE, false)
-        fun setWire(stack: ItemStack, flag: Boolean) = ItemNBTHelper.setBoolean(stack, TAG_WIRE, flag)
+        fun isWire(stack: ItemStack) = stack.copy().getNBTBoolean(TAG_WIRE, false)
+        fun setWire(stack: ItemStack, flag: Boolean) = stack.setNBTBoolean(TAG_WIRE, flag)
     }
 
-    override fun damageItem(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource, damageAmount: Int): Boolean {
-        ToolCommons.damageItem(stack, damageAmount, player, MANA_PER_DAMAGE)
+    override fun isShield(stack: ItemStack?, entity: EntityLivingBase?): Boolean {
         return true
-    }
-
-    override fun onAxeBlocked(stack: ItemStack, player: EntityPlayer, attacker: EntityLivingBase, amount: Float, source: DamageSource)
-            = false
-
-    override fun onDamageBlocked(stack: ItemStack, player: EntityPlayer, indirectSource: Entity?, directSource: Entity?, amount: Float, source: DamageSource) {
-        if (!source.isProjectile) {
-            val entity = source.immediateSource
-
-            if (entity is EntityLivingBase)
-                entity.knockBack(player, 0.5f, player.posX - entity.posX, player.posZ - entity.posZ)
-        }
     }
 
     init {
@@ -77,7 +63,7 @@ class ItemThunderFists(val name: String) : ItemMod(name), IWeightEnchantable, IP
     }
 
     override fun getUnlocalizedNameInefficiently(stack: ItemStack): String {
-        return super.getUnlocalizedNameInefficiently(stack) + if (isWire(stack)) ".bloodJewel" else ""
+        return super.getUnlocalizedNameInefficiently(stack) + if (isWire(stack)) ".blood_jewel" else ""
     }
 
     @SideOnly(Side.CLIENT)
