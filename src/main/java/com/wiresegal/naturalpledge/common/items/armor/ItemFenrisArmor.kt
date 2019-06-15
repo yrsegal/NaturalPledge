@@ -98,7 +98,7 @@ class ItemFenrisArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor(n
             val uuid1 = UUID((getUnlocalizedNameInefficiently(stack) + slot.toString()).hashCode().toLong(), 0L)
             val uuid2 = UUID(uuid1.mostSignificantBits, 1L)
             val uuid3 = UUID(uuid1.mostSignificantBits, 2L)
-            map.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(uuid1, "Fenris modifier " + slot?.name, 0.5, 0))
+            map.put(SharedMonsterAttributes.ATTACK_DAMAGE.name, AttributeModifier(uuid1, "Fenris modifier " + slot?.name, 0.25, 0))
             map.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.name, AttributeModifier(uuid2, "Fenris modifier " + slot?.name, 0.15, 0))
             map.put(SharedMonsterAttributes.MOVEMENT_SPEED.name, AttributeModifier(uuid3, "Fenris modifier " + slot?.name, 0.05, 1))
         }
