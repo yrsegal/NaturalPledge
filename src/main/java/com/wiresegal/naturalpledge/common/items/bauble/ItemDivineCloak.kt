@@ -102,7 +102,7 @@ class ItemDivineCloak(name: String) : ItemBaseBauble(name = name, variants = *va
                         if (dot < inverseEpsilon) {
                             e.isCanceled = true
                             no = true
-                            player.attackEntityFrom(e.source, if (dot > epsilon) e.amount else 0.00005f)
+                            player.attackEntityFrom(e.source, if (dot > epsilon) e.amount else e.amount / 2)
                             no = false
                         }
                     } else if (body.itemDamage == 4) {

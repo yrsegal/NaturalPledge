@@ -39,8 +39,13 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
             MinecraftForge.EVENT_BUS.register(this)
         }
 
+        private var no = false
+
         @SubscribeEvent
         fun onDamage(e: LivingAttackEvent) {
+            if (no)
+                return
+
             val held = e.entityLiving.heldItemMainhand
             if (held.isEmpty || held.item !is ItemShadowbreaker) {
                 val offhand = e.entityLiving.heldItemOffhand
@@ -49,8 +54,14 @@ class ItemShadowbreaker(name: String, material: Item.ToolMaterial) : ItemBaseSwo
             }
 
             val attacker = e.source.immediateSource
-            if (attacker is IProjectile || attacker is EntityPixie || attacker != e.source.trueSource)
+            if (attacker is EntityMagicMissile || attacker is EntityPixie)
                 e.isCanceled = true
+            else if (attacker is IProjectile || attacker != e.source.trueSource) {
+                e.isCanceled = true
+                no = true
+                e.entity.attackEntityFrom(e.source, e.amount / 2)
+                no = false
+            }
         }
     }
 
