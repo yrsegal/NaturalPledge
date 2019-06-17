@@ -7,6 +7,9 @@ import com.google.common.collect.Multimap
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemModTool
 import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.items.ModItems
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
@@ -17,7 +20,6 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import com.wiresegal.naturalpledge.common.NaturalPledge
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.ISortableTool
 import vazkii.botania.common.item.equipment.tool.ToolCommons
@@ -63,17 +65,10 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
                     val tool = currentStack.item as ISortableTool
                     val pos = ToolCommons.raytraceFromEntity(entity.world, entity, true, 4.5)
                     var typeToFind: ISortableTool.ToolType? = null
-                    if (entity.isSwingInProgress && pos != null && pos.blockPos != null) {
+                    if (entity.isSwingInProgress && pos != null) {
                         val bestTool = entity.world.getBlockState(pos.blockPos)
-                        // Changed type check
-                        /*
-                        if (!bestTool.material.isLiquid && ModItems.polyStone.getStrVsBlock(ItemStack.EMPTY, bestTool) != 1.0F)
+                        if (!bestTool.material.isLiquid && ModItems.polyStone.getDestroySpeed(ItemStack.EMPTY, bestTool) != 1.0F)
                             typeToFind = NONE
-                        */
-                        if (!bestTool.material.isLiquid)
-                            typeToFind = NONE
-
-
                     }
 
                     // The changed null check
@@ -111,17 +106,15 @@ class ItemPolyStone(name: String) : ItemModTool(name, BotaniaAPI.manasteelToolMa
     private val defaultToolClasses = arrayOf("pickaxe", "shovel", "axe")
     private val toolsToCheck = arrayOf(Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_AXE).map(::ItemStack)
 
-    /*
-    override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float {
+    override fun getDestroySpeed(stack: ItemStack, state: IBlockState): Float {
         defaultToolClasses.forEach {
-            if (state.block.isToolEffective(it, state)) return super.getStrVsBlock(stack, state)
+            if (state.block.isToolEffective(it, state)) return super.getDestroySpeed(stack, state)
         }
         toolsToCheck.forEach {
-            if (it.getStrVsBlock(state) != 1.0F) return super.getStrVsBlock(stack, state)
+            if (it.getDestroySpeed(state) != 1.0F) return super.getDestroySpeed(stack, state)
         }
         return 6.0F
     }
-    */
 
     override fun getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap<String, AttributeModifier>
             = HashMultimap.create()
