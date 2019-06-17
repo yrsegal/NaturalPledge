@@ -1,6 +1,8 @@
 package com.wiresegal.naturalpledge.common.block.alt
 
 import com.teamwizardry.librarianlib.features.base.block.BlockModLog
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
+import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import net.minecraft.block.SoundType
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
@@ -10,8 +12,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
-import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 import vazkii.botania.api.state.enums.AltGrassVariant
@@ -36,6 +36,10 @@ abstract class BlockAltLog(name: String, set: Int) : BlockModLog(name + set, *Ar
         if (colorSet < 0 || colorSet >= 2)
             throw IllegalArgumentException("Colorset out of range for Alt Log! (passed in $colorSet)")
         soundType = SoundType.WOOD
+    }
+
+    override fun getSilkTouchDrop(state: IBlockState): ItemStack {
+        return createStackedBlock(state)
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {

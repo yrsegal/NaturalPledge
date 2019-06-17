@@ -44,6 +44,10 @@ abstract class BlockAltLeaves(name: String, set: Int) : BlockModLeaves(name + se
             throw IllegalArgumentException("Colorset out of range for Alt Leaves! (passed in $colorSet)")
     }
 
+    override fun getSilkTouchDrop(state: IBlockState): ItemStack {
+        return ItemStack(this, 1, damageDropped(state))
+    }
+
     override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item? {
         return ModBlocks.irisSapling.itemForm
     }

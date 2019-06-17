@@ -55,6 +55,10 @@ abstract class BlockIridescentLeaves(name: String, set: Int) : BlockModLeaves(na
         }
     }
 
+    override fun getSilkTouchDrop(state: IBlockState): ItemStack {
+        return ItemStack(this, 1, damageDropped(state))
+    }
+
     override fun itemStackFromState(state: IBlockState) = ItemStack(this, 1, state.getValue(COLOR_PROPS[colorSet]).metadata - (colorSet * 4))
 
     override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item? {

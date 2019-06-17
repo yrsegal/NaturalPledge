@@ -4,6 +4,9 @@ import com.teamwizardry.librarianlib.features.base.block.BlockModLog
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
 import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
+import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
@@ -16,9 +19,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
-import com.wiresegal.naturalpledge.common.lib.capitalizeFirst
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.api.lexicon.LexiconEntry
 
@@ -48,6 +48,10 @@ abstract class BlockIridescentLog(name: String, set: Int) : BlockModLog(name + s
                 return "tile.${LibMisc.MOD_ID}:${bareName.replace("\\d$".toRegex(), "")}"
             }
         }
+    }
+
+    override fun getSilkTouchDrop(state: IBlockState): ItemStack {
+        return ItemStack(this, 1, damageDropped(state))
     }
 
     abstract val colorSet: Int
