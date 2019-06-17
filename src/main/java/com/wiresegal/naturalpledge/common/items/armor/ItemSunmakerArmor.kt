@@ -55,8 +55,10 @@ class ItemSunmakerArmor(name: String, type: EntityEquipmentSlot) : ItemBaseArmor
                 offHand.damageItem(-1, player)
 
 
-            player.activePotionEffects.removeIf {
+            player.activePotionEffects.filter {
                 it.potion.isBadEffect && it.potion.curativeItems.isNotEmpty()
+            }.forEach {
+                player.removePotionEffect(it.potion)
             }
         }
     }
