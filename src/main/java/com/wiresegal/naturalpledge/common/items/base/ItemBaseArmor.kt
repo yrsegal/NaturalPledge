@@ -54,7 +54,7 @@ abstract class ItemBaseArmor(name: String, val type: EntityEquipmentSlot, mat: A
         return ISpecialArmor.ArmorProperties(0, damageReduceAmount / 25.0, armor.maxDamage + 1 - armor.itemDamage)
     }
 
-    override fun getArmorDisplay(player: EntityPlayer, armor: ItemStack, slot: Int) = damageReduceAmount
+    override fun getArmorDisplay(player: EntityPlayer, armor: ItemStack, slot: Int) = 0
 
     override fun showNodes(itemstack: ItemStack, player: EntityLivingBase): Boolean {
         return true
