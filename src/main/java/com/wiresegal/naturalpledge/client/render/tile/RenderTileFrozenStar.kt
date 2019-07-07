@@ -23,7 +23,7 @@ class RenderTileFrozenStar : TileEntitySpecialRenderer<TileStar>() {
         GlStateManager.translate(x+0.5,y+0.5,z+0.5)
         val seed = Objects.hash(te.pos.x, te.pos.y, te.pos.z).toLong()
         var color = te.color
-        if (color == -1) color = NaturalPledge.PROXY.rainbow(te.pos).rgb
+        if (color == -1) color = NaturalPledge.PROXY.rainbow(te.pos)
         val size = te.size
         RenderHelper.renderStar(color, size * 0.1f, size * 0.1f, size * 0.1f, seed)
         GlStateManager.color(1f, 1f, 1f)

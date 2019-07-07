@@ -44,7 +44,7 @@ class ItemTerrestrialFocus(name: String) : ItemMod(name), IItemColorProvider, IM
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { _, i ->
             if (i == 1)
-                NaturalPledge.PROXY.rainbow(0.25f).rgb
+                NaturalPledge.PROXY.rainbow(0.25f)
             else 0xFFFFFF
         }
 

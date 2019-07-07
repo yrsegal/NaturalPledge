@@ -2,12 +2,12 @@ package com.wiresegal.naturalpledge.common.items.base
 
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.lib.LibOreDict
 import net.minecraft.block.material.MapColor
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.lib.LibOreDict
 
 /**
  * @author WireSegal
@@ -32,7 +32,7 @@ open class ItemRainbow(name: String, val rainbow: Boolean) : ItemMod(name, *Arra
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, i ->
             if (i == 0) when (itemStack.metadata) {
-                16 -> NaturalPledge.PROXY.rainbow().rgb
+                16 -> NaturalPledge.PROXY.rainbow()
                 else -> MapColor.getBlockColor(EnumDyeColor.byMetadata(itemStack.metadata)).colorValue
             } else 0xFFFFFF
         }

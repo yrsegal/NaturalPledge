@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntityBeacon
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
@@ -86,12 +87,26 @@ class BlockAwakenerCore(name: String) : BlockMod(name, Material.IRON), ILexicona
         BotaniaAPI.blacklistBlockFromGaiaGuardian(this)
     }
 
+    fun shift(color: Int, amount: Float): Int {
+        val r = (color and 0xff0000) shl 16
+        val g = (color and 0xff00) shl 8
+        val b = (color and 0xff)
+
+        val rShift = if (amount > 0) ((0xff - r) * amount) else -r * amount
+        val gShift = if (amount > 0) ((0xff - g) * amount) else -g * amount
+        val bShift = if (amount > 0) ((0xff - b) * amount) else -b * amount
+
+        return (MathHelper.clamp(rShift.toInt(), 0, 0xff) shr 16) and
+                (MathHelper.clamp(gShift.toInt(), 0, 0xff) shr 8) and
+                MathHelper.clamp(bShift.toInt(), 0, 0xff)
+    }
+
     @SideOnly(Side.CLIENT)
     override fun randomDisplayTick(state: IBlockState, world: World, pos: BlockPos, rand: Random) {
         if (rand.nextFloat() > 0.5) {
             val color = NaturalPledge.PROXY.rainbow(pos, 0.4f)
-            val colorBright = color.brighter().rgb
-            val colorDark = color.darker().rgb
+            val colorBright = shift(color, 0.1f)
+            val colorDark = shift(color, -0.1f)
             val origVector = Vector3(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
             val endVector = origVector.add(rand.nextDouble() * 1.0 - 0.5, rand.nextDouble() * 1.0 - 0.5, rand.nextDouble() * 1.0 - 0.5)
             Botania.proxy.lightningFX(origVector, endVector, 5.0f, colorDark, colorBright)

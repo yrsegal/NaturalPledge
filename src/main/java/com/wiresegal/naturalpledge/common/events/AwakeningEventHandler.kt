@@ -1,5 +1,6 @@
 package com.wiresegal.naturalpledge.common.events
 
+import com.teamwizardry.librarianlib.features.config.ConfigProperty
 import com.teamwizardry.librarianlib.features.methodhandles.MethodHandleHelper
 import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
 import com.wiresegal.naturalpledge.api.lib.LibMisc
@@ -40,6 +41,9 @@ class AwakeningEventHandler {
     var registered = false
 
     companion object {
+        @ConfigProperty("gaia", comment = "Whether Awakening requires the Divine Ritual Cores", name = "Require Ritual Cores")
+        var requireRitualCores = true
+
         private val INSTANCE = AwakeningEventHandler()
 
         fun register() {
@@ -63,7 +67,7 @@ class AwakeningEventHandler {
     }
 
     private fun fitsLocation(entityDoppleganger: EntityDoppleganger): Boolean {
-        return CORE_LOCATIONS
+        return !requireRitualCores || CORE_LOCATIONS
                 .map { entityDoppleganger.source.add(it) }
                 .map { entityDoppleganger.world.getBlockState(it) }
                 .map { it.block }
@@ -130,11 +134,11 @@ class AwakeningEventHandler {
                     val pyPos = Vector3(pylonPos.x + 0.5, pylonPos.y + 1, pylonPos.z + 0.5)
 
                     val color = NaturalPledge.PROXY.rainbow(entity.source)
-                    val r = color.red / 255f
-                    val g = color.green / 255f
-                    val b = color.blue / 255f
+                    val r = ((color and 0xff0000) shl 16) / 255f
+                    val g = ((color and 0xff00) shl 8) / 255f
+                    val b = (color and 0xff) / 255f
 
-                    NaturalPledge.PROXY.particleStream(pyPos, pos, color.rgb)
+                    NaturalPledge.PROXY.particleStream(pyPos, pos, color)
                     Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.25f + Math.random().toFloat() * 0.1f, -0.075f - Math.random().toFloat() * 0.015f)
                     Botania.proxy.wispFX(partPos2.x, partPos2.y, partPos2.z, r, g, b, 0.25f + Math.random().toFloat() * 0.1f, -0.075f - Math.random().toFloat() * 0.015f)
 

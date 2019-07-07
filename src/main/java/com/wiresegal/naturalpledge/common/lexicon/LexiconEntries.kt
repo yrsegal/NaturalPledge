@@ -4,6 +4,7 @@ import com.wiresegal.naturalpledge.common.NaturalPledge
 import com.wiresegal.naturalpledge.common.block.BlockAwakenerCore
 import com.wiresegal.naturalpledge.common.block.ModBlocks
 import com.wiresegal.naturalpledge.common.crafting.ModRecipes
+import com.wiresegal.naturalpledge.common.events.AwakeningEventHandler
 import com.wiresegal.naturalpledge.common.items.ItemResource
 import com.wiresegal.naturalpledge.common.items.ItemSpellIcon
 import com.wiresegal.naturalpledge.common.items.ModItems
@@ -219,7 +220,10 @@ object LexiconEntries {
         calicoTree.setLexiconPages(PageText("0"), PageCraftingRecipe("1", ModRecipes.recipeCalicoSapling), PageCraftingRecipe("2", ModRecipes.recipeCalicoPlanks))
 
         awakening = EntryPriestlyKnowledge("awakening", divinity, ModBlocks.awakenerCore).setKnowledgeType(topKnowledgeTier).setPriority()
-        awakening.setLexiconPages(PageText("0"), PageText("1"), PageMultiblock("2", BlockAwakenerCore.multiblock), PageCraftingRecipe("3", listOf(*ModRecipes.recipesDivineCore)))
+        if (AwakeningEventHandler.requireRitualCores)
+            awakening.setLexiconPages(PageText("0"), PageText("1"), PageMultiblock("2", BlockAwakenerCore.multiblock), PageCraftingRecipe("3", listOf(*ModRecipes.recipesDivineCore)))
+        else
+            awakening.setLexiconPages(PageText("0.no"), PageText("1.no"))
         consequences = EntryAwakenedKnowledge("wellshit", divinity, ItemStack(Blocks.DIRT, 1, BlockDirt.DirtType.PODZOL.metadata)).setKnowledgeType(topKnowledgeTier).setPriority()
         consequences.setLexiconPages(PageText("0"))
 

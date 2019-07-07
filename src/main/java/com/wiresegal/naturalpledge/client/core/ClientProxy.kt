@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.entity.RenderLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -64,6 +65,20 @@ class ClientProxy : CommonProxy() {
             if (renderInstance is RenderLivingBase<*> && renderInstance.mainModel is ModelBiped)
                 renderInstance.addLayer(LayerGlowArmor(renderInstance))
         }
+    }
+
+    override fun shift(color: Int, amount: Double): Int {
+        val r = (color and 0xff0000) shl 16
+        val g = (color and 0xff00) shl 8
+        val b = (color and 0xff)
+
+        val rShift = if (amount > 0) ((0xff - r) * amount) else -r * amount
+        val gShift = if (amount > 0) ((0xff - g) * amount) else -g * amount
+        val bShift = if (amount > 0) ((0xff - b) * amount) else -b * amount
+
+        return (MathHelper.clamp(rShift.toInt(), 0, 0xff) shr 16) and
+                (MathHelper.clamp(gShift.toInt(), 0, 0xff) shr 8) and
+                MathHelper.clamp(bShift.toInt(), 0, 0xff)
     }
 
     override fun particleEmission(pos: Vector3, color: Int, probability: Float) {
@@ -138,28 +153,25 @@ class ClientProxy : CommonProxy() {
         }
     }
 
-    override fun pulseColor(color: Color): Color {
-        val add = (Math.sin(ClientTickHandler.ticksInGame * 0.2) * 24).toInt()
-        val newColor = Color(Math.max(Math.min(color.red + add, 255), 0),
-                Math.max(Math.min(color.green + add, 255), 0),
-                Math.max(Math.min(color.blue + add, 255), 0))
-        return newColor
+    override fun pulseColor(color: Int): Int {
+        val add = Math.sin(ClientTickHandler.ticksInGame * 0.2) * 0.1
+        return shift(color, add)
     }
 
-    override fun rainbow(saturation: Float) = Color(Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, saturation, 1.0f))
+    override fun rainbow(saturation: Float) = Color.HSBtoRGB((Botania.proxy.worldElapsedTicks * 2L % 360L).toFloat() / 360.0f, saturation, 1.0f)
 
-    override fun rainbow2(speed: Float, saturation: Float): Color {
+    override fun rainbow2(speed: Float, saturation: Float): Int {
         val time = ClientTickHandler.ticksInGame.toFloat() + ClientTickHandler.partialTicks
-        return Color.getHSBColor(time * speed, saturation, 1.0f)
+        return Color.HSBtoRGB(time * speed, saturation, 1.0f)
     }
 
-    override fun rainbow(pos: BlockPos, saturation: Float): Color {
+    override fun rainbow(pos: BlockPos, saturation: Float): Int {
         val ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks
         val seed = (pos.x xor pos.y xor pos.z) * 255 xor pos.hashCode()
-        return Color(Color.HSBtoRGB((seed + ticks) * 0.005F, saturation, 1F))
+        return Color.HSBtoRGB((seed + ticks) * 0.005F, saturation, 1F)
     }
 
-    override fun wireFrameRainbow(saturation: Float) = Color(Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200f, saturation, 1f))
+    override fun wireFrameRainbow(saturation: Float) = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200f, saturation, 1f)
 
     override fun playerHasMonocle(): Boolean {
         BaublesApi.getBaublesHandler(Minecraft.getMinecraft().player) ?: return false

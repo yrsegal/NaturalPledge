@@ -44,6 +44,6 @@ object RainbowItemHelper {
     fun setColor(stack: ItemStack, color: Int) = stack.setNBTInt(TAG_COLOR, color)
     fun getColor(stack: ItemStack) = stack.getNBTInt(TAG_COLOR, -1)
 
-    fun colorFromInt(color: Int): Int = if (color == -1) NaturalPledge.PROXY.rainbow().rgb else color
-    fun colorFromIntAndPos(color: Int, pos: BlockPos) = if (color == -1) NaturalPledge.PROXY.rainbow(pos).rgb else color
+    fun colorFromInt(color: Int): Int = if (color == -1) NaturalPledge.PROXY.rainbow() else color
+    fun colorFromIntAndPos(color: Int, pos: BlockPos) = if (color == -1) NaturalPledge.PROXY.rainbow(pos) else color
 }

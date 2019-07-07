@@ -2,10 +2,13 @@ package com.wiresegal.naturalpledge.common.items.colored
 
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
 import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.block.ModBlocks
+import com.wiresegal.naturalpledge.common.core.helper.RainbowItemHelper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
@@ -18,14 +21,9 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.block.ModBlocks
-import com.wiresegal.naturalpledge.common.core.helper.RainbowItemHelper
 import vazkii.botania.api.item.IPhantomInkable
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
-import java.awt.Color
 
 /**
  * @author WireSegal
@@ -46,7 +44,7 @@ class ItemLightPlacer(name: String) : ItemMod(name), IItemColorProvider, IManaUs
         get() = { itemStack, i ->
             if (i == 0) {
                 val color = (RainbowItemHelper.getColor(itemStack))
-                if (color == -1) NaturalPledge.PROXY.rainbow().rgb else NaturalPledge.PROXY.pulseColor(Color(color)).rgb
+                if (color == -1) NaturalPledge.PROXY.rainbow() else NaturalPledge.PROXY.pulseColor(color)
             } else 0xFFFFFF
         }
 

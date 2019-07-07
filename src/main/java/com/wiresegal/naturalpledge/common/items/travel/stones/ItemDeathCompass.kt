@@ -3,12 +3,13 @@ package com.wiresegal.naturalpledge.common.items.travel.stones
 import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.helpers.getNBTInt
 import com.teamwizardry.librarianlib.features.helpers.removeNBTEntry
 import com.teamwizardry.librarianlib.features.helpers.setNBTInt
 import com.teamwizardry.librarianlib.features.kotlin.isNotEmpty
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.NaturalPledge
 import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.Entity
@@ -27,8 +28,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerDropsEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.NaturalPledge
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.botania.api.wand.ICoordBoundItem
@@ -51,7 +50,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { _, i ->
             if (i == 1)
-                NaturalPledge.PROXY.rainbow(0.25f).rgb
+                NaturalPledge.PROXY.rainbow(0.25f)
             else 0xFFFFFF
         }
 
@@ -77,7 +76,7 @@ class ItemDeathCompass(name: String) : ItemMod(name), ICoordBoundItem, IItemColo
         val endVec = startVec.add(dirVec.normalize().multiply(Math.min(dirVec.mag(), 10.0)))
 
         Botania.proxy.setWispFXDepthTest(false)
-        NaturalPledge.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, NaturalPledge.PROXY.wireFrameRainbow().rgb)
+        NaturalPledge.PROXY.particleStream(startVec.add(dirVec.normalize()).add(0.0, 0.5, 0.0), endVec, NaturalPledge.PROXY.wireFrameRainbow())
         Botania.proxy.setWispFXDepthTest(true)
     }
 

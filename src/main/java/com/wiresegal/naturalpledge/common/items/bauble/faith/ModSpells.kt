@@ -29,7 +29,7 @@ object ModSpells {
         val iridescence = Spells.ObjectInfusion(of(IRIDESCENCE), LibOreDict.DYES[0], ItemStack(ModItems.iridescentDye), ItemStack(ModItems.awakenedDye), 150, MapColor.getBlockColor(EnumDyeColor.byMetadata(0)).colorValue) {
             _, _ -> null
         }
-        for (i in 1..16) iridescence.addEntry(LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), ItemStack(ModItems.awakenedDye, 1, i), 150, if (i == 16) NaturalPledge.PROXY.rainbow().rgb else MapColor.getBlockColor(EnumDyeColor.byMetadata(i)).colorValue) {
+        for (i in 1..16) iridescence.addEntry(LibOreDict.DYES[i], ItemStack(ModItems.iridescentDye, 1, i), ItemStack(ModItems.awakenedDye, 1, i), 150, if (i == 16) NaturalPledge.PROXY.rainbow() else MapColor.getBlockColor(EnumDyeColor.byMetadata(i)).colorValue) {
             _, _ -> null
         }
         SpellRegistry.registerSpell(LibNames.SPELL_RAINBOW, iridescence)

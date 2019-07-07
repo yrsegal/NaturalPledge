@@ -214,8 +214,10 @@ misc.naturalpledge.custom_size=Radius: %s Blocks
 
 misc.naturalpledge.tracking=Seeking %s, %s blocks away
 misc.naturalpledge.tracking_close=Seeking %s, close by
+misc.naturalpledge.tracking_far=Seeking %s, a great distance away
 misc.naturalpledge.tracking_not_here=Seeking %s, an eternity away
 misc.naturalpledge.tracking_block=Seeking a location, %s blocks away
+misc.naturalpledge.tracking_block_far=Seeking a location, a great distance away
 misc.naturalpledge.tracking_block_close=Seeking a location, close by
 
 item.naturalpledge:dye_shard_white.name=White Iridescent Shard
@@ -649,6 +651,9 @@ naturalpledge.page.awakening0=The ritual performed to face off against the soul 
 naturalpledge.page.awakening1=By using &1Divine Ritual Cores&0, you can modify the &4Ritual of Gaia&0 to do just that. These devices focus the energy of the &3Divine&0 into the Guardian, giving it power and health as the ritual plays out. The moment you slay the &4Guardian&0, that focused energy will leap into your &1Priestly Emblem&0. The power you could gain from this connection is staggering.
 naturalpledge.page.awakening2=The Ritual of Gaia III
 naturalpledge.page.awakening3=Seek the center to change the world
+
+naturalpledge.page.awakening0.no=The ritual performed to face off against the soul of the Earth is a incredible challenge, which allows one to obtain &5Relics&0 and &1Gaia Spirits&0. As you fight, this ritual connects you to the &3Divine&0 by your struggles. So, maybe you could... invert that connection. Through that, you would force a fragment of the &3Divine&0 into your &1Priestly Emblem&0.
+naturalpledge.page.awakening1.no=By wearing your &1Priestly Emblem&0, the Guardian ought to offer a fiercer challenge. The &3Divine&0 power this will channel into the Guardian will give it power and health as the ritual plays out. The moment you slay the &4Guardian&0, that focused energy will leap into your &1Priestly Emblem&0. The power you could gain from this connection is staggering.
 
 naturalpledge.entry.wellshit=Consequences of Power
 naturalpledge.tagline.wellshit=Hindsight is 20/20

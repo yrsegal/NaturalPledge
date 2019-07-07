@@ -7,7 +7,6 @@ import com.wiresegal.naturalpledge.common.achievements.AchievementHandler
 import com.wiresegal.naturalpledge.common.achievements.AdvancementBeginRagnarok
 import com.wiresegal.naturalpledge.common.block.ModBlocks
 import com.wiresegal.naturalpledge.common.core.tab.ModTab
-import com.wiresegal.naturalpledge.common.crafting.ModRecipes
 import com.wiresegal.naturalpledge.common.enchantment.ModEnchantments
 import com.wiresegal.naturalpledge.common.entity.ModEntities
 import com.wiresegal.naturalpledge.common.items.ModItems
@@ -23,7 +22,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import vazkii.botania.common.core.helper.Vector3
-import java.awt.Color
 
 
 /**
@@ -82,17 +80,17 @@ open class CommonProxy {
         //NO-OP
     }
 
-    open fun pulseColor(color: Color) = Color(0xFFFFFF)
+    open fun pulseColor(color: Int) = 0xFFFFFF
 
     fun rainbow() = rainbow(1f)
-    open fun rainbow(saturation: Float) = Color(0xFFFFFF)
+    open fun rainbow(saturation: Float) = 0xFFFFFF
     fun rainbow2() = rainbow2(0.005f, 1f)
-    open fun rainbow2(speed: Float, saturation: Float) = Color(0xFFFFFF)
+    open fun rainbow2(speed: Float, saturation: Float) = 0xFFFFFF
     fun rainbow(pos: BlockPos) = rainbow(pos, 1f)
-    open fun rainbow(pos: BlockPos, saturation: Float) = Color(0xFFFFFF)
+    open fun rainbow(pos: BlockPos, saturation: Float) = 0xFFFFFF
 
     fun wireFrameRainbow() = wireFrameRainbow(0.6f)
-    open fun wireFrameRainbow(saturation: Float) = Color(0xFFFFFF)
+    open fun wireFrameRainbow(saturation: Float) = 0xFFFFFF
 
     open fun playerHasMonocle(): Boolean {
         return false
@@ -110,5 +108,7 @@ open class CommonProxy {
         }
         return false
     }
+
+    open fun shift(color: Int, amount: Double) = color
 }
 

@@ -40,7 +40,7 @@ object PriestlyEmblemHeimdall : IFaithVariant {
     override fun getColor(): IItemColor? =
             IItemColor { _, i ->
                 if (i == 1)
-                    NaturalPledge.PROXY.rainbow().rgb
+                    NaturalPledge.PROXY.rainbow()
                 else
                     0xFFFFFF
             }

@@ -1,9 +1,11 @@
 package com.wiresegal.naturalpledge.common.items
 
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.helpers.getNBTInt
 import com.teamwizardry.librarianlib.features.helpers.setNBTInt
+import com.wiresegal.naturalpledge.client.core.ITooltipBarItem
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.crafting.recipe.RecipeEnchantmentRemoval
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -20,12 +22,8 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.PlayerEvent
-import com.wiresegal.naturalpledge.client.core.ITooltipBarItem
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.crafting.recipe.RecipeEnchantmentRemoval
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import java.awt.Color
 
 /**
  * @author WireSegal
@@ -115,10 +113,10 @@ class ItemXPStealer(name: String) : ItemMod(name), ITooltipBarItem {
         return stack.xpRemainder / getLevelCap(stack.xpLevels).toFloat()
     }
 
-    val BASE_COLOR = Color(0xBADD08)
+    val BASE_COLOR = 0xBADD08
 
     override fun getColor(stack: ItemStack): Int {
-        return NaturalPledge.PROXY.pulseColor(BASE_COLOR).rgb
+        return NaturalPledge.PROXY.pulseColor(BASE_COLOR)
     }
 }
 

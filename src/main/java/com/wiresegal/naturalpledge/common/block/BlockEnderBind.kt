@@ -4,6 +4,9 @@ import com.teamwizardry.librarianlib.features.autoregister.TileRegister
 import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
 import com.teamwizardry.librarianlib.features.base.block.tile.TileMod
 import com.teamwizardry.librarianlib.features.saving.Save
+import com.wiresegal.naturalpledge.api.lib.LibMisc
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -24,12 +27,8 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
-import com.wiresegal.naturalpledge.api.lib.LibMisc
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.lexicon.LexiconEntries
 import vazkii.botania.api.lexicon.ILexiconable
 import vazkii.botania.common.Botania
-import java.awt.Color
 import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 
 /**
@@ -39,7 +38,7 @@ import vazkii.botania.common.block.ModBlocks as BotaniaBlocks
 class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILexiconable {
 
     companion object {
-        val DEFAULT_COLOR = Color(0x1B7463)
+        val DEFAULT_COLOR = 0x1B7463
 
         val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
     }
@@ -56,9 +55,9 @@ class BlockEnderBind(name: String) : BlockModContainer(name, Material.IRON), ILe
         if (te.playerName == null) {
             if (worldIn.isRemote) {
                 val color = NaturalPledge.PROXY.pulseColor(DEFAULT_COLOR)
-                val r = color.red / 255f
-                val g = color.green / 255f
-                val b = color.blue / 255f
+                val r = ((color and 0xff0000) shl 16) / 255f
+                val g = ((color and 0xff00) shl 8) / 255f
+                val b = (color and 0xff) / 255f
                 for (i in 0 until 30) {
                     val x1 = (pos.x + Math.random()).toFloat()
                     val y1 = (pos.y + Math.random()).toFloat()

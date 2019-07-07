@@ -1,10 +1,10 @@
 package com.wiresegal.naturalpledge.client.render.tile
 
+import com.wiresegal.naturalpledge.common.block.BlockEnderBind.Companion.DEFAULT_COLOR
+import com.wiresegal.naturalpledge.common.block.BlockEnderBind.TileEnderBind
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import org.lwjgl.opengl.GL11
-import com.wiresegal.naturalpledge.common.block.BlockEnderBind.Companion.DEFAULT_COLOR
-import com.wiresegal.naturalpledge.common.block.BlockEnderBind.TileEnderBind
 import vazkii.botania.client.core.helper.RenderHelper
 import java.awt.Color
 import java.util.*
@@ -15,7 +15,7 @@ import java.util.*
  */
 class RenderTileEnderActuator : TileEntitySpecialRenderer<TileEnderBind>() {
 
-    val color: FloatArray = Color.RGBtoHSB(DEFAULT_COLOR.red, DEFAULT_COLOR.green, DEFAULT_COLOR.blue, null)
+    val color: FloatArray = Color.RGBtoHSB((DEFAULT_COLOR and 0xff0000) shl 16, (DEFAULT_COLOR and 0xff00) shl 8, (DEFAULT_COLOR and 0xff), null)
     val h = color[0]
     val s = color[1]
     val maxV = color[2]

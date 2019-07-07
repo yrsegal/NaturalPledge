@@ -2,9 +2,12 @@ package com.wiresegal.naturalpledge.common.items
 
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
-import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import com.teamwizardry.librarianlib.features.helpers.getNBTInt
 import com.teamwizardry.librarianlib.features.helpers.setNBTInt
+import com.wiresegal.naturalpledge.api.item.IDiscordantItem
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
+import com.wiresegal.naturalpledge.common.potions.ModPotions
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
@@ -12,16 +15,11 @@ import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
-import com.wiresegal.naturalpledge.api.item.IDiscordantItem
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.items.bauble.faith.ItemFaithBauble
-import com.wiresegal.naturalpledge.common.potions.ModPotions
 import vazkii.botania.api.mana.IManaItem
 import vazkii.botania.api.mana.IManaTooltipDisplay
 import vazkii.botania.api.mana.IManaUsingItem
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.core.helper.Vector3
-import java.awt.Color
 
 /**
  * @author WireSegal
@@ -48,7 +46,7 @@ class ItemMortalstone(name: String) : ItemMod(name), IManaUsingItem, IDiscordant
                 (if (getMana(itemStack) == 0)
                     0x600000
                 else
-                    NaturalPledge.PROXY.pulseColor(Color(0xB71010)).rgb)
+                    NaturalPledge.PROXY.pulseColor(0xB71010))
             else 0xFFFFFF
         }
 

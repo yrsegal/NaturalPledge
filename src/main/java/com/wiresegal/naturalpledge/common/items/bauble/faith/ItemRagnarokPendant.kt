@@ -6,7 +6,6 @@ import com.teamwizardry.librarianlib.features.helpers.getNBTBoolean
 import com.teamwizardry.librarianlib.features.helpers.setNBTBoolean
 import com.teamwizardry.librarianlib.features.kotlin.sendSpamlessMessage
 import com.teamwizardry.librarianlib.features.utilities.client.ClientRunnable
-import com.teamwizardry.librarianlib.features.utilities.client.pulseColor
 import com.wiresegal.naturalpledge.api.item.IDiscordantItem
 import com.wiresegal.naturalpledge.api.item.IPriestlyEmblem
 import com.wiresegal.naturalpledge.api.lib.LibMisc
@@ -46,7 +45,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.botania.api.BotaniaAPI
 import vazkii.botania.api.item.IBaubleRender
 import vazkii.botania.api.mana.IManaUsingItem
-import java.awt.Color
 
 /**
  * @author WireSegal
@@ -133,7 +131,7 @@ class ItemRagnarokPendant(name: String) : ItemBaseBauble(name),
 
         @SideOnly(Side.CLIENT)
         override fun getColor(): IItemColor? {
-            return IItemColor { _, tintIndex -> if (tintIndex == 1) Color.RED.darker().pulseColor().rgb else -1 }
+            return IItemColor { _, tintIndex -> if (tintIndex == 1) NaturalPledge.PROXY.pulseColor(0xA00000) else -1 }
         }
     }
 

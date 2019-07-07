@@ -3,6 +3,7 @@ package com.wiresegal.naturalpledge.common.items
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.utilities.client.pulseColor
+import com.wiresegal.naturalpledge.common.NaturalPledge
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
@@ -58,7 +59,7 @@ class ItemResource(name: String) : ItemMod(name, *Variants.variants), IItemColor
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { stack, i ->
             if (variantFor(stack)?.first == Variants.HEARTHSTONE && i == 1)
-                Color(0xE7E7E7).pulseColor().rgb
+                NaturalPledge.PROXY.pulseColor(0xE7E7E7)
             else -1
         }
 

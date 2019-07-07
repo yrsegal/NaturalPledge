@@ -103,7 +103,7 @@ class ItemSymbol(name: String) : ItemBaseBauble(name), ICosmeticBauble, IExtraVa
         }
 
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
-        get() = { itemStack, _ -> if (getPlayer(itemStack) == willie) NaturalPledge.PROXY.rainbow2(0.005f, 0.6f).rgb else 0xFFFFFF }
+        get() = { itemStack, _ -> if (getPlayer(itemStack) == willie) NaturalPledge.PROXY.rainbow2(0.005f, 0.6f) else 0xFFFFFF }
 
     override val extraVariants: Array<out String>
         get() = arrayOf("headtato", "catalyst", "heart", "tail", "headdress", "teru_head", "emblem_mystery", "fabulosity", "holy_symbol")

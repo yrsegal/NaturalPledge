@@ -41,7 +41,7 @@ class ItemSpellIcon(name: String) : ItemMod(name, *Variants.variants), IItemColo
     override val itemColorFunction: ((ItemStack, Int) -> Int)?
         get() = { itemStack, _ ->
             if (itemStack.itemDamage >= 0 && itemStack.itemDamage < Variants.values().size && Variants.values()[itemStack.itemDamage].iridescent)
-                NaturalPledge.PROXY.rainbow().rgb
+                NaturalPledge.PROXY.rainbow()
             else
                 0xFFFFFF
         }
