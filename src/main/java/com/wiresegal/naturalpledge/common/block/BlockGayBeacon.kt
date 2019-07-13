@@ -2,6 +2,9 @@ package com.wiresegal.naturalpledge.common.block
 
 import com.teamwizardry.librarianlib.features.autoregister.TileRegister
 import com.teamwizardry.librarianlib.features.base.block.tile.BlockModContainer
+import com.wiresegal.naturalpledge.common.NaturalPledge
+import com.wiresegal.naturalpledge.common.block.tile.TileModTickable
+import com.wiresegal.naturalpledge.common.lib.LibNames
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
@@ -14,9 +17,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import com.wiresegal.naturalpledge.common.NaturalPledge
-import com.wiresegal.naturalpledge.common.block.tile.TileModTickable
-import com.wiresegal.naturalpledge.common.lib.LibNames
+import java.awt.Color
 
 /**
  * @author WireSegal
@@ -28,7 +29,7 @@ class BlockGayBeacon : BlockModContainer(LibNames.GAY_BEACON, Material.GLASS) {
     }
 
     override fun getBeaconColorMultiplier(state: IBlockState?, world: World?, pos: BlockPos, beaconPos: BlockPos): FloatArray? {
-        return NaturalPledge.PROXY.rainbow(beaconPos).getColorComponents(null)
+        return Color(NaturalPledge.PROXY.rainbow(beaconPos)).getColorComponents(null)
     }
 
     override fun isOpaqueCube(state: IBlockState) = false
